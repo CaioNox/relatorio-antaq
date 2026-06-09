@@ -1,0 +1,26 @@
+# Arquivos de sistema operacional
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+desktop.ini
+
+# Editores / IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs e temporários
+*.log
+npm-debug.log*
+.cache/
+tmp/
+*.tmp
+
+# Dependências (caso futuramente haja build)
+node_modules/
+
+# Legado
+/workshop

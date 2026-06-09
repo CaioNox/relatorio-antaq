@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Manifestações Recebidas - Relatório Trimestral Ouvidoria ANTAQ</title>
+    <link rel="icon" type="image/png"
+        href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&amp;family=Open+Sans:wght@400;600&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        html {
+            font-size: 26px;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f3f4f6;
+            overflow: hidden;
+        }
+
+        .slide-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            background-color: #ffffff;
+            overflow: hidden;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .font-montserrat {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .text-brand-primary {
+            color: #103050;
+        }
+
+        .text-brand-secondary {
+            color: #0070C0;
+        }
+
+        .bg-brand-secondary {
+            background-color: #0070C0;
+        }
+
+        .top-accent {
+            height: 8px;
+            background-color: #103050;
+            width: 100%;
+        }
+
+        .top-accent-secondary {
+            height: 4px;
+            background-color: #0070C0;
+            width: 100%;
+        }
+
+        /* ===== Interatividade ===== */
+        .chart-card,
+        .canal-card,
+        .period-chip,
+        .video-frame,
+        .kpi-card,
+        .glossary-card,
+        .exp-group {
+            transition: transform .28s cubic-bezier(.2, .7, .3, 1), box-shadow .28s ease, border-color .28s ease, background-color .28s ease;
+        }
+
+        .chart-card:hover,
+        .canal-card:hover,
+        .period-chip:hover,
+        .video-frame:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 22px 42px -12px rgba(16, 48, 80, .30);
+            border-color: #0070C0;
+        }
+
+        .glossary-card:hover {
+            transform: translateY(-7px);
+            border-color: #0070C0;
+            box-shadow: 0 22px 42px -12px rgba(0, 112, 192, .32);
+        }
+
+        .glossary-icon {
+            transition: transform .3s ease;
+        }
+
+        .glossary-card:hover .glossary-icon {
+            transform: scale(1.12) rotate(-6deg);
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-9px) scale(1.018);
+            box-shadow: 0 30px 58px -16px rgba(16, 48, 80, .6);
+        }
+
+        .kpi-watermark {
+            transition: transform .4s ease, opacity .4s ease;
+        }
+
+        .kpi-card:hover .kpi-watermark {
+            transform: scale(1.12);
+            opacity: .2;
+        }
+
+        .exp-group:hover {
+            transform: translateX(5px);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .chart-card,
+        .kpi-card,
+        .glossary-card,
+        .canal-card,
+        .period-chip {
+            animation: fadeIn .5s ease both;
+        }
+
+        .chart-card:nth-child(2),
+        .kpi-card:nth-child(2),
+        .glossary-card:nth-child(2),
+        .canal-card:nth-child(2),
+        .period-chip:nth-child(2) {
+            animation-delay: .09s;
+        }
+
+        .chart-card:nth-child(3),
+        .kpi-card:nth-child(3),
+        .glossary-card:nth-child(3),
+        .canal-card:nth-child(3),
+        .period-chip:nth-child(3) {
+            animation-delay: .18s;
+        }
+
+        .glossary-card:nth-child(4) {
+            animation-delay: .27s;
+        }
+
+        .glossary-card:nth-child(5) {
+            animation-delay: .36s;
+        }
+
+        .glossary-card:nth-child(6) {
+            animation-delay: .45s;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+
+        .kpi-card {
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 420px;
+            box-shadow: 0 18px 40px -12px rgba(16, 48, 80, 0.45);
+        }
+
+        .kpi-primary {
+            background: linear-gradient(160deg, #103050 0%, #0070C0 100%);
+        }
+
+        .kpi-soft {
+            background: linear-gradient(160deg, #0e3a66 0%, #11598f 100%);
+        }
+
+        .kpi-num {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            line-height: 1;
+            color: #ffffff;
+        }
+
+        .kpi-watermark {
+            position: absolute;
+            right: -10px;
+            bottom: -20px;
+            font-size: 9rem;
+            opacity: 0.12;
+            color: #ffffff;
+        }
+
+        .bg-pattern {
+            position: absolute;
+            bottom: -50px;
+            right: -50px;
+            width: 400px;
+            height: 400px;
+            opacity: 0.03;
+            z-index: 0;
+            color: #103050;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slide-container">
+        <div class="top-accent"></div>
+        <div class="top-accent-secondary"></div>
+        <!-- Header -->
+        <div class="flex items-center justify-between px-16 pt-12 pb-6 z-10">
+            <div>
+                <div class="flex items-center gap-3 mb-2">
+                    <div class="w-1 h-8 bg-brand-secondary"></div>
+                    <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">
+                        Manifestações Recebidas</p>
+                </div>
+                <p class="text-gray-500 font-medium ml-4 text-lg">Indicadores gerais do 1º trimestre de 2026</p>
+            </div>
+            <div class="flex items-center gap-2 opacity-80 text-brand-secondary">
+                <i class="fas fa-inbox text-xl" aria-hidden="true"></i>
+                <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">VISÃO GERAL</p>
+            </div>
+        </div>
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col justify-center px-16 pb-10 z-10">
+            <div class="grid grid-cols-3 gap-8">
+                <!-- Total -->
+                <div class="kpi-card kpi-primary">
+                    <div>
+                        <p class="text-blue-100 font-montserrat font-bold text-sm uppercase tracking-widest mb-2">Total
+                            de Manifestações</p>
+                        <p class="kpi-num text-8xl">304</p>
+                    </div>
+                    <p class="text-blue-100 text-base leading-relaxed relative z-10">Total de manifestações recebidas e
+                        analisadas pela Ouvidoria no trimestre (jan–mar).</p>
+                    <i class="fas fa-inbox kpi-watermark"></i>
+                </div>
+                <!-- Arquivadas -->
+                <div class="kpi-card kpi-soft">
+                    <div>
+                        <p class="text-blue-100 font-montserrat font-bold text-sm uppercase tracking-widest mb-2">
+                            Arquivadas</p>
+                        <p class="kpi-num text-8xl">46</p>
+                    </div>
+                    <p class="text-blue-100 text-base leading-relaxed relative z-10">Manifestações arquivadas após
+                        análise, sem necessidade de tratamento adicional.</p>
+                    <i class="fas fa-box-archive kpi-watermark"></i>
+                </div>
+                <!-- Encaminhadas -->
+                <div class="kpi-card kpi-soft">
+                    <div>
+                        <p class="text-blue-100 font-montserrat font-bold text-sm uppercase tracking-widest mb-2">
+                            Encaminhadas a outros órgãos</p>
+                        <p class="kpi-num text-8xl">12</p>
+                    </div>
+                    <p class="text-blue-100 text-base leading-relaxed relative z-10">Manifestações redirecionadas a
+                        outros órgãos competentes para o devido tratamento.</p>
+                    <i class="fas fa-share-from-square kpi-watermark"></i>
+                </div>
+            </div>
+        </div>
+        <!-- Footer -->
+        <div class="px-16 pb-8 flex justify-between items-center z-10">
+            <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ — 1º Trimestre (Jan–Mar)</p>
+            <p class="text-gray-300 text-xs font-mono">3 / 21</p>
+        </div>
+        <div class="bg-pattern"><i class="fas fa-inbox text-9xl"></i></div>
+    </div>
+    <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
+</body>
+
+</html>

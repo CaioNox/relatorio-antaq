@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Apresentação - Relatório Trimestral Ouvidoria ANTAQ</title>
+<link rel="icon" type="image/png" href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png"/>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&amp;family=Open+Sans:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        html { font-size: 26px; }
+        body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
+        .slide-container {
+            width: 100vw; height: 100vh; position: relative;
+            display: flex; flex-direction: column;
+            background-color: #ffffff; overflow: hidden;
+            font-family: 'Open Sans', sans-serif;
+        }
+        .font-montserrat { font-family: 'Montserrat', sans-serif; }
+        .text-brand-primary { color: #103050; }
+        .bg-brand-primary { background-color: #103050; }
+        .text-brand-secondary { color: #0070C0; }
+        .bg-brand-secondary { background-color: #0070C0; }
+        .top-accent { height: 8px; background-color: #103050; width: 100%; }
+        .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
+        /* ===== Interatividade ===== */
+        .chart-card, .canal-card, .period-chip, .video-frame, .kpi-card, .glossary-card, .exp-group {
+            transition: transform .28s cubic-bezier(.2,.7,.3,1), box-shadow .28s ease, border-color .28s ease, background-color .28s ease;
+        }
+        .chart-card:hover, .canal-card:hover, .period-chip:hover, .video-frame:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 22px 42px -12px rgba(16, 48, 80,.30);
+            border-color: #0070C0;
+        }
+        .glossary-card:hover { transform: translateY(-7px); border-color:#0070C0; box-shadow: 0 22px 42px -12px rgba(0, 112, 192,.32); }
+        .glossary-icon { transition: transform .3s ease; }
+        .glossary-card:hover .glossary-icon { transform: scale(1.12) rotate(-6deg); }
+        .kpi-card:hover { transform: translateY(-9px) scale(1.018); box-shadow: 0 30px 58px -16px rgba(16, 48, 80,.6); }
+        .kpi-watermark { transition: transform .4s ease, opacity .4s ease; }
+        .kpi-card:hover .kpi-watermark { transform: scale(1.12); opacity:.2; }
+        .exp-group:hover { transform: translateX(5px); }
+        @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+        .chart-card, .kpi-card, .glossary-card, .canal-card, .period-chip { animation: fadeIn .5s ease both; }
+        .chart-card:nth-child(2), .kpi-card:nth-child(2), .glossary-card:nth-child(2), .canal-card:nth-child(2), .period-chip:nth-child(2) { animation-delay:.09s; }
+        .chart-card:nth-child(3), .kpi-card:nth-child(3), .glossary-card:nth-child(3), .canal-card:nth-child(3), .period-chip:nth-child(3) { animation-delay:.18s; }
+        .glossary-card:nth-child(4) { animation-delay:.27s; }
+        .glossary-card:nth-child(5) { animation-delay:.36s; }
+        .glossary-card:nth-child(6) { animation-delay:.45s; }
+        @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+        .video-frame {
+            background-color: #EAF3FB; border: 2px solid #C0E0F0;
+            border-radius: 16px; box-shadow: 0 10px 25px -5px rgba(0, 112, 192, 0.15);
+            position: relative;
+        }
+        .bg-pattern {
+            position: absolute; bottom: -50px; right: -50px;
+            width: 400px; height: 400px; opacity: 0.03; z-index: 0; color: #103050;
+        }
+        .period-chip {
+            background-color: #ffffff; border: 2px solid #C0E0F0; border-radius: 12px;
+        }
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<!-- Top Accents -->
+<div class="top-accent"></div>
+<div class="top-accent-secondary"></div>
+<!-- Header -->
+<div class="flex items-center justify-between px-16 pt-12 pb-6 z-10">
+<div>
+<div class="flex items-center gap-3 mb-2">
+<div class="w-1 h-8 bg-brand-secondary"></div>
+<p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Apresentação</p>
+</div>
+<p class="text-gray-500 font-medium ml-4 text-lg">Ouvidoria da ANTAQ · 1º Trimestre de 2026</p>
+</div>
+<div class="flex items-center gap-2 opacity-80 text-brand-secondary">
+<i class="fas fa-bullhorn text-xl" aria-hidden="true"></i>
+<p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">VISÃO GERAL</p>
+</div>
+</div>
+<!-- Main Content -->
+<div class="flex-1 flex flex-col items-center justify-center px-16 pb-12 z-10">
+<div class="w-full max-w-5xl relative">
+<!-- Bloco principal -->
+<div class="video-frame w-full px-12 py-10">
+<p class="text-brand-primary font-montserrat font-bold text-2xl mb-4 flex items-center gap-3">
+<i class="fas fa-comments text-brand-secondary text-3xl"></i>
+                    Manifestações analisadas no 1º trimestre
+                </p>
+<p class="text-gray-700 text-base leading-relaxed mb-3">
+                    Apresentação dos <strong>dados consolidados das manifestações</strong> analisadas pela Ouvidoria da ANTAQ
+                    relativas ao <strong>primeiro trimestre do ano</strong>. O período de aferição reflete o desempenho e o
+                    fluxo de atendimento da agência.
+                </p>
+<p class="text-gray-700 text-base leading-relaxed">
+                    A Ouvidoria atua como <strong>canal de comunicação entre o cidadão e a ANTAQ</strong>, recebendo, tratando e
+                    encaminhando manifestações com foco em transparência, escuta ativa e melhoria contínua dos serviços públicos.
+                </p>
+</div>
+<!-- Período de aferição -->
+<div class="mt-6">
+<p class="text-gray-400 text-xs font-bold uppercase mb-3 tracking-wide flex items-center gap-2">
+<i class="fas fa-calendar-days text-brand-secondary"></i> Período de aferição
+                </p>
+<div class="grid grid-cols-3 gap-5">
+<div class="period-chip px-6 py-4 flex items-center gap-4">
+<span class="text-brand-secondary font-montserrat font-black text-4xl">01–31</span>
+<div>
+<p class="text-brand-primary font-montserrat font-bold text-lg">Janeiro</p>
+<p class="text-gray-500 text-sm">31 dias</p>
+</div>
+</div>
+<div class="period-chip px-6 py-4 flex items-center gap-4">
+<span class="font-montserrat font-black text-4xl" style="color:#0090C0;">01–28</span>
+<div>
+<p class="text-brand-primary font-montserrat font-bold text-lg">Fevereiro</p>
+<p class="text-gray-500 text-sm">28 dias</p>
+</div>
+</div>
+<div class="period-chip px-6 py-4 flex items-center gap-4">
+<span class="font-montserrat font-black text-4xl text-brand-primary">01–31</span>
+<div>
+<p class="text-brand-primary font-montserrat font-bold text-lg">Março</p>
+<p class="text-gray-500 text-sm">31 dias</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<div class="px-16 pb-8 flex justify-between items-center z-10">
+<p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ — 1º Trimestre (Jan–Mar)</p>
+<p class="text-gray-300 text-xs font-mono">2 / 21</p>
+</div>
+<!-- Decorative Background Pattern -->
+<div class="bg-pattern">
+<i class="fas fa-comments text-9xl"></i>
+</div>
+</div>
+<script>document.addEventListener("keydown",function(e){if(["ArrowRight","ArrowLeft","PageDown","PageUp","Home","End"," ","f","F"].indexOf(e.key)!==-1){e.preventDefault();window.parent.postMessage({type:"slide-nav",key:e.key},"*");}});</script>
+</body>
+</html>

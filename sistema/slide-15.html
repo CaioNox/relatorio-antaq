@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Definições - Relatório Trimestral Ouvidoria ANTAQ</title>
+    <link rel="icon" type="image/png"
+        href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&amp;family=Open+Sans:wght@400;600&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        html { font-size: 22px; }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f3f4f6;
+            overflow: hidden;
+        }
+
+        .slide-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            background-color: #ffffff;
+            overflow: hidden;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .font-montserrat { font-family: 'Montserrat', sans-serif; }
+        .text-brand-primary { color: #103050; }
+        .text-brand-secondary { color: #0070C0; }
+        .bg-brand-secondary { background-color: #0070C0; }
+
+        .top-accent { height: 8px; background-color: #103050; width: 100%; }
+        .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
+
+        /* ===== Grade de quadros ===== */
+        .tile-grid { display: grid; grid-template-columns: repeat(2, 1fr); grid-auto-rows: 1fr; gap: 1.3rem; }
+
+        .tile {
+            position: relative;
+            background: #fff;
+            border: 2px solid #E2E8F0;
+            border-radius: 18px;
+            padding: 1.6rem 1.7rem;
+            cursor: pointer;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            gap: .8rem;
+            box-shadow: 0 6px 16px -8px rgba(16, 48, 80, .18);
+            transition: transform .25s cubic-bezier(.2, .7, .3, 1), box-shadow .25s ease, border-color .25s ease;
+            animation: fadeIn .5s ease both;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .tile:nth-child(2) { animation-delay: .08s }
+        .tile:nth-child(3) { animation-delay: .16s }
+        .tile:nth-child(4) { animation-delay: .24s }
+
+        .tile:hover { transform: translateY(-7px); border-color: #0070C0; box-shadow: 0 26px 46px -18px rgba(16, 48, 80, .34); }
+        .tile:focus-visible { outline: 3px solid #0090C0; outline-offset: 3px; }
+
+        .tile-ico {
+            width: 3.3rem; height: 3.3rem; border-radius: 14px;
+            background: linear-gradient(160deg, #103050, #0070C0); color: #fff;
+            display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
+            transition: transform .3s ease;
+        }
+        .tile:hover .tile-ico { transform: scale(1.08) rotate(-6deg); }
+
+        .tile-name { color: #103050; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.3rem; line-height: 1.12; }
+        .tile-tag { color: #5b7185; font-size: .88rem; line-height: 1.3; }
+        .tile-more { margin-top: auto; color: #0070C0; font-size: .8rem; font-weight: 700; display: inline-flex; align-items: center; gap: .45rem; }
+        .tile:hover .tile-more { color: #0090C0; }
+        .tile-full { display: none; }
+
+        /* ===== Overlay (expande sobrepondo) ===== */
+        .overlay {
+            position: fixed; inset: 0; z-index: 50;
+            display: flex; align-items: center; justify-content: center;
+            padding: 5vh 8vw;
+            background: rgba(16, 48, 80, .5); backdrop-filter: blur(3px);
+            opacity: 0; pointer-events: none; transition: opacity .3s ease;
+        }
+        .overlay.open { opacity: 1; pointer-events: auto; }
+
+        .overlay-card {
+            position: relative; background: #fff; border-radius: 22px;
+            max-width: 60rem; width: 100%; max-height: 82vh; overflow: hidden;
+            box-shadow: 0 40px 90px -30px rgba(0, 0, 0, .6); border-top: 7px solid #0070C0;
+            transform: scale(.88) translateY(12px); transition: transform .34s cubic-bezier(.2, .7, .3, 1);
+            display: flex; flex-direction: column;
+        }
+        .overlay.open .overlay-card { transform: scale(1) translateY(0); }
+
+        .overlay-head { display: flex; align-items: center; gap: 1.2rem; padding: 1.8rem 2.2rem 1.2rem 2.2rem; border-bottom: 1px solid #eef2f7; }
+        .ov-ico { flex-shrink: 0; width: 3.8rem; height: 3.8rem; border-radius: 15px; background: linear-gradient(160deg, #103050, #0070C0); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 1.7rem; }
+        .ov-titles { min-width: 0; }
+        .ov-title { color: #103050; font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.55rem; line-height: 1.1; }
+        .ov-sub { color: #0070C0; font-size: .92rem; font-weight: 600; margin-top: .25rem; }
+
+        .overlay-body { padding: 1.5rem 2.2rem 2rem 2.2rem; overflow-y: auto; }
+        .ov-body p { color: #37475a; font-size: 1.02rem; line-height: 1.62; }
+        .ov-body p + p { margin-top: .9rem; }
+        .ov-body strong { color: #103050; }
+
+        .ov-flow { counter-reset: flw; margin-top: 1rem; display: flex; flex-direction: column; gap: .8rem; }
+        .ov-flow li { list-style: none; display: flex; gap: .9rem; align-items: flex-start; }
+        .ov-flow li::before {
+            counter-increment: flw; content: counter(flw);
+            flex-shrink: 0; width: 1.9rem; height: 1.9rem; border-radius: 999px;
+            background: linear-gradient(160deg, #103050, #0070C0); color: #fff;
+            font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .9rem;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .ov-flow li span { color: #37475a; font-size: 1rem; line-height: 1.5; }
+
+        .ov-pills { display: flex; flex-wrap: wrap; gap: .9rem; margin-top: 1.1rem; }
+        .ov-pill { flex: 1 1 18rem; display: flex; gap: .7rem; align-items: flex-start; background: #EAF3FB; border: 1px solid #C0E0F0; border-radius: 12px; padding: .9rem 1.1rem; }
+        .ov-pill i { color: #0070C0; margin-top: .25rem; }
+        .ov-pill span { color: #103050; font-size: .95rem; line-height: 1.4; }
+
+        .overlay-close {
+            position: absolute; top: 1.1rem; right: 1.2rem; width: 2.7rem; height: 2.7rem; border-radius: 999px;
+            border: none; background: #f0f4f8; color: #103050; font-size: 1.2rem; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; transition: background .2s ease, transform .25s ease; z-index: 2;
+        }
+        .overlay-close:hover { background: #0070C0; color: #fff; transform: rotate(90deg); }
+
+        .hint { display: inline-flex; align-items: center; gap: .5rem; color: #0070C0; font-size: .8rem; font-weight: 600; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation: none !important; transition: none !important; }
+        }
+
+        .bg-pattern { position: absolute; bottom: -50px; right: -50px; width: 400px; height: 400px; opacity: 0.03; z-index: 0; color: #103050; }
+    </style>
+</head>
+
+<body>
+    <div class="slide-container">
+        <div class="top-accent"></div>
+        <div class="top-accent-secondary"></div>
+        <!-- Header -->
+        <div class="flex items-center justify-between px-16 pt-10 pb-3 z-10">
+            <div>
+                <div class="flex items-center gap-3 mb-2">
+                    <div class="w-1 h-8 bg-brand-secondary"></div>
+                    <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Definições
+                    </p>
+                </div>
+                <p class="text-gray-500 font-medium ml-4 text-lg">Conceitos relevantes para a compreensão dos dados
+                    apresentados — <span class="hint"><i class="fas fa-hand-pointer"></i> clique em um quadro para
+                        ampliar</span></p>
+            </div>
+            <div class="flex items-center gap-2 opacity-80 text-brand-secondary">
+                <i class="fas fa-circle-info text-xl" aria-hidden="true"></i>
+                <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">CONCEITOS</p>
+            </div>
+        </div>
+        <!-- Grade -->
+        <div class="flex-1 px-16 pb-10 pt-3 z-10">
+            <div class="tile-grid h-full">
+                <!-- Fala.BR -->
+                <button class="tile" onclick="openCard(this)" data-title="Fala.BR"
+                    data-sub="Plataforma integrada de ouvidoria e acesso à informação" data-icon="fa-comments">
+                    <span class="tile-ico"><i class="fas fa-comments"></i></span>
+                    <span class="tile-name">Fala.BR</span>
+                    <span class="tile-tag">Plataforma integrada de manifestações</span>
+                    <span class="tile-more"><i class="fas fa-up-right-and-down-left-from-center"></i> ampliar</span>
+                    <div class="tile-full">
+                        <p>Canal integrado para envio de manifestações de ouvidoria ou de acesso a informação a órgãos e
+                            entidades do poder público. A plataforma está disponível em tempo integral e permite a
+                            execução de todas as etapas necessárias para o tratamento das manifestações.</p>
+                    </div>
+                </button>
+                <!-- Fluxo de tratamento -->
+                <button class="tile" onclick="openCard(this)" data-title="Fluxo de tratamento das manifestações"
+                    data-sub="Procedimentos adotados pela Ouvidoria da ANTAQ" data-icon="fa-diagram-project">
+                    <span class="tile-ico"><i class="fas fa-diagram-project"></i></span>
+                    <span class="tile-name">Fluxo de tratamento das manifestações</span>
+                    <span class="tile-tag">Etapas do processamento na Ouvidoria</span>
+                    <span class="tile-more"><i class="fas fa-up-right-and-down-left-from-center"></i> ampliar</span>
+                    <div class="tile-full">
+                        <p>Os atuais procedimentos adotados pela Ouvidoria da Antaq pode ser resumidos como segue:</p>
+                        <ul class="ov-flow">
+                            <li><span>Faz-se a primeira análise do conteúdo das manifestações: algumas são arquivadas ou
+                                    encaminhadas aos órgãos competentes e as restantes são avaliadas quanto à propriedade
+                                    de ouvidora;</span></li>
+                            <li><span>As manifestações próprias de ouvidoria são distribuídas à equipe de tratamento e as
+                                    não próprias de ouvidoria são respondidas imediatamente com a indicação dos canais de
+                                    atendimento adequados para o envio da demanda;</span></li>
+                            <li><span>Grande parte das manifestações próprias de ouvidoria são tramitadas às áreas
+                                    técnicas responsável pelo assunto ou serviço abordado; e</span></li>
+                            <li><span>Finalmente, a resposta conclusiva é consolidada e enviada pelo Fala.BR ao
+                                    usuário.</span></li>
+                        </ul>
+                    </div>
+                </button>
+                <!-- LAI -->
+                <button class="tile" onclick="openCard(this)"
+                    data-title="LAI — Lei de Acesso à Informação"
+                    data-sub="Lei nº 12.527/2011" data-icon="fa-scale-balanced">
+                    <span class="tile-ico"><i class="fas fa-scale-balanced"></i></span>
+                    <span class="tile-name">LAI — Lei de Acesso à Informação</span>
+                    <span class="tile-tag">Lei nº 12.527/2011 · transparência como regra</span>
+                    <span class="tile-more"><i class="fas fa-up-right-and-down-left-from-center"></i> ampliar</span>
+                    <div class="tile-full">
+                        <p>É o instrumento legal que garante o direito constitucional do cidadão de acessar informações
+                            públicas custodiadas por órgãos e entidades do Estado. A LAI estabelece a transparência
+                            pública como regra e o sigilo como exceção. Ela se divide em:</p>
+                        <div class="ov-pills">
+                            <span class="ov-pill"><i class="fas fa-bullhorn"></i><span><strong>Transparência
+                                        Ativa:</strong> Informações que o órgão deve divulgar por iniciativa própria
+                                    (sites, painéis).</span></span>
+                            <span class="ov-pill"><i class="fas fa-hand-holding"></i><span><strong>Transparência
+                                        Passiva:</strong> Informações disponibilizadas apenas mediante solicitação
+                                    específica do cidadão (pedidos via sistema Fala.BR).</span></span>
+                        </div>
+                    </div>
+                </button>
+                <!-- Dados Abertos -->
+                <button class="tile" onclick="openCard(this)" data-title="Dados Abertos"
+                    data-sub="Dados públicos legíveis por máquina, livres para reúso" data-icon="fa-database">
+                    <span class="tile-ico"><i class="fas fa-database"></i></span>
+                    <span class="tile-name">Dados Abertos</span>
+                    <span class="tile-tag">Dados públicos legíveis por máquina (CSV, JSON, XML)</span>
+                    <span class="tile-more"><i class="fas fa-up-right-and-down-left-from-center"></i> ampliar</span>
+                    <div class="tile-full">
+                        <p>São dados públicos formatados de maneira que possam ser livremente acessados, utilizados,
+                            modificados e compartilhados por qualquer pessoa. Para serem considerados "abertos", eles
+                            devem estar disponíveis em formatos digitais legíveis por máquina (como CSV, JSON ou XML) e
+                            não estarem sujeitos a restrições de patentes ou direitos autorais, permitindo o cruzamento
+                            de informações e o desenvolvimento de novas ferramentas pela sociedade civil.</p>
+                    </div>
+                </button>
+            </div>
+        </div>
+        <!-- Footer -->
+        <div class="px-16 pb-8 flex justify-between items-center z-10">
+            <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ — 1º Trimestre (Jan–Mar)</p>
+            <p class="text-gray-300 text-xs font-mono">15 / 21</p>
+        </div>
+        <div class="bg-pattern"><i class="fas fa-circle-info text-9xl"></i></div>
+    </div>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay" onclick="closeCard(event)">
+        <div class="overlay-card" role="dialog" aria-modal="true" onclick="event.stopPropagation()">
+            <button class="overlay-close" onclick="closeCard(event)" aria-label="Fechar"><i class="fas fa-xmark"></i></button>
+            <div class="overlay-head">
+                <span class="ov-ico"><i class="fas fa-circle-info"></i></span>
+                <span class="ov-titles">
+                    <span class="ov-title block"></span>
+                    <span class="ov-sub block"></span>
+                </span>
+            </div>
+            <div class="overlay-body">
+                <div class="ov-body"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var overlay = document.getElementById('overlay');
+        function openCard(tile) {
+            overlay.querySelector('.ov-ico').innerHTML = '<i class="fas ' + (tile.dataset.icon || 'fa-circle-info') + '"></i>';
+            overlay.querySelector('.ov-title').textContent = tile.dataset.title || '';
+            overlay.querySelector('.ov-sub').textContent = tile.dataset.sub || '';
+            overlay.querySelector('.ov-body').innerHTML = tile.querySelector('.tile-full').innerHTML;
+            overlay.querySelector('.overlay-body').scrollTop = 0;
+            overlay.classList.add('open');
+        }
+        function closeCard(e) { if (e) e.stopPropagation(); overlay.classList.remove('open'); }
+        document.addEventListener("keydown", function (e) {
+            if (e.key === 'Escape') { if (overlay.classList.contains('open')) { e.preventDefault(); closeCard(); } return; }
+            if (overlay.classList.contains('open')) return;
+            if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) {
+                e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*");
+            }
+        });
+    </script>
+</body>
+
+</html>

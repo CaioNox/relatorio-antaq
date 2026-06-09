@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Manifestações por Canal por Mês - Relatório Trimestral Ouvidoria ANTAQ</title>
+  <link rel="icon" type="image/png"
+    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&amp;family=Open+Sans:wght@400;600&amp;display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    html {
+      font-size: 26px;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f3f4f6;
+      overflow: hidden;
+    }
+
+    .slide-container {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background-color: #ffffff;
+      overflow: hidden;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    .font-montserrat {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .text-brand-primary {
+      color: #103050;
+    }
+
+    .text-brand-secondary {
+      color: #0070C0;
+    }
+
+    .bg-brand-secondary {
+      background-color: #0070C0;
+    }
+
+    .top-accent {
+      height: 8px;
+      background-color: #103050;
+      width: 100%;
+    }
+
+    .top-accent-secondary {
+      height: 4px;
+      background-color: #0070C0;
+      width: 100%;
+    }
+
+    /* ===== Interatividade ===== */
+    .chart-card {
+      transition: transform .28s cubic-bezier(.2, .7, .3, 1), box-shadow .28s ease, border-color .28s ease;
+    }
+
+    .chart-card:hover {
+      transform: translateY(-7px);
+      box-shadow: 0 22px 42px -12px rgba(16, 48, 80, .30);
+      border-color: #0070C0;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    .chart-card {
+      animation: fadeIn .5s ease both;
+    }
+
+    .chart-card:nth-child(2) {
+      animation-delay: .1s;
+    }
+
+    .chart-card:nth-child(3) {
+      animation-delay: .2s;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+
+    .chart-card {
+      background-color: #ffffff;
+      border: 2px solid #E2E8F0;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px -8px rgba(16, 48, 80, 0.18);
+      padding: 1.4rem 1.6rem;
+    }
+
+    .legend-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+      display: inline-block;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="slide-container">
+    <div class="top-accent"></div>
+    <div class="top-accent-secondary"></div>
+    <!-- Header -->
+    <div class="flex items-center justify-between px-16 pt-12 pb-4 z-10">
+      <div>
+        <div class="flex items-center gap-3 mb-2">
+          <div class="w-1 h-8 bg-brand-secondary"></div>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Manifestações por
+            Canal por Mês</p>
+        </div>
+        <p class="text-gray-500 font-medium ml-4 text-lg">Evolução mensal de cada canal — Jan / Fev / Mar de 2026</p>
+      </div>
+      <div class="flex items-center gap-4 ml-6">
+        <span class="flex items-center gap-2 text-sm text-gray-500"><span class="legend-dot"
+            style="background:#0070C0;"></span>Janeiro</span>
+        <span class="flex items-center gap-2 text-sm text-gray-500"><span class="legend-dot"
+            style="background:#0090C0;"></span>Fevereiro</span>
+        <span class="flex items-center gap-2 text-sm text-gray-500"><span class="legend-dot"
+            style="background:#103050;"></span>Março</span>
+      </div>
+    </div>
+    <!-- Main Content -->
+    <div class="flex-1 grid grid-cols-3 gap-6 px-16 pb-10 z-10">
+      <div class="chart-card flex flex-col">
+        <p class="text-brand-primary font-montserrat font-bold text-xl mb-1 flex items-center gap-2"><i
+            class="fas fa-headset text-brand-secondary"></i> Omnichannel</p>
+        <p class="text-gray-400 text-sm mb-2">Total no trimestre: <strong class="text-brand-primary">382</strong></p>
+        <div class="flex-1 relative"><canvas id="chartOmni"></canvas></div>
+      </div>
+      <div class="chart-card flex flex-col">
+        <p class="text-brand-primary font-montserrat font-bold text-xl mb-1 flex items-center gap-2"><i
+            class="fas fa-comment-dots text-brand-secondary"></i> Fala.BR</p>
+        <p class="text-gray-400 text-sm mb-2">Total no trimestre: <strong class="text-brand-primary">304</strong></p>
+        <div class="flex-1 relative"><canvas id="chartFalabr"></canvas></div>
+      </div>
+      <div class="chart-card flex flex-col">
+        <p class="text-brand-primary font-montserrat font-bold text-xl mb-1 flex items-center gap-2"><i
+            class="fas fa-envelope text-brand-secondary"></i> E-mail</p>
+        <p class="text-gray-400 text-sm mb-2">Total no trimestre: <strong class="text-brand-primary">70</strong></p>
+        <div class="flex-1 relative"><canvas id="chartEmail"></canvas></div>
+      </div>
+    </div>
+    <!-- Footer -->
+    <div class="px-16 pb-8 flex justify-between items-center z-10">
+      <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ — 1º Trimestre (Jan–Mar)</p>
+      <p class="text-gray-300 text-xs font-mono">8 / 21</p>
+    </div>
+  </div>
+  <script>
+    const monthColors = ['#0070C0', '#0090C0', '#103050'];
+    const valueLabels = {
+      id: 'valueLabels',
+      afterDatasetsDraw(chart) {
+        const { ctx } = chart;
+        ctx.save();
+        ctx.font = '700 16px Montserrat, sans-serif';
+        ctx.fillStyle = '#103050';
+        ctx.textAlign = 'center';
+        chart.getDatasetMeta(0).data.forEach((bar, i) => {
+          ctx.fillText(chart.data.datasets[0].data[i], bar.x, bar.y - 8);
+        });
+        ctx.restore();
+      }
+    };
+    function makeBar(id, data) {
+      new Chart(document.getElementById(id), {
+        type: 'bar',
+        data: { labels: ['Jan', 'Fev', 'Mar'], datasets: [{ data, backgroundColor: monthColors, borderRadius: 6, maxBarThickness: 80 }] },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          layout: { padding: { top: 22 } },
+          plugins: { legend: { display: false }, tooltip: { enabled: false } },
+          scales: {
+            x: { grid: { display: false }, ticks: { color: '#6b7280', font: { size: 14, weight: '600' } } },
+            y: { beginAtZero: true, grid: { color: '#eef2f7' }, ticks: { color: '#9ca3af', font: { size: 12 } } }
+          }
+        },
+        plugins: [valueLabels]
+      });
+    }
+    makeBar('chartOmni', [186, 106, 90]);
+    makeBar('chartFalabr', [90, 129, 85]);
+    makeBar('chartEmail', [23, 33, 14]);
+  </script>
+  <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
+</body>
+
+</html>

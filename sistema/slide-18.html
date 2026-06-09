@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Decretos - Relatório Trimestral Ouvidoria ANTAQ</title>
+    <link rel="icon" type="image/png"
+        href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&amp;family=Open+Sans:wght@400;600&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        html { font-size: 20px; }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f3f4f6;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        .slide-container {
+            width: 100vw;
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            background-color: #ffffff;
+            overflow: visible;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .font-montserrat { font-family: 'Montserrat', sans-serif; }
+        .text-brand-primary { color: #103050; }
+        .text-brand-secondary { color: #0070C0; }
+        .bg-brand-secondary { background-color: #0070C0; }
+
+        .top-accent { height: 8px; background-color: #103050; width: 100%; }
+        .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
+
+        /* ===== Acordeão (efeito cascata) ===== */
+        .acc-wrap { display: flex; flex-direction: column; gap: .7rem; }
+
+        .acc-item {
+            background-color: #ffffff;
+            border: 2px solid #E2E8F0;
+            border-left: 5px solid #0070C0;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 6px 16px -8px rgba(16, 48, 80, 0.16);
+            transition: border-color .28s ease, box-shadow .28s ease, background-color .28s ease;
+            animation: fadeIn .5s ease both;
+        }
+
+        .acc-item:nth-child(2) { animation-delay: .06s }
+        .acc-item:nth-child(3) { animation-delay: .12s }
+        .acc-item:nth-child(4) { animation-delay: .18s }
+        .acc-item:nth-child(5) { animation-delay: .24s }
+        .acc-item:nth-child(6) { animation-delay: .30s }
+
+        .acc-item:hover { border-left-color: #0090C0; box-shadow: 0 16px 34px -14px rgba(16, 48, 80, .26); }
+        .acc-item.open { border-left-color: #103050; box-shadow: 0 16px 34px -14px rgba(16, 48, 80, .26); }
+
+        .acc-head {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 1.1rem;
+            padding: .85rem 1.4rem;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            text-align: left;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .law-num {
+            flex-shrink: 0;
+            min-width: 7.5rem;
+            text-align: center;
+            border-radius: 10px;
+            background: linear-gradient(160deg, #0e3a66 0%, #11598f 100%);
+            color: #fff;
+            padding: .5rem .4rem;
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1;
+            transition: transform .3s ease;
+        }
+
+        .acc-item.open .law-num,
+        .acc-head:hover .law-num { transform: scale(1.05); }
+
+        .law-num .ln-label { display: block; font-size: .56rem; font-weight: 700; letter-spacing: .1em; opacity: .8; }
+        .law-num .ln-val { display: block; font-size: 1.02rem; font-weight: 900; margin-top: .12rem; }
+        .law-num .ln-year { display: block; font-size: .6rem; font-weight: 600; opacity: .85; margin-top: .12rem; }
+
+        .acc-titles { flex: 1; min-width: 0; }
+        .acc-title { color: #103050; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.05rem; line-height: 1.14; }
+        .acc-sub { color: #5b7185; font-size: .78rem; margin-top: .2rem; }
+
+        .acc-chev { flex-shrink: 0; color: #0070C0; font-size: 1rem; transition: transform .35s cubic-bezier(.2, .7, .3, 1); }
+        .acc-item.open .acc-chev { transform: rotate(180deg); }
+
+        .acc-body { max-height: 0; overflow: hidden; transition: max-height .45s cubic-bezier(.2, .7, .3, 1); }
+        .acc-item.open .acc-body { max-height: 600px; }
+
+        .acc-body-inner { padding: 0 1.6rem 1.1rem 10.2rem; }
+        .acc-text { color: #37475a; font-size: .88rem; line-height: 1.5; }
+        .acc-text strong { color: #103050; }
+
+        .hint { display: inline-flex; align-items: center; gap: .5rem; color: #0070C0; font-size: .8rem; font-weight: 600; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation: none !important; transition: none !important; }
+        }
+
+        .bg-pattern { position: absolute; bottom: -50px; right: -50px; width: 400px; height: 400px; opacity: 0.03; z-index: 0; color: #103050; }
+    </style>
+</head>
+
+<body>
+    <div class="slide-container">
+        <div class="top-accent"></div>
+        <div class="top-accent-secondary"></div>
+        <!-- Header -->
+        <div class="flex items-center justify-between px-16 pt-10 pb-3 z-10">
+            <div>
+                <div class="flex items-center gap-3 mb-2">
+                    <div class="w-1 h-8 bg-brand-secondary"></div>
+                    <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Decretos
+                    </p>
+                </div>
+                <p class="text-gray-500 font-medium ml-4 text-lg">Regulamentação do Sistema de Ouvidoria e da proteção ao
+                    denunciante — <span class="hint"><i class="fas fa-hand-pointer"></i> clique para expandir</span></p>
+            </div>
+            <div class="flex items-center gap-2 opacity-80 text-brand-secondary">
+                <i class="fas fa-scroll text-xl" aria-hidden="true"></i>
+                <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">REGULAMENTAÇÃO</p>
+            </div>
+        </div>
+        <!-- Main Content -->
+        <div class="flex-1 px-16 pb-8 pt-2 z-10">
+            <div class="acc-wrap">
+                <!-- Decreto 9.094/2017 -->
+                <div class="acc-item open">
+                    <button class="acc-head" onclick="toggleAcc(this)" aria-expanded="true">
+                        <span class="law-num"><span class="ln-label">DECRETO</span><span class="ln-val">9.094</span><span
+                                class="ln-year">2017</span></span>
+                        <span class="acc-titles">
+                            <span class="acc-title block">Simplificação do atendimento</span>
+                            <span class="acc-sub block">Decreto nº 9.094, de 17 de julho de 2017</span>
+                        </span>
+                        <i class="fas fa-chevron-down acc-chev"></i>
+                    </button>
+                    <div class="acc-body">
+                        <div class="acc-body-inner">
+                            <p class="acc-text">Dispõe sobre a <strong>simplificação do atendimento</strong> prestado aos
+                                usuários dos serviços públicos.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Decreto 9.492/2018 -->
+                <div class="acc-item">
+                    <button class="acc-head" onclick="toggleAcc(this)" aria-expanded="false">
+                        <span class="law-num"><span class="ln-label">DECRETO</span><span class="ln-val">9.492</span><span
+                                class="ln-year">2018</span></span>
+                        <span class="acc-titles">
+                            <span class="acc-title block">Sistema de Ouvidoria do Poder Executivo federal</span>
+                            <span class="acc-sub block">Decreto nº 9.492, de 5 de setembro de 2018</span>
+                        </span>
+                        <i class="fas fa-chevron-down acc-chev"></i>
+                    </button>
+                    <div class="acc-body">
+                        <div class="acc-body-inner">
+                            <p class="acc-text">Regulamenta os procedimentos para a participação, a proteção e a defesa
+                                dos direitos do usuário de serviços públicos da administração pública federal, direta e
+                                indireta, de que trata a Lei nº 13.460/2017, e <strong>institui o Sistema de Ouvidoria do
+                                    Poder Executivo federal</strong>.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Decreto 9.690/2019 -->
+                <div class="acc-item">
+                    <button class="acc-head" onclick="toggleAcc(this)" aria-expanded="false">
+                        <span class="law-num"><span class="ln-label">DECRETO</span><span class="ln-val">9.690</span><span
+                                class="ln-year">2019</span></span>
+                        <span class="acc-titles">
+                            <span class="acc-title block">Alteração do regulamento da LAI</span>
+                            <span class="acc-sub block">Decreto nº 9.690, de 23 de janeiro de 2019</span>
+                        </span>
+                        <i class="fas fa-chevron-down acc-chev"></i>
+                    </button>
+                    <div class="acc-body">
+                        <div class="acc-body-inner">
+                            <p class="acc-text">Altera o Decreto nº 7.724/2012, que regulamenta a <strong>Lei nº
+                                    12.527/2011 — Lei de Acesso à Informação</strong>.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Decreto 10.153/2019 -->
+                <div class="acc-item">
+                    <button class="acc-head" onclick="toggleAcc(this)" aria-expanded="false">
+                        <span class="law-num"><span class="ln-label">DECRETO</span><span
+                                class="ln-val">10.153</span><span class="ln-year">2019</span></span>
+                        <span class="acc-titles">
+                            <span class="acc-title block">Salvaguardas à identidade do denunciante</span>
+                            <span class="acc-sub block">Decreto nº 10.153, de 3 de dezembro de 2019</span>
+                        </span>
+                        <i class="fas fa-chevron-down acc-chev"></i>
+                    </button>
+                    <div class="acc-body">
+                        <div class="acc-body-inner">
+                            <p class="acc-text">Dispõe sobre as <strong>salvaguardas de proteção à identidade dos
+                                    denunciantes</strong> de ilícitos e de irregularidades praticados contra a
+                                administração pública federal direta e indireta e altera o Decreto nº 9.492/2018.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Decreto 10.890/2021 -->
+                <div class="acc-item">
+                    <button class="acc-head" onclick="toggleAcc(this)" aria-expanded="false">
+                        <span class="law-num"><span class="ln-label">DECRETO</span><span
+                                class="ln-val">10.890</span><span class="ln-year">2021</span></span>
+                        <span class="acc-titles">
+                            <span class="acc-title block">Proteção ao denunciante</span>
+                            <span class="acc-sub block">Decreto nº 10.890, de 9 de dezembro de 2021</span>
+                        </span>
+                        <i class="fas fa-chevron-down acc-chev"></i>
+                    </button>
+                    <div class="acc-body">
+                        <div class="acc-body-inner">
+                            <p class="acc-text">Altera o Decreto nº 9.492/2018 e o Decreto nº 10.153/2019 para dispor
+                                sobre a <strong>proteção ao denunciante</strong> de ilícitos e de irregularidades
+                                praticados contra a administração pública federal direta e indireta.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Decreto 10.889/2021 -->
+                <div class="acc-item">
+                    <button class="acc-head" onclick="toggleAcc(this)" aria-expanded="false">
+                        <span class="law-num"><span class="ln-label">DECRETO</span><span
+                                class="ln-val">10.889</span><span class="ln-year">2021</span></span>
+                        <span class="acc-titles">
+                            <span class="acc-title block">eAgendas — agenda de compromissos públicos</span>
+                            <span class="acc-sub block">Decreto nº 10.889, de 9 de dezembro de 2021</span>
+                        </span>
+                        <i class="fas fa-chevron-down acc-chev"></i>
+                    </button>
+                    <div class="acc-body">
+                        <div class="acc-body-inner">
+                            <p class="acc-text">Dispõe sobre a divulgação da agenda de compromissos públicos e a
+                                participação de agentes públicos, no âmbito do Poder Executivo federal, em audiências e
+                                sobre a concessão de hospitalidades por agente privado, e <strong>institui o Sistema
+                                    Eletrônico de Agendas do Poder Executivo federal — eAgendas</strong>.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer -->
+        <div class="px-16 pb-8 flex justify-between items-center z-10">
+            <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ — 1º Trimestre (Jan–Mar)</p>
+            <p class="text-gray-300 text-xs font-mono">18 / 21</p>
+        </div>
+        <div class="bg-pattern"><i class="fas fa-scroll text-9xl"></i></div>
+    </div>
+    <script>
+        function toggleAcc(btn) {
+            var item = btn.closest('.acc-item');
+            var open = item.classList.toggle('open');
+            btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        }
+        document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });
+    </script>
+</body>
+
+</html>
