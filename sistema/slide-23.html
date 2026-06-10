@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Links Úteis - Relatório Trimestral Ouvidoria ANTAQ</title>
+    <link rel="icon" type="image/png"
+        href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&amp;family=Open+Sans:wght@400;600&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        html {
+            font-size: 16px;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #f3f4f6;
+        }
+
+        .slide-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(135deg, #0A2236 0%, #103050 50%, #16466E 100%);
+            overflow: hidden;
+            color: white;
+        }
+
+        .font-montserrat {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .bg-brand-secondary {
+            background-color: #0070C0;
+        }
+
+        .shape-bg {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 45%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.03);
+            clip-path: polygon(25% 0, 100% 0, 100% 100%, 0% 100%);
+            z-index: 1;
+        }
+
+        .link-card {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 16px;
+            padding: 1.9rem 2.1rem;
+            display: flex;
+            align-items: center;
+            gap: 1.4rem;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .link-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .link-icon {
+            flex-shrink: 0;
+            width: 3.6rem;
+            height: 3.6rem;
+            border-radius: 12px;
+            background-color: #0090C0;
+            color: #103050;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.65rem;
+            transition: transform .3s ease;
+        }
+
+        /* ===== Interatividade ===== */
+        .link-card {
+            transition: transform .28s cubic-bezier(.2, .7, .3, 1), background-color .25s ease, border-color .25s ease, box-shadow .28s ease;
+        }
+
+        .link-card:hover {
+            transform: translateY(-5px) translateX(5px);
+            border-color: rgba(0, 144, 192, 0.5);
+            box-shadow: 0 20px 38px -14px rgba(0, 0, 0, 0.5);
+        }
+
+        .link-card:hover .link-icon {
+            transform: scale(1.12) rotate(-6deg);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .link-card {
+            animation: fadeIn .5s ease both;
+        }
+
+        .link-card:nth-child(2) {
+            animation-delay: .1s;
+        }
+
+        .link-card:nth-child(3) {
+            animation-delay: .2s;
+        }
+
+        .link-card:nth-child(4) {
+            animation-delay: .3s;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slide-container">
+        <div class="shape-bg"></div>
+        <img src="Imagens/Logo Horizontal_Azul_S_N.png" alt="" class="absolute top-1/2"
+            style="left: 80%; width: 55vw; max-width: 850px; transform: translate(-50%, -50%); opacity: 0.10; z-index: 2; pointer-events: none; filter: brightness(0) invert(1);" />
+        <div class="absolute left-0 top-0 h-full w-3 z-20" style="background-color: #0090C0;"></div>
+        <div class="absolute left-3 top-0 h-full w-1 bg-brand-secondary z-20"></div>
+        <!-- Main Content -->
+        <div class="relative z-10 flex flex-col justify-center h-full w-full pl-24 pr-16 font-montserrat">
+            <!-- Header -->
+            <div class="absolute top-16 left-24 flex items-center gap-4">
+                <img src="Imagens/Logo Horizontal_Branca_C_N.png" alt="Logo ANTAQ" style="height: 48px; width: auto;" />
+                <div>
+                    <p class="text-blue-200 text-sm font-bold tracking-widest uppercase">Agência Nacional de Transportes
+                        Aquaviários</p>
+                    <p class="text-blue-300 text-xs font-semibold tracking-wider uppercase opacity-80">ANTAQ</p>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <div class="flex items-center gap-3 mb-1">
+                    <div class="w-10 h-0.5" style="background-color: #0090C0;"></div>
+                    <p class="text-blue-200 text-base font-semibold tracking-[0.3em] uppercase">Encerramento</p>
+                </div>
+                <h1 class="font-black tracking-tight" style="font-size: 3.6rem; color:#0090C0;">Links Úteis &amp;
+                    Contatos</h1>
+                <p class="text-blue-100 text-lg mt-1">Fale com a Ouvidoria da ANTAQ — sua manifestação é importante.</p>
+
+                <!-- Cards -->
+                <div class="grid grid-cols-2 gap-6 mt-8 max-w-5xl">
+                    <a class="link-card" href="https://www.gov.br/antaq/pt-br" target="_blank"
+                        rel="noopener noreferrer">
+                        <div class="link-icon"><i class="fas fa-globe"></i></div>
+                        <div>
+                            <p class="text-white font-bold text-xl">Portal ANTAQ</p>
+                            <p class="text-blue-200 text-base">https://www.gov.br/antaq/pt-br</p>
+                        </div>
+                    </a>
+                    <a class="link-card" href="https://falabr.cgu.gov.br" target="_blank" rel="noopener noreferrer">
+                        <div class="link-icon"><i class="fas fa-comment-dots"></i></div>
+                        <div>
+                            <p class="text-white font-bold text-xl">Plataforma Fala.BR</p>
+                            <p class="text-blue-200 text-base">https://falabr.cgu.gov.br</p>
+                        </div>
+                    </a>
+                    <a class="link-card" href="tel:08006445001">
+                        <div class="link-icon"><i class="fas fa-phone-volume"></i></div>
+                        <div>
+                            <p class="text-white font-bold text-xl">Disque Ouvidoria</p>
+                            <p class="text-blue-200 text-base">0800 644 5001 · +55 61 2029-6576</p>
+                        </div>
+                    </a>
+                    <a class="link-card"
+                        href="https://www.google.com/maps/search/?api=1&query=SEPN+Quadra+514+Conjunto+E+Edif%C3%ADcio+Antaq+Bras%C3%ADlia+DF"
+                        target="_blank" rel="noopener noreferrer">
+                        <div class="link-icon"><i class="fas fa-location-dot"></i></div>
+                        <div>
+                            <p class="text-white font-bold text-xl">Endereço</p>
+                            <p class="text-blue-200 text-base">SEPN Q. 514, Conj. E, Ed. Antaq — CEP 70760-545,
+                                Brasília/DF</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="absolute bottom-12 left-24 right-16 flex justify-between items-end pt-6"
+                style="border-top: 1px solid rgba(255,255,255,0.15);">
+                <div class="flex flex-col gap-1 text-xs text-blue-200">
+                    <span class="font-semibold uppercase tracking-wider text-blue-100">Canais oficiais ANTAQ</span>
+                    <div class="flex flex-wrap items-center gap-3 mt-1">
+                        <a href="https://www.facebook.com/ANTAQ.oficial" target="_blank" rel="noopener noreferrer"
+                            class="flex items-center gap-1 hover:text-white transition-colors"><i
+                                class="fa-brands fa-facebook"></i><span>Facebook</span></a>
+                        <a href="https://www.instagram.com/antaq_oficial/" target="_blank" rel="noopener noreferrer"
+                            class="flex items-center gap-1 hover:text-white transition-colors"><i
+                                class="fa-brands fa-instagram"></i><span>Instagram</span></a>
+                        <a href="https://www.youtube.com/c/CanalANTAQ/" target="_blank" rel="noopener noreferrer"
+                            class="flex items-center gap-1 hover:text-white transition-colors"><i
+                                class="fa-brands fa-youtube"></i><span>YouTube</span></a>
+                        <a href="https://www.linkedin.com/company/antaq" target="_blank" rel="noopener noreferrer"
+                            class="flex items-center gap-1 hover:text-white transition-colors"><i
+                                class="fa-brands fa-linkedin"></i><span>LinkedIn</span></a>
+                        <a href="https://x.com/ANTAQ_oficial" target="_blank" rel="noopener noreferrer"
+                            class="flex items-center gap-1 hover:text-white transition-colors"><i
+                                class="fa-brands fa-twitter"></i><span>Twitter</span></a>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <p class="text-blue-200 text-xs text-right">Ouvidora<br /><span
+                            class="text-white font-semibold">Renata Sousa Cordeiro</span></p>
+                    <div class="h-10 w-10 rounded-full flex items-center justify-center"
+                        style="background-color: #0090C0; color: #103050;"><i class="fas fa-anchor"></i></div>
+                </div>
+            </div>
+            <div class="absolute bottom-0 right-0 text-white opacity-5 z-0"
+                style="font-size: 500px; line-height: 0; transform: translate(20%, 20%);"><i class="fas fa-link"></i>
+            </div>
+        </div>
+        <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
+</body>
+
+</html>

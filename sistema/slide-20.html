@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Expediente - Relatório Trimestral Ouvidoria ANTAQ</title>
+    <title>Decretos - Relatório Trimestral Ouvidoria ANTAQ</title>
     <link rel="icon" type="image/png"
         href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
@@ -14,143 +14,81 @@
         rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
     <style>
-        html {
-            font-size: 26px;
-        }
+        html { font-size: 21px; }
 
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #f3f4f6;
-            overflow: hidden;
-        }
+        body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
 
         .slide-container {
-            width: 100vw;
-            height: 100vh;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            background-color: #ffffff;
-            overflow: hidden;
-            font-family: 'Open Sans', sans-serif;
+            width: 100vw; height: 100vh; position: relative;
+            display: flex; flex-direction: column;
+            background-color: #ffffff; overflow: hidden; font-family: 'Open Sans', sans-serif;
         }
 
-        .font-montserrat {
-            font-family: 'Montserrat', sans-serif;
+        .font-montserrat { font-family: 'Montserrat', sans-serif; }
+        .text-brand-primary { color: #103050; }
+        .text-brand-secondary { color: #0070C0; }
+        .bg-brand-secondary { background-color: #0070C0; }
+
+        .top-accent { height: 8px; background-color: #103050; width: 100%; }
+        .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
+
+        /* ===== Grade de quadros ===== */
+        .tile-grid { display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 1fr; gap: 1.2rem; }
+
+        .tile {
+            position: relative; background: #fff; border: 2px solid #E2E8F0; border-radius: 16px;
+            padding: 1.3rem 1.4rem; cursor: pointer; text-align: left;
+            display: flex; flex-direction: column; gap: .7rem;
+            box-shadow: 0 6px 16px -8px rgba(16, 48, 80, .18);
+            transition: transform .25s cubic-bezier(.2, .7, .3, 1), box-shadow .25s ease, border-color .25s ease;
+            animation: fadeIn .5s ease both; font-family: 'Open Sans', sans-serif;
         }
+        .tile:nth-child(2) { animation-delay: .06s } .tile:nth-child(3) { animation-delay: .12s }
+        .tile:nth-child(4) { animation-delay: .18s } .tile:nth-child(5) { animation-delay: .24s }
+        .tile:nth-child(6) { animation-delay: .30s }
+        .tile:hover { transform: translateY(-7px); border-color: #0070C0; box-shadow: 0 26px 46px -18px rgba(16, 48, 80, .34); }
+        .tile:focus-visible { outline: 3px solid #0090C0; outline-offset: 3px; }
 
-        .text-brand-primary {
-            color: #103050;
+        .law-badge {
+            align-self: flex-start; text-align: center; border-radius: 13px;
+            background: linear-gradient(160deg, #0e3a66, #11598f); color: #fff;
+            padding: .6rem 1.1rem; font-family: 'Montserrat', sans-serif; line-height: 1; transition: transform .3s ease;
         }
+        .tile:hover .law-badge { transform: scale(1.05); }
+        .law-badge .lb-label { display: block; font-size: .58rem; font-weight: 700; letter-spacing: .1em; opacity: .82; }
+        .law-badge .lb-num { display: block; font-size: 1.4rem; font-weight: 900; margin-top: .15rem; }
+        .law-badge .lb-year { display: block; font-size: .68rem; font-weight: 600; opacity: .85; margin-top: .15rem; }
 
-        .text-brand-secondary {
-            color: #0070C0;
-        }
+        .tile-name { color: #103050; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.08rem; line-height: 1.16; }
+        .tile-tag { color: #5b7185; font-size: .8rem; line-height: 1.28; }
+        .tile-more { margin-top: auto; color: #0070C0; font-size: .74rem; font-weight: 700; display: inline-flex; align-items: center; gap: .4rem; }
+        .tile:hover .tile-more { color: #0090C0; }
+        .tile-full { display: none; }
 
-        .bg-brand-secondary {
-            background-color: #0070C0;
-        }
+        /* ===== Overlay ===== */
+        .overlay { position: fixed; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center; padding: 5vh 8vw; background: rgba(16, 48, 80, .5); backdrop-filter: blur(3px); opacity: 0; pointer-events: none; transition: opacity .3s ease; }
+        .overlay.open { opacity: 1; pointer-events: auto; }
+        .overlay-card { position: relative; background: #fff; border-radius: 22px; max-width: 60rem; width: 100%; max-height: 82vh; overflow: hidden; box-shadow: 0 40px 90px -30px rgba(0, 0, 0, .6); border-top: 7px solid #0070C0; transform: scale(.88) translateY(12px); transition: transform .34s cubic-bezier(.2, .7, .3, 1); display: flex; flex-direction: column; }
+        .overlay.open .overlay-card { transform: scale(1) translateY(0); }
+        .overlay-head { display: flex; align-items: center; gap: 1.2rem; padding: 1.8rem 2.2rem 1.2rem 2.2rem; border-bottom: 1px solid #eef2f7; }
+        .ov-badge { flex-shrink: 0; text-align: center; border-radius: 15px; background: linear-gradient(160deg, #0e3a66, #11598f); color: #fff; padding: .7rem 1.2rem; font-family: 'Montserrat', sans-serif; line-height: 1; }
+        .ov-badge .lb-label { display: block; font-size: .58rem; font-weight: 700; letter-spacing: .1em; opacity: .82; }
+        .ov-badge .lb-num { display: block; font-size: 1.45rem; font-weight: 900; margin-top: .15rem; }
+        .ov-badge .lb-year { display: block; font-size: .68rem; font-weight: 600; opacity: .85; margin-top: .15rem; }
+        .ov-titles { min-width: 0; }
+        .ov-title { color: #103050; font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.4rem; line-height: 1.12; }
+        .ov-sub { color: #0070C0; font-size: .92rem; font-weight: 600; margin-top: .25rem; }
+        .overlay-body { padding: 1.5rem 2.2rem 2rem 2.2rem; overflow-y: auto; }
+        .ov-body p { color: #37475a; font-size: 1.05rem; line-height: 1.62; }
+        .ov-body p + p { margin-top: .9rem; }
+        .ov-body strong { color: #103050; }
+        .overlay-close { position: absolute; top: 1.1rem; right: 1.2rem; width: 2.7rem; height: 2.7rem; border-radius: 999px; border: none; background: #f0f4f8; color: #103050; font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background .2s ease, transform .25s ease; z-index: 2; }
+        .overlay-close:hover { background: #0070C0; color: #fff; transform: rotate(90deg); }
 
-        .top-accent {
-            height: 8px;
-            background-color: #103050;
-            width: 100%;
-        }
-
-        .top-accent-secondary {
-            height: 4px;
-            background-color: #0070C0;
-            width: 100%;
-        }
-
-        /* ===== Interatividade ===== */
-        .exp-group {
-            transition: transform .25s ease, border-color .25s ease, padding-left .25s ease;
-        }
-
-        .exp-group:hover {
-            transform: translateX(6px);
-            border-color: #0070C0;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
-        }
-
-        .exp-group {
-            animation: fadeIn .45s ease both;
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-
-            *,
-            *::before,
-            *::after {
-                animation: none !important;
-                transition: none !important;
-            }
-        }
-
-        .exp-group {
-            padding-left: 0.9rem;
-            border-left: 3px solid #0090C0;
-            margin-bottom: 1.1rem;
-        }
-
-        .exp-title {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.7rem;
-            font-weight: 700;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: #6b7280;
-            margin: 0 0 0.2rem 0;
-        }
-
-        .exp-name {
-            font-family: 'Open Sans', sans-serif;
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: #103050;
-        }
-
-        .sec-label {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 800;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            color: #0070C0;
-            font-size: 0.85rem;
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            margin-bottom: 1rem;
-        }
-
-        .sec-label::after {
-            content: "";
-            flex: 1;
-            height: 2px;
-            background: #E2E8F0;
-        }
-
-        .bg-pattern {
-            position: absolute;
-            bottom: -50px;
-            right: -50px;
-            width: 400px;
-            height: 400px;
-            opacity: 0.03;
-            z-index: 0;
-            color: #103050;
-        }
+        .hint { display: inline-flex; align-items: center; gap: .5rem; color: #0070C0; font-size: .8rem; font-weight: 600; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+        .bg-pattern { position: absolute; bottom: -50px; right: -50px; width: 400px; height: 400px; opacity: 0.03; z-index: 0; color: #103050; }
     </style>
 </head>
 
@@ -159,92 +97,163 @@
         <div class="top-accent"></div>
         <div class="top-accent-secondary"></div>
         <!-- Header -->
-        <div class="flex items-center justify-between px-16 pt-12 pb-4 z-10">
+        <div class="flex items-center justify-between px-16 pt-10 pb-3 z-10">
             <div>
                 <div class="flex items-center gap-3 mb-2">
                     <div class="w-1 h-8 bg-brand-secondary"></div>
-                    <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Expediente
+                    <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Decretos
                     </p>
                 </div>
-                <p class="text-gray-500 font-medium ml-4 text-lg">Agência Nacional de Transportes Aquaviários — ANTAQ
-                </p>
+                <p class="text-gray-500 font-medium ml-4 text-lg">Regulamentação do Sistema de Ouvidoria e da proteção ao
+                    denunciante — <span class="hint"><i class="fas fa-hand-pointer"></i> clique em um decreto para ler na
+                        íntegra</span></p>
             </div>
             <div class="flex items-center gap-2 opacity-80 text-brand-secondary">
-                <i class="fas fa-id-card text-xl" aria-hidden="true"></i>
-                <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">DIRETORIA &amp; EQUIPE</p>
+                <i class="fas fa-scroll text-xl" aria-hidden="true"></i>
+                <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">REGULAMENTAÇÃO</p>
             </div>
         </div>
-        <!-- Main Content -->
-        <div class="flex-1 grid grid-cols-2 gap-12 px-16 pb-10 z-10">
-            <!-- Diretoria -->
-            <div>
-                <p class="sec-label">Diretoria Colegiada</p>
-                <div class="grid grid-cols-2 gap-x-8">
-                    <div class="exp-group">
-                        <p class="exp-title">Diretor-Geral</p>
-                        <p class="exp-name">Frederico Carvalho Dias</p>
+        <!-- Grade -->
+        <div class="flex-1 px-16 pb-10 pt-3 z-10">
+            <div class="tile-grid h-full">
+                <!-- Decreto 9.094/2017 -->
+                <button class="tile" onclick="openCard(this)"
+                    data-title="Simplificação do atendimento" data-sub="Decreto nº 9.094, de 17 de julho de 2017"
+                    data-badge='<span class="lb-label">DECRETO</span><span class="lb-num">9.094</span><span class="lb-year">2017</span>'>
+                    <span class="law-badge"><span class="lb-label">DECRETO</span><span class="lb-num">9.094</span><span
+                            class="lb-year">2017</span></span>
+                    <span class="tile-name">Simplificação do atendimento</span>
+                    <span class="tile-tag">Atendimento aos usuários de serviços públicos</span>
+                    <span class="tile-more"><i class="fas fa-up-right-and-down-left-from-center"></i> ampliar</span>
+                    <div class="tile-full">
+                        <p>Decreto nº 9.094, de 17 de julho de 2017 – Dispõe sobre a simplificação do atendimento
+                            prestado aos usuários dos serviços públicos.</p>
                     </div>
-                    <div class="exp-group">
-                        <p class="exp-title">Diretora</p>
-                        <p class="exp-name">Cristina Castro Lucas de Souza</p>
+                </button>
+                <!-- Decreto 9.492/2018 -->
+                <button class="tile" onclick="openCard(this)"
+                    data-title="Sistema de Ouvidoria do Poder Executivo federal" data-sub="Decreto nº 9.492, de 5 de setembro de 2018"
+                    data-badge='<span class="lb-label">DECRETO</span><span class="lb-num">9.492</span><span class="lb-year">2018</span>'>
+                    <span class="law-badge"><span class="lb-label">DECRETO</span><span class="lb-num">9.492</span><span
+                            class="lb-year">2018</span></span>
+                    <span class="tile-name">Sistema de Ouvidoria do PEF</span>
+                    <span class="tile-tag">Regulamenta a Lei nº 13.460/2017</span>
+                    <span class="tile-more"><i class="fas fa-up-right-and-down-left-from-center"></i> ampliar</span>
+                    <div class="tile-full">
+                        <p>Decreto nº 9.492, de 5 de setembro de 2018 – Regulamenta os procedimentos para a participação,
+                            a proteção e a defesa dos direitos do usuário de serviços públicos da administração pública
+                            federal, direta e indireta, de que trata a Lei nº 13.460, de 26 de junho de 2017, e institui
+                            o Sistema de Ouvidoria do Poder Executivo federal.</p>
                     </div>
-                    <div class="exp-group">
-                        <p class="exp-title">Diretor</p>
-                        <p class="exp-name">Wilson Pereira de Lima Filho</p>
+                </button>
+                <!-- Decreto 9.690/2019 -->
+                <button class="tile" onclick="openCard(this)"
+                    data-title="Alteração do regulamento da LAI" data-sub="Decreto nº 9.690, de 23 de janeiro de 2019"
+                    data-badge='<span class="lb-label">DECRETO</span><span class="lb-num">9.690</span><span class="lb-year">2019</span>'>
+                    <span class="law-badge"><span class="lb-label">DECRETO</span><span class="lb-num">9.690</span><span
+                            class="lb-year">2019</span></span>
+                    <span class="tile-name">Alteração do regulamento da LAI</span>
+                    <span class="tile-tag">Altera o Decreto nº 7.724/2012</span>
+                    <span class="tile-more"><i class="fas fa-up-right-and-down-left-from-center"></i> ampliar</span>
+                    <div class="tile-full">
+                        <p>Decreto nº 9.690, de 23 de janeiro de 2019 – Altera o Decreto nº 7.724, de 16 de maio de 2012,
+                            que regulamenta a Lei nº 12.527, de 18 de novembro de 2011 – Lei de Acesso à Informação.</p>
                     </div>
-                    <div class="exp-group">
-                        <p class="exp-title">Diretor</p>
-                        <p class="exp-name">Alber Furtado de Vasconcelos Neto</p>
+                </button>
+                <!-- Decreto 10.153/2019 -->
+                <button class="tile" onclick="openCard(this)"
+                    data-title="Salvaguardas à identidade do denunciante" data-sub="Decreto nº 10.153, de 3 de dezembro de 2019"
+                    data-badge='<span class="lb-label">DECRETO</span><span class="lb-num">10.153</span><span class="lb-year">2019</span>'>
+                    <span class="law-badge"><span class="lb-label">DECRETO</span><span class="lb-num">10.153</span><span
+                            class="lb-year">2019</span></span>
+                    <span class="tile-name">Salvaguardas ao denunciante</span>
+                    <span class="tile-tag">Proteção à identidade do denunciante</span>
+                    <span class="tile-more"><i class="fas fa-up-right-and-down-left-from-center"></i> ampliar</span>
+                    <div class="tile-full">
+                        <p>Decreto nº 10.153, de 3 de dezembro de 2019 - Dispõe sobre as salvaguardas de proteção à
+                            identidade dos denunciantes de ilícitos e de irregularidades praticados contra a
+                            administração pública federal direta e indireta e altera o Decreto n° 9.492, de 5 de setembro
+                            de 2018.</p>
                     </div>
-                    <div class="exp-group">
-                        <p class="exp-title">Diretor</p>
-                        <p class="exp-name">Caio César Farias Leôncio</p>
+                </button>
+                <!-- Decreto 10.890/2021 -->
+                <button class="tile" onclick="openCard(this)"
+                    data-title="Proteção ao denunciante" data-sub="Decreto nº 10.890, de 9 de dezembro de 2021"
+                    data-badge='<span class="lb-label">DECRETO</span><span class="lb-num">10.890</span><span class="lb-year">2021</span>'>
+                    <span class="law-badge"><span class="lb-label">DECRETO</span><span class="lb-num">10.890</span><span
+                            class="lb-year">2021</span></span>
+                    <span class="tile-name">Proteção ao denunciante</span>
+                    <span class="tile-tag">Altera os Decretos 9.492/2018 e 10.153/2019</span>
+                    <span class="tile-more"><i class="fas fa-up-right-and-down-left-from-center"></i> ampliar</span>
+                    <div class="tile-full">
+                        <p>Decreto nº 10.890, de 9 de dezembro de 2021 - Altera o Decreto nº 9.492, de 5 de setembro de
+                            2018, e o Decreto nº 10.153, de 3 de dezembro de 2019, para dispor sobre a proteção ao
+                            denunciante de ilícitos e de irregularidades praticados contra a administração pública
+                            federal direta e indireta.</p>
                     </div>
-                    <div class="exp-group">
-                        <p class="exp-title">Chefe de Gabinete do Diretor-Geral</p>
-                        <p class="exp-name">Karoline Brasileiro Quirino Lemos</p>
+                </button>
+                <!-- Decreto 10.889/2021 -->
+                <button class="tile" onclick="openCard(this)"
+                    data-title="eAgendas — agenda de compromissos públicos" data-sub="Decreto nº 10.889, de 9 de dezembro de 2021"
+                    data-badge='<span class="lb-label">DECRETO</span><span class="lb-num">10.889</span><span class="lb-year">2021</span>'>
+                    <span class="law-badge"><span class="lb-label">DECRETO</span><span class="lb-num">10.889</span><span
+                            class="lb-year">2021</span></span>
+                    <span class="tile-name">eAgendas</span>
+                    <span class="tile-tag">Agenda de compromissos públicos</span>
+                    <span class="tile-more"><i class="fas fa-up-right-and-down-left-from-center"></i> ampliar</span>
+                    <div class="tile-full">
+                        <p>Decreto nº 10.889, de 9 de dezembro de 2021 - Dispõe sobre a divulgação da agenda de
+                            compromissos públicos e a participação de agentes públicos, no âmbito do Poder Executivo
+                            federal, em audiências e sobre a concessão de hospitalidades por agente privado, e institui o
+                            Sistema Eletrônico de Agendas do Poder Executivo federal - eAgendas.</p>
                     </div>
-                    <div class="exp-group">
-                        <p class="exp-title">Secretário-Geral</p>
-                        <p class="exp-name">Paulo Morum Xavier</p>
-                    </div>
-                    <div class="exp-group">
-                        <p class="exp-title">Ouvidora</p>
-                        <p class="exp-name">Renata Sousa Cordeiro</p>
-                    </div>
-                </div>
-            </div>
-            <!-- Elaboração -->
-            <div>
-                <p class="sec-label">Elaboração do Relatório</p>
-                <div class="exp-group">
-                    <p class="exp-title">Elaboração</p>
-                    <p class="exp-name">Ouvidoria da ANTAQ</p>
-                </div>
-                <div class="exp-group">
-                    <p class="exp-title">Elaboração Técnica</p>
-                    <p class="exp-name">Alan Campelo de Oliveira Silva</p>
-                    <p class="exp-name">Caio Fábio Alves da Silva</p>
-                    <p class="exp-name">Leandro Lucas da Silva Santos</p>
-                </div>
-                <div class="exp-group" style="border-color:#0070C0;">
-                    <p class="exp-title">Contato</p>
-                    <p class="text-gray-600 text-base leading-relaxed">
-                        SEPN Quadra 514, Conjunto E, Edifício Antaq — CEP 70760-545, Brasília/DF<br />
-                        Tel.: +55 61 2029-6576 · Disque Ouvidoria 0800 644 5001<br />
-                        https://www.gov.br/antaq/pt-br
-                    </p>
-                </div>
+                </button>
             </div>
         </div>
         <!-- Footer -->
         <div class="px-16 pb-8 flex justify-between items-center z-10">
             <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ — 1º Trimestre (Jan–Mar)</p>
-            <p class="text-gray-300 text-xs font-mono">20 / 21</p>
+            <p class="text-gray-300 text-xs font-mono">20 / 23</p>
         </div>
-        <div class="bg-pattern"><i class="fas fa-id-card text-9xl"></i></div>
+        <div class="bg-pattern"><i class="fas fa-scroll text-9xl"></i></div>
     </div>
-    <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay" onclick="closeCard(event)">
+        <div class="overlay-card" role="dialog" aria-modal="true" onclick="event.stopPropagation()">
+            <button class="overlay-close" onclick="closeCard(event)" aria-label="Fechar"><i class="fas fa-xmark"></i></button>
+            <div class="overlay-head">
+                <span class="ov-badge"></span>
+                <span class="ov-titles">
+                    <span class="ov-title block"></span>
+                    <span class="ov-sub block"></span>
+                </span>
+            </div>
+            <div class="overlay-body">
+                <div class="ov-body"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var overlay = document.getElementById('overlay');
+        function openCard(tile) {
+            overlay.querySelector('.ov-badge').innerHTML = tile.dataset.badge || '';
+            overlay.querySelector('.ov-title').textContent = tile.dataset.title || '';
+            overlay.querySelector('.ov-sub').textContent = tile.dataset.sub || '';
+            overlay.querySelector('.ov-body').innerHTML = tile.querySelector('.tile-full').innerHTML;
+            overlay.querySelector('.overlay-body').scrollTop = 0;
+            overlay.classList.add('open');
+        }
+        function closeCard(e) { if (e) e.stopPropagation(); overlay.classList.remove('open'); }
+        document.addEventListener("keydown", function (e) {
+            if (e.key === 'Escape') { if (overlay.classList.contains('open')) { e.preventDefault(); closeCard(); } return; }
+            if (overlay.classList.contains('open')) return;
+            if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) {
+                e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*");
+            }
+        });
+    </script>
 </body>
 
 </html>

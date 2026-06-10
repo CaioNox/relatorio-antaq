@@ -1,299 +1,739 @@
 <!DOCTYPE html>
-
 <html lang="pt-BR">
 
 <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Definições - Relatório Trimestral Ouvidoria ANTAQ</title>
-    <link rel="icon" type="image/png"
-        href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&amp;family=Open+Sans:wght@400;600&amp;display=swap"
-        rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
-    <style>
-        html { font-size: 22px; }
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Carta de Serviços (SOG) - Relatório Trimestral Ouvidoria ANTAQ</title>
+  <link rel="icon" type="image/png"
+    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&amp;family=Open+Sans:wght@400;600&amp;display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    html {
+      font-size: 26px;
+    }
 
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #f3f4f6;
-            overflow: hidden;
-        }
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f3f4f6;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
 
-        .slide-container {
-            width: 100vw;
-            height: 100vh;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            background-color: #ffffff;
-            overflow: hidden;
-            font-family: 'Open Sans', sans-serif;
-        }
+    .slide-container {
+      width: 100vw;
+      min-height: 100vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background-color: #ffffff;
+      overflow: visible;
+      font-family: 'Open Sans', sans-serif;
+    }
 
-        .font-montserrat { font-family: 'Montserrat', sans-serif; }
-        .text-brand-primary { color: #103050; }
-        .text-brand-secondary { color: #0070C0; }
-        .bg-brand-secondary { background-color: #0070C0; }
+    .font-montserrat {
+      font-family: 'Montserrat', sans-serif;
+    }
 
-        .top-accent { height: 8px; background-color: #103050; width: 100%; }
-        .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
+    .text-brand-primary {
+      color: #103050;
+    }
 
-        /* ===== Grade de quadros ===== */
-        .tile-grid { display: grid; grid-template-columns: repeat(2, 1fr); grid-auto-rows: 1fr; gap: 1.3rem; }
+    .text-brand-secondary {
+      color: #0070C0;
+    }
 
-        .tile {
-            position: relative;
-            background: #fff;
-            border: 2px solid #E2E8F0;
-            border-radius: 18px;
-            padding: 1.6rem 1.7rem;
-            cursor: pointer;
-            text-align: left;
-            display: flex;
-            flex-direction: column;
-            gap: .8rem;
-            box-shadow: 0 6px 16px -8px rgba(16, 48, 80, .18);
-            transition: transform .25s cubic-bezier(.2, .7, .3, 1), box-shadow .25s ease, border-color .25s ease;
-            animation: fadeIn .5s ease both;
-            font-family: 'Open Sans', sans-serif;
-        }
+    .bg-brand-secondary {
+      background-color: #0070C0;
+    }
 
-        .tile:nth-child(2) { animation-delay: .08s }
-        .tile:nth-child(3) { animation-delay: .16s }
-        .tile:nth-child(4) { animation-delay: .24s }
+    .top-accent {
+      height: 8px;
+      background-color: #103050;
+      width: 100%;
+    }
 
-        .tile:hover { transform: translateY(-7px); border-color: #0070C0; box-shadow: 0 26px 46px -18px rgba(16, 48, 80, .34); }
-        .tile:focus-visible { outline: 3px solid #0090C0; outline-offset: 3px; }
+    .top-accent-secondary {
+      height: 4px;
+      background-color: #0070C0;
+      width: 100%;
+    }
 
-        .tile-ico {
-            width: 3.3rem; height: 3.3rem; border-radius: 14px;
-            background: linear-gradient(160deg, #103050, #0070C0); color: #fff;
-            display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
-            transition: transform .3s ease;
-        }
-        .tile:hover .tile-ico { transform: scale(1.08) rotate(-6deg); }
+    /* ===== Stat mini ===== */
+    .stat-mini {
+      background: #ffffff;
+      border: 2px solid #E2E8F0;
+      border-radius: 14px;
+      padding: 1rem 1.3rem;
+      box-shadow: 0 8px 20px -8px rgba(16, 48, 80, .18);
+    }
 
-        .tile-name { color: #103050; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.3rem; line-height: 1.12; }
-        .tile-tag { color: #5b7185; font-size: .88rem; line-height: 1.3; }
-        .tile-more { margin-top: auto; color: #0070C0; font-size: .8rem; font-weight: 700; display: inline-flex; align-items: center; gap: .45rem; }
-        .tile:hover .tile-more { color: #0090C0; }
-        .tile-full { display: none; }
+    /* ===== Insight flow banner ===== */
+    .insight-banner {
+      background: linear-gradient(135deg, #f4f9ff 0%, #eaf3fb 100%);
+      border: 2px solid #C0E0F0;
+      border-left: 5px solid #0070C0;
+      border-radius: 16px;
+      padding: 1rem 1.6rem;
+      box-shadow: 0 10px 24px -12px rgba(16, 48, 80, .22);
+    }
 
-        /* ===== Overlay (expande sobrepondo) ===== */
-        .overlay {
-            position: fixed; inset: 0; z-index: 50;
-            display: flex; align-items: center; justify-content: center;
-            padding: 5vh 8vw;
-            background: rgba(16, 48, 80, .5); backdrop-filter: blur(3px);
-            opacity: 0; pointer-events: none; transition: opacity .3s ease;
-        }
-        .overlay.open { opacity: 1; pointer-events: auto; }
+    .flow-row {
+      display: flex;
+      align-items: stretch;
+      gap: .9rem;
+      flex-wrap: nowrap;
+    }
 
-        .overlay-card {
-            position: relative; background: #fff; border-radius: 22px;
-            max-width: 60rem; width: 100%; max-height: 82vh; overflow: hidden;
-            box-shadow: 0 40px 90px -30px rgba(0, 0, 0, .6); border-top: 7px solid #0070C0;
-            transform: scale(.88) translateY(12px); transition: transform .34s cubic-bezier(.2, .7, .3, 1);
-            display: flex; flex-direction: column;
-        }
-        .overlay.open .overlay-card { transform: scale(1) translateY(0); }
+    .flow-stat {
+      display: flex;
+      align-items: center;
+      gap: .8rem;
+      background: #ffffff;
+      border: 2px solid #E2E8F0;
+      border-radius: 12px;
+      padding: .7rem 1rem;
+      flex: 1;
+      transition: transform .28s cubic-bezier(.2, .7, .3, 1), border-color .28s ease, box-shadow .28s ease;
+    }
 
-        .overlay-head { display: flex; align-items: center; gap: 1.2rem; padding: 1.8rem 2.2rem 1.2rem 2.2rem; border-bottom: 1px solid #eef2f7; }
-        .ov-ico { flex-shrink: 0; width: 3.8rem; height: 3.8rem; border-radius: 15px; background: linear-gradient(160deg, #103050, #0070C0); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 1.7rem; }
-        .ov-titles { min-width: 0; }
-        .ov-title { color: #103050; font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.55rem; line-height: 1.1; }
-        .ov-sub { color: #0070C0; font-size: .92rem; font-weight: 600; margin-top: .25rem; }
+    .flow-stat:hover {
+      transform: translateY(-4px);
+      border-color: #0070C0;
+      box-shadow: 0 16px 30px -14px rgba(16, 48, 80, .3);
+    }
 
-        .overlay-body { padding: 1.5rem 2.2rem 2rem 2.2rem; overflow-y: auto; }
-        .ov-body p { color: #37475a; font-size: 1.02rem; line-height: 1.62; }
-        .ov-body p + p { margin-top: .9rem; }
-        .ov-body strong { color: #103050; }
+    .flow-stat .fs-icon {
+      font-size: 1.9rem;
+      color: #0070C0;
+      flex-shrink: 0;
+    }
 
-        .ov-flow { counter-reset: flw; margin-top: 1rem; display: flex; flex-direction: column; gap: .8rem; }
-        .ov-flow li { list-style: none; display: flex; gap: .9rem; align-items: flex-start; }
-        .ov-flow li::before {
-            counter-increment: flw; content: counter(flw);
-            flex-shrink: 0; width: 1.9rem; height: 1.9rem; border-radius: 999px;
-            background: linear-gradient(160deg, #103050, #0070C0); color: #fff;
-            font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .9rem;
-            display: flex; align-items: center; justify-content: center;
-        }
-        .ov-flow li span { color: #37475a; font-size: 1rem; line-height: 1.5; }
+    .flow-stat .fs-num {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 1.7rem;
+      color: #103050;
+      line-height: 1;
+    }
 
-        .ov-pills { display: flex; flex-wrap: wrap; gap: .9rem; margin-top: 1.1rem; }
-        .ov-pill { flex: 1 1 18rem; display: flex; gap: .7rem; align-items: flex-start; background: #EAF3FB; border: 1px solid #C0E0F0; border-radius: 12px; padding: .9rem 1.1rem; }
-        .ov-pill i { color: #0070C0; margin-top: .25rem; }
-        .ov-pill span { color: #103050; font-size: .95rem; line-height: 1.4; }
+    .flow-stat .fs-label {
+      color: #64748B;
+      font-size: .58rem;
+      font-weight: 600;
+      margin-top: .15rem;
+      line-height: 1.2;
+    }
 
-        .overlay-close {
-            position: absolute; top: 1.1rem; right: 1.2rem; width: 2.7rem; height: 2.7rem; border-radius: 999px;
-            border: none; background: #f0f4f8; color: #103050; font-size: 1.2rem; cursor: pointer;
-            display: flex; align-items: center; justify-content: center; transition: background .2s ease, transform .25s ease; z-index: 2;
-        }
-        .overlay-close:hover { background: #0070C0; color: #fff; transform: rotate(90deg); }
+    .flow-connector {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      min-width: 92px;
+    }
 
-        .hint { display: inline-flex; align-items: center; gap: .5rem; color: #0070C0; font-size: .8rem; font-weight: 600; }
+    .flow-connector .fc-verb {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: .52rem;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      color: #0070C0;
+      text-align: center;
+      line-height: 1.15;
+      margin-bottom: .2rem;
+    }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+    .flow-connector .fc-arrow {
+      color: #0070C0;
+      font-size: 1.1rem;
+    }
 
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after { animation: none !important; transition: none !important; }
-        }
+    .insight-tagline {
+      margin-top: .7rem;
+      color: #334155;
+      font-size: .72rem;
+      line-height: 1.4;
+      display: flex;
+      align-items: flex-start;
+      gap: .5rem;
+    }
 
-        .bg-pattern { position: absolute; bottom: -50px; right: -50px; width: 400px; height: 400px; opacity: 0.03; z-index: 0; color: #103050; }
-    </style>
+    .insight-tagline strong {
+      color: #103050;
+    }
+
+    .insight-tagline .it-icon {
+      color: #0070C0;
+      margin-top: .12rem;
+    }
+
+    .svc-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .7rem;
+      background: linear-gradient(135deg, #103050, #0070C0);
+      color: #fff;
+      border-radius: 999px;
+      padding: .5rem 1.3rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      letter-spacing: .04em;
+      box-shadow: 0 10px 24px -10px rgba(16, 48, 80, .5);
+    }
+
+    /* ===== TILE GRID ===== */
+    .tile-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 14px;
+      position: relative;
+    }
+
+    .tile {
+      position: relative;
+      background: #ffffff;
+      border: 2px solid #E2E8F0;
+      border-left: 4px solid #0070C0;
+      border-radius: 14px;
+      padding: 1rem;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      min-height: 110px;
+      box-shadow: 0 4px 12px -4px rgba(16, 48, 80, .12);
+      transition: transform .3s cubic-bezier(.2, .7, .3, 1),
+        box-shadow .3s ease,
+        border-color .3s ease,
+        background-color .3s ease;
+      z-index: 1;
+      animation: tileIn .45s cubic-bezier(.2, .7, .3, 1) both;
+    }
+
+    .tile:nth-child(2) {
+      animation-delay: .04s;
+    }
+
+    .tile:nth-child(3) {
+      animation-delay: .08s;
+    }
+
+    .tile:nth-child(4) {
+      animation-delay: .12s;
+    }
+
+    .tile:nth-child(5) {
+      animation-delay: .16s;
+    }
+
+    .tile:nth-child(6) {
+      animation-delay: .20s;
+    }
+
+    .tile:nth-child(7) {
+      animation-delay: .24s;
+    }
+
+    .tile:nth-child(8) {
+      animation-delay: .28s;
+    }
+
+    .tile:nth-child(9) {
+      animation-delay: .32s;
+    }
+
+    .tile:nth-child(10) {
+      animation-delay: .36s;
+    }
+
+    .tile:nth-child(11) {
+      animation-delay: .40s;
+    }
+
+    .tile:nth-child(12) {
+      animation-delay: .44s;
+    }
+
+    .tile:nth-child(13) {
+      animation-delay: .48s;
+    }
+
+    .tile:nth-child(14) {
+      animation-delay: .52s;
+    }
+
+    .tile:nth-child(15) {
+      animation-delay: .56s;
+    }
+
+    .tile:nth-child(16) {
+      animation-delay: .60s;
+    }
+
+    .tile:nth-child(17) {
+      animation-delay: .64s;
+    }
+
+    .tile:nth-child(18) {
+      animation-delay: .68s;
+    }
+
+    @keyframes tileIn {
+      from {
+        opacity: 0;
+        transform: scale(.85) translateY(12px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    .tile-num {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 1.6rem;
+      color: #0070C0;
+      line-height: 1;
+      transition: transform .3s ease, color .3s ease;
+    }
+
+    .tile-label {
+      font-family: 'Open Sans', sans-serif;
+      font-size: .55rem;
+      font-weight: 600;
+      color: #64748B;
+      line-height: 1.2;
+      margin-top: .4rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      transition: color .3s ease;
+    }
+
+    .tile-expand-icon {
+      position: absolute;
+      top: 8px;
+      right: 10px;
+      font-size: .5rem;
+      color: #CBD5E1;
+      transition: color .3s ease, transform .3s ease;
+    }
+
+    .tile:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 32px -10px rgba(16, 48, 80, .25);
+      border-color: #0070C0;
+    }
+
+    .tile:hover .tile-num {
+      transform: scale(1.08);
+    }
+
+    .tile:hover .tile-expand-icon {
+      color: #0070C0;
+      transform: rotate(90deg);
+    }
+
+    /* ===== EXPANDED STATE ===== */
+    .tile.expanded {
+      position: absolute;
+      z-index: 100;
+      min-height: auto;
+      padding: 1.4rem 1.6rem;
+      background: linear-gradient(160deg, #ffffff 0%, #f0f7ff 100%);
+      border: 2px solid #0070C0;
+      border-left: 5px solid #0070C0;
+      box-shadow: 0 28px 56px -12px rgba(16, 48, 80, .35);
+      transform: none;
+      align-items: flex-start;
+      text-align: left;
+      width: calc(50% - 7px);
+      min-width: 420px;
+      animation: expandPop .35s cubic-bezier(.2, .7, .3, 1) both;
+    }
+
+    @keyframes expandPop {
+      from {
+        opacity: .7;
+        transform: scale(.92);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .tile.expanded .tile-num {
+      font-size: 1.3rem;
+      color: #103050;
+    }
+
+    .tile.expanded .tile-label {
+      -webkit-line-clamp: unset;
+      overflow: visible;
+      font-size: .72rem;
+      color: #103050;
+      font-weight: 700;
+      margin-top: .25rem;
+    }
+
+    .tile.expanded .tile-expand-icon {
+      color: #0070C0;
+      transform: rotate(45deg);
+      font-size: .6rem;
+    }
+
+    .tile-desc {
+      display: none;
+      font-family: 'Open Sans', sans-serif;
+      font-size: .62rem;
+      color: #475569;
+      line-height: 1.45;
+      margin-top: .6rem;
+      padding-top: .6rem;
+      border-top: 1px solid #E2E8F0;
+    }
+
+    .tile.expanded .tile-desc {
+      display: block;
+    }
+
+    .tile-header-row {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+    }
+
+    /* ===== BACKDROP ===== */
+    .tile-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(16, 48, 80, .08);
+      z-index: 50;
+      animation: fadeBackdrop .25s ease both;
+    }
+
+    .tile-backdrop.active {
+      display: block;
+    }
+
+    @keyframes fadeBackdrop {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
 </head>
 
 <body>
-    <div class="slide-container">
-        <div class="top-accent"></div>
-        <div class="top-accent-secondary"></div>
-        <!-- Header -->
-        <div class="flex items-center justify-between px-16 pt-10 pb-3 z-10">
+  <div class="tile-backdrop" id="tileBackdrop"></div>
+  <div class="slide-container">
+    <div class="top-accent"></div>
+    <div class="top-accent-secondary"></div>
+    <!-- Header -->
+    <div class="flex items-center justify-between px-16 pt-12 pb-3 z-10">
+      <div>
+        <div class="flex items-center gap-3 mb-2">
+          <div class="w-1 h-8 bg-brand-secondary"></div>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Carta de Serviços da
+            ANTAQ</p>
+        </div>
+        <p class="text-gray-500 font-medium ml-4 text-lg">Lei nº 13.460/2017</p>
+      </div>
+      <div class="flex items-center gap-2 opacity-80 text-brand-secondary">
+        <i class="fas fa-file-contract text-xl" aria-hidden="true"></i>
+        <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">SERVIÇOS · 1/2</p>
+      </div>
+    </div>
+    <!-- Insight flow banner -->
+    <div class="px-16 pt-1 pb-3 z-10">
+      <div class="insight-banner">
+        <div class="flow-row">
+          <div class="flow-stat">
+            <i class="fas fa-clipboard-list fs-icon"></i>
             <div>
-                <div class="flex items-center gap-3 mb-2">
-                    <div class="w-1 h-8 bg-brand-secondary"></div>
-                    <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Definições
-                    </p>
-                </div>
-                <p class="text-gray-500 font-medium ml-4 text-lg">Conceitos relevantes para a compreensão dos dados
-                    apresentados — <span class="hint"><i class="fas fa-hand-pointer"></i> clique em um quadro para
-                        ampliar</span></p>
+              <p class="fs-num">31 serviços</p>
+              <p class="fs-label">da Carta de Serviços da ANTAQ</p>
             </div>
-            <div class="flex items-center gap-2 opacity-80 text-brand-secondary">
-                <i class="fas fa-circle-info text-xl" aria-hidden="true"></i>
-                <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">CONCEITOS</p>
+          </div>
+          <div class="flow-connector">
+            <span class="fc-verb"><br></span>
+            <i class="fas fa-arrow-right-long fc-arrow"></i>
+          </div>
+          <div class="flow-stat">
+            <i class="fas fa-users fs-icon"></i>
+            <div>
+              <p class="fs-num">145 conselheiros</p>
+              <p class="fs-label">rede de participação social</p>
             </div>
-        </div>
-        <!-- Grade -->
-        <div class="flex-1 px-16 pb-10 pt-3 z-10">
-            <div class="tile-grid h-full">
-                <!-- Fala.BR -->
-                <button class="tile" onclick="openCard(this)" data-title="Fala.BR"
-                    data-sub="Plataforma integrada de ouvidoria e acesso à informação" data-icon="fa-comments">
-                    <span class="tile-ico"><i class="fas fa-comments"></i></span>
-                    <span class="tile-name">Fala.BR</span>
-                    <span class="tile-tag">Plataforma integrada de manifestações</span>
-                    <span class="tile-more"><i class="fas fa-up-right-and-down-left-from-center"></i> ampliar</span>
-                    <div class="tile-full">
-                        <p>Canal integrado para envio de manifestações de ouvidoria ou de acesso a informação a órgãos e
-                            entidades do poder público. A plataforma está disponível em tempo integral e permite a
-                            execução de todas as etapas necessárias para o tratamento das manifestações.</p>
-                    </div>
-                </button>
-                <!-- Fluxo de tratamento -->
-                <button class="tile" onclick="openCard(this)" data-title="Fluxo de tratamento das manifestações"
-                    data-sub="Procedimentos adotados pela Ouvidoria da ANTAQ" data-icon="fa-diagram-project">
-                    <span class="tile-ico"><i class="fas fa-diagram-project"></i></span>
-                    <span class="tile-name">Fluxo de tratamento das manifestações</span>
-                    <span class="tile-tag">Etapas do processamento na Ouvidoria</span>
-                    <span class="tile-more"><i class="fas fa-up-right-and-down-left-from-center"></i> ampliar</span>
-                    <div class="tile-full">
-                        <p>Os atuais procedimentos adotados pela Ouvidoria da Antaq pode ser resumidos como segue:</p>
-                        <ul class="ov-flow">
-                            <li><span>Faz-se a primeira análise do conteúdo das manifestações: algumas são arquivadas ou
-                                    encaminhadas aos órgãos competentes e as restantes são avaliadas quanto à propriedade
-                                    de ouvidora;</span></li>
-                            <li><span>As manifestações próprias de ouvidoria são distribuídas à equipe de tratamento e as
-                                    não próprias de ouvidoria são respondidas imediatamente com a indicação dos canais de
-                                    atendimento adequados para o envio da demanda;</span></li>
-                            <li><span>Grande parte das manifestações próprias de ouvidoria são tramitadas às áreas
-                                    técnicas responsável pelo assunto ou serviço abordado; e</span></li>
-                            <li><span>Finalmente, a resposta conclusiva é consolidada e enviada pelo Fala.BR ao
-                                    usuário.</span></li>
-                        </ul>
-                    </div>
-                </button>
-                <!-- LAI -->
-                <button class="tile" onclick="openCard(this)"
-                    data-title="LAI — Lei de Acesso à Informação"
-                    data-sub="Lei nº 12.527/2011" data-icon="fa-scale-balanced">
-                    <span class="tile-ico"><i class="fas fa-scale-balanced"></i></span>
-                    <span class="tile-name">LAI — Lei de Acesso à Informação</span>
-                    <span class="tile-tag">Lei nº 12.527/2011 · transparência como regra</span>
-                    <span class="tile-more"><i class="fas fa-up-right-and-down-left-from-center"></i> ampliar</span>
-                    <div class="tile-full">
-                        <p>É o instrumento legal que garante o direito constitucional do cidadão de acessar informações
-                            públicas custodiadas por órgãos e entidades do Estado. A LAI estabelece a transparência
-                            pública como regra e o sigilo como exceção. Ela se divide em:</p>
-                        <div class="ov-pills">
-                            <span class="ov-pill"><i class="fas fa-bullhorn"></i><span><strong>Transparência
-                                        Ativa:</strong> Informações que o órgão deve divulgar por iniciativa própria
-                                    (sites, painéis).</span></span>
-                            <span class="ov-pill"><i class="fas fa-hand-holding"></i><span><strong>Transparência
-                                        Passiva:</strong> Informações disponibilizadas apenas mediante solicitação
-                                    específica do cidadão (pedidos via sistema Fala.BR).</span></span>
-                        </div>
-                    </div>
-                </button>
-                <!-- Dados Abertos -->
-                <button class="tile" onclick="openCard(this)" data-title="Dados Abertos"
-                    data-sub="Dados públicos legíveis por máquina, livres para reúso" data-icon="fa-database">
-                    <span class="tile-ico"><i class="fas fa-database"></i></span>
-                    <span class="tile-name">Dados Abertos</span>
-                    <span class="tile-tag">Dados públicos legíveis por máquina (CSV, JSON, XML)</span>
-                    <span class="tile-more"><i class="fas fa-up-right-and-down-left-from-center"></i> ampliar</span>
-                    <div class="tile-full">
-                        <p>São dados públicos formatados de maneira que possam ser livremente acessados, utilizados,
-                            modificados e compartilhados por qualquer pessoa. Para serem considerados "abertos", eles
-                            devem estar disponíveis em formatos digitais legíveis por máquina (como CSV, JSON ou XML) e
-                            não estarem sujeitos a restrições de patentes ou direitos autorais, permitindo o cruzamento
-                            de informações e o desenvolvimento de novas ferramentas pela sociedade civil.</p>
-                    </div>
-                </button>
+          </div>
+          <div class="flow-connector">
+            <i class="fas fa-arrow-right-long fc-arrow"></i>
+          </div>
+          <div class="flow-stat">
+            <i class="fas fa-arrows-rotate fs-icon"></i>
+            <div>
+              <p class="fs-num">2025–2028</p>
+              <p class="fs-label">ao longo de todo o quadriênio</p>
             </div>
+          </div>
         </div>
-        <!-- Footer -->
-        <div class="px-16 pb-8 flex justify-between items-center z-10">
-            <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ — 1º Trimestre (Jan–Mar)</p>
-            <p class="text-gray-300 text-xs font-mono">15 / 21</p>
-        </div>
-        <div class="bg-pattern"><i class="fas fa-circle-info text-9xl"></i></div>
+        <p class="insight-tagline">
+          <i class="fas fa-circle-info it-icon"></i>
+          <span>Os <strong>31 serviços</strong> são submetidos à leitura e avaliação <strong>contínua dos 145
+              conselheiros</strong>,
+            de forma ininterrupta <strong>ao longo do quadriênio 2025–2028</strong> — assegurando o monitoramento
+            permanente da
+            Carta e a melhoria contínua do atendimento ao cidadão.</span>
+        </p>
+      </div>
     </div>
+    <!-- SOG badge -->
+    <div class="px-16 pb-3 z-10"><span class="svc-badge"><i class="fas fa-stamp"></i> SOG — Superintendência de Outorgas
+        · 18 serviços</span></div>
+    <!-- SOG tile grid -->
+    <div class="flex-1 px-16 pb-6 z-10" style="position:relative;">
+      <div class="tile-grid" id="tileGrid">
 
-    <!-- Overlay -->
-    <div class="overlay" id="overlay" onclick="closeCard(event)">
-        <div class="overlay-card" role="dialog" aria-modal="true" onclick="event.stopPropagation()">
-            <button class="overlay-close" onclick="closeCard(event)" aria-label="Fechar"><i class="fas fa-xmark"></i></button>
-            <div class="overlay-head">
-                <span class="ov-ico"><i class="fas fa-circle-info"></i></span>
-                <span class="ov-titles">
-                    <span class="ov-title block"></span>
-                    <span class="ov-sub block"></span>
-                </span>
-            </div>
-            <div class="overlay-body">
-                <div class="ov-body"></div>
-            </div>
+        <div class="tile" data-idx="0" onclick="toggleTile(this)">
+          <i class="fas fa-plus tile-expand-icon"></i>
+          <div class="tile-header-row"><span class="tile-num">01</span></div>
+          <span class="tile-label">Afretamento de embarcações estrangeiras</span>
+          <div class="tile-desc">Autorização e registro para afretamento de embarcações estrangeiras por empresas
+            brasileiras de navegação.</div>
         </div>
-    </div>
 
-    <script>
-        var overlay = document.getElementById('overlay');
-        function openCard(tile) {
-            overlay.querySelector('.ov-ico').innerHTML = '<i class="fas ' + (tile.dataset.icon || 'fa-circle-info') + '"></i>';
-            overlay.querySelector('.ov-title').textContent = tile.dataset.title || '';
-            overlay.querySelector('.ov-sub').textContent = tile.dataset.sub || '';
-            overlay.querySelector('.ov-body').innerHTML = tile.querySelector('.tile-full').innerHTML;
-            overlay.querySelector('.overlay-body').scrollTop = 0;
-            overlay.classList.add('open');
-        }
-        function closeCard(e) { if (e) e.stopPropagation(); overlay.classList.remove('open'); }
-        document.addEventListener("keydown", function (e) {
-            if (e.key === 'Escape') { if (overlay.classList.contains('open')) { e.preventDefault(); closeCard(); } return; }
-            if (overlay.classList.contains('open')) return;
-            if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) {
-                e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*");
-            }
-        });
-    </script>
+        <div class="tile" data-idx="1" onclick="toggleTile(this)">
+          <i class="fas fa-plus tile-expand-icon"></i>
+          <div class="tile-header-row"><span class="tile-num">02</span></div>
+          <span class="tile-label">Afretamento de embarcações brasileiras</span>
+          <div class="tile-desc">Registro de afretamento de embarcações brasileiras para operações de navegação
+            doméstica e internacional.</div>
+        </div>
+
+        <div class="tile" data-idx="2" onclick="toggleTile(this)">
+          <i class="fas fa-plus tile-expand-icon"></i>
+          <div class="tile-header-row"><span class="tile-num">03</span></div>
+          <span class="tile-label">Alteração de frota</span>
+          <div class="tile-desc">Registro de alteração de frota de empresas brasileiras de navegação junto à ANTAQ.
+          </div>
+        </div>
+
+        <div class="tile" data-idx="3" onclick="toggleTile(this)">
+          <i class="fas fa-plus tile-expand-icon"></i>
+          <div class="tile-header-row"><span class="tile-num">04</span></div>
+          <span class="tile-label">Situação cadastral de empresa</span>
+          <div class="tile-desc">Alteração de situação cadastral de empresa brasileira de navegação — ativação,
+            suspensão ou cancelamento.</div>
+        </div>
+
+        <div class="tile" data-idx="4" onclick="toggleTile(this)">
+          <i class="fas fa-plus tile-expand-icon"></i>
+          <div class="tile-header-row"><span class="tile-num">05</span></div>
+          <span class="tile-label">Instalação portuária privada</span>
+          <div class="tile-desc">Autorização para instalação portuária privada fora do Porto Organizado (Terminais de
+            Uso Privado — TUPs).</div>
+        </div>
+
+        <div class="tile" data-idx="5" onclick="toggleTile(this)">
+          <i class="fas fa-plus tile-expand-icon"></i>
+          <div class="tile-header-row"><span class="tile-num">06</span></div>
+          <span class="tile-label">Autorização marítima e cabotagem</span>
+          <div class="tile-desc">Autorização, aditamento e renúncia — marítima, apoio, cabotagem e longo curso.</div>
+        </div>
+
+        <div class="tile" data-idx="6" onclick="toggleTile(this)">
+          <i class="fas fa-plus tile-expand-icon"></i>
+          <div class="tile-header-row"><span class="tile-num">07</span></div>
+          <span class="tile-label">Cargas — nav. interior longitudinal</span>
+          <div class="tile-desc">Transporte de cargas — navegação interior longitudinal interestadual e internacional.
+          </div>
+        </div>
+
+        <div class="tile" data-idx="7" onclick="toggleTile(this)">
+          <i class="fas fa-plus tile-expand-icon"></i>
+          <div class="tile-header-row"><span class="tile-num">08</span></div>
+          <span class="tile-label">Nav. interior de travessia</span>
+          <div class="tile-desc">Passageiros, veículos e cargas — navegação interior de travessia entre margens de rios
+            e lagos.</div>
+        </div>
+
+        <div class="tile" data-idx="8" onclick="toggleTile(this)">
+          <i class="fas fa-plus tile-expand-icon"></i>
+          <div class="tile-header-row"><span class="tile-num">09</span></div>
+          <span class="tile-label">Transporte misto — nav. interior</span>
+          <div class="tile-desc">Transporte misto e de passageiros — navegação interior longitudinal em águas
+            interiores.</div>
+        </div>
+
+        <div class="tile" data-idx="9" onclick="toggleTile(this)">
+          <i class="fas fa-plus tile-expand-icon"></i>
+          <div class="tile-header-row"><span class="tile-num">10</span></div>
+          <span class="tile-label">Ampliação de área portuária</span>
+          <div class="tile-desc">Ampliação de área de instalação portuária privada fora do Porto Organizado.</div>
+        </div>
+
+        <div class="tile" data-idx="10" onclick="toggleTile(this)">
+          <i class="fas fa-plus tile-expand-icon"></i>
+          <div class="tile-header-row"><span class="tile-num">11</span></div>
+          <span class="tile-label">Instalação de apoio</span>
+          <div class="tile-desc">Registro de instalação de apoio não passível de autorização pela agência.</div>
+        </div>
+
+        <div class="tile" data-idx="11" onclick="toggleTile(this)">
+          <i class="fas fa-plus tile-expand-icon"></i>
+          <div class="tile-header-row"><span class="tile-num">12</span></div>
+          <span class="tile-label">Tonelagem — inscrição no REB</span>
+          <div class="tile-desc">Análise de tonelagem para inscrição no Registro Especial Brasileiro (REB).</div>
+        </div>
+
+        <div class="tile" data-idx="12" onclick="toggleTile(this)">
+          <i class="fas fa-plus tile-expand-icon"></i>
+          <div class="tile-header-row"><span class="tile-num">13</span></div>
+          <span class="tile-label">Sistema Mercante (RFB)</span>
+          <div class="tile-desc">Atualização de dados para o Sistema Mercante da Receita Federal do Brasil.</div>
+        </div>
+
+        <div class="tile" data-idx="13" onclick="toggleTile(this)">
+          <i class="fas fa-plus tile-expand-icon"></i>
+          <div class="tile-header-row"><span class="tile-num">14</span></div>
+          <span class="tile-label">Acordo Operacional</span>
+          <div class="tile-desc">Homologação de Acordo Operacional para navegação marítima ou interior entre empresas.
+          </div>
+        </div>
+
+        <div class="tile" data-idx="14" onclick="toggleTile(this)">
+          <i class="fas fa-plus tile-expand-icon"></i>
+          <div class="tile-header-row"><span class="tile-num">15</span></div>
+          <span class="tile-label">Operação emergencial/especial</span>
+          <div class="tile-desc">Autorização para operação emergencial e operação especial de navegação.</div>
+        </div>
+
+        <div class="tile" data-idx="15" onclick="toggleTile(this)">
+          <i class="fas fa-plus tile-expand-icon"></i>
+          <div class="tile-header-row"><span class="tile-num">16</span></div>
+          <span class="tile-label">Contrato de Transição / Uso Temp.</span>
+          <div class="tile-desc">Autorização para Contrato de Transição ou Uso Temporário de instalações portuárias.
+          </div>
+        </div>
+
+        <div class="tile" data-idx="16" onclick="toggleTile(this)">
+          <i class="fas fa-plus tile-expand-icon"></i>
+          <div class="tile-header-row"><span class="tile-num">17</span></div>
+          <span class="tile-label">Projetos Executivos</span>
+          <div class="tile-desc">Análise de Projetos Executivos de Concessões e Arrendamentos portuários.</div>
+        </div>
+
+        <div class="tile" data-idx="17" onclick="toggleTile(this)">
+          <i class="fas fa-plus tile-expand-icon"></i>
+          <div class="tile-header-row"><span class="tile-num">18</span></div>
+          <span class="tile-label">Equilíbrio econômico-financeiro</span>
+          <div class="tile-desc">Recomposição do equilíbrio econômico-financeiro de Arrendamentos e EVTEA.</div>
+        </div>
+
+      </div>
+    </div>
+    <!-- Footer -->
+    <div class="px-16 pb-8 flex justify-between items-center z-10">
+      <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ — 1º Trimestre (Jan–Mar)</p>
+      <p class="text-gray-300 text-xs font-mono">15 / 23</p>
+    </div>
+  </div>
+
+  <script>
+    let expandedTile = null;
+    const backdrop = document.getElementById('tileBackdrop');
+    const grid = document.getElementById('tileGrid');
+
+    function toggleTile(tile) {
+      if (tile.classList.contains('expanded')) {
+        collapseTile(tile);
+      } else {
+        if (expandedTile) collapseTile(expandedTile);
+        expandTile(tile);
+      }
+    }
+
+    function expandTile(tile) {
+      const gridRect = grid.getBoundingClientRect();
+      const tileRect = tile.getBoundingClientRect();
+
+      // Save original position
+      tile._origTop = tileRect.top - gridRect.top;
+      tile._origLeft = tileRect.left - gridRect.left;
+      tile._origWidth = tileRect.width;
+      tile._origHeight = tileRect.height;
+
+      // Calculate position — keep near original but ensure it stays in view
+      let top = tile._origTop;
+      let left = tile._origLeft;
+
+      // If on right side of grid, expand leftward
+      if (left + 420 > gridRect.width) {
+        left = gridRect.width - Math.min(gridRect.width * 0.5, 480);
+      }
+
+      tile.style.top = top + 'px';
+      tile.style.left = left + 'px';
+      tile.classList.add('expanded');
+      backdrop.classList.add('active');
+      expandedTile = tile;
+    }
+
+    function collapseTile(tile) {
+      tile.classList.remove('expanded');
+      tile.style.top = '';
+      tile.style.left = '';
+      backdrop.classList.remove('active');
+      expandedTile = null;
+    }
+
+    backdrop.addEventListener('click', function () {
+      if (expandedTile) collapseTile(expandedTile);
+    });
+
+    // Keyboard nav for slide system
+    document.addEventListener("keydown", function (e) {
+      if (expandedTile && e.key === "Escape") {
+        collapseTile(expandedTile);
+        e.preventDefault();
+        return;
+      }
+      if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) {
+        e.preventDefault();
+        window.parent.postMessage({ type: "slide-nav", key: e.key }, "*");
+      }
+    });
+  </script>
 </body>
 
 </html>

@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <title>Carta de Serviços (SOG) - Relatório Trimestral Ouvidoria ANTAQ</title>
+  <title>Transparência Ativa e Dados Abertos - Relatório Trimestral Ouvidoria ANTAQ</title>
   <link rel="icon" type="image/png"
     href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
@@ -21,18 +22,17 @@
       margin: 0;
       padding: 0;
       background-color: #f3f4f6;
-      overflow-x: hidden;
-      overflow-y: auto;
+      overflow: hidden;
     }
 
     .slide-container {
       width: 100vw;
-      min-height: 100vh;
+      height: 100vh;
       position: relative;
       display: flex;
       flex-direction: column;
       background-color: #ffffff;
-      overflow: visible;
+      overflow: hidden;
       font-family: 'Open Sans', sans-serif;
     }
 
@@ -64,13 +64,206 @@
       width: 100%;
     }
 
-    /* ===== Stat mini ===== */
+    /* ===== Interatividade ===== */
+    .chart-card,
+    .canal-card,
+    .period-chip,
+    .video-frame,
+    .kpi-card,
+    .glossary-card,
+    .exp-group {
+      transition: transform .28s cubic-bezier(.2, .7, .3, 1), box-shadow .28s ease, border-color .28s ease, background-color .28s ease;
+    }
+
+    .chart-card:hover,
+    .canal-card:hover,
+    .period-chip:hover,
+    .video-frame:hover {
+      transform: translateY(-7px);
+      box-shadow: 0 22px 42px -12px rgba(16, 48, 80, .30);
+      border-color: #0070C0;
+    }
+
+    .glossary-card:hover {
+      transform: translateY(-7px);
+      border-color: #0070C0;
+      box-shadow: 0 22px 42px -12px rgba(0, 112, 192, .32);
+    }
+
+    .glossary-icon {
+      transition: transform .3s ease;
+    }
+
+    .glossary-card:hover .glossary-icon {
+      transform: scale(1.12) rotate(-6deg);
+    }
+
+    .kpi-card:hover {
+      transform: translateY(-9px) scale(1.018);
+      box-shadow: 0 30px 58px -16px rgba(16, 48, 80, .6);
+    }
+
+    .kpi-watermark {
+      transition: transform .4s ease, opacity .4s ease;
+    }
+
+    .kpi-card:hover .kpi-watermark {
+      transform: scale(1.12);
+      opacity: .2;
+    }
+
+    .exp-group:hover {
+      transform: translateX(5px);
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    .chart-card,
+    .kpi-card,
+    .glossary-card,
+    .canal-card,
+    .period-chip {
+      animation: fadeIn .5s ease both;
+    }
+
+    .chart-card:nth-child(2),
+    .kpi-card:nth-child(2),
+    .glossary-card:nth-child(2),
+    .canal-card:nth-child(2),
+    .period-chip:nth-child(2) {
+      animation-delay: .09s;
+    }
+
+    .chart-card:nth-child(3),
+    .kpi-card:nth-child(3),
+    .glossary-card:nth-child(3),
+    .canal-card:nth-child(3),
+    .period-chip:nth-child(3) {
+      animation-delay: .18s;
+    }
+
+    .glossary-card:nth-child(4) {
+      animation-delay: .27s;
+    }
+
+    .glossary-card:nth-child(5) {
+      animation-delay: .36s;
+    }
+
+    .glossary-card:nth-child(6) {
+      animation-delay: .45s;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+
+    .chart-card {
+      background-color: #ffffff;
+      border: 2px solid #E2E8F0;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px -8px rgba(16, 48, 80, 0.18);
+      padding: 1.4rem 1.6rem;
+    }
+
+    .legend-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+      display: inline-block;
+    }
+
+    /* ===== Componentes adicionais (mesma identidade visual) ===== */
+    .rank-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .rank-label {
+      font-family: 'Open Sans', sans-serif;
+      font-size: .9rem;
+      color: #103050;
+      font-weight: 600;
+      width: 19rem;
+      flex-shrink: 0;
+      line-height: 1.15;
+    }
+
+    .rank-track {
+      flex: 1;
+      height: 30px;
+      background: #eef2f7;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .rank-fill {
+      height: 100%;
+      border-radius: 8px;
+      background: linear-gradient(90deg, #0070C0, #0090C0);
+    }
+
+    .rank-val {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      color: #103050;
+      font-size: 1.05rem;
+      width: 3.2rem;
+      text-align: right;
+      flex-shrink: 0;
+    }
+
     .stat-mini {
       background: #ffffff;
       border: 2px solid #E2E8F0;
       border-radius: 14px;
       padding: 1rem 1.3rem;
       box-shadow: 0 8px 20px -8px rgba(16, 48, 80, .18);
+    }
+
+    .base-chip {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      background: #f8fafc;
+      border: 1px solid #E2E8F0;
+      border-radius: 10px;
+      padding: .5rem .75rem;
+      transition: all .25s ease;
+    }
+
+    .base-chip:hover {
+      border-color: #0070C0;
+      background: #eef6fc;
+      transform: translateX(4px);
+    }
+
+    .base-chip i {
+      color: #0070C0;
+      font-size: .8rem;
+    }
+
+    .base-chip span {
+      font-family: 'Open Sans', sans-serif;
+      font-size: .78rem;
+      color: #103050;
+      font-weight: 600;
+      line-height: 1.1;
     }
 
     .svc-badge {
@@ -87,529 +280,181 @@
       box-shadow: 0 10px 24px -10px rgba(16, 48, 80, .5);
     }
 
-    /* ===== TILE GRID ===== */
-    .tile-grid {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 14px;
-      position: relative;
-    }
-
-    .tile {
-      position: relative;
-      background: #ffffff;
+    .svc-card {
+      background: #fff;
       border: 2px solid #E2E8F0;
-      border-left: 4px solid #0070C0;
-      border-radius: 14px;
-      padding: 1rem;
-      cursor: pointer;
+      border-left: 5px solid #0070C0;
+      border-radius: 12px;
+      padding: .8rem 1rem;
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      min-height: 110px;
-      box-shadow: 0 4px 12px -4px rgba(16, 48, 80, .12);
-      transition: transform .3s cubic-bezier(.2, .7, .3, 1),
-        box-shadow .3s ease,
-        border-color .3s ease,
-        background-color .3s ease;
-      z-index: 1;
-      animation: tileIn .45s cubic-bezier(.2, .7, .3, 1) both;
+      gap: .8rem;
+      align-items: flex-start;
+      box-shadow: 0 6px 16px -8px rgba(16, 48, 80, .18);
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
     }
 
-    .tile:nth-child(2) {
-      animation-delay: .04s;
+    .svc-card:hover {
+      transform: translateY(-5px);
+      border-color: #0090C0;
+      box-shadow: 0 18px 34px -14px rgba(16, 48, 80, .32);
     }
 
-    .tile:nth-child(3) {
-      animation-delay: .08s;
-    }
-
-    .tile:nth-child(4) {
-      animation-delay: .12s;
-    }
-
-    .tile:nth-child(5) {
-      animation-delay: .16s;
-    }
-
-    .tile:nth-child(6) {
-      animation-delay: .20s;
-    }
-
-    .tile:nth-child(7) {
-      animation-delay: .24s;
-    }
-
-    .tile:nth-child(8) {
-      animation-delay: .28s;
-    }
-
-    .tile:nth-child(9) {
-      animation-delay: .32s;
-    }
-
-    .tile:nth-child(10) {
-      animation-delay: .36s;
-    }
-
-    .tile:nth-child(11) {
-      animation-delay: .40s;
-    }
-
-    .tile:nth-child(12) {
-      animation-delay: .44s;
-    }
-
-    .tile:nth-child(13) {
-      animation-delay: .48s;
-    }
-
-    .tile:nth-child(14) {
-      animation-delay: .52s;
-    }
-
-    .tile:nth-child(15) {
-      animation-delay: .56s;
-    }
-
-    .tile:nth-child(16) {
-      animation-delay: .60s;
-    }
-
-    .tile:nth-child(17) {
-      animation-delay: .64s;
-    }
-
-    .tile:nth-child(18) {
-      animation-delay: .68s;
-    }
-
-    @keyframes tileIn {
-      from {
-        opacity: 0;
-        transform: scale(.85) translateY(12px);
-      }
-
-      to {
-        opacity: 1;
-        transform: none;
-      }
-    }
-
-    .tile-num {
+    .svc-num {
       font-family: 'Montserrat', sans-serif;
       font-weight: 900;
-      font-size: 1.6rem;
-      color: #0070C0;
-      line-height: 1;
-      transition: transform .3s ease, color .3s ease;
-    }
-
-    .tile-label {
-      font-family: 'Open Sans', sans-serif;
-      font-size: .55rem;
-      font-weight: 600;
-      color: #64748B;
-      line-height: 1.2;
-      margin-top: .4rem;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      transition: color .3s ease;
-    }
-
-    .tile-expand-icon {
-      position: absolute;
-      top: 8px;
-      right: 10px;
-      font-size: .5rem;
-      color: #CBD5E1;
-      transition: color .3s ease, transform .3s ease;
-    }
-
-    .tile:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 16px 32px -10px rgba(16, 48, 80, .25);
-      border-color: #0070C0;
-    }
-
-    .tile:hover .tile-num {
-      transform: scale(1.08);
-    }
-
-    .tile:hover .tile-expand-icon {
-      color: #0070C0;
-      transform: rotate(90deg);
-    }
-
-    /* ===== EXPANDED STATE ===== */
-    .tile.expanded {
-      position: absolute;
-      z-index: 100;
-      min-height: auto;
-      padding: 1.4rem 1.6rem;
-      background: linear-gradient(160deg, #ffffff 0%, #f0f7ff 100%);
-      border: 2px solid #0070C0;
-      border-left: 5px solid #0070C0;
-      box-shadow: 0 28px 56px -12px rgba(16, 48, 80, .35);
-      transform: none;
-      align-items: flex-start;
-      text-align: left;
-      width: calc(50% - 7px);
-      min-width: 420px;
-      animation: expandPop .35s cubic-bezier(.2, .7, .3, 1) both;
-    }
-
-    @keyframes expandPop {
-      from {
-        opacity: .7;
-        transform: scale(.92);
-      }
-
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-
-    .tile.expanded .tile-num {
+      color: #0090C0;
       font-size: 1.3rem;
-      color: #103050;
+      line-height: 1;
+      flex-shrink: 0;
+      min-width: 1.7rem;
     }
 
-    .tile.expanded .tile-label {
-      -webkit-line-clamp: unset;
-      overflow: visible;
-      font-size: .72rem;
-      color: #103050;
-      font-weight: 700;
-      margin-top: .25rem;
-    }
-
-    .tile.expanded .tile-expand-icon {
-      color: #0070C0;
-      transform: rotate(45deg);
-      font-size: .6rem;
-    }
-
-    .tile-desc {
-      display: none;
+    .svc-text {
       font-family: 'Open Sans', sans-serif;
-      font-size: .62rem;
-      color: #475569;
-      line-height: 1.45;
-      margin-top: .6rem;
-      padding-top: .6rem;
-      border-top: 1px solid #E2E8F0;
+      font-size: .78rem;
+      color: #103050;
+      font-weight: 600;
+      line-height: 1.18;
     }
 
-    .tile.expanded .tile-desc {
-      display: block;
-    }
-
-    .tile-header-row {
+    .kpi-card {
+      border-radius: 20px;
+      padding: 2.2rem 1.6rem;
+      position: relative;
+      overflow: hidden;
       display: flex;
-      align-items: center;
-      gap: .6rem;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 420px;
+      box-shadow: 0 18px 40px -12px rgba(16, 48, 80, 0.45);
     }
 
-    /* ===== BACKDROP ===== */
-    .tile-backdrop {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(16, 48, 80, .08);
-      z-index: 50;
-      animation: fadeBackdrop .25s ease both;
+    .kpi-primary {
+      background: linear-gradient(160deg, #103050 0%, #0070C0 100%);
     }
 
-    .tile-backdrop.active {
-      display: block;
+    .kpi-soft {
+      background: linear-gradient(160deg, #0e3a66 0%, #11598f 100%);
     }
 
-    @keyframes fadeBackdrop {
-      from {
-        opacity: 0;
-      }
-
-      to {
-        opacity: 1;
-      }
+    .kpi-num {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      line-height: 1;
+      color: #ffffff;
+      text-align: center;
     }
 
-    @media (prefers-reduced-motion: reduce) {
-
-      *,
-      *::before,
-      *::after {
-        animation: none !important;
-        transition: none !important;
-      }
+    .kpi-watermark {
+      position: absolute;
+      right: -10px;
+      bottom: -20px;
+      font-size: 9rem;
+      opacity: 0.12;
+      color: #ffffff;
     }
-  </style>
+
+    .bg-pattern {
+      position: absolute;
+      bottom: -50px;
+      right: -50px;
+      width: 400px;
+      height: 400px;
+      opacity: 0.03;
+      z-index: 0;
+      color: #103050;
+    }
+    </style>
 </head>
 
 <body>
-  <div class="tile-backdrop" id="tileBackdrop"></div>
   <div class="slide-container">
     <div class="top-accent"></div>
     <div class="top-accent-secondary"></div>
     <!-- Header -->
-    <div class="flex items-center justify-between px-16 pt-12 pb-3 z-10">
+    <div class="flex items-center justify-between px-16 pt-12 pb-4 z-10">
       <div>
         <div class="flex items-center gap-3 mb-2">
           <div class="w-1 h-8 bg-brand-secondary"></div>
-          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Carta de Serviços da
-            ANTAQ</p>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Transparência Ativa
+            &amp; Dados Abertos</p>
         </div>
-        <p class="text-gray-500 font-medium ml-4 text-lg">Lei nº 13.460/2017</p>
+        <p class="text-gray-500 font-medium ml-4 text-lg"> 1º trimestre de 2026</p>
       </div>
       <div class="flex items-center gap-2 opacity-80 text-brand-secondary">
-        <i class="fas fa-file-contract text-xl" aria-hidden="true"></i>
-        <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">SERVIÇOS · 1/2</p>
+        <i class="fas fa-database text-xl" aria-hidden="true"></i>
+        <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">LAI · DADOS ABERTOS</p>
       </div>
     </div>
-    <!-- Info banner -->
-    <div class="grid grid-cols-3 gap-5 px-16 pt-1 pb-3 z-10">
-      <div class="stat-mini flex items-center gap-4"><i class="fas fa-clipboard-list text-3xl text-brand-secondary"></i>
-        <div>
-          <p class="font-montserrat font-black text-3xl text-brand-primary leading-none">31 serviços</p>
-          <p class="text-gray-500 text-sm mt-1">monitorados pela Ouvidoria</p>
+    <!-- Main -->
+    <div class="flex-1 grid grid-cols-3 gap-8 px-16 pb-8 z-10">
+      <!-- Transparência Ativa -->
+      <div class="col-span-1 flex flex-col gap-6">
+        <div class="kpi-card kpi-primary" style="min-height:0;flex:1;">
+          <div>
+            <p class="text-blue-100 font-montserrat font-bold text-sm uppercase tracking-widest mb-2">Itens cumpridos
+            </p>
+            <p class="kpi-num text-8xl">100%</p>
+          </div>
+          <p class="text-blue-100 text-base leading-relaxed relative z-10">Nota máxima no ranking de transparência ativa
+            do Painel LAI.</p>
+          <i class="fas fa-ranking-star kpi-watermark"></i>
+        </div>
+        <div class="kpi-card kpi-soft" style="min-height:0;flex:1;">
+          <div>
+            <p class="text-blue-100 font-montserrat font-bold text-sm uppercase tracking-widest mb-2">Quesitos avaliados
+            </p>
+            <p class="kpi-num text-8xl">49/49</p>
+          </div>
+          <p class="text-blue-100 text-base leading-relaxed relative z-10">Todos os quesitos do Painel LAI atendidos
+            integralmente.</p>
+          <i class="fas fa-list-check kpi-watermark"></i>
         </div>
       </div>
-      <div class="stat-mini flex items-center gap-4"><i class="fas fa-users text-3xl text-brand-secondary"></i>
-        <div>
-          <p class="font-montserrat font-black text-3xl text-brand-primary leading-none">145 conselheiros</p>
-          <p class="text-gray-500 text-sm mt-1">na rede de participação social</p>
-        </div>
-      </div>
-      <div class="stat-mini flex items-center gap-4"><i class="fas fa-poll text-3xl text-brand-secondary"></i>
-        <div>
-          <p class="font-montserrat font-black text-3xl text-brand-primary leading-none">Ciclo 2025–2028</p>
-          <p class="text-gray-500 text-sm mt-1">novo quadriênio de enquetes</p>
-        </div>
-      </div>
-    </div>
-    <!-- SOG badge -->
-    <div class="px-16 pb-3 z-10"><span class="svc-badge"><i class="fas fa-stamp"></i> SOG — Superintendência de Outorgas
-        · 18 serviços</span></div>
-    <!-- SOG tile grid -->
-    <div class="flex-1 px-16 pb-6 z-10" style="position:relative;">
-      <div class="tile-grid" id="tileGrid">
-
-        <div class="tile" data-idx="0" onclick="toggleTile(this)">
-          <i class="fas fa-plus tile-expand-icon"></i>
-          <div class="tile-header-row"><span class="tile-num">01</span></div>
-          <span class="tile-label">Afretamento de embarcações estrangeiras</span>
-          <div class="tile-desc">Autorização e registro para afretamento de embarcações estrangeiras por empresas
-            brasileiras de navegação.</div>
-        </div>
-
-        <div class="tile" data-idx="1" onclick="toggleTile(this)">
-          <i class="fas fa-plus tile-expand-icon"></i>
-          <div class="tile-header-row"><span class="tile-num">02</span></div>
-          <span class="tile-label">Afretamento de embarcações brasileiras</span>
-          <div class="tile-desc">Registro de afretamento de embarcações brasileiras para operações de navegação
-            doméstica e internacional.</div>
-        </div>
-
-        <div class="tile" data-idx="2" onclick="toggleTile(this)">
-          <i class="fas fa-plus tile-expand-icon"></i>
-          <div class="tile-header-row"><span class="tile-num">03</span></div>
-          <span class="tile-label">Alteração de frota</span>
-          <div class="tile-desc">Registro de alteração de frota de empresas brasileiras de navegação junto à ANTAQ.
+      <!-- Dados Abertos -->
+      <div class="col-span-2 chart-card flex flex-col">
+        <div class="flex items-center justify-between mb-1">
+          <p class="text-brand-primary font-montserrat font-bold text-xl flex items-center gap-2"><i
+              class="fas fa-database text-brand-secondary"></i> Plano de Dados Abertos</p>
+          <div class="flex items-center gap-5">
+            <span class="font-montserrat font-black text-brand-secondary text-3xl">18 <span
+                class="text-gray-500 text-sm font-semibold">bases</span></span>
+            <span class="font-montserrat font-black text-brand-primary text-3xl">+8 <span
+                class="text-gray-500 text-sm font-semibold">previstas</span></span>
           </div>
         </div>
-
-        <div class="tile" data-idx="3" onclick="toggleTile(this)">
-          <i class="fas fa-plus tile-expand-icon"></i>
-          <div class="tile-header-row"><span class="tile-num">04</span></div>
-          <span class="tile-label">Situação cadastral de empresa</span>
-          <div class="tile-desc">Alteração de situação cadastral de empresa brasileira de navegação — ativação,
-            suspensão ou cancelamento.</div>
-        </div>
-
-        <div class="tile" data-idx="4" onclick="toggleTile(this)">
-          <i class="fas fa-plus tile-expand-icon"></i>
-          <div class="tile-header-row"><span class="tile-num">05</span></div>
-          <span class="tile-label">Instalação portuária privada</span>
-          <div class="tile-desc">Autorização para instalação portuária privada fora do Porto Organizado (Terminais de
-            Uso Privado — TUPs).</div>
-        </div>
-
-        <div class="tile" data-idx="5" onclick="toggleTile(this)">
-          <i class="fas fa-plus tile-expand-icon"></i>
-          <div class="tile-header-row"><span class="tile-num">06</span></div>
-          <span class="tile-label">Autorização marítima e cabotagem</span>
-          <div class="tile-desc">Autorização, aditamento e renúncia — marítima, apoio, cabotagem e longo curso.</div>
-        </div>
-
-        <div class="tile" data-idx="6" onclick="toggleTile(this)">
-          <i class="fas fa-plus tile-expand-icon"></i>
-          <div class="tile-header-row"><span class="tile-num">07</span></div>
-          <span class="tile-label">Cargas — nav. interior longitudinal</span>
-          <div class="tile-desc">Transporte de cargas — navegação interior longitudinal interestadual e internacional.
+        <p class="text-gray-400 text-sm mb-3">Bases abertas atualmente publicadas pela ANTAQ</p>
+        <div class="flex-1 grid grid-cols-3 grid-rows-6 gap-2">
+          <div class="base-chip"><i class="fas fa-ship"></i><span>Afretamento</span></div>
+          <div class="base-chip"><i class="fas fa-chart-line"></i><span>Estatístico Aquaviário (EA)</span></div>
+          <div class="base-chip"><i class="fas fa-folder-open"></i><span>Fiscalizações Arquivadas s/
+              Irregularidade</span></div>
+          <div class="base-chip"><i class="fas fa-building"></i><span>Frotas e Empresas Autorizadas</span></div>
+          <div class="base-chip"><i class="fas fa-coins"></i><span>Gestão Orçamentária e Financeira</span></div>
+          <div class="base-chip"><i class="fas fa-gavel"></i><span>Gestão de Multas</span></div>
+          <div class="base-chip"><i class="fas fa-anchor"></i><span>Instalações Portuárias</span></div>
+          <div class="base-chip"><i class="fas fa-route"></i><span>Linhas de Travessia Outorgadas</span></div>
+          <div class="base-chip"><i class="fas fa-calculator"></i><span>Painel de Custos</span></div>
+          <div class="base-chip"><i class="fas fa-warehouse"></i><span>Painel de Instalações Privadas</span></div>
+          <div class="base-chip"><i class="fas fa-compass"></i><span>Painel de Outorgas da Navegação</span></div>
+          <div class="base-chip"><i class="fas fa-chess-king"></i><span>Plano Estratégico</span></div>
+          <div class="base-chip"><i class="fas fa-shield-halved"></i><span>Plano de Integridade</span></div>
+          <div class="base-chip"><i class="fas fa-city"></i><span>Portos Organizados</span></div>
+          <div class="base-chip"><i class="fas fa-scale-balanced"></i><span>Processos Sancionadores Julgados</span>
           </div>
+          <div class="base-chip"><i class="fas fa-clock"></i><span>Situação dos Portos em Tempo Real</span></div>
+          <div class="base-chip"><i class="fas fa-water"></i><span>Vias Economicamente Navegadas</span></div>
+          <div class="base-chip"><i class="fas fa-leaf"></i><span>Índice de Desempenho Ambiental (IDA)</span></div>
         </div>
-
-        <div class="tile" data-idx="7" onclick="toggleTile(this)">
-          <i class="fas fa-plus tile-expand-icon"></i>
-          <div class="tile-header-row"><span class="tile-num">08</span></div>
-          <span class="tile-label">Nav. interior de travessia</span>
-          <div class="tile-desc">Passageiros, veículos e cargas — navegação interior de travessia entre margens de rios
-            e lagos.</div>
-        </div>
-
-        <div class="tile" data-idx="8" onclick="toggleTile(this)">
-          <i class="fas fa-plus tile-expand-icon"></i>
-          <div class="tile-header-row"><span class="tile-num">09</span></div>
-          <span class="tile-label">Transporte misto — nav. interior</span>
-          <div class="tile-desc">Transporte misto e de passageiros — navegação interior longitudinal em águas
-            interiores.</div>
-        </div>
-
-        <div class="tile" data-idx="9" onclick="toggleTile(this)">
-          <i class="fas fa-plus tile-expand-icon"></i>
-          <div class="tile-header-row"><span class="tile-num">10</span></div>
-          <span class="tile-label">Ampliação de área portuária</span>
-          <div class="tile-desc">Ampliação de área de instalação portuária privada fora do Porto Organizado.</div>
-        </div>
-
-        <div class="tile" data-idx="10" onclick="toggleTile(this)">
-          <i class="fas fa-plus tile-expand-icon"></i>
-          <div class="tile-header-row"><span class="tile-num">11</span></div>
-          <span class="tile-label">Instalação de apoio</span>
-          <div class="tile-desc">Registro de instalação de apoio não passível de autorização pela agência.</div>
-        </div>
-
-        <div class="tile" data-idx="11" onclick="toggleTile(this)">
-          <i class="fas fa-plus tile-expand-icon"></i>
-          <div class="tile-header-row"><span class="tile-num">12</span></div>
-          <span class="tile-label">Tonelagem — inscrição no REB</span>
-          <div class="tile-desc">Análise de tonelagem para inscrição no Registro Especial Brasileiro (REB).</div>
-        </div>
-
-        <div class="tile" data-idx="12" onclick="toggleTile(this)">
-          <i class="fas fa-plus tile-expand-icon"></i>
-          <div class="tile-header-row"><span class="tile-num">13</span></div>
-          <span class="tile-label">Sistema Mercante (RFB)</span>
-          <div class="tile-desc">Atualização de dados para o Sistema Mercante da Receita Federal do Brasil.</div>
-        </div>
-
-        <div class="tile" data-idx="13" onclick="toggleTile(this)">
-          <i class="fas fa-plus tile-expand-icon"></i>
-          <div class="tile-header-row"><span class="tile-num">14</span></div>
-          <span class="tile-label">Acordo Operacional</span>
-          <div class="tile-desc">Homologação de Acordo Operacional para navegação marítima ou interior entre empresas.
-          </div>
-        </div>
-
-        <div class="tile" data-idx="14" onclick="toggleTile(this)">
-          <i class="fas fa-plus tile-expand-icon"></i>
-          <div class="tile-header-row"><span class="tile-num">15</span></div>
-          <span class="tile-label">Operação emergencial/especial</span>
-          <div class="tile-desc">Autorização para operação emergencial e operação especial de navegação.</div>
-        </div>
-
-        <div class="tile" data-idx="15" onclick="toggleTile(this)">
-          <i class="fas fa-plus tile-expand-icon"></i>
-          <div class="tile-header-row"><span class="tile-num">16</span></div>
-          <span class="tile-label">Contrato de Transição / Uso Temp.</span>
-          <div class="tile-desc">Autorização para Contrato de Transição ou Uso Temporário de instalações portuárias.
-          </div>
-        </div>
-
-        <div class="tile" data-idx="16" onclick="toggleTile(this)">
-          <i class="fas fa-plus tile-expand-icon"></i>
-          <div class="tile-header-row"><span class="tile-num">17</span></div>
-          <span class="tile-label">Projetos Executivos</span>
-          <div class="tile-desc">Análise de Projetos Executivos de Concessões e Arrendamentos portuários.</div>
-        </div>
-
-        <div class="tile" data-idx="17" onclick="toggleTile(this)">
-          <i class="fas fa-plus tile-expand-icon"></i>
-          <div class="tile-header-row"><span class="tile-num">18</span></div>
-          <span class="tile-label">Equilíbrio econômico-financeiro</span>
-          <div class="tile-desc">Recomposição do equilíbrio econômico-financeiro de Arrendamentos e EVTEA.</div>
-        </div>
-
       </div>
     </div>
     <!-- Footer -->
     <div class="px-16 pb-8 flex justify-between items-center z-10">
       <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ — 1º Trimestre (Jan–Mar)</p>
-      <p class="text-gray-300 text-xs font-mono">13 / 21</p>
+      <p class="text-gray-300 text-xs font-mono">13 / 23</p>
     </div>
   </div>
-
-  <script>
-    let expandedTile = null;
-    const backdrop = document.getElementById('tileBackdrop');
-    const grid = document.getElementById('tileGrid');
-
-    function toggleTile(tile) {
-      if (tile.classList.contains('expanded')) {
-        collapseTile(tile);
-      } else {
-        if (expandedTile) collapseTile(expandedTile);
-        expandTile(tile);
-      }
-    }
-
-    function expandTile(tile) {
-      const gridRect = grid.getBoundingClientRect();
-      const tileRect = tile.getBoundingClientRect();
-
-      // Save original position
-      tile._origTop = tileRect.top - gridRect.top;
-      tile._origLeft = tileRect.left - gridRect.left;
-      tile._origWidth = tileRect.width;
-      tile._origHeight = tileRect.height;
-
-      // Calculate position — keep near original but ensure it stays in view
-      let top = tile._origTop;
-      let left = tile._origLeft;
-
-      // If on right side of grid, expand leftward
-      if (left + 420 > gridRect.width) {
-        left = gridRect.width - Math.min(gridRect.width * 0.5, 480);
-      }
-
-      tile.style.top = top + 'px';
-      tile.style.left = left + 'px';
-      tile.classList.add('expanded');
-      backdrop.classList.add('active');
-      expandedTile = tile;
-    }
-
-    function collapseTile(tile) {
-      tile.classList.remove('expanded');
-      tile.style.top = '';
-      tile.style.left = '';
-      backdrop.classList.remove('active');
-      expandedTile = null;
-    }
-
-    backdrop.addEventListener('click', function () {
-      if (expandedTile) collapseTile(expandedTile);
-    });
-
-    // Keyboard nav for slide system
-    document.addEventListener("keydown", function (e) {
-      if (expandedTile && e.key === "Escape") {
-        collapseTile(expandedTile);
-        e.preventDefault();
-        return;
-      }
-      if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) {
-        e.preventDefault();
-        window.parent.postMessage({ type: "slide-nav", key: e.key }, "*");
-      }
-    });
-  </script>
+  <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
 </body>
 
 </html>
