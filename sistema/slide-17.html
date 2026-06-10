@@ -16,23 +16,12 @@
     <style>
         html { font-size: 21px; }
 
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #f3f4f6;
-            overflow-x: hidden;
-            overflow-y: auto;
-        }
+        body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
 
         .slide-container {
-            width: 100vw;
-            min-height: 100vh;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            background-color: #ffffff;
-            overflow: visible;
-            font-family: 'Open Sans', sans-serif;
+            width: 100vw; height: 100vh; position: relative;
+            display: flex; flex-direction: column;
+            background-color: #ffffff; overflow: hidden; font-family: 'Open Sans', sans-serif;
         }
 
         .font-montserrat { font-family: 'Montserrat', sans-serif; }
@@ -43,86 +32,68 @@
         .top-accent { height: 8px; background-color: #103050; width: 100%; }
         .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
 
-        /* ===== Acordeão (efeito cascata) ===== */
-        .acc-wrap { display: flex; flex-direction: column; gap: .75rem; }
+        /* ===== Grade de quadros ===== */
+        .tile-grid { display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 1fr; gap: 1.2rem; }
 
-        .acc-item {
-            background-color: #ffffff;
-            border: 2px solid #E2E8F0;
-            border-left: 5px solid #0070C0;
-            border-radius: 14px;
-            overflow: hidden;
-            box-shadow: 0 6px 16px -8px rgba(16, 48, 80, 0.16);
-            transition: border-color .28s ease, box-shadow .28s ease, background-color .28s ease;
-            animation: fadeIn .5s ease both;
+        .tile {
+            position: relative; background: #fff; border: 2px solid #E2E8F0; border-radius: 16px;
+            padding: 1.3rem 1.4rem; cursor: pointer; text-align: left;
+            display: flex; flex-direction: column; gap: .7rem;
+            box-shadow: 0 6px 16px -8px rgba(16, 48, 80, .18);
+            transition: transform .25s cubic-bezier(.2, .7, .3, 1), box-shadow .25s ease, border-color .25s ease;
+            animation: fadeIn .5s ease both; font-family: 'Open Sans', sans-serif;
         }
+        .tile:nth-child(2) { animation-delay: .07s } .tile:nth-child(3) { animation-delay: .14s }
+        .tile:nth-child(4) { animation-delay: .21s } .tile:nth-child(5) { animation-delay: .28s }
+        .tile:hover { transform: translateY(-7px); border-color: #0070C0; box-shadow: 0 26px 46px -18px rgba(16, 48, 80, .34); }
+        .tile:focus-visible { outline: 3px solid #0090C0; outline-offset: 3px; }
 
-        .acc-item:nth-child(2) { animation-delay: .07s }
-        .acc-item:nth-child(3) { animation-delay: .14s }
-        .acc-item:nth-child(4) { animation-delay: .21s }
-        .acc-item:nth-child(5) { animation-delay: .28s }
-
-        .acc-item:hover { border-color: #E2E8F0; border-left-color: #0090C0; box-shadow: 0 16px 34px -14px rgba(16, 48, 80, .26); }
-        .acc-item.open { border-left-color: #103050; box-shadow: 0 16px 34px -14px rgba(16, 48, 80, .26); }
-
-        .acc-head {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            gap: 1.1rem;
-            padding: .9rem 1.4rem;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            text-align: left;
-            font-family: 'Open Sans', sans-serif;
+        .law-badge {
+            align-self: flex-start; text-align: center; border-radius: 13px;
+            background: linear-gradient(160deg, #103050, #0070C0); color: #fff;
+            padding: .6rem 1.1rem; font-family: 'Montserrat', sans-serif; line-height: 1; transition: transform .3s ease;
         }
+        .tile:hover .law-badge { transform: scale(1.05); }
+        .law-badge .lb-label { display: block; font-size: .62rem; font-weight: 700; letter-spacing: .12em; opacity: .82; }
+        .law-badge .lb-num { display: block; font-size: 1.45rem; font-weight: 900; margin-top: .15rem; }
+        .law-badge .lb-year { display: block; font-size: .68rem; font-weight: 600; opacity: .85; margin-top: .15rem; }
 
-        .law-num {
-            flex-shrink: 0;
-            min-width: 7.5rem;
-            text-align: center;
-            border-radius: 10px;
-            background: linear-gradient(160deg, #103050 0%, #0070C0 100%);
-            color: #fff;
-            padding: .5rem .4rem;
-            font-family: 'Montserrat', sans-serif;
-            line-height: 1;
-            transition: transform .3s ease;
+        .tile-name { color: #103050; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.12rem; line-height: 1.14; }
+        .tile-tag { color: #5b7185; font-size: .8rem; line-height: 1.28; }
+        .tile-more { margin-top: auto; color: #0070C0; font-size: .74rem; font-weight: 700; display: inline-flex; align-items: center; gap: .4rem; }
+        .tile:hover .tile-more { color: #0090C0; }
+        .tile-full { display: none; }
+
+        .tile-cta {
+            border: 2px dashed #C0E0F0; background: #f6fafe; border-radius: 16px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .55rem;
+            color: #0070C0; text-align: center; padding: 1rem; animation: fadeIn .5s ease both; animation-delay: .35s;
         }
+        .tile-cta i { font-size: 1.7rem; } .tile-cta span { font-size: .84rem; font-weight: 600; line-height: 1.3; }
 
-        .acc-item.open .law-num,
-        .acc-head:hover .law-num { transform: scale(1.05); }
-
-        .law-num .ln-label { display: block; font-size: .58rem; font-weight: 700; letter-spacing: .1em; opacity: .8; }
-        .law-num .ln-val { display: block; font-size: 1.05rem; font-weight: 900; margin-top: .12rem; }
-        .law-num .ln-year { display: block; font-size: .62rem; font-weight: 600; opacity: .85; margin-top: .12rem; }
-
-        .acc-titles { flex: 1; min-width: 0; }
-        .acc-title { color: #103050; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.1rem; line-height: 1.12; }
-        .acc-sub { color: #5b7185; font-size: .8rem; margin-top: .2rem; }
-
-        .acc-chev { flex-shrink: 0; color: #0070C0; font-size: 1.05rem; transition: transform .35s cubic-bezier(.2, .7, .3, 1); }
-        .acc-item.open .acc-chev { transform: rotate(180deg); }
-
-        .acc-body { max-height: 0; overflow: hidden; transition: max-height .45s cubic-bezier(.2, .7, .3, 1); }
-        .acc-item.open .acc-body { max-height: 600px; }
-
-        .acc-body-inner { padding: 0 1.6rem 1.2rem 10.2rem; }
-        .acc-text { color: #37475a; font-size: .9rem; line-height: 1.5; }
-        .acc-text strong { color: #103050; }
+        /* ===== Overlay ===== */
+        .overlay { position: fixed; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center; padding: 5vh 8vw; background: rgba(16, 48, 80, .5); backdrop-filter: blur(3px); opacity: 0; pointer-events: none; transition: opacity .3s ease; }
+        .overlay.open { opacity: 1; pointer-events: auto; }
+        .overlay-card { position: relative; background: #fff; border-radius: 22px; max-width: 60rem; width: 100%; max-height: 82vh; overflow: hidden; box-shadow: 0 40px 90px -30px rgba(0, 0, 0, .6); border-top: 7px solid #0070C0; transform: scale(.88) translateY(12px); transition: transform .34s cubic-bezier(.2, .7, .3, 1); display: flex; flex-direction: column; }
+        .overlay.open .overlay-card { transform: scale(1) translateY(0); }
+        .overlay-head { display: flex; align-items: center; gap: 1.2rem; padding: 1.8rem 2.2rem 1.2rem 2.2rem; border-bottom: 1px solid #eef2f7; }
+        .ov-badge { flex-shrink: 0; text-align: center; border-radius: 15px; background: linear-gradient(160deg, #103050, #0070C0); color: #fff; padding: .7rem 1.2rem; font-family: 'Montserrat', sans-serif; line-height: 1; }
+        .ov-badge .lb-label { display: block; font-size: .6rem; font-weight: 700; letter-spacing: .12em; opacity: .82; }
+        .ov-badge .lb-num { display: block; font-size: 1.5rem; font-weight: 900; margin-top: .15rem; }
+        .ov-badge .lb-year { display: block; font-size: .68rem; font-weight: 600; opacity: .85; margin-top: .15rem; }
+        .ov-titles { min-width: 0; }
+        .ov-title { color: #103050; font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.4rem; line-height: 1.12; }
+        .ov-sub { color: #0070C0; font-size: .92rem; font-weight: 600; margin-top: .25rem; }
+        .overlay-body { padding: 1.5rem 2.2rem 2rem 2.2rem; overflow-y: auto; }
+        .ov-body p { color: #37475a; font-size: 1.05rem; line-height: 1.62; }
+        .ov-body p + p { margin-top: .9rem; }
+        .ov-body strong { color: #103050; }
+        .overlay-close { position: absolute; top: 1.1rem; right: 1.2rem; width: 2.7rem; height: 2.7rem; border-radius: 999px; border: none; background: #f0f4f8; color: #103050; font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background .2s ease, transform .25s ease; z-index: 2; }
+        .overlay-close:hover { background: #0070C0; color: #fff; transform: rotate(90deg); }
 
         .hint { display: inline-flex; align-items: center; gap: .5rem; color: #0070C0; font-size: .8rem; font-weight: 600; }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after { animation: none !important; transition: none !important; }
-        }
-
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
         .bg-pattern { position: absolute; bottom: -50px; right: -50px; width: 400px; height: 400px; opacity: 0.03; z-index: 0; color: #103050; }
     </style>
 </head>
@@ -139,112 +110,95 @@
                     <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Leis</p>
                 </div>
                 <p class="text-gray-500 font-medium ml-4 text-lg">Marco legal da Ouvidoria e do acesso à informação —
-                    <span class="hint"><i class="fas fa-hand-pointer"></i> clique para expandir</span></p>
+                    <span class="hint"><i class="fas fa-hand-pointer"></i> clique em uma lei para ler na íntegra</span></p>
             </div>
             <div class="flex items-center gap-2 opacity-80 text-brand-secondary">
                 <i class="fas fa-landmark text-xl" aria-hidden="true"></i>
                 <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">LEGISLAÇÃO</p>
             </div>
         </div>
-        <!-- Main Content -->
-        <div class="flex-1 px-16 pb-8 pt-2 z-10">
-            <div class="acc-wrap">
+        <!-- Grade -->
+        <div class="flex-1 px-16 pb-10 pt-3 z-10">
+            <div class="tile-grid h-full">
                 <!-- Lei 10.233/2001 -->
-                <div class="acc-item open">
-                    <button class="acc-head" onclick="toggleAcc(this)" aria-expanded="true">
-                        <span class="law-num"><span class="ln-label">LEI</span><span class="ln-val">10.233</span><span
-                                class="ln-year">2001</span></span>
-                        <span class="acc-titles">
-                            <span class="acc-title block">Lei nº 10.233, de 5 de junho de 2001</span>
-                            <span class="acc-sub block">Lei de criação da ANTAQ</span>
-                        </span>
-                        <i class="fas fa-chevron-down acc-chev"></i>
-                    </button>
-                    <div class="acc-body">
-                        <div class="acc-body-inner">
-                            <p class="acc-text">Dispõe sobre a reestruturação dos transportes aquaviário e terrestre e
-                                <strong>cria a Agência Nacional de Transportes Aquaviários (ANTAQ)</strong>,
-                                estabelecendo sua natureza, finalidade e competências como entidade reguladora do setor.</p>
-                        </div>
+                <button class="tile" onclick="openCard(this)"
+                    data-title="Lei nº 10.233, de 5 de junho de 2001" data-sub="Lei de criação da ANTAQ"
+                    data-badge='<span class="lb-label">LEI</span><span class="lb-num">10.233</span><span class="lb-year">2001</span>'>
+                    <span class="law-badge"><span class="lb-label">LEI</span><span class="lb-num">10.233</span><span
+                            class="lb-year">2001</span></span>
+                    <span class="tile-name">Lei nº 10.233/2001</span>
+                    <span class="tile-tag">Reestruturação dos transportes e criação da ANTAQ</span>
+                    <span class="tile-more"><i class="fas fa-up-right-and-down-left-from-center"></i> ampliar</span>
+                    <div class="tile-full">
+                        <p>LEI Nº 10.233, DE 5 DE JUNHO DE 2001.</p>
                     </div>
-                </div>
+                </button>
                 <!-- Lei 12.527/2011 -->
-                <div class="acc-item">
-                    <button class="acc-head" onclick="toggleAcc(this)" aria-expanded="false">
-                        <span class="law-num"><span class="ln-label">LEI</span><span class="ln-val">12.527</span><span
-                                class="ln-year">2011</span></span>
-                        <span class="acc-titles">
-                            <span class="acc-title block">Lei de Acesso à Informação (LAI)</span>
-                            <span class="acc-sub block">Lei nº 12.527, de 18 de novembro de 2011</span>
-                        </span>
-                        <i class="fas fa-chevron-down acc-chev"></i>
-                    </button>
-                    <div class="acc-body">
-                        <div class="acc-body-inner">
-                            <p class="acc-text">Dispõe sobre os procedimentos a serem observados pela União, Estados,
-                                Distrito Federal e Municípios, com o fim de garantir o acesso a informações previsto no
-                                inciso XXXIII do art. 5º, no inciso II do § 3º do art. 37 e no § 2º do art. 216 da
-                                <strong>Constituição Federal</strong>.</p>
-                        </div>
+                <button class="tile" onclick="openCard(this)"
+                    data-title="Lei de Acesso à Informação (LAI)" data-sub="Lei nº 12.527, de 18 de novembro de 2011"
+                    data-badge='<span class="lb-label">LEI</span><span class="lb-num">12.527</span><span class="lb-year">2011</span>'>
+                    <span class="law-badge"><span class="lb-label">LEI</span><span class="lb-num">12.527</span><span
+                            class="lb-year">2011</span></span>
+                    <span class="tile-name">Lei de Acesso à Informação (LAI)</span>
+                    <span class="tile-tag">Acesso a informações públicas</span>
+                    <span class="tile-more"><i class="fas fa-up-right-and-down-left-from-center"></i> ampliar</span>
+                    <div class="tile-full">
+                        <p>Lei nº 12.527, de 18 de novembro de 2011 - Lei de Acesso à Informação (LAI) - dispõe sobre os
+                            procedimentos a serem observados pela União, Estados, Distrito Federal e Municípios, com o fim
+                            de garantir o acesso a informações previsto no inciso XXXIII do art. 5º, no inciso II do § 3º
+                            do art. 37 e no § 2º do art. 216 da Constituição Federal.</p>
                     </div>
-                </div>
+                </button>
                 <!-- Lei 12.846/2013 -->
-                <div class="acc-item">
-                    <button class="acc-head" onclick="toggleAcc(this)" aria-expanded="false">
-                        <span class="law-num"><span class="ln-label">LEI</span><span class="ln-val">12.846</span><span
-                                class="ln-year">2013</span></span>
-                        <span class="acc-titles">
-                            <span class="acc-title block">Lei Anticorrupção (Lei da Empresa Limpa)</span>
-                            <span class="acc-sub block">Lei nº 12.846, de 1º de agosto de 2013</span>
-                        </span>
-                        <i class="fas fa-chevron-down acc-chev"></i>
-                    </button>
-                    <div class="acc-body">
-                        <div class="acc-body-inner">
-                            <p class="acc-text">Dispõe sobre a <strong>responsabilização objetiva administrativa e
-                                    civil</strong> de pessoas jurídicas pela prática de atos contra a administração
-                                pública, nacional ou estrangeira.</p>
-                        </div>
+                <button class="tile" onclick="openCard(this)"
+                    data-title="Lei Anticorrupção (Lei da Empresa Limpa)" data-sub="Lei nº 12.846, de 1º de agosto de 2013"
+                    data-badge='<span class="lb-label">LEI</span><span class="lb-num">12.846</span><span class="lb-year">2013</span>'>
+                    <span class="law-badge"><span class="lb-label">LEI</span><span class="lb-num">12.846</span><span
+                            class="lb-year">2013</span></span>
+                    <span class="tile-name">Lei Anticorrupção</span>
+                    <span class="tile-tag">Lei da Empresa Limpa</span>
+                    <span class="tile-more"><i class="fas fa-up-right-and-down-left-from-center"></i> ampliar</span>
+                    <div class="tile-full">
+                        <p>Lei nº 12.846, de 1º de agosto de 2013 – Lei Anticorrupção ou Lei da Empresa Limpa - dispõe
+                            sobre a responsabilização objetiva administrativa e civil de pessoas jurídicas pela prática de
+                            atos contra a administração pública, nacional ou estrangeira.</p>
                     </div>
-                </div>
+                </button>
                 <!-- Lei 13.460/2017 -->
-                <div class="acc-item">
-                    <button class="acc-head" onclick="toggleAcc(this)" aria-expanded="false">
-                        <span class="law-num"><span class="ln-label">LEI</span><span class="ln-val">13.460</span><span
-                                class="ln-year">2017</span></span>
-                        <span class="acc-titles">
-                            <span class="acc-title block">Código de Proteção e Defesa dos Usuários de Serviços
-                                Públicos</span>
-                            <span class="acc-sub block">Lei nº 13.460, de 26 de junho de 2017</span>
-                        </span>
-                        <i class="fas fa-chevron-down acc-chev"></i>
-                    </button>
-                    <div class="acc-body">
-                        <div class="acc-body-inner">
-                            <p class="acc-text">Estabelece <strong>normas básicas para participação, proteção e
-                                    defesa</strong> dos direitos do usuário dos serviços públicos prestados direta ou
-                                indiretamente pela administração pública.</p>
-                        </div>
+                <button class="tile" onclick="openCard(this)"
+                    data-title="Código de Proteção e Defesa dos Usuários de Serviços Públicos"
+                    data-sub="Lei nº 13.460, de 26 de junho de 2017"
+                    data-badge='<span class="lb-label">LEI</span><span class="lb-num">13.460</span><span class="lb-year">2017</span>'>
+                    <span class="law-badge"><span class="lb-label">LEI</span><span class="lb-num">13.460</span><span
+                            class="lb-year">2017</span></span>
+                    <span class="tile-name">Defesa dos Usuários de Serviços Públicos</span>
+                    <span class="tile-tag">Direitos do usuário</span>
+                    <span class="tile-more"><i class="fas fa-up-right-and-down-left-from-center"></i> ampliar</span>
+                    <div class="tile-full">
+                        <p>Lei 13.460, de 26 de junho de 2017 – Código de Proteção e Defesa dos Usuários de Serviços
+                            Públicos - estabelece normas básicas para participação, proteção e defesa dos direitos do
+                            usuário dos serviços públicos prestados direta ou indiretamente pela administração pública.</p>
                     </div>
-                </div>
+                </button>
                 <!-- Lei 13.848/2019 -->
-                <div class="acc-item">
-                    <button class="acc-head" onclick="toggleAcc(this)" aria-expanded="false">
-                        <span class="law-num"><span class="ln-label">LEI</span><span class="ln-val">13.848</span><span
-                                class="ln-year">2019</span></span>
-                        <span class="acc-titles">
-                            <span class="acc-title block">Lei Geral das Agências Reguladoras</span>
-                            <span class="acc-sub block">Lei nº 13.848, de 25 de junho de 2019</span>
-                        </span>
-                        <i class="fas fa-chevron-down acc-chev"></i>
-                    </button>
-                    <div class="acc-body">
-                        <div class="acc-body-inner">
-                            <p class="acc-text">Enfatiza o <strong>papel da Ouvidoria</strong> e a inexistência de
-                                subordinação hierárquica. Dispõe sobre a gestão, a organização, o processo decisório e o
-                                controle social das agências reguladoras.</p>
-                        </div>
+                <button class="tile" onclick="openCard(this)"
+                    data-title="Lei Geral das Agências Reguladoras" data-sub="Lei nº 13.848, de 25 de junho de 2019"
+                    data-badge='<span class="lb-label">LEI</span><span class="lb-num">13.848</span><span class="lb-year">2019</span>'>
+                    <span class="law-badge"><span class="lb-label">LEI</span><span class="lb-num">13.848</span><span
+                            class="lb-year">2019</span></span>
+                    <span class="tile-name">Lei Geral das Agências Reguladoras</span>
+                    <span class="tile-tag">Papel da Ouvidoria e controle social</span>
+                    <span class="tile-more"><i class="fas fa-up-right-and-down-left-from-center"></i> ampliar</span>
+                    <div class="tile-full">
+                        <p>Lei nº 13.848, de 25 de junho de 2019 – Lei Geral das Agências Reguladoras – enfatiza o papel
+                            da Ouvidoria e a inexistência de subordinação hierárquica. Dispõe sobre a gestão, a
+                            organização, o processo decisório e o controle social das agências reguladoras.</p>
                     </div>
+                </button>
+                <!-- CTA preenche o 6º espaço -->
+                <div class="tile-cta">
+                    <i class="fas fa-scale-balanced"></i>
+                    <span>Textos legais reproduzidos na íntegra — clique para ler</span>
                 </div>
             </div>
         </div>
@@ -255,13 +209,42 @@
         </div>
         <div class="bg-pattern"><i class="fas fa-landmark text-9xl"></i></div>
     </div>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay" onclick="closeCard(event)">
+        <div class="overlay-card" role="dialog" aria-modal="true" onclick="event.stopPropagation()">
+            <button class="overlay-close" onclick="closeCard(event)" aria-label="Fechar"><i class="fas fa-xmark"></i></button>
+            <div class="overlay-head">
+                <span class="ov-badge"></span>
+                <span class="ov-titles">
+                    <span class="ov-title block"></span>
+                    <span class="ov-sub block"></span>
+                </span>
+            </div>
+            <div class="overlay-body">
+                <div class="ov-body"></div>
+            </div>
+        </div>
+    </div>
+
     <script>
-        function toggleAcc(btn) {
-            var item = btn.closest('.acc-item');
-            var open = item.classList.toggle('open');
-            btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        var overlay = document.getElementById('overlay');
+        function openCard(tile) {
+            overlay.querySelector('.ov-badge').innerHTML = tile.dataset.badge || '';
+            overlay.querySelector('.ov-title').textContent = tile.dataset.title || '';
+            overlay.querySelector('.ov-sub').textContent = tile.dataset.sub || '';
+            overlay.querySelector('.ov-body').innerHTML = tile.querySelector('.tile-full').innerHTML;
+            overlay.querySelector('.overlay-body').scrollTop = 0;
+            overlay.classList.add('open');
         }
-        document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });
+        function closeCard(e) { if (e) e.stopPropagation(); overlay.classList.remove('open'); }
+        document.addEventListener("keydown", function (e) {
+            if (e.key === 'Escape') { if (overlay.classList.contains('open')) { e.preventDefault(); closeCard(); } return; }
+            if (overlay.classList.contains('open')) return;
+            if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) {
+                e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*");
+            }
+        });
     </script>
 </body>
 
