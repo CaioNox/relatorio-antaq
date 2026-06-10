@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <title>LAI · Pedidos por Mês - Relatório Trimestral Ouvidoria ANTAQ</title>
+  <title>LAI · Transparência Passiva - Relatório Trimestral Ouvidoria ANTAQ</title>
   <link rel="icon" type="image/png"
     href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
@@ -13,7 +13,6 @@
     href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&amp;family=Open+Sans:wght@400;600&amp;display=swap"
     rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     html {
       font-size: 26px;
@@ -220,66 +219,64 @@
       <div>
         <div class="flex items-center gap-3 mb-2">
           <div class="w-1 h-8 bg-brand-secondary"></div>
-          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">LAI · Pedidos por Mês</p>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">LAI · Transparência Passiva</p>
         </div>
-        <p class="text-gray-500 font-medium ml-4 text-lg">Transparência passiva — recebidos e respondidos por mês (Jan / Fev / Mar de 2026)</p>
+        <p class="text-gray-500 font-medium ml-4 text-lg">Pedidos de acesso à informação (Lei nº 12.527/2011) — 1º trimestre de 2026</p>
       </div>
-      <div class="flex items-center gap-4 ml-6">
-        <span class="flex items-center gap-2 text-sm text-gray-500"><span class="legend-dot" style="background:#0070C0;"></span>Janeiro</span>
-        <span class="flex items-center gap-2 text-sm text-gray-500"><span class="legend-dot" style="background:#0090C0;"></span>Fevereiro</span>
-        <span class="flex items-center gap-2 text-sm text-gray-500"><span class="legend-dot" style="background:#103050;"></span>Março</span>
+      <div class="flex items-center gap-2 opacity-80 text-brand-secondary">
+        <i class="fas fa-unlock-keyhole text-xl" aria-hidden="true"></i>
+        <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">ACESSO À INFORMAÇÃO</p>
       </div>
     </div>
-    <!-- Charts -->
-    <div class="flex-1 grid grid-cols-2 gap-8 px-16 pb-10 z-10">
-      <div class="chart-card flex flex-col">
-        <p class="text-brand-primary font-montserrat font-bold text-xl mb-1 flex items-center gap-2"><i class="fas fa-file-circle-plus text-brand-secondary"></i> Pedidos recebidos</p>
-        <p class="text-gray-400 text-sm mb-2">Total no trimestre: <strong class="text-brand-primary">130</strong></p>
-        <div class="flex-1 relative"><canvas id="chartRecebidos"></canvas></div>
+    <!-- KPIs -->
+    <div class="flex-1 flex flex-col justify-center px-16 pb-6 z-10">
+      <div class="grid grid-cols-4 gap-6">
+        <div class="kpi-card kpi-primary" style="min-height:340px;">
+          <div><p class="text-blue-100 font-montserrat font-bold text-sm uppercase tracking-widest mb-2">Pedidos recebidos</p>
+            <p class="kpi-num text-7xl">130</p></div>
+          <p class="text-blue-100 text-base leading-relaxed relative z-10">Média de 43 pedidos por mês no trimestre.</p>
+          <i class="fas fa-inbox kpi-watermark"></i>
+        </div>
+        <div class="kpi-card kpi-soft" style="min-height:340px;">
+          <div><p class="text-blue-100 font-montserrat font-bold text-sm uppercase tracking-widest mb-2">Respondidos no prazo</p>
+            <p class="kpi-num text-7xl">100%</p></div>
+          <p class="text-blue-100 text-base leading-relaxed relative z-10">Todos os pedidos respondidos dentro do prazo legal.</p>
+          <i class="fas fa-circle-check kpi-watermark"></i>
+        </div>
+        <div class="kpi-card kpi-soft" style="min-height:340px;">
+          <div><p class="text-blue-100 font-montserrat font-bold text-sm uppercase tracking-widest mb-2">Fora do prazo</p>
+            <p class="kpi-num text-7xl">0%</p></div>
+          <p class="text-blue-100 text-base leading-relaxed relative z-10">Nenhum pedido respondido fora do prazo.</p>
+          <i class="fas fa-hourglass-half kpi-watermark"></i>
+        </div>
+        <div class="kpi-card kpi-primary" style="min-height:340px;">
+          <div><p class="text-blue-100 font-montserrat font-bold text-sm uppercase tracking-widest mb-2">Tempo médio de resposta</p>
+            <p class="kpi-num text-7xl">9,1<span class="text-2xl font-bold ml-1">dias</span></p></div>
+          <p class="text-blue-100 text-base leading-relaxed relative z-10">Da abertura à resposta conclusiva ao cidadão.</p>
+          <i class="fas fa-clock kpi-watermark"></i>
+        </div>
       </div>
-      <div class="chart-card flex flex-col">
-        <p class="text-brand-primary font-montserrat font-bold text-xl mb-1 flex items-center gap-2"><i class="fas fa-file-circle-check text-brand-secondary"></i> Pedidos respondidos</p>
-        <p class="text-gray-400 text-sm mb-2">Total no trimestre: <strong class="text-brand-primary">130</strong> · 100% no prazo</p>
-        <div class="flex-1 relative"><canvas id="chartRespondidos"></canvas></div>
+      <!-- Recursos note -->
+      <div class="grid grid-cols-2 gap-6 mt-6">
+        <div class="stat-mini flex items-center gap-4">
+          <i class="fas fa-scale-balanced text-3xl text-brand-secondary"></i>
+          <div><p class="font-montserrat font-black text-3xl text-brand-primary leading-none">6 recursos</p>
+            <p class="text-gray-500 text-sm mt-1">interpostos no período</p></div>
+        </div>
+        <div class="stat-mini flex items-center gap-4">
+          <i class="fas fa-stopwatch text-3xl text-brand-secondary"></i>
+          <div><p class="font-montserrat font-black text-3xl text-brand-primary leading-none">3,8 dias</p>
+            <p class="text-gray-500 text-sm mt-1">tempo médio de resposta aos recursos</p></div>
+        </div>
       </div>
     </div>
     <!-- Footer -->
     <div class="px-16 pb-8 flex justify-between items-center z-10">
       <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ — 1º Trimestre (Jan–Mar)</p>
-      <p class="text-gray-300 text-xs font-mono">12 / 23</p>
+      <p class="text-gray-300 text-xs font-mono">12 / 24</p>
     </div>
+    <div class="bg-pattern"><i class="fas fa-unlock-keyhole text-9xl"></i></div>
   </div>
-  <script>
-    const monthColors = ['#0070C0', '#0090C0', '#103050'];
-    const valueLabels = {
-      id: 'valueLabels',
-      afterDatasetsDraw(chart) {
-        const { ctx } = chart; ctx.save();
-        ctx.font = '700 16px Montserrat, sans-serif'; ctx.fillStyle = '#103050'; ctx.textAlign = 'center';
-        chart.data.datasets.forEach((ds, di) => {
-          chart.getDatasetMeta(di).data.forEach((bar, i) => { ctx.fillText(ds.data[i], bar.x, bar.y - 8); });
-        });
-        ctx.restore();
-      }
-    };
-    function makeBar(id, data) {
-      new Chart(document.getElementById(id), {
-        type: 'bar',
-        data: { labels: ['Jan', 'Fev', 'Mar'], datasets: [{ data, backgroundColor: monthColors, borderRadius: 6, maxBarThickness: 90 }] },
-        options: {
-          responsive: true, maintainAspectRatio: false, layout: { padding: { top: 22 } },
-          plugins: { legend: { display: false }, tooltip: { enabled: false } },
-          scales: {
-            x: { grid: { display: false }, ticks: { color: '#6b7280', font: { size: 14, weight: '600' } } },
-            y: { beginAtZero: true, grid: { color: '#eef2f7' }, ticks: { color: '#9ca3af', font: { size: 12 } } }
-          }
-        },
-        plugins: [valueLabels]
-      });
-    }
-    makeBar('chartRecebidos', [34, 35, 61]);
-    makeBar('chartRespondidos', [34, 35, 61]);
-  </script>
   <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
 </body>
 </html>

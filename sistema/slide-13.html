@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <title>Transparência Ativa e Dados Abertos - Relatório Trimestral Ouvidoria ANTAQ</title>
+  <title>LAI · Pedidos por Mês - Relatório Trimestral Ouvidoria ANTAQ</title>
   <link rel="icon" type="image/png"
     href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
@@ -13,6 +13,7 @@
     href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&amp;family=Open+Sans:wght@400;600&amp;display=swap"
     rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     html {
       font-size: 26px;
@@ -186,187 +187,30 @@
       border-radius: 3px;
       display: inline-block;
     }
-
     /* ===== Componentes adicionais (mesma identidade visual) ===== */
-    .rank-row {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .rank-label {
-      font-family: 'Open Sans', sans-serif;
-      font-size: .9rem;
-      color: #103050;
-      font-weight: 600;
-      width: 19rem;
-      flex-shrink: 0;
-      line-height: 1.15;
-    }
-
-    .rank-track {
-      flex: 1;
-      height: 30px;
-      background: #eef2f7;
-      border-radius: 8px;
-      overflow: hidden;
-    }
-
-    .rank-fill {
-      height: 100%;
-      border-radius: 8px;
-      background: linear-gradient(90deg, #0070C0, #0090C0);
-    }
-
-    .rank-val {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 900;
-      color: #103050;
-      font-size: 1.05rem;
-      width: 3.2rem;
-      text-align: right;
-      flex-shrink: 0;
-    }
-
-    .stat-mini {
-      background: #ffffff;
-      border: 2px solid #E2E8F0;
-      border-radius: 14px;
-      padding: 1rem 1.3rem;
-      box-shadow: 0 8px 20px -8px rgba(16, 48, 80, .18);
-    }
-
-    .base-chip {
-      display: flex;
-      align-items: center;
-      gap: .6rem;
-      background: #f8fafc;
-      border: 1px solid #E2E8F0;
-      border-radius: 10px;
-      padding: .5rem .75rem;
-      transition: all .25s ease;
-    }
-
-    .base-chip:hover {
-      border-color: #0070C0;
-      background: #eef6fc;
-      transform: translateX(4px);
-    }
-
-    .base-chip i {
-      color: #0070C0;
-      font-size: .8rem;
-    }
-
-    .base-chip span {
-      font-family: 'Open Sans', sans-serif;
-      font-size: .78rem;
-      color: #103050;
-      font-weight: 600;
-      line-height: 1.1;
-    }
-
-    .svc-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: .7rem;
-      background: linear-gradient(135deg, #103050, #0070C0);
-      color: #fff;
-      border-radius: 999px;
-      padding: .5rem 1.3rem;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 800;
-      letter-spacing: .04em;
-      box-shadow: 0 10px 24px -10px rgba(16, 48, 80, .5);
-    }
-
-    .svc-card {
-      background: #fff;
-      border: 2px solid #E2E8F0;
-      border-left: 5px solid #0070C0;
-      border-radius: 12px;
-      padding: .8rem 1rem;
-      display: flex;
-      gap: .8rem;
-      align-items: flex-start;
-      box-shadow: 0 6px 16px -8px rgba(16, 48, 80, .18);
-      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
-    }
-
-    .svc-card:hover {
-      transform: translateY(-5px);
-      border-color: #0090C0;
-      box-shadow: 0 18px 34px -14px rgba(16, 48, 80, .32);
-    }
-
-    .svc-num {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 900;
-      color: #0090C0;
-      font-size: 1.3rem;
-      line-height: 1;
-      flex-shrink: 0;
-      min-width: 1.7rem;
-    }
-
-    .svc-text {
-      font-family: 'Open Sans', sans-serif;
-      font-size: .78rem;
-      color: #103050;
-      font-weight: 600;
-      line-height: 1.18;
-    }
-
-    .kpi-card {
-      border-radius: 20px;
-      padding: 2.2rem 1.6rem;
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      min-height: 420px;
-      box-shadow: 0 18px 40px -12px rgba(16, 48, 80, 0.45);
-    }
-
-    .kpi-primary {
-      background: linear-gradient(160deg, #103050 0%, #0070C0 100%);
-    }
-
-    .kpi-soft {
-      background: linear-gradient(160deg, #0e3a66 0%, #11598f 100%);
-    }
-
-    .kpi-num {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
-      line-height: 1;
-      color: #ffffff;
-      text-align: center;
-    }
-
-    .kpi-watermark {
-      position: absolute;
-      right: -10px;
-      bottom: -20px;
-      font-size: 9rem;
-      opacity: 0.12;
-      color: #ffffff;
-    }
-
-    .bg-pattern {
-      position: absolute;
-      bottom: -50px;
-      right: -50px;
-      width: 400px;
-      height: 400px;
-      opacity: 0.03;
-      z-index: 0;
-      color: #103050;
-    }
+    .rank-row { display:flex; align-items:center; gap:1rem; }
+    .rank-label { font-family:'Open Sans',sans-serif; font-size:.9rem; color:#103050; font-weight:600; width:19rem; flex-shrink:0; line-height:1.15; }
+    .rank-track { flex:1; height:30px; background:#eef2f7; border-radius:8px; overflow:hidden; }
+    .rank-fill { height:100%; border-radius:8px; background:linear-gradient(90deg,#0070C0,#0090C0); }
+    .rank-val { font-family:'Montserrat',sans-serif; font-weight:900; color:#103050; font-size:1.05rem; width:3.2rem; text-align:right; flex-shrink:0; }
+    .stat-mini { background:#ffffff; border:2px solid #E2E8F0; border-radius:14px; padding:1rem 1.3rem; box-shadow:0 8px 20px -8px rgba(16,48,80,.18); }
+    .base-chip { display:flex; align-items:center; gap:.6rem; background:#f8fafc; border:1px solid #E2E8F0; border-radius:10px; padding:.5rem .75rem; transition:all .25s ease; }
+    .base-chip:hover { border-color:#0070C0; background:#eef6fc; transform:translateX(4px); }
+    .base-chip i { color:#0070C0; font-size:.8rem; }
+    .base-chip span { font-family:'Open Sans',sans-serif; font-size:.78rem; color:#103050; font-weight:600; line-height:1.1; }
+    .svc-badge { display:inline-flex; align-items:center; gap:.7rem; background:linear-gradient(135deg,#103050,#0070C0); color:#fff; border-radius:999px; padding:.5rem 1.3rem; font-family:'Montserrat',sans-serif; font-weight:800; letter-spacing:.04em; box-shadow:0 10px 24px -10px rgba(16,48,80,.5); }
+    .svc-card { background:#fff; border:2px solid #E2E8F0; border-left:5px solid #0070C0; border-radius:12px; padding:.8rem 1rem; display:flex; gap:.8rem; align-items:flex-start; box-shadow:0 6px 16px -8px rgba(16,48,80,.18); transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
+    .svc-card:hover { transform:translateY(-5px); border-color:#0090C0; box-shadow:0 18px 34px -14px rgba(16,48,80,.32); }
+    .svc-num { font-family:'Montserrat',sans-serif; font-weight:900; color:#0090C0; font-size:1.3rem; line-height:1; flex-shrink:0; min-width:1.7rem; }
+    .svc-text { font-family:'Open Sans',sans-serif; font-size:.78rem; color:#103050; font-weight:600; line-height:1.18; }
+    .kpi-card { border-radius:20px; padding:2.2rem 2rem; position:relative; overflow:hidden; display:flex; flex-direction:column; justify-content:space-between; min-height:420px; box-shadow:0 18px 40px -12px rgba(16,48,80,0.45); }
+    .kpi-primary { background:linear-gradient(160deg,#103050 0%,#0070C0 100%); }
+    .kpi-soft { background:linear-gradient(160deg,#0e3a66 0%,#11598f 100%); }
+    .kpi-num { font-family:'Montserrat',sans-serif; font-weight:900; line-height:1; color:#ffffff; }
+    .kpi-watermark { position:absolute; right:-10px; bottom:-20px; font-size:9rem; opacity:0.12; color:#ffffff; }
+    .bg-pattern { position:absolute; bottom:-50px; right:-50px; width:400px; height:400px; opacity:0.03; z-index:0; color:#103050; }
     </style>
 </head>
-
 <body>
   <div class="slide-container">
     <div class="top-accent"></div>
@@ -376,85 +220,66 @@
       <div>
         <div class="flex items-center gap-3 mb-2">
           <div class="w-1 h-8 bg-brand-secondary"></div>
-          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Transparência Ativa
-            &amp; Dados Abertos</p>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">LAI · Pedidos por Mês</p>
         </div>
-        <p class="text-gray-500 font-medium ml-4 text-lg"> 1º trimestre de 2026</p>
+        <p class="text-gray-500 font-medium ml-4 text-lg">Transparência passiva — recebidos e respondidos por mês (Jan / Fev / Mar de 2026)</p>
       </div>
-      <div class="flex items-center gap-2 opacity-80 text-brand-secondary">
-        <i class="fas fa-database text-xl" aria-hidden="true"></i>
-        <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">LAI · DADOS ABERTOS</p>
+      <div class="flex items-center gap-4 ml-6">
+        <span class="flex items-center gap-2 text-sm text-gray-500"><span class="legend-dot" style="background:#0070C0;"></span>Janeiro</span>
+        <span class="flex items-center gap-2 text-sm text-gray-500"><span class="legend-dot" style="background:#0090C0;"></span>Fevereiro</span>
+        <span class="flex items-center gap-2 text-sm text-gray-500"><span class="legend-dot" style="background:#103050;"></span>Março</span>
       </div>
     </div>
-    <!-- Main -->
-    <div class="flex-1 grid grid-cols-3 gap-8 px-16 pb-8 z-10">
-      <!-- Transparência Ativa -->
-      <div class="col-span-1 flex flex-col gap-6">
-        <div class="kpi-card kpi-primary" style="min-height:0;flex:1;">
-          <div>
-            <p class="text-blue-100 font-montserrat font-bold text-sm uppercase tracking-widest mb-2">Itens cumpridos
-            </p>
-            <p class="kpi-num text-8xl">100%</p>
-          </div>
-          <p class="text-blue-100 text-base leading-relaxed relative z-10">Nota máxima no ranking de transparência ativa
-            do Painel LAI.</p>
-          <i class="fas fa-ranking-star kpi-watermark"></i>
-        </div>
-        <div class="kpi-card kpi-soft" style="min-height:0;flex:1;">
-          <div>
-            <p class="text-blue-100 font-montserrat font-bold text-sm uppercase tracking-widest mb-2">Quesitos avaliados
-            </p>
-            <p class="kpi-num text-8xl">49/49</p>
-          </div>
-          <p class="text-blue-100 text-base leading-relaxed relative z-10">Todos os quesitos do Painel LAI atendidos
-            integralmente.</p>
-          <i class="fas fa-list-check kpi-watermark"></i>
-        </div>
+    <!-- Charts -->
+    <div class="flex-1 grid grid-cols-2 gap-8 px-16 pb-10 z-10">
+      <div class="chart-card flex flex-col">
+        <p class="text-brand-primary font-montserrat font-bold text-xl mb-1 flex items-center gap-2"><i class="fas fa-file-circle-plus text-brand-secondary"></i> Pedidos recebidos</p>
+        <p class="text-gray-400 text-sm mb-2">Total no trimestre: <strong class="text-brand-primary">130</strong></p>
+        <div class="flex-1 relative"><canvas id="chartRecebidos"></canvas></div>
       </div>
-      <!-- Dados Abertos -->
-      <div class="col-span-2 chart-card flex flex-col">
-        <div class="flex items-center justify-between mb-1">
-          <p class="text-brand-primary font-montserrat font-bold text-xl flex items-center gap-2"><i
-              class="fas fa-database text-brand-secondary"></i> Plano de Dados Abertos</p>
-          <div class="flex items-center gap-5">
-            <span class="font-montserrat font-black text-brand-secondary text-3xl">18 <span
-                class="text-gray-500 text-sm font-semibold">bases</span></span>
-            <span class="font-montserrat font-black text-brand-primary text-3xl">+8 <span
-                class="text-gray-500 text-sm font-semibold">previstas</span></span>
-          </div>
-        </div>
-        <p class="text-gray-400 text-sm mb-3">Bases abertas atualmente publicadas pela ANTAQ</p>
-        <div class="flex-1 grid grid-cols-3 grid-rows-6 gap-2">
-          <div class="base-chip"><i class="fas fa-ship"></i><span>Afretamento</span></div>
-          <div class="base-chip"><i class="fas fa-chart-line"></i><span>Estatístico Aquaviário (EA)</span></div>
-          <div class="base-chip"><i class="fas fa-folder-open"></i><span>Fiscalizações Arquivadas s/
-              Irregularidade</span></div>
-          <div class="base-chip"><i class="fas fa-building"></i><span>Frotas e Empresas Autorizadas</span></div>
-          <div class="base-chip"><i class="fas fa-coins"></i><span>Gestão Orçamentária e Financeira</span></div>
-          <div class="base-chip"><i class="fas fa-gavel"></i><span>Gestão de Multas</span></div>
-          <div class="base-chip"><i class="fas fa-anchor"></i><span>Instalações Portuárias</span></div>
-          <div class="base-chip"><i class="fas fa-route"></i><span>Linhas de Travessia Outorgadas</span></div>
-          <div class="base-chip"><i class="fas fa-calculator"></i><span>Painel de Custos</span></div>
-          <div class="base-chip"><i class="fas fa-warehouse"></i><span>Painel de Instalações Privadas</span></div>
-          <div class="base-chip"><i class="fas fa-compass"></i><span>Painel de Outorgas da Navegação</span></div>
-          <div class="base-chip"><i class="fas fa-chess-king"></i><span>Plano Estratégico</span></div>
-          <div class="base-chip"><i class="fas fa-shield-halved"></i><span>Plano de Integridade</span></div>
-          <div class="base-chip"><i class="fas fa-city"></i><span>Portos Organizados</span></div>
-          <div class="base-chip"><i class="fas fa-scale-balanced"></i><span>Processos Sancionadores Julgados</span>
-          </div>
-          <div class="base-chip"><i class="fas fa-clock"></i><span>Situação dos Portos em Tempo Real</span></div>
-          <div class="base-chip"><i class="fas fa-water"></i><span>Vias Economicamente Navegadas</span></div>
-          <div class="base-chip"><i class="fas fa-leaf"></i><span>Índice de Desempenho Ambiental (IDA)</span></div>
-        </div>
+      <div class="chart-card flex flex-col">
+        <p class="text-brand-primary font-montserrat font-bold text-xl mb-1 flex items-center gap-2"><i class="fas fa-file-circle-check text-brand-secondary"></i> Pedidos respondidos</p>
+        <p class="text-gray-400 text-sm mb-2">Total no trimestre: <strong class="text-brand-primary">130</strong> · 100% no prazo</p>
+        <div class="flex-1 relative"><canvas id="chartRespondidos"></canvas></div>
       </div>
     </div>
     <!-- Footer -->
     <div class="px-16 pb-8 flex justify-between items-center z-10">
       <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ — 1º Trimestre (Jan–Mar)</p>
-      <p class="text-gray-300 text-xs font-mono">13 / 23</p>
+      <p class="text-gray-300 text-xs font-mono">13 / 24</p>
     </div>
   </div>
+  <script>
+    const monthColors = ['#0070C0', '#0090C0', '#103050'];
+    const valueLabels = {
+      id: 'valueLabels',
+      afterDatasetsDraw(chart) {
+        const { ctx } = chart; ctx.save();
+        ctx.font = '700 16px Montserrat, sans-serif'; ctx.fillStyle = '#103050'; ctx.textAlign = 'center';
+        chart.data.datasets.forEach((ds, di) => {
+          chart.getDatasetMeta(di).data.forEach((bar, i) => { ctx.fillText(ds.data[i], bar.x, bar.y - 8); });
+        });
+        ctx.restore();
+      }
+    };
+    function makeBar(id, data) {
+      new Chart(document.getElementById(id), {
+        type: 'bar',
+        data: { labels: ['Jan', 'Fev', 'Mar'], datasets: [{ data, backgroundColor: monthColors, borderRadius: 6, maxBarThickness: 90 }] },
+        options: {
+          responsive: true, maintainAspectRatio: false, layout: { padding: { top: 22 } },
+          plugins: { legend: { display: false }, tooltip: { enabled: false } },
+          scales: {
+            x: { grid: { display: false }, ticks: { color: '#6b7280', font: { size: 14, weight: '600' } } },
+            y: { beginAtZero: true, grid: { color: '#eef2f7' }, ticks: { color: '#9ca3af', font: { size: 12 } } }
+          }
+        },
+        plugins: [valueLabels]
+      });
+    }
+    makeBar('chartRecebidos', [34, 35, 61]);
+    makeBar('chartRespondidos', [34, 35, 61]);
+  </script>
   <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
 </body>
-
 </html>
