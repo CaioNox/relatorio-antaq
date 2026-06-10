@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Decretos - Relatório Trimestral Ouvidoria ANTAQ</title>
+    <title>Leis - Relatório Trimestral Ouvidoria ANTAQ</title>
     <link rel="icon" type="image/png"
         href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
@@ -43,27 +43,33 @@
             transition: transform .25s cubic-bezier(.2, .7, .3, 1), box-shadow .25s ease, border-color .25s ease;
             animation: fadeIn .5s ease both; font-family: 'Open Sans', sans-serif;
         }
-        .tile:nth-child(2) { animation-delay: .06s } .tile:nth-child(3) { animation-delay: .12s }
-        .tile:nth-child(4) { animation-delay: .18s } .tile:nth-child(5) { animation-delay: .24s }
-        .tile:nth-child(6) { animation-delay: .30s }
+        .tile:nth-child(2) { animation-delay: .07s } .tile:nth-child(3) { animation-delay: .14s }
+        .tile:nth-child(4) { animation-delay: .21s } .tile:nth-child(5) { animation-delay: .28s }
         .tile:hover { transform: translateY(-7px); border-color: #0070C0; box-shadow: 0 26px 46px -18px rgba(16, 48, 80, .34); }
         .tile:focus-visible { outline: 3px solid #0090C0; outline-offset: 3px; }
 
         .law-badge {
             align-self: flex-start; text-align: center; border-radius: 13px;
-            background: linear-gradient(160deg, #0e3a66, #11598f); color: #fff;
+            background: linear-gradient(160deg, #103050, #0070C0); color: #fff;
             padding: .6rem 1.1rem; font-family: 'Montserrat', sans-serif; line-height: 1; transition: transform .3s ease;
         }
         .tile:hover .law-badge { transform: scale(1.05); }
-        .law-badge .lb-label { display: block; font-size: .58rem; font-weight: 700; letter-spacing: .1em; opacity: .82; }
-        .law-badge .lb-num { display: block; font-size: 1.4rem; font-weight: 900; margin-top: .15rem; }
+        .law-badge .lb-label { display: block; font-size: .62rem; font-weight: 700; letter-spacing: .12em; opacity: .82; }
+        .law-badge .lb-num { display: block; font-size: 1.45rem; font-weight: 900; margin-top: .15rem; }
         .law-badge .lb-year { display: block; font-size: .68rem; font-weight: 600; opacity: .85; margin-top: .15rem; }
 
-        .tile-name { color: #103050; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.08rem; line-height: 1.16; }
+        .tile-name { color: #103050; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.12rem; line-height: 1.14; }
         .tile-tag { color: #5b7185; font-size: .8rem; line-height: 1.28; }
         .tile-more { margin-top: auto; color: #0070C0; font-size: .74rem; font-weight: 700; display: inline-flex; align-items: center; gap: .4rem; }
         .tile:hover .tile-more { color: #0090C0; }
         .tile-full { display: none; }
+
+        .tile-cta {
+            border: 2px dashed #C0E0F0; background: #f6fafe; border-radius: 16px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .55rem;
+            color: #0070C0; text-align: center; padding: 1rem; animation: fadeIn .5s ease both; animation-delay: .35s;
+        }
+        .tile-cta i { font-size: 1.7rem; } .tile-cta span { font-size: .84rem; font-weight: 600; line-height: 1.3; }
 
         /* ===== Overlay ===== */
         .overlay { position: fixed; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center; padding: 5vh 8vw; background: rgba(16, 48, 80, .5); backdrop-filter: blur(3px); opacity: 0; pointer-events: none; transition: opacity .3s ease; }
@@ -71,9 +77,9 @@
         .overlay-card { position: relative; background: #fff; border-radius: 22px; max-width: 60rem; width: 100%; max-height: 82vh; overflow: hidden; box-shadow: 0 40px 90px -30px rgba(0, 0, 0, .6); border-top: 7px solid #0070C0; transform: scale(.88) translateY(12px); transition: transform .34s cubic-bezier(.2, .7, .3, 1); display: flex; flex-direction: column; }
         .overlay.open .overlay-card { transform: scale(1) translateY(0); }
         .overlay-head { display: flex; align-items: center; gap: 1.2rem; padding: 1.8rem 2.2rem 1.2rem 2.2rem; border-bottom: 1px solid #eef2f7; }
-        .ov-badge { flex-shrink: 0; text-align: center; border-radius: 15px; background: linear-gradient(160deg, #0e3a66, #11598f); color: #fff; padding: .7rem 1.2rem; font-family: 'Montserrat', sans-serif; line-height: 1; }
-        .ov-badge .lb-label { display: block; font-size: .58rem; font-weight: 700; letter-spacing: .1em; opacity: .82; }
-        .ov-badge .lb-num { display: block; font-size: 1.45rem; font-weight: 900; margin-top: .15rem; }
+        .ov-badge { flex-shrink: 0; text-align: center; border-radius: 15px; background: linear-gradient(160deg, #103050, #0070C0); color: #fff; padding: .7rem 1.2rem; font-family: 'Montserrat', sans-serif; line-height: 1; }
+        .ov-badge .lb-label { display: block; font-size: .6rem; font-weight: 700; letter-spacing: .12em; opacity: .82; }
+        .ov-badge .lb-num { display: block; font-size: 1.5rem; font-weight: 900; margin-top: .15rem; }
         .ov-badge .lb-year { display: block; font-size: .68rem; font-weight: 600; opacity: .85; margin-top: .15rem; }
         .ov-titles { min-width: 0; }
         .ov-title { color: #103050; font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.4rem; line-height: 1.12; }
@@ -101,121 +107,107 @@
             <div>
                 <div class="flex items-center gap-3 mb-2">
                     <div class="w-1 h-8 bg-brand-secondary"></div>
-                    <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Decretos
-                    </p>
+                    <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Leis</p>
                 </div>
-                <p class="text-gray-500 font-medium ml-4 text-lg">Regulamentação do Sistema de Ouvidoria e da proteção ao
-                    denunciante — <span class="hint"><i class="fas fa-hand-pointer"></i> clique em um decreto para ler na
-                        íntegra</span></p>
+                <p class="text-gray-500 font-medium ml-4 text-lg">Marco legal da Ouvidoria e do acesso à informação —
+                    <span class="hint"><i class="fas fa-hand-pointer"></i> clique em uma lei para ler na íntegra</span></p>
             </div>
             <div class="flex items-center gap-2 opacity-80 text-brand-secondary">
-                <i class="fas fa-scroll text-xl" aria-hidden="true"></i>
-                <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">REGULAMENTAÇÃO</p>
+                <i class="fas fa-landmark text-xl" aria-hidden="true"></i>
+                <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">LEGISLAÇÃO</p>
             </div>
         </div>
         <!-- Grade -->
         <div class="flex-1 px-16 pb-10 pt-3 z-10">
             <div class="tile-grid h-full">
-                <!-- Decreto 9.094/2017 -->
+                <!-- Lei 10.233/2001 -->
                 <button class="tile" onclick="openCard(this)"
-                    data-title="Simplificação do atendimento" data-sub="Decreto nº 9.094, de 17 de julho de 2017"
-                    data-badge='<span class="lb-label">DECRETO</span><span class="lb-num">9.094</span><span class="lb-year">2017</span>'>
-                    <span class="law-badge"><span class="lb-label">DECRETO</span><span class="lb-num">9.094</span><span
+                    data-title="Lei nº 10.233, de 5 de junho de 2001" data-sub="Lei de criação da ANTAQ"
+                    data-badge='<span class="lb-label">LEI</span><span class="lb-num">10.233</span><span class="lb-year">2001</span>'>
+                    <span class="law-badge"><span class="lb-label">LEI</span><span class="lb-num">10.233</span><span
+                            class="lb-year">2001</span></span>
+                    <span class="tile-name">Lei nº 10.233/2001</span>
+                    <span class="tile-tag">Reestruturação dos transportes e criação da ANTAQ</span>
+                    <span class="tile-more"><i class="fas fa-up-right-and-down-left-from-center"></i> ampliar</span>
+                    <div class="tile-full">
+                        <p>LEI Nº 10.233, DE 5 DE JUNHO DE 2001.</p>
+                    </div>
+                </button>
+                <!-- Lei 12.527/2011 -->
+                <button class="tile" onclick="openCard(this)"
+                    data-title="Lei de Acesso à Informação (LAI)" data-sub="Lei nº 12.527, de 18 de novembro de 2011"
+                    data-badge='<span class="lb-label">LEI</span><span class="lb-num">12.527</span><span class="lb-year">2011</span>'>
+                    <span class="law-badge"><span class="lb-label">LEI</span><span class="lb-num">12.527</span><span
+                            class="lb-year">2011</span></span>
+                    <span class="tile-name">Lei de Acesso à Informação (LAI)</span>
+                    <span class="tile-tag">Acesso a informações públicas</span>
+                    <span class="tile-more"><i class="fas fa-up-right-and-down-left-from-center"></i> ampliar</span>
+                    <div class="tile-full">
+                        <p>Lei nº 12.527, de 18 de novembro de 2011 - Lei de Acesso à Informação (LAI) - dispõe sobre os
+                            procedimentos a serem observados pela União, Estados, Distrito Federal e Municípios, com o fim
+                            de garantir o acesso a informações previsto no inciso XXXIII do art. 5º, no inciso II do § 3º
+                            do art. 37 e no § 2º do art. 216 da Constituição Federal.</p>
+                    </div>
+                </button>
+                <!-- Lei 12.846/2013 -->
+                <button class="tile" onclick="openCard(this)"
+                    data-title="Lei Anticorrupção (Lei da Empresa Limpa)" data-sub="Lei nº 12.846, de 1º de agosto de 2013"
+                    data-badge='<span class="lb-label">LEI</span><span class="lb-num">12.846</span><span class="lb-year">2013</span>'>
+                    <span class="law-badge"><span class="lb-label">LEI</span><span class="lb-num">12.846</span><span
+                            class="lb-year">2013</span></span>
+                    <span class="tile-name">Lei Anticorrupção</span>
+                    <span class="tile-tag">Lei da Empresa Limpa</span>
+                    <span class="tile-more"><i class="fas fa-up-right-and-down-left-from-center"></i> ampliar</span>
+                    <div class="tile-full">
+                        <p>Lei nº 12.846, de 1º de agosto de 2013 – Lei Anticorrupção ou Lei da Empresa Limpa - dispõe
+                            sobre a responsabilização objetiva administrativa e civil de pessoas jurídicas pela prática de
+                            atos contra a administração pública, nacional ou estrangeira.</p>
+                    </div>
+                </button>
+                <!-- Lei 13.460/2017 -->
+                <button class="tile" onclick="openCard(this)"
+                    data-title="Código de Proteção e Defesa dos Usuários de Serviços Públicos"
+                    data-sub="Lei nº 13.460, de 26 de junho de 2017"
+                    data-badge='<span class="lb-label">LEI</span><span class="lb-num">13.460</span><span class="lb-year">2017</span>'>
+                    <span class="law-badge"><span class="lb-label">LEI</span><span class="lb-num">13.460</span><span
                             class="lb-year">2017</span></span>
-                    <span class="tile-name">Simplificação do atendimento</span>
-                    <span class="tile-tag">Atendimento aos usuários de serviços públicos</span>
+                    <span class="tile-name">Defesa dos Usuários de Serviços Públicos</span>
+                    <span class="tile-tag">Direitos do usuário</span>
                     <span class="tile-more"><i class="fas fa-up-right-and-down-left-from-center"></i> ampliar</span>
                     <div class="tile-full">
-                        <p>Decreto nº 9.094, de 17 de julho de 2017 – Dispõe sobre a simplificação do atendimento
-                            prestado aos usuários dos serviços públicos.</p>
+                        <p>Lei 13.460, de 26 de junho de 2017 – Código de Proteção e Defesa dos Usuários de Serviços
+                            Públicos - estabelece normas básicas para participação, proteção e defesa dos direitos do
+                            usuário dos serviços públicos prestados direta ou indiretamente pela administração pública.</p>
                     </div>
                 </button>
-                <!-- Decreto 9.492/2018 -->
+                <!-- Lei 13.848/2019 -->
                 <button class="tile" onclick="openCard(this)"
-                    data-title="Sistema de Ouvidoria do Poder Executivo federal" data-sub="Decreto nº 9.492, de 5 de setembro de 2018"
-                    data-badge='<span class="lb-label">DECRETO</span><span class="lb-num">9.492</span><span class="lb-year">2018</span>'>
-                    <span class="law-badge"><span class="lb-label">DECRETO</span><span class="lb-num">9.492</span><span
-                            class="lb-year">2018</span></span>
-                    <span class="tile-name">Sistema de Ouvidoria do PEF</span>
-                    <span class="tile-tag">Regulamenta a Lei nº 13.460/2017</span>
-                    <span class="tile-more"><i class="fas fa-up-right-and-down-left-from-center"></i> ampliar</span>
-                    <div class="tile-full">
-                        <p>Decreto nº 9.492, de 5 de setembro de 2018 – Regulamenta os procedimentos para a participação,
-                            a proteção e a defesa dos direitos do usuário de serviços públicos da administração pública
-                            federal, direta e indireta, de que trata a Lei nº 13.460, de 26 de junho de 2017, e institui
-                            o Sistema de Ouvidoria do Poder Executivo federal.</p>
-                    </div>
-                </button>
-                <!-- Decreto 9.690/2019 -->
-                <button class="tile" onclick="openCard(this)"
-                    data-title="Alteração do regulamento da LAI" data-sub="Decreto nº 9.690, de 23 de janeiro de 2019"
-                    data-badge='<span class="lb-label">DECRETO</span><span class="lb-num">9.690</span><span class="lb-year">2019</span>'>
-                    <span class="law-badge"><span class="lb-label">DECRETO</span><span class="lb-num">9.690</span><span
+                    data-title="Lei Geral das Agências Reguladoras" data-sub="Lei nº 13.848, de 25 de junho de 2019"
+                    data-badge='<span class="lb-label">LEI</span><span class="lb-num">13.848</span><span class="lb-year">2019</span>'>
+                    <span class="law-badge"><span class="lb-label">LEI</span><span class="lb-num">13.848</span><span
                             class="lb-year">2019</span></span>
-                    <span class="tile-name">Alteração do regulamento da LAI</span>
-                    <span class="tile-tag">Altera o Decreto nº 7.724/2012</span>
+                    <span class="tile-name">Lei Geral das Agências Reguladoras</span>
+                    <span class="tile-tag">Papel da Ouvidoria e controle social</span>
                     <span class="tile-more"><i class="fas fa-up-right-and-down-left-from-center"></i> ampliar</span>
                     <div class="tile-full">
-                        <p>Decreto nº 9.690, de 23 de janeiro de 2019 – Altera o Decreto nº 7.724, de 16 de maio de 2012,
-                            que regulamenta a Lei nº 12.527, de 18 de novembro de 2011 – Lei de Acesso à Informação.</p>
+                        <p>Lei nº 13.848, de 25 de junho de 2019 – Lei Geral das Agências Reguladoras – enfatiza o papel
+                            da Ouvidoria e a inexistência de subordinação hierárquica. Dispõe sobre a gestão, a
+                            organização, o processo decisório e o controle social das agências reguladoras.</p>
                     </div>
                 </button>
-                <!-- Decreto 10.153/2019 -->
-                <button class="tile" onclick="openCard(this)"
-                    data-title="Salvaguardas à identidade do denunciante" data-sub="Decreto nº 10.153, de 3 de dezembro de 2019"
-                    data-badge='<span class="lb-label">DECRETO</span><span class="lb-num">10.153</span><span class="lb-year">2019</span>'>
-                    <span class="law-badge"><span class="lb-label">DECRETO</span><span class="lb-num">10.153</span><span
-                            class="lb-year">2019</span></span>
-                    <span class="tile-name">Salvaguardas ao denunciante</span>
-                    <span class="tile-tag">Proteção à identidade do denunciante</span>
-                    <span class="tile-more"><i class="fas fa-up-right-and-down-left-from-center"></i> ampliar</span>
-                    <div class="tile-full">
-                        <p>Decreto nº 10.153, de 3 de dezembro de 2019 - Dispõe sobre as salvaguardas de proteção à
-                            identidade dos denunciantes de ilícitos e de irregularidades praticados contra a
-                            administração pública federal direta e indireta e altera o Decreto n° 9.492, de 5 de setembro
-                            de 2018.</p>
-                    </div>
-                </button>
-                <!-- Decreto 10.890/2021 -->
-                <button class="tile" onclick="openCard(this)"
-                    data-title="Proteção ao denunciante" data-sub="Decreto nº 10.890, de 9 de dezembro de 2021"
-                    data-badge='<span class="lb-label">DECRETO</span><span class="lb-num">10.890</span><span class="lb-year">2021</span>'>
-                    <span class="law-badge"><span class="lb-label">DECRETO</span><span class="lb-num">10.890</span><span
-                            class="lb-year">2021</span></span>
-                    <span class="tile-name">Proteção ao denunciante</span>
-                    <span class="tile-tag">Altera os Decretos 9.492/2018 e 10.153/2019</span>
-                    <span class="tile-more"><i class="fas fa-up-right-and-down-left-from-center"></i> ampliar</span>
-                    <div class="tile-full">
-                        <p>Decreto nº 10.890, de 9 de dezembro de 2021 - Altera o Decreto nº 9.492, de 5 de setembro de
-                            2018, e o Decreto nº 10.153, de 3 de dezembro de 2019, para dispor sobre a proteção ao
-                            denunciante de ilícitos e de irregularidades praticados contra a administração pública
-                            federal direta e indireta.</p>
-                    </div>
-                </button>
-                <!-- Decreto 10.889/2021 -->
-                <button class="tile" onclick="openCard(this)"
-                    data-title="eAgendas — agenda de compromissos públicos" data-sub="Decreto nº 10.889, de 9 de dezembro de 2021"
-                    data-badge='<span class="lb-label">DECRETO</span><span class="lb-num">10.889</span><span class="lb-year">2021</span>'>
-                    <span class="law-badge"><span class="lb-label">DECRETO</span><span class="lb-num">10.889</span><span
-                            class="lb-year">2021</span></span>
-                    <span class="tile-name">eAgendas</span>
-                    <span class="tile-tag">Agenda de compromissos públicos</span>
-                    <span class="tile-more"><i class="fas fa-up-right-and-down-left-from-center"></i> ampliar</span>
-                    <div class="tile-full">
-                        <p>Decreto nº 10.889, de 9 de dezembro de 2021 - Dispõe sobre a divulgação da agenda de
-                            compromissos públicos e a participação de agentes públicos, no âmbito do Poder Executivo
-                            federal, em audiências e sobre a concessão de hospitalidades por agente privado, e institui o
-                            Sistema Eletrônico de Agendas do Poder Executivo federal - eAgendas.</p>
-                    </div>
-                </button>
+                <!-- CTA preenche o 6º espaço -->
+                <div class="tile-cta">
+                    <i class="fas fa-scale-balanced"></i>
+                    <span>Textos legais reproduzidos na íntegra — clique para ler</span>
+                </div>
             </div>
         </div>
         <!-- Footer -->
         <div class="px-16 pb-8 flex justify-between items-center z-10">
             <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ — 1º Trimestre (Jan–Mar)</p>
-            <p class="text-gray-300 text-xs font-mono">21 / 24</p>
+            <p class="text-gray-300 text-xs font-mono">21 / 25</p>
         </div>
-        <div class="bg-pattern"><i class="fas fa-scroll text-9xl"></i></div>
+        <div class="bg-pattern"><i class="fas fa-landmark text-9xl"></i></div>
     </div>
 
     <!-- Overlay -->

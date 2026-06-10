@@ -1,132 +1,177 @@
 <!DOCTYPE html>
-
 <html lang="pt-BR">
+
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Cartas de Serviço ANTAQ - Relatório Trimestral Ouvidoria ANTAQ</title>
-<link rel="icon" type="image/png" href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png"/>
-<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&amp;family=Open+Sans:wght@400;600&amp;display=swap" rel="stylesheet"/>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
-<style>
-        html { font-size: 26px; }
-        body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
-        .slide-container {
-            width: 100vw; height: 100vh; position: relative;
-            display: flex; flex-direction: column;
-            background-color: #ffffff; overflow: hidden;
-            font-family: 'Open Sans', sans-serif;
-        }
-        .font-montserrat { font-family: 'Montserrat', sans-serif; }
-        .text-brand-primary { color: #103050; }
-        .bg-brand-primary { background-color: #103050; }
-        .text-brand-secondary { color: #0070C0; }
-        .bg-brand-secondary { background-color: #0070C0; }
-        .top-accent { height: 8px; background-color: #103050; width: 100%; }
-        .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
-        .lead-frame {
-            background-color: #EAF3FB; border: 2px solid #C0E0F0;
-            border-radius: 16px; box-shadow: 0 10px 25px -5px rgba(0, 112, 192, 0.15);
-            position: relative;
-        }
-        .metric-card {
-            background:#ffffff; border:2px solid #E2E8F0; border-left:4px solid #0070C0;
-            border-radius:16px; padding:1.3rem 1.5rem;
-            box-shadow:0 8px 22px -10px rgba(16,48,80,.18);
-            transition: transform .28s cubic-bezier(.2,.7,.3,1), box-shadow .28s ease, border-color .28s ease;
-        }
-        .metric-card:hover { transform: translateY(-7px); box-shadow:0 24px 44px -14px rgba(16,48,80,.30); border-color:#0070C0; }
-        @keyframes fadeIn { from { opacity:0; transform: translateY(10px);} to { opacity:1; transform:none;} }
-        .lead-frame, .metric-card { animation: fadeIn .5s ease both; }
-        .metric-card:nth-child(2) { animation-delay:.09s; }
-        .metric-card:nth-child(3) { animation-delay:.18s; }
-        .bg-pattern {
-            position: absolute; bottom: -50px; right: -50px;
-            width: 400px; height: 400px; opacity: 0.03; z-index: 0; color: #103050;
-        }
-        @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
-    </style>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Cronograma de Abertura de Novas Bases - Relatório Trimestral Ouvidoria ANTAQ</title>
+  <link rel="icon" type="image/png"
+    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&amp;family=Open+Sans:wght@400;600&amp;display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    html { font-size: 26px; }
+    body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
+    .slide-container {
+      width: 100vw; height: 100vh; position: relative;
+      display: flex; flex-direction: column;
+      background-color: #ffffff; overflow: hidden;
+      font-family: 'Open Sans', sans-serif;
+    }
+    .font-montserrat { font-family: 'Montserrat', sans-serif; }
+    .text-brand-primary { color: #103050; }
+    .text-brand-secondary { color: #0070C0; }
+    .bg-brand-secondary { background-color: #0070C0; }
+    .top-accent { height: 8px; background-color: #103050; width: 100%; }
+    .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
+
+    /* banner contexto */
+    .ctx-bar {
+      display: flex; align-items: center; gap: 1.1rem;
+      background: linear-gradient(135deg, #f4f9ff 0%, #eaf3fb 100%);
+      border: 2px solid #C0E0F0; border-left: 5px solid #0090C0; border-radius: 14px;
+      padding: .7rem 1.3rem; box-shadow: 0 8px 20px -12px rgba(16, 48, 80, .2);
+    }
+    .ctx-ico { font-size: 1.5rem; color: #0090C0; flex-shrink: 0; }
+    .ctx-text { flex: 1; font-size: .8rem; color: #334155; line-height: 1.35; }
+    .ctx-text strong { color: #103050; }
+    .ctx-total { display: flex; flex-direction: column; align-items: center; justify-content: center; flex-shrink: 0; background: linear-gradient(135deg, #103050, #0090C0); color: #fff; border-radius: 12px; padding: .45rem 1.2rem; }
+    .ctx-total b { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.6rem; line-height: 1; }
+    .ctx-total span { font-size: .52rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: #cfe3f7; margin-top: .15rem; }
+
+    /* cards de novas bases */
+    .nb-card {
+      background: #fff; border: 2px dashed #BFE0F2; border-left: 5px solid #0090C0; border-radius: 14px;
+      padding: .85rem 1.1rem; display: flex; gap: .9rem; align-items: flex-start;
+      box-shadow: 0 6px 16px -8px rgba(16, 48, 80, .16);
+      transition: transform .25s cubic-bezier(.2, .7, .3, 1), box-shadow .25s ease, border-color .25s ease;
+      animation: fadeUp .5s ease both;
+    }
+    .nb-card:hover { transform: translateY(-4px); border-color: #0090C0; box-shadow: 0 18px 34px -14px rgba(16, 48, 80, .28); }
+    .nb-num {
+      flex-shrink: 0; width: 2.5rem; height: 2.5rem; border-radius: 12px;
+      background: linear-gradient(135deg, #103050, #0090C0); color: #fff;
+      font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1rem;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 8px 18px -8px rgba(16, 48, 80, .5);
+    }
+    .nb-body { flex: 1; min-width: 0; }
+    .nb-name-row { display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; }
+    .nb-name { font-family: 'Montserrat', sans-serif; font-weight: 800; color: #103050; font-size: .82rem; line-height: 1.12; }
+    .nb-name i { color: #0090C0; margin-right: .35rem; }
+    .nb-tag { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .5rem; letter-spacing: .06em; text-transform: uppercase; color: #0090C0; background: #E6F4FB; border: 1px solid #BFE0F2; border-radius: 999px; padding: .12rem .5rem; }
+    .nb-desc { font-size: .6rem; color: #475569; line-height: 1.32; margin-top: .3rem; }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+    .nb-card:nth-child(2) { animation-delay: .05s; } .nb-card:nth-child(3) { animation-delay: .1s; }
+    .nb-card:nth-child(4) { animation-delay: .15s; } .nb-card:nth-child(5) { animation-delay: .2s; }
+    .nb-card:nth-child(6) { animation-delay: .25s; } .nb-card:nth-child(7) { animation-delay: .3s; }
+    .nb-card:nth-child(8) { animation-delay: .35s; }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+  </style>
 </head>
+
 <body>
-<div class="slide-container">
-<!-- Top Accents -->
-<div class="top-accent"></div>
-<div class="top-accent-secondary"></div>
-<!-- Header -->
-<div class="flex items-center justify-between px-16 pt-10 pb-4 z-10">
-<div>
-<div class="flex items-center gap-3 mb-2">
-<div class="w-1 h-8 bg-brand-secondary"></div>
-<p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Cartas de Serviço da ANTAQ</p>
-</div>
-<p class="text-gray-500 font-medium ml-4 text-lg">Lei nº 13.460/2017 · 1º Trimestre de 2026</p>
-</div>
-<div class="flex items-center gap-2 opacity-80 text-brand-secondary">
-<i class="fas fa-file-contract text-xl" aria-hidden="true"></i>
-<p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">APRESENTAÇÃO</p>
-</div>
-</div>
-<!-- Main Content -->
-<div class="flex-1 flex flex-col justify-center px-16 pb-8 z-10">
-<div class="w-full max-w-6xl mx-auto relative">
-<!-- Lead frame -->
-<div class="lead-frame w-full px-12 py-7 mb-6">
-<p class="text-brand-primary font-montserrat font-bold text-xl mb-3 flex items-center gap-3">
-<i class="fas fa-shield-halved text-brand-secondary text-2xl"></i>
-                    A Ouvidoria como guardiã da Carta de Serviços
-                </p>
-<p class="text-gray-700 text-base leading-relaxed">
-                    No primeiro trimestre de 2026, a Ouvidoria atuou diretamente como <strong>guardiã da Carta de Serviços da
-                    ANTAQ</strong> — documento fundamental que, respaldado pela <strong>Lei nº 13.460/2017</strong>, informa os
-                    cidadãos sobre os serviços prestados pela autarquia, seus requisitos, prazos e padrões de atendimento. Visando
-                    promover a <strong>participação direta da sociedade civil</strong> na melhoria contínua desses 31 serviços, a
-                    Ouvidoria e sua rede de 145 conselheiros dedicaram esse primeiro trimestre exclusivamente ao planejamento e à
-                    organização do <strong>novo ciclo de enquetes para o quadriênio 2025–2028</strong>.
-                </p>
-</div>
-<!-- Metrics row -->
-<div class="grid grid-cols-3 gap-5">
-<div class="metric-card flex items-center gap-4">
-<i class="fas fa-clipboard-list text-4xl text-brand-secondary"></i>
-<div>
-<p class="font-montserrat font-black text-4xl text-brand-primary leading-none">31</p>
-<p class="text-gray-500 text-sm mt-1">serviços monitorados pela Ouvidoria</p>
-</div>
-</div>
-<div class="metric-card flex items-center gap-4">
-<i class="fas fa-users text-4xl text-brand-secondary"></i>
-<div>
-<p class="font-montserrat font-black text-4xl text-brand-primary leading-none">145</p>
-<p class="text-gray-500 text-sm mt-1">conselheiros na rede de participação social</p>
-</div>
-</div>
-<div class="metric-card flex items-center gap-4">
-<i class="fas fa-poll text-4xl text-brand-secondary"></i>
-<div>
-<p class="font-montserrat font-black text-4xl text-brand-primary leading-none">2025–2028</p>
-<p class="text-gray-500 text-sm mt-1">novo quadriênio de enquetes</p>
-</div>
-</div>
-</div>
-<!-- Closing line -->
-<p class="text-center text-brand-primary font-montserrat font-bold text-lg mt-7 flex items-center justify-center gap-3">
-<i class="fas fa-sitemap text-brand-secondary"></i>
-                Serviços organizados por Superintendência
-<i class="fas fa-arrow-right text-brand-secondary"></i>
-</p>
-</div>
-</div>
-<!-- Footer -->
-<div class="px-16 pb-8 flex justify-between items-center z-10">
-<p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ — 1º Trimestre (Jan–Mar)</p>
-<p class="text-gray-300 text-xs font-mono">15 / 24</p>
-</div>
-<!-- Decorative Background Pattern -->
-<div class="bg-pattern">
-<i class="fas fa-file-contract text-9xl"></i>
-</div>
-</div>
-<script>document.addEventListener("keydown",function(e){if(["ArrowRight","ArrowLeft","PageDown","PageUp","Home","End"," ","f","F"].indexOf(e.key)!==-1){e.preventDefault();window.parent.postMessage({type:"slide-nav",key:e.key},"*");}});</script>
+  <div class="slide-container">
+    <div class="top-accent"></div>
+    <div class="top-accent-secondary"></div>
+    <!-- Header -->
+    <div class="flex items-center justify-between px-16 pt-8 pb-3 z-10">
+      <div>
+        <div class="flex items-center gap-3 mb-2">
+          <div class="w-1 h-8 bg-brand-secondary"></div>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Cronograma de
+            Abertura de Novas Bases</p>
+        </div>
+        <p class="text-gray-500 font-medium ml-4 text-lg">Próximas bases a integrar o Plano de Dados Abertos da ANTAQ</p>
+      </div>
+      <div class="flex items-center gap-2 opacity-80 text-brand-secondary">
+        <i class="fas fa-calendar-plus text-xl" aria-hidden="true"></i>
+        <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">NOVAS BASES</p>
+      </div>
+    </div>
+
+    <!-- Contexto -->
+    <div class="px-16 pt-1 pb-3 z-10">
+      <div class="ctx-bar">
+        <i class="fas fa-database ctx-ico"></i>
+        <p class="ctx-text">Além das <strong>18 bases já publicadas</strong>, a ANTAQ tem <strong>8 novas bases de
+            dados abertas</strong> em cronograma de abertura, ampliando a transparência ativa e o acesso da sociedade aos
+          dados da Agência.</p>
+        <div class="ctx-total"><b>+8</b><span>novas bases</span></div>
+      </div>
+    </div>
+
+    <!-- 8 novas bases -->
+    <div class="flex-1 grid grid-cols-2 gap-x-7 gap-y-3 px-16 pb-6 z-10">
+      <div class="nb-card">
+        <div class="nb-num">01</div>
+        <div class="nb-body">
+          <div class="nb-name-row"><p class="nb-name"><i class="fas fa-city"></i>Painel de Portos Públicos</p><span class="nb-tag">Nova</span></div>
+          <p class="nb-desc">Dados extraídos do sistema ArrendamentoV2, que tem por finalidade o cadastro dos instrumentos contratuais de exploração de áreas e instalações portuárias, bem como a visualização de relatórios gerenciais.</p>
+        </div>
+      </div>
+      <div class="nb-card">
+        <div class="nb-num">02</div>
+        <div class="nb-body">
+          <div class="nb-name-row"><p class="nb-name"><i class="fas fa-water"></i>Plano Geral de Outorgas Hidroviárias (PGO)</p><span class="nb-tag">Nova</span></div>
+          <p class="nb-desc">Base do Plano Geral de Outorgas (PGO) hidroviárias de exploração das vias navegáveis ou potencialmente navegáveis em corpos de água de domínio da União e de prestação de serviços de transportes aquaviários.</p>
+        </div>
+      </div>
+      <div class="nb-card">
+        <div class="nb-num">03</div>
+        <div class="nb-body">
+          <div class="nb-name-row"><p class="nb-name"><i class="fas fa-weight-hanging"></i>Toneladas por quilômetro útil (TKU)</p><span class="nb-tag">Nova</span></div>
+          <p class="nb-desc">Arquivo georreferenciado (.SHP) e tabelas da volumetria de transporte do indicador de tonelagem por quilômetro útil na cabotagem e navegação interior. A base utilizada é módulo do Estatístico Aquaviário, administrada pela GEA.</p>
+        </div>
+      </div>
+      <div class="nb-card">
+        <div class="nb-num">04</div>
+        <div class="nb-body">
+          <div class="nb-name-row"><p class="nb-name"><i class="fas fa-tags"></i>Tarifas Portuárias Homologadas</p><span class="nb-tag">Nova</span></div>
+          <p class="nb-desc">Lista Geral das Autoridades Portuárias e sua classificação e localização geográfica; Projetos Tarifários e respectivos elementos principais; Tarifas-teto aprovadas, por porto, desde 2019; e Comparativo de Tarifas.</p>
+        </div>
+      </div>
+      <div class="nb-card">
+        <div class="nb-num">05</div>
+        <div class="nb-body">
+          <div class="nb-name-row"><p class="nb-name"><i class="fas fa-chart-pie"></i>Inventário de Painéis BI da ANTAQ</p><span class="nb-tag">Nova</span></div>
+          <p class="nb-desc">Dados e informações sobre os painéis BI da ANTAQ, inventariando esse tipo de ativo analítico, com informação de referência e links de acesso — base para o Painel BI “Inventário Painéis de Dados”.</p>
+        </div>
+      </div>
+      <div class="nb-card">
+        <div class="nb-num">06</div>
+        <div class="nb-body">
+          <div class="nb-name-row"><p class="nb-name"><i class="fas fa-folder-tree"></i>Sistema Eletrônico de Informação — SEI</p><span class="nb-tag">Nova</span></div>
+          <p class="nb-desc">Sistema de gestão de documentos e processos eletrônicos.</p>
+        </div>
+      </div>
+      <div class="nb-card">
+        <div class="nb-num">07</div>
+        <div class="nb-body">
+          <div class="nb-name-row"><p class="nb-name"><i class="fas fa-file-signature"></i>Contratos Vigentes</p><span class="nb-tag">Nova</span></div>
+          <p class="nb-desc">Painel de consolidação de informações aos usuários internos quanto aos contratos vigentes da Agência.</p>
+        </div>
+      </div>
+      <div class="nb-card">
+        <div class="nb-num">08</div>
+        <div class="nb-body">
+          <div class="nb-name-row"><p class="nb-name"><i class="fas fa-cart-shopping"></i>Compras e Contratações</p><span class="nb-tag">Nova</span></div>
+          <p class="nb-desc">Painel de consolidação de informações aos usuários internos quanto às contratações realizadas pela Agência.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="px-16 pb-6 flex justify-between items-center z-10">
+      <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ — 1º Trimestre (Jan–Mar)</p>
+      <p class="text-gray-300 text-xs font-mono">15 / 25</p>
+    </div>
+  </div>
+  <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
 </body>
+
 </html>

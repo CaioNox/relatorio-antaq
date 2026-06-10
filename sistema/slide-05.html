@@ -13,93 +13,353 @@
     rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
   <style>
-    html { font-size: 26px; }
-    body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
+    html {
+      font-size: 26px;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f3f4f6;
+      overflow: hidden;
+    }
+
     .slide-container {
-      width: 100vw; height: 100vh; position: relative;
-      display: flex; flex-direction: column;
-      background-color: #ffffff; overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background-color: #ffffff;
+      overflow: hidden;
       font-family: 'Open Sans', sans-serif;
     }
-    .font-montserrat { font-family: 'Montserrat', sans-serif; }
-    .text-brand-primary { color: #103050; }
-    .text-brand-secondary { color: #0070C0; }
-    .bg-brand-secondary { background-color: #0070C0; }
-    .top-accent { height: 8px; background-color: #103050; width: 100%; }
-    .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
+
+    .font-montserrat {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .text-brand-primary {
+      color: #103050;
+    }
+
+    .text-brand-secondary {
+      color: #0070C0;
+    }
+
+    .bg-brand-secondary {
+      background-color: #0070C0;
+    }
+
+    .top-accent {
+      height: 8px;
+      background-color: #103050;
+      width: 100%;
+    }
+
+    .top-accent-secondary {
+      height: 4px;
+      background-color: #0070C0;
+      width: 100%;
+    }
 
     /* ===== Funil ===== */
     .funnel-mouth {
-      width: 560px; margin: 0 auto; color: #fff; text-align: center;
+      width: 560px;
+      margin: 0 auto;
+      color: #fff;
+      text-align: center;
       background: linear-gradient(135deg, #103050 0%, #0070C0 100%);
       clip-path: polygon(0 0, 100% 0, 84% 100%, 16% 100%);
       padding: 1.5rem 2rem 1.7rem;
       box-shadow: 0 22px 44px -16px rgba(16, 48, 80, .55);
     }
-    .funnel-mouth .fm-label { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: .62rem; letter-spacing: .18em; text-transform: uppercase; color: #bcdcf5; }
-    .funnel-mouth .fm-num { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 4.2rem; line-height: 1; margin: .15rem 0 .1rem; }
-    .funnel-mouth .fm-sub { font-size: .66rem; color: #e2effb; }
+
+    .funnel-mouth .fm-label {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: .62rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: #bcdcf5;
+    }
+
+    .funnel-mouth .fm-num {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 4.2rem;
+      line-height: 1;
+      margin: .15rem 0 .1rem;
+    }
+
+    .funnel-mouth .fm-sub {
+      font-size: .66rem;
+      color: #e2effb;
+    }
 
     /* conector central + barramento */
-    .connector { position: relative; height: 46px; }
-    .connector .v-main { position: absolute; left: 50%; top: 0; width: 3px; height: 22px; background: #C0D6EA; transform: translateX(-50%); }
-    .connector .bus { position: absolute; top: 22px; height: 3px; background: #C0D6EA; left: 25%; right: 25%; }
-    .connector .drop { position: absolute; top: 22px; width: 3px; height: 24px; background: #C0D6EA; transform: translateX(-50%); }
-    .connector .drop.a { left: 25%; }
-    .connector .drop.b { left: 75%; }
+    .connector {
+      position: relative;
+      height: 46px;
+    }
+
+    .connector .v-main {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      width: 3px;
+      height: 22px;
+      background: #C0D6EA;
+      transform: translateX(-50%);
+    }
+
+    .connector .bus {
+      position: absolute;
+      top: 22px;
+      height: 3px;
+      background: #C0D6EA;
+      left: 25%;
+      right: 25%;
+    }
+
+    .connector .drop {
+      position: absolute;
+      top: 22px;
+      width: 3px;
+      height: 24px;
+      background: #C0D6EA;
+      transform: translateX(-50%);
+    }
+
+    .connector .drop.a {
+      left: 25%;
+    }
+
+    .connector .drop.b {
+      left: 75%;
+    }
 
     .branch {
-      position: relative; background: #fff; border: 2px solid #E2E8F0; border-radius: 16px;
-      padding: 1.2rem 1.3rem 1.3rem; display: flex; flex-direction: column; align-items: center; text-align: center;
+      position: relative;
+      background: #fff;
+      border: 2px solid #E2E8F0;
+      border-radius: 16px;
+      padding: 1.2rem 1.3rem 1.3rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
       box-shadow: 0 10px 26px -12px rgba(16, 48, 80, .22);
-      transition: transform .28s cubic-bezier(.2,.7,.3,1), box-shadow .28s ease, border-color .28s ease;
+      transition: transform .28s cubic-bezier(.2, .7, .3, 1), box-shadow .28s ease, border-color .28s ease;
     }
-    .branch:hover { transform: translateY(-6px); box-shadow: 0 24px 46px -16px rgba(16,48,80,.32); border-color: #0070C0; }
-    .branch .b-ico { width: 3rem; height: 3rem; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; margin-bottom: .6rem; }
-    .branch .b-num { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 2.9rem; line-height: 1; }
-    .branch .b-pct { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .62rem; color: #64748B; margin-top: .25rem; letter-spacing: .04em; }
-    .branch .b-title { font-family: 'Montserrat', sans-serif; font-weight: 800; color: #103050; font-size: .82rem; margin-top: .5rem; line-height: 1.15; }
-    .branch .b-desc { font-size: .62rem; color: #64748B; margin-top: .3rem; line-height: 1.3; }
+
+    .branch:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 24px 46px -16px rgba(16, 48, 80, .32);
+      border-color: #0070C0;
+    }
+
+    .branch .b-ico {
+      width: 3rem;
+      height: 3rem;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      margin-bottom: .6rem;
+    }
+
+    .branch .b-num {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 2.9rem;
+      line-height: 1;
+    }
+
+    .branch .b-pct {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: .62rem;
+      color: #64748B;
+      margin-top: .25rem;
+      letter-spacing: .04em;
+    }
+
+    .branch .b-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      color: #103050;
+      font-size: .82rem;
+      margin-top: .5rem;
+      line-height: 1.15;
+    }
+
+    .branch .b-desc {
+      font-size: .62rem;
+      color: #64748B;
+      margin-top: .3rem;
+      line-height: 1.3;
+    }
 
     /* vertente principal */
-    .branch.primary { background: linear-gradient(160deg, #103050 0%, #0070C0 100%); border-color: #103050; }
-    .branch.primary .b-num, .branch.primary .b-title { color: #fff; }
-    .branch.primary .b-pct, .branch.primary .b-desc { color: #cfe3f7; }
-    .branch.primary .b-ico { background: rgba(255,255,255,.16); color: #fff; }
-    .branch-tag {
-      position: absolute; top: -.7rem; left: 50%; transform: translateX(-50%);
-      background: #0090C0; color: #fff; font-family: 'Montserrat', sans-serif; font-weight: 800;
-      font-size: .52rem; letter-spacing: .08em; text-transform: uppercase; padding: .25rem .8rem; border-radius: 999px;
-      box-shadow: 0 8px 18px -8px rgba(0,144,192,.6); white-space: nowrap;
+    .branch.primary {
+      background: linear-gradient(160deg, #103050 0%, #0070C0 100%);
+      border-color: #103050;
     }
-    .b-ico.soft { background: #EAF3FB; color: #0070C0; }
-    .b-ico.arch { background: #FDECEC; color: #C0392B; }
+
+    .branch.primary .b-num,
+    .branch.primary .b-title {
+      color: #fff;
+    }
+
+    .branch.primary .b-pct,
+    .branch.primary .b-desc {
+      color: #cfe3f7;
+    }
+
+    .branch.primary .b-ico {
+      background: rgba(255, 255, 255, .16);
+      color: #fff;
+    }
+
+    .branch-tag {
+      position: absolute;
+      top: -.7rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #0090C0;
+      color: #fff;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: .52rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: .25rem .8rem;
+      border-radius: 999px;
+      box-shadow: 0 8px 18px -8px rgba(0, 144, 192, .6);
+      white-space: nowrap;
+    }
+
+    .b-ico.soft {
+      background: #EAF3FB;
+      color: #0070C0;
+    }
+
+    .b-ico.arch {
+      background: #FDECEC;
+      color: #C0392B;
+    }
 
     /* conector da vertente principal -> nó de aprofundamento */
-    .deep-connector { position: relative; height: 38px; }
-    .deep-connector .dv { position: absolute; left: 25%; top: 0; width: 3px; height: 38px; background: #0090C0; transform: translateX(-50%); }
+    .deep-connector {
+      position: relative;
+      height: 38px;
+    }
+
+    .deep-connector .dv {
+      position: absolute;
+      left: 25%;
+      top: 0;
+      width: 3px;
+      height: 38px;
+      background: #0090C0;
+      transform: translateX(-50%);
+    }
+
     .deep-connector .dv::after {
-      content: "\f063"; font-family: "Font Awesome 6 Free"; font-weight: 900; color: #0090C0;
-      position: absolute; bottom: -6px; left: 50%; transform: translateX(-50%); font-size: .8rem;
+      content: "\f063";
+      font-family: "Font Awesome 6 Free";
+      font-weight: 900;
+      color: #0090C0;
+      position: absolute;
+      bottom: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: .8rem;
     }
 
     .deep-node {
-      display: flex; align-items: center; gap: 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 1.4rem;
       background: linear-gradient(135deg, #f4f9ff 0%, #eaf3fb 100%);
-      border: 2px solid #C0E0F0; border-left: 6px solid #0090C0; border-radius: 16px;
-      padding: 1.1rem 1.6rem; box-shadow: 0 12px 28px -14px rgba(16,48,80,.24);
+      border: 2px solid #C0E0F0;
+      border-left: 6px solid #0090C0;
+      border-radius: 16px;
+      padding: 1.1rem 1.6rem;
+      box-shadow: 0 12px 28px -14px rgba(16, 48, 80, .24);
     }
-    .deep-node .dn-num { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 3.2rem; color: #0070C0; line-height: 1; flex-shrink: 0; }
-    .deep-node .dn-text { color: #334155; font-size: .82rem; line-height: 1.4; }
-    .deep-node .dn-text strong { color: #103050; }
-    .deep-node .dn-from { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .58rem; text-transform: uppercase; letter-spacing: .06em; color: #0070C0; display: block; margin-bottom: .25rem; }
 
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
-    .funnel-mouth, .branch, .deep-node { animation: fadeUp .5s ease both; }
-    .branch:nth-child(2) { animation-delay: .08s; }
-    .branch:nth-child(3) { animation-delay: .16s; }
-    .deep-node { animation-delay: .24s; }
-    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+    .deep-node .dn-num {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 3.2rem;
+      color: #0070C0;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .deep-node .dn-text {
+      color: #334155;
+      font-size: .82rem;
+      line-height: 1.4;
+    }
+
+    .deep-node .dn-text strong {
+      color: #103050;
+    }
+
+    .deep-node .dn-from {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: .58rem;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: #0070C0;
+      display: block;
+      margin-bottom: .25rem;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    .funnel-mouth,
+    .branch,
+    .deep-node {
+      animation: fadeUp .5s ease both;
+    }
+
+    .branch:nth-child(2) {
+      animation-delay: .08s;
+    }
+
+    .branch:nth-child(3) {
+      animation-delay: .16s;
+    }
+
+    .deep-node {
+      animation-delay: .24s;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
   </style>
 </head>
 
@@ -115,7 +375,8 @@
           <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Funil de Tratamento
             das Manifestações</p>
         </div>
-        <p class="text-gray-500 font-medium ml-4 text-lg">Do recebimento ao encaminhamento e à apuração — 1º trimestre de
+        <p class="text-gray-500 font-medium ml-4 text-lg">Do recebimento ao encaminhamento e à apuração — 1º trimestre
+          de
           2026</p>
       </div>
       <div class="flex items-center gap-2 opacity-80 text-brand-secondary">
@@ -146,7 +407,6 @@
         <!-- 2 ramificações de encaminhamento -->
         <div class="grid grid-cols-2 gap-8">
           <div class="branch primary">
-            <span class="branch-tag">Vertente principal</span>
             <div class="b-ico"><i class="fas fa-scale-balanced"></i></div>
             <p class="b-num">182</p>
             <p class="b-pct">59,9% das manifestações</p>
@@ -163,13 +423,16 @@
         </div>
 
         <!-- conector vertente principal -> aprofundamento -->
-        <div class="deep-connector"><div class="dv"></div></div>
+        <div class="deep-connector">
+          <div class="dv"></div>
+        </div>
 
         <!-- nó de aprofundamento (das 182) -->
         <div class="deep-node">
           <p class="dn-num">95</p>
           <div class="dn-text">
-            <span class="dn-from"><i class="fas fa-arrow-turn-up fa-rotate-90"></i> Das 182 encaminhadas à SFC / GPF</span>
+            <span class="dn-from"><i class="fas fa-arrow-turn-up fa-rotate-90"></i> Das 182 encaminhadas à SFC /
+              GPF</span>
             <strong>95 geraram processo administrativo</strong> (ou foram associadas a um processo já existente) para a
             apuração de denúncias e reclamações.
           </div>
@@ -181,7 +444,7 @@
     <!-- Footer -->
     <div class="px-16 pb-6 flex justify-between items-center z-10">
       <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ — 1º Trimestre (Jan–Mar)</p>
-      <p class="text-gray-300 text-xs font-mono">5 / 24</p>
+      <p class="text-gray-300 text-xs font-mono">5 / 25</p>
     </div>
   </div>
   <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>

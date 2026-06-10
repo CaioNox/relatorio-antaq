@@ -1,739 +1,132 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
-
 <head>
-  <meta charset="utf-8" />
-  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <title>Carta de Serviços (SOG) - Relatório Trimestral Ouvidoria ANTAQ</title>
-  <link rel="icon" type="image/png"
-    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&amp;family=Open+Sans:wght@400;600&amp;display=swap"
-    rel="stylesheet" />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
-  <style>
-    html {
-      font-size: 26px;
-    }
-
-    body {
-      margin: 0;
-      padding: 0;
-      background-color: #f3f4f6;
-      overflow-x: hidden;
-      overflow-y: auto;
-    }
-
-    .slide-container {
-      width: 100vw;
-      min-height: 100vh;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      background-color: #ffffff;
-      overflow: visible;
-      font-family: 'Open Sans', sans-serif;
-    }
-
-    .font-montserrat {
-      font-family: 'Montserrat', sans-serif;
-    }
-
-    .text-brand-primary {
-      color: #103050;
-    }
-
-    .text-brand-secondary {
-      color: #0070C0;
-    }
-
-    .bg-brand-secondary {
-      background-color: #0070C0;
-    }
-
-    .top-accent {
-      height: 8px;
-      background-color: #103050;
-      width: 100%;
-    }
-
-    .top-accent-secondary {
-      height: 4px;
-      background-color: #0070C0;
-      width: 100%;
-    }
-
-    /* ===== Stat mini ===== */
-    .stat-mini {
-      background: #ffffff;
-      border: 2px solid #E2E8F0;
-      border-radius: 14px;
-      padding: 1rem 1.3rem;
-      box-shadow: 0 8px 20px -8px rgba(16, 48, 80, .18);
-    }
-
-    /* ===== Insight flow banner ===== */
-    .insight-banner {
-      background: linear-gradient(135deg, #f4f9ff 0%, #eaf3fb 100%);
-      border: 2px solid #C0E0F0;
-      border-left: 5px solid #0070C0;
-      border-radius: 16px;
-      padding: 1rem 1.6rem;
-      box-shadow: 0 10px 24px -12px rgba(16, 48, 80, .22);
-    }
-
-    .flow-row {
-      display: flex;
-      align-items: stretch;
-      gap: .9rem;
-      flex-wrap: nowrap;
-    }
-
-    .flow-stat {
-      display: flex;
-      align-items: center;
-      gap: .8rem;
-      background: #ffffff;
-      border: 2px solid #E2E8F0;
-      border-radius: 12px;
-      padding: .7rem 1rem;
-      flex: 1;
-      transition: transform .28s cubic-bezier(.2, .7, .3, 1), border-color .28s ease, box-shadow .28s ease;
-    }
-
-    .flow-stat:hover {
-      transform: translateY(-4px);
-      border-color: #0070C0;
-      box-shadow: 0 16px 30px -14px rgba(16, 48, 80, .3);
-    }
-
-    .flow-stat .fs-icon {
-      font-size: 1.9rem;
-      color: #0070C0;
-      flex-shrink: 0;
-    }
-
-    .flow-stat .fs-num {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 900;
-      font-size: 1.7rem;
-      color: #103050;
-      line-height: 1;
-    }
-
-    .flow-stat .fs-label {
-      color: #64748B;
-      font-size: .58rem;
-      font-weight: 600;
-      margin-top: .15rem;
-      line-height: 1.2;
-    }
-
-    .flow-connector {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      min-width: 92px;
-    }
-
-    .flow-connector .fc-verb {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 800;
-      font-size: .52rem;
-      letter-spacing: .04em;
-      text-transform: uppercase;
-      color: #0070C0;
-      text-align: center;
-      line-height: 1.15;
-      margin-bottom: .2rem;
-    }
-
-    .flow-connector .fc-arrow {
-      color: #0070C0;
-      font-size: 1.1rem;
-    }
-
-    .insight-tagline {
-      margin-top: .7rem;
-      color: #334155;
-      font-size: .72rem;
-      line-height: 1.4;
-      display: flex;
-      align-items: flex-start;
-      gap: .5rem;
-    }
-
-    .insight-tagline strong {
-      color: #103050;
-    }
-
-    .insight-tagline .it-icon {
-      color: #0070C0;
-      margin-top: .12rem;
-    }
-
-    .svc-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: .7rem;
-      background: linear-gradient(135deg, #103050, #0070C0);
-      color: #fff;
-      border-radius: 999px;
-      padding: .5rem 1.3rem;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 800;
-      letter-spacing: .04em;
-      box-shadow: 0 10px 24px -10px rgba(16, 48, 80, .5);
-    }
-
-    /* ===== TILE GRID ===== */
-    .tile-grid {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 14px;
-      position: relative;
-    }
-
-    .tile {
-      position: relative;
-      background: #ffffff;
-      border: 2px solid #E2E8F0;
-      border-left: 4px solid #0070C0;
-      border-radius: 14px;
-      padding: 1rem;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      min-height: 110px;
-      box-shadow: 0 4px 12px -4px rgba(16, 48, 80, .12);
-      transition: transform .3s cubic-bezier(.2, .7, .3, 1),
-        box-shadow .3s ease,
-        border-color .3s ease,
-        background-color .3s ease;
-      z-index: 1;
-      animation: tileIn .45s cubic-bezier(.2, .7, .3, 1) both;
-    }
-
-    .tile:nth-child(2) {
-      animation-delay: .04s;
-    }
-
-    .tile:nth-child(3) {
-      animation-delay: .08s;
-    }
-
-    .tile:nth-child(4) {
-      animation-delay: .12s;
-    }
-
-    .tile:nth-child(5) {
-      animation-delay: .16s;
-    }
-
-    .tile:nth-child(6) {
-      animation-delay: .20s;
-    }
-
-    .tile:nth-child(7) {
-      animation-delay: .24s;
-    }
-
-    .tile:nth-child(8) {
-      animation-delay: .28s;
-    }
-
-    .tile:nth-child(9) {
-      animation-delay: .32s;
-    }
-
-    .tile:nth-child(10) {
-      animation-delay: .36s;
-    }
-
-    .tile:nth-child(11) {
-      animation-delay: .40s;
-    }
-
-    .tile:nth-child(12) {
-      animation-delay: .44s;
-    }
-
-    .tile:nth-child(13) {
-      animation-delay: .48s;
-    }
-
-    .tile:nth-child(14) {
-      animation-delay: .52s;
-    }
-
-    .tile:nth-child(15) {
-      animation-delay: .56s;
-    }
-
-    .tile:nth-child(16) {
-      animation-delay: .60s;
-    }
-
-    .tile:nth-child(17) {
-      animation-delay: .64s;
-    }
-
-    .tile:nth-child(18) {
-      animation-delay: .68s;
-    }
-
-    @keyframes tileIn {
-      from {
-        opacity: 0;
-        transform: scale(.85) translateY(12px);
-      }
-
-      to {
-        opacity: 1;
-        transform: none;
-      }
-    }
-
-    .tile-num {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 900;
-      font-size: 1.6rem;
-      color: #0070C0;
-      line-height: 1;
-      transition: transform .3s ease, color .3s ease;
-    }
-
-    .tile-label {
-      font-family: 'Open Sans', sans-serif;
-      font-size: .55rem;
-      font-weight: 600;
-      color: #64748B;
-      line-height: 1.2;
-      margin-top: .4rem;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      transition: color .3s ease;
-    }
-
-    .tile-expand-icon {
-      position: absolute;
-      top: 8px;
-      right: 10px;
-      font-size: .5rem;
-      color: #CBD5E1;
-      transition: color .3s ease, transform .3s ease;
-    }
-
-    .tile:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 16px 32px -10px rgba(16, 48, 80, .25);
-      border-color: #0070C0;
-    }
-
-    .tile:hover .tile-num {
-      transform: scale(1.08);
-    }
-
-    .tile:hover .tile-expand-icon {
-      color: #0070C0;
-      transform: rotate(90deg);
-    }
-
-    /* ===== EXPANDED STATE ===== */
-    .tile.expanded {
-      position: absolute;
-      z-index: 100;
-      min-height: auto;
-      padding: 1.4rem 1.6rem;
-      background: linear-gradient(160deg, #ffffff 0%, #f0f7ff 100%);
-      border: 2px solid #0070C0;
-      border-left: 5px solid #0070C0;
-      box-shadow: 0 28px 56px -12px rgba(16, 48, 80, .35);
-      transform: none;
-      align-items: flex-start;
-      text-align: left;
-      width: calc(50% - 7px);
-      min-width: 420px;
-      animation: expandPop .35s cubic-bezier(.2, .7, .3, 1) both;
-    }
-
-    @keyframes expandPop {
-      from {
-        opacity: .7;
-        transform: scale(.92);
-      }
-
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-
-    .tile.expanded .tile-num {
-      font-size: 1.3rem;
-      color: #103050;
-    }
-
-    .tile.expanded .tile-label {
-      -webkit-line-clamp: unset;
-      overflow: visible;
-      font-size: .72rem;
-      color: #103050;
-      font-weight: 700;
-      margin-top: .25rem;
-    }
-
-    .tile.expanded .tile-expand-icon {
-      color: #0070C0;
-      transform: rotate(45deg);
-      font-size: .6rem;
-    }
-
-    .tile-desc {
-      display: none;
-      font-family: 'Open Sans', sans-serif;
-      font-size: .62rem;
-      color: #475569;
-      line-height: 1.45;
-      margin-top: .6rem;
-      padding-top: .6rem;
-      border-top: 1px solid #E2E8F0;
-    }
-
-    .tile.expanded .tile-desc {
-      display: block;
-    }
-
-    .tile-header-row {
-      display: flex;
-      align-items: center;
-      gap: .6rem;
-    }
-
-    /* ===== BACKDROP ===== */
-    .tile-backdrop {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(16, 48, 80, .08);
-      z-index: 50;
-      animation: fadeBackdrop .25s ease both;
-    }
-
-    .tile-backdrop.active {
-      display: block;
-    }
-
-    @keyframes fadeBackdrop {
-      from {
-        opacity: 0;
-      }
-
-      to {
-        opacity: 1;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-
-      *,
-      *::before,
-      *::after {
-        animation: none !important;
-        transition: none !important;
-      }
-    }
-  </style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Cartas de Serviço ANTAQ - Relatório Trimestral Ouvidoria ANTAQ</title>
+<link rel="icon" type="image/png" href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png"/>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&amp;family=Open+Sans:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        html { font-size: 26px; }
+        body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
+        .slide-container {
+            width: 100vw; height: 100vh; position: relative;
+            display: flex; flex-direction: column;
+            background-color: #ffffff; overflow: hidden;
+            font-family: 'Open Sans', sans-serif;
+        }
+        .font-montserrat { font-family: 'Montserrat', sans-serif; }
+        .text-brand-primary { color: #103050; }
+        .bg-brand-primary { background-color: #103050; }
+        .text-brand-secondary { color: #0070C0; }
+        .bg-brand-secondary { background-color: #0070C0; }
+        .top-accent { height: 8px; background-color: #103050; width: 100%; }
+        .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
+        .lead-frame {
+            background-color: #EAF3FB; border: 2px solid #C0E0F0;
+            border-radius: 16px; box-shadow: 0 10px 25px -5px rgba(0, 112, 192, 0.15);
+            position: relative;
+        }
+        .metric-card {
+            background:#ffffff; border:2px solid #E2E8F0; border-left:4px solid #0070C0;
+            border-radius:16px; padding:1.3rem 1.5rem;
+            box-shadow:0 8px 22px -10px rgba(16,48,80,.18);
+            transition: transform .28s cubic-bezier(.2,.7,.3,1), box-shadow .28s ease, border-color .28s ease;
+        }
+        .metric-card:hover { transform: translateY(-7px); box-shadow:0 24px 44px -14px rgba(16,48,80,.30); border-color:#0070C0; }
+        @keyframes fadeIn { from { opacity:0; transform: translateY(10px);} to { opacity:1; transform:none;} }
+        .lead-frame, .metric-card { animation: fadeIn .5s ease both; }
+        .metric-card:nth-child(2) { animation-delay:.09s; }
+        .metric-card:nth-child(3) { animation-delay:.18s; }
+        .bg-pattern {
+            position: absolute; bottom: -50px; right: -50px;
+            width: 400px; height: 400px; opacity: 0.03; z-index: 0; color: #103050;
+        }
+        @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+    </style>
 </head>
-
 <body>
-  <div class="tile-backdrop" id="tileBackdrop"></div>
-  <div class="slide-container">
-    <div class="top-accent"></div>
-    <div class="top-accent-secondary"></div>
-    <!-- Header -->
-    <div class="flex items-center justify-between px-16 pt-12 pb-3 z-10">
-      <div>
-        <div class="flex items-center gap-3 mb-2">
-          <div class="w-1 h-8 bg-brand-secondary"></div>
-          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Carta de Serviços da
-            ANTAQ</p>
-        </div>
-        <p class="text-gray-500 font-medium ml-4 text-lg">Lei nº 13.460/2017</p>
-      </div>
-      <div class="flex items-center gap-2 opacity-80 text-brand-secondary">
-        <i class="fas fa-file-contract text-xl" aria-hidden="true"></i>
-        <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">SERVIÇOS · 1/2</p>
-      </div>
-    </div>
-    <!-- Insight flow banner -->
-    <div class="px-16 pt-1 pb-3 z-10">
-      <div class="insight-banner">
-        <div class="flow-row">
-          <div class="flow-stat">
-            <i class="fas fa-clipboard-list fs-icon"></i>
-            <div>
-              <p class="fs-num">31 serviços</p>
-              <p class="fs-label">da Carta de Serviços da ANTAQ</p>
-            </div>
-          </div>
-          <div class="flow-connector">
-            <span class="fc-verb"><br></span>
-            <i class="fas fa-arrow-right-long fc-arrow"></i>
-          </div>
-          <div class="flow-stat">
-            <i class="fas fa-users fs-icon"></i>
-            <div>
-              <p class="fs-num">145 conselheiros</p>
-              <p class="fs-label">rede de participação social</p>
-            </div>
-          </div>
-          <div class="flow-connector">
-            <i class="fas fa-arrow-right-long fc-arrow"></i>
-          </div>
-          <div class="flow-stat">
-            <i class="fas fa-arrows-rotate fs-icon"></i>
-            <div>
-              <p class="fs-num">2025–2028</p>
-              <p class="fs-label">ao longo de todo o quadriênio</p>
-            </div>
-          </div>
-        </div>
-        <p class="insight-tagline">
-          <i class="fas fa-circle-info it-icon"></i>
-          <span>Os <strong>31 serviços</strong> são submetidos à leitura e avaliação <strong>contínua dos 145
-              conselheiros</strong>,
-            de forma ininterrupta <strong>ao longo do quadriênio 2025–2028</strong> — assegurando o monitoramento
-            permanente da
-            Carta e a melhoria contínua do atendimento ao cidadão.</span>
-        </p>
-      </div>
-    </div>
-    <!-- SOG badge -->
-    <div class="px-16 pb-3 z-10"><span class="svc-badge"><i class="fas fa-stamp"></i> SOG — Superintendência de Outorgas
-        · 18 serviços</span></div>
-    <!-- SOG tile grid -->
-    <div class="flex-1 px-16 pb-6 z-10" style="position:relative;">
-      <div class="tile-grid" id="tileGrid">
-
-        <div class="tile" data-idx="0" onclick="toggleTile(this)">
-          <i class="fas fa-plus tile-expand-icon"></i>
-          <div class="tile-header-row"><span class="tile-num">01</span></div>
-          <span class="tile-label">Afretamento de embarcações estrangeiras</span>
-          <div class="tile-desc">Autorização e registro para afretamento de embarcações estrangeiras por empresas
-            brasileiras de navegação.</div>
-        </div>
-
-        <div class="tile" data-idx="1" onclick="toggleTile(this)">
-          <i class="fas fa-plus tile-expand-icon"></i>
-          <div class="tile-header-row"><span class="tile-num">02</span></div>
-          <span class="tile-label">Afretamento de embarcações brasileiras</span>
-          <div class="tile-desc">Registro de afretamento de embarcações brasileiras para operações de navegação
-            doméstica e internacional.</div>
-        </div>
-
-        <div class="tile" data-idx="2" onclick="toggleTile(this)">
-          <i class="fas fa-plus tile-expand-icon"></i>
-          <div class="tile-header-row"><span class="tile-num">03</span></div>
-          <span class="tile-label">Alteração de frota</span>
-          <div class="tile-desc">Registro de alteração de frota de empresas brasileiras de navegação junto à ANTAQ.
-          </div>
-        </div>
-
-        <div class="tile" data-idx="3" onclick="toggleTile(this)">
-          <i class="fas fa-plus tile-expand-icon"></i>
-          <div class="tile-header-row"><span class="tile-num">04</span></div>
-          <span class="tile-label">Situação cadastral de empresa</span>
-          <div class="tile-desc">Alteração de situação cadastral de empresa brasileira de navegação — ativação,
-            suspensão ou cancelamento.</div>
-        </div>
-
-        <div class="tile" data-idx="4" onclick="toggleTile(this)">
-          <i class="fas fa-plus tile-expand-icon"></i>
-          <div class="tile-header-row"><span class="tile-num">05</span></div>
-          <span class="tile-label">Instalação portuária privada</span>
-          <div class="tile-desc">Autorização para instalação portuária privada fora do Porto Organizado (Terminais de
-            Uso Privado — TUPs).</div>
-        </div>
-
-        <div class="tile" data-idx="5" onclick="toggleTile(this)">
-          <i class="fas fa-plus tile-expand-icon"></i>
-          <div class="tile-header-row"><span class="tile-num">06</span></div>
-          <span class="tile-label">Autorização marítima e cabotagem</span>
-          <div class="tile-desc">Autorização, aditamento e renúncia — marítima, apoio, cabotagem e longo curso.</div>
-        </div>
-
-        <div class="tile" data-idx="6" onclick="toggleTile(this)">
-          <i class="fas fa-plus tile-expand-icon"></i>
-          <div class="tile-header-row"><span class="tile-num">07</span></div>
-          <span class="tile-label">Cargas — nav. interior longitudinal</span>
-          <div class="tile-desc">Transporte de cargas — navegação interior longitudinal interestadual e internacional.
-          </div>
-        </div>
-
-        <div class="tile" data-idx="7" onclick="toggleTile(this)">
-          <i class="fas fa-plus tile-expand-icon"></i>
-          <div class="tile-header-row"><span class="tile-num">08</span></div>
-          <span class="tile-label">Nav. interior de travessia</span>
-          <div class="tile-desc">Passageiros, veículos e cargas — navegação interior de travessia entre margens de rios
-            e lagos.</div>
-        </div>
-
-        <div class="tile" data-idx="8" onclick="toggleTile(this)">
-          <i class="fas fa-plus tile-expand-icon"></i>
-          <div class="tile-header-row"><span class="tile-num">09</span></div>
-          <span class="tile-label">Transporte misto — nav. interior</span>
-          <div class="tile-desc">Transporte misto e de passageiros — navegação interior longitudinal em águas
-            interiores.</div>
-        </div>
-
-        <div class="tile" data-idx="9" onclick="toggleTile(this)">
-          <i class="fas fa-plus tile-expand-icon"></i>
-          <div class="tile-header-row"><span class="tile-num">10</span></div>
-          <span class="tile-label">Ampliação de área portuária</span>
-          <div class="tile-desc">Ampliação de área de instalação portuária privada fora do Porto Organizado.</div>
-        </div>
-
-        <div class="tile" data-idx="10" onclick="toggleTile(this)">
-          <i class="fas fa-plus tile-expand-icon"></i>
-          <div class="tile-header-row"><span class="tile-num">11</span></div>
-          <span class="tile-label">Instalação de apoio</span>
-          <div class="tile-desc">Registro de instalação de apoio não passível de autorização pela agência.</div>
-        </div>
-
-        <div class="tile" data-idx="11" onclick="toggleTile(this)">
-          <i class="fas fa-plus tile-expand-icon"></i>
-          <div class="tile-header-row"><span class="tile-num">12</span></div>
-          <span class="tile-label">Tonelagem — inscrição no REB</span>
-          <div class="tile-desc">Análise de tonelagem para inscrição no Registro Especial Brasileiro (REB).</div>
-        </div>
-
-        <div class="tile" data-idx="12" onclick="toggleTile(this)">
-          <i class="fas fa-plus tile-expand-icon"></i>
-          <div class="tile-header-row"><span class="tile-num">13</span></div>
-          <span class="tile-label">Sistema Mercante (RFB)</span>
-          <div class="tile-desc">Atualização de dados para o Sistema Mercante da Receita Federal do Brasil.</div>
-        </div>
-
-        <div class="tile" data-idx="13" onclick="toggleTile(this)">
-          <i class="fas fa-plus tile-expand-icon"></i>
-          <div class="tile-header-row"><span class="tile-num">14</span></div>
-          <span class="tile-label">Acordo Operacional</span>
-          <div class="tile-desc">Homologação de Acordo Operacional para navegação marítima ou interior entre empresas.
-          </div>
-        </div>
-
-        <div class="tile" data-idx="14" onclick="toggleTile(this)">
-          <i class="fas fa-plus tile-expand-icon"></i>
-          <div class="tile-header-row"><span class="tile-num">15</span></div>
-          <span class="tile-label">Operação emergencial/especial</span>
-          <div class="tile-desc">Autorização para operação emergencial e operação especial de navegação.</div>
-        </div>
-
-        <div class="tile" data-idx="15" onclick="toggleTile(this)">
-          <i class="fas fa-plus tile-expand-icon"></i>
-          <div class="tile-header-row"><span class="tile-num">16</span></div>
-          <span class="tile-label">Contrato de Transição / Uso Temp.</span>
-          <div class="tile-desc">Autorização para Contrato de Transição ou Uso Temporário de instalações portuárias.
-          </div>
-        </div>
-
-        <div class="tile" data-idx="16" onclick="toggleTile(this)">
-          <i class="fas fa-plus tile-expand-icon"></i>
-          <div class="tile-header-row"><span class="tile-num">17</span></div>
-          <span class="tile-label">Projetos Executivos</span>
-          <div class="tile-desc">Análise de Projetos Executivos de Concessões e Arrendamentos portuários.</div>
-        </div>
-
-        <div class="tile" data-idx="17" onclick="toggleTile(this)">
-          <i class="fas fa-plus tile-expand-icon"></i>
-          <div class="tile-header-row"><span class="tile-num">18</span></div>
-          <span class="tile-label">Equilíbrio econômico-financeiro</span>
-          <div class="tile-desc">Recomposição do equilíbrio econômico-financeiro de Arrendamentos e EVTEA.</div>
-        </div>
-
-      </div>
-    </div>
-    <!-- Footer -->
-    <div class="px-16 pb-8 flex justify-between items-center z-10">
-      <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ — 1º Trimestre (Jan–Mar)</p>
-      <p class="text-gray-300 text-xs font-mono">16 / 24</p>
-    </div>
-  </div>
-
-  <script>
-    let expandedTile = null;
-    const backdrop = document.getElementById('tileBackdrop');
-    const grid = document.getElementById('tileGrid');
-
-    function toggleTile(tile) {
-      if (tile.classList.contains('expanded')) {
-        collapseTile(tile);
-      } else {
-        if (expandedTile) collapseTile(expandedTile);
-        expandTile(tile);
-      }
-    }
-
-    function expandTile(tile) {
-      const gridRect = grid.getBoundingClientRect();
-      const tileRect = tile.getBoundingClientRect();
-
-      // Save original position
-      tile._origTop = tileRect.top - gridRect.top;
-      tile._origLeft = tileRect.left - gridRect.left;
-      tile._origWidth = tileRect.width;
-      tile._origHeight = tileRect.height;
-
-      // Calculate position — keep near original but ensure it stays in view
-      let top = tile._origTop;
-      let left = tile._origLeft;
-
-      // If on right side of grid, expand leftward
-      if (left + 420 > gridRect.width) {
-        left = gridRect.width - Math.min(gridRect.width * 0.5, 480);
-      }
-
-      tile.style.top = top + 'px';
-      tile.style.left = left + 'px';
-      tile.classList.add('expanded');
-      backdrop.classList.add('active');
-      expandedTile = tile;
-    }
-
-    function collapseTile(tile) {
-      tile.classList.remove('expanded');
-      tile.style.top = '';
-      tile.style.left = '';
-      backdrop.classList.remove('active');
-      expandedTile = null;
-    }
-
-    backdrop.addEventListener('click', function () {
-      if (expandedTile) collapseTile(expandedTile);
-    });
-
-    // Keyboard nav for slide system
-    document.addEventListener("keydown", function (e) {
-      if (expandedTile && e.key === "Escape") {
-        collapseTile(expandedTile);
-        e.preventDefault();
-        return;
-      }
-      if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) {
-        e.preventDefault();
-        window.parent.postMessage({ type: "slide-nav", key: e.key }, "*");
-      }
-    });
-  </script>
+<div class="slide-container">
+<!-- Top Accents -->
+<div class="top-accent"></div>
+<div class="top-accent-secondary"></div>
+<!-- Header -->
+<div class="flex items-center justify-between px-16 pt-10 pb-4 z-10">
+<div>
+<div class="flex items-center gap-3 mb-2">
+<div class="w-1 h-8 bg-brand-secondary"></div>
+<p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Cartas de Serviço da ANTAQ</p>
+</div>
+<p class="text-gray-500 font-medium ml-4 text-lg">Lei nº 13.460/2017 · 1º Trimestre de 2026</p>
+</div>
+<div class="flex items-center gap-2 opacity-80 text-brand-secondary">
+<i class="fas fa-file-contract text-xl" aria-hidden="true"></i>
+<p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">APRESENTAÇÃO</p>
+</div>
+</div>
+<!-- Main Content -->
+<div class="flex-1 flex flex-col justify-center px-16 pb-8 z-10">
+<div class="w-full max-w-6xl mx-auto relative">
+<!-- Lead frame -->
+<div class="lead-frame w-full px-12 py-7 mb-6">
+<p class="text-brand-primary font-montserrat font-bold text-xl mb-3 flex items-center gap-3">
+<i class="fas fa-shield-halved text-brand-secondary text-2xl"></i>
+                    A Ouvidoria como guardiã da Carta de Serviços
+                </p>
+<p class="text-gray-700 text-base leading-relaxed">
+                    No primeiro trimestre de 2026, a Ouvidoria atuou diretamente como <strong>guardiã da Carta de Serviços da
+                    ANTAQ</strong> — documento fundamental que, respaldado pela <strong>Lei nº 13.460/2017</strong>, informa os
+                    cidadãos sobre os serviços prestados pela autarquia, seus requisitos, prazos e padrões de atendimento. Visando
+                    promover a <strong>participação direta da sociedade civil</strong> na melhoria contínua desses 31 serviços, a
+                    Ouvidoria e sua rede de 145 conselheiros dedicaram esse primeiro trimestre exclusivamente ao planejamento e à
+                    organização do <strong>novo ciclo de enquetes para o quadriênio 2025–2028</strong>.
+                </p>
+</div>
+<!-- Metrics row -->
+<div class="grid grid-cols-3 gap-5">
+<div class="metric-card flex items-center gap-4">
+<i class="fas fa-clipboard-list text-4xl text-brand-secondary"></i>
+<div>
+<p class="font-montserrat font-black text-4xl text-brand-primary leading-none">31</p>
+<p class="text-gray-500 text-sm mt-1">serviços monitorados pela Ouvidoria</p>
+</div>
+</div>
+<div class="metric-card flex items-center gap-4">
+<i class="fas fa-users text-4xl text-brand-secondary"></i>
+<div>
+<p class="font-montserrat font-black text-4xl text-brand-primary leading-none">145</p>
+<p class="text-gray-500 text-sm mt-1">conselheiros na rede de participação social</p>
+</div>
+</div>
+<div class="metric-card flex items-center gap-4">
+<i class="fas fa-poll text-4xl text-brand-secondary"></i>
+<div>
+<p class="font-montserrat font-black text-4xl text-brand-primary leading-none">2025–2028</p>
+<p class="text-gray-500 text-sm mt-1">novo quadriênio de enquetes</p>
+</div>
+</div>
+</div>
+<!-- Closing line -->
+<p class="text-center text-brand-primary font-montserrat font-bold text-lg mt-7 flex items-center justify-center gap-3">
+<i class="fas fa-sitemap text-brand-secondary"></i>
+                Serviços organizados por Superintendência
+<i class="fas fa-arrow-right text-brand-secondary"></i>
+</p>
+</div>
+</div>
+<!-- Footer -->
+<div class="px-16 pb-8 flex justify-between items-center z-10">
+<p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ — 1º Trimestre (Jan–Mar)</p>
+<p class="text-gray-300 text-xs font-mono">16 / 25</p>
+</div>
+<!-- Decorative Background Pattern -->
+<div class="bg-pattern">
+<i class="fas fa-file-contract text-9xl"></i>
+</div>
+</div>
+<script>document.addEventListener("keydown",function(e){if(["ArrowRight","ArrowLeft","PageDown","PageUp","Home","End"," ","f","F"].indexOf(e.key)!==-1){e.preventDefault();window.parent.postMessage({type:"slide-nav",key:e.key},"*");}});</script>
 </body>
-
 </html>
