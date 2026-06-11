@@ -39,6 +39,15 @@
       box-shadow: 0 16px 44px rgba(0, 0, 0, 0.45);
       overflow: hidden;
       position: relative;
+      flex: 0 0 auto;
+    }
+
+    /* Zonas de clique de navegação — ficam no "fora do palco" (área azul), nas laterais do slide */
+    .click-zone {
+      flex: 1 1 0;
+      align-self: stretch;
+      min-width: 0;
+      cursor: pointer;
     }
 
     iframe {
@@ -120,11 +129,11 @@
 </head>
 <body>
   <div class="app">
+    <div id="clickLeft" class="click-zone" title="Slide anterior"></div>
     <div class="stage">
       <iframe id="slideFrame" title="Slide"></iframe>
-      <div id="clickLeft" style="position:absolute;top:0;left:0;width:15%;height:100%;z-index:10;cursor:pointer;"></div>
-      <div id="clickRight" style="position:absolute;top:0;right:0;width:15%;height:100%;z-index:10;cursor:pointer;"></div>
     </div>
+    <div id="clickRight" class="click-zone" title="Próximo slide"></div>
   </div>
 
   <div class="nav-bar">
