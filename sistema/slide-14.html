@@ -366,25 +366,155 @@
     }
 
     /* ===== Tiles de base clicáveis + modal ===== */
-    .base-tile { cursor: pointer; position: relative; }
-    .base-tile .bt-plus { margin-left: auto; color: #CBD5E1; font-size: .62rem; transition: color .25s ease, transform .25s ease; }
-    .base-tile:hover { border-color: #0070C0; background: #eef6fc; transform: translateX(4px); }
-    .base-tile:hover .bt-plus { color: #0070C0; transform: rotate(90deg); }
-    .base-tile .bt-desc { display: none; }
+    .base-tile {
+      cursor: pointer;
+      position: relative;
+    }
 
-    .base-backdrop { display: none; position: fixed; inset: 0; background: rgba(16, 48, 80, .45); z-index: 80; align-items: center; justify-content: center; padding: 3rem; }
-    .base-backdrop.active { display: flex; animation: bgIn .2s ease both; }
-    @keyframes bgIn { from { opacity: 0; } to { opacity: 1; } }
-    .base-modal { position: relative; background: #fff; width: min(820px, 82vw); max-height: 72vh; overflow: auto; border-radius: 18px; border-top: 6px solid #0070C0; box-shadow: 0 44px 88px -22px rgba(16, 48, 80, .6); padding: 2rem 2.3rem 2.2rem; animation: popIn .26s cubic-bezier(.2, .7, .3, 1) both; }
-    @keyframes popIn { from { opacity: .6; transform: scale(.94); } to { opacity: 1; transform: scale(1); } }
-    .base-modal .bm-head { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; padding-right: 2.5rem; }
-    .base-modal .bm-num { flex-shrink: 0; width: 3rem; height: 3rem; border-radius: 14px; background: linear-gradient(135deg, #103050, #0070C0); color: #fff; font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.15rem; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 22px -10px rgba(16, 48, 80, .5); }
-    .base-modal .bm-kicker { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: .58rem; letter-spacing: .12em; text-transform: uppercase; color: #0070C0; margin-bottom: .15rem; }
-    .base-modal .bm-title { font-family: 'Montserrat', sans-serif; font-weight: 800; color: #103050; font-size: 1.2rem; line-height: 1.15; }
-    .base-modal .bm-desc { color: #334155; font-size: .9rem; line-height: 1.6; }
-    .base-modal .bm-close { position: absolute; top: 1rem; right: 1.1rem; width: 2rem; height: 2rem; border-radius: 50%; border: none; background: #EEF2F7; color: #64748B; cursor: pointer; font-size: .9rem; display: flex; align-items: center; justify-content: center; transition: background .2s ease, color .2s ease; }
-    .base-modal .bm-close:hover { background: #103050; color: #fff; }
-    </style>
+    .base-tile .bt-plus {
+      margin-left: auto;
+      color: #CBD5E1;
+      font-size: .62rem;
+      transition: color .25s ease, transform .25s ease;
+    }
+
+    .base-tile:hover {
+      border-color: #0070C0;
+      background: #eef6fc;
+      transform: translateX(4px);
+    }
+
+    .base-tile:hover .bt-plus {
+      color: #0070C0;
+      transform: rotate(90deg);
+    }
+
+    .base-tile .bt-desc {
+      display: none;
+    }
+
+    .base-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(16, 48, 80, .45);
+      z-index: 80;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem;
+    }
+
+    .base-backdrop.active {
+      display: flex;
+      animation: bgIn .2s ease both;
+    }
+
+    @keyframes bgIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    .base-modal {
+      position: relative;
+      background: #fff;
+      width: min(820px, 82vw);
+      max-height: 72vh;
+      overflow: auto;
+      border-radius: 18px;
+      border-top: 6px solid #0070C0;
+      box-shadow: 0 44px 88px -22px rgba(16, 48, 80, .6);
+      padding: 2rem 2.3rem 2.2rem;
+      animation: popIn .26s cubic-bezier(.2, .7, .3, 1) both;
+    }
+
+    @keyframes popIn {
+      from {
+        opacity: .6;
+        transform: scale(.94);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .base-modal .bm-head {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      padding-right: 2.5rem;
+    }
+
+    .base-modal .bm-num {
+      flex-shrink: 0;
+      width: 3rem;
+      height: 3rem;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #103050, #0070C0);
+      color: #fff;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 1.15rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 22px -10px rgba(16, 48, 80, .5);
+    }
+
+    .base-modal .bm-kicker {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: .58rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: #0070C0;
+      margin-bottom: .15rem;
+    }
+
+    .base-modal .bm-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      color: #103050;
+      font-size: 1.2rem;
+      line-height: 1.15;
+    }
+
+    .base-modal .bm-desc {
+      color: #334155;
+      font-size: .9rem;
+      line-height: 1.6;
+    }
+
+    .base-modal .bm-close {
+      position: absolute;
+      top: 1rem;
+      right: 1.1rem;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      border: none;
+      background: #EEF2F7;
+      color: #64748B;
+      cursor: pointer;
+      font-size: .9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .2s ease, color .2s ease;
+    }
+
+    .base-modal .bm-close:hover {
+      background: #103050;
+      color: #fff;
+    }
+  </style>
 </head>
 
 <body>
@@ -444,26 +574,113 @@
           </div>
         </div>
         <p class="text-gray-400 text-sm mb-3">Bases abertas atualmente publicadas pela ANTAQ — <span
-            class="text-brand-secondary font-semibold">clique para ver a descrição</span></p>
+            class="text-brand-secondary font-semibold">clique na base para obter a descrição!</span></p>
         <div class="flex-1 grid grid-cols-3 grid-rows-6 gap-2">
-          <div class="base-chip base-tile" data-num="01" data-title="Afretamento" onclick="openBase(this)"><i class="fas fa-ship"></i><span class="bt-name">Afretamento</span><i class="fas fa-plus bt-plus"></i><span class="bt-desc">Dados gerais e públicos relativos ao afretamento de embarcações a partir do Sistema de Informações Gerenciais - SIG. Trata-se de base pública contendo dados sobre o histórico de circularização de afretamento. A circularização compreende uma consulta ampla ao mercado nacional atuante, questionando quanto à disponibilidade de embarcação nacional para efetuar certo transporte ou apoio. Tal procedimento é exigido pela Lei 9.432/97 em seu Art. 9º, Inciso I, e regulamentado pela Resolução Normativa 01/2015 nos Art. 2º, 5º a Art. 8º.</span></div>
-          <div class="base-chip base-tile" data-num="02" data-title="Estatístico Aquaviário (EA)" onclick="openBase(this)"><i class="fas fa-chart-line"></i><span class="bt-name">Estatístico Aquaviário (EA)</span><i class="fas fa-plus bt-plus"></i><span class="bt-desc">Dados estatísticos gerais e públicos sobre a movimentação e transporte de carga desde 2010 até o ano corrente, atualizado mensalmente, das instalações portuárias outorgadas pela ANTAQ a partir do Painel Estatístico Aquaviário. A base de dados histórica pode ser baixada em: https://web3.antaq.gov.br/ea/sense/download.html#pt.</span></div>
-          <div class="base-chip base-tile" data-num="03" data-title="Fiscalizações Arquivadas sem Irregularidade" onclick="openBase(this)"><i class="fas fa-folder-open"></i><span class="bt-name">Fiscalizações Arquivadas s/ Irregularidade</span><i class="fas fa-plus bt-plus"></i><span class="bt-desc">Base de dados contendo lista dos processos de fiscalização arquivados sem irregularidade na Agência a partir do ano de 2014 e outras informações agregadas, como infração, decisão e valor da multa (caso aplicável).</span></div>
-          <div class="base-chip base-tile" data-num="04" data-title="Gestão Orçamentária e Financeira" onclick="openBase(this)"><i class="fas fa-coins"></i><span class="bt-name">Gestão Orçamentária e Financeira</span><i class="fas fa-plus bt-plus"></i><span class="bt-desc">Os dados se referem ao acompanhamento da execução do orçamento anual da ANTAQ, proporcionando informações aos controles interno e externo, bem como à transparência pública e ao controle social sobre as atribuições da Agência, permitindo identificar os gastos por Resultado, Plano Orçamentário, Modalidade de Licitação e por Natureza da Despesa, além da execução dos gastos decorrentes do uso do Cartão de Pagamento do Governo Federal no exercício corrente.</span></div>
-          <div class="base-chip base-tile" data-num="05" data-title="Gestão de Multas" onclick="openBase(this)"><i class="fas fa-gavel"></i><span class="bt-name">Gestão de Multas</span><i class="fas fa-plus bt-plus"></i><span class="bt-desc">O Painel de Gestão de Multas tem a finalidade de informar as arrecadações ocorridas por exercício financeiro decorrentes das multas sancionatórias aplicadas pela ANTAQ e os valores inscritos por exercício financeiro no Cadastro Informativo de Créditos não Quitados do Setor Público Federal (Cadin).</span></div>
-          <div class="base-chip base-tile" data-num="06" data-title="Instalações Portuárias" onclick="openBase(this)"><i class="fas fa-anchor"></i><span class="bt-name">Instalações Portuárias</span><i class="fas fa-plus bt-plus"></i><span class="bt-desc">Informações de instalações portuárias privadas. Desmembramento da antiga base de dados “Outorgas”, conforme explicitado no PDA ANTAQ 2023-2025.</span></div>
-          <div class="base-chip base-tile" data-num="07" data-title="Painel de Custos" onclick="openBase(this)"><i class="fas fa-calculator"></i><span class="bt-name">Painel de Custos</span><i class="fas fa-plus bt-plus"></i><span class="bt-desc">Base de dados que fornece aos usuários, internos e externos, informações relativas aos Centros de Custos, viabilizando informações gerenciais através da identificação dos gastos por setor da ANTAQ. Permite visualizar a segregação das atividades em Finalísticas ou de Estratégia, Gestão e Suporte, e a identificação do Macroprocesso da Cadeia de Valor.</span></div>
-          <div class="base-chip base-tile" data-num="08" data-title="Plano Estratégico" onclick="openBase(this)"><i class="fas fa-chess-king"></i><span class="bt-name">Plano Estratégico</span><i class="fas fa-plus bt-plus"></i><span class="bt-desc">Dados do Painel de Monitoramento da Estratégia. Apresenta a evolução no cumprimento de metas do Plano Estratégico e do Plano de Gestão Anual das Unidades. O PEI 2025-2028 é um instrumento de gestão que orienta as ações da instituição para o alcance dos objetivos organizacionais de longo e médio prazos.</span></div>
-          <div class="base-chip base-tile" data-num="09" data-title="Plano de Integridade" onclick="openBase(this)"><i class="fas fa-shield-halved"></i><span class="bt-name">Plano de Integridade</span><i class="fas fa-plus bt-plus"></i><span class="bt-desc">Dados relacionados ao Monitoramento das ações de Integridade da ANTAQ. Atualização quadrimestral. O Plano de Integridade da ANTAQ organiza, analisa, norteia e monitora as ações de integridade, estruturando medidas institucionais voltadas para a prevenção, detecção, punição e remediação de práticas de corrupção, fraudes, irregularidades e desvios éticos e de conduta.</span></div>
-          <div class="base-chip base-tile" data-num="10" data-title="Portos Organizados" onclick="openBase(this)"><i class="fas fa-city"></i><span class="bt-name">Portos Organizados</span><i class="fas fa-plus bt-plus"></i><span class="bt-desc">Informações sobre as instalações públicas outorgadas. Desmembramento da Base de Dados “Outorgas”, conforme PDA ANTAQ 2023-2025.</span></div>
-          <div class="base-chip base-tile" data-num="11" data-title="Processos Sancionadores Julgados" onclick="openBase(this)"><i class="fas fa-scale-balanced"></i><span class="bt-name">Processos Sancionadores Julgados</span><i class="fas fa-plus bt-plus"></i><span class="bt-desc">Base de dados contendo lista dos processos sancionadores julgados na Agência a partir do ano de 2014 e outras informações agregadas, como tipo de irregularidade, decisão e valor da multa (caso aplicável).</span></div>
-          <div class="base-chip base-tile" data-num="12" data-title="Situação dos Portos em Tempo Real" onclick="openBase(this)"><i class="fas fa-clock"></i><span class="bt-name">Situação dos Portos em Tempo Real</span><i class="fas fa-plus bt-plus"></i><span class="bt-desc">Base de dados gerais e públicos que apresentam o presente e o histórico, desde 2022, dos registros em aplicativo da ANTAQ quanto às situações da operação portuária, do nível de criticidade e das vias de acesso às instalações portuárias brasileiras.</span></div>
-          <div class="base-chip base-tile" data-num="13" data-title="Índice de Desempenho Ambiental (IDA)" onclick="openBase(this)"><i class="fas fa-leaf"></i><span class="bt-name">Índice de Desempenho Ambiental (IDA)</span><i class="fas fa-plus bt-plus"></i><span class="bt-desc">Base do Índice de Desempenho Ambiental (IDA) da ANTAQ, instituído por meio da Resolução nº 2.650/2012, correspondendo ao instrumento de avaliação do desempenho ambiental de portos organizados e terminais de uso privado, contemplando indicadores de conformidades ambientais e boas práticas em gestão ambiental portuária.</span></div>
-          <div class="base-chip base-tile" data-num="14" data-title="Vias Economicamente Navegadas" onclick="openBase(this)"><i class="fas fa-water"></i><span class="bt-name">Vias Economicamente Navegadas</span><i class="fas fa-plus bt-plus"></i><span class="bt-desc">Arquivo georreferenciado (.SHP) das vias economicamente navegadas na cabotagem e navegação interior. Conjunto de dados do SIGTAQ.</span></div>
-          <div class="base-chip base-tile" data-num="15" data-title="Linhas de Travessia outorgadas pela ANTAQ" onclick="openBase(this)"><i class="fas fa-route"></i><span class="bt-name">Linhas de Travessia Outorgadas</span><i class="fas fa-plus bt-plus"></i><span class="bt-desc">Arquivo georreferenciado (.SHP) das linhas de travessia outorgadas pela Agência. Conjunto de dados do SIGTAQ.</span></div>
-          <div class="base-chip base-tile" data-num="16" data-title="Frota e Empresas Autorizadas (Marítima e Interior)" onclick="openBase(this)"><i class="fas fa-building"></i><span class="bt-name">Frota e Empresas Autorizadas</span><i class="fas fa-plus bt-plus"></i><span class="bt-desc">Páginas WEB públicas disponibilizadas no portal gov.br/antaq com informações extraídas do sistema Corporativo relativas às EBN's, suas autorizações, aditamentos e frota autorizada tanto da Navegação Marítima/Apoio quanto da Interior.</span></div>
-          <div class="base-chip base-tile" data-num="17" data-title="Painel de Outorgas da Navegação" onclick="openBase(this)"><i class="fas fa-compass"></i><span class="bt-name">Painel de Outorgas da Navegação</span><i class="fas fa-plus bt-plus"></i><span class="bt-desc">Painel público de outorgas da navegação marítima/apoio e interior com informações de Outorgas de Empresas Brasileiras de Navegação - EBN's. O painel permite consulta relativas às outorgas e geração de relatórios de estatísticas aquaviárias.</span></div>
-          <div class="base-chip base-tile" data-num="18" data-title="Painel de Instalações Privadas" onclick="openBase(this)"><i class="fas fa-warehouse"></i><span class="bt-name">Painel de Instalações Privadas</span><i class="fas fa-plus bt-plus"></i><span class="bt-desc">Painel público com a finalidade de monitoramento de informações das instalações privadas autorizadas, tais como: Autorizações, Registros e Instrumento de Autorização.</span></div>
+          <div class="base-chip base-tile" data-num="01" data-title="Afretamento" onclick="openBase(this)"><i
+              class="fas fa-ship"></i><span class="bt-name">Afretamento</span><i class="fas fa-plus bt-plus"></i><span
+              class="bt-desc">Dados gerais e públicos relativos ao afretamento de embarcações a partir do Sistema de
+              Informações Gerenciais - SIG. Trata-se de base pública contendo dados sobre o histórico de circularização
+              de afretamento. A circularização compreende uma consulta ampla ao mercado nacional atuante, questionando
+              quanto à disponibilidade de embarcação nacional para efetuar certo transporte ou apoio. Tal procedimento é
+              exigido pela Lei 9.432/97 em seu Art. 9º, Inciso I, e regulamentado pela Resolução Normativa 01/2015 nos
+              Art. 2º, 5º a Art. 8º.</span></div>
+          <div class="base-chip base-tile" data-num="02" data-title="Estatístico Aquaviário (EA)"
+            onclick="openBase(this)"><i class="fas fa-chart-line"></i><span class="bt-name">Estatístico Aquaviário
+              (EA)</span><i class="fas fa-plus bt-plus"></i><span class="bt-desc">Dados estatísticos gerais e públicos
+              sobre a movimentação e transporte de carga desde 2010 até o ano corrente, atualizado mensalmente, das
+              instalações portuárias outorgadas pela ANTAQ a partir do Painel Estatístico Aquaviário. A base de dados
+              histórica pode ser baixada em: https://web3.antaq.gov.br/ea/sense/download.html#pt.</span></div>
+          <div class="base-chip base-tile" data-num="03" data-title="Fiscalizações Arquivadas sem Irregularidade"
+            onclick="openBase(this)"><i class="fas fa-folder-open"></i><span class="bt-name">Fiscalizações Arquivadas s/
+              Irregularidade</span><i class="fas fa-plus bt-plus"></i><span class="bt-desc">Base de dados contendo lista
+              dos processos de fiscalização arquivados sem irregularidade na Agência a partir do ano de 2014 e outras
+              informações agregadas, como infração, decisão e valor da multa (caso aplicável).</span></div>
+          <div class="base-chip base-tile" data-num="04" data-title="Gestão Orçamentária e Financeira"
+            onclick="openBase(this)"><i class="fas fa-coins"></i><span class="bt-name">Gestão Orçamentária e
+              Financeira</span><i class="fas fa-plus bt-plus"></i><span class="bt-desc">Os dados se referem ao
+              acompanhamento da execução do orçamento anual da ANTAQ, proporcionando informações aos controles interno e
+              externo, bem como à transparência pública e ao controle social sobre as atribuições da Agência, permitindo
+              identificar os gastos por Resultado, Plano Orçamentário, Modalidade de Licitação e por Natureza da
+              Despesa, além da execução dos gastos decorrentes do uso do Cartão de Pagamento do Governo Federal no
+              exercício corrente.</span></div>
+          <div class="base-chip base-tile" data-num="05" data-title="Gestão de Multas" onclick="openBase(this)"><i
+              class="fas fa-gavel"></i><span class="bt-name">Gestão de Multas</span><i
+              class="fas fa-plus bt-plus"></i><span class="bt-desc">O Painel de Gestão de Multas tem a finalidade de
+              informar as arrecadações ocorridas por exercício financeiro decorrentes das multas sancionatórias
+              aplicadas pela ANTAQ e os valores inscritos por exercício financeiro no Cadastro Informativo de Créditos
+              não Quitados do Setor Público Federal (Cadin).</span></div>
+          <div class="base-chip base-tile" data-num="06" data-title="Instalações Portuárias" onclick="openBase(this)"><i
+              class="fas fa-anchor"></i><span class="bt-name">Instalações Portuárias</span><i
+              class="fas fa-plus bt-plus"></i><span class="bt-desc">Informações de instalações portuárias privadas.
+              Desmembramento da antiga base de dados “Outorgas”, conforme explicitado no PDA ANTAQ 2023-2025.</span>
+          </div>
+          <div class="base-chip base-tile" data-num="07" data-title="Painel de Custos" onclick="openBase(this)"><i
+              class="fas fa-calculator"></i><span class="bt-name">Painel de Custos</span><i
+              class="fas fa-plus bt-plus"></i><span class="bt-desc">Base de dados que fornece aos usuários, internos e
+              externos, informações relativas aos Centros de Custos, viabilizando informações gerenciais através da
+              identificação dos gastos por setor da ANTAQ. Permite visualizar a segregação das atividades em
+              Finalísticas ou de Estratégia, Gestão e Suporte, e a identificação do Macroprocesso da Cadeia de
+              Valor.</span></div>
+          <div class="base-chip base-tile" data-num="08" data-title="Plano Estratégico" onclick="openBase(this)"><i
+              class="fas fa-chess-king"></i><span class="bt-name">Plano Estratégico</span><i
+              class="fas fa-plus bt-plus"></i><span class="bt-desc">Dados do Painel de Monitoramento da Estratégia.
+              Apresenta a evolução no cumprimento de metas do Plano Estratégico e do Plano de Gestão Anual das Unidades.
+              O PEI 2025-2028 é um instrumento de gestão que orienta as ações da instituição para o alcance dos
+              objetivos organizacionais de longo e médio prazos.</span></div>
+          <div class="base-chip base-tile" data-num="09" data-title="Plano de Integridade" onclick="openBase(this)"><i
+              class="fas fa-shield-halved"></i><span class="bt-name">Plano de Integridade</span><i
+              class="fas fa-plus bt-plus"></i><span class="bt-desc">Dados relacionados ao Monitoramento das ações de
+              Integridade da ANTAQ. Atualização quadrimestral. O Plano de Integridade da ANTAQ organiza, analisa,
+              norteia e monitora as ações de integridade, estruturando medidas institucionais voltadas para a prevenção,
+              detecção, punição e remediação de práticas de corrupção, fraudes, irregularidades e desvios éticos e de
+              conduta.</span></div>
+          <div class="base-chip base-tile" data-num="10" data-title="Portos Organizados" onclick="openBase(this)"><i
+              class="fas fa-city"></i><span class="bt-name">Portos Organizados</span><i
+              class="fas fa-plus bt-plus"></i><span class="bt-desc">Informações sobre as instalações públicas
+              outorgadas. Desmembramento da Base de Dados “Outorgas”, conforme PDA ANTAQ 2023-2025.</span></div>
+          <div class="base-chip base-tile" data-num="11" data-title="Processos Sancionadores Julgados"
+            onclick="openBase(this)"><i class="fas fa-scale-balanced"></i><span class="bt-name">Processos Sancionadores
+              Julgados</span><i class="fas fa-plus bt-plus"></i><span class="bt-desc">Base de dados contendo lista dos
+              processos sancionadores julgados na Agência a partir do ano de 2014 e outras informações agregadas, como
+              tipo de irregularidade, decisão e valor da multa (caso aplicável).</span></div>
+          <div class="base-chip base-tile" data-num="12" data-title="Situação dos Portos em Tempo Real"
+            onclick="openBase(this)"><i class="fas fa-clock"></i><span class="bt-name">Situação dos Portos em Tempo
+              Real</span><i class="fas fa-plus bt-plus"></i><span class="bt-desc">Base de dados gerais e públicos que
+              apresentam o presente e o histórico, desde 2022, dos registros em aplicativo da ANTAQ quanto às situações
+              da operação portuária, do nível de criticidade e das vias de acesso às instalações portuárias
+              brasileiras.</span></div>
+          <div class="base-chip base-tile" data-num="13" data-title="Índice de Desempenho Ambiental (IDA)"
+            onclick="openBase(this)"><i class="fas fa-leaf"></i><span class="bt-name">Índice de Desempenho Ambiental
+              (IDA)</span><i class="fas fa-plus bt-plus"></i><span class="bt-desc">Base do Índice de Desempenho
+              Ambiental (IDA) da ANTAQ, instituído por meio da Resolução nº 2.650/2012, correspondendo ao instrumento de
+              avaliação do desempenho ambiental de portos organizados e terminais de uso privado, contemplando
+              indicadores de conformidades ambientais e boas práticas em gestão ambiental portuária.</span></div>
+          <div class="base-chip base-tile" data-num="14" data-title="Vias Economicamente Navegadas"
+            onclick="openBase(this)"><i class="fas fa-water"></i><span class="bt-name">Vias Economicamente
+              Navegadas</span><i class="fas fa-plus bt-plus"></i><span class="bt-desc">Arquivo georreferenciado (.SHP)
+              das vias economicamente navegadas na cabotagem e navegação interior. Conjunto de dados do SIGTAQ.</span>
+          </div>
+          <div class="base-chip base-tile" data-num="15" data-title="Linhas de Travessia outorgadas pela ANTAQ"
+            onclick="openBase(this)"><i class="fas fa-route"></i><span class="bt-name">Linhas de Travessia
+              Outorgadas</span><i class="fas fa-plus bt-plus"></i><span class="bt-desc">Arquivo georreferenciado (.SHP)
+              das linhas de travessia outorgadas pela Agência. Conjunto de dados do SIGTAQ.</span></div>
+          <div class="base-chip base-tile" data-num="16" data-title="Frota e Empresas Autorizadas (Marítima e Interior)"
+            onclick="openBase(this)"><i class="fas fa-building"></i><span class="bt-name">Frota e Empresas
+              Autorizadas</span><i class="fas fa-plus bt-plus"></i><span class="bt-desc">Páginas WEB públicas
+              disponibilizadas no portal gov.br/antaq com informações extraídas do sistema Corporativo relativas às
+              EBN's, suas autorizações, aditamentos e frota autorizada tanto da Navegação Marítima/Apoio quanto da
+              Interior.</span></div>
+          <div class="base-chip base-tile" data-num="17" data-title="Painel de Outorgas da Navegação"
+            onclick="openBase(this)"><i class="fas fa-compass"></i><span class="bt-name">Painel de Outorgas da
+              Navegação</span><i class="fas fa-plus bt-plus"></i><span class="bt-desc">Painel público de outorgas da
+              navegação marítima/apoio e interior com informações de Outorgas de Empresas Brasileiras de Navegação -
+              EBN's. O painel permite consulta relativas às outorgas e geração de relatórios de estatísticas
+              aquaviárias.</span></div>
+          <div class="base-chip base-tile" data-num="18" data-title="Painel de Instalações Privadas"
+            onclick="openBase(this)"><i class="fas fa-warehouse"></i><span class="bt-name">Painel de Instalações
+              Privadas</span><i class="fas fa-plus bt-plus"></i><span class="bt-desc">Painel público com a finalidade de
+              monitoramento de informações das instalações privadas autorizadas, tais como: Autorizações, Registros e
+              Instrumento de Autorização.</span></div>
         </div>
       </div>
     </div>
