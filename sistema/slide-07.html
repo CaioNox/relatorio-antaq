@@ -187,30 +187,186 @@
       border-radius: 3px;
       display: inline-block;
     }
+
     /* ===== Componentes adicionais (mesma identidade visual) ===== */
-    .rank-row { display:flex; align-items:center; gap:1rem; }
-    .rank-label { font-family:'Open Sans',sans-serif; font-size:.9rem; color:#103050; font-weight:600; width:19rem; flex-shrink:0; line-height:1.15; }
-    .rank-track { flex:1; height:30px; background:#eef2f7; border-radius:8px; overflow:hidden; }
-    .rank-fill { height:100%; border-radius:8px; background:linear-gradient(90deg,#0070C0,#0090C0); }
-    .rank-val { font-family:'Montserrat',sans-serif; font-weight:900; color:#103050; font-size:1.05rem; width:3.2rem; text-align:right; flex-shrink:0; }
-    .stat-mini { background:#ffffff; border:2px solid #E2E8F0; border-radius:14px; padding:1rem 1.3rem; box-shadow:0 8px 20px -8px rgba(16,48,80,.18); }
-    .base-chip { display:flex; align-items:center; gap:.6rem; background:#f8fafc; border:1px solid #E2E8F0; border-radius:10px; padding:.5rem .75rem; transition:all .25s ease; }
-    .base-chip:hover { border-color:#0070C0; background:#eef6fc; transform:translateX(4px); }
-    .base-chip i { color:#0070C0; font-size:.8rem; }
-    .base-chip span { font-family:'Open Sans',sans-serif; font-size:.78rem; color:#103050; font-weight:600; line-height:1.1; }
-    .svc-badge { display:inline-flex; align-items:center; gap:.7rem; background:linear-gradient(135deg,#103050,#0070C0); color:#fff; border-radius:999px; padding:.5rem 1.3rem; font-family:'Montserrat',sans-serif; font-weight:800; letter-spacing:.04em; box-shadow:0 10px 24px -10px rgba(16,48,80,.5); }
-    .svc-card { background:#fff; border:2px solid #E2E8F0; border-left:5px solid #0070C0; border-radius:12px; padding:.8rem 1rem; display:flex; gap:.8rem; align-items:flex-start; box-shadow:0 6px 16px -8px rgba(16,48,80,.18); transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
-    .svc-card:hover { transform:translateY(-5px); border-color:#0090C0; box-shadow:0 18px 34px -14px rgba(16,48,80,.32); }
-    .svc-num { font-family:'Montserrat',sans-serif; font-weight:900; color:#0090C0; font-size:1.3rem; line-height:1; flex-shrink:0; min-width:1.7rem; }
-    .svc-text { font-family:'Open Sans',sans-serif; font-size:.78rem; color:#103050; font-weight:600; line-height:1.18; }
-    .kpi-card { border-radius:20px; padding:2.2rem 2rem; position:relative; overflow:hidden; display:flex; flex-direction:column; justify-content:space-between; min-height:420px; box-shadow:0 18px 40px -12px rgba(16,48,80,0.45); }
-    .kpi-primary { background:linear-gradient(160deg,#103050 0%,#0070C0 100%); }
-    .kpi-soft { background:linear-gradient(160deg,#0e3a66 0%,#11598f 100%); }
-    .kpi-num { font-family:'Montserrat',sans-serif; font-weight:900; line-height:1; color:#ffffff; }
-    .kpi-watermark { position:absolute; right:-10px; bottom:-20px; font-size:9rem; opacity:0.12; color:#ffffff; }
-    .bg-pattern { position:absolute; bottom:-50px; right:-50px; width:400px; height:400px; opacity:0.03; z-index:0; color:#103050; }
-    </style>
+    .rank-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .rank-label {
+      font-family: 'Open Sans', sans-serif;
+      font-size: .9rem;
+      color: #103050;
+      font-weight: 600;
+      width: 19rem;
+      flex-shrink: 0;
+      line-height: 1.15;
+    }
+
+    .rank-track {
+      flex: 1;
+      height: 30px;
+      background: #eef2f7;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .rank-fill {
+      height: 100%;
+      border-radius: 8px;
+      background: linear-gradient(90deg, #0070C0, #0090C0);
+    }
+
+    .rank-val {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      color: #103050;
+      font-size: 1.05rem;
+      width: 3.2rem;
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    .stat-mini {
+      background: #ffffff;
+      border: 2px solid #E2E8F0;
+      border-radius: 14px;
+      padding: 1rem 1.3rem;
+      box-shadow: 0 8px 20px -8px rgba(16, 48, 80, .18);
+    }
+
+    .base-chip {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      background: #f8fafc;
+      border: 1px solid #E2E8F0;
+      border-radius: 10px;
+      padding: .5rem .75rem;
+      transition: all .25s ease;
+    }
+
+    .base-chip:hover {
+      border-color: #0070C0;
+      background: #eef6fc;
+      transform: translateX(4px);
+    }
+
+    .base-chip i {
+      color: #0070C0;
+      font-size: .8rem;
+    }
+
+    .base-chip span {
+      font-family: 'Open Sans', sans-serif;
+      font-size: .78rem;
+      color: #103050;
+      font-weight: 600;
+      line-height: 1.1;
+    }
+
+    .svc-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .7rem;
+      background: linear-gradient(135deg, #103050, #0070C0);
+      color: #fff;
+      border-radius: 999px;
+      padding: .5rem 1.3rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      letter-spacing: .04em;
+      box-shadow: 0 10px 24px -10px rgba(16, 48, 80, .5);
+    }
+
+    .svc-card {
+      background: #fff;
+      border: 2px solid #E2E8F0;
+      border-left: 5px solid #0070C0;
+      border-radius: 12px;
+      padding: .8rem 1rem;
+      display: flex;
+      gap: .8rem;
+      align-items: flex-start;
+      box-shadow: 0 6px 16px -8px rgba(16, 48, 80, .18);
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    }
+
+    .svc-card:hover {
+      transform: translateY(-5px);
+      border-color: #0090C0;
+      box-shadow: 0 18px 34px -14px rgba(16, 48, 80, .32);
+    }
+
+    .svc-num {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      color: #0090C0;
+      font-size: 1.3rem;
+      line-height: 1;
+      flex-shrink: 0;
+      min-width: 1.7rem;
+    }
+
+    .svc-text {
+      font-family: 'Open Sans', sans-serif;
+      font-size: .78rem;
+      color: #103050;
+      font-weight: 600;
+      line-height: 1.18;
+    }
+
+    .kpi-card {
+      border-radius: 20px;
+      padding: 2.2rem 2rem;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 420px;
+      box-shadow: 0 18px 40px -12px rgba(16, 48, 80, 0.45);
+    }
+
+    .kpi-primary {
+      background: linear-gradient(160deg, #103050 0%, #0070C0 100%);
+    }
+
+    .kpi-soft {
+      background: linear-gradient(160deg, #0e3a66 0%, #11598f 100%);
+    }
+
+    .kpi-num {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      line-height: 1;
+      color: #ffffff;
+    }
+
+    .kpi-watermark {
+      position: absolute;
+      right: -10px;
+      bottom: -20px;
+      font-size: 9rem;
+      opacity: 0.12;
+      color: #ffffff;
+    }
+
+    .bg-pattern {
+      position: absolute;
+      bottom: -50px;
+      right: -50px;
+      width: 400px;
+      height: 400px;
+      opacity: 0.03;
+      z-index: 0;
+      color: #103050;
+    }
+  </style>
 </head>
+
 <body>
   <div class="slide-container">
     <div class="top-accent"></div>
@@ -220,9 +376,13 @@
       <div>
         <div class="flex items-center gap-3 mb-2">
           <div class="w-1 h-8 bg-brand-secondary"></div>
-          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Destaques do Trimestre</p>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Destaques do
+            Trimestre</p>
         </div>
-        <p class="text-gray-500 font-medium ml-4 text-lg">Perfil das manifestações em tratamento — 1º trimestre de 2026</p>
+        <p class="text-2xl font-montserrat font-bold text-yellow-500 uppercase tracking-tight ml-4 mb-2">Cobranças
+          portuárias abusivas</p>
+        <p class="text-gray-500 font-medium ml-4 text-lg">Perfil das manifestações em tratamento — 1º trimestre de 2026
+        </p>
       </div>
       <div class="flex items-center gap-2 opacity-80 text-brand-secondary">
         <i class="fas fa-star text-xl" aria-hidden="true"></i>
@@ -234,38 +394,75 @@
       <div class="flex items-center gap-6">
         <div class="stat-mini flex items-center gap-4" style="flex-shrink:0;">
           <i class="fas fa-money-bill-trend-up text-3xl text-brand-secondary"></i>
-          <div><p class="font-montserrat font-black text-4xl text-brand-primary leading-none">50,5%</p>
-            <p class="text-gray-500 text-sm mt-1">tema central: tarifa portuária</p></div>
+          <div>
+            <p class="font-montserrat font-black text-4xl text-brand-primary leading-none">50,66%</p>
+
+          </div>
         </div>
         <p class="text-gray-600 text-base leading-relaxed">Cerca de <strong>metade das manifestações em
-            tratamento</strong> concentra-se no tema <strong>tarifa portuária</strong> — detalhado abaixo nas principais
-          vertentes operacionais identificadas ao longo do trimestre.</p>
+            tratamento</strong> concentra-se no tema <strong>Cobranças portuárias abusivas</strong> — detalhado
+          abaixo nas principais vertentes operacionais identificadas ao longo do trimestre.</p>
       </div>
     </div>
     <!-- Breakdown panel -->
     <div class="flex-1 px-16 pb-8 z-10">
       <div class="chart-card h-full flex flex-col">
         <p class="text-brand-primary font-montserrat font-bold text-xl mb-1 flex items-center gap-2">
-          <i class="fas fa-water text-brand-secondary"></i> Tarifa portuária abusiva — 153 manifestações (tema central)</p>
+          <i class="fas fa-water text-brand-secondary"></i> Cobranças portuárias abusivas — 154 manifestações (tema
+          central)
+        </p>
         <p class="text-gray-400 text-sm mb-4">Vertentes operacionais em que o tema se desdobra ao longo do trimestre</p>
         <div class="flex-1 flex flex-col justify-center gap-3">
-          <div class="rank-row"><span class="rank-label">Sobrestadia de mercadorias / Detention</span><div class="rank-track"><div class="rank-fill" style="width:100%"></div></div><span class="rank-val">55</span></div>
-          <div class="rank-row"><span class="rank-label">Tarifa portuária abusiva (cobrança)</span><div class="rank-track"><div class="rank-fill" style="width:74.5%"></div></div><span class="rank-val">41</span></div>
-          <div class="rank-row"><span class="rank-label">Falta de janelas para os navios</span><div class="rank-track"><div class="rank-fill" style="width:38.2%"></div></div><span class="rank-val">21</span></div>
-          <div class="rank-row"><span class="rank-label">Pedido de medida cautelar</span><div class="rank-track"><div class="rank-fill" style="width:36.4%"></div></div><span class="rank-val">20</span></div>
-          <div class="rank-row"><span class="rank-label">Cobrança indevida de taxa</span><div class="rank-track"><div class="rank-fill" style="width:12.7%"></div></div><span class="rank-val">7</span></div>
-          <div class="rank-row"><span class="rank-label">Bloqueio de carga</span><div class="rank-track"><div class="rank-fill" style="width:5.5%"></div></div><span class="rank-val">3</span></div>
-          <div class="rank-row"><span class="rank-label">Demurrage</span><div class="rank-track"><div class="rank-fill" style="width:5.5%"></div></div><span class="rank-val">3</span></div>
-          <div class="rank-row"><span class="rank-label">Desbloqueio de carga</span><div class="rank-track"><div class="rank-fill" style="width:1.8%"></div></div><span class="rank-val">1</span></div>
+          <div class="rank-row"><span class="rank-label">Sobrestadia de mercadorias / Detention</span>
+            <div class="rank-track">
+              <div class="rank-fill" style="width:100%"></div>
+            </div><span class="rank-val">56</span>
+          </div>
+          <div class="rank-row"><span class="rank-label">Cobrança portuária abusiva (cobrança)</span>
+            <div class="rank-track">
+              <div class="rank-fill" style="width:74.5%"></div>
+            </div><span class="rank-val">43</span>
+          </div>
+          <div class="rank-row"><span class="rank-label">Falta de janelas para os navios</span>
+            <div class="rank-track">
+              <div class="rank-fill" style="width:38.2%"></div>
+            </div><span class="rank-val">21</span>
+          </div>
+          <div class="rank-row"><span class="rank-label">Pedido de medida cautelar</span>
+            <div class="rank-track">
+              <div class="rank-fill" style="width:36.4%"></div>
+            </div><span class="rank-val">20</span>
+          </div>
+          <div class="rank-row"><span class="rank-label">Cobrança indevida de taxa</span>
+            <div class="rank-track">
+              <div class="rank-fill" style="width:12.7%"></div>
+            </div><span class="rank-val">7</span>
+          </div>
+          <div class="rank-row"><span class="rank-label">Bloqueio de carga</span>
+            <div class="rank-track">
+              <div class="rank-fill" style="width:5.5%"></div>
+            </div><span class="rank-val">3</span>
+          </div>
+          <div class="rank-row"><span class="rank-label">Demurrage</span>
+            <div class="rank-track">
+              <div class="rank-fill" style="width:5.5%"></div>
+            </div><span class="rank-val">3</span>
+          </div>
+          <div class="rank-row"><span class="rank-label">Desbloqueio de carga</span>
+            <div class="rank-track">
+              <div class="rank-fill" style="width:1.8%"></div>
+            </div><span class="rank-val">1</span>
+          </div>
         </div>
       </div>
     </div>
     <!-- Footer -->
     <div class="px-16 pb-8 flex justify-between items-center z-10">
-      <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ — 1º Trimestre (Jan–Mar)</p>
+      <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ</p>
       <p class="text-gray-300 text-xs font-mono">7 / 25</p>
     </div>
   </div>
   <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
 </body>
+
 </html>

@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="pt-BR">
 
 <head>
@@ -22,17 +21,18 @@
       margin: 0;
       padding: 0;
       background-color: #f3f4f6;
-      overflow: hidden;
+      overflow-x: hidden;
+      overflow-y: auto;
     }
 
     .slide-container {
       width: 100vw;
-      height: 100vh;
+      min-height: 100vh;
       position: relative;
       display: flex;
       flex-direction: column;
       background-color: #ffffff;
-      overflow: hidden;
+      overflow: visible;
       font-family: 'Open Sans', sans-serif;
     }
 
@@ -64,59 +64,224 @@
       width: 100%;
     }
 
-    /* ===== Interatividade ===== */
-    .chart-card,
-    .canal-card,
-    .period-chip,
-    .video-frame,
-    .kpi-card,
-    .glossary-card,
-    .exp-group {
-      transition: transform .28s cubic-bezier(.2, .7, .3, 1), box-shadow .28s ease, border-color .28s ease, background-color .28s ease;
+    .svc-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .7rem;
+      background: linear-gradient(135deg, #103050, #0070C0);
+      color: #fff;
+      border-radius: 999px;
+      padding: .5rem 1.3rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      letter-spacing: .04em;
+      box-shadow: 0 10px 24px -10px rgba(16, 48, 80, .5);
     }
 
-    .chart-card:hover,
-    .canal-card:hover,
-    .period-chip:hover,
-    .video-frame:hover {
-      transform: translateY(-7px);
-      box-shadow: 0 22px 42px -12px rgba(16, 48, 80, .30);
+    /* ===== TILE GRID ===== */
+    .tile-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      position: relative;
+    }
+
+    .tile {
+      position: relative;
+      background: #ffffff;
+      border: 2px solid #E2E8F0;
+      border-left: 4px solid #0070C0;
+      border-radius: 14px;
+      padding: 1rem;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      min-height: 110px;
+      box-shadow: 0 4px 12px -4px rgba(16, 48, 80, .12);
+      transition: transform .3s cubic-bezier(.2, .7, .3, 1),
+        box-shadow .3s ease,
+        border-color .3s ease,
+        background-color .3s ease;
+      z-index: 1;
+      animation: tileIn .45s cubic-bezier(.2, .7, .3, 1) both;
+    }
+
+    .tile:nth-child(2) {
+      animation-delay: .04s;
+    }
+
+    .tile:nth-child(3) {
+      animation-delay: .08s;
+    }
+
+    .tile:nth-child(4) {
+      animation-delay: .12s;
+    }
+
+    .tile:nth-child(5) {
+      animation-delay: .16s;
+    }
+
+    .tile:nth-child(6) {
+      animation-delay: .20s;
+    }
+
+    .tile:nth-child(7) {
+      animation-delay: .24s;
+    }
+
+    .tile:nth-child(8) {
+      animation-delay: .28s;
+    }
+
+    @keyframes tileIn {
+      from {
+        opacity: 0;
+        transform: scale(.85) translateY(12px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    .tile-num {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 1.6rem;
+      color: #0070C0;
+      line-height: 1;
+      transition: transform .3s ease, color .3s ease;
+    }
+
+    .tile-label {
+      font-family: 'Open Sans', sans-serif;
+      font-size: .55rem;
+      font-weight: 600;
+      color: #64748B;
+      line-height: 1.2;
+      margin-top: .4rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      transition: color .3s ease;
+    }
+
+    .tile-expand-icon {
+      position: absolute;
+      top: 8px;
+      right: 10px;
+      font-size: .5rem;
+      color: #CBD5E1;
+      transition: color .3s ease, transform .3s ease;
+    }
+
+    .tile:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 32px -10px rgba(16, 48, 80, .25);
       border-color: #0070C0;
     }
 
-    .glossary-card:hover {
-      transform: translateY(-7px);
-      border-color: #0070C0;
-      box-shadow: 0 22px 42px -12px rgba(0, 112, 192, .32);
+    .tile:hover .tile-num {
+      transform: scale(1.08);
     }
 
-    .glossary-icon {
-      transition: transform .3s ease;
+    .tile:hover .tile-expand-icon {
+      color: #0070C0;
+      transform: rotate(90deg);
     }
 
-    .glossary-card:hover .glossary-icon {
-      transform: scale(1.12) rotate(-6deg);
+    /* ===== EXPANDED STATE ===== */
+    .tile.expanded {
+      position: absolute;
+      z-index: 100;
+      min-height: auto;
+      padding: 1.4rem 1.6rem;
+      background: linear-gradient(160deg, #ffffff 0%, #f0f7ff 100%);
+      border: 2px solid #0070C0;
+      border-left: 5px solid #0070C0;
+      box-shadow: 0 28px 56px -12px rgba(16, 48, 80, .35);
+      transform: none;
+      align-items: flex-start;
+      text-align: left;
+      width: calc(50% - 7px);
+      min-width: 420px;
+      animation: expandPop .35s cubic-bezier(.2, .7, .3, 1) both;
     }
 
-    .kpi-card:hover {
-      transform: translateY(-9px) scale(1.018);
-      box-shadow: 0 30px 58px -16px rgba(16, 48, 80, .6);
+    @keyframes expandPop {
+      from {
+        opacity: .7;
+        transform: scale(.92);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
     }
 
-    .kpi-watermark {
-      transition: transform .4s ease, opacity .4s ease;
+    .tile.expanded .tile-num {
+      font-size: 1.3rem;
+      color: #103050;
     }
 
-    .kpi-card:hover .kpi-watermark {
-      transform: scale(1.12);
-      opacity: .2;
+    .tile.expanded .tile-label {
+      -webkit-line-clamp: unset;
+      overflow: visible;
+      font-size: .72rem;
+      color: #103050;
+      font-weight: 700;
+      margin-top: .25rem;
     }
 
-    .exp-group:hover {
-      transform: translateX(5px);
+    .tile.expanded .tile-expand-icon {
+      color: #0070C0;
+      transform: rotate(45deg);
+      font-size: .6rem;
     }
 
-    @keyframes fadeIn {
+    .tile-desc {
+      display: none;
+      font-family: 'Open Sans', sans-serif;
+      font-size: .62rem;
+      color: #475569;
+      line-height: 1.45;
+      margin-top: .6rem;
+      padding-top: .6rem;
+      border-top: 1px solid #E2E8F0;
+    }
+
+    .tile.expanded .tile-desc {
+      display: block;
+    }
+
+    .tile-header-row {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+    }
+
+    /* ===== BACKDROP ===== */
+    .tile-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(16, 48, 80, .08);
+      z-index: 50;
+      animation: fadeBackdrop .25s ease both;
+    }
+
+    .tile-backdrop.active {
+      display: block;
+    }
+
+    @keyframes fadeBackdrop {
       from {
         opacity: 0;
       }
@@ -124,42 +289,6 @@
       to {
         opacity: 1;
       }
-    }
-
-    .chart-card,
-    .kpi-card,
-    .glossary-card,
-    .canal-card,
-    .period-chip {
-      animation: fadeIn .5s ease both;
-    }
-
-    .chart-card:nth-child(2),
-    .kpi-card:nth-child(2),
-    .glossary-card:nth-child(2),
-    .canal-card:nth-child(2),
-    .period-chip:nth-child(2) {
-      animation-delay: .09s;
-    }
-
-    .chart-card:nth-child(3),
-    .kpi-card:nth-child(3),
-    .glossary-card:nth-child(3),
-    .canal-card:nth-child(3),
-    .period-chip:nth-child(3) {
-      animation-delay: .18s;
-    }
-
-    .glossary-card:nth-child(4) {
-      animation-delay: .27s;
-    }
-
-    .glossary-card:nth-child(5) {
-      animation-delay: .36s;
-    }
-
-    .glossary-card:nth-child(6) {
-      animation-delay: .45s;
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -171,202 +300,11 @@
         transition: none !important;
       }
     }
-
-    .chart-card {
-      background-color: #ffffff;
-      border: 2px solid #E2E8F0;
-      border-radius: 16px;
-      box-shadow: 0 8px 20px -8px rgba(16, 48, 80, 0.18);
-      padding: 1.4rem 1.6rem;
-    }
-
-    .legend-dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 3px;
-      display: inline-block;
-    }
-
-    /* ===== Componentes adicionais (mesma identidade visual) ===== */
-    .rank-row {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .rank-label {
-      font-family: 'Open Sans', sans-serif;
-      font-size: .9rem;
-      color: #103050;
-      font-weight: 600;
-      width: 19rem;
-      flex-shrink: 0;
-      line-height: 1.15;
-    }
-
-    .rank-track {
-      flex: 1;
-      height: 30px;
-      background: #eef2f7;
-      border-radius: 8px;
-      overflow: hidden;
-    }
-
-    .rank-fill {
-      height: 100%;
-      border-radius: 8px;
-      background: linear-gradient(90deg, #0070C0, #0090C0);
-    }
-
-    .rank-val {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 900;
-      color: #103050;
-      font-size: 1.05rem;
-      width: 3.2rem;
-      text-align: right;
-      flex-shrink: 0;
-    }
-
-    .stat-mini {
-      background: #ffffff;
-      border: 2px solid #E2E8F0;
-      border-radius: 14px;
-      padding: 1rem 1.3rem;
-      box-shadow: 0 8px 20px -8px rgba(16, 48, 80, .18);
-    }
-
-    .base-chip {
-      display: flex;
-      align-items: center;
-      gap: .6rem;
-      background: #f8fafc;
-      border: 1px solid #E2E8F0;
-      border-radius: 10px;
-      padding: .5rem .75rem;
-      transition: all .25s ease;
-    }
-
-    .base-chip:hover {
-      border-color: #0070C0;
-      background: #eef6fc;
-      transform: translateX(4px);
-    }
-
-    .base-chip i {
-      color: #0070C0;
-      font-size: .8rem;
-    }
-
-    .base-chip span {
-      font-family: 'Open Sans', sans-serif;
-      font-size: .78rem;
-      color: #103050;
-      font-weight: 600;
-      line-height: 1.1;
-    }
-
-    .svc-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: .7rem;
-      background: linear-gradient(135deg, #103050, #0070C0);
-      color: #fff;
-      border-radius: 999px;
-      padding: .5rem 1.3rem;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 200;
-      letter-spacing: .04em;
-      box-shadow: 0 10px 24px -10px rgba(16, 48, 80, .5);
-    }
-
-    .svc-card {
-      background: #fff;
-      border: 2px solid #E2E8F0;
-      border-left: 4px solid #0070C0;
-      border-radius: 12px;
-      padding: .8rem .9rem;
-      display: flex;
-      gap: .8rem;
-      align-items: flex-start;
-      box-shadow: 0 6px 16px -8px rgba(16, 48, 80, .18);
-      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
-    }
-
-    .svc-card:hover {
-      transform: translateY(-5px);
-      border-color: #0090C0;
-      box-shadow: 0 18px 34px -14px rgba(16, 48, 80, .32);
-    }
-
-    .svc-num {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 900;
-      color: #0090C0;
-      font-size: 1.3rem;
-      line-height: 1;
-      flex-shrink: 0;
-      min-width: 1.7rem;
-    }
-
-    .svc-text {
-      font-family: 'Open Sans', sans-serif;
-      font-size: .78rem;
-      color: #103050;
-      font-weight: 600;
-      line-height: 1.18;
-    }
-
-    .kpi-card {
-      border-radius: 20px;
-      padding: 2.2rem 2rem;
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      min-height: 420px;
-      box-shadow: 0 18px 40px -12px rgba(16, 48, 80, 0.45);
-    }
-
-    .kpi-primary {
-      background: linear-gradient(160deg, #103050 0%, #0070C0 100%);
-    }
-
-    .kpi-soft {
-      background: linear-gradient(160deg, #0e3a66 0%, #11598f 100%);
-    }
-
-    .kpi-num {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 900;
-      line-height: 1;
-      color: #ffffff;
-    }
-
-    .kpi-watermark {
-      position: absolute;
-      right: -10px;
-      bottom: -20px;
-      font-size: 9rem;
-      opacity: 0.12;
-      color: #ffffff;
-    }
-
-    .bg-pattern {
-      position: absolute;
-      bottom: -50px;
-      right: -50px;
-      width: 400px;
-      height: 400px;
-      opacity: 0.03;
-      z-index: 0;
-      color: #103050;
-    }
   </style>
 </head>
 
 <body>
+  <div class="tile-backdrop" id="tileBackdrop"></div>
   <div class="slide-container">
     <div class="top-accent"></div>
     <div class="top-accent-secondary"></div>
@@ -386,56 +324,244 @@
         <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">SERVIÇOS · 2/2</p>
       </div>
     </div>
+
     <!-- SRG -->
-    <div class="px-16 pt-1 pb-2 z-10"><span class="svc-badge"><i class="fas fa-scale-balanced"></i> SRG —
-        Superintendência de Regulação · 8 serviços</span></div>
-    <div class="grid grid-cols-4 gap-x-5 gap-y-2 px-16 pb-3 z-10">
-      <div class="svc-card"><span class="svc-num">01</span><span class="svc-text">Incorporação/desincorporação de bens
-          da União ao acervo dos portos organizados</span></div>
-      <div class="svc-card"><span class="svc-num">02</span><span class="svc-text">Revisão e reajustes das tarifas
-          portuárias</span></div>
-      <div class="svc-card"><span class="svc-num">03</span><span class="svc-text">Antecipação de receitas de autoridades
-          portuárias</span></div>
-      <div class="svc-card"><span class="svc-num">04</span><span class="svc-text">Transferência de titularidade de
-          instalação portuária</span></div>
-      <div class="svc-card"><span class="svc-num">05</span><span class="svc-text">Transferência de controle societário
-          de instalação portuária</span></div>
-      <div class="svc-card"><span class="svc-num">06</span><span class="svc-text">Alteração da tabela de preços de
-          instalações arrendadas/autorizadas</span></div>
-      <div class="svc-card"><span class="svc-num">07</span><span class="svc-text">Alteração de tabela de preços do
-          transporte aquaviário na navegação interior</span></div>
-      <div class="svc-card"><span class="svc-num">08</span><span class="svc-text">Harmonização de conflitos de
-          interesses nos portos e na navegação</span></div>
-    </div>
-    <!-- SAF -->
-    <div class="px-16 pt-1 pb-2 z-10"><span class="svc-badge"><i class="fas fa-coins"></i> SAF — Administração e
-        Finanças · 4 serviços</span></div>
-    <div class="grid grid-cols-4 gap-x-5 gap-y-2 px-16 pb-3 z-10">
-      <div class="svc-card"><span class="svc-num">01</span><span class="svc-text">Declaração p/ credenciamento,
-          validação ou outros atestados</span></div>
-      <div class="svc-card"><span class="svc-num">02</span><span class="svc-text">Parcelamento de multas emitidas pela
-          ANTAQ</span></div>
-      <div class="svc-card"><span class="svc-num">03</span><span class="svc-text">Pagamento de multa aplicada pela
-          ANTAQ</span></div>
-      <div class="svc-card"><span class="svc-num">04</span><span class="svc-text">Parcela de Contrato de
-          concessão/arrendamento com a ANTAQ interveniente</span></div>
-    </div>
-    <!-- SFC -->
-    <div class="flex-1 px-16 pt-1 pb-6 z-10">
-      <span class="svc-badge"><i class="fas fa-magnifying-glass-chart"></i> SFC — Fiscalização · 1 serviço</span>
-      <div class="grid grid-cols-4 gap-x-5 mt-2">
-        <div class="svc-card col-span-2"><span class="svc-num">01</span><span class="svc-text">Consulta de empresas e
-            embarcações p/ transporte aquaviário federal de passageiros na navegação interior —
-            <strong>Navegue Seguro</strong></span></div>
+    <div class="px-16 pb-2"><span class="svc-badge"><i class="fas fa-scale-balanced"></i> SRG — Superintendência de
+        Regulação · 8 serviços</span></div>
+    <div class="px-16 pb-3">
+      <div class="tile-grid" id="tileGridSRG">
+
+        <div class="tile" data-idx="0" onclick="toggleTile(this)">
+          <i class="fas fa-plus tile-expand-icon"></i>
+          <div class="tile-header-row"><span class="tile-num">01</span></div>
+          <span class="tile-label">Obter autorização da Antaq para incorporação/desincorporação de bens da União ao/do
+            acervo patrimonial dos portos organizados</span>
+          <div class="tile-desc">Controle dos bens da União junto ao acervo patrimonial dos portos organizados.
+            Desincorporação é a exclusão de bem do acervo patrimonial da União. Incorporação é a inclusão de bem no
+            acervo patrimonial da União, conforme a Resolução ANTAQ nº 43/2021.</div>
+        </div>
+
+        <div class="tile" data-idx="1" onclick="toggleTile(this)">
+          <i class="fas fa-plus tile-expand-icon"></i>
+          <div class="tile-header-row"><span class="tile-num">02</span></div>
+          <span class="tile-label">Obter autorização da Antaq para revisão/reajuste das tarifas portuárias</span>
+          <div class="tile-desc">Obter autorização da Antaq para a revisão ou o reajuste das tarifas cobradas pelo porto
+            das empresas arrendatárias e usuários em geral, nos termos do art. 27, inciso VII, da Lei nº 10.233/2001.
+            Revisão realizada a pedido ou promovida de ofício pela Antaq.</div>
+        </div>
+
+        <div class="tile" data-idx="2" onclick="toggleTile(this)">
+          <i class="fas fa-plus tile-expand-icon"></i>
+          <div class="tile-header-row"><span class="tile-num">03</span></div>
+          <span class="tile-label">Obter autorização da Antaq para antecipação de receitas de autoridades
+            portuárias</span>
+          <div class="tile-desc">Permite que autoridades portuárias solicitem à Antaq a antecipação de receitas de
+            tarifas junto aos usuários para fins de realização de investimentos imediatos na infraestrutura custeada
+            pela tarifa, respeitado o equilíbrio das contas da administração portuária.</div>
+        </div>
+
+        <div class="tile" data-idx="3" onclick="toggleTile(this)">
+          <i class="fas fa-plus tile-expand-icon"></i>
+          <div class="tile-header-row"><span class="tile-num">04</span></div>
+          <span class="tile-label">Obter análise da Antaq para transferência de titularidade de instalação
+            portuária</span>
+          <div class="tile-desc">Transferência de titularidade dos contratos de concessão de porto organizado, de
+            arrendamento de instalação portuária e de adesão de instalação portuária, previamente à deliberação pelo
+            poder concedente. Formalizada através de termo aditivo contratual.</div>
+        </div>
+
+        <div class="tile" data-idx="4" onclick="toggleTile(this)">
+          <i class="fas fa-plus tile-expand-icon"></i>
+          <div class="tile-header-row"><span class="tile-num">05</span></div>
+          <span class="tile-label">Obter autorização da Antaq para transferência de controle societário de instalação
+            portuária</span>
+          <div class="tile-desc">Transferência de controle societário de contratos de concessão de porto organizado, de
+            arrendamento de instalação portuária e de adesão (autorização) de instalação portuária. Transferência de
+            controle societário é a transferência, de forma direta ou indireta, de ações ou quotas integrantes do bloco
+            de controle.</div>
+        </div>
+
+        <div class="tile" data-idx="5" onclick="toggleTile(this)">
+          <i class="fas fa-plus tile-expand-icon"></i>
+          <div class="tile-header-row"><span class="tile-num">06</span></div>
+          <span class="tile-label">Obter análise da Antaq quanto à alteração da tabela de preços de instalações
+            portuárias arrendadas ou autorizadas</span>
+          <div class="tile-desc">Apreciação das alterações promovidas nas tabelas de preços das instalações portuárias
+            arrendadas ou autorizadas, a fim de verificar se há abusividade de preços praticados nessas instalações,
+            levando em consideração a avaliação de possíveis infrações à ordem econômica.</div>
+        </div>
+
+        <div class="tile" data-idx="6" onclick="toggleTile(this)">
+          <i class="fas fa-plus tile-expand-icon"></i>
+          <div class="tile-header-row"><span class="tile-num">07</span></div>
+          <span class="tile-label">Obter autorização da Antaq para alteração de tabela de preços dos serviços de
+            transporte aquaviário na navegação interior</span>
+          <div class="tile-desc">Reajuste de preços dos serviços de transporte aquaviário prestados nas travessias e no
+            transporte longitudinal de passageiros, a fim de verificar se há abusividade de preços praticados nesses
+            serviços, levando em consideração a avaliação de possíveis infrações à ordem econômica.</div>
+        </div>
+
+        <div class="tile" data-idx="7" onclick="toggleTile(this)">
+          <i class="fas fa-plus tile-expand-icon"></i>
+          <div class="tile-header-row"><span class="tile-num">08</span></div>
+          <span class="tile-label">Solicitar à Antaq a harmonização de conflito de interesses nos portos e na
+            navegação</span>
+          <div class="tile-desc">Na ocorrência de conflitos de interesses entre os agentes regulados pela Antaq no setor
+            portuário ou na navegação, a partir da solicitação de uma das partes, é iniciado um processo de
+            harmonização, no qual todas as partes envolvidas terão ampla oportunidade de manifestação.</div>
+        </div>
+
       </div>
     </div>
+
+    <!-- SAF -->
+    <div class="px-16 pb-2"><span class="svc-badge"><i class="fas fa-coins"></i> SAF — Administração e Finanças · 4
+        serviços</span></div>
+    <div class="px-16 pb-3">
+      <div class="tile-grid" id="tileGridSAF">
+
+        <div class="tile" data-idx="0" onclick="toggleTile(this)">
+          <i class="fas fa-plus tile-expand-icon"></i>
+          <div class="tile-header-row"><span class="tile-num">01</span></div>
+          <span class="tile-label">Obter declaração da Antaq para fins de credenciamento, validação ou outros
+            atestados</span>
+          <div class="tile-desc">Emissão de declaração de adimplência junto à Agência Nacional de Transportes
+            Aquaviários (ANTAQ).</div>
+        </div>
+
+        <div class="tile" data-idx="1" onclick="toggleTile(this)">
+          <i class="fas fa-plus tile-expand-icon"></i>
+          <div class="tile-header-row"><span class="tile-num">02</span></div>
+          <span class="tile-label">Obter parcelamento de multas emitidas pela Antaq</span>
+          <div class="tile-desc">Parcelamento/reparcelamento de débitos que ainda não foram enviados para inscrição em
+            dívida ativa, a ser solicitado pelo devedor junto à ANTAQ. Após inscrição em dívida ativa, o parcelamento
+            deve ser solicitado junto à Procuradoria-Geral Federal.</div>
+        </div>
+
+        <div class="tile" data-idx="2" onclick="toggleTile(this)">
+          <i class="fas fa-plus tile-expand-icon"></i>
+          <div class="tile-header-row"><span class="tile-num">03</span></div>
+          <span class="tile-label">Realizar pagamento de multa e outros débitos junto à ANTAQ</span>
+          <div class="tile-desc">Realizar pagamentos referentes a multas, ressarcimento ao erário, indenizações,
+            devolução de salários e diárias, cujos processos ainda não foram enviados para inscrição em dívida ativa
+            pela Agência Nacional de Transportes Aquaviários (ANTAQ).</div>
+        </div>
+
+        <div class="tile" data-idx="3" onclick="toggleTile(this)">
+          <i class="fas fa-plus tile-expand-icon"></i>
+          <div class="tile-header-row"><span class="tile-num">04</span></div>
+          <span class="tile-label">Obter parcela de Contrato de Concessão/Arrendamento em que a Agência Nacional de
+            Transportes Aquaviários (Antaq) seja interveniente</span>
+          <div class="tile-desc">Realizar pagamentos referentes a parcelas de Contrato de Concessão/Arrendamento em que
+            a Agência Nacional de Transportes Aquaviários (Antaq) seja interveniente.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- SFC -->
+    <div class="px-16 pb-2"><span class="svc-badge"><i class="fas fa-magnifying-glass-chart"></i> SFC — Fiscalização · 2
+        serviços</span></div>
+    <div class="flex-1 px-16 pb-6">
+      <div class="tile-grid" id="tileGridSFC">
+
+        <div class="tile col-span-2" data-idx="0" onclick="toggleTile(this)">
+          <i class="fas fa-plus tile-expand-icon"></i>
+          <div class="tile-header-row"><span class="tile-num">01</span></div>
+          <span class="tile-label">Consultar empresas e embarcações para o transporte aquaviário federal de passageiros
+            na navegação interior (Navegue Seguro)</span>
+          <div class="tile-desc">O aplicativo Navegue Seguro é uma ferramenta que permite ao usuário consultar a
+            regularidade das empresas e embarcações autorizadas pela ANTAQ para o transporte aquaviário federal de
+            passageiros na navegação interior, em travessias internacionais, interestaduais ou intermunicipais em
+            diretriz de rodovia federal, e embarcações de percurso longitudinal interestadual e internacional.</div>
+        </div>
+
+        <div class="tile col-span-2" data-idx="1" onclick="toggleTile(this)">
+          <i class="fas fa-plus tile-expand-icon"></i>
+          <div class="tile-header-row"><span class="tile-num">02</span></div>
+          <span class="tile-label">Enviar à Antaq o inventário patrimonial e a Lista de Bens Reversíveis dos portos
+            organizados (SisPAT)</span>
+          <div class="tile-desc">O envio anual do inventário patrimonial e da Lista de Bens Reversíveis é uma obrigação
+            periódica das autoridades portuárias e dos arrendatários dos portos organizados, conforme a Resolução ANTAQ
+            nº 43/2021. O prazo final é 30 de abril de cada ano. O serviço é operacionalizado pelo Sistema de Controle
+            Patrimonial dos Portos Organizados (SisPAT). Novo serviço inserido na Carta de Serviços em 2026.</div>
+        </div>
+
+      </div>
+    </div>
+
     <!-- Footer -->
     <div class="px-16 pb-8 flex justify-between items-center z-10">
-      <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ — 1º Trimestre (Jan–Mar)</p>
+      <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ</p>
       <p class="text-gray-300 text-xs font-mono">18 / 25</p>
     </div>
   </div>
-  <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
+
+  <script>
+    let expandedTile = null;
+    const backdrop = document.getElementById('tileBackdrop');
+
+    function toggleTile(tile) {
+      if (tile.classList.contains('expanded')) {
+        collapseTile(tile);
+      } else {
+        if (expandedTile) collapseTile(expandedTile);
+        expandTile(tile);
+      }
+    }
+
+    function expandTile(tile) {
+      const grid = tile.closest('.tile-grid');
+      const gridRect = grid.getBoundingClientRect();
+      const tileRect = tile.getBoundingClientRect();
+
+      // Save original position
+      tile._origTop = tileRect.top - gridRect.top;
+      tile._origLeft = tileRect.left - gridRect.left;
+      tile._origWidth = tileRect.width;
+      tile._origHeight = tileRect.height;
+
+      // Calculate position — keep near original but ensure it stays in view
+      let top = tile._origTop;
+      let left = tile._origLeft;
+
+      // If on right side of grid, expand leftward
+      if (left + 420 > gridRect.width) {
+        left = gridRect.width - Math.min(gridRect.width * 0.5, 480);
+      }
+
+      tile.style.top = top + 'px';
+      tile.style.left = left + 'px';
+      tile.classList.add('expanded');
+      backdrop.classList.add('active');
+      expandedTile = tile;
+    }
+
+    function collapseTile(tile) {
+      tile.classList.remove('expanded');
+      tile.style.top = '';
+      tile.style.left = '';
+      backdrop.classList.remove('active');
+      expandedTile = null;
+    }
+
+    backdrop.addEventListener('click', function () {
+      if (expandedTile) collapseTile(expandedTile);
+    });
+
+    // Keyboard nav for slide system
+    document.addEventListener("keydown", function (e) {
+      if (expandedTile && e.key === "Escape") {
+        collapseTile(expandedTile);
+        e.preventDefault();
+        return;
+      }
+      if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) {
+        e.preventDefault();
+        window.parent.postMessage({ type: "slide-nav", key: e.key }, "*");
+      }
+    });
+  </script>
 </body>
 
 </html>
