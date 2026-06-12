@@ -1,7 +1,7 @@
 # Relatório Trimestral — Ouvidoria da ANTAQ
 
 Apresentação/painel **interativo em HTML** do Relatório Trimestral da Ouvidoria da
-**ANTAQ** (Agência Nacional de Transportes Aquaviários) — **1º Trimestre de 2026**.
+**ANTAQ** (Agência Nacional de Transportes Aquaviários) — **1º Trimestre de 2026 (Jan–Mar)**.
 
 ## Para que serve
 
@@ -12,31 +12,39 @@ da unidade com base nos dados do **Fala.BR**, e tem como objetivos:
 - **Consolidar e dar transparência** aos números das manifestações recebidas
   (reclamações, solicitações, denúncias, sugestões e elogios) e ao seu encaminhamento/apuração;
 - Dar **publicidade** à Carta de Serviços ao Usuário, ao Conselho de Usuários e aos
-  dados de **transparência ativa e passiva (LAI)**;
+  dados de **transparência ativa e passiva (LAI)** e de **dados abertos**;
 - **Subsidiar a tomada de decisão da Alta Gestão** e **fortalecer a participação social**.
 
 É um **site estático** (HTML/CSS/JS, sem back-end e sem build): cada slide é um arquivo
 `.html` independente, exibido por um visualizador com navegação por teclado, cliques e
 miniaturas.
 
-## Conteúdo (24 slides)
+## Conteúdo (25 slides)
 
 | # | Slide | Tema |
 |---|-------|------|
-| 01 | Capa | Identificação e sumário |
-| 02–03 | Apresentação | A Ouvidoria, sua atuação e o relatório |
+| 01 | Capa | Identificação e **sumário clicável** (cada item leva ao slide) |
+| 02–03 | Apresentação | A Ouvidoria, sua atuação e o objeto do relatório |
 | 04 | Manifestações Recebidas | Indicadores gerais (total, arquivadas, encaminhadas, tempo médio) |
-| 05 | **Funil de Tratamento** | 304 manifestações → 182 SFC/GPF (95 viraram processo) + 122 outros órgãos |
+| 05 | Encaminhamentos / Tratamento | Funil das manifestações que geraram processos sancionatórios |
 | 06 | Manifestações por mês | Recebidas / arquivadas / encaminhadas (Jan–Mar) |
-| 07 | Destaques do Trimestre | Tema central: tarifa portuária |
+| 07 | Destaques do Trimestre | Tema central: cobranças portuárias abusivas e suas vertentes |
 | 08–09 | Tipos de Manifestações | Distribuição por tipo e comparativo mensal |
 | 10–11 | Manifestações por Canal | Distribuição por canal e evolução mensal |
-| 12–13 | LAI · Transparência Passiva | Pedidos de acesso à informação |
-| 14 | Transparência Ativa | Publicações e dados abertos |
-| 15–17 | Carta de Serviços | Apresentação e 31 serviços por superintendência (SOG, SRG, SAF, SFC) |
-| 18–22 | Glossário e Base Legal | Definições, leis, decretos e normativas |
-| 23 | Expediente | Créditos |
-| 24 | Links Úteis | Contatos e canais oficiais (encerramento) |
+| 12–13 | LAI · Transparência Passiva | Pedidos de acesso à informação (totais e por mês) |
+| 14–15 | Transparência Ativa e Dados Abertos | Painel LAI, bases publicadas e novas bases |
+| 16–18 | Carta de Serviços | Apresentação e 32 serviços por superintendência (SOG, SRG, SAF, SFC) |
+| 19–20 | Definições e Glossário | Conceitos relevantes para a leitura dos dados |
+| 21–23 | Base Legal | Leis, decretos e normativas/portarias |
+| 24 | Expediente | Diretoria, estrutura e equipe técnica |
+| 25 | Links Úteis | Contatos, canais oficiais e **download do relatório em PDF** |
+
+## Relatório em PDF
+
+O slide **25 (Links Úteis)** traz o botão **"Baixar Relatório em PDF"**, que abre
+`sistema/relatorio.html` — uma versão em **documento formal A4** com os mesmos dados,
+gráficos (Chart.js) e tabelas. Basta clicar em **"Baixar em PDF"** e escolher
+**Salvar como PDF** no destino de impressão do navegador.
 
 ## Estrutura
 
@@ -44,10 +52,12 @@ miniaturas.
 .
 ├── index.html              # Página inicial (abre a apresentação)
 ├── img_porto.jpeg          # Imagem de fundo da home
+├── README.md
 ├── .nojekyll               # Desliga o Jekyll no GitHub Pages
 └── sistema/
     ├── index.html          # Visualizador dos slides (navegação)
-    ├── slide-01.html … slide-24.html
+    ├── slide-01.html … slide-25.html
+    ├── relatorio.html      # Versão A4 imprimível / "Salvar como PDF"
     └── Imagens/            # Logos da ANTAQ
 ```
 
@@ -57,7 +67,10 @@ Bibliotecas via CDN (HTTPS): **Tailwind CSS**, **Chart.js**, **Font Awesome** e 
 
 - **Setas ← →**, **PageUp/PageDown**, **espaço** ou clique nas laterais para avançar/voltar;
 - **Home/End** vão ao primeiro/último slide; **F** alterna tela cheia;
-- Miniaturas (dots) na barra inferior para ir direto a um slide.
+- Miniaturas (dots) na barra inferior para ir direto a um slide;
+- No slide de capa, **clique nos itens do sumário** para saltar direto à seção;
+- Em vários slides (Carta de Serviços, Dados Abertos, Definições), **clique nos cartões**
+  para expandir o detalhamento.
 
 ## Publicar no GitHub Pages
 
@@ -83,7 +96,9 @@ python3 -m http.server 8000
 ## Como editar / adicionar slides
 
 - Cada slide é `sistema/slide-NN.html`. O número total fica em `sistema/index.html`
-  (`const total = 24;`) e o rodapé de cada slide mostra `N / 24`.
-- Ao **inserir** um slide no meio, renumere os arquivos seguintes e atualize os rodapés
-  e o `total`.
+  (`const total = 25;`) e o rodapé de cada slide mostra `N / 25`.
+- Ao **inserir** um slide no meio, renumere os arquivos seguintes, atualize os rodapés,
+  o `total` e os destinos do **sumário clicável** da capa (`goToSlide(n)` no `slide-01.html`).
+- Se mudar a ordem/numeração, revise também o `sistema/relatorio.html` para manter os
+  **mesmos dados** dos slides.
 - O servidor é **case-sensitive** (Linux/Pages): a pasta de logos é `Imagens/` (I maiúsculo).

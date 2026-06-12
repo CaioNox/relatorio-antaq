@@ -65,102 +65,306 @@
       width: 100%;
     }
 
-    /* ===== Interatividade ===== */
-    .chart-card,
-    .canal-card,
-    .period-chip,
-    .video-frame,
-    .kpi-card,
-    .glossary-card,
-    .exp-group {
-      transition: transform .28s cubic-bezier(.2, .7, .3, 1), box-shadow .28s ease, border-color .28s ease, background-color .28s ease;
+    /* ===================== CHIPS DE FILTRO ===================== */
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .45rem;
+      margin-top: .7rem;
     }
 
-    .chart-card:hover,
-    .canal-card:hover,
-    .period-chip:hover,
-    .video-frame:hover {
-      transform: translateY(-7px);
-      box-shadow: 0 22px 42px -12px rgba(16, 48, 80, .30);
-      border-color: #0070C0;
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      border: 2px solid var(--c);
+      color: var(--c);
+      background: transparent;
+      border-radius: 999px;
+      padding: .4rem .85rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: .64rem;
+      letter-spacing: .015em;
+      cursor: pointer;
+      opacity: .5;
+      transition: background-color 200ms ease, color 200ms ease, opacity 200ms ease,
+        box-shadow 200ms ease, transform 200ms ease;
+      white-space: nowrap;
+      line-height: 1;
     }
 
-    .glossary-card:hover {
-      transform: translateY(-7px);
-      border-color: #0070C0;
-      box-shadow: 0 22px 42px -12px rgba(0, 112, 192, .32);
+    .chip i {
+      font-size: .68rem;
     }
 
-    .glossary-icon {
-      transition: transform .3s ease;
+    .chip b {
+      font-weight: 900;
+      font-size: .56rem;
+      background: color-mix(in srgb, var(--c) 14%, #ffffff);
+      color: var(--c);
+      border-radius: 999px;
+      padding: .14rem .4rem;
+      line-height: 1;
+      transition: background-color 200ms ease, color 200ms ease;
     }
 
-    .glossary-card:hover .glossary-icon {
-      transform: scale(1.12) rotate(-6deg);
+    .chip:hover {
+      opacity: .85;
+      transform: translateY(-2px);
     }
 
-    .kpi-card:hover {
-      transform: translateY(-9px) scale(1.018);
-      box-shadow: 0 30px 58px -16px rgba(16, 48, 80, .6);
+    .chip.active {
+      background: var(--c);
+      color: #ffffff;
+      opacity: 1;
+      box-shadow: 0 8px 18px -8px color-mix(in srgb, var(--c) 70%, transparent);
     }
 
-    .kpi-watermark {
-      transition: transform .4s ease, opacity .4s ease;
+    .chip.active b {
+      background: rgba(255, 255, 255, .25);
+      color: #ffffff;
     }
 
-    .kpi-card:hover .kpi-watermark {
-      transform: scale(1.12);
-      opacity: .2;
+    /* botão de zerar filtros */
+    .chip-reset {
+      display: inline-flex;
+      align-items: center;
+      gap: .42rem;
+      border: 2px dashed #cbd5e1;
+      color: #64748b;
+      background: transparent;
+      border-radius: 999px;
+      padding: .4rem .85rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: .64rem;
+      cursor: pointer;
+      transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease,
+        opacity 200ms ease, transform 200ms ease;
+      white-space: nowrap;
+      line-height: 1;
     }
 
-    .exp-group:hover {
-      transform: translateX(5px);
+    .chip-reset:hover {
+      color: #103050;
+      border-color: #103050;
+      background: #f1f5f9;
+      transform: translateY(-2px);
     }
 
-    @keyframes fadeIn {
+    .chip-reset:disabled {
+      opacity: .35;
+      cursor: default;
+      transform: none;
+      background: transparent;
+      color: #64748b;
+      border-color: #cbd5e1;
+    }
+
+    /* ===================== CONTADOR ODÔMETRO ===================== */
+    .counter {
+      text-align: right;
+      flex-shrink: 0;
+      margin-left: 1.2rem;
+    }
+
+    .odo {
+      --step: 1.18em;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 2.8rem;
+      color: #103050;
+      line-height: 1;
+    }
+
+    .odo-col {
+      display: block;
+      height: var(--step);
+      overflow: hidden;
+      width: .72em;
+    }
+
+    .odo-strip {
+      display: block;
+      will-change: transform;
+    }
+
+    .odo-strip span {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: var(--step);
+      line-height: 1;
+    }
+
+    .odo-sep {
+      display: flex;
+      align-items: center;
+      height: var(--step);
+      line-height: 1;
+    }
+
+    .odo-pct {
+      font-size: 1.5rem;
+      margin-left: .08em;
+      color: #103050;
+      align-self: center;
+      margin-top: .35em;
+    }
+
+    .counter .cap {
+      font-size: .55rem;
+      color: #94a3b8;
+      font-weight: 600;
+      margin-top: .25rem;
+      letter-spacing: .02em;
+    }
+
+    /* ===================== CARD DO GRÁFICO ===================== */
+    .chart-card {
+      background-color: #ffffff;
+      border: 2px solid #E2E8F0;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px -8px rgba(16, 48, 80, 0.18);
+      padding: 1.1rem 1.5rem 1.2rem;
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+    }
+
+    .chart-cap {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: .85rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      padding-bottom: .55rem;
+      margin-bottom: .55rem;
+      border-bottom: 1px solid #eef2f7;
+      flex-shrink: 0;
+      transition: color 250ms ease;
+    }
+
+    /* ===================== BARRAS ===================== */
+    .rows {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: .55rem;
+      min-height: 0;
+    }
+
+    .bar-row {
+      display: flex;
+      align-items: center;
+      gap: .7rem;
+      animation: fadeInRow .45s cubic-bezier(.2, .7, .3, 1) both;
+    }
+
+    @keyframes fadeInRow {
       from {
         opacity: 0;
+        transform: translateX(-12px);
       }
 
       to {
         opacity: 1;
+        transform: none;
       }
     }
 
-    .chart-card,
-    .kpi-card,
-    .glossary-card,
-    .canal-card,
-    .period-chip {
-      animation: fadeIn .5s ease both;
+    .bar-label {
+      width: 340px;
+      flex-shrink: 0;
+      font-family: 'Open Sans', sans-serif;
+      font-weight: 600;
+      color: #103050;
+      font-size: .8rem;
+      line-height: 1.15;
+      text-align: right;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
-    .chart-card:nth-child(2),
-    .kpi-card:nth-child(2),
-    .glossary-card:nth-child(2),
-    .canal-card:nth-child(2),
-    .period-chip:nth-child(2) {
-      animation-delay: .09s;
+    .bar-track {
+      flex: 1;
+      height: 1.05rem;
+      background: #eef2f7;
+      border-radius: 999px;
+      overflow: hidden;
     }
 
-    .chart-card:nth-child(3),
-    .kpi-card:nth-child(3),
-    .glossary-card:nth-child(3),
-    .canal-card:nth-child(3),
-    .period-chip:nth-child(3) {
-      animation-delay: .18s;
+    .bar-fill {
+      height: 100%;
+      width: 0;
+      border-radius: 999px;
+      transition: width 600ms cubic-bezier(.2, .7, .3, 1);
     }
 
-    .glossary-card:nth-child(4) {
-      animation-delay: .27s;
+    .bar-val {
+      width: 2.6rem;
+      flex-shrink: 0;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: .85rem;
+      text-align: left;
+      line-height: 1;
     }
 
-    .glossary-card:nth-child(5) {
-      animation-delay: .36s;
+    /* densidade — fontes/alturas se ajustam ao nº de barras (a página pode rolar) */
+    .rows[data-density="2"] {
+      gap: .42rem;
     }
 
-    .glossary-card:nth-child(6) {
-      animation-delay: .45s;
+    .rows[data-density="2"] .bar-label {
+      font-size: .72rem;
+    }
+
+    .rows[data-density="2"] .bar-track {
+      height: .85rem;
+    }
+
+    .rows[data-density="2"] .bar-val {
+      font-size: .76rem;
+    }
+
+    .rows[data-density="3"] {
+      gap: .34rem;
+    }
+
+    .rows[data-density="3"] .bar-label {
+      font-size: .64rem;
+    }
+
+    .rows[data-density="3"] .bar-track {
+      height: .7rem;
+    }
+
+    .rows[data-density="3"] .bar-val {
+      font-size: .68rem;
+    }
+
+    .rows[data-density="4"] {
+      gap: .28rem;
+    }
+
+    .rows[data-density="4"] .bar-label {
+      font-size: .58rem;
+    }
+
+    .rows[data-density="4"] .bar-track {
+      height: .58rem;
+    }
+
+    .rows[data-density="4"] .bar-val {
+      font-size: .62rem;
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -172,198 +376,6 @@
         transition: none !important;
       }
     }
-
-    .chart-card {
-      background-color: #ffffff;
-      border: 2px solid #E2E8F0;
-      border-radius: 16px;
-      box-shadow: 0 8px 20px -8px rgba(16, 48, 80, 0.18);
-      padding: 1.4rem 1.6rem;
-    }
-
-    .legend-dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 3px;
-      display: inline-block;
-    }
-
-    /* ===== Componentes adicionais (mesma identidade visual) ===== */
-    .rank-row {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .rank-label {
-      font-family: 'Open Sans', sans-serif;
-      font-size: .9rem;
-      color: #103050;
-      font-weight: 600;
-      width: 19rem;
-      flex-shrink: 0;
-      line-height: 1.15;
-    }
-
-    .rank-track {
-      flex: 1;
-      height: 30px;
-      background: #eef2f7;
-      border-radius: 8px;
-      overflow: hidden;
-    }
-
-    .rank-fill {
-      height: 100%;
-      border-radius: 8px;
-      background: linear-gradient(90deg, #0070C0, #0090C0);
-    }
-
-    .rank-val {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 900;
-      color: #103050;
-      font-size: 1.05rem;
-      width: 3.2rem;
-      text-align: right;
-      flex-shrink: 0;
-    }
-
-    .stat-mini {
-      background: #ffffff;
-      border: 2px solid #E2E8F0;
-      border-radius: 14px;
-      padding: 1rem 1.3rem;
-      box-shadow: 0 8px 20px -8px rgba(16, 48, 80, .18);
-    }
-
-    .base-chip {
-      display: flex;
-      align-items: center;
-      gap: .6rem;
-      background: #f8fafc;
-      border: 1px solid #E2E8F0;
-      border-radius: 10px;
-      padding: .5rem .75rem;
-      transition: all .25s ease;
-    }
-
-    .base-chip:hover {
-      border-color: #0070C0;
-      background: #eef6fc;
-      transform: translateX(4px);
-    }
-
-    .base-chip i {
-      color: #0070C0;
-      font-size: .8rem;
-    }
-
-    .base-chip span {
-      font-family: 'Open Sans', sans-serif;
-      font-size: .78rem;
-      color: #103050;
-      font-weight: 600;
-      line-height: 1.1;
-    }
-
-    .svc-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: .7rem;
-      background: linear-gradient(135deg, #103050, #0070C0);
-      color: #fff;
-      border-radius: 999px;
-      padding: .5rem 1.3rem;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 800;
-      letter-spacing: .04em;
-      box-shadow: 0 10px 24px -10px rgba(16, 48, 80, .5);
-    }
-
-    .svc-card {
-      background: #fff;
-      border: 2px solid #E2E8F0;
-      border-left: 5px solid #0070C0;
-      border-radius: 12px;
-      padding: .8rem 1rem;
-      display: flex;
-      gap: .8rem;
-      align-items: flex-start;
-      box-shadow: 0 6px 16px -8px rgba(16, 48, 80, .18);
-      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
-    }
-
-    .svc-card:hover {
-      transform: translateY(-5px);
-      border-color: #0090C0;
-      box-shadow: 0 18px 34px -14px rgba(16, 48, 80, .32);
-    }
-
-    .svc-num {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 900;
-      color: #0090C0;
-      font-size: 1.3rem;
-      line-height: 1;
-      flex-shrink: 0;
-      min-width: 1.7rem;
-    }
-
-    .svc-text {
-      font-family: 'Open Sans', sans-serif;
-      font-size: .78rem;
-      color: #103050;
-      font-weight: 600;
-      line-height: 1.18;
-    }
-
-    .kpi-card {
-      border-radius: 20px;
-      padding: 2.2rem 2rem;
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      min-height: 420px;
-      box-shadow: 0 18px 40px -12px rgba(16, 48, 80, 0.45);
-    }
-
-    .kpi-primary {
-      background: linear-gradient(160deg, #103050 0%, #0070C0 100%);
-    }
-
-    .kpi-soft {
-      background: linear-gradient(160deg, #0e3a66 0%, #11598f 100%);
-    }
-
-    .kpi-num {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 900;
-      line-height: 1;
-      color: #ffffff;
-    }
-
-    .kpi-watermark {
-      position: absolute;
-      right: -10px;
-      bottom: -20px;
-      font-size: 9rem;
-      opacity: 0.12;
-      color: #ffffff;
-    }
-
-    .bg-pattern {
-      position: absolute;
-      bottom: -50px;
-      right: -50px;
-      width: 400px;
-      height: 400px;
-      opacity: 0.03;
-      z-index: 0;
-      color: #103050;
-    }
   </style>
 </head>
 
@@ -371,97 +383,374 @@
   <div class="slide-container">
     <div class="top-accent"></div>
     <div class="top-accent-secondary"></div>
-    <!-- Header -->
+
+    <!-- ===================== ZONA SUPERIOR — header interativo ===================== -->
     <div class="flex items-center justify-between px-16 pt-12 pb-4 z-10">
-      <div>
-        <div class="flex items-center gap-3 mb-2">
+      <div style="min-width:0;">
+        <div class="flex items-center gap-3 mb-1">
           <div class="w-1 h-8 bg-brand-secondary"></div>
           <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Destaques do
             Trimestre</p>
         </div>
-        <p class="text-2xl font-montserrat font-bold text-yellow-500 uppercase tracking-tight ml-4 mb-2">Cobranças
-          portuárias abusivas</p>
-        <p class="text-gray-500 font-medium ml-4 text-lg">Perfil das manifestações em tratamento — 1º trimestre de 2026
-        </p>
+        <p class="text-gray-500 font-medium ml-4 text-lg">Filtre os temas · múltipla seleção · 304 manifestações · 1º
+          trimestre de 2026</p>
+        <!-- chips de filtro -->
+        <div class="chips ml-4" id="chips"></div>
       </div>
-      <div class="flex items-center gap-2 opacity-80 text-brand-secondary">
-        <i class="fas fa-star text-xl" aria-hidden="true"></i>
-        <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">ANÁLISE</p>
-      </div>
-    </div>
-    <!-- Lead stat + contexto -->
-    <div class="px-16 pt-2 pb-3 z-10">
-      <div class="flex items-center gap-6">
-        <div class="stat-mini flex items-center gap-4" style="flex-shrink:0;">
-          <i class="fas fa-money-bill-trend-up text-3xl text-brand-secondary"></i>
-          <div>
-            <p class="font-montserrat font-black text-4xl text-brand-primary leading-none">50,66%</p>
 
-          </div>
-        </div>
-        <p class="text-gray-600 text-base leading-relaxed">Cerca de <strong>metade das manifestações em
-            tratamento</strong> concentra-se no tema <strong>Cobranças portuárias abusivas</strong> — detalhado
-          abaixo nas principais vertentes operacionais identificadas ao longo do trimestre.</p>
+      <!-- contador de porcentagem -->
+      <div class="counter">
+        <div class="odo" id="odo"></div>
+        <p class="cap">do total de manifestações</p>
       </div>
     </div>
-    <!-- Breakdown panel -->
-    <div class="flex-1 px-16 pb-8 z-10">
-      <div class="chart-card h-full flex flex-col">
-        <p class="text-brand-primary font-montserrat font-bold text-xl mb-1 flex items-center gap-2">
-          <i class="fas fa-water text-brand-secondary"></i> Cobranças portuárias abusivas — 154 manifestações (tema
-          central)
-        </p>
-        <p class="text-gray-400 text-sm mb-4">Vertentes operacionais em que o tema se desdobra ao longo do trimestre</p>
-        <div class="flex-1 flex flex-col justify-center gap-3">
-          <div class="rank-row"><span class="rank-label">Sobrestadia de mercadorias / Detention</span>
-            <div class="rank-track">
-              <div class="rank-fill" style="width:100%"></div>
-            </div><span class="rank-val">56</span>
-          </div>
-          <div class="rank-row"><span class="rank-label">Cobrança portuária abusiva (cobrança)</span>
-            <div class="rank-track">
-              <div class="rank-fill" style="width:74.5%"></div>
-            </div><span class="rank-val">43</span>
-          </div>
-          <div class="rank-row"><span class="rank-label">Falta de janelas para os navios</span>
-            <div class="rank-track">
-              <div class="rank-fill" style="width:38.2%"></div>
-            </div><span class="rank-val">21</span>
-          </div>
-          <div class="rank-row"><span class="rank-label">Pedido de medida cautelar</span>
-            <div class="rank-track">
-              <div class="rank-fill" style="width:36.4%"></div>
-            </div><span class="rank-val">20</span>
-          </div>
-          <div class="rank-row"><span class="rank-label">Cobrança indevida de taxa</span>
-            <div class="rank-track">
-              <div class="rank-fill" style="width:12.7%"></div>
-            </div><span class="rank-val">7</span>
-          </div>
-          <div class="rank-row"><span class="rank-label">Bloqueio de carga</span>
-            <div class="rank-track">
-              <div class="rank-fill" style="width:5.5%"></div>
-            </div><span class="rank-val">3</span>
-          </div>
-          <div class="rank-row"><span class="rank-label">Demurrage</span>
-            <div class="rank-track">
-              <div class="rank-fill" style="width:5.5%"></div>
-            </div><span class="rank-val">3</span>
-          </div>
-          <div class="rank-row"><span class="rank-label">Desbloqueio de carga</span>
-            <div class="rank-track">
-              <div class="rank-fill" style="width:1.8%"></div>
-            </div><span class="rank-val">1</span>
-          </div>
-        </div>
+
+    <!-- ===================== ZONA INFERIOR — gráfico dinâmico ===================== -->
+    <div class="flex-1 px-16 pb-3 z-10" style="min-height:0;">
+      <div class="chart-card">
+        <p class="chart-cap" id="chartCap"></p>
+        <div class="rows" id="rows" data-density="1"></div>
       </div>
     </div>
+
     <!-- Footer -->
     <div class="px-16 pb-8 flex justify-between items-center z-10">
       <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ</p>
       <p class="text-gray-300 text-xs font-mono">7 / 25</p>
     </div>
   </div>
+
+  <script>
+    /* ===================== DADOS (planilha oficial — 1º tri/2026, total 303) ===================== */
+    const TOTAL = 304;
+    const THEMES = [
+      {
+        id: 'tarifa', name: 'Cobrança Portuária Abusiva', short: 'Cobrança Portuária',
+        icon: 'fa-money-bill-trend-up', color: '#F2A900', total: 154,
+        subs: [
+          ['Detention/ Sobrestadia de Mercadorias', 56],
+          ['Tarifa Portuária Abusiva', 43],
+          ['Tarifa Portuária Abusiva - falta de Bookings/janelas para os navios', 21],
+          ['Tarifa portuária abusiva com Denúncia com Pedido de Medida Cautelar', 20],
+          ['Cobrança indevida de taxa', 7],
+          ['Demurrage - (Tarifa portuária abusiva)', 3],
+          ['Bloqueio de carga - (Tarifa portuária abusiva)', 3],
+          ['Desbloqueio de carga - tarifa portuária abusiva', 1]
+        ]
+      },
+      {
+        id: 'diversos', name: 'Diversos — Solicitação', short: 'Diversos · Solicitação',
+        icon: 'fa-clipboard-list', color: '#10B981', total: 51,
+        subs: [
+          ['Solicitação de Informação', 8],
+          ['Solicitação de Providencias', 8],
+          ['Sistemas SAMA/EVTE/SIG/IDA/SDP/SOE/SEI', 8],
+          ['Curriculum Vitæ', 7],
+          ['Sugestão', 3],
+          ['Acesso à informação', 3],
+          ['Denúncia envolvendo servidores ou serviços', 2],
+          ['Elogio', 2],
+          ['Convite para participar de réu+3', 2],
+          ['Solicitação Judicial', 1],
+          ['NVOOC', 1],
+          ['Servidores da Antaq', 1],
+          ['Ordem Judicial', 1],
+          ['Concurso', 1],
+          ['Audiência Pública', 1],
+          ['Guarda portuária', 1],
+          ['Mão de obra portuária avulsa – OGMO', 1]
+        ]
+      },
+      {
+        id: 'regport', name: 'Regulação Portuária', short: 'Reg. Portuária',
+        icon: 'fa-anchor', color: '#0090C0', total: 41,
+        subs: [
+          ['Serviços Portuários/ Acesso /funcionamento', 15],
+          ['Irregularidade nas Instalações Portuárias', 12],
+          ['TUP', 3],
+          ['Empresa Autorizada pela ANTAQ', 3],
+          ['Concorrência Desleal', 3],
+          ['Denúncia envolvendo Portos Delegados', 3],
+          ['Regulação Portuária', 1],
+          ['Denúncia envolvendo Autoridade Portuária', 1]
+        ]
+      },
+      {
+        id: 'navint', name: 'Serviços na Navegação Interior', short: 'Nav. Interior',
+        icon: 'fa-ship', color: '#6366F1', total: 37,
+        subs: [
+          ['Empresa irregular', 14],
+          ['Navegação – Serviços de embarque, bilhete e equipamentos', 11],
+          ['Outorgas', 5],
+          ['Navegação - Atraso e superlotação', 4],
+          ['Gratuidade para idoso', 2],
+          ['Recusa do Passe Livre', 1]
+        ]
+      },
+      {
+        id: 'navmar', name: 'Regulação na Navegação Marítima', short: 'Nav. Marítima',
+        icon: 'fa-compass', color: '#0EA5E9', total: 14,
+        subs: [
+          ['Direitos do Usuário na Navegação', 8],
+          ['Segurança da Navegação', 2],
+          ['Autorização na Navegação', 2],
+          ['Regulação na Navegação interior', 1],
+          ['Cabotagem', 1]
+        ]
+      },
+      {
+        id: 'fora', name: 'Jurisdição (Legislação) — Demandas fora do âmbito de atuação da Antaq', short: 'Fora do âmbito',
+        icon: 'fa-share-from-square', color: '#94A3B8', total: 4,
+        subs: [
+          ['Jurisdição - Questão de competência da ANTAQ', 3],
+          ['Turismo', 1]
+        ]
+      },
+      {
+        id: 'meioamb', name: 'Meio ambiente', short: 'Meio Ambiente',
+        icon: 'fa-leaf', color: '#22C55E', total: 3,
+        subs: [
+          ['Meio ambiente', 3]
+        ]
+      }
+    ];
+
+    const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const selected = new Set(['tarifa']);
+
+    /* ===================== CHIPS ===================== */
+    const chipsWrap = document.getElementById('chips');
+    THEMES.forEach(t => {
+      const b = document.createElement('button');
+      b.className = 'chip';
+      b.dataset.id = t.id;
+      b.style.setProperty('--c', t.color);
+      b.title = t.name + ' — ' + t.total + ' manifestações';
+      b.innerHTML = '<i class="fas ' + t.icon + '"></i><span>' + t.short + '</span><b>' + t.total + '</b>';
+      b.addEventListener('click', () => toggleTheme(t.id));
+      chipsWrap.appendChild(b);
+    });
+
+    // botão de zerar filtros — volta ao estado inicial (apenas o tema principal)
+    const resetBtn = document.createElement('button');
+    resetBtn.className = 'chip-reset';
+    resetBtn.id = 'resetBtn';
+    resetBtn.title = 'Voltar à seleção inicial';
+    resetBtn.innerHTML = '<i class="fas fa-rotate-left"></i><span>Zerar filtros</span>';
+    resetBtn.addEventListener('click', () => {
+      if (selected.size === 1 && selected.has('tarifa')) return;
+      selected.clear();
+      selected.add('tarifa');
+      update();
+    });
+    chipsWrap.appendChild(resetBtn);
+
+    function toggleTheme(id) {
+      if (selected.has(id)) {
+        if (selected.size === 1) return; // nunca desselecionar todos
+        selected.delete(id);
+      } else {
+        selected.add(id);
+      }
+      update();
+    }
+
+    function refreshChips() {
+      chipsWrap.querySelectorAll('.chip').forEach(c =>
+        c.classList.toggle('active', selected.has(c.dataset.id)));
+      document.getElementById('resetBtn').disabled =
+        selected.size === 1 && selected.has('tarifa');
+    }
+
+    /* ===================== BARRAS ===================== */
+    function makeRows(maxGroup) {
+      const sel = THEMES.filter(t => selected.has(t.id));
+      const rows = [];
+      sel.forEach(t => {
+        const keep = [], grp = [];
+        t.subs.forEach(([l, v]) => (maxGroup > 0 && v <= maxGroup ? grp : keep).push([l, v]));
+        if (grp.length >= 2) {
+          keep.forEach(([l, v]) => rows.push({ l, v, t }));
+          const sum = grp.reduce((s, [, v]) => s + v, 0);
+          const lbl = 'Outros (' + grp.length + ' itens)' + (sel.length > 1 ? ' · ' + t.short : '');
+          rows.push({ l: lbl, v: sum, t });
+        } else {
+          t.subs.forEach(([l, v]) => rows.push({ l, v, t }));
+        }
+      });
+      return rows;
+    }
+
+    function buildRows() {
+      let rows = makeRows(0);
+      if (rows.length > 16) rows = makeRows(1);
+      if (rows.length > 24) rows = makeRows(2);
+      rows.sort((a, b) => b.v - a.v || a.l.localeCompare(b.l, 'pt-BR'));
+      return rows;
+    }
+
+    function renderBars() {
+      const rows = buildRows();
+      const maxV = rows.length ? rows[0].v : 1;
+      const wrap = document.getElementById('rows');
+      wrap.innerHTML = '';
+      const n = rows.length;
+      wrap.dataset.density = n <= 8 ? '1' : n <= 13 ? '2' : n <= 20 ? '3' : '4';
+      rows.forEach((r, i) => {
+        const el = document.createElement('div');
+        el.className = 'bar-row';
+        el.style.animationDelay = (REDUCED ? 0 : i * 35) + 'ms';
+        el.innerHTML =
+          '<span class="bar-label" title="' + r.l.replace(/"/g, '&quot;') + ' · ' + r.t.name + '">' + r.l + '</span>' +
+          '<div class="bar-track"><div class="bar-fill" style="background:' + r.t.color + '"></div></div>' +
+          '<span class="bar-val" style="color:' + r.t.color + '">' + r.v + '</span>';
+        wrap.appendChild(el);
+        const fill = el.querySelector('.bar-fill');
+        const w = (r.v / maxV * 100) + '%';
+        if (REDUCED) { fill.style.width = w; }
+        else {
+          requestAnimationFrame(() => requestAnimationFrame(() => { fill.style.width = w; }));
+        }
+      });
+    }
+
+    /* ===================== LEGENDA DINÂMICA DO CARD ===================== */
+    function refreshCaption() {
+      const sel = THEMES.filter(t => selected.has(t.id));
+      const cap = document.getElementById('chartCap');
+      if (sel.length === 1) {
+        const t = sel[0];
+        cap.style.color = t.color;
+        cap.innerHTML = '<i class="fas ' + t.icon + '"></i> ' + t.name + ' — ' + t.total + ' manifestações';
+      } else {
+        const sum = sel.reduce((s, t) => s + t.total, 0);
+        cap.style.color = '#475569';
+        cap.innerHTML = '<i class="fas fa-layer-group"></i> ' + sel.length +
+          ' temas selecionados — ' + sum + ' manifestações combinadas';
+      }
+    }
+
+    /* ===================== CONTADOR ODÔMETRO ===================== */
+    const odo = document.getElementById('odo');
+    let currentPct = null; // valor numérico atual
+
+    function digitsOf(pct) {
+      // "50,50" -> sem o símbolo %
+      return pct.toFixed(2).replace('.', ',');
+    }
+
+    function buildOdo(str, initDigits) {
+      // reconstrói as colunas; initDigits = dígitos iniciais (string alinhada, mesmo tamanho)
+      odo.innerHTML = '';
+      for (let i = 0; i < str.length; i++) {
+        const ch = str[i];
+        if (ch === ',') {
+          const sep = document.createElement('span');
+          sep.className = 'odo-sep';
+          sep.textContent = ',';
+          odo.appendChild(sep);
+        } else {
+          const col = document.createElement('span');
+          col.className = 'odo-col';
+          const strip = document.createElement('span');
+          strip.className = 'odo-strip';
+          let html = '';
+          for (let k = 0; k < 2; k++) for (let d = 0; d <= 9; d++) html += '<span>' + d + '</span>';
+          strip.innerHTML = html;
+          const d0 = parseInt(initDigits[i], 10) || 0;
+          strip.style.transform = odoY(d0);
+          col.appendChild(strip);
+          odo.appendChild(col);
+        }
+      }
+      const pct = document.createElement('span');
+      pct.className = 'odo-pct';
+      pct.textContent = '%';
+      odo.appendChild(pct);
+    }
+
+    function odoY(idx) {
+      return 'translateY(calc(' + (-idx) + ' * var(--step)))';
+    }
+
+    function animateCol(strip, fromD, toD, dir, delay) {
+      let startIdx, endIdx;
+      if (dir >= 0) {           // subindo: dígitos rolam para frente (de baixo para cima)
+        startIdx = fromD;
+        endIdx = toD > fromD ? toD : toD + 10;
+      } else {                  // descendo: dígitos rolam para trás (de cima para baixo)
+        startIdx = fromD + 10;
+        endIdx = toD < fromD ? toD + 10 : toD;
+      }
+      strip.style.transition = 'none';
+      strip.style.transform = odoY(startIdx);
+      strip.getBoundingClientRect(); // força reflow
+      strip.style.transition = 'transform 420ms cubic-bezier(0.2, 0.7, 0.3, 1) ' + delay + 'ms';
+      strip.style.transform = odoY(endIdx);
+      const snap = () => {
+        strip.style.transition = 'none';
+        strip.style.transform = odoY(endIdx % 10);
+        strip.removeEventListener('transitionend', snap);
+      };
+      strip.addEventListener('transitionend', snap);
+    }
+
+    function setCounter(newPct) {
+      const newStr = digitsOf(newPct);
+      if (currentPct === null || REDUCED) {
+        buildOdo(newStr, newStr.replace(',', '0').split('').map((c, i) => newStr[i] === ',' ? '0' : newStr[i]).join(''));
+        // inicial: posiciona direto nos dígitos finais
+        const cols = odo.querySelectorAll('.odo-strip');
+        let di = 0;
+        for (let i = 0; i < newStr.length; i++) {
+          if (newStr[i] === ',') continue;
+          cols[di].style.transform = odoY(parseInt(newStr[i], 10));
+          di++;
+        }
+        currentPct = newPct;
+        return;
+      }
+
+      const oldPct = currentPct;
+      let oldStr = digitsOf(oldPct);
+      const dir = newPct >= oldPct ? 1 : -1;
+
+      // alinha pela direita (decimais fixos): diferença só nos dígitos inteiros à esquerda
+      let oldAligned = oldStr;
+      while (oldAligned.length < newStr.length) oldAligned = '0' + oldAligned;
+      while (oldAligned.length > newStr.length) oldAligned = oldAligned.slice(1);
+
+      // nº de colunas mudou? reconstrói partindo dos dígitos antigos alinhados
+      const curCols = odo.querySelectorAll('.odo-col').length;
+      const newCols = newStr.replace(/,/g, '').length;
+      if (curCols !== newCols) buildOdo(newStr, oldAligned);
+
+      const strips = odo.querySelectorAll('.odo-strip');
+      let di = 0, animIdx = 0;
+      for (let i = 0; i < newStr.length; i++) {
+        if (newStr[i] === ',') continue;
+        const fromD = parseInt(oldAligned[i], 10);
+        const toD = parseInt(newStr[i], 10);
+        if (fromD !== toD) {
+          animateCol(strips[di], fromD, toD, dir, animIdx * 45); // cascata mecânica
+          animIdx++;
+        }
+        di++;
+      }
+      currentPct = newPct;
+    }
+
+    /* ===================== ATUALIZAÇÃO GERAL ===================== */
+    function update() {
+      refreshChips();
+      refreshCaption();
+      renderBars();
+      const sum = THEMES.filter(t => selected.has(t.id)).reduce((s, t) => s + t.total, 0);
+      setCounter(sum / TOTAL * 100);
+    }
+
+    update();
+  </script>
   <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
 </body>
 
