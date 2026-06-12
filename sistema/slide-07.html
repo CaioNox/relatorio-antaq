@@ -162,6 +162,42 @@
       border-color: #cbd5e1;
     }
 
+    /* instrução de uso */
+    .hint-line {
+      margin-top: .5rem;
+      font-size: .56rem;
+      color: #94a3b8;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+    }
+
+    .hint-line i {
+      color: #0090C0;
+      font-size: .62rem;
+    }
+
+    /* estado vazio do gráfico (0%) */
+    .empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: .6rem;
+      color: #94a3b8;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: .8rem;
+      padding: 2.5rem 0;
+      animation: fadeInRow .45s cubic-bezier(.2, .7, .3, 1) both;
+    }
+
+    .empty-state i {
+      font-size: 1.6rem;
+      color: #cbd5e1;
+    }
+
     /* ===================== CONTADOR ODÔMETRO ===================== */
     .counter {
       text-align: right;
@@ -396,6 +432,8 @@
           trimestre de 2026</p>
         <!-- chips de filtro -->
         <div class="chips ml-4" id="chips"></div>
+        <p class="hint-line ml-4"><i class="far fa-hand-pointer"></i> Um clique no tema exibe ou oculta suas demandas —
+          combine vários temas ou use “Exibir todas as demandas” para o panorama completo</p>
       </div>
 
       <!-- contador de porcentagem -->
@@ -516,7 +554,7 @@
     ];
 
     const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const selected = new Set(['tarifa']);
+    const selected = new Set(THEMES.map(t => t.id)); // abre com tudo selecionado (panorama completo)
 
     /* ===================== CHIPS ===================== */
     const chipsWrap = document.getElementById('chips');
@@ -531,24 +569,23 @@
       chipsWrap.appendChild(b);
     });
 
-    // botão de zerar filtros — volta ao estado inicial (apenas o tema principal)
-    const resetBtn = document.createElement('button');
-    resetBtn.className = 'chip-reset';
-    resetBtn.id = 'resetBtn';
-    resetBtn.title = 'Voltar à seleção inicial';
-    resetBtn.innerHTML = '<i class="fas fa-rotate-left"></i><span>Zerar filtros</span>';
-    resetBtn.addEventListener('click', () => {
-      if (selected.size === 1 && selected.has('tarifa')) return;
-      selected.clear();
-      selected.add('tarifa');
+    // botão alternante: exibir todas as demandas ⇄ zerar tudo (0%)
+    const allBtn = document.createElement('button');
+    allBtn.className = 'chip-reset';
+    allBtn.id = 'allBtn';
+    allBtn.addEventListener('click', () => {
+      if (selected.size === THEMES.length) {
+        selected.clear();                          // zera literalmente tudo → 0%
+      } else {
+        THEMES.forEach(t => selected.add(t.id));   // seleciona todos os temas
+      }
       update();
     });
-    chipsWrap.appendChild(resetBtn);
+    chipsWrap.appendChild(allBtn);
 
     function toggleTheme(id) {
       if (selected.has(id)) {
-        if (selected.size === 1) return; // nunca desselecionar todos
-        selected.delete(id);
+        selected.delete(id); // pode chegar a zero — o painel mostra 0%
       } else {
         selected.add(id);
       }
@@ -558,8 +595,14 @@
     function refreshChips() {
       chipsWrap.querySelectorAll('.chip').forEach(c =>
         c.classList.toggle('active', selected.has(c.dataset.id)));
-      document.getElementById('resetBtn').disabled =
-        selected.size === 1 && selected.has('tarifa');
+      const btn = document.getElementById('allBtn');
+      if (selected.size === THEMES.length) {
+        btn.innerHTML = '<i class="fas fa-eraser"></i><span>Zerar tudo</span>';
+        btn.title = 'Limpar toda a seleção — o painel mostra 0%';
+      } else {
+        btn.innerHTML = '<i class="fas fa-layer-group"></i><span>Exibir todas as demandas</span>';
+        btn.title = 'Selecionar todos os temas de uma vez';
+      }
     }
 
     /* ===================== BARRAS ===================== */
@@ -594,6 +637,12 @@
       const maxV = rows.length ? rows[0].v : 1;
       const wrap = document.getElementById('rows');
       wrap.innerHTML = '';
+      if (!rows.length) {
+        wrap.dataset.density = '1';
+        wrap.innerHTML = '<div class="empty-state"><i class="far fa-hand-pointer"></i>' +
+          '<span>Clique em um tema acima para exibir as demandas</span></div>';
+        return;
+      }
       const n = rows.length;
       wrap.dataset.density = n <= 8 ? '1' : n <= 13 ? '2' : n <= 20 ? '3' : '4';
       rows.forEach((r, i) => {
@@ -618,7 +667,10 @@
     function refreshCaption() {
       const sel = THEMES.filter(t => selected.has(t.id));
       const cap = document.getElementById('chartCap');
-      if (sel.length === 1) {
+      if (sel.length === 0) {
+        cap.style.color = '#94a3b8';
+        cap.innerHTML = '<i class="far fa-hand-pointer"></i> Nenhum tema selecionado — 0 manifestações';
+      } else if (sel.length === 1) {
         const t = sel[0];
         cap.style.color = t.color;
         cap.innerHTML = '<i class="fas ' + t.icon + '"></i> ' + t.name + ' — ' + t.total + ' manifestações';
