@@ -299,6 +299,10 @@
       if (e.data && e.data.type === 'slide-nav' && e.data.key) {
         handleKey(e.data.key);
       }
+      if (e.data && e.data.type === 'slide-goto' && e.data.slide) {
+        current = e.data.slide;
+        render();
+      }
     });
 
     // Click side zones to navigate
