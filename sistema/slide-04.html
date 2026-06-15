@@ -218,6 +218,32 @@
             z-index: 0;
             color: #103050;
         }
+
+        .kpi-fraction {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            line-height: 1.1;
+        }
+
+        .kpi-fraction-num {
+            font-size: 3.5rem;
+            font-weight: 900;
+        }
+
+        .kpi-fraction-bar {
+            width: 80px;
+            height: 3px;
+            background-color: rgba(255, 255, 255, 0.5);
+            margin: 0.3rem 0;
+        }
+
+        .kpi-fraction-denom {
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
     </style>
 </head>
 
@@ -281,8 +307,11 @@
                     <div>
                         <p class="text-blue-100 font-montserrat font-bold text-sm uppercase tracking-widest mb-2">Tempo
                             médio de conclusão</p>
-                        <p class="kpi-num text-8xl">13,9</p>
-                        <!-- <p class="text-blue-100 font-montserrat font-bold text-2xl">dias</p> -->
+                        <div class="kpi-fraction text-white font-montserrat">
+                            <div class="kpi-fraction-num">13,9</div>
+                            <div class="kpi-fraction-bar"></div>
+                            <div class="kpi-fraction-denom text-blue-100">dias</div>
+                        </div>
                     </div>
                     <p class="text-blue-100 text-base leading-relaxed relative z-10">Tempo médio, em dias, da abertura à
                         conclusão das manifestações no trimestre.</p>
