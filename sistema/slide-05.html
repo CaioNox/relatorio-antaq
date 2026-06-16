@@ -70,7 +70,7 @@
 
     /* BOX PRINCIPAL - 304 DEMANDAS */
     .main-box {
-      margin-top: 250px;
+      margin-top: 28rem;
       background: linear-gradient(135deg, #103050 0%, #0070C0 100%);
       color: white;
       padding: 1.4rem 1.6rem;
@@ -224,25 +224,69 @@
       margin-top: 0.3rem;
     }
 
-    .math-sign {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 1.6rem;
-      font-weight: 900;
-      color: #0070C0;
-      text-align: center;
-      padding: 0.4rem 0;
-      line-height: 1;
+    .conexao-visual {
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #0070C0, transparent);
+      margin: 0.6rem 0;
+      position: relative;
+    }
+
+    .conexao-visual::before,
+    .conexao-visual::after {
+      content: '';
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: #0070C0;
+      border-radius: 50%;
+      top: -3px;
+    }
+
+    .conexao-visual::before {
+      left: -4px;
+    }
+
+    .conexao-visual::after {
+      right: -4px;
     }
 
     .resultado-total {
-      background: #f0f7ff;
+      background: linear-gradient(135deg, #f0f7ff 0%, #ffffff 100%);
       border: 2px solid #0070C0;
       box-shadow: 0 4px 12px rgba(0, 112, 192, 0.15);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .resultado-total::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #0070C0, #0090C0);
     }
 
     .resultado-total:hover {
       border-color: #0070C0;
       box-shadow: 0 6px 16px rgba(0, 112, 192, 0.25);
+    }
+
+    .barra-proporcao {
+      width: 100%;
+      height: 8px;
+      background: #eef2f7;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-top: 1.2rem;
+    }
+
+    .barra-proporcao-fill {
+      height: 100%;
+      border-radius: 4px;
+      background: linear-gradient(90deg, #0070C0, #0090C0);
+      transition: width 0.6s ease;
     }
 
     @keyframes fadeIn {
@@ -308,7 +352,8 @@
 
     <div class="content" style="position: relative;">
       <!-- SVG PARA SETAS -->
-      <svg id="arrows" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0;"></svg>
+      <svg id="arrows"
+        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0;"></svg>
 
       <!-- TOPO: 304 DEMANDAS -->
       <div class="main-box" id="mainBox">
@@ -331,17 +376,20 @@
             <div class="resultado-label">ARQUIVADAS</div>
           </div>
 
-          <div class="math-sign">+</div>
+          <div class="conexao-visual"></div>
 
           <div class="resultado">
             <div class="resultado-numero">106</div>
             <div class="resultado-label">RESPONDIDAS</div>
           </div>
 
-          <div class="math-sign">=</div>
+          <div class="conexao-visual"></div>
 
           <div class="resultado resultado-total">
-            <div class="resultado-numero" style="font-size: 1.5rem;">122</div>
+            <div class="resultado-numero" style="font-size: 1.5rem; color: #0070C0;">122</div>
+            <div class="barra-proporcao">
+              <div class="barra-proporcao-fill" style="width: 100%;"></div>
+            </div>
           </div>
         </div>
 
@@ -357,40 +405,69 @@
             <div class="resultado-label">RESPONDIDAS</div>
           </div>
 
-          <div class="math-sign">+</div>
+          <div class="conexao-visual"></div>
 
           <div class="resultado">
             <div class="resultado-numero">30</div>
             <div class="resultado-label">ARQUIVADAS</div>
           </div>
 
-          <div class="math-sign">+</div>
+          <div class="conexao-visual"></div>
 
           <div class="resultado destaque">
             <div class="resultado-numero">103</div>
             <div class="resultado-label">PROCESSOS</div>
           </div>
 
-          <div class="math-sign">=</div>
+          <div class="conexao-visual"></div>
 
           <div class="resultado resultado-total">
-            <div class="resultado-numero" style="font-size: 1.5rem;">182</div>
+            <div class="resultado-numero" style="font-size: 1.5rem; color: #0090C0;">182</div>
+            <div class="barra-proporcao">
+              <div class="barra-proporcao-fill" style="width: 100%;"></div>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- EQUAÇÃO FINAL -->
-      <div style="margin-top: 2rem; text-align: center; font-family: 'Montserrat', sans-serif; color: #103050; font-weight: 700;">
-        <div style="font-size: 1.1rem; margin-bottom: 0.5rem;">
-          <span style="font-size: 2rem; color: #0070C0;">122</span>
-          <span style="font-size: 1.8rem; margin: 0 0.8rem;">+</span>
-          <span style="font-size: 2rem; color: #0090C0;">182</span>
-          <span style="font-size: 1.8rem; margin: 0 0.8rem;">=</span>
-          <span style="font-size: 2.5rem; color: #103050; font-weight: 900;">304</span>
+      <!-- COMPOSIÇÃO FINAL -->
+      <div style="margin-top: 2rem; text-align: center; max-width: 800px;">
+        <div style="display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 1rem;">
+          <!-- Bloco 122 -->
+          <div style="flex: 1; background: linear-gradient(135deg, #0070C0 0%, #0090C0 100%); color: white; padding: 1.2rem; border-radius: 10px; box-shadow: 0 4px 12px rgba(0, 112, 192, 0.2);">
+            <div style="font-family: 'Montserrat', sans-serif; font-size: 1.8rem; font-weight: 900; line-height: 1;">122</div>
+            <div style="font-size: 0.65rem; opacity: 0.9; margin-top: 0.3rem;">Caminho A</div>
+          </div>
+
+          <!-- Seta visual -->
+          <div style="font-size: 2.2rem; color: #0070C0; opacity: 0.7; animation: pulse 2s infinite;">→</div>
+
+          <!-- Bloco 182 -->
+          <div style="flex: 1; background: linear-gradient(135deg, #0090C0 0%, #103050 100%); color: white; padding: 1.2rem; border-radius: 10px; box-shadow: 0 4px 12px rgba(16, 48, 80, 0.2);">
+            <div style="font-family: 'Montserrat', sans-serif; font-size: 1.8rem; font-weight: 900; line-height: 1;">182</div>
+            <div style="font-size: 0.65rem; opacity: 0.9; margin-top: 0.3rem;">Caminho B</div>
+          </div>
+
+          <!-- Seta visual -->
+          <div style="font-size: 2.2rem; color: #103050; opacity: 0.7; animation: pulse 2s infinite;">→</div>
+
+          <!-- Resultado Final -->
+          <div style="flex: 1; background: linear-gradient(135deg, #103050 0%, #0070C0 100%); color: white; padding: 1.2rem; border-radius: 10px; box-shadow: 0 8px 24px rgba(16, 48, 80, 0.3); border: 2px solid #0070C0;">
+            <div style="font-family: 'Montserrat', sans-serif; font-size: 2.2rem; font-weight: 900; line-height: 1;">304</div>
+            <div style="font-size: 0.65rem; opacity: 0.95; margin-top: 0.3rem;">TOTAL</div>
+          </div>
         </div>
-        <div style="font-size: 0.75rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 0.5rem;">
-          Total de Demandas Processadas
+
+        <div style="font-size: 0.75rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em;">
+          Composição de Demandas Processadas
         </div>
+
+        <style>
+          @keyframes pulse {
+            0%, 100% { transform: translateX(0); opacity: 0.5; }
+            50% { transform: translateX(4px); opacity: 0.8; }
+          }
+        </style>
       </div>
     </div>
 
