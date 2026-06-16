@@ -4,7 +4,8 @@
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <title>Manifestações que geraram processos administrativos sancionatórios - Fluxo de Demandas - Ouvidoria ANTAQ</title>
+  <title>Manifestações que geraram processos administrativos sancionatórios - Fluxo de Demandas - Ouvidoria ANTAQ
+  </title>
   <link rel="icon" type="image/png"
     href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
@@ -69,6 +70,7 @@
 
     /* BOX PRINCIPAL - 304 DEMANDAS */
     .main-box {
+      margin-top: 250px;
       background: linear-gradient(135deg, #103050 0%, #0070C0 100%);
       color: white;
       padding: 1.4rem 1.6rem;
@@ -227,6 +229,7 @@
         opacity: 0;
         transform: translateY(20px);
       }
+
       to {
         opacity: 1;
         transform: none;
@@ -267,11 +270,13 @@
     <div class="header">
       <div class="flex items-center justify-between">
         <div style="flex: 1;">
-          <div class="flex items-center gap-2 mb-1">
+          <div class="flex items-center gap-3 mb-1">
             <div class="w-1 h-5 bg-blue-600"></div>
-            <p class="text-xl font-montserrat font-bold text-blue-900 uppercase tracking-tight">Manifestações que geraram processos administrativos sancionatórios</p>
+            <p class="text-xl font-montserrat font-bold text-blue-900 uppercase tracking-tight">Manifestações que
+              geraram processos administrativos sancionatórios</p>
           </div>
-          <p class="text-gray-500 font-medium ml-3 text-xs">Fluxo de tratamento de 304 demandas — 1º trimestre de 2026</p>
+          <p class="text-gray-500 font-medium ml-3 text-xs">Fluxo de tratamento de 304 demandas — 1º trimestre de 2026
+          </p>
         </div>
         <div class="flex items-center gap-1 opacity-70 text-blue-600 flex-shrink-0">
           <i class="fas fa-code-branch text-sm" aria-hidden="true"></i>
@@ -281,15 +286,18 @@
     </div>
 
     <div class="content">
+      <!-- SVG PARA SETAS -->
+      <svg id="arrows" width="100%" height="600" style="position: absolute; top: 50%; left: 0; pointer-events: none; z-index: 1;"></svg>
+
       <!-- TOPO: 304 DEMANDAS -->
-      <div class="main-box">
+      <div class="main-box" id="mainBox">
         <div class="main-number">304</div>
         <div class="main-label">DEMANDAS — 1º TRIMESTRE</div>
         <div class="main-desc">Manifestações recebidas e analisadas em Janeiro, Fevereiro e Março de 2026</div>
       </div>
 
       <!-- DOIS CAMINHOS -->
-      <div class="flow-container">
+      <div class="flow-container" id="flowContainer">
         <!-- CAMINHO 122 -->
         <div class="caminho">
           <div class="caminho-header">
@@ -328,7 +336,8 @@
           <div class="resultado destaque">
             <div class="resultado-numero">103</div>
             <div class="resultado-label">GERARAM PROCESSOS ADMINISTRATIVOS</div>
-            <div class="resultado-desc">ou foram associados a um processo existente, para apuração de denúncia/reclamações</div>
+            <div class="resultado-desc">ou foram associados a um processo existente, para apuração de
+              denúncia/reclamações</div>
           </div>
         </div>
       </div>
@@ -341,6 +350,61 @@
   </div>
 
   <script>
+    function drawArrows() {
+      const svg = document.getElementById('arrows');
+      const mainBox = document.getElementById('mainBox');
+      const flowContainer = document.getElementById('flowContainer');
+      const caminhos = document.querySelectorAll('.caminho');
+
+      if (!mainBox || !flowContainer || caminhos.length === 0) return;
+
+      svg.innerHTML = '';
+
+      const mainRect = mainBox.getBoundingClientRect();
+      const flowRect = flowContainer.getBoundingClientRect();
+      const svgRect = svg.getBoundingClientRect();
+
+      const mainCenterX = mainRect.left - svgRect.left + mainRect.width / 2;
+      const mainBottomY = mainRect.bottom - svgRect.top;
+
+      caminhos.forEach((caminho, index) => {
+        const caminhoRect = caminho.getBoundingClientRect();
+        const caminhoTopY = caminhoRect.top - svgRect.top;
+        const caminhoCenterX = caminhoRect.left - svgRect.left + caminhoRect.width / 2;
+
+        const midY = mainBottomY + (caminhoTopY - mainBottomY) / 2;
+
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path.setAttribute('d', `M ${mainCenterX} ${mainBottomY} Q ${mainCenterX * (index === 0 ? 0.3 : 1.7)} ${midY}, ${caminhoCenterX} ${caminhoTopY}`);
+        path.setAttribute('stroke', index === 0 ? '#0070C0' : '#0090C0');
+        path.setAttribute('stroke-width', '2');
+        path.setAttribute('fill', 'none');
+        path.setAttribute('stroke-linecap', 'round');
+
+        const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+        const marker = document.createElementNS('http://www.w3.org/2000/svg', 'marker');
+        marker.setAttribute('id', `arrowhead-${index}`);
+        marker.setAttribute('markerWidth', '10');
+        marker.setAttribute('markerHeight', '10');
+        marker.setAttribute('refX', '9');
+        marker.setAttribute('refY', '3');
+        marker.setAttribute('orient', 'auto');
+        const polygon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+        polygon.setAttribute('points', '0 0, 10 3, 0 6');
+        polygon.setAttribute('fill', index === 0 ? '#0070C0' : '#0090C0');
+        marker.appendChild(polygon);
+        defs.appendChild(marker);
+
+        path.setAttribute('marker-end', `url(#arrowhead-${index})`);
+
+        svg.appendChild(defs);
+        svg.appendChild(path);
+      });
+    }
+
+    window.addEventListener('load', drawArrows);
+    window.addEventListener('resize', drawArrows);
+
     document.addEventListener('keydown', function (e) {
       if (['ArrowRight', 'ArrowLeft', 'PageDown', 'PageUp', 'Home', 'End', ' ', 'f', 'F'].indexOf(e.key) !== -1) {
         e.preventDefault();
