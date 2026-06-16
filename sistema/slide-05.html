@@ -224,6 +224,27 @@
       margin-top: 0.3rem;
     }
 
+    .math-sign {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: #0070C0;
+      text-align: center;
+      padding: 0.4rem 0;
+      line-height: 1;
+    }
+
+    .resultado-total {
+      background: #f0f7ff;
+      border: 2px solid #0070C0;
+      box-shadow: 0 4px 12px rgba(0, 112, 192, 0.15);
+    }
+
+    .resultado-total:hover {
+      border-color: #0070C0;
+      box-shadow: 0 6px 16px rgba(0, 112, 192, 0.25);
+    }
+
     @keyframes fadeIn {
       from {
         opacity: 0;
@@ -310,9 +331,17 @@
             <div class="resultado-label">ARQUIVADAS</div>
           </div>
 
+          <div class="math-sign">+</div>
+
           <div class="resultado">
             <div class="resultado-numero">106</div>
             <div class="resultado-label">RESPONDIDAS</div>
+          </div>
+
+          <div class="math-sign">=</div>
+
+          <div class="resultado resultado-total">
+            <div class="resultado-numero" style="font-size: 1.5rem;">122</div>
           </div>
         </div>
 
@@ -328,17 +357,39 @@
             <div class="resultado-label">RESPONDIDAS</div>
           </div>
 
+          <div class="math-sign">+</div>
+
           <div class="resultado">
             <div class="resultado-numero">30</div>
             <div class="resultado-label">ARQUIVADAS</div>
           </div>
 
+          <div class="math-sign">+</div>
+
           <div class="resultado destaque">
             <div class="resultado-numero">103</div>
-            <div class="resultado-label">GERARAM PROCESSOS ADMINISTRATIVOS</div>
-            <div class="resultado-desc">ou foram associados a um processo existente, para apuração de
-              denúncia/reclamações</div>
+            <div class="resultado-label">PROCESSOS</div>
           </div>
+
+          <div class="math-sign">=</div>
+
+          <div class="resultado resultado-total">
+            <div class="resultado-numero" style="font-size: 1.5rem;">182</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- EQUAÇÃO FINAL -->
+      <div style="margin-top: 2rem; text-align: center; font-family: 'Montserrat', sans-serif; color: #103050; font-weight: 700;">
+        <div style="font-size: 1.1rem; margin-bottom: 0.5rem;">
+          <span style="font-size: 2rem; color: #0070C0;">122</span>
+          <span style="font-size: 1.8rem; margin: 0 0.8rem;">+</span>
+          <span style="font-size: 2rem; color: #0090C0;">182</span>
+          <span style="font-size: 1.8rem; margin: 0 0.8rem;">=</span>
+          <span style="font-size: 2.5rem; color: #103050; font-weight: 900;">304</span>
+        </div>
+        <div style="font-size: 0.75rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 0.5rem;">
+          Total de Demandas Processadas
         </div>
       </div>
     </div>
