@@ -1,376 +1,446 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Relatório Trimestral — Ouvidoria ANTAQ</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Relatório Trimestral - Ouvidoria da ANTAQ</title>
   <link rel="icon" type="image/png"
     href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@400;600&display=swap"
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Open+Sans:wght@400;500;600;700&display=swap"
     rel="stylesheet" />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet" />
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { font-size: 26px; }
-    body {
-      background: #08182f;
-      overflow: hidden;
-      font-family: 'Open Sans', sans-serif;
-    }
-    #wv {
-      display: block;
-      width: 100vw;
-      height: 100vh;
-      cursor: crosshair;
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
-    /* UI Overlay */
-    .ui-overlay {
+    body {
+      font-family: 'Open Sans', sans-serif;
+      min-height: 100vh;
+      background: url('img_porto.jpeg') center center / cover no-repeat;
+      display: flex;
+      flex-direction: column;
+    }
+
+    body::before {
+      content: "";
       position: fixed;
-      top: 0;
-      left: 0;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(10, 34, 54, 0.72) 0%, rgba(16, 48, 80, 0.55) 50%, rgba(22, 70, 110, 0.45) 100%);
+      z-index: 0;
+    }
+
+    .header-bar {
+      background-color: #103050;
+      height: 12px;
       width: 100%;
-      height: 100%;
+      position: relative;
+      z-index: 2;
+    }
+
+    .secondary-bar {
+      background-color: #0070C0;
+      height: 6px;
+      width: 100%;
+      position: relative;
+      z-index: 2;
+    }
+
+    .font-montserrat {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .org-bar {
+      padding: 20px 40px 0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .org-bar .org-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: #FFFFFF;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .org-bar .org-sub {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      color: #E2E8F0;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .main {
+      flex: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      z-index: 100;
-      pointer-events: none;
+      padding: 40px 24px;
+      position: relative;
+      z-index: 2;
     }
 
-    .container {
+    .header-section {
       text-align: center;
-      color: white;
-      backdrop-filter: blur(8px);
-      padding: 3rem;
-      border-radius: 20px;
-      background: rgba(16, 48, 80, 0.15);
-      border: 1px solid rgba(0, 112, 192, 0.3);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-      max-width: 600px;
+      margin-bottom: 48px;
     }
 
-    h1 {
+    .header-section .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
       font-family: 'Montserrat', sans-serif;
-      font-size: 2.8rem;
-      font-weight: 900;
-      margin-bottom: 0.5rem;
-      background: linear-gradient(135deg, #0070C0, #00d4ff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .subtitle {
-      font-size: 1.1rem;
-      color: rgba(255, 255, 255, 0.85);
-      margin-bottom: 2.5rem;
-      font-weight: 500;
-    }
-
-    .slides-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1.5rem;
-      margin-top: 2rem;
-    }
-
-    .slide-card {
-      background: rgba(0, 112, 192, 0.15);
-      border: 2px solid rgba(0, 112, 192, 0.4);
-      border-radius: 12px;
-      padding: 1.5rem;
-      cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.2, 0.7, 0.3, 1);
-      text-decoration: none;
-      color: white;
-      pointer-events: all;
-    }
-
-    .slide-card:hover {
-      background: rgba(0, 112, 192, 0.25);
-      border-color: rgba(0, 112, 192, 0.8);
-      transform: translateY(-8px);
-      box-shadow: 0 12px 32px rgba(0, 112, 192, 0.3);
-    }
-
-    .slide-card-number {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 2.2rem;
-      font-weight: 900;
-      color: #00d4ff;
-      margin-bottom: 0.5rem;
-    }
-
-    .slide-card-title {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.9rem;
+      font-size: 13px;
       font-weight: 700;
+      letter-spacing: 3px;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
-      line-height: 1.3;
+      color: #0090C0;
+      margin-bottom: 14px;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
     }
 
-    .info {
-      margin-top: 3rem;
-      font-size: 0.8rem;
-      color: rgba(255, 255, 255, 0.6);
+    .header-section .eyebrow::before,
+    .header-section .eyebrow::after {
+      content: "";
+      width: 34px;
+      height: 2px;
+      background: #0090C0;
+      opacity: 0.8;
+    }
+
+    .header-section h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 4.8rem;
+      font-weight: 800;
+      color: #FFFFFF;
+      text-transform: uppercase;
+      letter-spacing: -0.5px;
+      margin-bottom: 10px;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+    }
+
+    .header-section h1 .gold {
+      color: #0090C0;
+    }
+
+    .header-section p {
+      display: inline-block;
+      font-size: 16px;
+      color: #FFFFFF;
+      font-weight: 900;
+      padding: 8px 18px;
+      background-color: rgba(16, 48, 80, 0.55);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .cards {
+      display: flex;
+      gap: 28px;
+      flex-wrap: wrap;
+      justify-content: center;
+      max-width: 1300px;
+    }
+
+    .card {
+      background-color: rgba(255, 255, 255, 0.58);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-left: 6px solid rgba(255, 255, 255, 0.6);
+      border-radius: 16px;
+      width: 380px;
+      padding: 32px 28px;
+      text-decoration: none;
+      color: inherit;
+      transition: transform .3s cubic-bezier(.2, .7, .3, 1), background-color .3s ease, box-shadow .3s ease, border-color .3s ease;
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+      animation: cardIn .55s cubic-bezier(.2, .7, .3, 1) both;
+    }
+
+    .cards .card:nth-child(2) {
+      animation-delay: .1s;
+    }
+
+    .cards .card:nth-child(3) {
+      animation-delay: .2s;
+    }
+
+    @keyframes cardIn {
+      from {
+        opacity: 0;
+        transform: translateY(22px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    .card-relatorio {
+      border-left-color: #0070C0;
+    }
+
+    .card-falabr {
+      border-left-color: #103050;
+    }
+
+    .card-portal {
+      border-left-color: #0090C0;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      background-color: rgba(255, 255, 255, 0.78);
+      box-shadow: 0 18px 34px rgba(16, 48, 80, 0.28);
+    }
+
+    .card-relatorio:hover {
+      border-color: #0070C0;
+    }
+
+    .card-portal:hover {
+      border-color: #0090C0;
+    }
+
+    .card-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 0.5rem;
-      pointer-events: all;
+      font-size: 22px;
+      flex-shrink: 0;
+      transition: transform .3s ease;
     }
 
-    .info i {
-      font-size: 0.9rem;
+    .card:hover .card-icon {
+      transform: scale(1.1) rotate(-6deg);
+    }
+
+    .card-relatorio .card-icon {
+      background-color: #DBEAFE;
       color: #0070C0;
     }
 
-    @media (max-width: 768px) {
-      h1 { font-size: 1.8rem; }
-      .subtitle { font-size: 0.95rem; }
-      .container { padding: 2rem; }
-      .slides-grid { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+    .card-falabr .card-icon {
+      background-color: #E0E7FF;
+      color: #103050;
+    }
+
+    .card-portal .card-icon {
+      background-color: #E1F2F8;
+      color: #0090C0;
+    }
+
+    .card-content h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: #1E293B;
+      margin-bottom: 6px;
+    }
+
+    .card-content p {
+      font-size: 14px;
+      color: #1E293B;
+      font-weight: 600;
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+
+    .card-link {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: gap 0.2s ease;
+    }
+
+    .card-relatorio .card-link {
+      color: #0070C0;
+    }
+
+    .card-falabr .card-link {
+      color: #103050;
+    }
+
+    .card-portal .card-link {
+      color: #0090C0;
+    }
+
+    .card:hover .card-link {
+      gap: 11px;
+    }
+
+    .footer {
+      padding: 18px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      border-top: 1px solid rgba(255, 255, 255, 0.25);
+      background-color: rgba(16, 48, 80, 0.6);
+      backdrop-filter: blur(6px);
+      color: #FFFFFF;
+      position: relative;
+      z-index: 2;
+    }
+
+    .footer-channels {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .footer-channels .channels-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #CBD5E1;
+    }
+
+    .footer-channels .channels-links {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .footer-channels .channels-links a {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #BBD2E8;
+      text-decoration: none;
+      transition: color .2s ease;
+    }
+
+    .footer-channels .channels-links a:hover {
+      color: #FFFFFF;
+    }
+
+    .footer-credit {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .footer-credit .anchor-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background-color: #0090C0;
+      color: #103050;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+
+    .footer-credit p {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      color: #CBD5E1;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
     }
   </style>
 </head>
+
 <body>
-  <canvas id="wv"></canvas>
 
-  <div class="ui-overlay">
-    <div class="container">
-      <h1>Relatório Trimestral 2026</h1>
-      <p class="subtitle">Ouvidoria da ANTAQ — 1º Trimestre</p>
+  <div class="header-bar"></div>
+  <div class="secondary-bar"></div>
 
-      <div class="slides-grid">
-        <a href="sistema/slide-01.html" class="slide-card">
-          <div class="slide-card-number">1</div>
-          <div class="slide-card-title">Capa</div>
-        </a>
-        <a href="sistema/slide-02.html" class="slide-card">
-          <div class="slide-card-number">2</div>
-          <div class="slide-card-title">Sumário</div>
-        </a>
-        <a href="sistema/slide-04.html" class="slide-card">
-          <div class="slide-card-number">4</div>
-          <div class="slide-card-title">Indicadores</div>
-        </a>
-        <a href="sistema/slide-05.html" class="slide-card">
-          <div class="slide-card-number">5</div>
-          <div class="slide-card-title">Fluxo de Demandas</div>
-        </a>
-        <a href="sistema/slide-06.html" class="slide-card">
-          <div class="slide-card-number">6</div>
-          <div class="slide-card-title">Manifestações por Mês</div>
-        </a>
-        <a href="sistema/slide-07.html" class="slide-card">
-          <div class="slide-card-number">7</div>
-          <div class="slide-card-title">Destaques</div>
-        </a>
-      </div>
+  <div class="org-bar">
+    <img src="sistema/Imagens/Logo Horizontal_Branca_C_N.png" alt="Logo ANTAQ" style="height: 78px; width: auto;" />
+  </div>
 
-      <div class="info">
-        <i class="fas fa-wave-square"></i>
-        <span>Interaja movendo o cursor ou tocando</span>
-      </div>
+  <div class="main">
+    <div class="header-section">
+      <h1>Ouvidoria <span class="gold">da ANTAQ</span></h1>
+      <p>Selecione o conteúdo que deseja acessar</p>
+    </div>
+
+    <div class="cards">
+      <a class="card card-relatorio" href="#"
+        onclick="event.preventDefault(); window.open('sistema/index.html', '_blank');">
+        <div class="card-icon">
+          <i class="fa-solid fa-chart-column"></i>
+        </div>
+        <div class="card-content">
+          <h2>Relatório Trimestral 2026</h2>
+          <p>Dados consolidados das manifestações do 1º trimestre (Jan–Mar).</p>
+          <span class="card-link">Abrir apresentação <i class="fa-solid fa-arrow-right"></i></span>
+        </div>
+      </a>
     </div>
   </div>
 
-  <script>
-    const cv = document.getElementById('wv');
-    const cx = cv.getContext('2d');
-    let W, H, t = 0;
-    let mx = -1, my = -1;
-    const ripples = [], particles = [];
+  <div class="footer">
+    <div class="footer-channels">
+      <span class="channels-title">Canais oficiais ANTAQ</span>
+      <div class="channels-links">
+        <a href="https://www.facebook.com/ANTAQ.oficial" target="_blank" rel="noopener noreferrer"><i
+            class="fa-brands fa-facebook"></i><span>Facebook</span></a>
+        <a href="https://www.instagram.com/antaq_oficial/" target="_blank" rel="noopener noreferrer"><i
+            class="fa-brands fa-instagram"></i><span>Instagram</span></a>
+        <a href="https://www.youtube.com/c/CanalANTAQ/" target="_blank" rel="noopener noreferrer"><i
+            class="fa-brands fa-youtube"></i><span>YouTube</span></a>
+        <a href="https://www.linkedin.com/company/antaq" target="_blank" rel="noopener noreferrer"><i
+            class="fa-brands fa-linkedin"></i><span>LinkedIn</span></a>
+        <a href="https://x.com/ANTAQ_oficial" target="_blank" rel="noopener noreferrer"><i
+            class="fa-brands fa-twitter"></i><span>Twitter</span></a>
+      </div>
+    </div>
+    <div class="footer-credit">
+      <div class="anchor-icon"><i class="fa-solid fa-anchor"></i></div>
+    </div>
+  </div>
 
-    function resize() {
-      W = cv.width = window.innerWidth * Math.min(devicePixelRatio, 2);
-      H = cv.height = window.innerHeight * Math.min(devicePixelRatio, 2);
-      cv.style.width = window.innerWidth + 'px';
-      cv.style.height = window.innerHeight + 'px';
-    }
-    resize();
-    window.addEventListener('resize', resize);
-
-    cv.addEventListener('mousemove', e => {
-      const pr = Math.min(devicePixelRatio, 2);
-      mx = e.clientX * pr;
-      my = e.clientY * pr;
-    });
-    cv.addEventListener('mouseleave', () => { mx = -1; my = -1; });
-    cv.addEventListener('mousedown', e => {
-      const pr = Math.min(devicePixelRatio, 2);
-      addRipple(e.clientX * pr, e.clientY * pr);
-    });
-    cv.addEventListener('touchmove', e => {
-      e.preventDefault();
-      const pr = Math.min(devicePixelRatio, 2);
-      mx = e.touches[0].clientX * pr;
-      my = e.touches[0].clientY * pr;
-    }, { passive: false });
-    cv.addEventListener('touchstart', e => {
-      const pr = Math.min(devicePixelRatio, 2);
-      addRipple(e.touches[0].clientX * pr, e.touches[0].clientY * pr);
-    });
-
-    function addRipple(x, y) {
-      ripples.push({ x, y, r: 0, maxR: W * 0.35, a: 0.9, life: 1 });
-      for (let i = 0; i < 12; i++) spawnParticle(x, y);
-    }
-
-    function spawnParticle(x, y) {
-      const ang = Math.random() * Math.PI * 2;
-      const spd = 1 + Math.random() * 4;
-      particles.push({
-        x, y,
-        vx: Math.cos(ang) * spd,
-        vy: Math.sin(ang) * spd - 2,
-        a: 1, s: 1.5 + Math.random() * 3,
-        c: Math.random() > 0.5 ? [0, 212, 255] : [0, 112, 192]
-      });
-    }
-
-    /* Paleta ANTAQ: #103050 / #0070C0 / #0090C0 */
-    const LAYERS = [
-      { freq: 0.0055, speed: 1.0, amp: 1.0,  yf: 0.38, r: 16,  g: 48,  b: 80,  a: 0.95, thick: 1.6 },
-      { freq: 0.0072, speed: 1.4, amp: 0.85, yf: 0.47, r: 0,   g: 90,  b: 160, a: 0.82, thick: 1.4 },
-      { freq: 0.0090, speed: 1.8, amp: 0.70, yf: 0.54, r: 0,   g: 112, b: 192, a: 0.70, thick: 1.2 },
-      { freq: 0.0110, speed: 2.3, amp: 0.55, yf: 0.61, r: 0,   g: 144, b: 192, a: 0.58, thick: 1.0 },
-      { freq: 0.0135, speed: 2.9, amp: 0.40, yf: 0.67, r: 0,   g: 170, b: 210, a: 0.44, thick: 0.8 },
-      { freq: 0.0160, speed: 3.6, amp: 0.28, yf: 0.72, r: 30,  g: 200, b: 240, a: 0.30, thick: 0.6 },
-      { freq: 0.0200, speed: 4.5, amp: 0.16, yf: 0.76, r: 80,  g: 220, b: 255, a: 0.18, thick: 0.4 },
-    ];
-
-    const SPEED  = 0.012;
-    const AMP_SC = 1.0;
-    const TURB   = 1.0;
-
-    function waveY(layer, x, tt) {
-      const { freq, speed, amp, yf } = layer;
-      const base = H * yf;
-      const A = AMP_SC * amp * (H / 14);
-      const mouseDistort = (() => {
-        if (mx < 0) return 0;
-        const dx = x - mx, dy = base - my;
-        const d = Math.sqrt(dx * dx + dy * dy);
-        return Math.exp(-d * d / (W * W * 0.015)) * A * 0.9 * Math.sin(tt * 5 + yf * 10);
-      })();
-      const rippleDistort = ripples.reduce((acc, rp) => {
-        const dx = x - rp.x, dy = base - rp.y;
-        const d = Math.sqrt(dx * dx + dy * dy);
-        return acc + Math.sin(d * 0.04 - tt * 8) * Math.exp(-d * d / (W * W * 0.04)) * A * rp.life * 1.5;
-      }, 0);
-      return base
-        + Math.sin(x * freq + tt * speed * 8 + yf * 3.7) * A
-        + Math.sin(x * freq * 1.73 + tt * speed * 5.3 + 1.2) * A * 0.45
-        + Math.sin(x * freq * 2.91 + tt * speed * 3.1 + 2.8) * A * TURB * 0.012
-        + Math.cos(x * freq * 0.71 + tt * speed * 6.7) * A * 0.22
-        + mouseDistort + rippleDistort;
-    }
-
-    function drawFoam(layer, tt) {
-      const step = Math.ceil(W / 220);
-      for (let x = 0; x <= W; x += step) {
-        const y = waveY(layer, x, tt);
-        const crest = Math.sin(x * layer.freq + tt * layer.speed * 8 + layer.yf * 3.7);
-        if (crest > 0.65) {
-          const foamA = (crest - 0.65) / 0.35 * 0.35 * layer.a;
-          cx.beginPath();
-          const sz = (2 + Math.random() * 3) * (H / 400);
-          cx.arc(x + (Math.random() - 0.5) * 8, y - sz * 0.5, sz, 0, Math.PI * 2);
-          cx.fillStyle = `rgba(255,255,255,${foamA})`;
-          cx.fill();
-        }
-      }
-    }
-
-    function frame() {
-      cx.clearRect(0, 0, W, H);
-
-      const bg = cx.createLinearGradient(0, 0, 0, H);
-      bg.addColorStop(0, 'rgba(8,24,48,1)');
-      bg.addColorStop(0.5, 'rgba(0,56,112,0.95)');
-      bg.addColorStop(1, 'rgba(0,80,140,0.9)');
-      cx.fillStyle = bg;
-      cx.fillRect(0, 0, W, H);
-
-      if (mx > 0) {
-        const g = cx.createRadialGradient(mx, my, 0, mx, my, W * 0.22);
-        g.addColorStop(0, 'rgba(0,180,220,0.13)');
-        g.addColorStop(1, 'rgba(0,0,0,0)');
-        cx.fillStyle = g;
-        cx.fillRect(0, 0, W, H);
-      }
-
-      ripples.forEach(rp => {
-        cx.beginPath();
-        cx.arc(rp.x, rp.y, rp.r, 0, Math.PI * 2);
-        cx.strokeStyle = `rgba(0,200,240,${rp.a * 0.35})`;
-        cx.lineWidth = 2;
-        cx.stroke();
-      });
-
-      for (let i = LAYERS.length - 1; i >= 0; i--) {
-        const layer = LAYERS[i];
-        const { r, g, b, a, thick } = layer;
-        const step = Math.ceil(W / 350);
-        const pts = [];
-        for (let x = 0; x <= W; x += step) pts.push([x, waveY(layer, x, t)]);
-
-        cx.beginPath();
-        cx.moveTo(-2, H + 2);
-        cx.lineTo(pts[0][0], pts[0][1]);
-        for (let k = 1; k < pts.length - 1; k++) {
-          const qx = (pts[k][0] + pts[k + 1][0]) / 2;
-          const qy = (pts[k][1] + pts[k + 1][1]) / 2;
-          cx.quadraticCurveTo(pts[k][0], pts[k][1], qx, qy);
-        }
-        cx.lineTo(pts[pts.length - 1][0], pts[pts.length - 1][1]);
-        cx.lineTo(W + 2, H + 2);
-        cx.closePath();
-
-        const fill = cx.createLinearGradient(0, H * layer.yf - 50, 0, H + 2);
-        fill.addColorStop(0, `rgba(${r},${g},${b},${a})`);
-        fill.addColorStop(1, `rgba(${r},${g},${b},${Math.max(0, a - 0.3)})`);
-        cx.fillStyle = fill;
-        cx.fill();
-
-        cx.beginPath();
-        cx.moveTo(pts[0][0], pts[0][1]);
-        for (let k = 1; k < pts.length - 1; k++) {
-          const qx = (pts[k][0] + pts[k + 1][0]) / 2;
-          const qy = (pts[k][1] + pts[k + 1][1]) / 2;
-          cx.quadraticCurveTo(pts[k][0], pts[k][1], qx, qy);
-        }
-        cx.strokeStyle = `rgba(${Math.min(r+60,255)},${Math.min(g+60,255)},${Math.min(b+40,255)},${a * 0.5})`;
-        cx.lineWidth = thick * (H / 400) * Math.min(devicePixelRatio, 2);
-        cx.stroke();
-
-        if (i <= 3) drawFoam(layer, t);
-      }
-
-      for (let i = particles.length - 1; i >= 0; i--) {
-        const p = particles[i];
-        p.x += p.vx; p.y += p.vy; p.vy += 0.12; p.a -= 0.025;
-        if (p.a <= 0) { particles.splice(i, 1); continue; }
-        cx.beginPath();
-        cx.arc(p.x, p.y, p.s, 0, Math.PI * 2);
-        cx.fillStyle = `rgba(${p.c[0]},${p.c[1]},${p.c[2]},${p.a})`;
-        cx.fill();
-      }
-
-      for (let i = ripples.length - 1; i >= 0; i--) {
-        const rp = ripples[i];
-        rp.r += 4; rp.life -= 0.018; rp.a = rp.life * 0.9;
-        if (rp.life <= 0 || rp.r > rp.maxR) ripples.splice(i, 1);
-      }
-
-      t += SPEED;
-      requestAnimationFrame(frame);
-    }
-    frame();
-  </script>
 </body>
+
 </html>
