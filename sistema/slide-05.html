@@ -369,98 +369,99 @@
         <div>
           <div class="flex items-center gap-3 mb-2">
             <div class="w-1 h-6 bg-brand-secondary"></div>
-            <p class="text-2xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Fluxo de Tratamento de Manifestações</p>
+            <p class="text-2xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Manifestações que geraram processos administrativos sancionatórios</p>
           </div>
-          <p class="text-gray-500 font-medium ml-4 text-sm">Demandas geradoras de processos administrativos — 304 manifestações no 1º trimestre de 2026</p>
+          <p class="text-gray-500 font-medium ml-4 text-sm">Fluxo de tratamento de 304 demandas — 1º trimestre de 2026</p>
         </div>
         <div class="flex items-center gap-2 opacity-70 text-brand-secondary">
           <i class="fas fa-code-branch text-lg" aria-hidden="true"></i>
-          <p class="font-montserrat font-bold text-gray-400 text-xs tracking-widest">TRATAMENTO</p>
+          <p class="font-montserrat font-bold text-gray-400 text-xs tracking-widest">FLUXO</p>
         </div>
       </div>
     </div>
 
     <div class="content">
-      <!-- LEFT: Flow Diagram -->
+      <!-- LEFT: Flow Structure -->
       <div class="flow-section">
         <div class="flow-title">
           <i class="fas fa-flow-control"></i>
-          Jornada das Manifestações
+          Estrutura do Fluxo
         </div>
 
-        <!-- ENTRADA -->
+        <!-- RAIZ: 304 DEMANDAS -->
         <div class="flow-step primary">
           <div class="flow-step-num">304</div>
-          <div class="flow-step-label">Manifestações Recebidas</div>
-          <div class="flow-step-desc">Total de demandas registradas no trimestre | Jan · Fev · Mar</div>
+          <div class="flow-step-label">DEMANDAS — 1º TRIMESTRE</div>
+          <div class="flow-step-desc">Manifestações recebidas e analisadas em Janeiro, Fevereiro e Março de 2026</div>
         </div>
 
         <div class="flow-arrow">
-          <i class="fas fa-arrow-down"></i><br/>Encaminhadas para Avaliação
+          <i class="fas fa-arrow-down"></i>
         </div>
 
-        <!-- PRIMEIRA DIVISÃO -->
+        <!-- PRIMEIRA DIVISÃO: 122 e 182 -->
         <div class="flow-row">
+          <!-- CAMINHO 122 -->
           <div class="flow-step">
             <div class="flow-step-num">122</div>
-            <div class="flow-step-label">Caminho A</div>
-            <div class="flow-step-desc">Encaminhadas à SFC e GPF</div>
+            <div class="flow-step-label">Encaminhadas</div>
+            <div class="flow-step-desc">à SFC e GPF</div>
           </div>
+          <!-- CAMINHO 182 -->
           <div class="flow-step">
             <div class="flow-step-num">182</div>
-            <div class="flow-step-label">Caminho B</div>
-            <div class="flow-step-desc">Encaminhadas à SFC e GPF</div>
+            <div class="flow-step-label">Encaminhadas</div>
+            <div class="flow-step-desc">à SFC e GPF</div>
           </div>
         </div>
 
-        <div class="flow-arrow">
-          <i class="fas fa-arrow-down"></i><br/>Processamento
-        </div>
-
-        <!-- SAÍDAS CAMINHO A -->
-        <div style="background: rgba(0, 112, 192, 0.06); border-radius: 8px; padding: 0.8rem; margin-bottom: 0.8rem;">
-          <div style="font-size: 0.65rem; color: #0070C0; font-weight: 700; text-transform: uppercase; margin-bottom: 0.6rem;">Resultados Caminho A</div>
-          <div class="flow-row">
-            <div class="flow-step">
-              <div class="flow-step-num">16</div>
-              <div class="flow-step-label">Arquivadas</div>
+        <!-- RESULTADOS CAMINHO 122 -->
+        <div style="background: rgba(0, 112, 192, 0.05); border-left: 3px solid #0070C0; border-radius: 8px; padding: 1rem; margin: 1rem 0;">
+          <div style="font-size: 0.7rem; color: #103050; font-weight: 700; text-transform: uppercase; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.4rem;">
+            <i class="fas fa-code-branch" style="color: #0070C0; font-size: 0.8rem;"></i>
+            CAMINHO 122
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 0.6rem; margin-left: 1rem; border-left: 2px solid #0070C0; padding-left: 0.8rem;">
+            <div class="flow-step" style="margin: 0; padding: 0.8rem;">
+              <div class="flow-step-num" style="font-size: 1.4rem;">16</div>
+              <div class="flow-step-label">ARQUIVADAS</div>
             </div>
-            <div class="flow-step">
-              <div class="flow-step-num">106</div>
-              <div class="flow-step-label">Respondidas</div>
+            <div class="flow-step" style="margin: 0; padding: 0.8rem;">
+              <div class="flow-step-num" style="font-size: 1.4rem;">106</div>
+              <div class="flow-step-label">RESPONDIDAS</div>
             </div>
           </div>
         </div>
 
-        <!-- SAÍDAS CAMINHO B -->
-        <div style="background: rgba(0, 144, 192, 0.06); border-radius: 8px; padding: 0.8rem;">
-          <div style="font-size: 0.65rem; color: #0090C0; font-weight: 700; text-transform: uppercase; margin-bottom: 0.6rem;">Resultados Caminho B</div>
-          <div class="flow-row">
-            <div class="flow-step">
-              <div class="flow-step-num">49</div>
-              <div class="flow-step-label">Respondidas</div>
-            </div>
-            <div class="flow-step">
-              <div class="flow-step-num">30</div>
-              <div class="flow-step-label">Arquivadas</div>
-            </div>
+        <!-- RESULTADOS CAMINHO 182 -->
+        <div style="background: rgba(0, 144, 192, 0.05); border-left: 3px solid #0090C0; border-radius: 8px; padding: 1rem;">
+          <div style="font-size: 0.7rem; color: #103050; font-weight: 700; text-transform: uppercase; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.4rem;">
+            <i class="fas fa-code-branch" style="color: #0090C0; font-size: 0.8rem; transform: scaleX(-1);"></i>
+            CAMINHO 182
           </div>
-          <div class="flow-arrow" style="margin-top: 0.8rem;">
-            <i class="fas fa-arrow-down"></i>
-          </div>
-          <div class="flow-step" style="background: linear-gradient(135deg, #0090C0 0%, #103050 100%); color: white; border: none;">
-            <div class="flow-step-num">103</div>
-            <div class="flow-step-label">Geraram Processos Administrativos</div>
-            <div class="flow-step-desc">Processos sancionatórios ou denúncias em apuração</div>
+          <div style="display: flex; flex-direction: column; gap: 0.6rem; margin-left: 1rem; border-left: 2px solid #0090C0; padding-left: 0.8rem;">
+            <div class="flow-step" style="margin: 0; padding: 0.8rem;">
+              <div class="flow-step-num" style="font-size: 1.4rem;">49</div>
+              <div class="flow-step-label">RESPONDIDAS</div>
+            </div>
+            <div class="flow-step" style="margin: 0; padding: 0.8rem;">
+              <div class="flow-step-num" style="font-size: 1.4rem;">30</div>
+              <div class="flow-step-label">ARQUIVADAS</div>
+            </div>
+            <div class="flow-step" style="margin: 0; padding: 0.8rem; background: linear-gradient(135deg, #0090C0 0%, #103050 100%); color: white; border: none;">
+              <div class="flow-step-num" style="font-size: 1.4rem;">103</div>
+              <div class="flow-step-label">GERARAM PROCESSOS ADMINISTRATIVOS</div>
+              <div class="flow-step-desc" style="color: rgba(255,255,255,0.9); font-size: 0.6rem; line-height: 1.4;">ou foram associados a um processo existente, para apuração de denúncia/reclamações</div>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- RIGHT: Details & Stats -->
+      <!-- RIGHT: Details & Analytics -->
       <div class="details-section">
         <div class="details-title">
           <i class="fas fa-chart-bar"></i>
-          Estatísticas Gerais
+          Análise Consolidada
         </div>
 
         <div class="stats-grid">
@@ -476,19 +477,19 @@
           </div>
           <div class="stat-card">
             <div class="stat-num">103</div>
-            <div class="stat-label">Em Processos</div>
+            <div class="stat-label">Em Investigação</div>
             <div class="stat-pct">34% do total</div>
           </div>
           <div class="stat-card">
             <div class="stat-num">2</div>
-            <div class="stat-label">Caminhos</div>
-            <div class="stat-pct">Fluxos paralelos</div>
+            <div class="stat-label">Caminhos Paralelos</div>
+            <div class="stat-pct">SFC e GPF</div>
           </div>
         </div>
 
         <div class="details-title" style="margin-top: 1rem;">
           <i class="fas fa-list-check"></i>
-          Resultados por Categoria
+          Resumo por Resultado
         </div>
 
         <div class="outcomes-card">
@@ -517,25 +518,25 @@
 
         <div class="details-title" style="margin-top: 1rem;">
           <i class="fas fa-info-circle"></i>
-          Observações do Fluxo
+          Notas Sobre o Fluxo
         </div>
 
         <div class="process-legend">
           <div class="legend-item">
             <div class="legend-icon"></div>
-            <div><strong>Caminho A (122):</strong> 16 arquivadas + 106 respondidas = 122 demandas</div>
+            <div><strong>122 demandas:</strong> Distribuídas entre arquivamento (16) e resposta (106)</div>
           </div>
           <div class="legend-item">
             <div class="legend-icon"></div>
-            <div><strong>Caminho B (182):</strong> 49 respondidas + 30 arquivadas + 103 processos = 182 demandas</div>
+            <div><strong>182 demandas:</strong> Respostas (49), arquivo (30), ou processos administrativos (103)</div>
           </div>
           <div class="legend-item">
             <div class="legend-icon"></div>
-            <div><strong>Taxa de Resolução:</strong> 51% tiveram resposta imediata, 34% geraram investigações</div>
+            <div><strong>103 processos:</strong> Abertos ou associados para apuração de denúncias e reclamações</div>
           </div>
           <div class="legend-item">
             <div class="legend-icon"></div>
-            <div><strong>Distribuição:</strong> Os processos administrativos concentram-se no Caminho B (56,3%)</div>
+            <div><strong>Cobertura completa:</strong> 304 demandas rastreadas e processadas completamente</div>
           </div>
         </div>
       </div>
