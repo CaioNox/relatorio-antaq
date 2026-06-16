@@ -119,78 +119,89 @@
       background: white;
       border: 2px solid #E2E8F0;
       border-radius: 12px;
-      padding: 1.4rem;
+      padding: 1.6rem;
       animation: fadeIn 0.6s ease 0.2s both;
+      box-shadow: 0 6px 20px rgba(16, 48, 80, 0.08);
+      transition: all 0.3s ease;
     }
 
     .caminho:nth-child(1) {
-      border-left: 4px solid #0070C0;
+      border-left: 6px solid #0070C0;
     }
 
     .caminho:nth-child(2) {
-      border-left: 4px solid #0090C0;
+      border-left: 6px solid #0090C0;
+    }
+
+    .caminho:hover {
+      border-color: #0070C0;
+      box-shadow: 0 10px 28px rgba(0, 112, 192, 0.15);
     }
 
     .caminho-header {
-      background: linear-gradient(135deg, #f0f7ff 0%, #f5fbff 100%);
-      padding: 0.9rem 0.8rem;
-      border-radius: 8px;
-      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #0070C0 0%, #0090C0 100%);
+      padding: 1.1rem 0.9rem;
+      border-radius: 10px;
+      margin-bottom: 1.2rem;
       text-align: center;
+      box-shadow: 0 6px 16px rgba(0, 112, 192, 0.25);
+      color: white;
     }
 
     .caminho-number {
       font-family: 'Montserrat', sans-serif;
-      font-size: 2.2rem;
+      font-size: 2.6rem;
       font-weight: 900;
-      color: #103050;
-      line-height: 1;
-      margin-bottom: 0.2rem;
-    }
-
-    .caminho-label {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: #475569;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
-
-    .resultado {
-      background: #ffffff;
-      border: 1px solid #E2E8F0;
-      border-radius: 8px;
-      padding: 0.9rem 0.8rem;
-      margin-bottom: 0.8rem;
-      text-align: center;
-      transition: all 0.3s ease;
-      cursor: pointer;
-    }
-
-    .resultado:hover {
-      border-color: #0070C0;
-      box-shadow: 0 8px 16px rgba(16, 48, 80, 0.15);
-      transform: translateY(-2px);
-    }
-
-    .resultado-numero {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 1.8rem;
-      font-weight: 900;
-      color: #103050;
+      color: white;
       line-height: 1;
       margin-bottom: 0.3rem;
     }
 
+    .caminho-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.95);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .resultado {
+      background: linear-gradient(135deg, #f8fbff 0%, #f0f7ff 100%);
+      border: 2px solid #0070C0;
+      border-radius: 10px;
+      padding: 1.2rem 0.9rem;
+      margin-bottom: 1rem;
+      text-align: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 112, 192, 0.08);
+    }
+
+    .resultado:hover {
+      border-color: #0070C0;
+      box-shadow: 0 8px 20px rgba(0, 112, 192, 0.2);
+      transform: translateY(-3px);
+      background: linear-gradient(135deg, #f0f7ff 0%, #e8f3ff 100%);
+    }
+
+    .resultado-numero {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2.4rem;
+      font-weight: 900;
+      color: #0070C0;
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+
     .resultado-label {
       font-family: 'Montserrat', sans-serif;
-      font-size: 0.72rem;
+      font-size: 0.75rem;
       font-weight: 700;
-      color: #0070C0;
+      color: #103050;
       text-transform: uppercase;
-      letter-spacing: 0.04em;
-      line-height: 1.2;
+      letter-spacing: 0.05em;
+      line-height: 1.3;
     }
 
     /* DESTAQUE ESPECIAL - 103 */
@@ -198,23 +209,27 @@
       background: linear-gradient(135deg, #0090C0 0%, #103050 100%);
       color: white;
       border: none;
-      padding: 1.1rem 0.8rem;
+      padding: 1.4rem 0.9rem;
+      box-shadow: 0 8px 24px rgba(0, 144, 192, 0.35);
+      transform: scale(1.02);
     }
 
     .resultado.destaque .resultado-numero {
       color: white;
-      font-size: 1.9rem;
+      font-size: 2.8rem;
+      font-weight: 900;
     }
 
     .resultado.destaque .resultado-label {
-      color: rgba(255, 255, 255, 0.95);
+      color: rgba(255, 255, 255, 0.98);
+      font-size: 0.78rem;
     }
 
     .resultado.destaque .resultado-desc {
-      color: rgba(255, 255, 255, 0.85);
-      font-size: 0.65rem;
-      line-height: 1.4;
-      margin-top: 0.5rem;
+      color: rgba(255, 255, 255, 0.90);
+      font-size: 0.68rem;
+      line-height: 1.5;
+      margin-top: 0.6rem;
     }
 
     .resultado-desc {
@@ -225,29 +240,31 @@
     }
 
     .conexao-visual {
-      height: 2px;
-      background: linear-gradient(90deg, transparent, #0070C0, transparent);
-      margin: 0.6rem 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #0070C0 20%, #0070C0 80%, transparent);
+      margin: 0.9rem 0;
       position: relative;
+      border-radius: 2px;
     }
 
     .conexao-visual::before,
     .conexao-visual::after {
       content: '';
       position: absolute;
-      width: 8px;
-      height: 8px;
+      width: 10px;
+      height: 10px;
       background: #0070C0;
       border-radius: 50%;
-      top: -3px;
+      top: -3.5px;
+      box-shadow: 0 2px 6px rgba(0, 112, 192, 0.3);
     }
 
     .conexao-visual::before {
-      left: -4px;
+      left: -5px;
     }
 
     .conexao-visual::after {
-      right: -4px;
+      right: -5px;
     }
 
     .resultado-total {
