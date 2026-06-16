@@ -518,12 +518,29 @@
     }
 
     function expandTile(tile) {
-      tile.classList.add('expanded');
+      // Clone tile and move to backdrop
+      const clone = tile.cloneNode(true);
+      clone.classList.add('expanded');
+      clone.onclick = function() { collapseTile(tile); };
+      clone.style.display = 'flex';
+
+      // Clear original onclick to prevent nested triggers
+      clone.onclick = function(e) {
+        if (e.target === clone || e.target.closest('.tile') === clone) {
+          collapseTile(tile);
+        }
+      };
+
+      // Append to backdrop
+      backdrop.appendChild(clone);
       backdrop.classList.add('active');
-      expandedTile = tile;
+      expandedTile = { original: tile, clone: clone };
     }
 
     function collapseTile(tile) {
+      if (expandedTile && expandedTile.clone) {
+        expandedTile.clone.remove();
+      }
       tile.classList.remove('expanded');
       tile.style.top = '';
       tile.style.left = '';
