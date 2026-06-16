@@ -224,7 +224,33 @@
       margin-top: 0.3rem;
     }
 
-.resultado-total {
+    .conexao-visual {
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #0070C0, transparent);
+      margin: 0.6rem 0;
+      position: relative;
+    }
+
+    .conexao-visual::before,
+    .conexao-visual::after {
+      content: '';
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: #0070C0;
+      border-radius: 50%;
+      top: -3px;
+    }
+
+    .conexao-visual::before {
+      left: -4px;
+    }
+
+    .conexao-visual::after {
+      right: -4px;
+    }
+
+    .resultado-total {
       background: linear-gradient(135deg, #f0f7ff 0%, #ffffff 100%);
       border: 2px solid #0070C0;
       box-shadow: 0 4px 12px rgba(0, 112, 192, 0.15);
@@ -325,10 +351,6 @@
     </div>
 
     <div class="content" style="position: relative;">
-      <!-- SVG PARA SETAS -->
-      <svg id="arrows"
-        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0;"></svg>
-
       <!-- TOPO: 304 DEMANDAS -->
       <div class="main-box" id="mainBox">
         <div class="main-number">304</div>
@@ -351,14 +373,21 @@
             <div class="resultado-desc" style="font-size: 0.6rem; color: #94A3B8; margin-top: 0.5rem;"></div>
           </div>
 
+          <div class="conexao-visual"></div>
 
           <div class="resultado">
             <div class="resultado-numero">106</div>
             <div class="resultado-label">RESPONDIDAS</div>
           </div>
 
+          <div class="conexao-visual"></div>
 
-
+          <div class="resultado resultado-total">
+            <div class="resultado-numero" style="font-size: 1.5rem; color: #0070C0;">122</div>
+            <div class="barra-proporcao">
+              <div class="barra-proporcao-fill" style="width: 100%;"></div>
+            </div>
+          </div>
         </div>
 
         <!-- CAMINHO 182 -->
@@ -373,12 +402,14 @@
             <div class="resultado-label">RESPONDIDAS</div>
           </div>
 
+          <div class="conexao-visual"></div>
 
           <div class="resultado">
             <div class="resultado-numero">30</div>
             <div class="resultado-label">ARQUIVADAS</div>
           </div>
 
+          <div class="conexao-visual"></div>
 
           <div class="resultado destaque">
             <div class="resultado-numero">103</div>
@@ -387,7 +418,14 @@
               denúncia/reclamações</div>
           </div>
 
+          <div class="conexao-visual"></div>
 
+          <div class="resultado resultado-total">
+            <div class="resultado-numero" style="font-size: 1.5rem; color: #0090C0;">182</div>
+            <div class="barra-proporcao">
+              <div class="barra-proporcao-fill" style="width: 100%;"></div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -454,87 +492,6 @@
   </div>
 
   <script>
-    function drawArrows() {
-      const svg = document.getElementById('arrows');
-      const mainBox = document.getElementById('mainBox');
-      const caminhos = document.querySelectorAll('.caminho');
-
-      if (!mainBox || caminhos.length === 0) {
-        setTimeout(drawArrows, 100);
-        return;
-      }
-
-      svg.innerHTML = '';
-      const svgRect = svg.getBoundingClientRect();
-      const contentRect = svg.parentElement.getBoundingClientRect();
-
-      function getPos(el) {
-        const rect = el.getBoundingClientRect();
-        return {
-          x: rect.left - contentRect.left,
-          y: rect.top - contentRect.top,
-          w: rect.width,
-          h: rect.height
-        };
-      }
-
-      const mainPos = getPos(mainBox);
-      const x1 = mainPos.x + mainPos.w / 2;
-      const y1 = mainPos.y + mainPos.h;
-
-      // Criar defs uma vez
-      const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
-      const marker0 = document.createElementNS('http://www.w3.org/2000/svg', 'marker');
-      marker0.setAttribute('id', 'arrowhead0');
-      marker0.setAttribute('markerWidth', '10');
-      marker0.setAttribute('markerHeight', '10');
-      marker0.setAttribute('refX', '8');
-      marker0.setAttribute('refY', '3');
-      marker0.setAttribute('orient', 'auto');
-      const polygon0 = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
-      polygon0.setAttribute('points', '0 0, 10 3, 0 6');
-      polygon0.setAttribute('fill', '#0070C0');
-      marker0.appendChild(polygon0);
-      defs.appendChild(marker0);
-
-      const marker1 = document.createElementNS('http://www.w3.org/2000/svg', 'marker');
-      marker1.setAttribute('id', 'arrowhead1');
-      marker1.setAttribute('markerWidth', '10');
-      marker1.setAttribute('markerHeight', '10');
-      marker1.setAttribute('refX', '8');
-      marker1.setAttribute('refY', '3');
-      marker1.setAttribute('orient', 'auto');
-      const polygon1 = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
-      polygon1.setAttribute('points', '0 0, 10 3, 0 6');
-      polygon1.setAttribute('fill', '#0090C0');
-      marker1.appendChild(polygon1);
-      defs.appendChild(marker1);
-
-      svg.appendChild(defs);
-
-      caminhos.forEach((caminho, idx) => {
-        const caminhoPos = getPos(caminho);
-        const x2 = caminhoPos.x + caminhoPos.w / 2;
-        const y2 = caminhoPos.y;
-
-        const midY = (y1 + y2) / 2;
-        const bendX = idx === 0 ? x1 - 80 : x1 + 80;
-
-        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-        path.setAttribute('d', `M ${x1} ${y1} C ${bendX} ${midY}, ${bendX} ${midY}, ${x2} ${y2}`);
-        path.setAttribute('stroke', idx === 0 ? '#0070C0' : '#0090C0');
-        path.setAttribute('stroke-width', '2.5');
-        path.setAttribute('fill', 'none');
-        path.setAttribute('stroke-linecap', 'round');
-        path.setAttribute('marker-end', `url(#arrowhead${idx})`);
-        svg.appendChild(path);
-      });
-    }
-
-    setTimeout(drawArrows, 500);
-    window.addEventListener('load', drawArrows);
-    window.addEventListener('resize', () => setTimeout(drawArrows, 100));
-
     document.addEventListener('keydown', function (e) {
       if (['ArrowRight', 'ArrowLeft', 'PageDown', 'PageUp', 'Home', 'End', ' ', 'f', 'F'].indexOf(e.key) !== -1) {
         e.preventDefault();
