@@ -198,21 +198,23 @@
 
     /* ===== EXPANDED STATE ===== */
     .tile.expanded {
-      position: absolute;
+      position: fixed;
+      top: 50% !important;
+      left: 50% !important;
       z-index: 100;
       min-height: auto;
-      max-height: 80vh;
+      max-height: 85vh;
       overflow-y: auto;
-      padding: 1.4rem 1.6rem;
+      padding: 1.6rem 1.8rem;
       background: linear-gradient(160deg, #ffffff 0%, #f0f7ff 100%);
       border: 2px solid #0070C0;
       border-left: 5px solid #0070C0;
-      box-shadow: 0 28px 56px -12px rgba(16, 48, 80, .35);
-      transform: none;
+      border-radius: 18px;
+      box-shadow: 0 44px 88px -22px rgba(16, 48, 80, .6);
+      transform: translate(-50%, -50%) !important;
       align-items: flex-start;
       text-align: left;
-      width: calc(50% - 7px);
-      min-width: 420px;
+      width: min(820px, 85vw);
       animation: expandPop .35s cubic-bezier(.2, .7, .3, 1) both;
     }
 
@@ -274,13 +276,16 @@
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(16, 48, 80, .08);
+      background: rgba(16, 48, 80, 0.45);
       z-index: 50;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
       animation: fadeBackdrop .25s ease both;
     }
 
     .tile-backdrop.active {
-      display: block;
+      display: flex;
     }
 
     @keyframes fadeBackdrop {
@@ -513,27 +518,6 @@
     }
 
     function expandTile(tile) {
-      const grid = tile.closest('.tile-grid');
-      const gridRect = grid.getBoundingClientRect();
-      const tileRect = tile.getBoundingClientRect();
-
-      // Save original position
-      tile._origTop = tileRect.top - gridRect.top;
-      tile._origLeft = tileRect.left - gridRect.left;
-      tile._origWidth = tileRect.width;
-      tile._origHeight = tileRect.height;
-
-      // Calculate position — keep near original but ensure it stays in view
-      let top = tile._origTop;
-      let left = tile._origLeft;
-
-      // If on right side of grid, expand leftward
-      if (left + 420 > gridRect.width) {
-        left = gridRect.width - Math.min(gridRect.width * 0.5, 480);
-      }
-
-      tile.style.top = top + 'px';
-      tile.style.left = left + 'px';
       tile.classList.add('expanded');
       backdrop.classList.add('active');
       expandedTile = tile;
