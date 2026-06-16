@@ -340,6 +340,63 @@
       font-family: monospace;
       font-weight: 400;
     }
+
+    .resultado-icon {
+      font-size: 1.6rem;
+      margin-bottom: 0.4rem;
+      display: block;
+    }
+
+    .resultado-percent {
+      display: inline-block;
+      background: #0070C0;
+      color: white;
+      padding: 0.3rem 0.6rem;
+      border-radius: 6px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      margin-top: 0.4rem;
+    }
+
+    .resultado.destaque .resultado-percent {
+      background: rgba(255, 255, 255, 0.3);
+      color: white;
+    }
+
+    .resumo-box {
+      margin-top: 1.4rem;
+      padding: 1.2rem;
+      background: linear-gradient(135deg, #f8fbff 0%, #f0f7ff 100%);
+      border-radius: 10px;
+      border: 2px solid #0070C0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      text-align: center;
+    }
+
+    .resumo-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .resumo-numero {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2rem;
+      font-weight: 900;
+      color: #0070C0;
+    }
+
+    .resumo-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #103050;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
   </style>
 </head>
 
@@ -385,15 +442,19 @@
           </div>
 
           <div class="resultado">
+            <i class="fas fa-box-archive resultado-icon"></i>
             <div class="resultado-numero">16</div>
             <div class="resultado-label">ARQUIVADAS</div>
+            <span class="resultado-percent">5.3%</span>
           </div>
 
           <div class="conexao-visual"></div>
 
           <div class="resultado">
+            <i class="fas fa-reply resultado-icon"></i>
             <div class="resultado-numero">106</div>
             <div class="resultado-label">RESPONDIDAS</div>
+            <span class="resultado-percent">34.9%</span>
           </div>
 
           <div class="conexao-visual"></div>
@@ -407,25 +468,45 @@
           </div>
 
           <div class="resultado">
+            <i class="fas fa-reply resultado-icon"></i>
             <div class="resultado-numero">49</div>
             <div class="resultado-label">RESPONDIDAS</div>
+            <span class="resultado-percent">16.1%</span>
           </div>
 
           <div class="conexao-visual"></div>
 
           <div class="resultado">
+            <i class="fas fa-box-archive resultado-icon"></i>
             <div class="resultado-numero">30</div>
             <div class="resultado-label">ARQUIVADAS</div>
+            <span class="resultado-percent">9.9%</span>
           </div>
 
           <div class="conexao-visual"></div>
 
           <div class="resultado destaque">
+            <i class="fas fa-gavel resultado-icon" style="color: white;"></i>
             <div class="resultado-numero">103</div>
             <div class="resultado-label">Geraram processos administrativos</div>
             <div class="resultado-desc">ou foram associados a um processo existente, para apuração de denúncia/reclamações</div>
+            <span class="resultado-percent">33.9%</span>
           </div>
 
+        </div>
+      </div>
+
+      <!-- RESUMO FINAL -->
+      <div class="resumo-box">
+        <div class="resumo-item">
+          <i class="fas fa-share-nodes resultado-icon" style="color: #0070C0;"></i>
+          <div class="resumo-numero">122</div>
+          <div class="resumo-label">Fluxo Interno</div>
+        </div>
+        <div class="resumo-item">
+          <i class="fas fa-building resultado-icon" style="color: #0090C0;"></i>
+          <div class="resumo-numero">182</div>
+          <div class="resumo-label">Órgãos Externos</div>
         </div>
       </div>
 
