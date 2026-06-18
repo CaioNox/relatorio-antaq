@@ -605,17 +605,17 @@
         display: none !important;
       }
 
-      /* Correção 2: dimensões exatas, sem min-height que causa transbordamento */
+      /* Sem altura fixa: cada seção ocupa o espaço que seu conteúdo pede.
+         page-break-after:always força nova folha entre seções sem bloquear
+         o fluxo natural de seções que precisam de mais de uma página. */
       .page {
         margin: 0;
         box-shadow: none;
         border-radius: 0;
-        width: 210mm;
-        height: 297mm;
-        padding: 18mm 18mm 22mm 22mm;
+        width: 100%;
+        padding-bottom: 18mm; /* reserva espaço para o rodapé */
         page-break-after: always;
-        page-break-inside: avoid;
-        overflow: hidden;
+        overflow: visible;
         position: relative;
       }
 
@@ -623,21 +623,21 @@
         page-break-after: auto;
       }
 
-      /* Correção 3: capa preserva gradiente até as bordas */
+      /* Capa preenche a folha inteira; @page já aplica 20mm de cada lado */
       .cover {
-        padding: 30mm 24mm 24mm 30mm;
-        height: 297mm;
+        min-height: calc(297mm - 40mm);
+        padding: 10mm 0;
       }
 
-      /* Correção 4: rodapé sempre ancorado no fundo da folha de 297mm */
+      /* Rodapé absoluto ao fundo de cada seção */
       .pg-foot {
         position: absolute;
-        left: 22mm;
-        right: 18mm;
-        bottom: 12mm;
+        left: 0;
+        right: 0;
+        bottom: 6mm;
       }
 
-      /* Correção 5: proteger blocos críticos contra quebra */
+      /* Proteger blocos críticos contra quebra de página no meio */
       .callout,
       .kpis,
       .chart-box,
@@ -662,7 +662,6 @@
         break-inside: avoid-page;
       }
 
-      /* Correção 6: garantir cores nos gráficos */
       canvas {
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
@@ -679,10 +678,9 @@
       font-weight: 800;
     }
 
-    /* Correção 1: @page sem margem — .page controla tudo internamente */
     @page {
       size: A4 portrait;
-      margin: 0;
+      margin: 20mm;
     }
   </style>
 </head>
