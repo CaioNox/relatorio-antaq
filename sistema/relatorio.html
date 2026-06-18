@@ -605,13 +605,15 @@
         display: none !important;
       }
 
+      /* @page já garante 20mm em todos os lados;
+         o .page só precisa de offset para sidebar e espaço do rodapé */
       .page {
         margin: 0;
         box-shadow: none;
         border-radius: 0;
         width: 100%;
-        min-height: 297mm;
-        padding: 22mm 20mm 30mm 22mm;
+        min-height: 257mm; /* 297 - 40mm de margens @page */
+        padding: 0 0 16mm 5mm; /* 5mm esq = sidebar; 16mm base = área do rodapé */
         page-break-after: always;
         overflow: visible;
       }
@@ -620,11 +622,16 @@
         page-break-after: auto;
       }
 
+      /* capa: padding interno reduzido pois @page cuida das bordas */
+      .cover {
+        padding: 10mm 10mm 10mm 16mm;
+      }
+
       .pg-foot {
         position: absolute;
-        left: 22mm;
-        right: 20mm;
-        bottom: 12mm;
+        left: 5mm;
+        right: 0;
+        bottom: 6mm;
       }
 
       * {
@@ -640,7 +647,7 @@
 
     @page {
       size: A4 portrait;
-      margin: 0;
+      margin: 20mm;
     }
   </style>
 </head>
