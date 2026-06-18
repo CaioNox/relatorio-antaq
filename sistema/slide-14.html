@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <title>Transparência Ativa e Dados Abertos - Relatório Trimestral Ouvidoria ANTAQ</title>
+  <title>Tipos de Manifestações - Relatório Trimestral Ouvidoria ANTAQ</title>
   <link rel="icon" type="image/png"
     href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
@@ -13,6 +13,7 @@
     href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&amp;family=Open+Sans:wght@400;600&amp;display=swap"
     rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     html {
       font-size: 26px;
@@ -71,7 +72,8 @@
     .video-frame,
     .kpi-card,
     .glossary-card,
-    .exp-group {
+    .exp-group,
+    .highlight-card {
       transition: transform .28s cubic-bezier(.2, .7, .3, 1), box-shadow .28s ease, border-color .28s ease, background-color .28s ease;
     }
 
@@ -82,6 +84,11 @@
       transform: translateY(-7px);
       box-shadow: 0 22px 42px -12px rgba(16, 48, 80, .30);
       border-color: #0070C0;
+    }
+
+    .highlight-card:hover {
+      transform: translateY(-7px);
+      box-shadow: 0 26px 50px -14px rgba(16, 48, 80, .55);
     }
 
     .glossary-card:hover {
@@ -130,36 +137,9 @@
     .kpi-card,
     .glossary-card,
     .canal-card,
-    .period-chip {
+    .period-chip,
+    .highlight-card {
       animation: fadeIn .5s ease both;
-    }
-
-    .chart-card:nth-child(2),
-    .kpi-card:nth-child(2),
-    .glossary-card:nth-child(2),
-    .canal-card:nth-child(2),
-    .period-chip:nth-child(2) {
-      animation-delay: .09s;
-    }
-
-    .chart-card:nth-child(3),
-    .kpi-card:nth-child(3),
-    .glossary-card:nth-child(3),
-    .canal-card:nth-child(3),
-    .period-chip:nth-child(3) {
-      animation-delay: .18s;
-    }
-
-    .glossary-card:nth-child(4) {
-      animation-delay: .27s;
-    }
-
-    .glossary-card:nth-child(5) {
-      animation-delay: .36s;
-    }
-
-    .glossary-card:nth-child(6) {
-      animation-delay: .45s;
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -177,342 +157,15 @@
       border: 2px solid #E2E8F0;
       border-radius: 16px;
       box-shadow: 0 8px 20px -8px rgba(16, 48, 80, 0.18);
-      padding: 1.4rem 1.6rem;
-    }
-
-    .legend-dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 3px;
-      display: inline-block;
-    }
-
-    /* ===== Componentes adicionais (mesma identidade visual) ===== */
-    .rank-row {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .rank-label {
-      font-family: 'Open Sans', sans-serif;
-      font-size: .9rem;
-      color: #103050;
-      font-weight: 600;
-      width: 19rem;
-      flex-shrink: 0;
-      line-height: 1.15;
-    }
-
-    .rank-track {
-      flex: 1;
-      height: 30px;
-      background: #eef2f7;
-      border-radius: 8px;
-      overflow: hidden;
-    }
-
-    .rank-fill {
-      height: 100%;
-      border-radius: 8px;
-      background: linear-gradient(90deg, #0070C0, #0090C0);
-    }
-
-    .rank-val {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 900;
-      color: #103050;
-      font-size: 1.05rem;
-      width: 3.2rem;
-      text-align: right;
-      flex-shrink: 0;
-    }
-
-    .stat-mini {
-      background: #ffffff;
-      border: 2px solid #E2E8F0;
-      border-radius: 14px;
       padding: 1rem 1.3rem;
-      box-shadow: 0 8px 20px -8px rgba(16, 48, 80, .18);
     }
 
-    .base-chip {
-      display: flex;
-      align-items: center;
-      gap: .6rem;
-      background: #f8fafc;
-      border: 1px solid #E2E8F0;
-      border-radius: 10px;
-      padding: .5rem .75rem;
-      transition: all .25s ease;
-    }
-
-    .base-chip:hover {
-      border-color: #0070C0;
-      background: #eef6fc;
-      transform: translateX(4px);
-    }
-
-    .base-chip i {
-      color: #0070C0;
-      font-size: .8rem;
-    }
-
-    .base-chip span {
-      font-family: 'Open Sans', sans-serif;
-      font-size: .78rem;
-      color: #103050;
-      font-weight: 600;
-      line-height: 1.1;
-    }
-
-    .svc-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: .7rem;
-      background: linear-gradient(135deg, #103050, #0070C0);
+    .highlight-card {
+      background: linear-gradient(180deg, #103050 0%, #0070C0 100%);
+      border-radius: 16px;
       color: #fff;
-      border-radius: 999px;
-      padding: .5rem 1.3rem;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 800;
-      letter-spacing: .04em;
-      box-shadow: 0 10px 24px -10px rgba(16, 48, 80, .5);
-    }
-
-    .svc-card {
-      background: #fff;
-      border: 2px solid #E2E8F0;
-      border-left: 5px solid #0070C0;
-      border-radius: 12px;
-      padding: .8rem 1rem;
-      display: flex;
-      gap: .8rem;
-      align-items: flex-start;
-      box-shadow: 0 6px 16px -8px rgba(16, 48, 80, .18);
-      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
-    }
-
-    .svc-card:hover {
-      transform: translateY(-5px);
-      border-color: #0090C0;
-      box-shadow: 0 18px 34px -14px rgba(16, 48, 80, .32);
-    }
-
-    .svc-num {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 900;
-      color: #0090C0;
-      font-size: 1.3rem;
-      line-height: 1;
-      flex-shrink: 0;
-      min-width: 1.7rem;
-    }
-
-    .svc-text {
-      font-family: 'Open Sans', sans-serif;
-      font-size: .78rem;
-      color: #103050;
-      font-weight: 600;
-      line-height: 1.18;
-    }
-
-    .kpi-card {
-      border-radius: 20px;
-      padding: 2.2rem 1.6rem;
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      min-height: 420px;
-      box-shadow: 0 18px 40px -12px rgba(16, 48, 80, 0.45);
-    }
-
-    .kpi-primary {
-      background: linear-gradient(160deg, #103050 0%, #0070C0 100%);
-    }
-
-    .kpi-soft {
-      background: linear-gradient(160deg, #0e3a66 0%, #11598f 100%);
-    }
-
-    .kpi-num {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
-      line-height: 1;
-      color: #ffffff;
-      text-align: center;
-    }
-
-    .kpi-watermark {
-      position: absolute;
-      right: -10px;
-      bottom: -20px;
-      font-size: 9rem;
-      opacity: 0.12;
-      color: #ffffff;
-    }
-
-    .bg-pattern {
-      position: absolute;
-      bottom: -50px;
-      right: -50px;
-      width: 400px;
-      height: 400px;
-      opacity: 0.03;
-      z-index: 0;
-      color: #103050;
-    }
-
-    /* ===== Tiles de base clicáveis + modal ===== */
-    .base-tile {
-      cursor: pointer;
-      position: relative;
-    }
-
-    .base-tile .bt-plus {
-      margin-left: auto;
-      color: #CBD5E1;
-      font-size: .62rem;
-      transition: color .25s ease, transform .25s ease;
-    }
-
-    .base-tile:hover {
-      border-color: #0070C0;
-      background: #eef6fc;
-      transform: translateX(4px);
-    }
-
-    .base-tile:hover .bt-plus {
-      color: #0070C0;
-      transform: rotate(90deg);
-    }
-
-    .base-tile .bt-desc {
-      display: none;
-    }
-
-    .base-backdrop {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(16, 48, 80, .45);
-      z-index: 80;
-      align-items: center;
-      justify-content: center;
-      padding: 3rem;
-    }
-
-    .base-backdrop.active {
-      display: flex;
-      animation: bgIn .2s ease both;
-    }
-
-    @keyframes bgIn {
-      from {
-        opacity: 0;
-      }
-
-      to {
-        opacity: 1;
-      }
-    }
-
-    .base-modal {
-      position: relative;
-      background: #fff;
-      width: min(820px, 82vw);
-      max-height: 72vh;
-      overflow: auto;
-      border-radius: 18px;
-      border-top: 6px solid #0070C0;
-      box-shadow: 0 44px 88px -22px rgba(16, 48, 80, .6);
-      padding: 2rem 2.3rem 2.2rem;
-      animation: popIn .26s cubic-bezier(.2, .7, .3, 1) both;
-    }
-
-    @keyframes popIn {
-      from {
-        opacity: .6;
-        transform: scale(.94);
-      }
-
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-
-    .base-modal .bm-head {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 1rem;
-      padding-right: 2.5rem;
-    }
-
-    .base-modal .bm-num {
-      flex-shrink: 0;
-      width: 3rem;
-      height: 3rem;
-      border-radius: 14px;
-      background: linear-gradient(135deg, #103050, #0070C0);
-      color: #fff;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 900;
-      font-size: 1.15rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 10px 22px -10px rgba(16, 48, 80, .5);
-    }
-
-    .base-modal .bm-kicker {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
-      font-size: .58rem;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: #0070C0;
-      margin-bottom: .15rem;
-    }
-
-    .base-modal .bm-title {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 800;
-      color: #103050;
-      font-size: 1.2rem;
-      line-height: 1.15;
-    }
-
-    .base-modal .bm-desc {
-      color: #334155;
-      font-size: .9rem;
-      line-height: 1.6;
-    }
-
-    .base-modal .bm-close {
-      position: absolute;
-      top: 1rem;
-      right: 1.1rem;
-      width: 2rem;
-      height: 2rem;
-      border-radius: 50%;
-      border: none;
-      background: #EEF2F7;
-      color: #64748B;
-      cursor: pointer;
-      font-size: .9rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background .2s ease, color .2s ease;
-    }
-
-    .base-modal .bm-close:hover {
-      background: #103050;
-      color: #fff;
+      padding: 1.3rem 1.5rem;
+      box-shadow: 0 12px 28px -10px rgba(16, 48, 80, 0.45);
     }
   </style>
 </head>
@@ -522,205 +175,97 @@
     <div class="top-accent"></div>
     <div class="top-accent-secondary"></div>
     <!-- Header -->
-    <div class="flex items-center justify-between px-16 pt-12 pb-4 z-10">
+    <div class="flex items-center justify-between px-16 pt-8 pb-4 z-10">
       <div>
         <div class="flex items-center gap-3 mb-2">
           <div class="w-1 h-8 bg-brand-secondary"></div>
-          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Transparência Ativa
-            &amp; Dados Abertos</p>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Tipos de
+            Manifestações</p>
         </div>
-        <p class="text-gray-500 font-medium ml-4 text-lg"> 1º trimestre de 2026</p>
+        <p class="text-gray-500 font-medium ml-4 text-lg">Distribuição por tipo no 1º trimestre de 2026</p>
       </div>
       <div class="flex items-center gap-2 opacity-80 text-brand-secondary">
-        <i class="fas fa-database text-xl" aria-hidden="true"></i>
-        <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">LAI · DADOS ABERTOS</p>
+        <i class="fas fa-layer-group text-xl" aria-hidden="true"></i>
+        <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">TRIMESTRE</p>
       </div>
     </div>
-    <!-- Main -->
-    <div class="flex-1 grid grid-cols-3 gap-8 px-16 pb-8 z-10">
-      <!-- Transparência Ativa -->
-      <div class="col-span-1 flex flex-col gap-6">
-        <div class="kpi-card kpi-primary" style="min-height:0;flex:1;">
-          <div>
-            <p class="text-blue-100 font-montserrat font-bold text-sm uppercase tracking-widest mb-2">Itens cumpridos
-            </p>
-            <p class="kpi-num text-8xl">100%</p>
-          </div>
-          <p class="text-blue-100 text-base leading-relaxed relative z-10">Nota máxima no ranking de transparência ativa
-            do Painel LAI.</p>
-          <i class="fas fa-ranking-star kpi-watermark"></i>
-        </div>
-        <div class="kpi-card kpi-soft" style="min-height:0;flex:1;">
-          <div>
-            <p class="text-blue-100 font-montserrat font-bold text-sm uppercase tracking-widest mb-2">Quesitos avaliados
-            </p>
-            <p class="kpi-num text-8xl">49/49</p>
-          </div>
-          <p class="text-blue-100 text-base leading-relaxed relative z-10">Todos os quesitos do Painel LAI atendidos
-            integralmente.</p>
-          <i class="fas fa-list-check kpi-watermark"></i>
-        </div>
+    <!-- Main Content -->
+    <div class="flex-1 grid grid-cols-3 gap-8 px-16 pb-6 z-10">
+      <!-- Chart -->
+      <div class="chart-card col-span-2 flex flex-col">
+        <div class="flex-1 relative"><canvas id="chartTipos"></canvas></div>
       </div>
-      <!-- Dados Abertos -->
-      <div class="col-span-2 chart-card flex flex-col">
-        <div class="flex items-center justify-between mb-1">
-          <p class="text-brand-primary font-montserrat font-bold text-xl flex items-center gap-2"><i
-              class="fas fa-database text-brand-secondary"></i> Plano de Dados Abertos</p>
-          <div class="flex items-center gap-5">
-            <span class="font-montserrat font-black text-brand-secondary text-3xl">18 <span
-                class="text-gray-500 text-sm font-semibold">bases</span></span>
-            <span class="font-montserrat font-black text-brand-primary text-3xl">+8 <span
-                class="text-gray-500 text-sm font-semibold">novas</span></span>
-          </div>
+      <!-- Highlight -->
+      <div class="flex flex-col gap-5">
+        <div class="highlight-card">
+          <p class="text-blue-100 font-montserrat font-bold text-sm uppercase tracking-widest mb-1">Tipo mais frequente
+          </p>
+          <p class="font-montserrat font-black text-3xl mb-2">Denúncia</p>
+          <p class="font-montserrat font-black text-7xl leading-none mb-2">173</p>
+          <p class="text-blue-100 text-base leading-relaxed">Representa <strong>67,1%</strong> das manifestações
+            classificadas do trimestre.</p>
         </div>
-        <p class="text-gray-400 text-sm mb-3">Bases abertas atualmente publicadas pela ANTAQ — <span
-            class="text-brand-secondary font-semibold">clique na base para obter a descrição!</span></p>
-        <div class="flex-1 grid grid-cols-3 grid-rows-6 gap-2">
-          <div class="base-chip base-tile" data-num="01" data-title="Afretamento" onclick="openBase(this)"><i
-              class="fas fa-ship"></i><span class="bt-name">Afretamento</span><i class="fas fa-plus bt-plus"></i><span
-              class="bt-desc">Dados gerais e públicos relativos ao afretamento de embarcações a partir do Sistema de
-              Informações Gerenciais - SIG. Trata-se de base pública contendo dados sobre o histórico de circularização
-              de afretamento. A circularização compreende uma consulta ampla ao mercado nacional atuante, questionando
-              quanto à disponibilidade de embarcação nacional para efetuar certo transporte ou apoio. Tal procedimento é
-              exigido pela Lei 9.432/97 em seu Art. 9º, Inciso I, e regulamentado pela Resolução Normativa 01/2015 nos
-              Art. 2º, 5º a Art. 8º.</span></div>
-          <div class="base-chip base-tile" data-num="02" data-title="Estatístico Aquaviário (EA)"
-            onclick="openBase(this)"><i class="fas fa-chart-line"></i><span class="bt-name">Estatístico Aquaviário
-              (EA)</span><i class="fas fa-plus bt-plus"></i><span class="bt-desc">Dados estatísticos gerais e públicos
-              sobre a movimentação e transporte de carga desde 2010 até o ano corrente, atualizado mensalmente, das
-              instalações portuárias outorgadas pela ANTAQ a partir do Painel Estatístico Aquaviário. A base de dados
-              histórica pode ser baixada em: https://web3.antaq.gov.br/ea/sense/download.html#pt.</span></div>
-          <div class="base-chip base-tile" data-num="03" data-title="Fiscalizações Arquivadas sem Irregularidade"
-            onclick="openBase(this)"><i class="fas fa-folder-open"></i><span class="bt-name">Fiscalizações Arquivadas s/
-              Irregularidade</span><i class="fas fa-plus bt-plus"></i><span class="bt-desc">Base de dados contendo lista
-              dos processos de fiscalização arquivados sem irregularidade na Agência a partir do ano de 2014 e outras
-              informações agregadas, como infração, decisão e valor da multa (caso aplicável).</span></div>
-          <div class="base-chip base-tile" data-num="04" data-title="Gestão Orçamentária e Financeira"
-            onclick="openBase(this)"><i class="fas fa-coins"></i><span class="bt-name">Gestão Orçamentária e
-              Financeira</span><i class="fas fa-plus bt-plus"></i><span class="bt-desc">Os dados se referem ao
-              acompanhamento da execução do orçamento anual da ANTAQ, proporcionando informações aos controles interno e
-              externo, bem como à transparência pública e ao controle social sobre as atribuições da Agência, permitindo
-              identificar os gastos por Resultado, Plano Orçamentário, Modalidade de Licitação e por Natureza da
-              Despesa, além da execução dos gastos decorrentes do uso do Cartão de Pagamento do Governo Federal no
-              exercício corrente.</span></div>
-          <div class="base-chip base-tile" data-num="05" data-title="Gestão de Multas" onclick="openBase(this)"><i
-              class="fas fa-gavel"></i><span class="bt-name">Gestão de Multas</span><i
-              class="fas fa-plus bt-plus"></i><span class="bt-desc">O Painel de Gestão de Multas tem a finalidade de
-              informar as arrecadações ocorridas por exercício financeiro decorrentes das multas sancionatórias
-              aplicadas pela ANTAQ e os valores inscritos por exercício financeiro no Cadastro Informativo de Créditos
-              não Quitados do Setor Público Federal (Cadin).</span></div>
-          <div class="base-chip base-tile" data-num="06" data-title="Instalações Portuárias" onclick="openBase(this)"><i
-              class="fas fa-anchor"></i><span class="bt-name">Instalações Portuárias</span><i
-              class="fas fa-plus bt-plus"></i><span class="bt-desc">Informações de instalações portuárias privadas.
-              Desmembramento da antiga base de dados “Outorgas”, conforme explicitado no PDA ANTAQ 2023-2025.</span>
+        <div class="chart-card flex-1 flex flex-col justify-center">
+          <p class="text-gray-400 text-xs font-bold uppercase tracking-wide mb-3">Total por tipo · trimestre</p>
+          <div class="space-y-1.5 text-sm">
+            <div class="flex justify-between"><span class="text-gray-600">Denúncia</span><strong
+                class="text-brand-primary">173</strong></div>
+            <div class="flex justify-between"><span class="text-gray-600">Solicitação</span><strong
+                class="text-brand-primary">45</strong></div>
+            <div class="flex justify-between"><span class="text-gray-600">Reclamação</span><strong
+                class="text-brand-primary">34</strong></div>
+            <div class="flex justify-between"><span class="text-gray-600">Sugestão</span><strong
+                class="text-brand-primary">3</strong></div>
+            <div class="flex justify-between"><span class="text-gray-600">Elogio</span><strong
+                class="text-brand-primary">2</strong></div>
+            <div class="flex justify-between"><span class="text-gray-600">Simplifique</span><strong
+                class="text-brand-primary">1</strong></div>
+            <div class="flex justify-between border-t border-gray-200 pt-1.5 mt-1.5"><span
+                class="text-gray-500 font-semibold">Total</span><strong class="text-brand-secondary">258</strong></div>
           </div>
-          <div class="base-chip base-tile" data-num="07" data-title="Painel de Custos" onclick="openBase(this)"><i
-              class="fas fa-calculator"></i><span class="bt-name">Painel de Custos</span><i
-              class="fas fa-plus bt-plus"></i><span class="bt-desc">Base de dados que fornece aos usuários, internos e
-              externos, informações relativas aos Centros de Custos, viabilizando informações gerenciais através da
-              identificação dos gastos por setor da ANTAQ. Permite visualizar a segregação das atividades em
-              Finalísticas ou de Estratégia, Gestão e Suporte, e a identificação do Macroprocesso da Cadeia de
-              Valor.</span></div>
-          <div class="base-chip base-tile" data-num="08" data-title="Plano Estratégico" onclick="openBase(this)"><i
-              class="fas fa-chess-king"></i><span class="bt-name">Plano Estratégico</span><i
-              class="fas fa-plus bt-plus"></i><span class="bt-desc">Dados do Painel de Monitoramento da Estratégia.
-              Apresenta a evolução no cumprimento de metas do Plano Estratégico e do Plano de Gestão Anual das Unidades.
-              O PEI 2025-2028 é um instrumento de gestão que orienta as ações da instituição para o alcance dos
-              objetivos organizacionais de longo e médio prazos.</span></div>
-          <div class="base-chip base-tile" data-num="09" data-title="Plano de Integridade" onclick="openBase(this)"><i
-              class="fas fa-shield-halved"></i><span class="bt-name">Plano de Integridade</span><i
-              class="fas fa-plus bt-plus"></i><span class="bt-desc">Dados relacionados ao Monitoramento das ações de
-              Integridade da ANTAQ. Atualização quadrimestral. O Plano de Integridade da ANTAQ organiza, analisa,
-              norteia e monitora as ações de integridade, estruturando medidas institucionais voltadas para a prevenção,
-              detecção, punição e remediação de práticas de corrupção, fraudes, irregularidades e desvios éticos e de
-              conduta.</span></div>
-          <div class="base-chip base-tile" data-num="10" data-title="Portos Organizados" onclick="openBase(this)"><i
-              class="fas fa-city"></i><span class="bt-name">Portos Organizados</span><i
-              class="fas fa-plus bt-plus"></i><span class="bt-desc">Informações sobre as instalações públicas
-              outorgadas. Desmembramento da Base de Dados “Outorgas”, conforme PDA ANTAQ 2023-2025.</span></div>
-          <div class="base-chip base-tile" data-num="11" data-title="Processos Sancionadores Julgados"
-            onclick="openBase(this)"><i class="fas fa-scale-balanced"></i><span class="bt-name">Processos Sancionadores
-              Julgados</span><i class="fas fa-plus bt-plus"></i><span class="bt-desc">Base de dados contendo lista dos
-              processos sancionadores julgados na Agência a partir do ano de 2014 e outras informações agregadas, como
-              tipo de irregularidade, decisão e valor da multa (caso aplicável).</span></div>
-          <div class="base-chip base-tile" data-num="12" data-title="Situação dos Portos em Tempo Real"
-            onclick="openBase(this)"><i class="fas fa-clock"></i><span class="bt-name">Situação dos Portos em Tempo
-              Real</span><i class="fas fa-plus bt-plus"></i><span class="bt-desc">Base de dados gerais e públicos que
-              apresentam o presente e o histórico, desde 2022, dos registros em aplicativo da ANTAQ quanto às situações
-              da operação portuária, do nível de criticidade e das vias de acesso às instalações portuárias
-              brasileiras.</span></div>
-          <div class="base-chip base-tile" data-num="13" data-title="Índice de Desempenho Ambiental (IDA)"
-            onclick="openBase(this)"><i class="fas fa-leaf"></i><span class="bt-name">Índice de Desempenho Ambiental
-              (IDA)</span><i class="fas fa-plus bt-plus"></i><span class="bt-desc">Base do Índice de Desempenho
-              Ambiental (IDA) da ANTAQ, instituído por meio da Resolução nº 2.650/2012, correspondendo ao instrumento de
-              avaliação do desempenho ambiental de portos organizados e terminais de uso privado, contemplando
-              indicadores de conformidades ambientais e boas práticas em gestão ambiental portuária.</span></div>
-          <div class="base-chip base-tile" data-num="14" data-title="Vias Economicamente Navegadas"
-            onclick="openBase(this)"><i class="fas fa-water"></i><span class="bt-name">Vias Economicamente
-              Navegadas</span><i class="fas fa-plus bt-plus"></i><span class="bt-desc">Arquivo georreferenciado (.SHP)
-              das vias economicamente navegadas na cabotagem e navegação interior. Conjunto de dados do SIGTAQ.</span>
-          </div>
-          <div class="base-chip base-tile" data-num="15" data-title="Linhas de Travessia outorgadas pela ANTAQ"
-            onclick="openBase(this)"><i class="fas fa-route"></i><span class="bt-name">Linhas de Travessia
-              Outorgadas</span><i class="fas fa-plus bt-plus"></i><span class="bt-desc">Arquivo georreferenciado (.SHP)
-              das linhas de travessia outorgadas pela Agência. Conjunto de dados do SIGTAQ.</span></div>
-          <div class="base-chip base-tile" data-num="16" data-title="Frota e Empresas Autorizadas (Marítima e Interior)"
-            onclick="openBase(this)"><i class="fas fa-building"></i><span class="bt-name">Frota e Empresas
-              Autorizadas</span><i class="fas fa-plus bt-plus"></i><span class="bt-desc">Páginas WEB públicas
-              disponibilizadas no portal gov.br/antaq com informações extraídas do sistema Corporativo relativas às
-              EBN's, suas autorizações, aditamentos e frota autorizada tanto da Navegação Marítima/Apoio quanto da
-              Interior.</span></div>
-          <div class="base-chip base-tile" data-num="17" data-title="Painel de Outorgas da Navegação"
-            onclick="openBase(this)"><i class="fas fa-compass"></i><span class="bt-name">Painel de Outorgas da
-              Navegação</span><i class="fas fa-plus bt-plus"></i><span class="bt-desc">Painel público de outorgas da
-              navegação marítima/apoio e interior com informações de Outorgas de Empresas Brasileiras de Navegação -
-              EBN's. O painel permite consulta relativas às outorgas e geração de relatórios de estatísticas
-              aquaviárias.</span></div>
-          <div class="base-chip base-tile" data-num="18" data-title="Painel de Instalações Privadas"
-            onclick="openBase(this)"><i class="fas fa-warehouse"></i><span class="bt-name">Painel de Instalações
-              Privadas</span><i class="fas fa-plus bt-plus"></i><span class="bt-desc">Painel público com a finalidade de
-              monitoramento de informações das instalações privadas autorizadas, tais como: Autorizações, Registros e
-              Instrumento de Autorização.</span></div>
         </div>
       </div>
     </div>
     <!-- Footer -->
-    <div class="px-16 pb-8 flex justify-between items-center z-10">
+    <div class="px-16 pt-1 pb-8 flex justify-between items-center z-10">
       <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ</p>
-      <p class="text-gray-300 text-xs font-mono">14 / 25</p>
-    </div>
-  </div>
-  <!-- Modal de detalhe da base -->
-  <div class="base-backdrop" id="baseBackdrop" onclick="if(event.target===this)closeBase()">
-    <div class="base-modal">
-      <button class="bm-close" onclick="closeBase()" aria-label="Fechar"><i class="fas fa-xmark"></i></button>
-      <div class="bm-head">
-        <div class="bm-num" id="bmNum">01</div>
-        <div>
-          <p class="bm-kicker">Base de dados aberta · ANTAQ</p>
-          <p class="bm-title" id="bmTitle">—</p>
-        </div>
-      </div>
-      <p class="bm-desc" id="bmDesc">—</p>
+      <p class="text-gray-300 text-xs font-mono">14 / 33</p>
     </div>
   </div>
   <script>
-    function openBase(el) {
-      document.getElementById('bmNum').textContent = el.dataset.num;
-      document.getElementById('bmTitle').textContent = el.dataset.title;
-      document.getElementById('bmDesc').textContent = el.querySelector('.bt-desc').textContent;
-      document.getElementById('baseBackdrop').classList.add('active');
-    }
-    function closeBase() { document.getElementById('baseBackdrop').classList.remove('active'); }
-    document.addEventListener("keydown", function (e) {
-      var open = document.getElementById('baseBackdrop').classList.contains('active');
-      if (open && e.key === 'Escape') { closeBase(); e.preventDefault(); return; }
-      if (open) return;
-      if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) {
-        e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*");
+    const labels = ['Reclamação', 'Solicitação', 'Denúncia', 'Sugestão', 'Elogio', 'Simplifique'];
+    const data = [34, 45, 173, 3, 2, 1];
+    const colors = data.map((_, i) => i === 2 ? '#103050' : '#0070C0');
+    const valueLabels = {
+      id: 'valueLabels',
+      afterDatasetsDraw(chart) {
+        const { ctx } = chart;
+        ctx.save();
+        ctx.font = '700 16px Montserrat, sans-serif';
+        ctx.fillStyle = '#103050';
+        ctx.textAlign = 'center';
+        chart.getDatasetMeta(0).data.forEach((bar, i) => {
+          ctx.fillText(chart.data.datasets[0].data[i], bar.x, bar.y - 8);
+        });
+        ctx.restore();
       }
+    };
+    new Chart(document.getElementById('chartTipos'), {
+      type: 'bar',
+      data: { labels, datasets: [{ data, backgroundColor: colors, borderRadius: 6, maxBarThickness: 90 }] },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        layout: { padding: { top: 24 } },
+        plugins: { legend: { display: false }, tooltip: { enabled: false } },
+        scales: {
+          x: { grid: { display: false }, ticks: { color: '#374151', font: { size: 14, weight: '600' } } },
+          y: { beginAtZero: true, grid: { color: '#eef2f7' }, ticks: { color: '#9ca3af', font: { size: 12 } } }
+        }
+      },
+      plugins: [valueLabels]
     });
   </script>
+  <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
 </body>
 
 </html>

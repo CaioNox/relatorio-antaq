@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Expediente - Relatório Trimestral Ouvidoria ANTAQ</title>
+    <link rel="icon" type="image/png"
+        href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&amp;family=Open+Sans:wght@400;600&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        html {
+            font-size: 26px;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f3f4f6;
+            overflow: hidden;
+        }
+
+        .slide-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            background-color: #ffffff;
+            overflow: hidden;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .font-montserrat {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .text-brand-primary {
+            color: #103050;
+        }
+
+        .text-brand-secondary {
+            color: #0070C0;
+        }
+
+        .bg-brand-secondary {
+            background-color: #0070C0;
+        }
+
+        .top-accent {
+            height: 8px;
+            background-color: #103050;
+            width: 100%;
+        }
+
+        .top-accent-secondary {
+            height: 4px;
+            background-color: #0070C0;
+            width: 100%;
+        }
+
+        /* ===== Interatividade ===== */
+        .exp-group {
+            transition: transform .25s ease, border-color .25s ease, padding-left .25s ease;
+        }
+
+        .exp-group:hover {
+            transform: translateX(6px);
+            border-color: #0070C0;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .exp-group {
+            animation: fadeIn .45s ease both;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+
+        .exp-group {
+            padding-left: 0.7rem;
+            border-left: 3px solid #0090C0;
+            margin-bottom: 0.6rem;
+        }
+
+        .exp-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.55rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: #6b7280;
+            margin: 0 0 0.1rem 0;
+        }
+
+        .exp-name {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 0.74rem;
+            font-weight: 600;
+            color: #103050;
+            line-height: 1.25;
+        }
+
+        .exp-names {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 0.68rem;
+            font-weight: 600;
+            color: #103050;
+            line-height: 1.5;
+        }
+
+        .sec-label {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: #0070C0;
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin-bottom: 0.7rem;
+        }
+
+        .sec-label::after {
+            content: "";
+            flex: 1;
+            height: 2px;
+            background: #E2E8F0;
+        }
+
+        .bg-pattern {
+            position: absolute;
+            bottom: -50px;
+            right: -50px;
+            width: 400px;
+            height: 400px;
+            opacity: 0.03;
+            z-index: 0;
+            color: #103050;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slide-container">
+        <div class="top-accent"></div>
+        <div class="top-accent-secondary"></div>
+        <!-- Header -->
+        <div class="flex items-center justify-between px-16 pt-12 pb-4 z-10">
+            <div>
+                <div class="flex items-center gap-3 mb-2">
+                    <div class="w-1 h-8 bg-brand-secondary"></div>
+                    <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Expediente
+                    </p>
+                </div>
+                <p class="text-gray-500 font-medium ml-4 text-lg">Agência Nacional de Transportes Aquaviários — ANTAQ
+                </p>
+            </div>
+            <div class="flex items-center gap-2 opacity-80 text-brand-secondary">
+                <i class="fas fa-id-card text-xl" aria-hidden="true"></i>
+                <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">DIRETORIA &amp; EQUIPE</p>
+            </div>
+        </div>
+        <!-- Main Content -->
+        <div class="flex-1 grid grid-cols-3 gap-x-10 px-16 pb-8 z-10">
+            <!-- Coluna 1 — Diretoria Colegiada -->
+            <div>
+                <p class="sec-label">Diretoria Colegiada</p>
+                <div class="exp-group">
+                    <p class="exp-title">Diretor-Geral</p>
+                    <p class="exp-name">Frederico Carvalho Dias</p>
+                </div>
+                <div class="exp-group">
+                    <p class="exp-title">Diretora</p>
+                    <p class="exp-name">Cristina Castro Lucas de Souza</p>
+                </div>
+                <div class="exp-group">
+                    <p class="exp-title">Diretor</p>
+                    <p class="exp-name">Wilson Pereira de Lima Filho</p>
+                </div>
+                <div class="exp-group">
+                    <p class="exp-title">Diretor</p>
+                    <p class="exp-name">Alber Furtado de Vasconcelos Neto</p>
+                </div>
+                <div class="exp-group">
+                    <p class="exp-title">Diretor</p>
+                    <p class="exp-name">Caio César Farias Leôncio</p>
+                </div>
+                <div class="exp-group">
+                    <p class="exp-title">Chefe de Gabinete do Diretor-Geral</p>
+                    <p class="exp-name">Karoline Brasileiro Quirino Lemos</p>
+                </div>
+                <div class="exp-group">
+                    <p class="exp-title">Secretário-Geral</p>
+                    <p class="exp-name">Paulo Morum Xavier</p>
+                </div>
+                <div class="exp-group">
+                    <p class="exp-title">Auditor-Chefe</p>
+                    <p class="exp-name">Marcos Mendonça da Silva</p>
+                </div>
+            </div>
+            <!-- Coluna 2 — Corregedoria, Ouvidoria e Superintendências -->
+            <div>
+                <p class="sec-label">Corregedoria · Ouvidoria · Superintendências</p>
+                <div class="exp-group">
+                    <p class="exp-title">Corregedora</p>
+                    <p class="exp-name">Joelma Maria Costa Barbosa</p>
+                </div>
+                <div class="exp-group">
+                    <p class="exp-title">Ouvidora</p>
+                    <p class="exp-name">Renata Sousa Cordeiro</p>
+                </div>
+                <div class="exp-group">
+                    <p class="exp-title">Superintendente de Outorgas</p>
+                    <p class="exp-name">Renildo Barros da Silva Júnior</p>
+                </div>
+                <div class="exp-group">
+                    <p class="exp-title">Superintendente de Regulação</p>
+                    <p class="exp-name">José Renato Ribas Fialho</p>
+                </div>
+                <div class="exp-group">
+                    <p class="exp-title">Superintendente de ESG e Inovação</p>
+                    <p class="exp-name">Cristina Castro Lucas de Souza</p>
+                </div>
+                <div class="exp-group">
+                    <p class="exp-title">Superintendente de Administração e Finanças</p>
+                    <p class="exp-name">Joelson Neves Miranda</p>
+                </div>
+                <div class="exp-group">
+                    <p class="exp-title">Superintendente de Estudos e Projetos Hidroviários</p>
+                    <p class="exp-name">Eduardo Pessoa de Queiroz</p>
+                </div>
+                <div class="exp-group">
+                    <p class="exp-title">Superintendente de Fiscalização e Coordenação das Unidades Regionais</p>
+                    <p class="exp-name">Alexandre Palmieri Florambel</p>
+                </div>
+            </div>
+            <!-- Coluna 3 — Expediente Técnico -->
+            <div>
+                <p class="sec-label">Expediente Técnico</p>
+                <div class="exp-group">
+                    <p class="exp-title">PROJETO GRÁFICO E DITORAÇÃO</p>
+                    <p class="exp-name">Ursula Quaresma da Silva</p>
+                    <p class="exp-name">Caio Fábio Alves da Silva</p>
+                </div>
+                <div class="exp-group">
+                    <p class="exp-title">REVISÃO GRÁFICA</p>
+                    <p class="exp-name">Assessoria de Comunicação e Cerimonial</p>
+                </div>
+
+                <div class="exp-group">
+                    <p class="exp-title">ELABORAÇÃO TÉCNICA</p>
+                    <p class="exp-name">Alan Campelo de Oliveira Silva</p>
+                    <p class="exp-name">Caio Fábio Alves da Silva</p>
+                    <p class="exp-name">Leandro Lucas da Silva Santos</p>
+                    <p class="exp-name">Ursula Quaresma da Silva</p>
+                </div>
+                <div class="exp-group"></div>
+            </div>
+        </div>
+        <!-- Footer -->
+        <div class="px-16 pb-8 flex justify-between items-center z-10">
+            <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ</p>
+            <p class="text-gray-300 text-xs font-mono">32 / 33</p>
+        </div>
+        <div class="bg-pattern"><i class="fas fa-id-card text-9xl"></i></div>
+    </div>
+    <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
+</body>
+
+</html>
