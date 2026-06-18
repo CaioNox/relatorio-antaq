@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <title>Tipos de Manifestações por Mês - Relatório Trimestral Ouvidoria ANTAQ</title>
+  <title>Principais Achados do Trimestre - Relatório Trimestral Ouvidoria ANTAQ</title>
   <link rel="icon" type="image/png"
     href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
@@ -13,7 +13,6 @@
     href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&amp;family=Open+Sans:wght@400;600&amp;display=swap"
     rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     html {
       font-size: 26px;
@@ -65,29 +64,123 @@
       width: 100%;
     }
 
-    /* ===== Interatividade ===== */
-    .chart-card {
-      transition: transform .28s cubic-bezier(.2, .7, .3, 1), box-shadow .28s ease, border-color .28s ease;
+    /* ===== Cards-achado ===== */
+    .achado-card {
+      display: flex;
+      align-items: center;
+      gap: 1.1rem;
+      background: #ffffff;
+      border: 2px solid #E2E8F0;
+      border-radius: 16px;
+      padding: .85rem 1.2rem;
+      box-shadow: 0 6px 16px -8px rgba(16, 48, 80, 0.18);
+      transition: transform 280ms cubic-bezier(.2, .7, .3, 1), box-shadow 280ms ease, border-color 280ms ease;
+      animation: fadeInUp .5s cubic-bezier(.2, .7, .3, 1) both;
     }
 
-    .chart-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 22px 42px -12px rgba(16, 48, 80, .30);
+    .achado-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 24px -10px rgba(16, 48, 80, 0.18);
       border-color: #0070C0;
     }
 
-    @keyframes fadeIn {
+    .achado-ico {
+      flex-shrink: 0;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #EAF3FB;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #0090C0;
+      font-size: 1.4rem;
+    }
+
+    .achado-txt {
+      font-family: 'Open Sans', sans-serif;
+      font-weight: 400;
+      font-size: .95rem;
+      color: #374151;
+      line-height: 1.45;
+    }
+
+    .achado-txt b {
+      color: #103050;
+      font-weight: 700;
+    }
+
+    .achado-card:nth-child(1) {
+      animation-delay: 0ms;
+    }
+
+    .achado-card:nth-child(2) {
+      animation-delay: 60ms;
+    }
+
+    .achado-card:nth-child(3) {
+      animation-delay: 120ms;
+    }
+
+    .achado-card:nth-child(4) {
+      animation-delay: 180ms;
+    }
+
+    .achado-card:nth-child(5) {
+      animation-delay: 240ms;
+    }
+
+    .achado-card:nth-child(6) {
+      animation-delay: 300ms;
+    }
+
+    /* ===== Bloco de contexto ===== */
+    .ctx-card {
+      background: linear-gradient(160deg, #103050 0%, #0090C0 100%);
+      border-radius: 20px;
+      padding: 2rem;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      box-shadow: 0 18px 40px -14px rgba(16, 48, 80, 0.5);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ctx-card h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 1.4rem;
+      line-height: 1.2;
+      margin: 0 0 1rem 0;
+    }
+
+    .ctx-card p {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 1rem;
+      line-height: 1.65;
+      color: #dbeaf5;
+    }
+
+    .ctx-card .ctx-ico {
+      position: absolute;
+      right: -10px;
+      bottom: -18px;
+      font-size: 8rem;
+      opacity: 0.12;
+    }
+
+    @keyframes fadeInUp {
       from {
         opacity: 0;
+        transform: translateY(12px);
       }
 
       to {
         opacity: 1;
+        transform: none;
       }
-    }
-
-    .chart-card {
-      animation: fadeIn .5s ease both;
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -98,21 +191,6 @@
         animation: none !important;
         transition: none !important;
       }
-    }
-
-    .chart-card {
-      background-color: #ffffff;
-      border: 2px solid #E2E8F0;
-      border-radius: 16px;
-      box-shadow: 0 8px 20px -8px rgba(16, 48, 80, 0.18);
-      padding: 1.4rem 1.8rem;
-    }
-
-    .legend-dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 3px;
-      display: inline-block;
     }
   </style>
 </head>
@@ -126,73 +204,68 @@
       <div>
         <div class="flex items-center gap-3 mb-2">
           <div class="w-1 h-8 bg-brand-secondary"></div>
-          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Tipos de
-            Manifestações por Mês</p>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Principais Achados
+          </p>
         </div>
-        <p class="text-gray-500 font-medium ml-4 text-lg">Distribuição dos tipos de manifestação ao longo do trimestre -
-          Jan / Fev / Mar de 2026</p>
+        <p class="text-gray-500 font-medium ml-4 text-lg">Principais achados decorrentes da análise das manifestações —
+          1º trimestre de 2026</p>
       </div>
-      <div class="flex items-center gap-4 ml-6">
-        <span class="flex items-center gap-2 text-sm text-gray-500"><span class="legend-dot"
-            style="background:#0070C0;"></span>Janeiro</span>
-        <span class="flex items-center gap-2 text-sm text-gray-500"><span class="legend-dot"
-            style="background:#0090C0;"></span>Fevereiro</span>
-        <span class="flex items-center gap-2 text-sm text-gray-500"><span class="legend-dot"
-            style="background:#103050;"></span>Março</span>
+      <div class="flex items-center gap-2 opacity-80 text-brand-secondary">
+        <i class="fas fa-lightbulb text-xl" aria-hidden="true"></i>
+        <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">ANÁLISE QUALITATIVA</p>
       </div>
     </div>
     <!-- Main Content -->
-    <div class="flex-1 px-16 pb-10 z-10 flex">
-      <div class="chart-card w-full flex flex-col">
-        <div class="flex-1 relative"><canvas id="chartTiposMes"></canvas></div>
+    <div class="flex-1 grid grid-cols-5 gap-7 px-16 pb-10 z-10" style="min-height:0;">
+      <!-- Cards-achado -->
+      <div class="col-span-3 flex flex-col gap-2 justify-center">
+        <div class="achado-card">
+          <div class="achado-ico"><i class="fas fa-bullhorn"></i></div>
+          <p class="achado-txt">As <b>denúncias</b> permaneceram como principal tipo de manifestação, representando
+            <b>67,1%</b> das manifestações classificadas.
+          </p>
+        </div>
+        <div class="achado-card">
+          <div class="achado-ico"><i class="fas fa-ship"></i></div>
+          <p class="achado-txt">O tema <b>"Cobrança Portuária Abusiva”</b> respondeu por <b>aproximadamente metade</b>
+            das
+            manifestações classificadas.</p>
+        </div>
+        <div class="achado-card">
+          <div class="achado-ico"><i class="fas fa-clock"></i></div>
+          <p class="achado-txt"><b>Todos</b> os pedidos de acesso à informação foram respondidos dentro do <b>prazo
+              legal</b>.</p>
+        </div>
+        <div class="achado-card">
+          <div class="achado-ico"><i class="fas fa-shield-halved"></i></div>
+          <p class="achado-txt">A ANTAQ alcançou <b>100%</b> dos requisitos avaliados no <b>Painel LAI</b>.</p>
+        </div>
+        <div class="achado-card">
+          <div class="achado-ico"><i class="fas fa-database"></i></div>
+          <p class="achado-txt">Houve ampliação das bases disponibilizadas no <b>Plano de Dados Abertos</b>.</p>
+        </div>
+        <div class="achado-card">
+          <div class="achado-ico"><i class="fas fa-users"></i></div>
+          <p class="achado-txt">O <b>Conselho de Usuários</b> contou com a participação de <b>192 conselheiros</b>.</p>
+        </div>
+      </div>
+      <!-- Bloco de contexto -->
+      <div class="col-span-2 flex">
+        <div class="ctx-card w-full">
+          <h2>O que os achados revelam</h2>
+          <p>Os achados sintetizam a leitura analítica do trimestre, reunindo os principais resultados observados no
+            tratamento das manifestações. Em conjunto, evidenciam os temas de maior relevância para os usuários e para a
+            atuação institucional da Ouvidoria.</p>
+          <i class="fas fa-lightbulb ctx-ico"></i>
+        </div>
       </div>
     </div>
     <!-- Footer -->
     <div class="px-16 pb-8 flex justify-between items-center z-10">
       <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ</p>
-      <p class="text-gray-300 text-xs font-mono">9 / 25</p>
+      <p class="text-gray-300 text-xs font-mono">9 / 33</p>
     </div>
   </div>
-  <script>
-    const labels = ['Reclamação', 'Solicitação', 'Denúncia', 'Sugestão', 'Elogio', 'Simplifique'];
-    const valueLabels = {
-      id: 'valueLabels',
-      afterDatasetsDraw(chart) {
-        const { ctx } = chart;
-        ctx.save();
-        ctx.font = '700 12px Montserrat, sans-serif';
-        ctx.fillStyle = '#475569';
-        ctx.textAlign = 'center';
-        chart.data.datasets.forEach((ds, di) => {
-          chart.getDatasetMeta(di).data.forEach((bar, i) => {
-            if (ds.data[i] > 0) ctx.fillText(ds.data[i], bar.x, bar.y - 6);
-          });
-        });
-        ctx.restore();
-      }
-    };
-    new Chart(document.getElementById('chartTiposMes'), {
-      type: 'bar',
-      data: {
-        labels,
-        datasets: [
-          { label: 'Janeiro', data: [15, 15, 42, null, null, 1], backgroundColor: '#0070C0', borderRadius: 5, maxBarThickness: 48, skipNull: true },
-          { label: 'Fevereiro', data: [9, 28, 75, 1, null, null], backgroundColor: '#0090C0', borderRadius: 5, maxBarThickness: 48, skipNull: true },
-          { label: 'Março', data: [10, 2, 56, 2, 2, null], backgroundColor: '#103050', borderRadius: 5, maxBarThickness: 48, skipNull: true }
-        ]
-      },
-      options: {
-        responsive: true, maintainAspectRatio: false,
-        layout: { padding: { top: 20 } },
-        plugins: { legend: { display: false }, tooltip: { enabled: false } },
-        scales: {
-          x: { grid: { display: false }, ticks: { color: '#374151', font: { size: 14, weight: '600' } } },
-          y: { beginAtZero: true, grid: { color: '#eef2f7' }, ticks: { color: '#9ca3af', font: { size: 12 } } }
-        }
-      },
-      plugins: [valueLabels]
-    });
-  </script>
   <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
 </body>
 

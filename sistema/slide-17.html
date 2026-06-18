@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <title>Carta de Serviços (SOG) - Relatório Trimestral Ouvidoria ANTAQ</title>
+  <title>Manifestações por Canal por Mês - Relatório Trimestral Ouvidoria ANTAQ</title>
   <link rel="icon" type="image/png"
     href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
@@ -12,6 +13,7 @@
     href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&amp;family=Open+Sans:wght@400;600&amp;display=swap"
     rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     html {
       font-size: 26px;
@@ -21,18 +23,17 @@
       margin: 0;
       padding: 0;
       background-color: #f3f4f6;
-      overflow-x: hidden;
-      overflow-y: auto;
+      overflow: hidden;
     }
 
     .slide-container {
       width: 100vw;
-      min-height: 100vh;
+      height: 100vh;
       position: relative;
       display: flex;
       flex-direction: column;
       background-color: #ffffff;
-      overflow: visible;
+      overflow: hidden;
       font-family: 'Open Sans', sans-serif;
     }
 
@@ -64,403 +65,18 @@
       width: 100%;
     }
 
-    /* ===== Stat mini ===== */
-    .stat-mini {
-      background: #ffffff;
-      border: 2px solid #E2E8F0;
-      border-radius: 14px;
-      padding: 1rem 1.3rem;
-      box-shadow: 0 8px 20px -8px rgba(16, 48, 80, .18);
+    /* ===== Interatividade ===== */
+    .chart-card {
+      transition: transform .28s cubic-bezier(.2, .7, .3, 1), box-shadow .28s ease, border-color .28s ease;
     }
 
-    /* ===== Insight flow banner ===== */
-    .insight-banner {
-      background: linear-gradient(135deg, #f4f9ff 0%, #eaf3fb 100%);
-      border: 2px solid #C0E0F0;
-      border-left: 5px solid #0070C0;
-      border-radius: 16px;
-      padding: 1rem 1.6rem;
-      box-shadow: 0 10px 24px -12px rgba(16, 48, 80, .22);
-    }
-
-    .flow-row {
-      display: flex;
-      align-items: stretch;
-      gap: .9rem;
-      flex-wrap: nowrap;
-    }
-
-    .flow-stat {
-      display: flex;
-      align-items: center;
-      gap: .8rem;
-      background: #ffffff;
-      border: 2px solid #E2E8F0;
-      border-radius: 12px;
-      padding: .7rem 1rem;
-      flex: 1;
-      transition: transform .28s cubic-bezier(.2, .7, .3, 1), border-color .28s ease, box-shadow .28s ease;
-    }
-
-    .flow-stat:hover {
-      transform: translateY(-4px);
-      border-color: #0070C0;
-      box-shadow: 0 16px 30px -14px rgba(16, 48, 80, .3);
-    }
-
-    .flow-stat .fs-icon {
-      font-size: 1.9rem;
-      color: #0070C0;
-      flex-shrink: 0;
-    }
-
-    .flow-stat .fs-num {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 900;
-      font-size: 1.7rem;
-      color: #103050;
-      line-height: 1;
-    }
-
-    .flow-stat .fs-label {
-      color: #64748B;
-      font-size: .58rem;
-      font-weight: 600;
-      margin-top: .15rem;
-      line-height: 1.2;
-    }
-
-    .flow-connector {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      min-width: 92px;
-    }
-
-    .flow-connector .fc-verb {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 800;
-      font-size: .52rem;
-      letter-spacing: .04em;
-      text-transform: uppercase;
-      color: #0070C0;
-      text-align: center;
-      line-height: 1.15;
-      margin-bottom: .2rem;
-    }
-
-    .flow-connector .fc-arrow {
-      color: #0070C0;
-      font-size: 1.1rem;
-    }
-
-    .insight-tagline {
-      margin-top: .7rem;
-      color: #334155;
-      font-size: .72rem;
-      line-height: 1.4;
-      display: flex;
-      align-items: flex-start;
-      gap: .5rem;
-    }
-
-    .insight-tagline strong {
-      color: #103050;
-    }
-
-    .insight-tagline .it-icon {
-      color: #0070C0;
-      margin-top: .12rem;
-    }
-
-    .svc-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: .7rem;
-      background: linear-gradient(135deg, #103050, #0070C0);
-      color: #fff;
-      border-radius: 999px;
-      padding: .5rem 1.3rem;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 800;
-      letter-spacing: .04em;
-      box-shadow: 0 10px 24px -10px rgba(16, 48, 80, .5);
-    }
-
-    /* ===== TILE GRID ===== */
-    .tile-grid {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 14px;
-      position: relative;
-    }
-
-    .tile {
-      position: relative;
-      background: #ffffff;
-      border: 2px solid #E2E8F0;
-      border-left: 4px solid #0070C0;
-      border-radius: 14px;
-      padding: 1rem;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      min-height: 110px;
-      box-shadow: 0 4px 12px -4px rgba(16, 48, 80, .12);
-      transition: transform .3s cubic-bezier(.2, .7, .3, 1),
-        box-shadow .3s ease,
-        border-color .3s ease,
-        background-color .3s ease;
-      z-index: 1;
-      animation: tileIn .45s cubic-bezier(.2, .7, .3, 1) both;
-    }
-
-    .tile:nth-child(2) {
-      animation-delay: .04s;
-    }
-
-    .tile:nth-child(3) {
-      animation-delay: .08s;
-    }
-
-    .tile:nth-child(4) {
-      animation-delay: .12s;
-    }
-
-    .tile:nth-child(5) {
-      animation-delay: .16s;
-    }
-
-    .tile:nth-child(6) {
-      animation-delay: .20s;
-    }
-
-    .tile:nth-child(7) {
-      animation-delay: .24s;
-    }
-
-    .tile:nth-child(8) {
-      animation-delay: .28s;
-    }
-
-    .tile:nth-child(9) {
-      animation-delay: .32s;
-    }
-
-    .tile:nth-child(10) {
-      animation-delay: .36s;
-    }
-
-    .tile:nth-child(11) {
-      animation-delay: .40s;
-    }
-
-    .tile:nth-child(12) {
-      animation-delay: .44s;
-    }
-
-    .tile:nth-child(13) {
-      animation-delay: .48s;
-    }
-
-    .tile:nth-child(14) {
-      animation-delay: .52s;
-    }
-
-    .tile:nth-child(15) {
-      animation-delay: .56s;
-    }
-
-    .tile:nth-child(16) {
-      animation-delay: .60s;
-    }
-
-    .tile:nth-child(17) {
-      animation-delay: .64s;
-    }
-
-    .tile:nth-child(18) {
-      animation-delay: .68s;
-    }
-
-    @keyframes tileIn {
-      from {
-        opacity: 0;
-        transform: scale(.85) translateY(12px);
-      }
-
-      to {
-        opacity: 1;
-        transform: none;
-      }
-    }
-
-    .tile-num {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 900;
-      font-size: 1.6rem;
-      color: #0070C0;
-      line-height: 1;
-      transition: transform .3s ease, color .3s ease;
-    }
-
-    .tile-label {
-      font-family: 'Open Sans', sans-serif;
-      font-size: .55rem;
-      font-weight: 600;
-      color: #64748B;
-      line-height: 1.2;
-      margin-top: .4rem;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      transition: color .3s ease;
-    }
-
-    .tile-expand-icon {
-      position: absolute;
-      top: 8px;
-      right: 10px;
-      font-size: .5rem;
-      color: #CBD5E1;
-      transition: color .3s ease, transform .3s ease;
-    }
-
-    .tile:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 16px 32px -10px rgba(16, 48, 80, .25);
+    .chart-card:hover {
+      transform: translateY(-7px);
+      box-shadow: 0 22px 42px -12px rgba(16, 48, 80, .30);
       border-color: #0070C0;
     }
 
-    .tile:hover .tile-num {
-      transform: scale(1.08);
-    }
-
-    .tile:hover .tile-expand-icon {
-      color: #0070C0;
-      transform: rotate(90deg);
-    }
-
-    .tile-modal {
-      position: relative;
-      background: #fff;
-      width: min(820px, 82vw);
-      max-height: 72vh;
-      overflow: auto;
-      border-radius: 18px;
-      border-top: 6px solid #0070C0;
-      box-shadow: 0 44px 88px -22px rgba(16, 48, 80, .6);
-      padding: 2rem 2.3rem 2.2rem;
-      animation: popIn .26s cubic-bezier(.2, .7, .3, 1) both;
-    }
-
-    @keyframes popIn {
-      from {
-        opacity: .6;
-        transform: scale(.94);
-      }
-
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-
-    .tile-modal .tm-close {
-      position: absolute;
-      top: 1rem;
-      right: 1.1rem;
-      width: 2rem;
-      height: 2rem;
-      border-radius: 50%;
-      border: none;
-      background: #EEF2F7;
-      color: #64748B;
-      cursor: pointer;
-      font-size: .9rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background .2s ease, color .2s ease;
-    }
-
-    .tile-modal .tm-close:hover {
-      background: #103050;
-      color: #fff;
-    }
-
-    .tile-modal .tm-head {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 1rem;
-      padding-right: 2.5rem;
-    }
-
-    .tile-modal .tm-num {
-      flex-shrink: 0;
-      width: 3rem;
-      height: 3rem;
-      border-radius: 14px;
-      background: linear-gradient(135deg, #103050, #0070C0);
-      color: #fff;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 900;
-      font-size: 1.15rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 10px 22px -10px rgba(16, 48, 80, .5);
-    }
-
-    .tile-modal .tm-label {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 800;
-      color: #103050;
-      font-size: 1.2rem;
-      line-height: 1.15;
-    }
-
-    .tile-modal .tm-desc {
-      color: #334155;
-      font-size: .9rem;
-      line-height: 1.6;
-    }
-
-    .tile-desc {
-      display: none;
-    }
-
-    .tile-header-row {
-      display: flex;
-      align-items: center;
-      gap: .6rem;
-    }
-
-    /* ===== BACKDROP ===== */
-    .tile-backdrop {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(16, 48, 80, 0.45);
-      z-index: 50;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
-      animation: fadeBackdrop .25s ease both;
-    }
-
-    .tile-backdrop.active {
-      display: flex;
-    }
-
-    @keyframes fadeBackdrop {
+    @keyframes fadeIn {
       from {
         opacity: 0;
       }
@@ -468,6 +84,18 @@
       to {
         opacity: 1;
       }
+    }
+
+    .chart-card {
+      animation: fadeIn .5s ease both;
+    }
+
+    .chart-card:nth-child(2) {
+      animation-delay: .1s;
+    }
+
+    .chart-card:nth-child(3) {
+      animation-delay: .2s;
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -479,307 +107,112 @@
         transition: none !important;
       }
     }
+
+    .chart-card {
+      background-color: #ffffff;
+      border: 2px solid #E2E8F0;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px -8px rgba(16, 48, 80, 0.18);
+      padding: 1.4rem 1.6rem;
+    }
+
+    .legend-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+      display: inline-block;
+    }
   </style>
 </head>
 
 <body>
-  <div class="tile-backdrop" id="tileBackdrop" onclick="if(event.target===this)closeTile()">
-    <div class="tile-modal">
-      <button class="tm-close" onclick="closeTile()" aria-label="Fechar"><i class="fas fa-xmark"></i></button>
-      <div class="tm-head">
-        <div class="tm-num" id="tmNum">01</div>
-        <div>
-          <p class="tm-label" id="tmLabel">—</p>
-        </div>
-      </div>
-      <p class="tm-desc" id="tmDesc">—</p>
-    </div>
-  </div>
   <div class="slide-container">
     <div class="top-accent"></div>
     <div class="top-accent-secondary"></div>
     <!-- Header -->
-    <div class="flex items-center justify-between px-16 pt-12 pb-3 z-10">
+    <div class="flex items-center justify-between px-16 pt-12 pb-4 z-10">
       <div>
         <div class="flex items-center gap-3 mb-2">
           <div class="w-1 h-8 bg-brand-secondary"></div>
-          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Carta de Serviços da
-            ANTAQ</p>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Manifestações por
+            Canal por Mês</p>
         </div>
+        <p class="text-gray-500 font-medium ml-4 text-lg">Distribuição dos canais ao longo do trimestre - Jan / Fev /
+          Mar de 2026</p>
       </div>
-      <div class="flex items-center gap-2 opacity-80 text-brand-secondary">
-        <i class="fas fa-file-contract text-xl" aria-hidden="true"></i>
-        <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">SERVIÇOS · 1/2</p>
-      </div>
-    </div>
-    <!-- Insight flow banner -->
-    <div class="px-16 pt-1 pb-3 z-10">
-      <div class="insight-banner">
-        <div class="flow-row">
-          <div class="flow-stat">
-            <i class="fas fa-clipboard-list fs-icon"></i>
-            <div>
-              <p class="fs-num">32 serviços</p>
-              <p class="fs-label">da Carta de Serviços da ANTAQ</p>
-            </div>
-          </div>
-          <div class="flow-connector">
-            <span class="fc-verb"><br></span>
-            <i class="fas fa-arrow-right-long fc-arrow"></i>
-          </div>
-          <div class="flow-stat">
-            <i class="fas fa-users fs-icon"></i>
-            <div>
-              <p class="fs-num">192 conselheiros</p>
-              <p class="fs-label">rede de participação social</p>
-            </div>
-          </div>
-          <div class="flow-connector">
-            <i class="fas fa-arrow-right-long fc-arrow"></i>
-          </div>
-          <div class="flow-stat">
-            <i class="fas fa-arrows-rotate fs-icon"></i>
-            <div>
-              <p class="fs-num">2025–2028</p>
-              <p class="fs-label">ao longo de todo o quadriênio</p>
-            </div>
-          </div>
-        </div>
-        <p class="insight-tagline">
-          <i class="fas fa-circle-info it-icon"></i>
-          <span>Os <strong>32 serviços</strong> são submetidos à leitura e avaliação <strong>contínua dos 192
-              conselheiros</strong>,
-            de forma ininterrupta <strong>ao longo do quadriênio 2025–2028</strong> — assegurando o monitoramento
-            permanente da
-            Carta e a melhoria contínua do atendimento ao cidadão.</span>
-        </p>
+      <div class="flex items-center gap-4 ml-6">
+        <span class="flex items-center gap-2 text-sm text-gray-500"><span class="legend-dot"
+            style="background:#0070C0;"></span>Janeiro</span>
+        <span class="flex items-center gap-2 text-sm text-gray-500"><span class="legend-dot"
+            style="background:#0090C0;"></span>Fevereiro</span>
+        <span class="flex items-center gap-2 text-sm text-gray-500"><span class="legend-dot"
+            style="background:#103050;"></span>Março</span>
       </div>
     </div>
-    <!-- SOG badge -->
-    <div class="px-16 pb-3 z-10"><span class="svc-badge"><i class="fas fa-stamp"></i> SOG — Superintendência de Outorgas
-        · 18 serviços</span></div>
-    <!-- SOG tile grid -->
-    <div class="flex-1 px-16 pb-6 z-10" style="position:relative;">
-      <div class="tile-grid" id="tileGrid">
-
-        <div class="tile" data-idx="1" onclick="toggleTile(this)">
-          <i class="fas fa-plus tile-expand-icon"></i>
-          <div class="tile-header-row"><span class="tile-num">01</span></div>
-          <span class="tile-label">Solicitar autorização e registro na Antaq para afretamento de embarcação
-            estrangeira</span>
-          <div class="tile-desc">Solicitação de autorização e/ou registro de afretamento de embarcação estrangeira para
-            operar nas navegações de cabotagem, longo curso, apoio marítimo e apoio portuário. Solicitação de
-            autorização para afretamento de embarcação estrangeira, por viagem ou por tempo, para operar na navegação
-            interior.</div>
-        </div>
-
-        <div class="tile" data-idx="2" onclick="toggleTile(this)">
-          <i class="fas fa-plus tile-expand-icon"></i>
-          <div class="tile-header-row"><span class="tile-num">02</span></div>
-          <span class="tile-label">Registrar na Antaq afretamento de embarcação brasileira</span>
-          <div class="tile-desc">Solicitação de registro para afretamento de embarcação nacional para operar nas
-            navegações de cabotagem, longo curso, apoio marítimo e apoio portuário. Solicitação de registro para
-            afretamento de embarcação nacional para operar na navegação interior.</div>
-        </div>
-
-        <div class="tile" data-idx="3" onclick="toggleTile(this)">
-          <i class="fas fa-plus tile-expand-icon"></i>
-          <div class="tile-header-row"><span class="tile-num">03</span></div>
-          <span class="tile-label">Registrar na Antaq comunicação sobre alteração de frota</span>
-          <div class="tile-desc">Através deste serviço o usuário poderá comunicar a inclusão, alteração ou exclusão de
-            embarcação na frota da Empresa Brasileira de Navegação. O registro somente será efetivado se a comunicação
-            vier acompanhada da documentação da(s) embarcação(ões) envolvidas.</div>
-        </div>
-
-        <div class="tile" data-idx="4" onclick="toggleTile(this)">
-          <i class="fas fa-plus tile-expand-icon"></i>
-          <div class="tile-header-row"><span class="tile-num">04</span></div>
-          <span class="tile-label">Registrar na Antaq alteração de situação cadastral de empresa brasileira de
-            navegação</span>
-          <div class="tile-desc">Através deste serviço o usuário poderá comunicar alterações da pessoa jurídica, como
-            tipo, porte, endereço da matriz, abertura de filial, composição societária etc.</div>
-        </div>
-
-        <div class="tile" data-idx="5" onclick="toggleTile(this)">
-          <i class="fas fa-plus tile-expand-icon"></i>
-          <div class="tile-header-row"><span class="tile-num">05</span></div>
-          <span class="tile-label">Obter outorga de autorização da Antaq para construção e exploração de instalação
-            portuária privada localizada fora da área do Porto Organizado</span>
-          <div class="tile-desc">Através deste serviço o usuário poderá obter autorização da Antaq para celebrar
-            contrato de adesão com o poder concedente (MPOR) visando à construção e exploração de instalações portuárias
-            localizadas fora da área do porto organizado, nas modalidades: TUP, ETC, IP4 e IPTur.</div>
-        </div>
-
-        <div class="tile" data-idx="6" onclick="toggleTile(this)">
-          <i class="fas fa-plus tile-expand-icon"></i>
-          <div class="tile-header-row"><span class="tile-num">06</span></div>
-          <span class="tile-label">Obter da Antaq autorização, aditamento ou renúncia para transporte aquaviário na
-            navegação marítima e de apoio, cabotagem e longo curso</span>
-          <div class="tile-desc">Obter autorização para que a pessoa jurídica, constituída nos termos da legislação
-            brasileira e com sede e administração no país, que tenha por objeto operar nas navegações de apoio marítimo,
-            apoio portuário, cabotagem ou longo curso.</div>
-        </div>
-
-        <div class="tile" data-idx="7" onclick="toggleTile(this)">
-          <i class="fas fa-plus tile-expand-icon"></i>
-          <div class="tile-header-row"><span class="tile-num">07</span></div>
-          <span class="tile-label">Obter autorização da Antaq para transporte de cargas na navegação interior de
-            percurso longitudinal interestadual e internacional</span>
-          <div class="tile-desc">Obter autorização para que a pessoa jurídica, constituída nos termos da legislação
-            brasileira e com sede e administração no país, que tenha por objeto a prestação de serviços de transporte
-            aquaviário de cargas na navegação interior de percurso longitudinal interestadual e internacional.</div>
-        </div>
-
-        <div class="tile" data-idx="8" onclick="toggleTile(this)">
-          <i class="fas fa-plus tile-expand-icon"></i>
-          <div class="tile-header-row"><span class="tile-num">08</span></div>
-          <span class="tile-label">Obter autorização da Antaq para transporte de passageiros, veículos e cargas na
-            navegação interior de travessia</span>
-          <div class="tile-desc">Obter autorização para que a pessoa jurídica, constituída nos termos da legislação
-            brasileira e com sede e administração no país, que tenha por objeto a prestação de serviços de transporte de
-            passageiros, veículos e cargas na navegação interior de travessia, em uma determinada linha de navegação.
-          </div>
-        </div>
-
-        <div class="tile" data-idx="9" onclick="toggleTile(this)">
-          <i class="fas fa-plus tile-expand-icon"></i>
-          <div class="tile-header-row"><span class="tile-num">09</span></div>
-          <span class="tile-label">Obter autorização da Antaq para transporte de passageiros e misto na navegação
-            interior de percurso longitudinal interestadual e internacional</span>
-          <div class="tile-desc">Obter autorização para que a pessoa jurídica, constituída nos termos da legislação
-            brasileira e com sede e administração no país, que tenha por objeto a prestação de serviços de transporte
-            aquaviário de passageiros e misto na navegação interior de percurso longitudinal interestadual e
-            internacional.</div>
-        </div>
-
-        <div class="tile" data-idx="10" onclick="toggleTile(this)">
-          <i class="fas fa-plus tile-expand-icon"></i>
-          <div class="tile-header-row"><span class="tile-num">10</span></div>
-          <span class="tile-label">Obter autorização da Antaq para ampliação da área da instalação portuária privada
-            localizada fora da área de Porto Organizado</span>
-          <div class="tile-desc">O usuário já detentor de autorização para exploração de instalação portuária privada
-            (TUP, ETC, IP4, IPTur) poderá solicitar autorização da Antaq para ampliação da área da instalação localizada
-            fora dos limites dos portos organizados, conforme art. 35, II, do Decreto nº 8.033/2013.</div>
-        </div>
-
-        <div class="tile" data-idx="11" onclick="toggleTile(this)">
-          <i class="fas fa-plus tile-expand-icon"></i>
-          <div class="tile-header-row"><span class="tile-num">11</span></div>
-          <span class="tile-label">Registrar na Antaq instalação de apoio ao transporte aquaviário não passível de
-            autorização</span>
-          <div class="tile-desc">O registro de instalações de apoio ao transporte aquaviário consiste no cadastramento,
-            de caráter discricionário, perante a ANTAQ, das instalações não passíveis de outorga de autorização de que
-            trata o art. 8º da Lei nº 12.815/2013, com vistas à regulação da prestação de serviço adequado.</div>
-        </div>
-
-        <div class="tile" data-idx="12" onclick="toggleTile(this)">
-          <i class="fas fa-plus tile-expand-icon"></i>
-          <div class="tile-header-row"><span class="tile-num">12</span></div>
-          <span class="tile-label">Solicitar da Antaq análise de tonelagem para inscrição no Registro Especial
-            Brasileiro (REB)</span>
-          <div class="tile-desc">Através deste serviço a Antaq poderá emitir o Atestado de Tonelagem e comunicar o
-            Tribunal Marítimo se o usuário preencheu os requisitos de tonelagem disponível para inscrição de embarcação
-            estrangeira no Registro Especial Brasileiro — REB.</div>
-        </div>
-
-        <div class="tile" data-idx="13" onclick="toggleTile(this)">
-          <i class="fas fa-plus tile-expand-icon"></i>
-          <div class="tile-header-row"><span class="tile-num">13</span></div>
-          <span class="tile-label">Solicitar atualização de dados na Antaq para o Sistema Mercante — AFRMM</span>
-          <div class="tile-desc">Através deste serviço o usuário poderá ter seu pedido de cadastros de embarcações,
-            portos, terminais portuários, armadores e NVOCCs analisado e homologado no Sistema Mercante da Receita
-            Federal do Brasil.</div>
-        </div>
-
-        <div class="tile" data-idx="14" onclick="toggleTile(this)">
-          <i class="fas fa-plus tile-expand-icon"></i>
-          <div class="tile-header-row"><span class="tile-num">14</span></div>
-          <span class="tile-label">Solicitar homologação da Antaq para Acordo Operacional na navegação marítima ou
-            interior</span>
-          <div class="tile-desc">Através deste serviço a Antaq poderá homologar os Acordos Operacionais entre os
-            usuários, empresas brasileiras e estrangeiras de navegação, para troca de espaços no transporte marítimo
-            internacional e entre empresas de navegação autorizadas a operar na prestação de serviço de transporte de
-            carga na navegação interior.</div>
-        </div>
-
-        <div class="tile" data-idx="15" onclick="toggleTile(this)">
-          <i class="fas fa-plus tile-expand-icon"></i>
-          <div class="tile-header-row"><span class="tile-num">15</span></div>
-          <span class="tile-label">Solicitar à Antaq autorização para operação em caráter emergencial e especial</span>
-          <div class="tile-desc">Através deste serviço a Antaq poderá autorizar que o usuário realize movimentação ou
-            armazenagem de cargas ou movimentação de passageiros, em caráter emergencial ou especial, pelo prazo máximo
-            de 180 dias, atestadas as condições predispostas na legislação vigente.</div>
-        </div>
-
-        <div class="tile" data-idx="16" onclick="toggleTile(this)">
-          <i class="fas fa-plus tile-expand-icon"></i>
-          <div class="tile-header-row"><span class="tile-num">16</span></div>
-          <span class="tile-label">Obter autorização da ANTAQ para celebração de contrato de transição</span>
-          <div class="tile-desc">Serviço destinado à obtenção de autorização da ANTAQ para celebração de contrato de
-            transição entre a administração do porto e uma empresa interessada na exploração transitória de área ou
-            instalação portuária. A autorização objetiva garantir a continuidade da prestação dos serviços portuários.
-          </div>
-        </div>
-
-        <div class="tile" data-idx="17" onclick="toggleTile(this)">
-          <i class="fas fa-plus tile-expand-icon"></i>
-          <div class="tile-header-row"><span class="tile-num">17</span></div>
-          <span class="tile-label">Solicitar da Antaq análise de Projetos Executivos apresentados no âmbito das
-            Concessões e dos Arrendamentos Portuários</span>
-          <div class="tile-desc">Através deste serviço o usuário poderá obter declaração da Antaq de que o Projeto
-            Executivo apresentado no âmbito das concessões e dos arrendamentos portuários consta adequado com os estudos
-            e instrumentos contratuais correspondentes.</div>
-        </div>
-
-        <div class="tile" data-idx="18" onclick="toggleTile(this)">
-          <i class="fas fa-plus tile-expand-icon"></i>
-          <div class="tile-header-row"><span class="tile-num">18</span></div>
-          <span class="tile-label">Propor à Antaq recomposição do equilíbrio econômico-financeiro de contratos de
-            Arrendamentos Portuários ou de EVTEA</span>
-          <div class="tile-desc">Analisar requerimentos de recomposição do equilíbrio econômico-financeiro contratual e
-            Estudos de Viabilidade Técnica, Econômica e Ambiental — EVTEAs referentes a eventos que impliquem impacto no
-            fluxo de caixa do empreendimento e cujo risco tenha sido assumido pela Administração Pública.</div>
-        </div>
-
+    <!-- Main Content -->
+    <div class="flex-1 grid grid-cols-3 gap-6 px-16 pb-10 z-10">
+      <div class="chart-card flex flex-col">
+        <p class="text-brand-primary font-montserrat font-bold text-xl mb-1 flex items-center gap-2"><i
+            class="fas fa-headset text-brand-secondary"></i> Omnichannel</p>
+        <p class="text-gray-400 text-sm mb-2">Total no trimestre: <strong class="text-brand-primary">382</strong></p>
+        <div class="flex-1 relative"><canvas id="chartOmni"></canvas></div>
+      </div>
+      <div class="chart-card flex flex-col">
+        <p class="text-brand-primary font-montserrat font-bold text-xl mb-1 flex items-center gap-2"><i
+            class="fas fa-comment-dots text-brand-secondary"></i> Fala.BR</p>
+        <p class="text-gray-400 text-sm mb-2">Total no trimestre: <strong class="text-brand-primary">304</strong></p>
+        <div class="flex-1 relative"><canvas id="chartFalabr"></canvas></div>
+      </div>
+      <div class="chart-card flex flex-col">
+        <p class="text-brand-primary font-montserrat font-bold text-xl mb-1 flex items-center gap-2"><i
+            class="fas fa-envelope text-brand-secondary"></i> E-mail</p>
+        <p class="text-gray-400 text-sm mb-2">Total no trimestre: <strong class="text-brand-primary">70</strong></p>
+        <div class="flex-1 relative"><canvas id="chartEmail"></canvas></div>
       </div>
     </div>
     <!-- Footer -->
     <div class="px-16 pb-8 flex justify-between items-center z-10">
       <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ</p>
-      <p class="text-gray-300 text-xs font-mono">17 / 25</p>
+      <p class="text-gray-300 text-xs font-mono">17 / 33</p>
     </div>
   </div>
-
   <script>
-    function openTile(el) {
-      const num = el.getAttribute('data-idx') || el.querySelector('.tile-num')?.textContent || '—';
-      const label = el.querySelector('.tile-label')?.textContent || '—';
-      const desc = el.querySelector('.tile-desc')?.textContent || '—';
-
-      document.getElementById('tmNum').textContent = num;
-      document.getElementById('tmLabel').textContent = label;
-      document.getElementById('tmDesc').textContent = desc;
-      document.getElementById('tileBackdrop').classList.add('active');
-    }
-
-    function closeTile() {
-      document.getElementById('tileBackdrop').classList.remove('active');
-    }
-
-    // Trocar todos onclick dos tiles
-    document.querySelectorAll('.tile').forEach(tile => {
-      tile.onclick = function() { openTile(this); };
-    });
-
-    document.addEventListener("keydown", function (e) {
-      var open = document.getElementById('tileBackdrop').classList.contains('active');
-      if (open && e.key === 'Escape') { closeTile(); e.preventDefault(); return; }
-      if (open) return;
-      if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) {
-        e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*");
+    const monthColors = ['#0070C0', '#0090C0', '#103050'];
+    const valueLabels = {
+      id: 'valueLabels',
+      afterDatasetsDraw(chart) {
+        const { ctx } = chart;
+        ctx.save();
+        ctx.font = '700 16px Montserrat, sans-serif';
+        ctx.fillStyle = '#103050';
+        ctx.textAlign = 'center';
+        chart.getDatasetMeta(0).data.forEach((bar, i) => {
+          ctx.fillText(chart.data.datasets[0].data[i], bar.x, bar.y - 8);
+        });
+        ctx.restore();
       }
-    });
+    };
+    function makeBar(id, data) {
+      new Chart(document.getElementById(id), {
+        type: 'bar',
+        data: { labels: ['Jan', 'Fev', 'Mar'], datasets: [{ data, backgroundColor: monthColors, borderRadius: 6, maxBarThickness: 80 }] },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          layout: { padding: { top: 22 } },
+          plugins: { legend: { display: false }, tooltip: { enabled: false } },
+          scales: {
+            x: { grid: { display: false }, ticks: { color: '#6b7280', font: { size: 14, weight: '600' } } },
+            y: { beginAtZero: true, grid: { color: '#eef2f7' }, ticks: { color: '#9ca3af', font: { size: 12 } } }
+          }
+        },
+        plugins: [valueLabels]
+      });
+    }
+    makeBar('chartOmni', [186, 106, 90]);
+    makeBar('chartFalabr', [90, 129, 85]);
+    makeBar('chartEmail', [23, 33, 14]);
   </script>
+  <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
 </body>
 
 </html>

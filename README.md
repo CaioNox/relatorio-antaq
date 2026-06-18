@@ -19,7 +19,7 @@ da unidade com base nos dados do **Fala.BR**, e tem como objetivos:
 `.html` independente, exibido por um visualizador com navegação por teclado, cliques e
 miniaturas.
 
-## Conteúdo (25 slides)
+## Conteúdo (33 slides)
 
 | # | Slide | Tema |
 |---|-------|------|
@@ -28,20 +28,24 @@ miniaturas.
 | 04 | Manifestações Recebidas | Indicadores gerais (total, arquivadas, encaminhadas, tempo médio) |
 | 05 | Encaminhamentos / Tratamento | Funil das manifestações que geraram processos sancionatórios |
 | 06 | Manifestações por mês | Recebidas / arquivadas / encaminhadas (Jan–Mar) |
-| 07 | Destaques do Trimestre | Tema central: cobranças portuárias abusivas e suas vertentes |
-| 08–09 | Tipos de Manifestações | Distribuição por tipo e comparativo mensal |
-| 10–11 | Manifestações por Canal | Distribuição por canal e evolução mensal |
-| 12–13 | LAI · Transparência Passiva | Pedidos de acesso à informação (totais e por mês) |
-| 14–15 | Transparência Ativa e Dados Abertos | Painel LAI, bases publicadas e novas bases |
-| 16–18 | Carta de Serviços | Apresentação e 32 serviços por superintendência (SOG, SRG, SAF, SFC) |
-| 19–20 | Definições e Glossário | Conceitos relevantes para a leitura dos dados |
-| 21–23 | Base Legal | Leis, decretos e normativas/portarias |
-| 24 | Expediente | Diretoria, estrutura e equipe técnica |
-| 25 | Links Úteis | Contatos, canais oficiais e **download do relatório em PDF** |
+| 07 | Evolução Histórica | Série histórica das manifestações recebidas (1º Tri 2023–2026) |
+| 08 | Destaques do Trimestre | Tema central: cobranças portuárias abusivas e suas vertentes |
+| 09–13 | Análise Estratégica | Principais achados, Inteligência da Ouvidoria, Análise qualitativa, Riscos e oportunidades e Recomendações institucionais |
+| 14–15 | Tipos de Manifestações | Distribuição por tipo e comparativo mensal |
+| 16–17 | Manifestações por Canal | Distribuição por canal e evolução mensal |
+| 18–19 | LAI · Transparência Passiva | Pedidos de acesso à informação (totais e por mês) |
+| 20 | Histórico LAI | Série histórica dos pedidos de acesso à informação (1º Tri 2023–2026) |
+| 21–22 | Transparência Ativa e Dados Abertos | Painel LAI, bases publicadas e novas bases |
+| 23–25 | Carta de Serviços | Apresentação e 32 serviços por superintendência (SOG, SRG, SAF, SFC) |
+| 26–27 | Definições e Glossário | Conceitos relevantes para a leitura dos dados |
+| 28–30 | Base Legal | Leis, decretos e normativas/portarias |
+| 31 | Conclusão | Conclusão institucional do trimestre |
+| 32 | Expediente | Diretoria, estrutura e equipe técnica |
+| 33 | Links Úteis | Contatos, canais oficiais e **download do relatório em PDF** |
 
 ## Relatório em PDF
 
-O slide **25 (Links Úteis)** traz o botão **"Baixar Relatório em PDF"**, que abre
+O slide **33 (Links Úteis)** traz o botão **"Baixar Relatório em PDF"**, que abre
 `sistema/relatorio.html` — uma versão em **documento formal A4** com os mesmos dados,
 gráficos (Chart.js) e tabelas. Basta clicar em **"Baixar em PDF"** e escolher
 **Salvar como PDF** no destino de impressão do navegador.
@@ -56,7 +60,7 @@ gráficos (Chart.js) e tabelas. Basta clicar em **"Baixar em PDF"** e escolher
 ├── .nojekyll               # Desliga o Jekyll no GitHub Pages
 └── sistema/
     ├── index.html          # Visualizador dos slides (navegação)
-    ├── slide-01.html … slide-25.html
+    ├── slide-01.html … slide-33.html
     ├── relatorio.html      # Versão A4 imprimível / "Salvar como PDF"
     └── Imagens/            # Logos da ANTAQ
 ```
@@ -96,7 +100,7 @@ python3 -m http.server 8000
 ## Como editar / adicionar slides
 
 - Cada slide é `sistema/slide-NN.html`. O número total fica em `sistema/index.html`
-  (`const total = 25;`) e o rodapé de cada slide mostra `N / 25`.
+  (`const total = 33;`) e o rodapé de cada slide mostra `N / 33`.
 - Ao **inserir** um slide no meio, renumere os arquivos seguintes, atualize os rodapés,
   o `total` e os destinos do **sumário clicável** da capa (`goToSlide(n)` no `slide-01.html`).
 - Se mudar a ordem/numeração, revise também o `sistema/relatorio.html` para manter os
