@@ -605,15 +605,15 @@
         display: none !important;
       }
 
-      /* Sem altura fixa: cada seção ocupa o espaço que seu conteúdo pede.
-         page-break-after:always força nova folha entre seções sem bloquear
-         o fluxo natural de seções que precisam de mais de uma página. */
+      /* Anula o padding de tela (22mm todos os lados).
+         @page { margin: 20mm } cuida das bordas externas;
+         aqui só precisamos do offset do sidebar (6mm esq) e da área do rodapé. */
       .page {
         margin: 0;
         box-shadow: none;
         border-radius: 0;
         width: 100%;
-        padding-bottom: 18mm; /* reserva espaço para o rodapé */
+        padding: 4mm 4mm 18mm 6mm; /* top right bottom left */
         page-break-after: always;
         overflow: visible;
         position: relative;
@@ -623,10 +623,10 @@
         page-break-after: auto;
       }
 
-      /* Capa preenche a folha inteira; @page já aplica 20mm de cada lado */
+      /* Capa: preenche a folha e mantém clearance do sidebar à esq */
       .cover {
         min-height: calc(297mm - 40mm);
-        padding: 10mm 0;
+        padding: 10mm 4mm 10mm 6mm;
       }
 
       /* Rodapé absoluto ao fundo de cada seção */
