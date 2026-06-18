@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Recomendações Institucionais - Relatório Trimestral Ouvidoria ANTAQ</title>
+  <link rel="icon" type="image/png"
+    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&amp;family=Open+Sans:wght@400;600&amp;display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    html {
+      font-size: 26px;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f3f4f6;
+      overflow: hidden;
+    }
+
+    .slide-container {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background-color: #ffffff;
+      overflow: hidden;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    .font-montserrat {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .text-brand-primary {
+      color: #103050;
+    }
+
+    .text-brand-secondary {
+      color: #0070C0;
+    }
+
+    .bg-brand-secondary {
+      background-color: #0070C0;
+    }
+
+    .top-accent {
+      height: 8px;
+      background-color: #103050;
+      width: 100%;
+    }
+
+    .top-accent-secondary {
+      height: 4px;
+      background-color: #0070C0;
+      width: 100%;
+    }
+
+    /* ===== Grid de recomendações ===== */
+    .rec-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+
+    .rec-card {
+      width: 340px;
+      min-height: 200px;
+      background: #ffffff;
+      border: 2px solid #E2E8F0;
+      border-left: 4px solid #E2E8F0;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px -8px rgba(16, 48, 80, 0.18);
+      padding: 1.4rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform .28s cubic-bezier(.2, .7, .3, 1), box-shadow .28s ease, border-left-color .28s ease;
+      animation: fadeInUp .5s cubic-bezier(.2, .7, .3, 1) both;
+    }
+
+    .rec-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 24px 46px -16px rgba(16, 48, 80, 0.32);
+      border-left-color: #F2A900;
+    }
+
+    .rec-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+
+    .rec-num {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 3.6rem;
+      color: #0090C0;
+      line-height: 1;
+      opacity: 0.85;
+    }
+
+    .rec-ico {
+      color: #103050;
+      font-size: 1.6rem;
+      margin-top: .5rem;
+    }
+
+    .rec-text {
+      font-family: 'Open Sans', sans-serif;
+      font-weight: 400;
+      font-size: 0.95rem;
+      color: #1f2937;
+      line-height: 1.5;
+    }
+
+    .rec-card:nth-child(1) {
+      animation-delay: 0ms;
+    }
+
+    .rec-card:nth-child(2) {
+      animation-delay: 80ms;
+    }
+
+    .rec-card:nth-child(3) {
+      animation-delay: 160ms;
+    }
+
+    .rec-card:nth-child(4) {
+      animation-delay: 240ms;
+    }
+
+    .rec-card:nth-child(5) {
+      animation-delay: 320ms;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="slide-container">
+    <div class="top-accent"></div>
+    <div class="top-accent-secondary"></div>
+    <!-- Header -->
+    <div class="flex items-center justify-between px-16 pt-12 pb-4 z-10">
+      <div>
+        <div class="flex items-center gap-3 mb-2">
+          <div class="w-1 h-8 bg-brand-secondary"></div>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Recomendações
+            Institucionais</p>
+        </div>
+        <p class="text-gray-500 font-medium ml-4 text-lg">Recomendações decorrentes da análise das manifestações
+          recebidas</p>
+      </div>
+      <div class="flex items-center gap-2 opacity-80 text-brand-secondary">
+        <i class="fas fa-clipboard-check text-xl" aria-hidden="true"></i>
+        <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">PLANO DE AÇÃO</p>
+      </div>
+    </div>
+    <!-- Main Content -->
+    <div class="flex-1 flex items-center px-16 pb-10 z-10">
+      <div class="rec-grid">
+        <div class="rec-card">
+          <div class="rec-top">
+            <span class="rec-num">01</span>
+            <i class="fas fa-bullhorn rec-ico"></i>
+          </div>
+          <p class="rec-text">Fortalecer a divulgação dos canais de atendimento da Agência.</p>
+        </div>
+        <div class="rec-card">
+          <div class="rec-top">
+            <span class="rec-num">02</span>
+            <i class="fas fa-circle-info rec-ico"></i>
+          </div>
+          <p class="rec-text">Intensificar ações de orientação aos usuários.</p>
+        </div>
+        <div class="rec-card">
+          <div class="rec-top">
+            <span class="rec-num">03</span>
+            <i class="fas fa-chart-line rec-ico"></i>
+          </div>
+          <p class="rec-text">Monitorar os temas recorrentes identificados pela Ouvidoria.</p>
+        </div>
+        <div class="rec-card">
+          <div class="rec-top">
+            <span class="rec-num">04</span>
+            <i class="fas fa-compass-drafting rec-ico"></i>
+          </div>
+          <p class="rec-text">Utilizar os dados produzidos pela Ouvidoria como insumo para planejamento institucional.
+          </p>
+        </div>
+        <div class="rec-card">
+          <div class="rec-top">
+            <span class="rec-num">05</span>
+            <i class="fas fa-link rec-ico"></i>
+          </div>
+          <p class="rec-text">Fortalecer a integração entre Ouvidoria, Fiscalização e áreas técnicas.</p>
+        </div>
+      </div>
+    </div>
+    <!-- Footer -->
+    <div class="px-16 pb-8 flex justify-between items-center z-10">
+      <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ</p>
+      <p class="text-gray-300 text-xs font-mono">13 / 33</p>
+    </div>
+  </div>
+  <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
+</body>
+
+</html>

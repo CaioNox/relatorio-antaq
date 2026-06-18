@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Análise Qualitativa - Relatório Trimestral Ouvidoria ANTAQ</title>
+  <link rel="icon" type="image/png"
+    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&amp;family=Open+Sans:wght@400;600&amp;display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    html {
+      font-size: 26px;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f3f4f6;
+      overflow: hidden;
+    }
+
+    .slide-container {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background-color: #ffffff;
+      overflow: hidden;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    .font-montserrat {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .text-brand-primary {
+      color: #103050;
+    }
+
+    .text-brand-secondary {
+      color: #0070C0;
+    }
+
+    .bg-brand-secondary {
+      background-color: #0070C0;
+    }
+
+    .top-accent {
+      height: 8px;
+      background-color: #103050;
+      width: 100%;
+    }
+
+    .top-accent-secondary {
+      height: 4px;
+      background-color: #0070C0;
+      width: 100%;
+    }
+
+    /* ===== Cards tripartite ===== */
+    .qa-card {
+      background: #ffffff;
+      border: 2px solid #E2E8F0;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px -8px rgba(16, 48, 80, 0.18);
+      padding: 1.8rem 1.7rem;
+      min-height: 380px;
+      display: flex;
+      flex-direction: column;
+      transition: transform .28s cubic-bezier(.2, .7, .3, 1), box-shadow .28s ease;
+      animation: fadeInUp .5s cubic-bezier(.2, .7, .3, 1) both;
+    }
+
+    .qa-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 22px 42px -14px rgba(16, 48, 80, 0.3);
+    }
+
+    .qa-card.qa-problema {
+      border-top: 5px solid #F2A900;
+    }
+
+    .qa-card.qa-causas {
+      border-top: 5px solid #0090C0;
+    }
+
+    .qa-card.qa-acoes {
+      border-top: 5px solid #10b981;
+    }
+
+    .qa-card:nth-child(2) {
+      animation-delay: .1s;
+    }
+
+    .qa-card:nth-child(3) {
+      animation-delay: .2s;
+    }
+
+    .qa-head {
+      display: flex;
+      align-items: center;
+      gap: .9rem;
+      margin-bottom: 1.3rem;
+    }
+
+    .qa-head i {
+      font-size: 2rem;
+    }
+
+    .qa-problema .qa-head i {
+      color: #F2A900;
+    }
+
+    .qa-causas .qa-head i {
+      color: #0090C0;
+    }
+
+    .qa-acoes .qa-head i {
+      color: #10b981;
+    }
+
+    .qa-head h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: #103050;
+      margin: 0;
+      line-height: 1.15;
+    }
+
+    .qa-body {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 1rem;
+      color: #1f2937;
+      line-height: 1.6;
+    }
+
+    .qa-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .qa-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: .7rem;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 1rem;
+      color: #1f2937;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    .qa-list li .bullet {
+      flex-shrink: 0;
+      font-size: .8rem;
+      line-height: 1.6;
+    }
+
+    .qa-causas .qa-list li .bullet {
+      color: #0090C0;
+    }
+
+    .qa-acoes .qa-list li .bullet {
+      color: #10b981;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="slide-container">
+    <div class="top-accent"></div>
+    <div class="top-accent-secondary"></div>
+    <!-- Header -->
+    <div class="flex items-center justify-between px-16 pt-12 pb-4 z-10">
+      <div>
+        <div class="flex items-center gap-3 mb-2">
+          <div class="w-1 h-8 bg-brand-secondary"></div>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Análise Qualitativa
+          </p>
+        </div>
+        <p class="text-gray-500 font-medium ml-4 text-lg">Problemas identificados, possíveis causas e propostas de
+          solução</p>
+      </div>
+      <div class="flex items-center gap-2 opacity-80 text-brand-secondary">
+        <i class="fas fa-magnifying-glass-chart text-xl" aria-hidden="true"></i>
+        <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">PROBLEMA · CAUSAS · AÇÕES</p>
+      </div>
+    </div>
+    <!-- Main Content -->
+    <div class="flex-1 flex items-center px-16 pb-10 z-10">
+      <div class="grid grid-cols-3 gap-8 w-full">
+        <!-- Problema -->
+        <div class="qa-card qa-problema">
+          <div class="qa-head">
+            <i class="fas fa-circle-exclamation"></i>
+            <h2>Problema identificado</h2>
+          </div>
+          <p class="qa-body">Elevada concentração de manifestações relacionadas à tarifa portuária.</p>
+        </div>
+        <!-- Causas -->
+        <div class="qa-card qa-causas">
+          <div class="qa-head">
+            <i class="fas fa-magnifying-glass"></i>
+            <h2>Possíveis causas</h2>
+          </div>
+          <ul class="qa-list">
+            <li><span class="bullet">◆</span><span>Complexidade regulatória</span></li>
+            <li><span class="bullet">◆</span><span>Divergências comerciais</span></li>
+            <li><span class="bullet">◆</span><span>Desconhecimento dos usuários acerca das competências da Agência</span>
+            </li>
+          </ul>
+        </div>
+        <!-- Ações -->
+        <div class="qa-card qa-acoes">
+          <div class="qa-head">
+            <i class="fas fa-arrows-rotate"></i>
+            <h2>Possíveis ações</h2>
+          </div>
+          <ul class="qa-list">
+            <li><span class="bullet">●</span><span>Ampliação de orientações ao usuário</span></li>
+            <li><span class="bullet">●</span><span>Fortalecimento da comunicação institucional</span></li>
+            <li><span class="bullet">●</span><span>Monitoramento contínuo do tema</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- Footer -->
+    <div class="px-16 pb-8 flex justify-between items-center z-10">
+      <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ</p>
+      <p class="text-gray-300 text-xs font-mono">11 / 33</p>
+    </div>
+  </div>
+  <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
+</body>
+
+</html>
