@@ -608,10 +608,12 @@
       .page {
         margin: 0;
         box-shadow: none;
-        width: auto;
-        min-height: auto;
-        padding: 16mm 16mm 20mm 16mm;
+        border-radius: 0;
+        width: 100%;
+        min-height: 297mm;
+        padding: 22mm 20mm 30mm 22mm;
         page-break-after: always;
+        overflow: visible;
       }
 
       .page:last-child {
@@ -619,7 +621,10 @@
       }
 
       .pg-foot {
-        position: fixed;
+        position: absolute;
+        left: 22mm;
+        right: 20mm;
+        bottom: 12mm;
       }
 
       * {
