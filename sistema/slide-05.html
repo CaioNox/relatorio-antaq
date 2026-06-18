@@ -109,17 +109,6 @@
       min-width: 0;
     }
 
-    .split-caption {
-      display: flex;
-      justify-content: space-between;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
-      font-size: .7rem;
-      letter-spacing: .03em;
-      margin-bottom: .45rem;
-      color: #eaf3fb;
-    }
-
     .split-bar {
       display: flex;
       height: 2.2rem;
@@ -133,10 +122,13 @@
       align-items: center;
       justify-content: center;
       font-family: 'Montserrat', sans-serif;
-      font-weight: 900;
-      font-size: 1rem;
+      font-weight: 800;
+      font-size: .82rem;
       color: #fff;
       white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding: 0 .4rem;
     }
 
     .split-seg.s-int {
@@ -149,12 +141,17 @@
 
     .split-legend {
       display: flex;
-      justify-content: space-between;
       margin-top: .4rem;
       font-family: 'Open Sans', sans-serif;
-      font-size: .62rem;
+      font-size: .6rem;
       color: #cfe5f3;
-      gap: 1rem;
+      gap: .6rem;
+    }
+
+    .split-legend span {
+      text-align: center;
+      line-height: 1.25;
+      padding: 0 .3rem;
     }
 
     /* ===== Texto explicativo ===== */
@@ -196,8 +193,7 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 1.4rem;
-      flex: 1;
-      min-height: 0;
+      align-items: stretch;
     }
 
     .lane {
@@ -207,7 +203,7 @@
       padding: .85rem 1.2rem;
       display: flex;
       flex-direction: column;
-      gap: .35rem;
+      gap: .55rem;
       box-shadow: 0 8px 20px -10px rgba(16, 48, 80, .18);
       animation: fadeInUp .5s cubic-bezier(.2, .7, .3, 1) both;
     }
@@ -275,8 +271,7 @@
       display: flex;
       align-items: center;
       gap: .9rem;
-      padding: .3rem .2rem;
-      flex: 1;
+      padding: .35rem .2rem;
     }
 
     .out-ico {
@@ -438,22 +433,18 @@
     </div>
 
     <!-- Main -->
-    <div class="flex-1 flex flex-col gap-3 px-16 pt-2 pb-4 z-10" style="min-height:0;">
+    <div class="flex-1 flex flex-col justify-center gap-4 px-16 pt-2 pb-4 z-10" style="min-height:0;">
       <!-- HERO 304 + split -->
       <div class="hero">
         <div class="hero-num">304<span>Demandas · Jan–Mar 2026</span></div>
         <div class="hero-split">
-          <div class="split-caption">
-            <span>122 · Fluxo interno</span>
-            <span>182 · Órgãos externos</span>
-          </div>
           <div class="split-bar">
-            <div class="split-seg s-int" style="flex:122 1 0;">122</div>
-            <div class="split-seg s-ext" style="flex:182 1 0;">182</div>
+            <div class="split-seg s-int" style="flex:122 1 0;">122 · Fluxo interno</div>
+            <div class="split-seg s-ext" style="flex:182 1 0;">182 · Órgãos externos</div>
           </div>
           <div class="split-legend">
-            <span>Encaminhadas às demais áreas ou respondidas pela Ouvidoria</span>
-            <span>Encaminhadas à SFC e GPF</span>
+            <span style="flex:122 1 0;">Encaminhadas às demais áreas ou respondidas pela Ouvidoria</span>
+            <span style="flex:182 1 0;">Encaminhadas à SFC e GPF</span>
           </div>
         </div>
         <i class="fas fa-diagram-project hero-ico" aria-hidden="true"></i>
