@@ -593,13 +593,6 @@
     }
 
     /* ---- Impressão / Salvar como PDF ---- */
-
-    /* @page sem margem: todo o controle de espaçamento fica no .page */
-    @page {
-      size: A4 portrait;
-      margin: 0;
-    }
-
     @media print {
 
       html,
@@ -612,17 +605,18 @@
         display: none !important;
       }
 
-      /* Cada .page = exatamente uma folha A4 (210 × 297 mm) */
+      /* Anula o padding de tela (22mm todos os lados).
+         @page { margin: 20mm } cuida das bordas externas;
+         aqui só precisamos do offset do sidebar (6mm esq) e da área do rodapé. */
       .page {
         margin: 0;
-        width: 210mm;
-        height: 297mm;
-        overflow: hidden;
-        padding: 11mm 13mm 21mm 15mm;
-        /* top right bottom left — esq clearance da faixa (5mm) + margem */
         box-shadow: none;
         border-radius: 0;
+        width: 100%;
+        padding: 4mm 4mm 18mm 6mm;
+        /* top right bottom left */
         page-break-after: always;
+        overflow: hidden;
         position: relative;
       }
 
@@ -630,20 +624,21 @@
         page-break-after: auto;
       }
 
-      /* Capa: preenche a folha com padding visual adequado */
+      /* Capa: preenche a folha e mantém clearance do sidebar à esq */
       .cover {
-        padding: 28mm 22mm 20mm 18mm;
+        min-height: calc(320mm - 40mm);
+        padding: 5mm 2mm 5mm 3mm;
       }
 
-      /* Rodapé ancorado ao fundo da folha */
+      /* Rodapé absoluto ao fundo de cada seção */
       .pg-foot {
         position: absolute;
-        left: 15mm;
-        right: 13mm;
-        bottom: 7mm;
+        left: 0;
+        right: 0;
+        bottom: 6mm;
       }
 
-      /* Evita quebra no meio de blocos críticos */
+      /* Proteger blocos críticos contra quebra de página no meio */
       .callout,
       .kpis,
       .chart-box,
@@ -668,8 +663,11 @@
         break-inside: avoid-page;
       }
 
-      /* Força impressão de cores em fundos e gráficos */
-      canvas,
+      canvas {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
       * {
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
@@ -679,6 +677,12 @@
     /* Aprimoramentos finais de tipografia */
     b {
       font-weight: 800;
+    }
+
+    @page {
+      size: A4 portrait;
+      margin: 10mm;
+      margin-bottom: 17.6mm;
     }
   </style>
 </head>
