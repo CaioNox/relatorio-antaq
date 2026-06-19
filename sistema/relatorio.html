@@ -635,12 +635,26 @@
         padding: 28mm 22mm 20mm 18mm;
       }
 
-      /* Rodapé ancorado ao fundo da folha */
+      /* Faixa branca que mascara conteúdo que sangra para a zona do rodapé.
+         Fica entre o conteúdo (z-index padrão) e o pg-foot (z-index 10). */
+      .page:not(.cover)::after {
+        content: "";
+        position: absolute;
+        left: 5mm;
+        right: 0;
+        bottom: 0;
+        height: 24mm;
+        background: #fff;
+        z-index: 5;
+      }
+
+      /* Rodapé ancorado ao fundo da folha, acima da faixa branca */
       .pg-foot {
         position: absolute;
         left: 15mm;
         right: 13mm;
         bottom: 8mm;
+        z-index: 10;
       }
 
       /* Evita quebra no meio de blocos críticos */
