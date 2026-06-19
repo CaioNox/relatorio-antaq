@@ -618,8 +618,8 @@
         width: 210mm;
         height: 297mm;
         overflow: hidden;
-        padding: 11mm 13mm 21mm 15mm;
-        /* top right bottom left — esq clearance da faixa (5mm) + margem */
+        padding: 11mm 13mm 30mm 15mm;
+        /* bottom 30mm: zona de segurança que impede conteúdo de atingir o pg-foot */
         box-shadow: none;
         border-radius: 0;
         page-break-after: always;
@@ -640,7 +640,7 @@
         position: absolute;
         left: 15mm;
         right: 13mm;
-        bottom: 7mm;
+        bottom: 8mm;
       }
 
       /* Evita quebra no meio de blocos críticos */
