@@ -1,4 +1,12 @@
 <!DOCTYPE html>
+<!--
+  ╔══════════════════════════════════════════════════════════════╗
+  ║  SLIDE 08 — Destaques do trimestre — ranking de temas e subtemas
+  ╠══════════════════════════════════════════════════════════════╣
+  ║  O QUE ATUALIZAR A CADA TRIMESTRE:
+  ║  ATENÇÃO: atualizar const TOTAL (total de manifestações) e o array THEMES (temas, subtemas e valores)
+  ╚══════════════════════════════════════════════════════════════╝
+-->
 
 <html lang="pt-BR">
 
@@ -458,6 +466,14 @@
   </div>
 
   <script>
+    /* =========================================================
+     ATENÇÃO ESTAGIÁRIO — ATUALIZAÇÃO TRIMESTRAL
+     Atualize dois lugares aqui:
+     1) const TOTAL = ?   ← total geral de manifestações do trimestre
+     2) Array THEMES abaixo ← cada tema tem: name, total, subs[]
+        Cada sub é: ['nome do subtema', quantidade]
+        Os valores devem vir da planilha oficial do Fala.BR.
+     ========================================================= */
     /* ===================== DADOS (planilha oficial — 1º tri/2026, total 304) ===================== */
     const TOTAL = 304;
     const THEMES = [
@@ -466,13 +482,13 @@
         icon: 'fa-money-bill-trend-up', color: '#F2A900', total: 154,
         subs: [
           ['Detention/ Sobrestadia de Mercadorias', 56],
-          ['Tarifa Portuária Abusiva', 43],
-          ['Tarifa Portuária Abusiva - falta de Bookings/janelas para os navios', 21],
-          ['Tarifa portuária abusiva com Denúncia com Pedido de Medida Cautelar', 20],
+          ['Cobrança Portuária Abusiva', 43],
+          ['Cobrança Portuária Abusiva - falta de Bookings/janelas para os navios', 21],
+          ['Cobrança Portuária Abusiva com Denúncia com Pedido de Medida Cautelar', 20],
           ['Cobrança indevida de taxa', 7],
-          ['Demurrage - (Tarifa portuária abusiva)', 3],
-          ['Bloqueio de carga - (Tarifa portuária abusiva)', 3],
-          ['Desbloqueio de carga - tarifa portuária abusiva', 1]
+          ['Demurrage - (Cobrança Portuária Abusiva)', 3],
+          ['Bloqueio de carga - (Cobrança Portuária Abusiva)', 3],
+          ['Desbloqueio de carga - Cobrança Portuária Abusiva', 1]
         ]
       },
       {

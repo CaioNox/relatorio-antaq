@@ -1,4 +1,15 @@
 <!DOCTYPE html>
+<!--
+  ╔══════════════════════════════════════════════════════════════╗
+  ║  sistema/index.html — VISUALIZADOR DE SLIDES (palco principal)
+  ╠══════════════════════════════════════════════════════════════╣
+  ║  Carrega cada slide em um iframe e controla a navegação.
+  ║  O QUE ATUALIZAR:
+  ║    const total = 35  ← mude se adicionar/remover slides
+  ║  Teclas: ← → navegar, Espaço próximo, F tela cheia, Home início
+  ║  Clique nas laterais escuras também navega.
+  ╚══════════════════════════════════════════════════════════════╝
+-->
 <html lang="pt-BR">
 
 <head>
@@ -179,6 +190,189 @@
       background: rgba(12, 50, 111, 1);
     }
 
+    /* PDF button — with label */
+    .pdf-btn {
+      position: fixed;
+      top: 16px;
+      right: 120px;
+      background: rgba(180, 120, 0, 0.92);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      cursor: pointer;
+      height: 40px;
+      padding: 0 16px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: 'Roboto', sans-serif;
+      z-index: 1000;
+      transition: all 0.2s;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .pdf-btn:hover {
+      background: rgba(217, 119, 6, 1);
+    }
+
+    /* Help button in nav-bar */
+    .help-btn {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: white;
+      cursor: pointer;
+      height: 32px;
+      padding: 0 12px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      font-family: 'Roboto', sans-serif;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .help-btn:hover,
+    .help-btn.active {
+      background: rgba(0, 144, 192, 0.5);
+      border-color: #0090C0;
+    }
+
+    /* Nav hints — overlay modal */
+    .nav-hints-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.55);
+      backdrop-filter: blur(4px);
+      z-index: 1100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .nav-hints-overlay.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .nav-hints-panel {
+      background: linear-gradient(160deg, #0c3273 0%, #0a2040 100%);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 20px;
+      padding: 36px 40px 32px;
+      max-width: 560px;
+      width: 90%;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+      font-family: 'Roboto', sans-serif;
+      color: white;
+    }
+
+    .nav-hints-panel h2 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-hints-panel .subtitle {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.55);
+      margin-bottom: 28px;
+    }
+
+    .hint-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .hint-row:last-of-type {
+      border-bottom: none;
+    }
+
+    .hint-icon-box {
+      flex-shrink: 0;
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: rgba(0, 144, 192, 0.2);
+      border: 1px solid rgba(0, 144, 192, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: #4dcfff;
+    }
+
+    .hint-text strong {
+      display: block;
+      font-size: 16px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 3px;
+    }
+
+    .hint-text span {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.55);
+    }
+
+    .hint-keys {
+      margin-left: auto;
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .key {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-bottom: 3px solid rgba(255, 255, 255, 0.2);
+      border-radius: 7px;
+      padding: 4px 10px;
+      font-size: 13px;
+      font-weight: 600;
+      min-width: 36px;
+      color: #fff;
+    }
+
+    .nav-hints-panel .dismiss-btn {
+      margin-top: 28px;
+      width: 100%;
+      padding: 14px;
+      background: #0090C0;
+      border: none;
+      border-radius: 12px;
+      color: white;
+      font-size: 16px;
+      font-weight: 700;
+      font-family: 'Roboto', sans-serif;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .nav-hints-panel .dismiss-btn:hover {
+      background: #007aad;
+    }
+
     /* Close button */
     .close-btn {
       position: fixed;
@@ -221,16 +415,73 @@
     <button onclick="prev()" id="btnPrev" title="Anterior"><i class="fa-solid fa-chevron-left"></i></button>
     <div class="nav-dots" id="navDots"></div>
     <button onclick="next()" id="btnNext" title="Próximo"><i class="fa-solid fa-chevron-right"></i></button>
-    <span class="page-info" id="pageInfo">1 / 33</span>
+    <span class="page-info" id="pageInfo">1 / 35</span>
+    <button class="help-btn" id="helpBtn" onclick="toggleHints()"><i class="fa-solid fa-circle-question"></i>
+    </button>
   </div>
 
+  <a class="pdf-btn" href="relatorio.html" target="_blank" rel="noopener noreferrer"><i
+      class="fa-solid fa-file-pdf"></i> Baixar PDF</a>
   <button class="close-btn" onclick="closePresentation()" title="Fechar apresentação"><i
       class="fa-solid fa-xmark"></i></button>
   <button class="fs-btn" onclick="toggleFullscreen()" title="Tela Cheia (F)"><i class="fa-solid fa-expand"
       id="fsIcon"></i></button>
 
+  <div class="nav-hints-overlay" id="navHints">
+    <div class="nav-hints-panel">
+      <h2><i class="fa-solid fa-circle-question" style="color:#0090C0;"></i> Como navegar a apresentação</h2>
+      <p class="subtitle">Use o teclado ou o mouse para avançar entre os slides.</p>
+
+      <div class="hint-row">
+        <div class="hint-icon-box"><i class="fa-solid fa-arrow-right"></i></div>
+        <div class="hint-text">
+          <strong>Avançar slide</strong>
+          <span>Clique na área à direita do slide, ou pressione:</span>
+        </div>
+        <div class="hint-keys">
+          <span class="key">→</span>
+          <span class="key">Espaço</span>
+        </div>
+      </div>
+
+      <div class="hint-row">
+        <div class="hint-icon-box"><i class="fa-solid fa-arrow-left"></i></div>
+        <div class="hint-text">
+          <strong>Voltar slide</strong>
+          <span>Clique na área à esquerda do slide, ou pressione:</span>
+        </div>
+        <div class="hint-keys">
+          <span class="key">←</span>
+        </div>
+      </div>
+
+      <div class="hint-row">
+        <div class="hint-icon-box"><i class="fa-solid fa-expand"></i></div>
+        <div class="hint-text">
+          <strong>Tela cheia</strong>
+          <span>Ocupa a tela inteira para melhor visualização.</span>
+        </div>
+        <div class="hint-keys">
+          <span class="key">F</span>
+        </div>
+      </div>
+
+      <div class="hint-row">
+        <div class="hint-icon-box"
+          style="background:rgba(242,169,0,0.2); border-color:rgba(242,169,0,0.4); color:#f2a900;"><i
+            class="fa-solid fa-file-pdf"></i></div>
+        <div class="hint-text">
+          <strong>Baixar PDF</strong>
+          <span>Botão amarelo no canto superior direito — abre versão para impressão.</span>
+        </div>
+      </div>
+
+      <button class="dismiss-btn" onclick="toggleHints()">Entendido</button>
+    </div>
+  </div>
+
   <script>
-    const total = 33;
+    const total = 35;
     const frame = document.getElementById('slideFrame');
     let current = 1;
 
@@ -310,6 +561,24 @@
     document.getElementById('clickRight').addEventListener('click', () => next());
 
     render();
+
+    // Nav hints modal
+    const navHints = document.getElementById('navHints');
+    const helpBtn = document.getElementById('helpBtn');
+
+    function toggleHints() {
+      const open = navHints.classList.toggle('visible');
+      helpBtn.classList.toggle('active', open);
+    }
+
+    // Close overlay clicking outside the panel
+    navHints.addEventListener('click', (e) => {
+      if (e.target === navHints) toggleHints();
+    });
+
+    // Show automatically on first load
+    navHints.classList.add('visible');
+    helpBtn.classList.add('active');
 
     // Scale iframe to fit stage
     const stage = document.querySelector('.stage');

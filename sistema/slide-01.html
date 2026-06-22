@@ -1,4 +1,12 @@
 <!DOCTYPE html>
+<!--
+  ╔══════════════════════════════════════════════════════════════╗
+  ║  SLIDE 01 — Capa e Sumário da apresentação — slide de abertura com índice clicável
+  ╠══════════════════════════════════════════════════════════════╣
+  ║  O QUE ATUALIZAR A CADA TRIMESTRE:
+  ║  Atualizar: ano/trimestre no título cover-sub; verificar goToSlide() se mudar nº de slides; adicionar animation-delay para novos itens do sumário
+  ╚══════════════════════════════════════════════════════════════╝
+-->
 
 <html lang="pt-BR">
 
@@ -234,17 +242,11 @@
             animation-delay: .36s;
         }
 
-        .sum-item:nth-child(8) {
-            animation-delay: .42s;
-        }
-
-        .sum-item:nth-child(9) {
-            animation-delay: .48s;
-        }
-
-        .sum-item:nth-child(10) {
-            animation-delay: .54s;
-        }
+        .sum-item:nth-child(8) { animation-delay: .42s; }
+        .sum-item:nth-child(9) { animation-delay: .48s; }
+        .sum-item:nth-child(10) { animation-delay: .54s; }
+        .sum-item:nth-child(11) { animation-delay: .60s; }
+        .sum-item:nth-child(12) { animation-delay: .66s; }
 
         .cover-title {
             transition: transform .3s ease;
@@ -292,6 +294,11 @@
                 <p class="cover-sub">Relatório Trimestral 2026</p>
                 <p class="cover-org">Agência Nacional de Transportes Aquaviários — ANTAQ</p>
 
+                <!-- ===== SUMÁRIO — atualizar se mudar nº de slides =====
+                 Cada goToSlide(N) aponta para o slide N.
+                 Se adicionar slides, atualize os números.
+                 Para novos itens, copie um .sum-item e ajuste.
+             ================================================== -->
                 <!-- Sumário -->
                 <div class="sumario">
                     <p class="sumario-label">Sumário</p>
@@ -299,7 +306,7 @@
                     <div class="sum-item" onclick="goToSlide(2)" style="cursor:pointer;">
                         <span class="sum-num">01</span>
                         <span class="sum-icon"><i class="fas fa-bullhorn"></i></span>
-                        <span class="sum-text">Apresentação</span>
+                        <span class="sum-text">Apresentação da Ouvidoria</span>
                     </div>
 
                     <div class="sum-item" onclick="goToSlide(4)" style="cursor:pointer;">
@@ -310,7 +317,7 @@
 
                     <div class="sum-item" onclick="goToSlide(8)" style="cursor:pointer;">
                         <span class="sum-num">03</span>
-                        <span class="sum-icon"><i class="fas fa-filter"></i></span>
+                        <span class="sum-icon"><i class="fas fa-fire"></i></span>
                         <span class="sum-text">Destaques do Trimestre</span>
                     </div>
 
@@ -323,31 +330,43 @@
                     <div class="sum-item" onclick="goToSlide(14)" style="cursor:pointer;">
                         <span class="sum-num">05</span>
                         <span class="sum-icon"><i class="fas fa-layer-group"></i></span>
-                        <span class="sum-text">Tipos e Canais de Manifestações</span>
+                        <span class="sum-text">Tipos e Canais de Atendimento</span>
                     </div>
 
                     <div class="sum-item" onclick="goToSlide(18)" style="cursor:pointer;">
                         <span class="sum-num">06</span>
-                        <span class="sum-icon"><i class="fas fa-unlock-keyhole"></i></span>
-                        <span class="sum-text">LAI · Transparência Passiva</span>
+                        <span class="sum-icon"><i class="fas fa-file-magnifying-glass"></i></span>
+                        <span class="sum-text">Pedidos de Acesso à Informação (LAI)</span>
                     </div>
 
                     <div class="sum-item" onclick="goToSlide(21)" style="cursor:pointer;">
                         <span class="sum-num">07</span>
                         <span class="sum-icon"><i class="fas fa-database"></i></span>
-                        <span class="sum-text">Transparência Ativa e Dados Abertos</span>
+                        <span class="sum-text">Dados Abertos</span>
+                    </div>
+
+                    <div class="sum-item" onclick="goToSlide(22)" style="cursor:pointer;">
+                        <span class="sum-num">08</span>
+                        <span class="sum-icon"><i class="fas fa-eye"></i></span>
+                        <span class="sum-text">Transparência Ativa</span>
                     </div>
 
                     <div class="sum-item" onclick="goToSlide(23)" style="cursor:pointer;">
-                        <span class="sum-num">08</span>
+                        <span class="sum-num">09</span>
+                        <span class="sum-icon"><i class="fas fa-file-shield"></i></span>
+                        <span class="sum-text">Transparência Passiva</span>
+                    </div>
+
+                    <div class="sum-item" onclick="goToSlide(25)" style="cursor:pointer;">
+                        <span class="sum-num">10</span>
                         <span class="sum-icon"><i class="fas fa-file-contract"></i></span>
                         <span class="sum-text">Carta de Serviços da ANTAQ</span>
                     </div>
 
-                    <div class="sum-item" onclick="goToSlide(26)" style="cursor:pointer;">
-                        <span class="sum-num">09</span>
+                    <div class="sum-item" onclick="goToSlide(28)" style="cursor:pointer;">
+                        <span class="sum-num">11</span>
                         <span class="sum-icon"><i class="fas fa-book"></i></span>
-                        <span class="sum-text">Glossário · Expediente · Links</span>
+                        <span class="sum-text">Glossário · Legislação · Encerramento</span>
                     </div>
                 </div>
             </div>

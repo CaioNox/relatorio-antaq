@@ -1,4 +1,14 @@
 <!DOCTYPE html>
+<!--
+  ╔══════════════════════════════════════════════════════════════╗
+  ║  index.html — PÁGINA INICIAL (portal de entrada)
+  ╠══════════════════════════════════════════════════════════════╣
+  ║  Esta é a primeira página que o usuário vê ao acessar o site.
+  ║  Exibe cards de acesso à apresentação e ao PDF.
+  ║  O QUE ATUALIZAR: ano/trimestre nos textos dos cards;
+  ║  adicionar novo card se houver nova seção no relatório.
+  ╚══════════════════════════════════════════════════════════════╝
+-->
 <html lang="pt-BR">
 
 <head>
@@ -184,6 +194,67 @@
 
     .cards .card:nth-child(3) {
       animation-delay: .2s;
+    }
+
+    .card-pdf {
+      border-left-color: #f2a900;
+    }
+
+    .card-pdf .card-icon {
+      background-color: #FEF3C7;
+      color: #f2a900;
+    }
+
+    .card-pdf:hover {
+      border-color: #f2a900;
+    }
+
+    .card-pdf .card-link {
+      color: #d97706;
+    }
+
+    .nav-hints {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+      padding: 10px 20px;
+      background: rgba(16, 48, 80, 0.45);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 999px;
+      max-width: 680px;
+    }
+
+    .nav-hint {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.7);
+      white-space: nowrap;
+    }
+
+    .nav-hint .key {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 5px;
+      padding: 1px 7px;
+      font-size: 11px;
+      min-width: 22px;
+    }
+
+    .nav-hint-sep {
+      width: 1px;
+      height: 14px;
+      background: rgba(255, 255, 255, 0.2);
     }
 
     @keyframes cardIn {
@@ -417,6 +488,45 @@
           <span class="card-link">Abrir apresentação <i class="fa-solid fa-arrow-right"></i></span>
         </div>
       </a>
+
+      <a class="card card-pdf" href="sistema/relatorio.html" target="_blank" rel="noopener noreferrer">
+        <div class="card-icon">
+          <i class="fa-solid fa-file-pdf"></i>
+        </div>
+        <div class="card-content">
+          <h2>Baixar em PDF</h2>
+          <p>Versão completa para impressão — abra e use Ctrl+P ou "Salvar como PDF".</p>
+          <span class="card-link">Abrir versão PDF <i class="fa-solid fa-arrow-right"></i></span>
+        </div>
+      </a>
+    </div>
+
+    <div class="nav-hints">
+      <span class="nav-hint">
+        <span class="key"><i class="fa-solid fa-arrow-left" style="font-size:9px;"></i></span>
+        <span class="key"><i class="fa-solid fa-arrow-right" style="font-size:9px;"></i></span>
+        Navegar slides
+      </span>
+      <span class="nav-hint-sep"></span>
+      <span class="nav-hint">
+        <span class="key">Espaço</span>
+        Próximo
+      </span>
+      <span class="nav-hint-sep"></span>
+      <span class="nav-hint">
+        <span class="key">Home</span>
+        Início
+      </span>
+      <span class="nav-hint-sep"></span>
+      <span class="nav-hint">
+        <span class="key">F</span>
+        Tela cheia
+      </span>
+      <span class="nav-hint-sep"></span>
+      <span class="nav-hint">
+        <i class="fa-solid fa-computer-mouse" style="opacity:.7;"></i>
+        Clique nas laterais
+      </span>
     </div>
   </div>
 

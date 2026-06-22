@@ -1,253 +1,284 @@
 <!DOCTYPE html>
+<!--
+  ╔══════════════════════════════════════════════════════════════╗
+  ║  SLIDE 31 — Legislação — Decretos relacionados à Ouvidoria
+  ╠══════════════════════════════════════════════════════════════╣
+  ║  O QUE ATUALIZAR A CADA TRIMESTRE:
+  ║  Atualizar se novo decreto for publicado
+  ╚══════════════════════════════════════════════════════════════╝
+-->
 
 <html lang="pt-BR">
 
 <head>
-  <meta charset="utf-8" />
-  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <title>Conclusão - Relatório Trimestral Ouvidoria ANTAQ</title>
-  <link rel="icon" type="image/png"
-    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&amp;family=Open+Sans:wght@400;600&amp;display=swap"
-    rel="stylesheet" />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
-  <style>
-    html {
-      font-size: 26px;
-    }
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Decretos - Relatório Trimestral Ouvidoria ANTAQ</title>
+    <link rel="icon" type="image/png"
+        href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&amp;family=Open+Sans:wght@400;600&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        html { font-size: 21px; }
 
-    body {
-      margin: 0;
-      padding: 0;
-      background-color: #f3f4f6;
-      overflow: hidden;
-    }
+        body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
 
-    .slide-container {
-      width: 100vw;
-      height: 100vh;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      background-color: #ffffff;
-      overflow: hidden;
-      font-family: 'Open Sans', sans-serif;
-    }
+        .slide-container {
+            width: 100vw; height: 100vh; position: relative;
+            display: flex; flex-direction: column;
+            background-color: #ffffff; overflow: hidden; font-family: 'Open Sans', sans-serif;
+        }
 
-    .font-montserrat {
-      font-family: 'Montserrat', sans-serif;
-    }
+        .font-montserrat { font-family: 'Montserrat', sans-serif; }
+        .text-brand-primary { color: #103050; }
+        .text-brand-secondary { color: #0070C0; }
+        .bg-brand-secondary { background-color: #0070C0; }
 
-    .text-brand-primary {
-      color: #103050;
-    }
+        .top-accent { height: 8px; background-color: #103050; width: 100%; }
+        .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
 
-    .text-brand-secondary {
-      color: #0070C0;
-    }
+        /* ===== Grade de quadros ===== */
+        .tile-grid { display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 1fr; gap: 1.2rem; }
 
-    .bg-brand-secondary {
-      background-color: #0070C0;
-    }
+        .tile {
+            position: relative; background: #fff; border: 2px solid #E2E8F0; border-radius: 16px;
+            padding: 1.3rem 1.4rem; cursor: pointer; text-align: left;
+            display: flex; flex-direction: column; gap: .7rem;
+            box-shadow: 0 6px 16px -8px rgba(16, 48, 80, .18);
+            transition: transform .25s cubic-bezier(.2, .7, .3, 1), box-shadow .25s ease, border-color .25s ease;
+            animation: fadeIn .5s ease both; font-family: 'Open Sans', sans-serif;
+        }
+        .tile:nth-child(2) { animation-delay: .06s } .tile:nth-child(3) { animation-delay: .12s }
+        .tile:nth-child(4) { animation-delay: .18s } .tile:nth-child(5) { animation-delay: .24s }
+        .tile:nth-child(6) { animation-delay: .30s }
+        .tile:hover { transform: translateY(-7px); border-color: #0070C0; box-shadow: 0 26px 46px -18px rgba(16, 48, 80, .34); }
+        .tile:focus-visible { outline: 3px solid #0090C0; outline-offset: 3px; }
 
-    .top-accent {
-      height: 8px;
-      background-color: #103050;
-      width: 100%;
-    }
+        .law-badge {
+            align-self: flex-start; text-align: center; border-radius: 13px;
+            background: linear-gradient(160deg, #0e3a66, #11598f); color: #fff;
+            padding: .6rem 1.1rem; font-family: 'Montserrat', sans-serif; line-height: 1; transition: transform .3s ease;
+        }
+        .tile:hover .law-badge { transform: scale(1.05); }
+        .law-badge .lb-label { display: block; font-size: .58rem; font-weight: 700; letter-spacing: .1em; opacity: .82; }
+        .law-badge .lb-num { display: block; font-size: 1.4rem; font-weight: 900; margin-top: .15rem; }
+        .law-badge .lb-year { display: block; font-size: .68rem; font-weight: 600; opacity: .85; margin-top: .15rem; }
 
-    .top-accent-secondary {
-      height: 4px;
-      background-color: #0070C0;
-      width: 100%;
-    }
+        .tile-name { color: #103050; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.08rem; line-height: 1.16; }
+        .tile-tag { color: #5b7185; font-size: .8rem; line-height: 1.28; }
+        .tile-more { margin-top: auto; color: #0070C0; font-size: .74rem; font-weight: 700; display: inline-flex; align-items: center; gap: .4rem; }
+        .tile:hover .tile-more { color: #0090C0; }
+        .tile-full { display: none; }
 
-    /* ===== Encerramento cerimonioso ===== */
-    .concl-title {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 900;
-      font-size: 2.8rem;
-      color: #103050;
-      line-height: 1;
-      text-align: center;
-      margin: 0;
-    }
+        /* ===== Overlay ===== */
+        .overlay { position: fixed; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center; padding: 5vh 8vw; background: rgba(16, 48, 80, .5); backdrop-filter: blur(3px); opacity: 0; pointer-events: none; transition: opacity .3s ease; }
+        .overlay.open { opacity: 1; pointer-events: auto; }
+        .overlay-card { position: relative; background: #fff; border-radius: 22px; max-width: 60rem; width: 100%; max-height: 82vh; overflow: hidden; box-shadow: 0 40px 90px -30px rgba(0, 0, 0, .6); border-top: 7px solid #0070C0; transform: scale(.88) translateY(12px); transition: transform .34s cubic-bezier(.2, .7, .3, 1); display: flex; flex-direction: column; }
+        .overlay.open .overlay-card { transform: scale(1) translateY(0); }
+        .overlay-head { display: flex; align-items: center; gap: 1.2rem; padding: 1.8rem 2.2rem 1.2rem 2.2rem; border-bottom: 1px solid #eef2f7; }
+        .ov-badge { flex-shrink: 0; text-align: center; border-radius: 15px; background: linear-gradient(160deg, #0e3a66, #11598f); color: #fff; padding: .7rem 1.2rem; font-family: 'Montserrat', sans-serif; line-height: 1; }
+        .ov-badge .lb-label { display: block; font-size: .58rem; font-weight: 700; letter-spacing: .1em; opacity: .82; }
+        .ov-badge .lb-num { display: block; font-size: 1.45rem; font-weight: 900; margin-top: .15rem; }
+        .ov-badge .lb-year { display: block; font-size: .68rem; font-weight: 600; opacity: .85; margin-top: .15rem; }
+        .ov-titles { min-width: 0; }
+        .ov-title { color: #103050; font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.4rem; line-height: 1.12; }
+        .ov-sub { color: #0070C0; font-size: .92rem; font-weight: 600; margin-top: .25rem; }
+        .overlay-body { padding: 1.5rem 2.2rem 2rem 2.2rem; overflow-y: auto; }
+        .ov-body p { color: #37475a; font-size: 1.05rem; line-height: 1.62; }
+        .ov-body p + p { margin-top: .9rem; }
+        .ov-body strong { color: #103050; }
+        .overlay-close { position: absolute; top: 1.1rem; right: 1.2rem; width: 2.7rem; height: 2.7rem; border-radius: 999px; border: none; background: #f0f4f8; color: #103050; font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background .2s ease, transform .25s ease; z-index: 2; }
+        .overlay-close:hover { background: #0070C0; color: #fff; transform: rotate(90deg); }
 
-    .concl-divider {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: .5rem;
-      margin: .9rem 0 .5rem;
-    }
+        .hint { display: inline-flex; align-items: center; gap: .5rem; color: #0070C0; font-size: .8rem; font-weight: 600; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+        .bg-pattern { position: absolute; bottom: -50px; right: -50px; width: 400px; height: 400px; opacity: 0.03; z-index: 0; color: #103050; }
 
-    .concl-divider .seg {
-      width: 34px;
-      height: 4px;
-      background: #0090C0;
-      border-radius: 2px;
-    }
-
-    .concl-divider .orn {
-      color: #F2A900;
-      font-size: .8rem;
-      line-height: 1;
-    }
-
-    .concl-sub {
-      font-family: 'Open Sans', sans-serif;
-      font-weight: 400;
-      font-style: italic;
-      font-size: 1.05rem;
-      color: #6b7280;
-      text-align: center;
-      margin: 0;
-    }
-
-    .concl-body {
-      max-width: 56rem;
-      margin: 0.8rem auto 0;
-    }
-
-    .concl-body p {
-      font-family: 'Open Sans', sans-serif;
-      font-weight: 400;
-      font-size: .92rem;
-      line-height: 1.5;
-      color: #374151;
-      margin: 0 0 .7rem 0;
-    }
-
-    /* ===== Callout do parágrafo final ===== */
-    .concl-callout {
-      position: relative;
-      background: linear-gradient(135deg, #f4f9ff 0%, #eaf3fb 100%);
-      border-left: 5px solid #0090C0;
-      padding: 1.1rem 1.6rem;
-      border-radius: 16px;
-      overflow: hidden;
-      margin-top: .3rem;
-    }
-
-    .concl-callout p {
-      font-family: 'Open Sans', sans-serif;
-      font-style: italic;
-      font-size: .95rem;
-      color: #1f2937;
-      line-height: 1.45;
-      margin: 0;
-      position: relative;
-      z-index: 1;
-    }
-
-    .concl-callout .quote-ico {
-      position: absolute;
-      top: .6rem;
-      right: 1rem;
-      font-size: 3rem;
-      color: #0090C0;
-      opacity: 0.25;
-      z-index: 0;
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(12px);
-      }
-
-      to {
-        opacity: 1;
-        transform: none;
-      }
-    }
-
-    .concl-title,
-    .concl-divider,
-    .concl-sub,
-    .concl-body {
-      animation: fadeInUp .5s cubic-bezier(.2, .7, .3, 1) both;
-    }
-
-    .concl-divider {
-      animation-delay: .08s;
-    }
-
-    .concl-sub {
-      animation-delay: .16s;
-    }
-
-    .concl-body {
-      animation-delay: .24s;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-
-      *,
-      *::before,
-      *::after {
-        animation: none !important;
-        transition: none !important;
-      }
-    }
-  </style>
+        /* Link para a fonte oficial (ao final do card) */
+        .ov-source { display:inline-flex; align-items:center; gap:.55rem; margin-top:1.3rem; background:linear-gradient(135deg,#103050,#0070C0); color:#fff !important; font-family:'Montserrat',sans-serif; font-weight:700; font-size:.95rem; text-decoration:none; padding:.75rem 1.4rem; border-radius:999px; box-shadow:0 12px 26px -10px rgba(16,48,80,.5); transition:transform .2s ease, box-shadow .2s ease; }
+        .ov-source:hover { transform:translateY(-2px); box-shadow:0 18px 32px -12px rgba(16,48,80,.6); }
+        .ov-source i { font-size:.85em; }
+    </style>
 </head>
 
 <body>
-  <div class="slide-container">
-    <div class="top-accent"></div>
-    <div class="top-accent-secondary"></div>
-    <!-- Header -->
-    <div class="flex items-center justify-between px-16 pt-7 pb-2 z-10">
-      <div>
-        <div class="flex items-center gap-3 mb-1">
-          <div class="w-1 h-8 bg-brand-secondary"></div>
-          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Conclusão</p>
+    <div class="slide-container">
+        <div class="top-accent"></div>
+        <div class="top-accent-secondary"></div>
+        <!-- Header -->
+        <div class="flex items-center justify-between px-16 pt-10 pb-3 z-10">
+            <div>
+                <div class="flex items-center gap-3 mb-2">
+                    <div class="w-1 h-8 bg-brand-secondary"></div>
+                    <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Decretos
+                    </p>
+                </div>
+                <p class="text-gray-500 font-medium ml-4 text-lg">Regulamentação do Sistema de Ouvidoria e da proteção ao
+                    denunciante — <span class="hint"><i class="fas fa-hand-pointer"></i> clique em um decreto para ler na
+                        íntegra</span></p>
+            </div>
+            <div class="flex items-center gap-2 opacity-80 text-brand-secondary">
+                <i class="fas fa-scroll text-xl" aria-hidden="true"></i>
+                <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">REGULAMENTAÇÃO</p>
+            </div>
         </div>
-        <p class="text-gray-500 font-medium ml-4 text-lg">Conclusão institucional do relatório</p>
-      </div>
-      <div class="flex items-center gap-2 opacity-80 text-brand-secondary">
-        <i class="fas fa-flag-checkered text-xl" aria-hidden="true"></i>
-        <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">ENCERRAMENTO ANALÍTICO</p>
-      </div>
+        <!-- Grade -->
+        <div class="flex-1 px-16 pb-10 pt-3 z-10">
+            <div class="tile-grid h-full">
+                <!-- Decreto 9.094/2017 -->
+                <button class="tile" onclick="openCard(this)"
+                    data-title="Simplificação do atendimento" data-sub="Decreto nº 9.094, de 17 de julho de 2017"
+                    data-badge='<span class="lb-label">DECRETO</span><span class="lb-num">9.094</span><span class="lb-year">2017</span>'>
+                    <span class="law-badge"><span class="lb-label">DECRETO</span><span class="lb-num">9.094</span><span
+                            class="lb-year">2017</span></span>
+                    <span class="tile-name">Simplificação do atendimento</span>
+                    <span class="tile-tag">Atendimento aos usuários de serviços públicos</span>
+                    <span class="tile-more"><i class="fas fa-up-right-and-down-left-from-center"></i> ampliar</span>
+                    <div class="tile-full">
+                        <p>Decreto nº 9.094, de 17 de julho de 2017 – Dispõe sobre a simplificação do atendimento
+                            prestado aos usuários dos serviços públicos.</p>
+                    
+                        <a class="ov-source" href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2017/decreto/d9094.htm" target="_blank" rel="noopener noreferrer"><i class="fas fa-up-right-from-square"></i> Ler na íntegra no Planalto</a>
+                    </div>
+                </button>
+                <!-- Decreto 9.492/2018 -->
+                <button class="tile" onclick="openCard(this)"
+                    data-title="Sistema de Ouvidoria do Poder Executivo federal" data-sub="Decreto nº 9.492, de 5 de setembro de 2018"
+                    data-badge='<span class="lb-label">DECRETO</span><span class="lb-num">9.492</span><span class="lb-year">2018</span>'>
+                    <span class="law-badge"><span class="lb-label">DECRETO</span><span class="lb-num">9.492</span><span
+                            class="lb-year">2018</span></span>
+                    <span class="tile-name">Sistema de Ouvidoria do PEF</span>
+                    <span class="tile-tag">Regulamenta a Lei nº 13.460/2017</span>
+                    <span class="tile-more"><i class="fas fa-up-right-and-down-left-from-center"></i> ampliar</span>
+                    <div class="tile-full">
+                        <p>Decreto nº 9.492, de 5 de setembro de 2018 – Regulamenta os procedimentos para a participação,
+                            a proteção e a defesa dos direitos do usuário de serviços públicos da administração pública
+                            federal, direta e indireta, de que trata a Lei nº 13.460, de 26 de junho de 2017, e institui
+                            o Sistema de Ouvidoria do Poder Executivo federal.</p>
+                    
+                        <a class="ov-source" href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/decreto/d9492.htm" target="_blank" rel="noopener noreferrer"><i class="fas fa-up-right-from-square"></i> Ler na íntegra no Planalto</a>
+                    </div>
+                </button>
+                <!-- Decreto 9.690/2019 -->
+                <button class="tile" onclick="openCard(this)"
+                    data-title="Alteração do regulamento da LAI" data-sub="Decreto nº 9.690, de 23 de janeiro de 2019"
+                    data-badge='<span class="lb-label">DECRETO</span><span class="lb-num">9.690</span><span class="lb-year">2019</span>'>
+                    <span class="law-badge"><span class="lb-label">DECRETO</span><span class="lb-num">9.690</span><span
+                            class="lb-year">2019</span></span>
+                    <span class="tile-name">Alteração do regulamento da LAI</span>
+                    <span class="tile-tag">Altera o Decreto nº 7.724/2012</span>
+                    <span class="tile-more"><i class="fas fa-up-right-and-down-left-from-center"></i> ampliar</span>
+                    <div class="tile-full">
+                        <p>Decreto nº 9.690, de 23 de janeiro de 2019 – Altera o Decreto nº 7.724, de 16 de maio de 2012,
+                            que regulamenta a Lei nº 12.527, de 18 de novembro de 2011 – Lei de Acesso à Informação.</p>
+                    
+                        <a class="ov-source" href="https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2019/decreto/d9690.htm" target="_blank" rel="noopener noreferrer"><i class="fas fa-up-right-from-square"></i> Ler na íntegra no Planalto</a>
+                    </div>
+                </button>
+                <!-- Decreto 10.153/2019 -->
+                <button class="tile" onclick="openCard(this)"
+                    data-title="Salvaguardas à identidade do denunciante" data-sub="Decreto nº 10.153, de 3 de dezembro de 2019"
+                    data-badge='<span class="lb-label">DECRETO</span><span class="lb-num">10.153</span><span class="lb-year">2019</span>'>
+                    <span class="law-badge"><span class="lb-label">DECRETO</span><span class="lb-num">10.153</span><span
+                            class="lb-year">2019</span></span>
+                    <span class="tile-name">Salvaguardas ao denunciante</span>
+                    <span class="tile-tag">Proteção à identidade do denunciante</span>
+                    <span class="tile-more"><i class="fas fa-up-right-and-down-left-from-center"></i> ampliar</span>
+                    <div class="tile-full">
+                        <p>Decreto nº 10.153, de 3 de dezembro de 2019 - Dispõe sobre as salvaguardas de proteção à
+                            identidade dos denunciantes de ilícitos e de irregularidades praticados contra a
+                            administração pública federal direta e indireta e altera o Decreto n° 9.492, de 5 de setembro
+                            de 2018.</p>
+                    
+                        <a class="ov-source" href="https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2019/decreto/d10153.htm" target="_blank" rel="noopener noreferrer"><i class="fas fa-up-right-from-square"></i> Ler na íntegra no Planalto</a>
+                    </div>
+                </button>
+                <!-- Decreto 10.890/2021 -->
+                <button class="tile" onclick="openCard(this)"
+                    data-title="Proteção ao denunciante" data-sub="Decreto nº 10.890, de 9 de dezembro de 2021"
+                    data-badge='<span class="lb-label">DECRETO</span><span class="lb-num">10.890</span><span class="lb-year">2021</span>'>
+                    <span class="law-badge"><span class="lb-label">DECRETO</span><span class="lb-num">10.890</span><span
+                            class="lb-year">2021</span></span>
+                    <span class="tile-name">Proteção ao denunciante</span>
+                    <span class="tile-tag">Altera os Decretos 9.492/2018 e 10.153/2019</span>
+                    <span class="tile-more"><i class="fas fa-up-right-and-down-left-from-center"></i> ampliar</span>
+                    <div class="tile-full">
+                        <p>Decreto nº 10.890, de 9 de dezembro de 2021 - Altera o Decreto nº 9.492, de 5 de setembro de
+                            2018, e o Decreto nº 10.153, de 3 de dezembro de 2019, para dispor sobre a proteção ao
+                            denunciante de ilícitos e de irregularidades praticados contra a administração pública
+                            federal direta e indireta.</p>
+                    
+                        <a class="ov-source" href="https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2019/decreto/d10153.htm" target="_blank" rel="noopener noreferrer"><i class="fas fa-up-right-from-square"></i> Ler na íntegra no Planalto</a>
+                    </div>
+                </button>
+                <!-- Decreto 10.889/2021 -->
+                <button class="tile" onclick="openCard(this)"
+                    data-title="eAgendas — agenda de compromissos públicos" data-sub="Decreto nº 10.889, de 9 de dezembro de 2021"
+                    data-badge='<span class="lb-label">DECRETO</span><span class="lb-num">10.889</span><span class="lb-year">2021</span>'>
+                    <span class="law-badge"><span class="lb-label">DECRETO</span><span class="lb-num">10.889</span><span
+                            class="lb-year">2021</span></span>
+                    <span class="tile-name">eAgendas</span>
+                    <span class="tile-tag">Agenda de compromissos públicos</span>
+                    <span class="tile-more"><i class="fas fa-up-right-and-down-left-from-center"></i> ampliar</span>
+                    <div class="tile-full">
+                        <p>Decreto nº 10.889, de 9 de dezembro de 2021 - Dispõe sobre a divulgação da agenda de
+                            compromissos públicos e a participação de agentes públicos, no âmbito do Poder Executivo
+                            federal, em audiências e sobre a concessão de hospitalidades por agente privado, e institui o
+                            Sistema Eletrônico de Agendas do Poder Executivo federal - eAgendas.</p>
+                    
+                        <a class="ov-source" href="https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/decreto/d10889.htm" target="_blank" rel="noopener noreferrer"><i class="fas fa-up-right-from-square"></i> Ler na íntegra no Planalto</a>
+                    </div>
+                </button>
+            </div>
+        </div>
+        <!-- Footer -->
+        <div class="px-16 pb-8 flex justify-between items-center z-10">
+            <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ</p>
+            <p class="text-gray-300 text-xs font-mono">31 / 35</p>
+        </div>
+        <div class="bg-pattern"><i class="fas fa-scroll text-9xl"></i></div>
     </div>
-    <!-- Main Content -->
-    <div class="flex-1 flex flex-col justify-center px-16 pb-3 z-10" style="min-height:0;">
-      <h1 class="concl-title">Conclusão</h1>
-      <div class="concl-divider">
-        <span class="seg"></span><span class="orn">◆</span><span class="seg"></span>
-      </div>
-      <p class="concl-sub">Síntese do 1º Trimestre de 2026</p>
 
-      <div class="concl-body">
-        <p>O primeiro trimestre de 2026 reafirmou a relevância da Ouvidoria da ANTAQ como instrumento de diálogo entre a
-          sociedade e a Administração Pública, contribuindo para o fortalecimento da transparência, da participação
-          social e da melhoria contínua dos serviços prestados pela Agência.</p>
-        <p>Os dados apresentados demonstram o compromisso institucional com o adequado tratamento das manifestações, com
-          o acesso à informação e com a promoção da transparência pública.</p>
-        <p>Além de assegurar o atendimento aos usuários, a Ouvidoria desempenha papel estratégico na produção de
-          informações qualificadas capazes de subsidiar a tomada de decisão, identificar tendências, apoiar a gestão e
-          promover o aperfeiçoamento dos serviços regulados.</p>
-        <p>Nesse contexto, o monitoramento permanente dos indicadores, aliado à análise qualitativa das manifestações
-          recebidas, contribui para o fortalecimento da governança institucional e para o aperfeiçoamento contínuo da
-          atuação da ANTAQ.</p>
-        <div class="concl-callout">
-          <i class="fas fa-quote-left quote-ico"></i>
-          <p>Por fim, a Ouvidoria reafirma seu compromisso com a escuta ativa da sociedade, a defesa dos direitos dos
-            usuários, a transparência pública e a busca permanente pela excelência na prestação dos serviços públicos.
-          </p>
+    <!-- Overlay -->
+    <div class="overlay" id="overlay" onclick="closeCard(event)">
+        <div class="overlay-card" role="dialog" aria-modal="true" onclick="event.stopPropagation()">
+            <button class="overlay-close" onclick="closeCard(event)" aria-label="Fechar"><i class="fas fa-xmark"></i></button>
+            <div class="overlay-head">
+                <span class="ov-badge"></span>
+                <span class="ov-titles">
+                    <span class="ov-title block"></span>
+                    <span class="ov-sub block"></span>
+                </span>
+            </div>
+            <div class="overlay-body">
+                <div class="ov-body"></div>
+            </div>
         </div>
-      </div>
     </div>
-    <!-- Footer -->
-    <div class="px-16 pb-6 pt-1 flex justify-between items-center z-10">
-      <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ</p>
-      <p class="text-gray-300 text-xs font-mono">31 / 33</p>
-    </div>
-  </div>
-  <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
+
+    <script>
+        var overlay = document.getElementById('overlay');
+        function openCard(tile) {
+            overlay.querySelector('.ov-badge').innerHTML = tile.dataset.badge || '';
+            overlay.querySelector('.ov-title').textContent = tile.dataset.title || '';
+            overlay.querySelector('.ov-sub').textContent = tile.dataset.sub || '';
+            overlay.querySelector('.ov-body').innerHTML = tile.querySelector('.tile-full').innerHTML;
+            overlay.querySelector('.overlay-body').scrollTop = 0;
+            overlay.classList.add('open');
+        }
+        function closeCard(e) { if (e) e.stopPropagation(); overlay.classList.remove('open'); }
+        document.addEventListener("keydown", function (e) {
+            if (e.key === 'Escape') { if (overlay.classList.contains('open')) { e.preventDefault(); closeCard(); } return; }
+            if (overlay.classList.contains('open')) return;
+            if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) {
+                e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*");
+            }
+        });
+    </script>
 </body>
 
 </html>

@@ -1,4 +1,12 @@
 <!DOCTYPE html>
+<!--
+  ╔══════════════════════════════════════════════════════════════╗
+  ║  SLIDE 20 — Histórico comparativo de pedidos LAI — 1º trimestre por ano
+  ╠══════════════════════════════════════════════════════════════╣
+  ║  O QUE ATUALIZAR A CADA TRIMESTRE:
+  ║  Atualizar: adicionar novo ano no INÍCIO dos arrays labels[] e data[] (mais recente primeiro); atualizar os KPI cards na coluna direita
+  ╚══════════════════════════════════════════════════════════════╝
+-->
 
 <html lang="pt-BR">
 
@@ -223,11 +231,21 @@
         <p class="chart-note"><i class="fas fa-circle-info"></i><span>O comparativo histórico demonstra a evolução da
             demanda por transparência pública e permite avaliar tendências de acesso à informação.</span></p>
       </div>
-      <!-- KPIs por ano -->
+      <!-- ===== DADOS — atualizar a cada trimestre =====
+         Adicione o NOVO trimestre no INÍCIO da lista (hk-feat).
+         Mova o que era hk-feat para hist-kpi normal.
+         Atualize também labels[] e data[] no Chart.js abaixo.
+     ================================================= -->
+      <!-- KPIs por ano — ordem: mais recente primeiro -->
       <div class="col-span-1 flex flex-col gap-3" style="min-height:0;">
+        <div class="hist-kpi hk-feat">
+          <p class="hk-year">1º Tri 2026</p>
+          <p class="hk-val">130</p>
+          <p class="hk-label">pedidos</p>
+        </div>
         <div class="hist-kpi">
-          <p class="hk-year">1º Tri 2023</p>
-          <p class="hk-val">62</p>
+          <p class="hk-year">1º Tri 2025</p>
+          <p class="hk-val">107</p>
           <p class="hk-label">pedidos</p>
         </div>
         <div class="hist-kpi">
@@ -236,13 +254,8 @@
           <p class="hk-label">pedidos</p>
         </div>
         <div class="hist-kpi">
-          <p class="hk-year">1º Tri 2025</p>
-          <p class="hk-val">107</p>
-          <p class="hk-label">pedidos</p>
-        </div>
-        <div class="hist-kpi hk-feat">
-          <p class="hk-year">1º Tri 2026</p>
-          <p class="hk-val">130</p>
+          <p class="hk-year">1º Tri 2023</p>
+          <p class="hk-val">62</p>
           <p class="hk-label">pedidos</p>
         </div>
       </div>
@@ -250,7 +263,7 @@
     <!-- Footer -->
     <div class="px-16 pb-6 pt-1 flex justify-between items-center z-10">
       <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ</p>
-      <p class="text-gray-300 text-xs font-mono">20 / 33</p>
+      <p class="text-gray-300 text-xs font-mono">20 / 35</p>
     </div>
   </div>
   <script>
@@ -270,13 +283,13 @@
         ctx.restore();
       }
     };
-    // Borda 3px âmbar no topo da última barra (2026)
+    // Borda 3px âmbar no topo da primeira barra (2026, agora na posição 0)
     const lastBarTop = {
       id: 'lastBarTop',
       afterDatasetsDraw(chart) {
         const meta = chart.getDatasetMeta(0);
         if (!meta.data.length) return;
-        const bar = meta.data[meta.data.length - 1];
+        const bar = meta.data[0];
         const half = bar.width / 2;
         const { ctx } = chart;
         ctx.save();
@@ -292,10 +305,10 @@
     new Chart(document.getElementById('chartLaiHist'), {
       type: 'bar',
       data: {
-        labels: ['1ºT 2023', '1ºT 2024', '1ºT 2025', '1ºT 2026'],
+        labels: ['1ºT 2026', '1ºT 2025', '1ºT 2024', '1ºT 2023'],
         datasets: [{
-          data: [62, 105, 107, 130],
-          backgroundColor: ['#C0E0F0', '#90C8E5', '#5AAFD8', '#0090C0'],
+          data: [130, 107, 105, 62],
+          backgroundColor: ['#0090C0', '#5AAFD8', '#90C8E5', '#C0E0F0'],
           borderRadius: 8,
           maxBarThickness: 80
         }]
