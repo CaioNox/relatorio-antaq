@@ -5,15 +5,13 @@
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <title>Tipos de Manifestações - Relatório Trimestral Ouvidoria ANTAQ</title>
-  <link rel="icon" type="image/png"
-    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <title>Destaques do Trimestre - Relatório Trimestral Ouvidoria ANTAQ</title>
+
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
   <link
     href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&amp;family=Open+Sans:wght@400;600&amp;display=swap"
     rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     html {
       font-size: 26px;
@@ -23,17 +21,18 @@
       margin: 0;
       padding: 0;
       background-color: #f3f4f6;
-      overflow: hidden;
+      overflow-x: hidden;
+      overflow-y: auto;
     }
 
     .slide-container {
       width: 100vw;
-      height: 100vh;
+      min-height: 100vh;
       position: relative;
       display: flex;
       flex-direction: column;
       background-color: #ffffff;
-      overflow: hidden;
+      overflow: visible;
       font-family: 'Open Sans', sans-serif;
     }
 
@@ -65,81 +64,342 @@
       width: 100%;
     }
 
-    /* ===== Interatividade ===== */
-    .chart-card,
-    .canal-card,
-    .period-chip,
-    .video-frame,
-    .kpi-card,
-    .glossary-card,
-    .exp-group,
-    .highlight-card {
-      transition: transform .28s cubic-bezier(.2, .7, .3, 1), box-shadow .28s ease, border-color .28s ease, background-color .28s ease;
+    /* ===================== CHIPS DE FILTRO ===================== */
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .45rem;
+      margin-top: .7rem;
     }
 
-    .chart-card:hover,
-    .canal-card:hover,
-    .period-chip:hover,
-    .video-frame:hover {
-      transform: translateY(-7px);
-      box-shadow: 0 22px 42px -12px rgba(16, 48, 80, .30);
-      border-color: #0070C0;
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      border: 2px solid var(--c);
+      color: var(--c);
+      background: transparent;
+      border-radius: 999px;
+      padding: .4rem .85rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: .64rem;
+      letter-spacing: .015em;
+      cursor: pointer;
+      opacity: .5;
+      transition: background-color 200ms ease, color 200ms ease, opacity 200ms ease,
+        box-shadow 200ms ease, transform 200ms ease;
+      white-space: nowrap;
+      line-height: 1;
     }
 
-    .highlight-card:hover {
-      transform: translateY(-7px);
-      box-shadow: 0 26px 50px -14px rgba(16, 48, 80, .55);
+    .chip i {
+      font-size: .68rem;
     }
 
-    .glossary-card:hover {
-      transform: translateY(-7px);
-      border-color: #0070C0;
-      box-shadow: 0 22px 42px -12px rgba(0, 112, 192, .32);
+    .chip b {
+      font-weight: 900;
+      font-size: .56rem;
+      background: color-mix(in srgb, var(--c) 14%, #ffffff);
+      color: var(--c);
+      border-radius: 999px;
+      padding: .14rem .4rem;
+      line-height: 1;
+      transition: background-color 200ms ease, color 200ms ease;
     }
 
-    .glossary-icon {
-      transition: transform .3s ease;
+    .chip:hover {
+      opacity: .85;
+      transform: translateY(-2px);
     }
 
-    .glossary-card:hover .glossary-icon {
-      transform: scale(1.12) rotate(-6deg);
+    .chip.active {
+      background: var(--c);
+      color: #ffffff;
+      opacity: 1;
+      box-shadow: 0 8px 18px -8px color-mix(in srgb, var(--c) 70%, transparent);
     }
 
-    .kpi-card:hover {
-      transform: translateY(-9px) scale(1.018);
-      box-shadow: 0 30px 58px -16px rgba(16, 48, 80, .6);
+    .chip.active b {
+      background: rgba(255, 255, 255, .25);
+      color: #ffffff;
     }
 
-    .kpi-watermark {
-      transition: transform .4s ease, opacity .4s ease;
+    /* botão de zerar filtros */
+    .chip-reset {
+      display: inline-flex;
+      align-items: center;
+      gap: .42rem;
+      border: 2px dashed #cbd5e1;
+      color: #64748b;
+      background: transparent;
+      border-radius: 999px;
+      padding: .4rem .85rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: .64rem;
+      cursor: pointer;
+      transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease,
+        opacity 200ms ease, transform 200ms ease;
+      white-space: nowrap;
+      line-height: 1;
     }
 
-    .kpi-card:hover .kpi-watermark {
-      transform: scale(1.12);
-      opacity: .2;
+    .chip-reset:hover {
+      color: #103050;
+      border-color: #103050;
+      background: #f1f5f9;
+      transform: translateY(-2px);
     }
 
-    .exp-group:hover {
-      transform: translateX(5px);
+    .chip-reset:disabled {
+      opacity: .35;
+      cursor: default;
+      transform: none;
+      background: transparent;
+      color: #64748b;
+      border-color: #cbd5e1;
     }
 
-    @keyframes fadeIn {
+    /* instrução de uso */
+    .hint-line {
+      margin-top: .5rem;
+      font-size: .56rem;
+      color: #94a3b8;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+    }
+
+    .hint-line i {
+      color: #0090C0;
+      font-size: .62rem;
+    }
+
+    /* estado vazio do gráfico (0%) */
+    .empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: .6rem;
+      color: #94a3b8;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: .8rem;
+      padding: 2.5rem 0;
+      animation: fadeInRow .45s cubic-bezier(.2, .7, .3, 1) both;
+    }
+
+    .empty-state i {
+      font-size: 1.6rem;
+      color: #cbd5e1;
+    }
+
+    /* ===================== CONTADOR ODÔMETRO ===================== */
+    .counter {
+      text-align: right;
+      flex-shrink: 0;
+      margin-left: 1.2rem;
+    }
+
+    .odo {
+      --step: 1.18em;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 2.8rem;
+      color: #103050;
+      line-height: 1;
+    }
+
+    .odo-col {
+      display: block;
+      height: var(--step);
+      overflow: hidden;
+      width: .72em;
+    }
+
+    .odo-strip {
+      display: block;
+      will-change: transform;
+    }
+
+    .odo-strip span {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: var(--step);
+      line-height: 1;
+    }
+
+    .odo-sep {
+      display: flex;
+      align-items: center;
+      height: var(--step);
+      line-height: 1;
+    }
+
+    .odo-pct {
+      font-size: 1.5rem;
+      margin-left: .08em;
+      color: #103050;
+      align-self: center;
+      margin-top: .35em;
+    }
+
+    .counter .cap {
+      font-size: .55rem;
+      color: #94a3b8;
+      font-weight: 600;
+      margin-top: .25rem;
+      letter-spacing: .02em;
+    }
+
+    /* ===================== CARD DO GRÁFICO ===================== */
+    .chart-card {
+      background-color: #ffffff;
+      border: 2px solid #E2E8F0;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px -8px rgba(16, 48, 80, 0.18);
+      padding: 1.1rem 1.5rem 1.2rem;
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+    }
+
+    .chart-cap {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: .85rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      padding-bottom: .55rem;
+      margin-bottom: .55rem;
+      border-bottom: 1px solid #eef2f7;
+      flex-shrink: 0;
+      transition: color 250ms ease;
+    }
+
+    /* ===================== BARRAS ===================== */
+    .rows {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: .55rem;
+      min-height: 0;
+    }
+
+    .bar-row {
+      display: flex;
+      align-items: center;
+      gap: .7rem;
+      animation: fadeInRow .45s cubic-bezier(.2, .7, .3, 1) both;
+    }
+
+    @keyframes fadeInRow {
       from {
         opacity: 0;
+        transform: translateX(-12px);
       }
 
       to {
         opacity: 1;
+        transform: none;
       }
     }
 
-    .chart-card,
-    .kpi-card,
-    .glossary-card,
-    .canal-card,
-    .period-chip,
-    .highlight-card {
-      animation: fadeIn .5s ease both;
+    .bar-label {
+      width: 340px;
+      flex-shrink: 0;
+      font-family: 'Open Sans', sans-serif;
+      font-weight: 600;
+      color: #103050;
+      font-size: .8rem;
+      line-height: 1.15;
+      text-align: right;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .bar-track {
+      flex: 1;
+      height: 1.05rem;
+      background: #eef2f7;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      width: 0;
+      border-radius: 999px;
+      transition: width 600ms cubic-bezier(.2, .7, .3, 1);
+    }
+
+    .bar-val {
+      width: 2.6rem;
+      flex-shrink: 0;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: .85rem;
+      text-align: left;
+      line-height: 1;
+    }
+
+    /* densidade — fontes/alturas se ajustam ao nº de barras (a página pode rolar) */
+    .rows[data-density="2"] {
+      gap: .42rem;
+    }
+
+    .rows[data-density="2"] .bar-label {
+      font-size: .72rem;
+    }
+
+    .rows[data-density="2"] .bar-track {
+      height: .85rem;
+    }
+
+    .rows[data-density="2"] .bar-val {
+      font-size: .76rem;
+    }
+
+    .rows[data-density="3"] {
+      gap: .34rem;
+    }
+
+    .rows[data-density="3"] .bar-label {
+      font-size: .64rem;
+    }
+
+    .rows[data-density="3"] .bar-track {
+      height: .7rem;
+    }
+
+    .rows[data-density="3"] .bar-val {
+      font-size: .68rem;
+    }
+
+    .rows[data-density="4"] {
+      gap: .28rem;
+    }
+
+    .rows[data-density="4"] .bar-label {
+      font-size: .58rem;
+    }
+
+    .rows[data-density="4"] .bar-track {
+      height: .58rem;
+    }
+
+    .rows[data-density="4"] .bar-val {
+      font-size: .62rem;
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -151,22 +411,6 @@
         transition: none !important;
       }
     }
-
-    .chart-card {
-      background-color: #ffffff;
-      border: 2px solid #E2E8F0;
-      border-radius: 16px;
-      box-shadow: 0 8px 20px -8px rgba(16, 48, 80, 0.18);
-      padding: 1rem 1.3rem;
-    }
-
-    .highlight-card {
-      background: linear-gradient(180deg, #103050 0%, #0070C0 100%);
-      border-radius: 16px;
-      color: #fff;
-      padding: 1.3rem 1.5rem;
-      box-shadow: 0 12px 28px -10px rgba(16, 48, 80, 0.45);
-    }
   </style>
 </head>
 
@@ -174,96 +418,389 @@
   <div class="slide-container">
     <div class="top-accent"></div>
     <div class="top-accent-secondary"></div>
-    <!-- Header -->
-    <div class="flex items-center justify-between px-16 pt-8 pb-4 z-10">
-      <div>
-        <div class="flex items-center gap-3 mb-2">
+
+    <!-- ===================== ZONA SUPERIOR — header interativo ===================== -->
+    <div class="flex items-center justify-between px-16 pt-12 pb-4 z-10">
+      <div style="min-width:0;">
+        <div class="flex items-center gap-3 mb-1">
           <div class="w-1 h-8 bg-brand-secondary"></div>
-          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Tipos de
-            Manifestações</p>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Destaques do
+            Trimestre</p>
         </div>
-        <p class="text-gray-500 font-medium ml-4 text-lg">Distribuição por tipo no 1º trimestre de 2026</p>
+        <p class="text-gray-500 font-medium ml-4 text-lg">Filtre os temas · múltipla seleção · 304 manifestações · 1º
+          trimestre de 2026</p>
+        <!-- chips de filtro -->
+        <div class="chips ml-4" id="chips"></div>
+        <p class="hint-line ml-4"><i class="far fa-hand-pointer"></i> Um clique no tema exibe ou oculta suas demandas —
+          combine vários temas ou use “Exibir todas as demandas” para o panorama completo</p>
       </div>
-      <div class="flex items-center gap-2 opacity-80 text-brand-secondary">
-        <i class="fas fa-layer-group text-xl" aria-hidden="true"></i>
-        <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">TRIMESTRE</p>
+
+      <!-- contador de porcentagem -->
+      <div class="counter">
+        <div class="odo" id="odo"></div>
+        <p class="cap">do total de manifestações</p>
       </div>
     </div>
-    <!-- Main Content -->
-    <div class="flex-1 grid grid-cols-3 gap-8 px-16 pb-6 z-10">
-      <!-- Chart -->
-      <div class="chart-card col-span-2 flex flex-col">
-        <div class="flex-1 relative"><canvas id="chartTipos"></canvas></div>
-      </div>
-      <!-- Highlight -->
-      <div class="flex flex-col gap-5">
-        <div class="highlight-card">
-          <p class="text-blue-100 font-montserrat font-bold text-sm uppercase tracking-widest mb-1">Tipo mais frequente
-          </p>
-          <p class="font-montserrat font-black text-3xl mb-2">Denúncia</p>
-          <p class="font-montserrat font-black text-7xl leading-none mb-2">173</p>
-          <p class="text-blue-100 text-base leading-relaxed">Representa <strong>67%</strong> das manifestações
-            do trimestre.</p>
-        </div>
-        <div class="chart-card flex-1 flex flex-col justify-center">
-          <p class="text-gray-400 text-xs font-bold uppercase tracking-wide mb-3">Total por tipo · trimestre</p>
-          <div class="space-y-1.5 text-sm">
-            <div class="flex justify-between"><span class="text-gray-600">Denúncia</span><strong
-                class="text-brand-primary">173</strong></div>
-            <div class="flex justify-between"><span class="text-gray-600">Solicitação</span><strong
-                class="text-brand-primary">45</strong></div>
-            <div class="flex justify-between"><span class="text-gray-600">Reclamação</span><strong
-                class="text-brand-primary">34</strong></div>
-            <div class="flex justify-between"><span class="text-gray-600">Sugestão</span><strong
-                class="text-brand-primary">3</strong></div>
-            <div class="flex justify-between"><span class="text-gray-600">Elogio</span><strong
-                class="text-brand-primary">2</strong></div>
-            <div class="flex justify-between"><span class="text-gray-600">Simplifique</span><strong
-                class="text-brand-primary">1</strong></div>
-            <div class="flex justify-between border-t border-gray-200 pt-1.5 mt-1.5"><span
-                class="text-gray-500 font-semibold">Total</span><strong class="text-brand-secondary">258</strong></div>
-          </div>
-        </div>
+
+    <!-- ===================== ZONA INFERIOR — gráfico dinâmico ===================== -->
+    <div class="flex-1 px-16 pb-3 z-10" style="min-height:0;">
+      <div class="chart-card">
+        <p class="chart-cap" id="chartCap"></p>
+        <div class="rows" id="rows" data-density="1"></div>
       </div>
     </div>
+
     <!-- Footer -->
-    <div class="px-16 pt-1 pb-8 flex justify-between items-center z-10">
+    <div class="px-16 pb-8 flex justify-between items-center z-10">
       <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ</p>
-      <p class="text-gray-300 text-xs font-mono">8 / 25</p>
+      <p class="text-gray-300 text-xs font-mono">8 / 33</p>
     </div>
   </div>
+
   <script>
-    const labels = ['Reclamação', 'Solicitação', 'Denúncia', 'Sugestão', 'Elogio', 'Simplifique'];
-    const data = [34, 45, 173, 3, 2, 1];
-    const colors = data.map((_, i) => i === 2 ? '#103050' : '#0070C0');
-    const valueLabels = {
-      id: 'valueLabels',
-      afterDatasetsDraw(chart) {
-        const { ctx } = chart;
-        ctx.save();
-        ctx.font = '700 16px Montserrat, sans-serif';
-        ctx.fillStyle = '#103050';
-        ctx.textAlign = 'center';
-        chart.getDatasetMeta(0).data.forEach((bar, i) => {
-          ctx.fillText(chart.data.datasets[0].data[i], bar.x, bar.y - 8);
-        });
-        ctx.restore();
-      }
-    };
-    new Chart(document.getElementById('chartTipos'), {
-      type: 'bar',
-      data: { labels, datasets: [{ data, backgroundColor: colors, borderRadius: 6, maxBarThickness: 90 }] },
-      options: {
-        responsive: true, maintainAspectRatio: false,
-        layout: { padding: { top: 24 } },
-        plugins: { legend: { display: false }, tooltip: { enabled: false } },
-        scales: {
-          x: { grid: { display: false }, ticks: { color: '#374151', font: { size: 14, weight: '600' } } },
-          y: { beginAtZero: true, grid: { color: '#eef2f7' }, ticks: { color: '#9ca3af', font: { size: 12 } } }
-        }
+    /* ===================== DADOS (planilha oficial — 1º tri/2026, total 304) ===================== */
+    const TOTAL = 304;
+    const THEMES = [
+      {
+        id: 'tarifa', name: 'Cobrança Portuária Abusiva', short: 'Cobrança Portuária',
+        icon: 'fa-money-bill-trend-up', color: '#F2A900', total: 154,
+        subs: [
+          ['Detention/ Sobrestadia de Mercadorias', 56],
+          ['Tarifa Portuária Abusiva', 43],
+          ['Tarifa Portuária Abusiva - falta de Bookings/janelas para os navios', 21],
+          ['Tarifa portuária abusiva com Denúncia com Pedido de Medida Cautelar', 20],
+          ['Cobrança indevida de taxa', 7],
+          ['Demurrage - (Tarifa portuária abusiva)', 3],
+          ['Bloqueio de carga - (Tarifa portuária abusiva)', 3],
+          ['Desbloqueio de carga - tarifa portuária abusiva', 1]
+        ]
       },
-      plugins: [valueLabels]
+      {
+        id: 'diversos', name: 'Diversos — Solicitação', short: 'Diversos · Solicitação',
+        icon: 'fa-clipboard-list', color: '#10B981', total: 51,
+        subs: [
+          ['Solicitação de Informação', 8],
+          ['Solicitação de Providencias', 8],
+          ['Sistemas SAMA/EVTE/SIG/IDA/SDP/SOE/SEI', 8],
+          ['Curriculum Vitæ', 7],
+          ['Sugestão', 3],
+          ['Acesso à informação', 3],
+          ['Denúncia envolvendo servidores ou serviços', 2],
+          ['Elogio', 2],
+          ['Convite para participar de réu+3', 2],
+          ['Solicitação Judicial', 1],
+          ['NVOOC', 1],
+          ['Servidores da Antaq', 1],
+          ['Ordem Judicial', 1],
+          ['Concurso', 1],
+          ['Audiência Pública', 1],
+          ['Guarda portuária', 1],
+          ['Mão de obra portuária avulsa – OGMO', 1]
+        ]
+      },
+      {
+        id: 'regport', name: 'Regulação Portuária', short: 'Reg. Portuária',
+        icon: 'fa-anchor', color: '#0090C0', total: 41,
+        subs: [
+          ['Serviços Portuários/ Acesso /funcionamento', 15],
+          ['Irregularidade nas Instalações Portuárias', 12],
+          ['TUP', 3],
+          ['Empresa Autorizada pela ANTAQ', 3],
+          ['Concorrência Desleal', 3],
+          ['Denúncia envolvendo Portos Delegados', 3],
+          ['Regulação Portuária', 1],
+          ['Denúncia envolvendo Autoridade Portuária', 1]
+        ]
+      },
+      {
+        id: 'navint', name: 'Serviços na Navegação Interior', short: 'Nav. Interior',
+        icon: 'fa-ship', color: '#6366F1', total: 37,
+        subs: [
+          ['Empresa irregular', 14],
+          ['Navegação – Serviços de embarque, bilhete e equipamentos', 11],
+          ['Outorgas', 5],
+          ['Navegação - Atraso e superlotação', 4],
+          ['Gratuidade para idoso', 2],
+          ['Recusa do Passe Livre', 1]
+        ]
+      },
+      {
+        id: 'navmar', name: 'Regulação na Navegação Marítima', short: 'Nav. Marítima',
+        icon: 'fa-compass', color: '#0EA5E9', total: 14,
+        subs: [
+          ['Direitos do Usuário na Navegação', 8],
+          ['Segurança da Navegação', 2],
+          ['Autorização na Navegação', 2],
+          ['Regulação na Navegação interior', 1],
+          ['Cabotagem', 1]
+        ]
+      },
+      {
+        id: 'fora', name: 'Jurisdição (Legislação) — Demandas fora do âmbito de atuação da Antaq', short: 'Fora do âmbito',
+        icon: 'fa-share-from-square', color: '#94A3B8', total: 4,
+        subs: [
+          ['Jurisdição - Questão de competência da ANTAQ', 3],
+          ['Turismo', 1]
+        ]
+      },
+      {
+        id: 'meioamb', name: 'Meio ambiente', short: 'Meio Ambiente',
+        icon: 'fa-leaf', color: '#22C55E', total: 3,
+        subs: [
+          ['Meio ambiente', 3]
+        ]
+      }
+    ];
+
+    const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const selected = new Set(THEMES.map(t => t.id)); // abre com tudo selecionado (panorama completo)
+
+    /* ===================== CHIPS ===================== */
+    const chipsWrap = document.getElementById('chips');
+    THEMES.forEach(t => {
+      const b = document.createElement('button');
+      b.className = 'chip';
+      b.dataset.id = t.id;
+      b.style.setProperty('--c', t.color);
+      b.title = t.name + ' — ' + t.total + ' manifestações';
+      b.innerHTML = '<i class="fas ' + t.icon + '"></i><span>' + t.short + '</span><b>' + t.total + '</b>';
+      b.addEventListener('click', () => toggleTheme(t.id));
+      chipsWrap.appendChild(b);
     });
+
+    // botão alternante: exibir todas as demandas ⇄ zerar tudo (0%)
+    const allBtn = document.createElement('button');
+    allBtn.className = 'chip-reset';
+    allBtn.id = 'allBtn';
+    allBtn.addEventListener('click', () => {
+      if (selected.size === THEMES.length) {
+        selected.clear();                          // zera literalmente tudo → 0%
+      } else {
+        THEMES.forEach(t => selected.add(t.id));   // seleciona todos os temas
+      }
+      update();
+    });
+    chipsWrap.appendChild(allBtn);
+
+    function toggleTheme(id) {
+      if (selected.has(id)) {
+        selected.delete(id); // pode chegar a zero — o painel mostra 0%
+      } else {
+        selected.add(id);
+      }
+      update();
+    }
+
+    function refreshChips() {
+      chipsWrap.querySelectorAll('.chip').forEach(c =>
+        c.classList.toggle('active', selected.has(c.dataset.id)));
+      const btn = document.getElementById('allBtn');
+      if (selected.size === THEMES.length) {
+        btn.innerHTML = '<i class="fas fa-eraser"></i><span>Zerar tudo</span>';
+        btn.title = 'Limpar toda a seleção — o painel mostra 0%';
+      } else {
+        btn.innerHTML = '<i class="fas fa-layer-group"></i><span>Exibir todas as demandas</span>';
+        btn.title = 'Selecionar todos os temas de uma vez';
+      }
+    }
+
+    /* ===================== BARRAS ===================== */
+    function makeRows(maxGroup) {
+      const sel = THEMES.filter(t => selected.has(t.id));
+      const rows = [];
+      sel.forEach(t => {
+        const keep = [], grp = [];
+        t.subs.forEach(([l, v]) => (maxGroup > 0 && v <= maxGroup ? grp : keep).push([l, v]));
+        if (grp.length >= 2) {
+          keep.forEach(([l, v]) => rows.push({ l, v, t }));
+          const sum = grp.reduce((s, [, v]) => s + v, 0);
+          const lbl = 'Outros (' + grp.length + ' itens)' + (sel.length > 1 ? ' · ' + t.short : '');
+          rows.push({ l: lbl, v: sum, t });
+        } else {
+          t.subs.forEach(([l, v]) => rows.push({ l, v, t }));
+        }
+      });
+      return rows;
+    }
+
+    function buildRows() {
+      let rows = makeRows(0);
+      if (rows.length > 16) rows = makeRows(1);
+      if (rows.length > 24) rows = makeRows(2);
+      rows.sort((a, b) => b.v - a.v || a.l.localeCompare(b.l, 'pt-BR'));
+      return rows;
+    }
+
+    function renderBars() {
+      const rows = buildRows();
+      const maxV = rows.length ? rows[0].v : 1;
+      const wrap = document.getElementById('rows');
+      wrap.innerHTML = '';
+      if (!rows.length) {
+        wrap.dataset.density = '1';
+        wrap.innerHTML = '<div class="empty-state"><i class="far fa-hand-pointer"></i>' +
+          '<span>Clique em um tema acima para exibir as demandas</span></div>';
+        return;
+      }
+      const n = rows.length;
+      wrap.dataset.density = n <= 8 ? '1' : n <= 13 ? '2' : n <= 20 ? '3' : '4';
+      rows.forEach((r, i) => {
+        const el = document.createElement('div');
+        el.className = 'bar-row';
+        el.style.animationDelay = (REDUCED ? 0 : i * 35) + 'ms';
+        el.innerHTML =
+          '<span class="bar-label" title="' + r.l.replace(/"/g, '&quot;') + ' · ' + r.t.name + '">' + r.l + '</span>' +
+          '<div class="bar-track"><div class="bar-fill" style="background:' + r.t.color + '"></div></div>' +
+          '<span class="bar-val" style="color:' + r.t.color + '">' + r.v + '</span>';
+        wrap.appendChild(el);
+        const fill = el.querySelector('.bar-fill');
+        const w = (r.v / maxV * 100) + '%';
+        if (REDUCED) { fill.style.width = w; }
+        else {
+          requestAnimationFrame(() => requestAnimationFrame(() => { fill.style.width = w; }));
+        }
+      });
+    }
+
+    /* ===================== LEGENDA DINÂMICA DO CARD ===================== */
+    function refreshCaption() {
+      const sel = THEMES.filter(t => selected.has(t.id));
+      const cap = document.getElementById('chartCap');
+      if (sel.length === 0) {
+        cap.style.color = '#94a3b8';
+        cap.innerHTML = '<i class="far fa-hand-pointer"></i> Nenhum tema selecionado — 0 manifestações';
+      } else if (sel.length === 1) {
+        const t = sel[0];
+        cap.style.color = t.color;
+        cap.innerHTML = '<i class="fas ' + t.icon + '"></i> ' + t.name + ' — ' + t.total + ' manifestações';
+      } else {
+        const sum = sel.reduce((s, t) => s + t.total, 0);
+        cap.style.color = '#475569';
+        cap.innerHTML = '<i class="fas fa-layer-group"></i> ' + sel.length +
+          ' temas selecionados — ' + sum + ' manifestações combinadas';
+      }
+    }
+
+    /* ===================== CONTADOR ODÔMETRO ===================== */
+    const odo = document.getElementById('odo');
+    let currentPct = null; // valor numérico atual
+
+    function digitsOf(pct) {
+      // "50,50" -> sem o símbolo %
+      return pct.toFixed(2).replace('.', ',');
+    }
+
+    function buildOdo(str, initDigits) {
+      // reconstrói as colunas; initDigits = dígitos iniciais (string alinhada, mesmo tamanho)
+      odo.innerHTML = '';
+      for (let i = 0; i < str.length; i++) {
+        const ch = str[i];
+        if (ch === ',') {
+          const sep = document.createElement('span');
+          sep.className = 'odo-sep';
+          sep.textContent = ',';
+          odo.appendChild(sep);
+        } else {
+          const col = document.createElement('span');
+          col.className = 'odo-col';
+          const strip = document.createElement('span');
+          strip.className = 'odo-strip';
+          let html = '';
+          for (let k = 0; k < 2; k++) for (let d = 0; d <= 9; d++) html += '<span>' + d + '</span>';
+          strip.innerHTML = html;
+          const d0 = parseInt(initDigits[i], 10) || 0;
+          strip.style.transform = odoY(d0);
+          col.appendChild(strip);
+          odo.appendChild(col);
+        }
+      }
+      const pct = document.createElement('span');
+      pct.className = 'odo-pct';
+      pct.textContent = '%';
+      odo.appendChild(pct);
+    }
+
+    function odoY(idx) {
+      return 'translateY(calc(' + (-idx) + ' * var(--step)))';
+    }
+
+    function animateCol(strip, fromD, toD, dir, delay) {
+      let startIdx, endIdx;
+      if (dir >= 0) {           // subindo: dígitos rolam para frente (de baixo para cima)
+        startIdx = fromD;
+        endIdx = toD > fromD ? toD : toD + 10;
+      } else {                  // descendo: dígitos rolam para trás (de cima para baixo)
+        startIdx = fromD + 10;
+        endIdx = toD < fromD ? toD + 10 : toD;
+      }
+      strip.style.transition = 'none';
+      strip.style.transform = odoY(startIdx);
+      strip.getBoundingClientRect(); // força reflow
+      strip.style.transition = 'transform 420ms cubic-bezier(0.2, 0.7, 0.3, 1) ' + delay + 'ms';
+      strip.style.transform = odoY(endIdx);
+      const snap = () => {
+        strip.style.transition = 'none';
+        strip.style.transform = odoY(endIdx % 10);
+        strip.removeEventListener('transitionend', snap);
+      };
+      strip.addEventListener('transitionend', snap);
+    }
+
+    function setCounter(newPct) {
+      const newStr = digitsOf(newPct);
+      if (currentPct === null || REDUCED) {
+        buildOdo(newStr, newStr.replace(',', '0').split('').map((c, i) => newStr[i] === ',' ? '0' : newStr[i]).join(''));
+        // inicial: posiciona direto nos dígitos finais
+        const cols = odo.querySelectorAll('.odo-strip');
+        let di = 0;
+        for (let i = 0; i < newStr.length; i++) {
+          if (newStr[i] === ',') continue;
+          cols[di].style.transform = odoY(parseInt(newStr[i], 10));
+          di++;
+        }
+        currentPct = newPct;
+        return;
+      }
+
+      const oldPct = currentPct;
+      let oldStr = digitsOf(oldPct);
+      const dir = newPct >= oldPct ? 1 : -1;
+
+      // alinha pela direita (decimais fixos): diferença só nos dígitos inteiros à esquerda
+      let oldAligned = oldStr;
+      while (oldAligned.length < newStr.length) oldAligned = '0' + oldAligned;
+      while (oldAligned.length > newStr.length) oldAligned = oldAligned.slice(1);
+
+      // nº de colunas mudou? reconstrói partindo dos dígitos antigos alinhados
+      const curCols = odo.querySelectorAll('.odo-col').length;
+      const newCols = newStr.replace(/,/g, '').length;
+      if (curCols !== newCols) buildOdo(newStr, oldAligned);
+
+      const strips = odo.querySelectorAll('.odo-strip');
+      let di = 0, animIdx = 0;
+      for (let i = 0; i < newStr.length; i++) {
+        if (newStr[i] === ',') continue;
+        const fromD = parseInt(oldAligned[i], 10);
+        const toD = parseInt(newStr[i], 10);
+        if (fromD !== toD) {
+          animateCol(strips[di], fromD, toD, dir, animIdx * 45); // cascata mecânica
+          animIdx++;
+        }
+        di++;
+      }
+      currentPct = newPct;
+    }
+
+    /* ===================== ATUALIZAÇÃO GERAL ===================== */
+    function update() {
+      refreshChips();
+      refreshCaption();
+      renderBars();
+      const sum = THEMES.filter(t => selected.has(t.id)).reduce((s, t) => s + t.total, 0);
+      setCounter(sum / TOTAL * 100);
+    }
+
+    update();
   </script>
   <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
 </body>

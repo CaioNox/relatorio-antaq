@@ -3,226 +3,227 @@
 <html lang="pt-BR">
 
 <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Cartas de Serviço ANTAQ - Relatório Trimestral Ouvidoria ANTAQ</title>
-    <link rel="icon" type="image/png"
-        href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&amp;family=Open+Sans:wght@400;600&amp;display=swap"
-        rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
-    <style>
-        html {
-            font-size: 26px;
-        }
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Manifestações por Canal - Relatório Trimestral Ouvidoria ANTAQ</title>
+  <link rel="icon" type="image/png"
+    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&amp;family=Open+Sans:wght@400;600&amp;display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    html {
+      font-size: 26px;
+    }
 
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #f3f4f6;
-            overflow: hidden;
-        }
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f3f4f6;
+      overflow: hidden;
+    }
 
-        .slide-container {
-            width: 100vw;
-            height: 100vh;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            background-color: #ffffff;
-            overflow: hidden;
-            font-family: 'Open Sans', sans-serif;
-        }
+    .slide-container {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background-color: #ffffff;
+      overflow: hidden;
+      font-family: 'Open Sans', sans-serif;
+    }
 
-        .font-montserrat {
-            font-family: 'Montserrat', sans-serif;
-        }
+    .font-montserrat {
+      font-family: 'Montserrat', sans-serif;
+    }
 
-        .text-brand-primary {
-            color: #103050;
-        }
+    .text-brand-primary {
+      color: #103050;
+    }
 
-        .bg-brand-primary {
-            background-color: #103050;
-        }
+    .text-brand-secondary {
+      color: #0070C0;
+    }
 
-        .text-brand-secondary {
-            color: #0070C0;
-        }
+    .bg-brand-secondary {
+      background-color: #0070C0;
+    }
 
-        .bg-brand-secondary {
-            background-color: #0070C0;
-        }
+    .top-accent {
+      height: 8px;
+      background-color: #103050;
+      width: 100%;
+    }
 
-        .top-accent {
-            height: 8px;
-            background-color: #103050;
-            width: 100%;
-        }
+    .top-accent-secondary {
+      height: 4px;
+      background-color: #0070C0;
+      width: 100%;
+    }
 
-        .top-accent-secondary {
-            height: 4px;
-            background-color: #0070C0;
-            width: 100%;
-        }
+    /* ===== Interatividade ===== */
+    .chart-card,
+    .canal-card {
+      transition: transform .28s cubic-bezier(.2, .7, .3, 1), box-shadow .28s ease, border-color .28s ease, background-color .28s ease;
+    }
 
-        .lead-frame {
-            background-color: #EAF3FB;
-            border: 2px solid #C0E0F0;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px -5px rgba(0, 112, 192, 0.15);
-            position: relative;
-        }
+    .chart-card:hover,
+    .canal-card:hover {
+      transform: translateY(-7px);
+      box-shadow: 0 22px 42px -12px rgba(16, 48, 80, .30);
+      border-color: #0070C0;
+    }
 
-        .metric-card {
-            background: #ffffff;
-            border: 2px solid #E2E8F0;
-            border-left: 4px solid #0070C0;
-            border-radius: 16px;
-            padding: 1.3rem 1.5rem;
-            box-shadow: 0 8px 22px -10px rgba(16, 48, 80, .18);
-            transition: transform .28s cubic-bezier(.2, .7, .3, 1), box-shadow .28s ease, border-color .28s ease;
-        }
+    .canal-card:hover {
+      background-color: #D8EEF8;
+    }
 
-        .metric-card:hover {
-            transform: translateY(-7px);
-            box-shadow: 0 24px 44px -14px rgba(16, 48, 80, .30);
-            border-color: #0070C0;
-        }
+    .canal-card i {
+      transition: transform .3s ease;
+    }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
+    .canal-card:hover i {
+      transform: scale(1.18);
+    }
 
-            to {
-                opacity: 1;
-                transform: none;
-            }
-        }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
 
-        .lead-frame,
-        .metric-card {
-            animation: fadeIn .5s ease both;
-        }
+      to {
+        opacity: 1;
+      }
+    }
 
-        .metric-card:nth-child(2) {
-            animation-delay: .09s;
-        }
+    .canal-card {
+      animation: fadeIn .5s ease both;
+    }
 
-        .metric-card:nth-child(3) {
-            animation-delay: .18s;
-        }
+    .canal-card:nth-child(2) {
+      animation-delay: .1s;
+    }
 
-        .bg-pattern {
-            position: absolute;
-            bottom: -50px;
-            right: -50px;
-            width: 400px;
-            height: 400px;
-            opacity: 0.03;
-            z-index: 0;
-            color: #103050;
-        }
+    .canal-card:nth-child(3) {
+      animation-delay: .2s;
+    }
 
-        @media (prefers-reduced-motion: reduce) {
+    @media (prefers-reduced-motion: reduce) {
 
-            *,
-            *::before,
-            *::after {
-                animation: none !important;
-                transition: none !important;
-            }
-        }
-    </style>
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+
+    .chart-card {
+      background-color: #ffffff;
+      border: 2px solid #E2E8F0;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px -8px rgba(16, 48, 80, 0.18);
+      padding: 1.4rem 1.8rem;
+    }
+
+    .canal-card {
+      border: 2px solid #C0E0F0;
+      background-color: #EAF3FB;
+      border-radius: 14px;
+      padding: 1.4rem;
+    }
+  </style>
 </head>
 
 <body>
-    <div class="slide-container">
-        <!-- Top Accents -->
-        <div class="top-accent"></div>
-        <div class="top-accent-secondary"></div>
-        <!-- Header -->
-        <div class="flex items-center justify-between px-16 pt-10 pb-4 z-10">
-            <div>
-                <div class="flex items-center gap-3 mb-2">
-                    <div class="w-1 h-8 bg-brand-secondary"></div>
-                    <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Cartas de
-                        Serviço da ANTAQ</p>
-                </div>
-            </div>
-            <div class="flex items-center gap-2 opacity-80 text-brand-secondary">
-                <i class="fas fa-file-contract text-xl" aria-hidden="true"></i>
-                <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">APRESENTAÇÃO</p>
-            </div>
+  <div class="slide-container">
+    <div class="top-accent"></div>
+    <div class="top-accent-secondary"></div>
+    <!-- Header -->
+    <div class="flex items-center justify-between px-16 pt-12 pb-4 z-10">
+      <div>
+        <div class="flex items-center gap-3 mb-2">
+          <div class="w-1 h-8 bg-brand-secondary"></div>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Manifestações por
+            Canal</p>
         </div>
-        <!-- Main Content -->
-        <div class="flex-1 flex flex-col justify-center px-16 pb-8 z-10">
-            <div class="w-full max-w-6xl mx-auto relative">
-                <!-- Lead frame -->
-                <div class="lead-frame w-full px-12 py-7 mb-6">
-                    <p class="text-brand-primary font-montserrat font-bold text-xl mb-3 flex items-center gap-3">
-                        <i class="fas fa-shield-halved text-brand-secondary text-2xl"></i>
-                        A Ouvidoria como guardiã da Carta de Serviços
-                    </p>
-                    <p class="text-gray-700 text-base leading-relaxed">
-                        No primeiro trimestre de 2026, a Ouvidoria atuou diretamente como <strong>guardiã da Carta de
-                            Serviços da
-                            ANTAQ</strong> — documento fundamental que, respaldado pela <strong>Lei nº
-                            13.460/2017</strong>, informa os
-                        cidadãos sobre os serviços prestados pela agência, seus requisitos, prazos e padrões de
-                        atendimento. Visando
-                        promover a <strong>participação direta da sociedade civil</strong> na melhoria contínua dos 32
-                        serviços.
-                    </p>
-                </div>
-                <!-- Metrics row -->
-                <div class="grid grid-cols-3 gap-5">
-                    <div class="metric-card flex items-center gap-4">
-                        <i class="fas fa-clipboard-list text-4xl text-brand-secondary"></i>
-                        <div>
-                            <p class="font-montserrat font-black text-4xl text-brand-primary leading-none">32</p>
-                            <p class="text-gray-500 text-sm mt-1">serviços monitorados pela Ouvidoria</p>
-                        </div>
-                    </div>
-                    <div class="metric-card flex items-center gap-4">
-                        <i class="fas fa-users text-4xl text-brand-secondary"></i>
-                        <div>
-                            <p class="font-montserrat font-black text-4xl text-brand-primary leading-none">192</p>
-                            <p class="text-gray-500 text-sm mt-1">conselheiros na rede de participação social</p>
-                        </div>
-                    </div>
-                    <div class="metric-card flex items-center gap-4">
-                        <i class="fas fa-poll text-4xl text-brand-secondary"></i>
-                        <div>
-                            <p class="font-montserrat font-black text-4xl text-brand-primary leading-none">2025–2028</p>
-                            <p class="text-gray-500 text-sm mt-1">novo quadriênio de enquetes</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Closing line -->
-                <p
-                    class="text-center text-brand-primary font-montserrat font-bold text-lg mt-7 flex items-center justify-center gap-3">
-                    <i class="fas fa-sitemap text-brand-secondary"></i>
-                    Serviços organizados por Superintendência
-                    <i class="fas fa-arrow-right text-brand-secondary"></i>
-                </p>
-            </div>
-        </div>
-        <!-- Footer -->
-        <div class="px-16 pb-8 flex justify-between items-center z-10">
-            <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ</p>
-            <p class="text-gray-300 text-xs font-mono">16 / 25</p>
-        </div>
-        <!-- Decorative Background Pattern -->
-        <div class="bg-pattern">
-            <i class="fas fa-file-contract text-9xl"></i>
-        </div>
+        <p class="text-gray-500 font-medium ml-4 text-lg">Distribuição por canal de atendimento no 1º trimestre de 2026
+        </p>
+      </div>
+      <div class="flex items-center gap-2 opacity-80 text-brand-secondary">
+        <i class="fas fa-diagram-project text-xl" aria-hidden="true"></i>
+        <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">TRIMESTRE</p>
+      </div>
     </div>
-    <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
+    <!-- Main Content -->
+    <div class="flex-1 grid grid-cols-3 gap-8 px-16 pb-10 z-10">
+      <!-- Chart -->
+      <div class="chart-card col-span-2 flex flex-col">
+        <div class="flex-1 relative"><canvas id="chartCanal"></canvas></div>
+      </div>
+      <!-- Cards -->
+      <div class="flex flex-col gap-4 justify-center">
+        <div class="canal-card flex items-center justify-between">
+          <div class="flex items-center gap-3"><i class="fas fa-headset text-brand-secondary text-3xl"></i><span
+              class="text-brand-primary font-montserrat font-bold text-xl">Omnichannel</span></div>
+          <span class="font-montserrat font-black text-4xl text-brand-primary">382</span>
+        </div>
+        <div class="canal-card flex items-center justify-between">
+          <div class="flex items-center gap-3"><img src="Imagens/Logo_Fala_BR.png" alt="Fala.BR" style="height: 40px; width: auto;"><span
+              class="text-brand-primary font-montserrat font-bold text-xl">Fala.BR</span></div>
+          <span class="font-montserrat font-black text-4xl text-brand-primary">304</span>
+        </div>
+        <div class="canal-card flex items-center justify-between">
+          <div class="flex items-center gap-3"><i class="fas fa-envelope text-brand-secondary text-3xl"></i><span
+              class="text-brand-primary font-montserrat font-bold text-xl">E-mail</span></div>
+          <span class="font-montserrat font-black text-4xl text-brand-primary">70</span>
+        </div>
+      </div>
+    </div>
+    <!-- Footer -->
+    <div class="px-16 pb-8 flex justify-between items-center z-10">
+      <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ</p>
+      <p class="text-gray-300 text-xs font-mono">16 / 33</p>
+    </div>
+  </div>
+  <script>
+    const labels = ['Fala.BR', 'E-mail', 'Omnichannel'];
+    const data = [304, 70, 382];
+    const colors = ['#0070C0', '#0070C0', '#103050'];
+    const valueLabels = {
+      id: 'valueLabels',
+      afterDatasetsDraw(chart) {
+        const { ctx } = chart;
+        ctx.save();
+        ctx.font = '700 18px Montserrat, sans-serif';
+        ctx.fillStyle = '#103050';
+        ctx.textAlign = 'center';
+        chart.getDatasetMeta(0).data.forEach((bar, i) => {
+          ctx.fillText(chart.data.datasets[0].data[i], bar.x, bar.y - 8);
+        });
+        ctx.restore();
+      }
+    };
+    new Chart(document.getElementById('chartCanal'), {
+      type: 'bar',
+      data: { labels, datasets: [{ data, backgroundColor: colors, borderRadius: 6, maxBarThickness: 120 }] },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        layout: { padding: { top: 26 } },
+        plugins: { legend: { display: false }, tooltip: { enabled: false } },
+        scales: {
+          x: { grid: { display: false }, ticks: { color: '#374151', font: { size: 15, weight: '600' } } },
+          y: { beginAtZero: true, grid: { color: '#eef2f7' }, ticks: { color: '#9ca3af', font: { size: 12 } } }
+        }
+      },
+      plugins: [valueLabels]
+    });
+  </script>
+  <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
 </body>
 
 </html>

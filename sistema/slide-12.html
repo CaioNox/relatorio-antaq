@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <title>LAI · Transparência Passiva - Relatório Trimestral Ouvidoria ANTAQ</title>
+  <title>Riscos e Oportunidades - Relatório Trimestral Ouvidoria ANTAQ</title>
   <link rel="icon" type="image/png"
     href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
@@ -64,102 +64,129 @@
       width: 100%;
     }
 
-    /* ===== Interatividade ===== */
-    .chart-card,
-    .canal-card,
-    .period-chip,
-    .video-frame,
-    .kpi-card,
-    .glossary-card,
-    .exp-group {
-      transition: transform .28s cubic-bezier(.2, .7, .3, 1), box-shadow .28s ease, border-color .28s ease, background-color .28s ease;
+    /* ===== Colunas ===== */
+    .ro-col {
+      border-radius: 16px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
     }
 
-    .chart-card:hover,
-    .canal-card:hover,
-    .period-chip:hover,
-    .video-frame:hover {
-      transform: translateY(-7px);
-      box-shadow: 0 22px 42px -12px rgba(16, 48, 80, .30);
-      border-color: #0070C0;
+    .ro-riscos {
+      background: rgba(220, 38, 38, 0.04);
+      border-left: 4px solid #dc2626;
     }
 
-    .glossary-card:hover {
-      transform: translateY(-7px);
-      border-color: #0070C0;
-      box-shadow: 0 22px 42px -12px rgba(0, 112, 192, .32);
+    .ro-oport {
+      background: rgba(16, 185, 129, 0.04);
+      border-left: 4px solid #10b981;
     }
 
-    .glossary-icon {
-      transition: transform .3s ease;
+    .ro-head {
+      display: flex;
+      align-items: center;
+      gap: .9rem;
+      margin-bottom: 1.6rem;
     }
 
-    .glossary-card:hover .glossary-icon {
-      transform: scale(1.12) rotate(-6deg);
+    .ro-head i {
+      font-size: 2rem;
     }
 
-    .kpi-card:hover {
-      transform: translateY(-9px) scale(1.018);
-      box-shadow: 0 30px 58px -16px rgba(16, 48, 80, .6);
+    .ro-riscos .ro-head i {
+      color: #dc2626;
     }
 
-    .kpi-watermark {
-      transition: transform .4s ease, opacity .4s ease;
+    .ro-oport .ro-head i {
+      color: #10b981;
     }
 
-    .kpi-card:hover .kpi-watermark {
-      transform: scale(1.12);
-      opacity: .2;
+    .ro-head h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: #103050;
+      margin: 0;
+      line-height: 1.15;
     }
 
-    .exp-group:hover {
-      transform: translateX(5px);
+    .ro-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
     }
 
-    @keyframes fadeIn {
+    .ro-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: .8rem;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 1rem;
+      color: #1f2937;
+      line-height: 1.6;
+      margin-bottom: 1.2rem;
+    }
+
+    .ro-list li .bullet {
+      flex-shrink: 0;
+      font-size: .82rem;
+      line-height: 1.6;
+    }
+
+    .ro-riscos .ro-list li .bullet {
+      color: #dc2626;
+    }
+
+    .ro-oport .ro-list li .bullet {
+      color: #10b981;
+    }
+
+    @keyframes fadeInLeft {
       from {
         opacity: 0;
+        transform: translateX(-16px);
       }
 
       to {
         opacity: 1;
+        transform: none;
       }
     }
 
-    .chart-card,
-    .kpi-card,
-    .glossary-card,
-    .canal-card,
-    .period-chip {
-      animation: fadeIn .5s ease both;
+    @keyframes fadeInRight {
+      from {
+        opacity: 0;
+        transform: translateX(16px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
     }
 
-    .chart-card:nth-child(2),
-    .kpi-card:nth-child(2),
-    .glossary-card:nth-child(2),
-    .canal-card:nth-child(2),
-    .period-chip:nth-child(2) {
-      animation-delay: .09s;
+    .ro-riscos .ro-list li {
+      animation: fadeInLeft .5s cubic-bezier(.2, .7, .3, 1) both;
     }
 
-    .chart-card:nth-child(3),
-    .kpi-card:nth-child(3),
-    .glossary-card:nth-child(3),
-    .canal-card:nth-child(3),
-    .period-chip:nth-child(3) {
-      animation-delay: .18s;
+    .ro-oport .ro-list li {
+      animation: fadeInRight .5s cubic-bezier(.2, .7, .3, 1) both;
     }
 
-    .glossary-card:nth-child(4) {
-      animation-delay: .27s;
+    .ro-list li:nth-child(1) {
+      animation-delay: 0ms;
     }
 
-    .glossary-card:nth-child(5) {
-      animation-delay: .36s;
+    .ro-list li:nth-child(2) {
+      animation-delay: 100ms;
     }
 
-    .glossary-card:nth-child(6) {
-      animation-delay: .45s;
+    .ro-list li:nth-child(3) {
+      animation-delay: 200ms;
+    }
+
+    .ro-list li:nth-child(4) {
+      animation-delay: 300ms;
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -171,45 +198,9 @@
         transition: none !important;
       }
     }
-
-    .chart-card {
-      background-color: #ffffff;
-      border: 2px solid #E2E8F0;
-      border-radius: 16px;
-      box-shadow: 0 8px 20px -8px rgba(16, 48, 80, 0.18);
-      padding: 1.4rem 1.6rem;
-    }
-
-    .legend-dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 3px;
-      display: inline-block;
-    }
-    /* ===== Componentes adicionais (mesma identidade visual) ===== */
-    .rank-row { display:flex; align-items:center; gap:1rem; }
-    .rank-label { font-family:'Open Sans',sans-serif; font-size:.9rem; color:#103050; font-weight:600; width:19rem; flex-shrink:0; line-height:1.15; }
-    .rank-track { flex:1; height:30px; background:#eef2f7; border-radius:8px; overflow:hidden; }
-    .rank-fill { height:100%; border-radius:8px; background:linear-gradient(90deg,#0070C0,#0090C0); }
-    .rank-val { font-family:'Montserrat',sans-serif; font-weight:900; color:#103050; font-size:1.05rem; width:3.2rem; text-align:right; flex-shrink:0; }
-    .stat-mini { background:#ffffff; border:2px solid #E2E8F0; border-radius:14px; padding:1rem 1.3rem; box-shadow:0 8px 20px -8px rgba(16,48,80,.18); }
-    .base-chip { display:flex; align-items:center; gap:.6rem; background:#f8fafc; border:1px solid #E2E8F0; border-radius:10px; padding:.5rem .75rem; transition:all .25s ease; }
-    .base-chip:hover { border-color:#0070C0; background:#eef6fc; transform:translateX(4px); }
-    .base-chip i { color:#0070C0; font-size:.8rem; }
-    .base-chip span { font-family:'Open Sans',sans-serif; font-size:.78rem; color:#103050; font-weight:600; line-height:1.1; }
-    .svc-badge { display:inline-flex; align-items:center; gap:.7rem; background:linear-gradient(135deg,#103050,#0070C0); color:#fff; border-radius:999px; padding:.5rem 1.3rem; font-family:'Montserrat',sans-serif; font-weight:800; letter-spacing:.04em; box-shadow:0 10px 24px -10px rgba(16,48,80,.5); }
-    .svc-card { background:#fff; border:2px solid #E2E8F0; border-left:5px solid #0070C0; border-radius:12px; padding:.8rem 1rem; display:flex; gap:.8rem; align-items:flex-start; box-shadow:0 6px 16px -8px rgba(16,48,80,.18); transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
-    .svc-card:hover { transform:translateY(-5px); border-color:#0090C0; box-shadow:0 18px 34px -14px rgba(16,48,80,.32); }
-    .svc-num { font-family:'Montserrat',sans-serif; font-weight:900; color:#0090C0; font-size:1.3rem; line-height:1; flex-shrink:0; min-width:1.7rem; }
-    .svc-text { font-family:'Open Sans',sans-serif; font-size:.78rem; color:#103050; font-weight:600; line-height:1.18; }
-    .kpi-card { border-radius:20px; padding:2.2rem 2rem; position:relative; overflow:hidden; display:flex; flex-direction:column; justify-content:space-between; min-height:420px; box-shadow:0 18px 40px -12px rgba(16,48,80,0.45); }
-    .kpi-primary { background:linear-gradient(160deg,#103050 0%,#0070C0 100%); }
-    .kpi-soft { background:linear-gradient(160deg,#0e3a66 0%,#11598f 100%); }
-    .kpi-num { font-family:'Montserrat',sans-serif; font-weight:900; line-height:1; color:#ffffff; }
-    .kpi-watermark { position:absolute; right:-10px; bottom:-20px; font-size:9rem; opacity:0.12; color:#ffffff; }
-    .bg-pattern { position:absolute; bottom:-50px; right:-50px; width:400px; height:400px; opacity:0.03; z-index:0; color:#103050; }
-    </style>
+  </style>
 </head>
+
 <body>
   <div class="slide-container">
     <div class="top-accent"></div>
@@ -219,64 +210,57 @@
       <div>
         <div class="flex items-center gap-3 mb-2">
           <div class="w-1 h-8 bg-brand-secondary"></div>
-          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">LAI · Transparência Passiva</p>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Riscos e
+            Oportunidades</p>
         </div>
-        <p class="text-gray-500 font-medium ml-4 text-lg">Pedidos de acesso à informação (Lei nº 12.527/2011) — 1º trimestre de 2026</p>
+        <p class="text-gray-500 font-medium ml-4 text-lg">Riscos e oportunidades decorrentes das manifestações recebidas
+        </p>
       </div>
       <div class="flex items-center gap-2 opacity-80 text-brand-secondary">
-        <i class="fas fa-unlock-keyhole text-xl" aria-hidden="true"></i>
-        <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">ACESSO À INFORMAÇÃO</p>
+        <i class="fas fa-balance-scale text-xl" aria-hidden="true"></i>
+        <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">VISÃO ESTRATÉGICA</p>
       </div>
     </div>
-    <!-- KPIs -->
-    <div class="flex-1 flex flex-col justify-center px-16 pb-6 z-10">
-      <div class="grid grid-cols-4 gap-6">
-        <div class="kpi-card kpi-primary" style="min-height:340px;">
-          <div><p class="text-blue-100 font-montserrat font-bold text-sm uppercase tracking-widest mb-2">Pedidos recebidos</p>
-            <p class="kpi-num text-7xl">130</p></div>
-          <p class="text-blue-100 text-base leading-relaxed relative z-10">Média de 43 pedidos por mês no trimestre.</p>
-          <i class="fas fa-inbox kpi-watermark"></i>
+    <!-- Main Content -->
+    <div class="flex-1 flex items-stretch px-16 pb-10 z-10">
+      <div class="grid grid-cols-2 gap-8 w-full">
+        <!-- Riscos -->
+        <div class="ro-col ro-riscos">
+          <div class="ro-head">
+            <i class="fas fa-triangle-exclamation"></i>
+            <h2>Riscos identificados</h2>
+          </div>
+          <ul class="ro-list">
+            <li><span class="bullet">◆</span><span>Crescimento de denúncias relacionadas à tarifa portuária</span></li>
+            <li><span class="bullet">◆</span><span>Judicialização de conflitos regulatórios</span></li>
+            <li><span class="bullet">◆</span><span>Demandas recorrentes relacionadas a <em>detention</em> e
+                sobrestadia</span></li>
+            <li><span class="bullet">◆</span><span>Crescimento da complexidade das manifestações</span></li>
+          </ul>
         </div>
-        <div class="kpi-card kpi-soft" style="min-height:340px;">
-          <div><p class="text-blue-100 font-montserrat font-bold text-sm uppercase tracking-widest mb-2">Respondidos no prazo</p>
-            <p class="kpi-num text-7xl">100%</p></div>
-          <p class="text-blue-100 text-base leading-relaxed relative z-10">Todos os pedidos respondidos dentro do prazo legal.</p>
-          <i class="fas fa-circle-check kpi-watermark"></i>
-        </div>
-        <div class="kpi-card kpi-soft" style="min-height:340px;">
-          <div><p class="text-blue-100 font-montserrat font-bold text-sm uppercase tracking-widest mb-2">Fora do prazo</p>
-            <p class="kpi-num text-7xl">0%</p></div>
-          <p class="text-blue-100 text-base leading-relaxed relative z-10">Nenhum pedido respondido fora do prazo.</p>
-          <i class="fas fa-hourglass-half kpi-watermark"></i>
-        </div>
-        <div class="kpi-card kpi-primary" style="min-height:340px;">
-          <div><p class="text-blue-100 font-montserrat font-bold text-sm uppercase tracking-widest mb-2">Tempo médio de resposta</p>
-            <p class="kpi-num text-7xl">9,1<span class="text-2xl font-bold ml-1">dias</span></p></div>
-          <p class="text-blue-100 text-base leading-relaxed relative z-10">Da abertura à resposta conclusiva ao cidadão.</p>
-          <i class="fas fa-clock kpi-watermark"></i>
-        </div>
-      </div>
-      <!-- Recursos note -->
-      <div class="grid grid-cols-2 gap-6 mt-6">
-        <div class="stat-mini flex items-center gap-4">
-          <i class="fas fa-scale-balanced text-3xl text-brand-secondary"></i>
-          <div><p class="font-montserrat font-black text-3xl text-brand-primary leading-none">6 recursos</p>
-            <p class="text-gray-500 text-sm mt-1">interpostos no período</p></div>
-        </div>
-        <div class="stat-mini flex items-center gap-4">
-          <i class="fas fa-stopwatch text-3xl text-brand-secondary"></i>
-          <div><p class="font-montserrat font-black text-3xl text-brand-primary leading-none">3,8 dias</p>
-            <p class="text-gray-500 text-sm mt-1">tempo médio de resposta aos recursos</p></div>
+        <!-- Oportunidades -->
+        <div class="ro-col ro-oport">
+          <div class="ro-head">
+            <i class="fas fa-seedling"></i>
+            <h2>Oportunidades identificadas</h2>
+          </div>
+          <ul class="ro-list">
+            <li><span class="bullet">●</span><span>Utilização dos dados da Ouvidoria como ferramenta de apoio à
+                gestão</span></li>
+            <li><span class="bullet">●</span><span>Ampliação das ações de transparência ativa</span></li>
+            <li><span class="bullet">●</span><span>Aprimoramento dos canais de atendimento</span></li>
+            <li><span class="bullet">●</span><span>Integração com áreas técnicas e fiscalizatórias</span></li>
+          </ul>
         </div>
       </div>
     </div>
     <!-- Footer -->
     <div class="px-16 pb-8 flex justify-between items-center z-10">
       <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ</p>
-      <p class="text-gray-300 text-xs font-mono">12 / 25</p>
+      <p class="text-gray-300 text-xs font-mono">12 / 33</p>
     </div>
-    <div class="bg-pattern"><i class="fas fa-unlock-keyhole text-9xl"></i></div>
   </div>
   <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
 </body>
+
 </html>
