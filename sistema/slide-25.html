@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Carta de Serviços (SRG/SAF/SFC) - Relatório Trimestral Ouvidoria ANTAQ</title>
+  <link rel="icon" type="image/png"
+    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&amp;family=Open+Sans:wght@400;600&amp;display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    html {
+      font-size: 26px;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f3f4f6;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    .slide-container {
+      width: 100vw;
+      min-height: 100vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background-color: #ffffff;
+      overflow: visible;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    .font-montserrat {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .text-brand-primary {
+      color: #103050;
+    }
+
+    .text-brand-secondary {
+      color: #0070C0;
+    }
+
+    .bg-brand-secondary {
+      background-color: #0070C0;
+    }
+
+    .top-accent {
+      height: 8px;
+      background-color: #103050;
+      width: 100%;
+    }
+
+    .top-accent-secondary {
+      height: 4px;
+      background-color: #0070C0;
+      width: 100%;
+    }
+
+    .svc-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .7rem;
+      background: linear-gradient(135deg, #103050, #0070C0);
+      color: #fff;
+      border-radius: 999px;
+      padding: .5rem 1.3rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      letter-spacing: .04em;
+      box-shadow: 0 10px 24px -10px rgba(16, 48, 80, .5);
+    }
+
+    /* ===== TILE GRID ===== */
+    .tile-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      position: relative;
+    }
+
+    .tile {
+      position: relative;
+      background: #ffffff;
+      border: 2px solid #E2E8F0;
+      border-left: 4px solid #0070C0;
+      border-radius: 14px;
+      padding: 1rem;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      min-height: 110px;
+      box-shadow: 0 4px 12px -4px rgba(16, 48, 80, .12);
+      transition: transform .3s cubic-bezier(.2, .7, .3, 1),
+        box-shadow .3s ease,
+        border-color .3s ease,
+        background-color .3s ease;
+      z-index: 1;
+      animation: tileIn .45s cubic-bezier(.2, .7, .3, 1) both;
+    }
+
+    .tile:nth-child(2) {
+      animation-delay: .04s;
+    }
+
+    .tile:nth-child(3) {
+      animation-delay: .08s;
+    }
+
+    .tile:nth-child(4) {
+      animation-delay: .12s;
+    }
+
+    .tile:nth-child(5) {
+      animation-delay: .16s;
+    }
+
+    .tile:nth-child(6) {
+      animation-delay: .20s;
+    }
+
+    .tile:nth-child(7) {
+      animation-delay: .24s;
+    }
+
+    .tile:nth-child(8) {
+      animation-delay: .28s;
+    }
+
+    @keyframes tileIn {
+      from {
+        opacity: 0;
+        transform: scale(.85) translateY(12px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    .tile-num {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 1.6rem;
+      color: #0070C0;
+      line-height: 1;
+      transition: transform .3s ease, color .3s ease;
+    }
+
+    .tile-label {
+      font-family: 'Open Sans', sans-serif;
+      font-size: .55rem;
+      font-weight: 600;
+      color: #64748B;
+      line-height: 1.2;
+      margin-top: .4rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      transition: color .3s ease;
+    }
+
+    .tile-expand-icon {
+      position: absolute;
+      top: 8px;
+      right: 10px;
+      font-size: .5rem;
+      color: #CBD5E1;
+      transition: color .3s ease, transform .3s ease;
+    }
+
+    .tile:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 32px -10px rgba(16, 48, 80, .25);
+      border-color: #0070C0;
+    }
+
+    .tile:hover .tile-num {
+      transform: scale(1.08);
+    }
+
+    .tile:hover .tile-expand-icon {
+      color: #0070C0;
+      transform: rotate(90deg);
+    }
+
+    .tile-modal {
+      position: relative;
+      background: #fff;
+      width: min(820px, 82vw);
+      max-height: 72vh;
+      overflow: auto;
+      border-radius: 18px;
+      border-top: 6px solid #0070C0;
+      box-shadow: 0 44px 88px -22px rgba(16, 48, 80, .6);
+      padding: 2rem 2.3rem 2.2rem;
+      animation: popIn .26s cubic-bezier(.2, .7, .3, 1) both;
+    }
+
+    @keyframes popIn {
+      from {
+        opacity: .6;
+        transform: scale(.94);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .tile-modal .tm-close {
+      position: absolute;
+      top: 1rem;
+      right: 1.1rem;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      border: none;
+      background: #EEF2F7;
+      color: #64748B;
+      cursor: pointer;
+      font-size: .9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .2s ease, color .2s ease;
+    }
+
+    .tile-modal .tm-close:hover {
+      background: #103050;
+      color: #fff;
+    }
+
+    .tile-modal .tm-head {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      padding-right: 2.5rem;
+    }
+
+    .tile-modal .tm-num {
+      flex-shrink: 0;
+      width: 3rem;
+      height: 3rem;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #103050, #0070C0);
+      color: #fff;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 1.15rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 22px -10px rgba(16, 48, 80, .5);
+    }
+
+    .tile-modal .tm-label {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      color: #103050;
+      font-size: 1.2rem;
+      line-height: 1.15;
+    }
+
+    .tile-modal .tm-desc {
+      color: #334155;
+      font-size: .9rem;
+      line-height: 1.6;
+    }
+
+    .tile-desc {
+      display: none;
+    }
+
+    .tile-header-row {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+    }
+
+    /* ===== BACKDROP ===== */
+    .tile-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(16, 48, 80, 0.45);
+      z-index: 50;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      animation: fadeBackdrop .25s ease both;
+    }
+
+    .tile-backdrop.active {
+      display: flex;
+    }
+
+    @keyframes fadeBackdrop {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="tile-backdrop" id="tileBackdrop" onclick="if(event.target===this)closeTile()">
+    <div class="tile-modal">
+      <button class="tm-close" onclick="closeTile()" aria-label="Fechar"><i class="fas fa-xmark"></i></button>
+      <div class="tm-head">
+        <div class="tm-num" id="tmNum">01</div>
+        <div>
+          <p class="tm-label" id="tmLabel">—</p>
+        </div>
+      </div>
+      <p class="tm-desc" id="tmDesc">—</p>
+    </div>
+  </div>
+  <div class="slide-container">
+    <div class="top-accent"></div>
+    <div class="top-accent-secondary"></div>
+    <!-- Header -->
+    <div class="flex items-center justify-between px-16 pt-12 pb-3 z-10">
+      <div>
+        <div class="flex items-center gap-3 mb-2">
+          <div class="w-1 h-8 bg-brand-secondary"></div>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Carta de Serviços ·
+            SRG · SAF · SFC</p>
+        </div>
+        <p class="text-gray-500 font-medium ml-4 text-lg">Serviços por superintendência — Regulação,
+          Administração/Finanças e Fiscalização</p>
+      </div>
+      <div class="flex items-center gap-2 opacity-80 text-brand-secondary">
+        <i class="fas fa-file-contract text-xl" aria-hidden="true"></i>
+        <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">SERVIÇOS · 2/2</p>
+      </div>
+    </div>
+
+    <!-- SRG -->
+    <div class="px-16 pb-2"><span class="svc-badge"><i class="fas fa-scale-balanced"></i> SRG — Superintendência de
+        Regulação · 8 serviços</span></div>
+    <div class="px-16 pb-3">
+      <div class="tile-grid" id="tileGridSRG">
+
+        <div class="tile" data-idx="1" onclick="toggleTile(this)">
+          <i class="fas fa-plus tile-expand-icon"></i>
+          <div class="tile-header-row"><span class="tile-num">01</span></div>
+          <span class="tile-label">Obter autorização da Antaq para incorporação/desincorporação de bens da União ao/do
+            acervo patrimonial dos portos organizados</span>
+          <div class="tile-desc">Controle dos bens da União junto ao acervo patrimonial dos portos organizados.
+            Desincorporação é a exclusão de bem do acervo patrimonial da União. Incorporação é a inclusão de bem no
+            acervo patrimonial da União, conforme a Resolução ANTAQ nº 43/2021.</div>
+        </div>
+
+        <div class="tile" data-idx="2" onclick="toggleTile(this)">
+          <i class="fas fa-plus tile-expand-icon"></i>
+          <div class="tile-header-row"><span class="tile-num">02</span></div>
+          <span class="tile-label">Obter autorização da Antaq para revisão/reajuste das tarifas portuárias</span>
+          <div class="tile-desc">Obter autorização da Antaq para a revisão ou o reajuste das tarifas cobradas pelo porto
+            das empresas arrendatárias e usuários em geral, nos termos do art. 27, inciso VII, da Lei nº 10.233/2001.
+            Revisão realizada a pedido ou promovida de ofício pela Antaq.</div>
+        </div>
+
+        <div class="tile" data-idx="3" onclick="toggleTile(this)">
+          <i class="fas fa-plus tile-expand-icon"></i>
+          <div class="tile-header-row"><span class="tile-num">03</span></div>
+          <span class="tile-label">Obter autorização da Antaq para antecipação de receitas de autoridades
+            portuárias</span>
+          <div class="tile-desc">Permite que autoridades portuárias solicitem à Antaq a antecipação de receitas de
+            tarifas junto aos usuários para fins de realização de investimentos imediatos na infraestrutura custeada
+            pela tarifa, respeitado o equilíbrio das contas da administração portuária.</div>
+        </div>
+
+        <div class="tile" data-idx="4" onclick="toggleTile(this)">
+          <i class="fas fa-plus tile-expand-icon"></i>
+          <div class="tile-header-row"><span class="tile-num">04</span></div>
+          <span class="tile-label">Obter análise da Antaq para transferência de titularidade de instalação
+            portuária</span>
+          <div class="tile-desc">Transferência de titularidade dos contratos de concessão de porto organizado, de
+            arrendamento de instalação portuária e de adesão de instalação portuária, previamente à deliberação pelo
+            poder concedente. Formalizada através de termo aditivo contratual.</div>
+        </div>
+
+        <div class="tile" data-idx="5" onclick="toggleTile(this)">
+          <i class="fas fa-plus tile-expand-icon"></i>
+          <div class="tile-header-row"><span class="tile-num">05</span></div>
+          <span class="tile-label">Obter autorização da Antaq para transferência de controle societário de instalação
+            portuária</span>
+          <div class="tile-desc">Transferência de controle societário de contratos de concessão de porto organizado, de
+            arrendamento de instalação portuária e de adesão (autorização) de instalação portuária. Transferência de
+            controle societário é a transferência, de forma direta ou indireta, de ações ou quotas integrantes do bloco
+            de controle.</div>
+        </div>
+
+        <div class="tile" data-idx="6" onclick="toggleTile(this)">
+          <i class="fas fa-plus tile-expand-icon"></i>
+          <div class="tile-header-row"><span class="tile-num">06</span></div>
+          <span class="tile-label">Obter análise da Antaq quanto à alteração da tabela de preços de instalações
+            portuárias arrendadas ou autorizadas</span>
+          <div class="tile-desc">Apreciação das alterações promovidas nas tabelas de preços das instalações portuárias
+            arrendadas ou autorizadas, a fim de verificar se há abusividade de preços praticados nessas instalações,
+            levando em consideração a avaliação de possíveis infrações à ordem econômica.</div>
+        </div>
+
+        <div class="tile" data-idx="7" onclick="toggleTile(this)">
+          <i class="fas fa-plus tile-expand-icon"></i>
+          <div class="tile-header-row"><span class="tile-num">07</span></div>
+          <span class="tile-label">Obter autorização da Antaq para alteração de tabela de preços dos serviços de
+            transporte aquaviário na navegação interior</span>
+          <div class="tile-desc">Reajuste de preços dos serviços de transporte aquaviário prestados nas travessias e no
+            transporte longitudinal de passageiros, a fim de verificar se há abusividade de preços praticados nesses
+            serviços, levando em consideração a avaliação de possíveis infrações à ordem econômica.</div>
+        </div>
+
+        <div class="tile" data-idx="8" onclick="toggleTile(this)">
+          <i class="fas fa-plus tile-expand-icon"></i>
+          <div class="tile-header-row"><span class="tile-num">08</span></div>
+          <span class="tile-label">Solicitar à Antaq a harmonização de conflito de interesses nos portos e na
+            navegação</span>
+          <div class="tile-desc">Na ocorrência de conflitos de interesses entre os agentes regulados pela Antaq no setor
+            portuário ou na navegação, a partir da solicitação de uma das partes, é iniciado um processo de
+            harmonização, no qual todas as partes envolvidas terão ampla oportunidade de manifestação.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- SAF -->
+    <div class="px-16 pb-2"><span class="svc-badge"><i class="fas fa-coins"></i> SAF — Administração e Finanças · 4
+        serviços</span></div>
+    <div class="px-16 pb-3">
+      <div class="tile-grid" id="tileGridSAF">
+
+        <div class="tile" data-idx="1" onclick="toggleTile(this)">
+          <i class="fas fa-plus tile-expand-icon"></i>
+          <div class="tile-header-row"><span class="tile-num">01</span></div>
+          <span class="tile-label">Obter declaração da Antaq para fins de credenciamento, validação ou outros
+            atestados</span>
+          <div class="tile-desc">Emissão de declaração de adimplência junto à Agência Nacional de Transportes
+            Aquaviários (ANTAQ).</div>
+        </div>
+
+        <div class="tile" data-idx="2" onclick="toggleTile(this)">
+          <i class="fas fa-plus tile-expand-icon"></i>
+          <div class="tile-header-row"><span class="tile-num">02</span></div>
+          <span class="tile-label">Obter parcelamento de multas emitidas pela Antaq</span>
+          <div class="tile-desc">Parcelamento/reparcelamento de débitos que ainda não foram enviados para inscrição em
+            dívida ativa, a ser solicitado pelo devedor junto à ANTAQ. Após inscrição em dívida ativa, o parcelamento
+            deve ser solicitado junto à Procuradoria-Geral Federal.</div>
+        </div>
+
+        <div class="tile" data-idx="3" onclick="toggleTile(this)">
+          <i class="fas fa-plus tile-expand-icon"></i>
+          <div class="tile-header-row"><span class="tile-num">03</span></div>
+          <span class="tile-label">Realizar pagamento de multa e outros débitos junto à ANTAQ</span>
+          <div class="tile-desc">Realizar pagamentos referentes a multas, ressarcimento ao erário, indenizações,
+            devolução de salários e diárias, cujos processos ainda não foram enviados para inscrição em dívida ativa
+            pela Agência Nacional de Transportes Aquaviários (ANTAQ).</div>
+        </div>
+
+        <div class="tile" data-idx="4" onclick="toggleTile(this)">
+          <i class="fas fa-plus tile-expand-icon"></i>
+          <div class="tile-header-row"><span class="tile-num">04</span></div>
+          <span class="tile-label">Obter parcela de Contrato de Concessão/Arrendamento em que a Agência Nacional de
+            Transportes Aquaviários (Antaq) seja interveniente</span>
+          <div class="tile-desc">Realizar pagamentos referentes a parcelas de Contrato de Concessão/Arrendamento em que
+            a Agência Nacional de Transportes Aquaviários (Antaq) seja interveniente.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- SFC -->
+    <div class="px-16 pb-2"><span class="svc-badge"><i class="fas fa-magnifying-glass-chart"></i> SFC — Fiscalização · 2
+        serviços</span></div>
+    <div class="flex-1 px-16 pb-6">
+      <div class="tile-grid" id="tileGridSFC">
+
+        <div class="tile col-span-2" data-idx="1" onclick="toggleTile(this)">
+          <i class="fas fa-plus tile-expand-icon"></i>
+          <div class="tile-header-row"><span class="tile-num">01</span></div>
+          <span class="tile-label">Consultar empresas e embarcações para o transporte aquaviário federal de passageiros
+            na navegação interior (Navegue Seguro)</span>
+          <div class="tile-desc">O aplicativo Navegue Seguro é uma ferramenta que permite ao usuário consultar a
+            regularidade das empresas e embarcações autorizadas pela ANTAQ para o transporte aquaviário federal de
+            passageiros na navegação interior, em travessias internacionais, interestaduais ou intermunicipais em
+            diretriz de rodovia federal, e embarcações de percurso longitudinal interestadual e internacional.</div>
+        </div>
+
+        <div class="tile col-span-2" data-idx="2" onclick="toggleTile(this)">
+          <i class="fas fa-plus tile-expand-icon"></i>
+          <div class="tile-header-row"><span class="tile-num">02</span></div>
+          <span class="tile-label">Enviar à Antaq o inventário patrimonial e a Lista de Bens Reversíveis dos portos
+            organizados (SisPAT)</span>
+          <div class="tile-desc">O envio anual do inventário patrimonial e da Lista de Bens Reversíveis é uma obrigação
+            periódica das autoridades portuárias e dos arrendatários dos portos organizados, conforme a Resolução ANTAQ
+            nº 43/2021. O prazo final é 30 de abril de cada ano. O serviço é operacionalizado pelo Sistema de Controle
+            Patrimonial dos Portos Organizados (SisPAT). Novo serviço inserido na Carta de Serviços em 2026.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="px-16 pb-8 flex justify-between items-center z-10">
+      <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ</p>
+      <p class="text-gray-300 text-xs font-mono">25 / 33</p>
+    </div>
+  </div>
+
+  <script>
+    function openTile(el) {
+      const num = el.getAttribute('data-idx') || el.querySelector('.tile-num')?.textContent || '—';
+      const label = el.querySelector('.tile-label')?.textContent || '—';
+      const desc = el.querySelector('.tile-desc')?.textContent || '—';
+
+      document.getElementById('tmNum').textContent = num;
+      document.getElementById('tmLabel').textContent = label;
+      document.getElementById('tmDesc').textContent = desc;
+      document.getElementById('tileBackdrop').classList.add('active');
+    }
+
+    function closeTile() {
+      document.getElementById('tileBackdrop').classList.remove('active');
+    }
+
+    // Trocar todos onclick dos tiles
+    document.querySelectorAll('.tile').forEach(tile => {
+      tile.onclick = function() { openTile(this); };
+    });
+
+    document.addEventListener("keydown", function (e) {
+      var open = document.getElementById('tileBackdrop').classList.contains('active');
+      if (open && e.key === 'Escape') { closeTile(); e.preventDefault(); return; }
+      if (open) return;
+      if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) {
+        e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*");
+      }
+    });
+  </script>
+</body>
+
+</html>

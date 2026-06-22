@@ -3,266 +3,215 @@
 <html lang="pt-BR">
 
 <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Leis - Relatório Trimestral Ouvidoria ANTAQ</title>
-    <link rel="icon" type="image/png"
-        href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&amp;family=Open+Sans:wght@400;600&amp;display=swap"
-        rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
-    <style>
-        html { font-size: 21px; }
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Manifestações por Canal por Mês - Relatório Trimestral Ouvidoria ANTAQ</title>
+  <link rel="icon" type="image/png"
+    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&amp;family=Open+Sans:wght@400;600&amp;display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    html {
+      font-size: 26px;
+    }
 
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #f3f4f6;
-            overflow-x: hidden;
-            overflow-y: auto;
-        }
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f3f4f6;
+      overflow: hidden;
+    }
 
-        .slide-container {
-            width: 100vw;
-            min-height: 100vh;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            background-color: #ffffff;
-            overflow: visible;
-            font-family: 'Open Sans', sans-serif;
-        }
+    .slide-container {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background-color: #ffffff;
+      overflow: hidden;
+      font-family: 'Open Sans', sans-serif;
+    }
 
-        .font-montserrat { font-family: 'Montserrat', sans-serif; }
-        .text-brand-primary { color: #103050; }
-        .text-brand-secondary { color: #0070C0; }
-        .bg-brand-secondary { background-color: #0070C0; }
+    .font-montserrat {
+      font-family: 'Montserrat', sans-serif;
+    }
 
-        .top-accent { height: 8px; background-color: #103050; width: 100%; }
-        .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
+    .text-brand-primary {
+      color: #103050;
+    }
 
-        /* ===== Acordeão (efeito cascata) ===== */
-        .acc-wrap { display: flex; flex-direction: column; gap: .75rem; }
+    .text-brand-secondary {
+      color: #0070C0;
+    }
 
-        .acc-item {
-            background-color: #ffffff;
-            border: 2px solid #E2E8F0;
-            border-left: 5px solid #0070C0;
-            border-radius: 14px;
-            overflow: hidden;
-            box-shadow: 0 6px 16px -8px rgba(16, 48, 80, 0.16);
-            transition: border-color .28s ease, box-shadow .28s ease, background-color .28s ease;
-            animation: fadeIn .5s ease both;
-        }
+    .bg-brand-secondary {
+      background-color: #0070C0;
+    }
 
-        .acc-item:nth-child(2) { animation-delay: .07s }
-        .acc-item:nth-child(3) { animation-delay: .14s }
-        .acc-item:nth-child(4) { animation-delay: .21s }
-        .acc-item:nth-child(5) { animation-delay: .28s }
+    .top-accent {
+      height: 8px;
+      background-color: #103050;
+      width: 100%;
+    }
 
-        .acc-item:hover { border-color: #E2E8F0; border-left-color: #0090C0; box-shadow: 0 16px 34px -14px rgba(16, 48, 80, .26); }
-        .acc-item.open { border-left-color: #103050; box-shadow: 0 16px 34px -14px rgba(16, 48, 80, .26); }
+    .top-accent-secondary {
+      height: 4px;
+      background-color: #0070C0;
+      width: 100%;
+    }
 
-        .acc-head {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            gap: 1.1rem;
-            padding: .9rem 1.4rem;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            text-align: left;
-            font-family: 'Open Sans', sans-serif;
-        }
+    /* ===== Interatividade ===== */
+    .chart-card {
+      transition: transform .28s cubic-bezier(.2, .7, .3, 1), box-shadow .28s ease, border-color .28s ease;
+    }
 
-        .law-num {
-            flex-shrink: 0;
-            min-width: 7.5rem;
-            text-align: center;
-            border-radius: 10px;
-            background: linear-gradient(160deg, #103050 0%, #0070C0 100%);
-            color: #fff;
-            padding: .5rem .4rem;
-            font-family: 'Montserrat', sans-serif;
-            line-height: 1;
-            transition: transform .3s ease;
-        }
+    .chart-card:hover {
+      transform: translateY(-7px);
+      box-shadow: 0 22px 42px -12px rgba(16, 48, 80, .30);
+      border-color: #0070C0;
+    }
 
-        .acc-item.open .law-num,
-        .acc-head:hover .law-num { transform: scale(1.05); }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
 
-        .law-num .ln-label { display: block; font-size: .58rem; font-weight: 700; letter-spacing: .1em; opacity: .8; }
-        .law-num .ln-val { display: block; font-size: 1.05rem; font-weight: 900; margin-top: .12rem; }
-        .law-num .ln-year { display: block; font-size: .62rem; font-weight: 600; opacity: .85; margin-top: .12rem; }
+      to {
+        opacity: 1;
+      }
+    }
 
-        .acc-titles { flex: 1; min-width: 0; }
-        .acc-title { color: #103050; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.1rem; line-height: 1.12; }
-        .acc-sub { color: #5b7185; font-size: .8rem; margin-top: .2rem; }
+    .chart-card {
+      animation: fadeIn .5s ease both;
+    }
 
-        .acc-chev { flex-shrink: 0; color: #0070C0; font-size: 1.05rem; transition: transform .35s cubic-bezier(.2, .7, .3, 1); }
-        .acc-item.open .acc-chev { transform: rotate(180deg); }
+    .chart-card:nth-child(2) {
+      animation-delay: .1s;
+    }
 
-        .acc-body { max-height: 0; overflow: hidden; transition: max-height .45s cubic-bezier(.2, .7, .3, 1); }
-        .acc-item.open .acc-body { max-height: 600px; }
+    .chart-card:nth-child(3) {
+      animation-delay: .2s;
+    }
 
-        .acc-body-inner { padding: 0 1.6rem 1.2rem 10.2rem; }
-        .acc-text { color: #37475a; font-size: .9rem; line-height: 1.5; }
-        .acc-text strong { color: #103050; }
+    @media (prefers-reduced-motion: reduce) {
 
-        .hint { display: inline-flex; align-items: center; gap: .5rem; color: #0070C0; font-size: .8rem; font-weight: 600; }
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+    .chart-card {
+      background-color: #ffffff;
+      border: 2px solid #E2E8F0;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px -8px rgba(16, 48, 80, 0.18);
+      padding: 1.4rem 1.6rem;
+    }
 
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after { animation: none !important; transition: none !important; }
-        }
-
-        .bg-pattern { position: absolute; bottom: -50px; right: -50px; width: 400px; height: 400px; opacity: 0.03; z-index: 0; color: #103050; }
-    </style>
+    .legend-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+      display: inline-block;
+    }
+  </style>
 </head>
 
 <body>
-    <div class="slide-container">
-        <div class="top-accent"></div>
-        <div class="top-accent-secondary"></div>
-        <!-- Header -->
-        <div class="flex items-center justify-between px-16 pt-10 pb-3 z-10">
-            <div>
-                <div class="flex items-center gap-3 mb-2">
-                    <div class="w-1 h-8 bg-brand-secondary"></div>
-                    <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Leis</p>
-                </div>
-                <p class="text-gray-500 font-medium ml-4 text-lg">Marco legal da Ouvidoria e do acesso à informação —
-                    <span class="hint"><i class="fas fa-hand-pointer"></i> clique para expandir</span></p>
-            </div>
-            <div class="flex items-center gap-2 opacity-80 text-brand-secondary">
-                <i class="fas fa-landmark text-xl" aria-hidden="true"></i>
-                <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">LEGISLAÇÃO</p>
-            </div>
+  <div class="slide-container">
+    <div class="top-accent"></div>
+    <div class="top-accent-secondary"></div>
+    <!-- Header -->
+    <div class="flex items-center justify-between px-16 pt-12 pb-4 z-10">
+      <div>
+        <div class="flex items-center gap-3 mb-2">
+          <div class="w-1 h-8 bg-brand-secondary"></div>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Manifestações por
+            Canal por Mês</p>
         </div>
-        <!-- Main Content -->
-        <div class="flex-1 px-16 pb-8 pt-2 z-10">
-            <div class="acc-wrap">
-                <!-- Lei 10.233/2001 -->
-                <div class="acc-item open">
-                    <button class="acc-head" onclick="toggleAcc(this)" aria-expanded="true">
-                        <span class="law-num"><span class="ln-label">LEI</span><span class="ln-val">10.233</span><span
-                                class="ln-year">2001</span></span>
-                        <span class="acc-titles">
-                            <span class="acc-title block">Lei nº 10.233, de 5 de junho de 2001</span>
-                            <span class="acc-sub block">Lei de criação da ANTAQ</span>
-                        </span>
-                        <i class="fas fa-chevron-down acc-chev"></i>
-                    </button>
-                    <div class="acc-body">
-                        <div class="acc-body-inner">
-                            <p class="acc-text">Dispõe sobre a reestruturação dos transportes aquaviário e terrestre e
-                                <strong>cria a Agência Nacional de Transportes Aquaviários (ANTAQ)</strong>,
-                                estabelecendo sua natureza, finalidade e competências como entidade reguladora do setor.</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Lei 12.527/2011 -->
-                <div class="acc-item">
-                    <button class="acc-head" onclick="toggleAcc(this)" aria-expanded="false">
-                        <span class="law-num"><span class="ln-label">LEI</span><span class="ln-val">12.527</span><span
-                                class="ln-year">2011</span></span>
-                        <span class="acc-titles">
-                            <span class="acc-title block">Lei de Acesso à Informação (LAI)</span>
-                            <span class="acc-sub block">Lei nº 12.527, de 18 de novembro de 2011</span>
-                        </span>
-                        <i class="fas fa-chevron-down acc-chev"></i>
-                    </button>
-                    <div class="acc-body">
-                        <div class="acc-body-inner">
-                            <p class="acc-text">Dispõe sobre os procedimentos a serem observados pela União, Estados,
-                                Distrito Federal e Municípios, com o fim de garantir o acesso a informações previsto no
-                                inciso XXXIII do art. 5º, no inciso II do § 3º do art. 37 e no § 2º do art. 216 da
-                                <strong>Constituição Federal</strong>.</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Lei 12.846/2013 -->
-                <div class="acc-item">
-                    <button class="acc-head" onclick="toggleAcc(this)" aria-expanded="false">
-                        <span class="law-num"><span class="ln-label">LEI</span><span class="ln-val">12.846</span><span
-                                class="ln-year">2013</span></span>
-                        <span class="acc-titles">
-                            <span class="acc-title block">Lei Anticorrupção (Lei da Empresa Limpa)</span>
-                            <span class="acc-sub block">Lei nº 12.846, de 1º de agosto de 2013</span>
-                        </span>
-                        <i class="fas fa-chevron-down acc-chev"></i>
-                    </button>
-                    <div class="acc-body">
-                        <div class="acc-body-inner">
-                            <p class="acc-text">Dispõe sobre a <strong>responsabilização objetiva administrativa e
-                                    civil</strong> de pessoas jurídicas pela prática de atos contra a administração
-                                pública, nacional ou estrangeira.</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Lei 13.460/2017 -->
-                <div class="acc-item">
-                    <button class="acc-head" onclick="toggleAcc(this)" aria-expanded="false">
-                        <span class="law-num"><span class="ln-label">LEI</span><span class="ln-val">13.460</span><span
-                                class="ln-year">2017</span></span>
-                        <span class="acc-titles">
-                            <span class="acc-title block">Código de Proteção e Defesa dos Usuários de Serviços
-                                Públicos</span>
-                            <span class="acc-sub block">Lei nº 13.460, de 26 de junho de 2017</span>
-                        </span>
-                        <i class="fas fa-chevron-down acc-chev"></i>
-                    </button>
-                    <div class="acc-body">
-                        <div class="acc-body-inner">
-                            <p class="acc-text">Estabelece <strong>normas básicas para participação, proteção e
-                                    defesa</strong> dos direitos do usuário dos serviços públicos prestados direta ou
-                                indiretamente pela administração pública.</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Lei 13.848/2019 -->
-                <div class="acc-item">
-                    <button class="acc-head" onclick="toggleAcc(this)" aria-expanded="false">
-                        <span class="law-num"><span class="ln-label">LEI</span><span class="ln-val">13.848</span><span
-                                class="ln-year">2019</span></span>
-                        <span class="acc-titles">
-                            <span class="acc-title block">Lei Geral das Agências Reguladoras</span>
-                            <span class="acc-sub block">Lei nº 13.848, de 25 de junho de 2019</span>
-                        </span>
-                        <i class="fas fa-chevron-down acc-chev"></i>
-                    </button>
-                    <div class="acc-body">
-                        <div class="acc-body-inner">
-                            <p class="acc-text">Enfatiza o <strong>papel da Ouvidoria</strong> e a inexistência de
-                                subordinação hierárquica. Dispõe sobre a gestão, a organização, o processo decisório e o
-                                controle social das agências reguladoras.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Footer -->
-        <div class="px-16 pb-8 flex justify-between items-center z-10">
-            <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ — 1º Trimestre (Jan–Mar)</p>
-            <p class="text-gray-300 text-xs font-mono">17 / 21</p>
-        </div>
-        <div class="bg-pattern"><i class="fas fa-landmark text-9xl"></i></div>
+        <p class="text-gray-500 font-medium ml-4 text-lg">Distribuição dos canais ao longo do trimestre - Jan / Fev /
+          Mar de 2026</p>
+      </div>
+      <div class="flex items-center gap-4 ml-6">
+        <span class="flex items-center gap-2 text-sm text-gray-500"><span class="legend-dot"
+            style="background:#0070C0;"></span>Janeiro</span>
+        <span class="flex items-center gap-2 text-sm text-gray-500"><span class="legend-dot"
+            style="background:#0090C0;"></span>Fevereiro</span>
+        <span class="flex items-center gap-2 text-sm text-gray-500"><span class="legend-dot"
+            style="background:#103050;"></span>Março</span>
+      </div>
     </div>
-    <script>
-        function toggleAcc(btn) {
-            var item = btn.closest('.acc-item');
-            var open = item.classList.toggle('open');
-            btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-        }
-        document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });
-    </script>
+    <!-- Main Content -->
+    <div class="flex-1 grid grid-cols-3 gap-6 px-16 pb-10 z-10">
+      <div class="chart-card flex flex-col">
+        <p class="text-brand-primary font-montserrat font-bold text-xl mb-1 flex items-center gap-2"><i
+            class="fas fa-headset text-brand-secondary"></i> Omnichannel</p>
+        <p class="text-gray-400 text-sm mb-2">Total no trimestre: <strong class="text-brand-primary">382</strong></p>
+        <div class="flex-1 relative"><canvas id="chartOmni"></canvas></div>
+      </div>
+      <div class="chart-card flex flex-col">
+        <p class="text-brand-primary font-montserrat font-bold text-xl mb-1 flex items-center gap-2"><img src="Imagens/Logo_Fala_BR.png" alt="Fala.BR" style="height: 26px; width: auto;"> Fala.BR</p>
+        <p class="text-gray-400 text-sm mb-2">Total no trimestre: <strong class="text-brand-primary">304</strong></p>
+        <div class="flex-1 relative"><canvas id="chartFalabr"></canvas></div>
+      </div>
+      <div class="chart-card flex flex-col">
+        <p class="text-brand-primary font-montserrat font-bold text-xl mb-1 flex items-center gap-2"><i
+            class="fas fa-envelope text-brand-secondary"></i> E-mail</p>
+        <p class="text-gray-400 text-sm mb-2">Total no trimestre: <strong class="text-brand-primary">70</strong></p>
+        <div class="flex-1 relative"><canvas id="chartEmail"></canvas></div>
+      </div>
+    </div>
+    <!-- Footer -->
+    <div class="px-16 pb-8 flex justify-between items-center z-10">
+      <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ</p>
+      <p class="text-gray-300 text-xs font-mono">17 / 33</p>
+    </div>
+  </div>
+  <script>
+    const monthColors = ['#0070C0', '#0090C0', '#103050'];
+    const valueLabels = {
+      id: 'valueLabels',
+      afterDatasetsDraw(chart) {
+        const { ctx } = chart;
+        ctx.save();
+        ctx.font = '700 16px Montserrat, sans-serif';
+        ctx.fillStyle = '#103050';
+        ctx.textAlign = 'center';
+        chart.getDatasetMeta(0).data.forEach((bar, i) => {
+          ctx.fillText(chart.data.datasets[0].data[i], bar.x, bar.y - 8);
+        });
+        ctx.restore();
+      }
+    };
+    function makeBar(id, data) {
+      new Chart(document.getElementById(id), {
+        type: 'bar',
+        data: { labels: ['Jan', 'Fev', 'Mar'], datasets: [{ data, backgroundColor: monthColors, borderRadius: 6, maxBarThickness: 80 }] },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          layout: { padding: { top: 22 } },
+          plugins: { legend: { display: false }, tooltip: { enabled: false } },
+          scales: {
+            x: { grid: { display: false }, ticks: { color: '#6b7280', font: { size: 14, weight: '600' } } },
+            y: { beginAtZero: true, grid: { color: '#eef2f7' }, ticks: { color: '#9ca3af', font: { size: 12 } } }
+          }
+        },
+        plugins: [valueLabels]
+      });
+    }
+    makeBar('chartOmni', [186, 106, 90]);
+    makeBar('chartFalabr', [90, 129, 85]);
+    makeBar('chartEmail', [23, 33, 14]);
+  </script>
+  <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
 </body>
 
 </html>

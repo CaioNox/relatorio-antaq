@@ -1,16 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Apresentação Trimestral</title>
-<link rel="icon" type="image/png" href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png"/>
+  <link rel="icon" type="image/png"
+    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet" />
   <style>
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
-    html, body {
+    html,
+    body {
       margin: 0;
       width: 100%;
       height: 100%;
@@ -39,6 +44,15 @@
       box-shadow: 0 16px 44px rgba(0, 0, 0, 0.45);
       overflow: hidden;
       position: relative;
+      flex: 0 0 auto;
+    }
+
+    /* Zonas de clique de navegação — ficam no "fora do palco" (área azul), nas laterais do slide */
+    .click-zone {
+      flex: 1 1 0;
+      align-self: stretch;
+      min-width: 0;
+      cursor: pointer;
     }
 
     iframe {
@@ -55,91 +69,168 @@
 
     /* Navigation bar - same style as Kenia */
     .nav-bar {
-      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
-      display: flex; align-items: center; gap: 8px;
-      background: rgba(12, 50, 111, 0.95); backdrop-filter: blur(12px);
-      padding: 8px 16px; border-radius: 50px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(12, 50, 111, 0.95);
+      backdrop-filter: blur(12px);
+      padding: 8px 16px;
+      border-radius: 50px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
       z-index: 1000;
       font-family: 'Roboto', sans-serif;
     }
+
     .nav-bar button {
-      background: none; border: none; color: white; cursor: pointer;
-      width: 38px; height: 38px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 14px; transition: background 0.2s;
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      transition: background 0.2s;
     }
-    .nav-bar button:hover { background: rgba(255,255,255,0.2); }
-    .nav-bar button:disabled { opacity: 0.3; cursor: default; }
-    .nav-bar button:disabled:hover { background: none; }
+
+    .nav-bar button:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .nav-bar button:disabled {
+      opacity: 0.3;
+      cursor: default;
+    }
+
+    .nav-bar button:disabled:hover {
+      background: none;
+    }
+
     .nav-bar .page-info {
-      color: white; font-size: 13px; font-weight: 500;
-      min-width: 80px; text-align: center;
+      color: white;
+      font-size: 13px;
+      font-weight: 500;
+      min-width: 80px;
+      text-align: center;
     }
-    .nav-bar .home-btn { font-size: 12px; }
+
+    .nav-bar .home-btn {
+      font-size: 12px;
+    }
 
     /* Slide dots */
     .nav-dots {
-      display: flex; gap: 4px; align-items: center;
+      display: flex;
+      gap: 4px;
+      align-items: center;
       margin: 0 8px;
     }
+
     .nav-dots button {
-      width: 8px; height: 8px; border-radius: 50%;
-      background: rgba(255,255,255,0.3); border: none;
-      cursor: pointer; padding: 0; transition: all 0.2s;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: all 0.2s;
     }
+
     .nav-dots button.active {
-      background: #0090C0; width: 24px; border-radius: 4px;
+      background: #0090C0;
+      width: 24px;
+      border-radius: 4px;
     }
-    .nav-dots button:hover:not(.active) { background: rgba(255,255,255,0.6); }
+
+    .nav-dots button:hover:not(.active) {
+      background: rgba(255, 255, 255, 0.6);
+    }
 
     /* Fullscreen button */
     .fs-btn {
-      position: fixed; top: 16px; right: 16px;
-      background: rgba(12, 50, 111, 0.8); backdrop-filter: blur(8px);
-      border: 1px solid rgba(255,255,255,0.15);
-      color: white; cursor: pointer;
-      width: 40px; height: 40px; border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 16px; z-index: 1000; transition: all 0.2s;
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      background: rgba(12, 50, 111, 0.8);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: white;
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      z-index: 1000;
+      transition: all 0.2s;
     }
-    .fs-btn:hover { background: rgba(12, 50, 111, 1); }
+
+    .fs-btn:hover {
+      background: rgba(12, 50, 111, 1);
+    }
 
     /* Close button */
     .close-btn {
-      position: fixed; top: 16px; right: 68px;
-      background: rgba(155, 28, 28, 0.85); backdrop-filter: blur(8px);
-      border: 1px solid rgba(255,255,255,0.15);
-      color: white; cursor: pointer;
-      width: 40px; height: 40px; border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 16px; z-index: 1000; transition: all 0.2s;
+      position: fixed;
+      top: 16px;
+      right: 68px;
+      background: rgba(155, 28, 28, 0.85);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: white;
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      z-index: 1000;
+      transition: all 0.2s;
     }
-    .close-btn:hover { background: rgba(185, 28, 28, 1); }
+
+    .close-btn:hover {
+      background: rgba(185, 28, 28, 1);
+    }
   </style>
 </head>
+
 <body>
   <div class="app">
+    <div id="clickLeft" class="click-zone" title="Slide anterior"></div>
     <div class="stage">
       <iframe id="slideFrame" title="Slide"></iframe>
-      <div id="clickLeft" style="position:absolute;top:0;left:0;width:15%;height:100%;z-index:10;cursor:pointer;"></div>
-      <div id="clickRight" style="position:absolute;top:0;right:0;width:15%;height:100%;z-index:10;cursor:pointer;"></div>
     </div>
+    <div id="clickRight" class="click-zone" title="Próximo slide"></div>
   </div>
 
   <div class="nav-bar">
-    <button onclick="goHome()" class="home-btn" title="Ir para o slide inicial"><i class="fa-solid fa-house"></i></button>
+    <button onclick="goHome()" class="home-btn" title="Ir para o slide inicial"><i
+        class="fa-solid fa-house"></i></button>
     <button onclick="prev()" id="btnPrev" title="Anterior"><i class="fa-solid fa-chevron-left"></i></button>
     <div class="nav-dots" id="navDots"></div>
     <button onclick="next()" id="btnNext" title="Próximo"><i class="fa-solid fa-chevron-right"></i></button>
-    <span class="page-info" id="pageInfo">1 / 21</span>
+    <span class="page-info" id="pageInfo">1 / 33</span>
   </div>
 
-  <button class="close-btn" onclick="closePresentation()" title="Fechar apresentação"><i class="fa-solid fa-xmark"></i></button>
-  <button class="fs-btn" onclick="toggleFullscreen()" title="Tela Cheia (F)"><i class="fa-solid fa-expand" id="fsIcon"></i></button>
+  <button class="close-btn" onclick="closePresentation()" title="Fechar apresentação"><i
+      class="fa-solid fa-xmark"></i></button>
+  <button class="fs-btn" onclick="toggleFullscreen()" title="Tela Cheia (F)"><i class="fa-solid fa-expand"
+      id="fsIcon"></i></button>
 
   <script>
-    const total = 21;
+    const total = 33;
     const frame = document.getElementById('slideFrame');
     let current = 1;
 
@@ -183,9 +274,9 @@
     // Fullscreen
     function toggleFullscreen() {
       if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen().catch(() => {});
+        document.documentElement.requestFullscreen().catch(() => { });
       } else {
-        document.exitFullscreen().catch(() => {});
+        document.exitFullscreen().catch(() => { });
       }
     }
 
@@ -198,7 +289,7 @@
       else if (key === 'f' || key === 'F') { toggleFullscreen(); }
     }
     document.addEventListener('keydown', (e) => {
-      if (['ArrowRight','ArrowLeft','PageDown','PageUp','Home','End',' ','f','F'].indexOf(e.key) !== -1) {
+      if (['ArrowRight', 'ArrowLeft', 'PageDown', 'PageUp', 'Home', 'End', ' ', 'f', 'F'].indexOf(e.key) !== -1) {
         e.preventDefault();
         handleKey(e.key);
       }
@@ -207,6 +298,10 @@
     window.addEventListener('message', (e) => {
       if (e.data && e.data.type === 'slide-nav' && e.data.key) {
         handleKey(e.data.key);
+      }
+      if (e.data && e.data.type === 'slide-goto' && e.data.slide) {
+        current = e.data.slide;
+        render();
       }
     });
 
@@ -227,4 +322,5 @@
     new ResizeObserver(scaleFrame).observe(stage);
   </script>
 </body>
+
 </html>

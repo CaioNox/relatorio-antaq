@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-
 <html lang="pt-BR">
 
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <title>Tipos de Manifestações - Relatório Trimestral Ouvidoria ANTAQ</title>
+  <title>Manifestações que geraram processos administrativos sancionatórios - Ouvidoria ANTAQ</title>
   <link rel="icon" type="image/png"
     href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
@@ -13,7 +12,6 @@
     href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&amp;family=Open+Sans:wght@400;600&amp;display=swap"
     rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     html {
       font-size: 26px;
@@ -65,81 +63,314 @@
       width: 100%;
     }
 
-    /* ===== Interatividade ===== */
-    .chart-card,
-    .canal-card,
-    .period-chip,
-    .video-frame,
-    .kpi-card,
-    .glossary-card,
-    .exp-group,
-    .highlight-card {
-      transition: transform .28s cubic-bezier(.2, .7, .3, 1), box-shadow .28s ease, border-color .28s ease, background-color .28s ease;
+    /* ===== HERO 304 + barra de proporção ===== */
+    .hero {
+      background: linear-gradient(135deg, #0A2236 0%, #103050 45%, #0090C0 100%);
+      border-radius: 18px;
+      padding: 1.1rem 1.7rem;
+      color: #fff;
+      box-shadow: 0 18px 40px -16px rgba(16, 48, 80, .55);
+      display: flex;
+      align-items: center;
+      gap: 1.8rem;
+      position: relative;
+      overflow: hidden;
+      animation: fadeInUp .5s cubic-bezier(.2, .7, .3, 1) both;
     }
 
-    .chart-card:hover,
-    .canal-card:hover,
-    .period-chip:hover,
-    .video-frame:hover {
-      transform: translateY(-7px);
-      box-shadow: 0 22px 42px -12px rgba(16, 48, 80, .30);
-      border-color: #0070C0;
+    .hero .hero-ico {
+      position: absolute;
+      right: -6px;
+      bottom: -22px;
+      font-size: 8rem;
+      opacity: .12;
     }
 
-    .highlight-card:hover {
-      transform: translateY(-7px);
-      box-shadow: 0 26px 50px -14px rgba(16, 48, 80, .55);
+    .hero-num {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 3rem;
+      line-height: 1;
+      flex-shrink: 0;
     }
 
-    .glossary-card:hover {
-      transform: translateY(-7px);
-      border-color: #0070C0;
-      box-shadow: 0 22px 42px -12px rgba(0, 112, 192, .32);
+    .hero-num span {
+      display: block;
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: #cfe5f3;
+      margin-top: .3rem;
     }
 
-    .glossary-icon {
-      transition: transform .3s ease;
+    .hero-split {
+      flex: 1;
+      min-width: 0;
     }
 
-    .glossary-card:hover .glossary-icon {
-      transform: scale(1.12) rotate(-6deg);
+    .split-bar {
+      display: flex;
+      height: 2.2rem;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .15);
     }
 
-    .kpi-card:hover {
-      transform: translateY(-9px) scale(1.018);
-      box-shadow: 0 30px 58px -16px rgba(16, 48, 80, .6);
+    .split-seg {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: .82rem;
+      color: #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding: 0 .4rem;
     }
 
-    .kpi-watermark {
-      transition: transform .4s ease, opacity .4s ease;
+    .split-seg.s-int {
+      background: rgba(255, 255, 255, .28);
     }
 
-    .kpi-card:hover .kpi-watermark {
-      transform: scale(1.12);
-      opacity: .2;
+    .split-seg.s-ext {
+      background: rgba(255, 255, 255, .12);
     }
 
-    .exp-group:hover {
-      transform: translateX(5px);
+    .split-legend {
+      display: flex;
+      margin-top: .4rem;
+      font-family: 'Open Sans', sans-serif;
+      font-size: .6rem;
+      color: #cfe5f3;
     }
 
-    @keyframes fadeIn {
+    .split-legend span {
+      text-align: center;
+      line-height: 1.25;
+      padding: 0 .4rem;
+    }
+
+    /* ===== Texto explicativo ===== */
+    .explain {
+      display: flex;
+      align-items: flex-start;
+      gap: .7rem;
+      background: #EAF3FB;
+      border: 1px solid #C0E0F0;
+      border-left: 4px solid #0090C0;
+      border-radius: 12px;
+      padding: .6rem 1rem;
+      animation: fadeInUp .5s cubic-bezier(.2, .7, .3, 1) both;
+      animation-delay: .05s;
+    }
+
+    .explain i {
+      color: #0070C0;
+      font-size: .9rem;
+      margin-top: .15rem;
+      flex-shrink: 0;
+    }
+
+    .explain p {
+      font-family: 'Open Sans', sans-serif;
+      font-size: .76rem;
+      color: #334155;
+      line-height: 1.45;
+      margin: 0;
+    }
+
+    .explain b {
+      color: #103050;
+      font-weight: 700;
+    }
+
+    /* ===== Faixas de grupo (122 / 182) ===== */
+    .groups,
+    .ocards {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1.2rem;
+    }
+
+    .bracket {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .6rem;
+      padding: .5rem .8rem;
+      border-radius: 10px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: .8rem;
+      letter-spacing: .02em;
+      color: #fff;
+    }
+
+    .bracket .b-count {
+      font-size: 1.15rem;
+      font-weight: 900;
+    }
+
+    .bracket-int {
+      grid-column: span 2;
+      background: linear-gradient(135deg, #0090C0, #00a9d6);
+    }
+
+    .bracket-ext {
+      grid-column: span 3;
+      background: linear-gradient(135deg, #103050, #1c4e7a);
+    }
+
+    /* ===== Cartões de desfecho ===== */
+    .ocard {
+      background: #fff;
+      border: 2px solid #E2E8F0;
+      border-top: 4px solid #0090C0;
+      border-radius: 14px;
+      padding: 1.1rem 1.1rem;
+      display: flex;
+      flex-direction: column;
+      gap: .5rem;
+      box-shadow: 0 8px 20px -10px rgba(16, 48, 80, .18);
+      transition: transform .28s cubic-bezier(.2, .7, .3, 1), box-shadow .28s ease;
+      animation: fadeInUp .5s cubic-bezier(.2, .7, .3, 1) both;
+    }
+
+    .ocard:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 22px 42px -14px rgba(16, 48, 80, .3);
+    }
+
+    .ocard.g-ext {
+      border-top-color: #103050;
+    }
+
+    .ocard:nth-child(1) {
+      animation-delay: .05s;
+    }
+
+    .ocard:nth-child(2) {
+      animation-delay: .12s;
+    }
+
+    .ocard:nth-child(3) {
+      animation-delay: .19s;
+    }
+
+    .ocard:nth-child(4) {
+      animation-delay: .26s;
+    }
+
+    .ocard:nth-child(5) {
+      animation-delay: .33s;
+    }
+
+    .oc-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .oc-ico {
+      width: 2.6rem;
+      height: 2.6rem;
+      border-radius: 50%;
+      background: #EAF3FB;
+      color: #0090C0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.05rem;
+    }
+
+    .oc-pct {
+      background: #EAF3FB;
+      color: #0070C0;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: .7rem;
+      padding: .25rem .55rem;
+      border-radius: 999px;
+    }
+
+    .oc-num {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 2.6rem;
+      color: #103050;
+      line-height: 1;
+    }
+
+    .oc-lbl {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: .74rem;
+      letter-spacing: .03em;
+      text-transform: uppercase;
+      color: #475569;
+      line-height: 1.2;
+    }
+
+    .oc-track {
+      height: .5rem;
+      background: #eef2f7;
+      border-radius: 999px;
+      overflow: hidden;
+      margin-top: auto;
+    }
+
+    .oc-fill {
+      height: 100%;
+      width: 0;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #0070C0, #0090C0);
+      transition: width .9s cubic-bezier(.2, .7, .3, 1);
+    }
+
+    /* ===== Cartão clímax: 103 ===== */
+    .ocard.hero103 {
+      background: linear-gradient(150deg, #103050 0%, #0090C0 100%);
+      border: 2px solid transparent;
+      border-top: 4px solid #F2A900;
+      box-shadow: 0 16px 34px -14px rgba(16, 48, 80, .55);
+    }
+
+    .ocard.hero103 .oc-ico {
+      background: rgba(255, 255, 255, .18);
+      color: #F2A900;
+    }
+
+    .ocard.hero103 .oc-pct {
+      background: rgba(242, 169, 0, .95);
+      color: #103050;
+    }
+
+    .ocard.hero103 .oc-num,
+    .ocard.hero103 .oc-lbl {
+      color: #fff;
+    }
+
+    .ocard.hero103 .oc-track {
+      background: rgba(255, 255, 255, .22);
+    }
+
+    .ocard.hero103 .oc-fill {
+      background: linear-gradient(90deg, #F2A900, #ffd166);
+    }
+
+    @keyframes fadeInUp {
       from {
         opacity: 0;
+        transform: translateY(14px);
       }
 
       to {
         opacity: 1;
+        transform: none;
       }
-    }
-
-    .chart-card,
-    .kpi-card,
-    .glossary-card,
-    .canal-card,
-    .period-chip,
-    .highlight-card {
-      animation: fadeIn .5s ease both;
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -151,22 +382,6 @@
         transition: none !important;
       }
     }
-
-    .chart-card {
-      background-color: #ffffff;
-      border: 2px solid #E2E8F0;
-      border-radius: 16px;
-      box-shadow: 0 8px 20px -8px rgba(16, 48, 80, 0.18);
-      padding: 1rem 1.3rem;
-    }
-
-    .highlight-card {
-      background: linear-gradient(180deg, #103050 0%, #0070C0 100%);
-      border-radius: 16px;
-      color: #fff;
-      padding: 1.3rem 1.5rem;
-      box-shadow: 0 12px 28px -10px rgba(16, 48, 80, 0.45);
-    }
   </style>
 </head>
 
@@ -175,97 +390,143 @@
     <div class="top-accent"></div>
     <div class="top-accent-secondary"></div>
     <!-- Header -->
-    <div class="flex items-center justify-between px-16 pt-8 pb-4 z-10">
+    <div class="flex items-center justify-between px-16 pt-6 pb-1 z-10">
       <div>
-        <div class="flex items-center gap-3 mb-2">
+        <div class="flex items-center gap-3 mb-1">
           <div class="w-1 h-8 bg-brand-secondary"></div>
-          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Tipos de
-            Manifestações</p>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Tratamento das
+            Demandas</p>
         </div>
-        <p class="text-gray-500 font-medium ml-4 text-lg">Distribuição por tipo no 1º trimestre de 2026</p>
+        <p class="text-gray-500 font-medium ml-4 text-lg">Fluxo das 304 manifestações até os processos administrativos
+          sancionatórios — 1º trimestre de 2026</p>
       </div>
       <div class="flex items-center gap-2 opacity-80 text-brand-secondary">
-        <i class="fas fa-layer-group text-xl" aria-hidden="true"></i>
-        <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">TRIMESTRE</p>
+        <i class="fas fa-code-branch text-xl" aria-hidden="true"></i>
+        <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">FLUXO · SANCIONATÓRIOS</p>
       </div>
     </div>
-    <!-- Main Content -->
-    <div class="flex-1 grid grid-cols-3 gap-8 px-16 pb-6 z-10">
-      <!-- Chart -->
-      <div class="chart-card col-span-2 flex flex-col">
-        <div class="flex-1 relative"><canvas id="chartTipos"></canvas></div>
-      </div>
-      <!-- Highlight -->
-      <div class="flex flex-col gap-5">
-        <div class="highlight-card">
-          <p class="text-blue-100 font-montserrat font-bold text-sm uppercase tracking-widest mb-1">Tipo mais frequente
-          </p>
-          <p class="font-montserrat font-black text-3xl mb-2">Denúncia</p>
-          <p class="font-montserrat font-black text-7xl leading-none mb-2">173</p>
-          <p class="text-blue-100 text-base leading-relaxed">Representa cerca de <strong>67%</strong> das manifestações
-            do trimestre (173 de 258).</p>
+
+    <!-- Main -->
+    <div class="flex-1 flex flex-col justify-center gap-5 px-16 pt-2 pb-5 z-10" style="min-height:0;">
+      <!-- HERO 304 + split -->
+      <div class="hero">
+        <div class="hero-num">304<span>Demandas · Jan–Mar 2026</span></div>
+        <div class="hero-split">
+          <div class="split-bar">
+            <div class="split-seg s-int" style="flex:122 1 0;">122 · Fluxo interno</div>
+            <div class="split-seg s-ext" style="flex:182 1 0;">182 · Órgãos externos</div>
+          </div>
+          <div class="split-legend">
+            <span style="flex:122 1 0;">Encaminhadas às demais áreas ou respondidas pela Ouvidoria</span>
+            <span style="flex:182 1 0;">Encaminhadas à SFC e GPF</span>
+          </div>
         </div>
-        <div class="chart-card flex-1 flex flex-col justify-center">
-          <p class="text-gray-400 text-xs font-bold uppercase tracking-wide mb-3">Total por tipo · trimestre</p>
-          <div class="space-y-1.5 text-sm">
-            <div class="flex justify-between"><span class="text-gray-600">Denúncia</span><strong
-                class="text-brand-primary">173</strong></div>
-            <div class="flex justify-between"><span class="text-gray-600">Solicitação</span><strong
-                class="text-brand-primary">45</strong></div>
-            <div class="flex justify-between"><span class="text-gray-600">Reclamação</span><strong
-                class="text-brand-primary">34</strong></div>
-            <div class="flex justify-between"><span class="text-gray-600">Sugestão</span><strong
-                class="text-brand-primary">3</strong></div>
-            <div class="flex justify-between"><span class="text-gray-600">Elogio</span><strong
-                class="text-brand-primary">2</strong></div>
-            <div class="flex justify-between"><span class="text-gray-600">Simplifique</span><strong
-                class="text-brand-primary">1</strong></div>
-            <div class="flex justify-between border-t border-gray-200 pt-1.5 mt-1.5"><span
-                class="text-gray-500 font-semibold">Total</span><strong class="text-brand-secondary">258</strong></div>
+        <i class="fas fa-diagram-project hero-ico" aria-hidden="true"></i>
+      </div>
+
+      <!-- Texto explicativo -->
+      <div class="explain">
+        <i class="fas fa-circle-info" aria-hidden="true"></i>
+        <p>Das <b>304</b> manifestações analisadas no 1º trimestre, <b>122</b> seguiram o <b>fluxo interno</b> —
+          encaminhadas às demais áreas ou respondidas pela própria Ouvidoria — e <b>182</b> foram encaminhadas à
+          <b>SFC e à GPF</b>. Do encaminhamento externo, <b>103</b> geraram processos administrativos sancionatórios ou
+          foram associadas a processos já existentes, para apuração de denúncias e reclamações.
+        </p>
+      </div>
+
+      <!-- Faixas de grupo -->
+      <div class="groups">
+        <div class="bracket bracket-int"><span class="b-count">122</span><span>Fluxo interno</span></div>
+        <div class="bracket bracket-ext"><span class="b-count">182</span><span>Órgãos externos · SFC e GPF</span></div>
+      </div>
+
+      <!-- Cartões de desfecho -->
+      <div class="ocards">
+        <!-- 122 -->
+        <div class="ocard g-int hero103">
+          <div class="oc-top">
+            <div class="oc-ico"><i class="fas fa-reply"></i></div>
+            <span class="oc-pct">34,9%</span>
+          </div>
+          <div class="oc-num">106</div>
+          <div class="oc-lbl">Respondidas</div>
+          <div class="oc-track">
+            <div class="oc-fill" data-w="34.9"></div>
+          </div>
+        </div>
+        <div class="ocard g-int">
+          <div class="oc-top">
+            <div class="oc-ico"><i class="fas fa-box-archive"></i></div>
+            <span class="oc-pct">5,3%</span>
+          </div>
+          <div class="oc-num">16</div>
+          <div class="oc-lbl">Arquivadas</div>
+          <div class="oc-track">
+            <div class="oc-fill" data-w="5.3"></div>
+          </div>
+        </div>
+        <!-- 182 -->
+        <div class="ocard g-ext hero103">
+          <div class="oc-top">
+            <div class="oc-ico"><i class="fas fa-gavel"></i></div>
+            <span class="oc-pct">33,9%</span>
+          </div>
+          <div class="oc-num">103</div>
+          <div class="oc-lbl">Processos administrativos</div>
+          <div class="oc-track">
+            <div class="oc-fill" data-w="33.9"></div>
+          </div>
+        </div>
+        <div class="ocard g-ext">
+          <div class="oc-top">
+            <div class="oc-ico"><i class="fas fa-reply"></i></div>
+            <span class="oc-pct">16,1%</span>
+          </div>
+          <div class="oc-num">49</div>
+          <div class="oc-lbl">Respondidas</div>
+          <div class="oc-track">
+            <div class="oc-fill" data-w="16.1"></div>
+          </div>
+        </div>
+        <div class="ocard g-ext">
+          <div class="oc-top">
+            <div class="oc-ico"><i class="fas fa-box-archive"></i></div>
+            <span class="oc-pct">9,9%</span>
+          </div>
+          <div class="oc-num">30</div>
+          <div class="oc-lbl">Arquivadas</div>
+          <div class="oc-track">
+            <div class="oc-fill" data-w="9.9"></div>
           </div>
         </div>
       </div>
     </div>
+
     <!-- Footer -->
-    <div class="px-16 pt-1 pb-8 flex justify-between items-center z-10">
-      <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ — 1º Trimestre (Jan–Mar)</p>
-      <p class="text-gray-300 text-xs font-mono">5 / 21</p>
+    <div class="px-16 pb-4 pt-1 flex justify-between items-center z-10">
+      <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ</p>
+      <p class="text-gray-300 text-xs font-mono">5 / 33</p>
     </div>
   </div>
+
   <script>
-    const labels = ['Reclamação', 'Solicitação', 'Denúncia', 'Sugestão', 'Elogio', 'Simplifique'];
-    const data = [34, 45, 173, 3, 2, 1];
-    const colors = data.map((_, i) => i === 2 ? '#103050' : '#0070C0');
-    const valueLabels = {
-      id: 'valueLabels',
-      afterDatasetsDraw(chart) {
-        const { ctx } = chart;
-        ctx.save();
-        ctx.font = '700 16px Montserrat, sans-serif';
-        ctx.fillStyle = '#103050';
-        ctx.textAlign = 'center';
-        chart.getDatasetMeta(0).data.forEach((bar, i) => {
-          ctx.fillText(chart.data.datasets[0].data[i], bar.x, bar.y - 8);
+    (function () {
+      var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      function grow() {
+        document.querySelectorAll('.oc-fill[data-w]').forEach(function (el) {
+          el.style.width = el.getAttribute('data-w') + '%';
         });
-        ctx.restore();
       }
-    };
-    new Chart(document.getElementById('chartTipos'), {
-      type: 'bar',
-      data: { labels, datasets: [{ data, backgroundColor: colors, borderRadius: 6, maxBarThickness: 90 }] },
-      options: {
-        responsive: true, maintainAspectRatio: false,
-        layout: { padding: { top: 24 } },
-        plugins: { legend: { display: false }, tooltip: { enabled: false } },
-        scales: {
-          x: { grid: { display: false }, ticks: { color: '#374151', font: { size: 14, weight: '600' } } },
-          y: { beginAtZero: true, grid: { color: '#eef2f7' }, ticks: { color: '#9ca3af', font: { size: 12 } } }
-        }
-      },
-      plugins: [valueLabels]
+      if (reduced) { grow(); }
+      else { requestAnimationFrame(function () { requestAnimationFrame(grow); }); }
+    })();
+    document.addEventListener('keydown', function (e) {
+      if (['ArrowRight', 'ArrowLeft', 'PageDown', 'PageUp', 'Home', 'End', ' ', 'f', 'F'].indexOf(e.key) !== -1) {
+        e.preventDefault();
+        window.parent.postMessage({ type: 'slide-nav', key: e.key }, '*');
+      }
     });
   </script>
-  <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
 </body>
 
 </html>

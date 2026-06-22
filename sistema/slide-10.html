@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <title>LAI · Transparência Passiva - Relatório Trimestral Ouvidoria ANTAQ</title>
+  <title>Inteligência da Ouvidoria - Relatório Trimestral Ouvidoria ANTAQ</title>
   <link rel="icon" type="image/png"
     href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
@@ -64,102 +64,118 @@
       width: 100%;
     }
 
-    /* ===== Interatividade ===== */
-    .chart-card,
-    .canal-card,
-    .period-chip,
-    .video-frame,
-    .kpi-card,
-    .glossary-card,
-    .exp-group {
-      transition: transform .28s cubic-bezier(.2, .7, .3, 1), box-shadow .28s ease, border-color .28s ease, background-color .28s ease;
+    /* ===== Banner editorial ===== */
+    .intel-banner {
+      display: flex;
+      align-items: center;
+      gap: 1.6rem;
     }
 
-    .chart-card:hover,
-    .canal-card:hover,
-    .period-chip:hover,
-    .video-frame:hover {
-      transform: translateY(-7px);
-      box-shadow: 0 22px 42px -12px rgba(16, 48, 80, .30);
+    .intel-banner .ib-ico {
+      font-size: 4rem;
+      color: #0090C0;
+      flex-shrink: 0;
+    }
+
+    .intel-banner .ib-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 2.8rem;
+      line-height: 1;
+      color: #103050;
+    }
+
+    .intel-banner .ib-rule {
+      width: 80px;
+      height: 4px;
+      background: #F2A900;
+      border-radius: 2px;
+      margin-top: .8rem;
+    }
+
+    /* ===== Corpo editorial em 2 colunas ===== */
+    .intel-body {
+      column-count: 2;
+      column-gap: 3rem;
+      margin-top: 1.6rem;
+    }
+
+    .intel-body p {
+      font-family: 'Open Sans', sans-serif;
+      font-weight: 400;
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: #374151;
+      margin: 0 0 1.1rem 0;
+      break-inside: avoid;
+    }
+
+    .intel-body p:first-child::first-letter {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 4rem;
+      float: left;
+      line-height: 0.85;
+      color: #0090C0;
+      margin-right: 0.5rem;
+      margin-top: 0.3rem;
+    }
+
+    /* ===== Chips ===== */
+    .intel-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .intel-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: .55rem;
+      border: 2px solid #C0E0F0;
+      background: #EAF3FB;
+      padding: 0.5rem 1rem;
+      border-radius: 999px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: .8rem;
+      color: #103050;
+      transition: transform .25s ease, border-color .25s ease;
+    }
+
+    .intel-chip i {
+      color: #0090C0;
+    }
+
+    .intel-chip:hover {
+      transform: translateY(-3px);
       border-color: #0070C0;
-    }
-
-    .glossary-card:hover {
-      transform: translateY(-7px);
-      border-color: #0070C0;
-      box-shadow: 0 22px 42px -12px rgba(0, 112, 192, .32);
-    }
-
-    .glossary-icon {
-      transition: transform .3s ease;
-    }
-
-    .glossary-card:hover .glossary-icon {
-      transform: scale(1.12) rotate(-6deg);
-    }
-
-    .kpi-card:hover {
-      transform: translateY(-9px) scale(1.018);
-      box-shadow: 0 30px 58px -16px rgba(16, 48, 80, .6);
-    }
-
-    .kpi-watermark {
-      transition: transform .4s ease, opacity .4s ease;
-    }
-
-    .kpi-card:hover .kpi-watermark {
-      transform: scale(1.12);
-      opacity: .2;
-    }
-
-    .exp-group:hover {
-      transform: translateX(5px);
     }
 
     @keyframes fadeIn {
       from {
         opacity: 0;
+        transform: translateY(10px);
       }
 
       to {
         opacity: 1;
+        transform: none;
       }
     }
 
-    .chart-card,
-    .kpi-card,
-    .glossary-card,
-    .canal-card,
-    .period-chip {
+    .intel-banner,
+    .intel-body,
+    .intel-chips {
       animation: fadeIn .5s ease both;
     }
 
-    .chart-card:nth-child(2),
-    .kpi-card:nth-child(2),
-    .glossary-card:nth-child(2),
-    .canal-card:nth-child(2),
-    .period-chip:nth-child(2) {
-      animation-delay: .09s;
+    .intel-body {
+      animation-delay: .1s;
     }
 
-    .chart-card:nth-child(3),
-    .kpi-card:nth-child(3),
-    .glossary-card:nth-child(3),
-    .canal-card:nth-child(3),
-    .period-chip:nth-child(3) {
-      animation-delay: .18s;
-    }
-
-    .glossary-card:nth-child(4) {
-      animation-delay: .27s;
-    }
-
-    .glossary-card:nth-child(5) {
-      animation-delay: .36s;
-    }
-
-    .glossary-card:nth-child(6) {
-      animation-delay: .45s;
+    .intel-chips {
+      animation-delay: .2s;
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -171,112 +187,63 @@
         transition: none !important;
       }
     }
-
-    .chart-card {
-      background-color: #ffffff;
-      border: 2px solid #E2E8F0;
-      border-radius: 16px;
-      box-shadow: 0 8px 20px -8px rgba(16, 48, 80, 0.18);
-      padding: 1.4rem 1.6rem;
-    }
-
-    .legend-dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 3px;
-      display: inline-block;
-    }
-    /* ===== Componentes adicionais (mesma identidade visual) ===== */
-    .rank-row { display:flex; align-items:center; gap:1rem; }
-    .rank-label { font-family:'Open Sans',sans-serif; font-size:.9rem; color:#103050; font-weight:600; width:19rem; flex-shrink:0; line-height:1.15; }
-    .rank-track { flex:1; height:30px; background:#eef2f7; border-radius:8px; overflow:hidden; }
-    .rank-fill { height:100%; border-radius:8px; background:linear-gradient(90deg,#0070C0,#0090C0); }
-    .rank-val { font-family:'Montserrat',sans-serif; font-weight:900; color:#103050; font-size:1.05rem; width:3.2rem; text-align:right; flex-shrink:0; }
-    .stat-mini { background:#ffffff; border:2px solid #E2E8F0; border-radius:14px; padding:1rem 1.3rem; box-shadow:0 8px 20px -8px rgba(16,48,80,.18); }
-    .base-chip { display:flex; align-items:center; gap:.6rem; background:#f8fafc; border:1px solid #E2E8F0; border-radius:10px; padding:.5rem .75rem; transition:all .25s ease; }
-    .base-chip:hover { border-color:#0070C0; background:#eef6fc; transform:translateX(4px); }
-    .base-chip i { color:#0070C0; font-size:.8rem; }
-    .base-chip span { font-family:'Open Sans',sans-serif; font-size:.78rem; color:#103050; font-weight:600; line-height:1.1; }
-    .svc-badge { display:inline-flex; align-items:center; gap:.7rem; background:linear-gradient(135deg,#103050,#0070C0); color:#fff; border-radius:999px; padding:.5rem 1.3rem; font-family:'Montserrat',sans-serif; font-weight:800; letter-spacing:.04em; box-shadow:0 10px 24px -10px rgba(16,48,80,.5); }
-    .svc-card { background:#fff; border:2px solid #E2E8F0; border-left:5px solid #0070C0; border-radius:12px; padding:.8rem 1rem; display:flex; gap:.8rem; align-items:flex-start; box-shadow:0 6px 16px -8px rgba(16,48,80,.18); transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
-    .svc-card:hover { transform:translateY(-5px); border-color:#0090C0; box-shadow:0 18px 34px -14px rgba(16,48,80,.32); }
-    .svc-num { font-family:'Montserrat',sans-serif; font-weight:900; color:#0090C0; font-size:1.3rem; line-height:1; flex-shrink:0; min-width:1.7rem; }
-    .svc-text { font-family:'Open Sans',sans-serif; font-size:.78rem; color:#103050; font-weight:600; line-height:1.18; }
-    .kpi-card { border-radius:20px; padding:2.2rem 2rem; position:relative; overflow:hidden; display:flex; flex-direction:column; justify-content:space-between; min-height:420px; box-shadow:0 18px 40px -12px rgba(16,48,80,0.45); }
-    .kpi-primary { background:linear-gradient(160deg,#103050 0%,#0070C0 100%); }
-    .kpi-soft { background:linear-gradient(160deg,#0e3a66 0%,#11598f 100%); }
-    .kpi-num { font-family:'Montserrat',sans-serif; font-weight:900; line-height:1; color:#ffffff; }
-    .kpi-watermark { position:absolute; right:-10px; bottom:-20px; font-size:9rem; opacity:0.12; color:#ffffff; }
-    .bg-pattern { position:absolute; bottom:-50px; right:-50px; width:400px; height:400px; opacity:0.03; z-index:0; color:#103050; }
   </style>
 </head>
+
 <body>
   <div class="slide-container">
     <div class="top-accent"></div>
     <div class="top-accent-secondary"></div>
     <!-- Header -->
-    <div class="flex items-center justify-between px-16 pt-12 pb-4 z-10">
+    <div class="flex items-center justify-between px-16 pt-12 pb-2 z-10">
       <div>
         <div class="flex items-center gap-3 mb-2">
           <div class="w-1 h-8 bg-brand-secondary"></div>
-          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">LAI · Transparência Passiva</p>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Analytics de
+            Ouvidoria
         </div>
-        <p class="text-gray-500 font-medium ml-4 text-lg">Pedidos de acesso à informação (Lei nº 12.527/2011) — 1º trimestre de 2026</p>
+        <p class="text-gray-500 font-medium ml-4 text-lg">Interpretação dos dados produzidos pela Ouvidoria — 1º
+          trimestre de 2026</p>
       </div>
       <div class="flex items-center gap-2 opacity-80 text-brand-secondary">
-        <i class="fas fa-unlock-keyhole text-xl" aria-hidden="true"></i>
-        <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">ACESSO À INFORMAÇÃO</p>
+        <i class="fas fa-brain text-xl" aria-hidden="true"></i>
+        <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">INTERPRETAÇÃO ESTRATÉGICA</p>
       </div>
     </div>
-    <!-- KPIs -->
-    <div class="flex-1 flex flex-col justify-center px-16 pb-6 z-10">
-      <div class="grid grid-cols-4 gap-6">
-        <div class="kpi-card kpi-primary" style="min-height:340px;">
-          <div><p class="text-blue-100 font-montserrat font-bold text-sm uppercase tracking-widest mb-2">Pedidos recebidos</p>
-            <p class="kpi-num text-7xl">130</p></div>
-          <p class="text-blue-100 text-base leading-relaxed relative z-10">Média de 43 pedidos por mês no trimestre.</p>
-          <i class="fas fa-inbox kpi-watermark"></i>
+    <!-- Main Content -->
+    <div class="flex-1 flex flex-col justify-center px-16 pb-8 z-10">
+      <div class="max-w-6xl mx-auto w-full">
+        <!-- Banner -->
+        <div class="intel-banner">
+          <i class="fas fa-brain ib-ico" aria-hidden="true"></i>
+          <div>
+            <p class="ib-title">Inteligência da Ouvidoria</p>
+            <div class="ib-rule"></div>
+          </div>
         </div>
-        <div class="kpi-card kpi-soft" style="min-height:340px;">
-          <div><p class="text-blue-100 font-montserrat font-bold text-sm uppercase tracking-widest mb-2">Respondidos no prazo</p>
-            <p class="kpi-num text-7xl">100%</p></div>
-          <p class="text-blue-100 text-base leading-relaxed relative z-10">Todos os pedidos respondidos dentro do prazo legal.</p>
-          <i class="fas fa-circle-check kpi-watermark"></i>
+        <!-- Corpo -->
+        <div class="intel-body">
+          <p>A análise consolidada das manifestações recebidas pela Ouvidoria permite identificar tendências
+            regulatórias, oportunidades de melhoria institucional, riscos emergentes e demandas recorrentes dos usuários
+            dos serviços regulados pela ANTAQ.</p>
+          <p>Nesse contexto, a Ouvidoria atua não apenas como canal de atendimento ao cidadão, mas também como
+            importante
+            instrumento de apoio à gestão, à fiscalização e à tomada de decisão.</p>
+          <p>Os dados observados no período evidenciam a predominância de manifestações relacionadas à tarifa portuária
+            e
+            seus desdobramentos operacionais, demonstrando a relevância do tema para os usuários e para o ambiente
+            regulatório.</p>
         </div>
-        <div class="kpi-card kpi-soft" style="min-height:340px;">
-          <div><p class="text-blue-100 font-montserrat font-bold text-sm uppercase tracking-widest mb-2">Fora do prazo</p>
-            <p class="kpi-num text-7xl">0%</p></div>
-          <p class="text-blue-100 text-base leading-relaxed relative z-10">Nenhum pedido respondido fora do prazo.</p>
-          <i class="fas fa-hourglass-half kpi-watermark"></i>
-        </div>
-        <div class="kpi-card kpi-primary" style="min-height:340px;">
-          <div><p class="text-blue-100 font-montserrat font-bold text-sm uppercase tracking-widest mb-2">Tempo médio de resposta</p>
-            <p class="kpi-num text-7xl">9,1<span class="text-2xl font-bold ml-1">dias</span></p></div>
-          <p class="text-blue-100 text-base leading-relaxed relative z-10">Da abertura à resposta conclusiva ao cidadão.</p>
-          <i class="fas fa-clock kpi-watermark"></i>
-        </div>
-      </div>
-      <!-- Recursos note -->
-      <div class="grid grid-cols-2 gap-6 mt-6">
-        <div class="stat-mini flex items-center gap-4">
-          <i class="fas fa-scale-balanced text-3xl text-brand-secondary"></i>
-          <div><p class="font-montserrat font-black text-3xl text-brand-primary leading-none">6 recursos</p>
-            <p class="text-gray-500 text-sm mt-1">interpostos no período</p></div>
-        </div>
-        <div class="stat-mini flex items-center gap-4">
-          <i class="fas fa-stopwatch text-3xl text-brand-secondary"></i>
-          <div><p class="font-montserrat font-black text-3xl text-brand-primary leading-none">3,8 dias</p>
-            <p class="text-gray-500 text-sm mt-1">tempo médio de resposta aos recursos</p></div>
-        </div>
+
       </div>
     </div>
     <!-- Footer -->
     <div class="px-16 pb-8 flex justify-between items-center z-10">
-      <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ — 1º Trimestre (Jan–Mar)</p>
-      <p class="text-gray-300 text-xs font-mono">10 / 21</p>
+      <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ</p>
+      <p class="text-gray-300 text-xs font-mono">10 / 33</p>
     </div>
-    <div class="bg-pattern"><i class="fas fa-unlock-keyhole text-9xl"></i></div>
   </div>
   <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
 </body>
+
 </html>

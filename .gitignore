@@ -12,6 +12,12 @@ desktop.ini
 *.swo
 *~
 
+
+# Backups
+*.backup
+*.backup.*
+backup_pre_eyebrow/
+
 # Logs e temporários
 *.log
 npm-debug.log*

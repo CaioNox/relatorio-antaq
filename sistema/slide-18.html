@@ -3,285 +3,280 @@
 <html lang="pt-BR">
 
 <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Decretos - Relatório Trimestral Ouvidoria ANTAQ</title>
-    <link rel="icon" type="image/png"
-        href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&amp;family=Open+Sans:wght@400;600&amp;display=swap"
-        rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
-    <style>
-        html { font-size: 20px; }
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>LAI · Transparência Passiva - Relatório Trimestral Ouvidoria ANTAQ</title>
+  <link rel="icon" type="image/png"
+    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&amp;family=Open+Sans:wght@400;600&amp;display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    html {
+      font-size: 26px;
+    }
 
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #f3f4f6;
-            overflow-x: hidden;
-            overflow-y: auto;
-        }
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f3f4f6;
+      overflow: hidden;
+    }
 
-        .slide-container {
-            width: 100vw;
-            min-height: 100vh;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            background-color: #ffffff;
-            overflow: visible;
-            font-family: 'Open Sans', sans-serif;
-        }
+    .slide-container {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background-color: #ffffff;
+      overflow: hidden;
+      font-family: 'Open Sans', sans-serif;
+    }
 
-        .font-montserrat { font-family: 'Montserrat', sans-serif; }
-        .text-brand-primary { color: #103050; }
-        .text-brand-secondary { color: #0070C0; }
-        .bg-brand-secondary { background-color: #0070C0; }
+    .font-montserrat {
+      font-family: 'Montserrat', sans-serif;
+    }
 
-        .top-accent { height: 8px; background-color: #103050; width: 100%; }
-        .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
+    .text-brand-primary {
+      color: #103050;
+    }
 
-        /* ===== Acordeão (efeito cascata) ===== */
-        .acc-wrap { display: flex; flex-direction: column; gap: .7rem; }
+    .text-brand-secondary {
+      color: #0070C0;
+    }
 
-        .acc-item {
-            background-color: #ffffff;
-            border: 2px solid #E2E8F0;
-            border-left: 5px solid #0070C0;
-            border-radius: 14px;
-            overflow: hidden;
-            box-shadow: 0 6px 16px -8px rgba(16, 48, 80, 0.16);
-            transition: border-color .28s ease, box-shadow .28s ease, background-color .28s ease;
-            animation: fadeIn .5s ease both;
-        }
+    .bg-brand-secondary {
+      background-color: #0070C0;
+    }
 
-        .acc-item:nth-child(2) { animation-delay: .06s }
-        .acc-item:nth-child(3) { animation-delay: .12s }
-        .acc-item:nth-child(4) { animation-delay: .18s }
-        .acc-item:nth-child(5) { animation-delay: .24s }
-        .acc-item:nth-child(6) { animation-delay: .30s }
+    .top-accent {
+      height: 8px;
+      background-color: #103050;
+      width: 100%;
+    }
 
-        .acc-item:hover { border-left-color: #0090C0; box-shadow: 0 16px 34px -14px rgba(16, 48, 80, .26); }
-        .acc-item.open { border-left-color: #103050; box-shadow: 0 16px 34px -14px rgba(16, 48, 80, .26); }
+    .top-accent-secondary {
+      height: 4px;
+      background-color: #0070C0;
+      width: 100%;
+    }
 
-        .acc-head {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            gap: 1.1rem;
-            padding: .85rem 1.4rem;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            text-align: left;
-            font-family: 'Open Sans', sans-serif;
-        }
+    /* ===== Interatividade ===== */
+    .chart-card,
+    .canal-card,
+    .period-chip,
+    .video-frame,
+    .kpi-card,
+    .glossary-card,
+    .exp-group {
+      transition: transform .28s cubic-bezier(.2, .7, .3, 1), box-shadow .28s ease, border-color .28s ease, background-color .28s ease;
+    }
 
-        .law-num {
-            flex-shrink: 0;
-            min-width: 7.5rem;
-            text-align: center;
-            border-radius: 10px;
-            background: linear-gradient(160deg, #0e3a66 0%, #11598f 100%);
-            color: #fff;
-            padding: .5rem .4rem;
-            font-family: 'Montserrat', sans-serif;
-            line-height: 1;
-            transition: transform .3s ease;
-        }
+    .chart-card:hover,
+    .canal-card:hover,
+    .period-chip:hover,
+    .video-frame:hover {
+      transform: translateY(-7px);
+      box-shadow: 0 22px 42px -12px rgba(16, 48, 80, .30);
+      border-color: #0070C0;
+    }
 
-        .acc-item.open .law-num,
-        .acc-head:hover .law-num { transform: scale(1.05); }
+    .glossary-card:hover {
+      transform: translateY(-7px);
+      border-color: #0070C0;
+      box-shadow: 0 22px 42px -12px rgba(0, 112, 192, .32);
+    }
 
-        .law-num .ln-label { display: block; font-size: .56rem; font-weight: 700; letter-spacing: .1em; opacity: .8; }
-        .law-num .ln-val { display: block; font-size: 1.02rem; font-weight: 900; margin-top: .12rem; }
-        .law-num .ln-year { display: block; font-size: .6rem; font-weight: 600; opacity: .85; margin-top: .12rem; }
+    .glossary-icon {
+      transition: transform .3s ease;
+    }
 
-        .acc-titles { flex: 1; min-width: 0; }
-        .acc-title { color: #103050; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.05rem; line-height: 1.14; }
-        .acc-sub { color: #5b7185; font-size: .78rem; margin-top: .2rem; }
+    .glossary-card:hover .glossary-icon {
+      transform: scale(1.12) rotate(-6deg);
+    }
 
-        .acc-chev { flex-shrink: 0; color: #0070C0; font-size: 1rem; transition: transform .35s cubic-bezier(.2, .7, .3, 1); }
-        .acc-item.open .acc-chev { transform: rotate(180deg); }
+    .kpi-card:hover {
+      transform: translateY(-9px) scale(1.018);
+      box-shadow: 0 30px 58px -16px rgba(16, 48, 80, .6);
+    }
 
-        .acc-body { max-height: 0; overflow: hidden; transition: max-height .45s cubic-bezier(.2, .7, .3, 1); }
-        .acc-item.open .acc-body { max-height: 600px; }
+    .kpi-watermark {
+      transition: transform .4s ease, opacity .4s ease;
+    }
 
-        .acc-body-inner { padding: 0 1.6rem 1.1rem 10.2rem; }
-        .acc-text { color: #37475a; font-size: .88rem; line-height: 1.5; }
-        .acc-text strong { color: #103050; }
+    .kpi-card:hover .kpi-watermark {
+      transform: scale(1.12);
+      opacity: .2;
+    }
 
-        .hint { display: inline-flex; align-items: center; gap: .5rem; color: #0070C0; font-size: .8rem; font-weight: 600; }
+    .exp-group:hover {
+      transform: translateX(5px);
+    }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
 
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after { animation: none !important; transition: none !important; }
-        }
+      to {
+        opacity: 1;
+      }
+    }
 
-        .bg-pattern { position: absolute; bottom: -50px; right: -50px; width: 400px; height: 400px; opacity: 0.03; z-index: 0; color: #103050; }
+    .chart-card,
+    .kpi-card,
+    .glossary-card,
+    .canal-card,
+    .period-chip {
+      animation: fadeIn .5s ease both;
+    }
+
+    .chart-card:nth-child(2),
+    .kpi-card:nth-child(2),
+    .glossary-card:nth-child(2),
+    .canal-card:nth-child(2),
+    .period-chip:nth-child(2) {
+      animation-delay: .09s;
+    }
+
+    .chart-card:nth-child(3),
+    .kpi-card:nth-child(3),
+    .glossary-card:nth-child(3),
+    .canal-card:nth-child(3),
+    .period-chip:nth-child(3) {
+      animation-delay: .18s;
+    }
+
+    .glossary-card:nth-child(4) {
+      animation-delay: .27s;
+    }
+
+    .glossary-card:nth-child(5) {
+      animation-delay: .36s;
+    }
+
+    .glossary-card:nth-child(6) {
+      animation-delay: .45s;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+
+    .chart-card {
+      background-color: #ffffff;
+      border: 2px solid #E2E8F0;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px -8px rgba(16, 48, 80, 0.18);
+      padding: 1.4rem 1.6rem;
+    }
+
+    .legend-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+      display: inline-block;
+    }
+    /* ===== Componentes adicionais (mesma identidade visual) ===== */
+    .rank-row { display:flex; align-items:center; gap:1rem; }
+    .rank-label { font-family:'Open Sans',sans-serif; font-size:.9rem; color:#103050; font-weight:600; width:19rem; flex-shrink:0; line-height:1.15; }
+    .rank-track { flex:1; height:30px; background:#eef2f7; border-radius:8px; overflow:hidden; }
+    .rank-fill { height:100%; border-radius:8px; background:linear-gradient(90deg,#0070C0,#0090C0); }
+    .rank-val { font-family:'Montserrat',sans-serif; font-weight:900; color:#103050; font-size:1.05rem; width:3.2rem; text-align:right; flex-shrink:0; }
+    .stat-mini { background:#ffffff; border:2px solid #E2E8F0; border-radius:14px; padding:1rem 1.3rem; box-shadow:0 8px 20px -8px rgba(16,48,80,.18); }
+    .base-chip { display:flex; align-items:center; gap:.6rem; background:#f8fafc; border:1px solid #E2E8F0; border-radius:10px; padding:.5rem .75rem; transition:all .25s ease; }
+    .base-chip:hover { border-color:#0070C0; background:#eef6fc; transform:translateX(4px); }
+    .base-chip i { color:#0070C0; font-size:.8rem; }
+    .base-chip span { font-family:'Open Sans',sans-serif; font-size:.78rem; color:#103050; font-weight:600; line-height:1.1; }
+    .svc-badge { display:inline-flex; align-items:center; gap:.7rem; background:linear-gradient(135deg,#103050,#0070C0); color:#fff; border-radius:999px; padding:.5rem 1.3rem; font-family:'Montserrat',sans-serif; font-weight:800; letter-spacing:.04em; box-shadow:0 10px 24px -10px rgba(16,48,80,.5); }
+    .svc-card { background:#fff; border:2px solid #E2E8F0; border-left:5px solid #0070C0; border-radius:12px; padding:.8rem 1rem; display:flex; gap:.8rem; align-items:flex-start; box-shadow:0 6px 16px -8px rgba(16,48,80,.18); transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
+    .svc-card:hover { transform:translateY(-5px); border-color:#0090C0; box-shadow:0 18px 34px -14px rgba(16,48,80,.32); }
+    .svc-num { font-family:'Montserrat',sans-serif; font-weight:900; color:#0090C0; font-size:1.3rem; line-height:1; flex-shrink:0; min-width:1.7rem; }
+    .svc-text { font-family:'Open Sans',sans-serif; font-size:.78rem; color:#103050; font-weight:600; line-height:1.18; }
+    .kpi-card { border-radius:20px; padding:2.2rem 2rem; position:relative; overflow:hidden; display:flex; flex-direction:column; justify-content:space-between; min-height:420px; box-shadow:0 18px 40px -12px rgba(16,48,80,0.45); }
+    .kpi-primary { background:linear-gradient(160deg,#103050 0%,#0070C0 100%); }
+    .kpi-soft { background:linear-gradient(160deg,#0e3a66 0%,#11598f 100%); }
+    .kpi-num { font-family:'Montserrat',sans-serif; font-weight:900; line-height:1; color:#ffffff; }
+    .kpi-watermark { position:absolute; right:-10px; bottom:-20px; font-size:9rem; opacity:0.12; color:#ffffff; }
+    .bg-pattern { position:absolute; bottom:-50px; right:-50px; width:400px; height:400px; opacity:0.03; z-index:0; color:#103050; }
     </style>
 </head>
-
 <body>
-    <div class="slide-container">
-        <div class="top-accent"></div>
-        <div class="top-accent-secondary"></div>
-        <!-- Header -->
-        <div class="flex items-center justify-between px-16 pt-10 pb-3 z-10">
-            <div>
-                <div class="flex items-center gap-3 mb-2">
-                    <div class="w-1 h-8 bg-brand-secondary"></div>
-                    <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Decretos
-                    </p>
-                </div>
-                <p class="text-gray-500 font-medium ml-4 text-lg">Regulamentação do Sistema de Ouvidoria e da proteção ao
-                    denunciante — <span class="hint"><i class="fas fa-hand-pointer"></i> clique para expandir</span></p>
-            </div>
-            <div class="flex items-center gap-2 opacity-80 text-brand-secondary">
-                <i class="fas fa-scroll text-xl" aria-hidden="true"></i>
-                <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">REGULAMENTAÇÃO</p>
-            </div>
+  <div class="slide-container">
+    <div class="top-accent"></div>
+    <div class="top-accent-secondary"></div>
+    <!-- Header -->
+    <div class="flex items-center justify-between px-16 pt-12 pb-4 z-10">
+      <div>
+        <div class="flex items-center gap-3 mb-2">
+          <div class="w-1 h-8 bg-brand-secondary"></div>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">LAI · Transparência Passiva</p>
         </div>
-        <!-- Main Content -->
-        <div class="flex-1 px-16 pb-8 pt-2 z-10">
-            <div class="acc-wrap">
-                <!-- Decreto 9.094/2017 -->
-                <div class="acc-item open">
-                    <button class="acc-head" onclick="toggleAcc(this)" aria-expanded="true">
-                        <span class="law-num"><span class="ln-label">DECRETO</span><span class="ln-val">9.094</span><span
-                                class="ln-year">2017</span></span>
-                        <span class="acc-titles">
-                            <span class="acc-title block">Simplificação do atendimento</span>
-                            <span class="acc-sub block">Decreto nº 9.094, de 17 de julho de 2017</span>
-                        </span>
-                        <i class="fas fa-chevron-down acc-chev"></i>
-                    </button>
-                    <div class="acc-body">
-                        <div class="acc-body-inner">
-                            <p class="acc-text">Dispõe sobre a <strong>simplificação do atendimento</strong> prestado aos
-                                usuários dos serviços públicos.</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Decreto 9.492/2018 -->
-                <div class="acc-item">
-                    <button class="acc-head" onclick="toggleAcc(this)" aria-expanded="false">
-                        <span class="law-num"><span class="ln-label">DECRETO</span><span class="ln-val">9.492</span><span
-                                class="ln-year">2018</span></span>
-                        <span class="acc-titles">
-                            <span class="acc-title block">Sistema de Ouvidoria do Poder Executivo federal</span>
-                            <span class="acc-sub block">Decreto nº 9.492, de 5 de setembro de 2018</span>
-                        </span>
-                        <i class="fas fa-chevron-down acc-chev"></i>
-                    </button>
-                    <div class="acc-body">
-                        <div class="acc-body-inner">
-                            <p class="acc-text">Regulamenta os procedimentos para a participação, a proteção e a defesa
-                                dos direitos do usuário de serviços públicos da administração pública federal, direta e
-                                indireta, de que trata a Lei nº 13.460/2017, e <strong>institui o Sistema de Ouvidoria do
-                                    Poder Executivo federal</strong>.</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Decreto 9.690/2019 -->
-                <div class="acc-item">
-                    <button class="acc-head" onclick="toggleAcc(this)" aria-expanded="false">
-                        <span class="law-num"><span class="ln-label">DECRETO</span><span class="ln-val">9.690</span><span
-                                class="ln-year">2019</span></span>
-                        <span class="acc-titles">
-                            <span class="acc-title block">Alteração do regulamento da LAI</span>
-                            <span class="acc-sub block">Decreto nº 9.690, de 23 de janeiro de 2019</span>
-                        </span>
-                        <i class="fas fa-chevron-down acc-chev"></i>
-                    </button>
-                    <div class="acc-body">
-                        <div class="acc-body-inner">
-                            <p class="acc-text">Altera o Decreto nº 7.724/2012, que regulamenta a <strong>Lei nº
-                                    12.527/2011 — Lei de Acesso à Informação</strong>.</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Decreto 10.153/2019 -->
-                <div class="acc-item">
-                    <button class="acc-head" onclick="toggleAcc(this)" aria-expanded="false">
-                        <span class="law-num"><span class="ln-label">DECRETO</span><span
-                                class="ln-val">10.153</span><span class="ln-year">2019</span></span>
-                        <span class="acc-titles">
-                            <span class="acc-title block">Salvaguardas à identidade do denunciante</span>
-                            <span class="acc-sub block">Decreto nº 10.153, de 3 de dezembro de 2019</span>
-                        </span>
-                        <i class="fas fa-chevron-down acc-chev"></i>
-                    </button>
-                    <div class="acc-body">
-                        <div class="acc-body-inner">
-                            <p class="acc-text">Dispõe sobre as <strong>salvaguardas de proteção à identidade dos
-                                    denunciantes</strong> de ilícitos e de irregularidades praticados contra a
-                                administração pública federal direta e indireta e altera o Decreto nº 9.492/2018.</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Decreto 10.890/2021 -->
-                <div class="acc-item">
-                    <button class="acc-head" onclick="toggleAcc(this)" aria-expanded="false">
-                        <span class="law-num"><span class="ln-label">DECRETO</span><span
-                                class="ln-val">10.890</span><span class="ln-year">2021</span></span>
-                        <span class="acc-titles">
-                            <span class="acc-title block">Proteção ao denunciante</span>
-                            <span class="acc-sub block">Decreto nº 10.890, de 9 de dezembro de 2021</span>
-                        </span>
-                        <i class="fas fa-chevron-down acc-chev"></i>
-                    </button>
-                    <div class="acc-body">
-                        <div class="acc-body-inner">
-                            <p class="acc-text">Altera o Decreto nº 9.492/2018 e o Decreto nº 10.153/2019 para dispor
-                                sobre a <strong>proteção ao denunciante</strong> de ilícitos e de irregularidades
-                                praticados contra a administração pública federal direta e indireta.</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Decreto 10.889/2021 -->
-                <div class="acc-item">
-                    <button class="acc-head" onclick="toggleAcc(this)" aria-expanded="false">
-                        <span class="law-num"><span class="ln-label">DECRETO</span><span
-                                class="ln-val">10.889</span><span class="ln-year">2021</span></span>
-                        <span class="acc-titles">
-                            <span class="acc-title block">eAgendas — agenda de compromissos públicos</span>
-                            <span class="acc-sub block">Decreto nº 10.889, de 9 de dezembro de 2021</span>
-                        </span>
-                        <i class="fas fa-chevron-down acc-chev"></i>
-                    </button>
-                    <div class="acc-body">
-                        <div class="acc-body-inner">
-                            <p class="acc-text">Dispõe sobre a divulgação da agenda de compromissos públicos e a
-                                participação de agentes públicos, no âmbito do Poder Executivo federal, em audiências e
-                                sobre a concessão de hospitalidades por agente privado, e <strong>institui o Sistema
-                                    Eletrônico de Agendas do Poder Executivo federal — eAgendas</strong>.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Footer -->
-        <div class="px-16 pb-8 flex justify-between items-center z-10">
-            <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ — 1º Trimestre (Jan–Mar)</p>
-            <p class="text-gray-300 text-xs font-mono">18 / 21</p>
-        </div>
-        <div class="bg-pattern"><i class="fas fa-scroll text-9xl"></i></div>
+        <p class="text-gray-500 font-medium ml-4 text-lg">Pedidos de acesso à informação (Lei nº 12.527/2011) — 1º trimestre de 2026</p>
+      </div>
+      <div class="flex items-center gap-2 opacity-80 text-brand-secondary">
+        <i class="fas fa-unlock-keyhole text-xl" aria-hidden="true"></i>
+        <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">ACESSO À INFORMAÇÃO</p>
+      </div>
     </div>
-    <script>
-        function toggleAcc(btn) {
-            var item = btn.closest('.acc-item');
-            var open = item.classList.toggle('open');
-            btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-        }
-        document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });
-    </script>
+    <!-- KPIs -->
+    <div class="flex-1 flex flex-col justify-center px-16 pb-6 z-10">
+      <div class="grid grid-cols-4 gap-6">
+        <div class="kpi-card kpi-primary" style="min-height:340px;">
+          <div><p class="text-blue-100 font-montserrat font-bold text-sm uppercase tracking-widest mb-2">Pedidos recebidos</p>
+            <p class="kpi-num text-7xl">130</p></div>
+          <p class="text-blue-100 text-base leading-relaxed relative z-10">Média de 43 pedidos por mês no trimestre.</p>
+          <i class="fas fa-inbox kpi-watermark"></i>
+        </div>
+        <div class="kpi-card kpi-soft" style="min-height:340px;">
+          <div><p class="text-blue-100 font-montserrat font-bold text-sm uppercase tracking-widest mb-2">Respondidos no prazo</p>
+            <p class="kpi-num text-7xl">100%</p></div>
+          <p class="text-blue-100 text-base leading-relaxed relative z-10">Todos os pedidos respondidos dentro do prazo legal.</p>
+          <i class="fas fa-circle-check kpi-watermark"></i>
+        </div>
+        <div class="kpi-card kpi-soft" style="min-height:340px;">
+          <div><p class="text-blue-100 font-montserrat font-bold text-sm uppercase tracking-widest mb-2">Fora do prazo</p>
+            <p class="kpi-num text-7xl">0%</p></div>
+          <p class="text-blue-100 text-base leading-relaxed relative z-10">Nenhum pedido respondido fora do prazo.</p>
+          <i class="fas fa-hourglass-half kpi-watermark"></i>
+        </div>
+        <div class="kpi-card kpi-primary" style="min-height:340px;">
+          <div><p class="text-blue-100 font-montserrat font-bold text-sm uppercase tracking-widest mb-2">Tempo médio de resposta</p>
+            <p class="kpi-num text-7xl">9,1<span class="text-2xl font-bold ml-1">dias</span></p></div>
+          <p class="text-blue-100 text-base leading-relaxed relative z-10">Da abertura à resposta conclusiva ao cidadão.</p>
+          <i class="fas fa-clock kpi-watermark"></i>
+        </div>
+      </div>
+      <!-- Recursos note -->
+      <div class="grid grid-cols-2 gap-6 mt-6">
+        <div class="stat-mini flex items-center gap-4">
+          <i class="fas fa-scale-balanced text-3xl text-brand-secondary"></i>
+          <div><p class="font-montserrat font-black text-3xl text-brand-primary leading-none">6 recursos</p>
+            <p class="text-gray-500 text-sm mt-1">interpostos no período</p></div>
+        </div>
+        <div class="stat-mini flex items-center gap-4">
+          <i class="fas fa-stopwatch text-3xl text-brand-secondary"></i>
+          <div><p class="font-montserrat font-black text-3xl text-brand-primary leading-none">3,8 dias</p>
+            <p class="text-gray-500 text-sm mt-1">tempo médio de resposta aos recursos</p></div>
+        </div>
+      </div>
+    </div>
+    <!-- Footer -->
+    <div class="px-16 pb-8 flex justify-between items-center z-10">
+      <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ</p>
+      <p class="text-gray-300 text-xs font-mono">18 / 33</p>
+    </div>
+    <div class="bg-pattern"><i class="fas fa-unlock-keyhole text-9xl"></i></div>
+  </div>
+  <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
 </body>
-
 </html>

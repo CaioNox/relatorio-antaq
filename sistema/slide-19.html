@@ -3,326 +3,449 @@
 <html lang="pt-BR">
 
 <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Normativas e Portarias - Relatório Trimestral Ouvidoria ANTAQ</title>
-    <link rel="icon" type="image/png"
-        href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&amp;family=Open+Sans:wght@400;600&amp;display=swap"
-        rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
-    <style>
-        html { font-size: 19px; }
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>LAI · Pedidos por Mês - Relatório Trimestral Ouvidoria ANTAQ</title>
+  <link rel="icon" type="image/png"
+    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&amp;family=Open+Sans:wght@400;600&amp;display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    html {
+      font-size: 26px;
+    }
 
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #f3f4f6;
-            overflow-x: hidden;
-            overflow-y: auto;
-        }
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f3f4f6;
+      overflow: hidden;
+    }
 
-        .slide-container {
-            width: 100vw;
-            min-height: 100vh;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            background-color: #ffffff;
-            overflow: visible;
-            font-family: 'Open Sans', sans-serif;
-        }
+    .slide-container {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background-color: #ffffff;
+      overflow: hidden;
+      font-family: 'Open Sans', sans-serif;
+    }
 
-        .font-montserrat { font-family: 'Montserrat', sans-serif; }
-        .text-brand-primary { color: #103050; }
-        .text-brand-secondary { color: #0070C0; }
-        .bg-brand-secondary { background-color: #0070C0; }
+    .font-montserrat {
+      font-family: 'Montserrat', sans-serif;
+    }
 
-        .top-accent { height: 8px; background-color: #103050; width: 100%; }
-        .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
+    .text-brand-primary {
+      color: #103050;
+    }
 
-        /* ===== Acordeão (efeito cascata) ===== */
-        .acc-wrap { display: flex; flex-direction: column; gap: .6rem; }
+    .text-brand-secondary {
+      color: #0070C0;
+    }
 
-        .acc-item {
-            background-color: #ffffff;
-            border: 2px solid #E2E8F0;
-            border-left: 5px solid #0070C0;
-            border-radius: 13px;
-            overflow: hidden;
-            box-shadow: 0 6px 16px -8px rgba(16, 48, 80, 0.16);
-            transition: border-color .28s ease, box-shadow .28s ease, background-color .28s ease;
-            animation: fadeIn .5s ease both;
-        }
+    .bg-brand-secondary {
+      background-color: #0070C0;
+    }
 
-        .acc-item:nth-child(2) { animation-delay: .05s }
-        .acc-item:nth-child(3) { animation-delay: .10s }
-        .acc-item:nth-child(4) { animation-delay: .15s }
-        .acc-item:nth-child(5) { animation-delay: .20s }
-        .acc-item:nth-child(6) { animation-delay: .25s }
-        .acc-item:nth-child(7) { animation-delay: .30s }
-        .acc-item:nth-child(8) { animation-delay: .35s }
+    .top-accent {
+      height: 8px;
+      background-color: #103050;
+      width: 100%;
+    }
 
-        .acc-item:hover { border-left-color: #0090C0; box-shadow: 0 14px 30px -14px rgba(16, 48, 80, .26); }
-        .acc-item.open { border-left-color: #103050; box-shadow: 0 14px 30px -14px rgba(16, 48, 80, .26); }
+    .top-accent-secondary {
+      height: 4px;
+      background-color: #0070C0;
+      width: 100%;
+    }
 
-        .acc-head {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: .7rem 1.3rem;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            text-align: left;
-            font-family: 'Open Sans', sans-serif;
-        }
+    /* ===== Interatividade ===== */
+    .chart-card,
+    .canal-card,
+    .period-chip,
+    .video-frame,
+    .kpi-card,
+    .glossary-card,
+    .exp-group {
+      transition: transform .28s cubic-bezier(.2, .7, .3, 1), box-shadow .28s ease, border-color .28s ease, background-color .28s ease;
+    }
 
-        .doc-badge {
-            flex-shrink: 0;
-            width: 4.6rem;
-            text-align: center;
-            border-radius: 9px;
-            color: #fff;
-            padding: .45rem .3rem;
-            font-family: 'Montserrat', sans-serif;
-            line-height: 1;
-            transition: transform .3s ease;
-        }
+    .chart-card:hover,
+    .canal-card:hover,
+    .period-chip:hover,
+    .video-frame:hover {
+      transform: translateY(-7px);
+      box-shadow: 0 22px 42px -12px rgba(16, 48, 80, .30);
+      border-color: #0070C0;
+    }
 
-        .acc-item.open .doc-badge,
-        .acc-head:hover .doc-badge { transform: scale(1.05); }
+    .glossary-card:hover {
+      transform: translateY(-7px);
+      border-color: #0070C0;
+      box-shadow: 0 22px 42px -12px rgba(0, 112, 192, .32);
+    }
 
-        .doc-badge .db-type { display: block; font-size: .58rem; font-weight: 800; letter-spacing: .06em; }
-        .doc-badge .db-num { display: block; font-size: .82rem; font-weight: 900; margin-top: .12rem; }
+    .glossary-icon {
+      transition: transform .3s ease;
+    }
 
-        .db-in { background: linear-gradient(160deg, #0e3a66 0%, #11598f 100%); }
-        .db-port { background: linear-gradient(160deg, #103050 0%, #0070C0 100%); }
-        .db-res { background: linear-gradient(160deg, #0b5e7a 0%, #0090C0 100%); }
+    .glossary-card:hover .glossary-icon {
+      transform: scale(1.12) rotate(-6deg);
+    }
 
-        .acc-titles { flex: 1; min-width: 0; }
-        .acc-title { color: #103050; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1rem; line-height: 1.14; }
-        .acc-sub { color: #5b7185; font-size: .75rem; margin-top: .15rem; }
+    .kpi-card:hover {
+      transform: translateY(-9px) scale(1.018);
+      box-shadow: 0 30px 58px -16px rgba(16, 48, 80, .6);
+    }
 
-        .acc-chev { flex-shrink: 0; color: #0070C0; font-size: .95rem; transition: transform .35s cubic-bezier(.2, .7, .3, 1); }
-        .acc-item.open .acc-chev { transform: rotate(180deg); }
+    .kpi-watermark {
+      transition: transform .4s ease, opacity .4s ease;
+    }
 
-        .acc-body { max-height: 0; overflow: hidden; transition: max-height .45s cubic-bezier(.2, .7, .3, 1); }
-        .acc-item.open .acc-body { max-height: 600px; }
+    .kpi-card:hover .kpi-watermark {
+      transform: scale(1.12);
+      opacity: .2;
+    }
 
-        .acc-body-inner { padding: 0 1.4rem 1rem 6.9rem; }
-        .acc-text { color: #37475a; font-size: .85rem; line-height: 1.48; }
-        .acc-text strong { color: #103050; }
+    .exp-group:hover {
+      transform: translateX(5px);
+    }
 
-        .hint { display: inline-flex; align-items: center; gap: .5rem; color: #0070C0; font-size: .8rem; font-weight: 600; }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+      to {
+        opacity: 1;
+      }
+    }
 
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after { animation: none !important; transition: none !important; }
-        }
+    .chart-card,
+    .kpi-card,
+    .glossary-card,
+    .canal-card,
+    .period-chip {
+      animation: fadeIn .5s ease both;
+    }
 
-        .bg-pattern { position: absolute; bottom: -50px; right: -50px; width: 400px; height: 400px; opacity: 0.03; z-index: 0; color: #103050; }
-    </style>
+    .chart-card:nth-child(2),
+    .kpi-card:nth-child(2),
+    .glossary-card:nth-child(2),
+    .canal-card:nth-child(2),
+    .period-chip:nth-child(2) {
+      animation-delay: .09s;
+    }
+
+    .chart-card:nth-child(3),
+    .kpi-card:nth-child(3),
+    .glossary-card:nth-child(3),
+    .canal-card:nth-child(3),
+    .period-chip:nth-child(3) {
+      animation-delay: .18s;
+    }
+
+    .glossary-card:nth-child(4) {
+      animation-delay: .27s;
+    }
+
+    .glossary-card:nth-child(5) {
+      animation-delay: .36s;
+    }
+
+    .glossary-card:nth-child(6) {
+      animation-delay: .45s;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+
+    .chart-card {
+      background-color: #ffffff;
+      border: 2px solid #E2E8F0;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px -8px rgba(16, 48, 80, 0.18);
+      padding: 1.4rem 1.6rem;
+    }
+
+    .legend-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+      display: inline-block;
+    }
+
+    /* ===== Componentes adicionais (mesma identidade visual) ===== */
+    .rank-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .rank-label {
+      font-family: 'Open Sans', sans-serif;
+      font-size: .9rem;
+      color: #103050;
+      font-weight: 600;
+      width: 19rem;
+      flex-shrink: 0;
+      line-height: 1.15;
+    }
+
+    .rank-track {
+      flex: 1;
+      height: 30px;
+      background: #eef2f7;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .rank-fill {
+      height: 100%;
+      border-radius: 8px;
+      background: linear-gradient(90deg, #0070C0, #0090C0);
+    }
+
+    .rank-val {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      color: #103050;
+      font-size: 1.05rem;
+      width: 3.2rem;
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    .stat-mini {
+      background: #ffffff;
+      border: 2px solid #E2E8F0;
+      border-radius: 14px;
+      padding: 1rem 1.3rem;
+      box-shadow: 0 8px 20px -8px rgba(16, 48, 80, .18);
+    }
+
+    .base-chip {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      background: #f8fafc;
+      border: 1px solid #E2E8F0;
+      border-radius: 10px;
+      padding: .5rem .75rem;
+      transition: all .25s ease;
+    }
+
+    .base-chip:hover {
+      border-color: #0070C0;
+      background: #eef6fc;
+      transform: translateX(4px);
+    }
+
+    .base-chip i {
+      color: #0070C0;
+      font-size: .8rem;
+    }
+
+    .base-chip span {
+      font-family: 'Open Sans', sans-serif;
+      font-size: .78rem;
+      color: #103050;
+      font-weight: 600;
+      line-height: 1.1;
+    }
+
+    .svc-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .7rem;
+      background: linear-gradient(135deg, #103050, #0070C0);
+      color: #fff;
+      border-radius: 999px;
+      padding: .5rem 1.3rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      letter-spacing: .04em;
+      box-shadow: 0 10px 24px -10px rgba(16, 48, 80, .5);
+    }
+
+    .svc-card {
+      background: #fff;
+      border: 2px solid #E2E8F0;
+      border-left: 5px solid #0070C0;
+      border-radius: 12px;
+      padding: .8rem 1rem;
+      display: flex;
+      gap: .8rem;
+      align-items: flex-start;
+      box-shadow: 0 6px 16px -8px rgba(16, 48, 80, .18);
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    }
+
+    .svc-card:hover {
+      transform: translateY(-5px);
+      border-color: #0090C0;
+      box-shadow: 0 18px 34px -14px rgba(16, 48, 80, .32);
+    }
+
+    .svc-num {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      color: #0090C0;
+      font-size: 1.3rem;
+      line-height: 1;
+      flex-shrink: 0;
+      min-width: 1.7rem;
+    }
+
+    .svc-text {
+      font-family: 'Open Sans', sans-serif;
+      font-size: .78rem;
+      color: #103050;
+      font-weight: 600;
+      line-height: 1.18;
+    }
+
+    .kpi-card {
+      border-radius: 20px;
+      padding: 2.2rem 2rem;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 420px;
+      box-shadow: 0 18px 40px -12px rgba(16, 48, 80, 0.45);
+    }
+
+    .kpi-primary {
+      background: linear-gradient(160deg, #103050 0%, #0070C0 100%);
+    }
+
+    .kpi-soft {
+      background: linear-gradient(160deg, #0e3a66 0%, #11598f 100%);
+    }
+
+    .kpi-num {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      line-height: 1;
+      color: #ffffff;
+    }
+
+    .kpi-watermark {
+      position: absolute;
+      right: -10px;
+      bottom: -20px;
+      font-size: 9rem;
+      opacity: 0.12;
+      color: #ffffff;
+    }
+
+    .bg-pattern {
+      position: absolute;
+      bottom: -50px;
+      right: -50px;
+      width: 400px;
+      height: 400px;
+      opacity: 0.03;
+      z-index: 0;
+      color: #103050;
+    }
+  </style>
 </head>
 
 <body>
-    <div class="slide-container">
-        <div class="top-accent"></div>
-        <div class="top-accent-secondary"></div>
-        <!-- Header -->
-        <div class="flex items-center justify-between px-16 pt-9 pb-2 z-10">
-            <div>
-                <div class="flex items-center gap-3 mb-1">
-                    <div class="w-1 h-8 bg-brand-secondary"></div>
-                    <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Normativas
-                        &amp; Portarias</p>
-                </div>
-                <p class="text-gray-500 font-medium ml-4 text-lg">Instruções Normativas, Portarias e Resoluções que regem
-                    a Ouvidoria — <span class="hint"><i class="fas fa-hand-pointer"></i> clique para expandir</span></p>
-            </div>
-            <div class="flex items-center gap-2 opacity-80 text-brand-secondary">
-                <i class="fas fa-stamp text-xl" aria-hidden="true"></i>
-                <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">ATOS NORMATIVOS</p>
-            </div>
+  <div class="slide-container">
+    <div class="top-accent"></div>
+    <div class="top-accent-secondary"></div>
+    <!-- Header -->
+    <div class="flex items-center justify-between px-16 pt-12 pb-4 z-10">
+      <div>
+        <div class="flex items-center gap-3 mb-2">
+          <div class="w-1 h-8 bg-brand-secondary"></div>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">LAI · Pedidos por
+            Mês</p>
         </div>
-        <!-- Main Content -->
-        <div class="flex-1 px-16 pb-6 pt-2 z-10">
-            <div class="acc-wrap">
-                <!-- IN OGU/CGU 05/2018 -->
-                <div class="acc-item open">
-                    <button class="acc-head" onclick="toggleAcc(this)" aria-expanded="true">
-                        <span class="doc-badge db-in"><span class="db-type">IN</span><span class="db-num">05/18</span></span>
-                        <span class="acc-titles">
-                            <span class="acc-title block">Instrução Normativa OGU/CGU nº 05/2018</span>
-                            <span class="acc-sub block">Atividades das ouvidorias federais e sigilo do denunciante</span>
-                        </span>
-                        <i class="fas fa-chevron-down acc-chev"></i>
-                    </button>
-                    <div class="acc-body">
-                        <div class="acc-body-inner">
-                            <p class="acc-text">Norma básica a respeito das atividades desenvolvidas no âmbito das
-                                ouvidorias federais; estabelece diretrizes para <strong>assegurar o sigilo da identidade
-                                    do denunciante</strong>, bem como o recebimento de denúncias anônimas no âmbito da
-                                Administração Pública Federal.</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- IN CGU 19/2018 -->
-                <div class="acc-item">
-                    <button class="acc-head" onclick="toggleAcc(this)" aria-expanded="false">
-                        <span class="doc-badge db-in"><span class="db-type">IN</span><span class="db-num">19/18</span></span>
-                        <span class="acc-titles">
-                            <span class="acc-title block">Instrução Normativa CGU nº 19/2018</span>
-                            <span class="acc-sub block">Recebimento exclusivo via Sistema de Ouvidoria</span>
-                        </span>
-                        <i class="fas fa-chevron-down acc-chev"></i>
-                    </button>
-                    <div class="acc-body">
-                        <div class="acc-body-inner">
-                            <p class="acc-text">Estabelece regra para o <strong>recebimento exclusivo de manifestações de
-                                    ouvidoria</strong> por meio das unidades do Sistema de Ouvidoria do Poder Executivo
-                                federal.</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Portaria 235-DG-ANTAQ -->
-                <div class="acc-item">
-                    <button class="acc-head" onclick="toggleAcc(this)" aria-expanded="false">
-                        <span class="doc-badge db-port"><span class="db-type">PORT</span><span class="db-num">235/19</span></span>
-                        <span class="acc-titles">
-                            <span class="acc-title block">Portaria nº 235-DG-ANTAQ, de 02/07/2019</span>
-                            <span class="acc-sub block">Ouvidoria da ANTAQ como canal único</span>
-                        </span>
-                        <i class="fas fa-chevron-down acc-chev"></i>
-                    </button>
-                    <div class="acc-body">
-                        <div class="acc-body-inner">
-                            <p class="acc-text">Institui a Ouvidoria da ANTAQ como <strong>canal único de
-                                    recebimento</strong> de todas as manifestações de que trata o art. 10 da Lei nº
-                                13.460/2017.</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Portaria 581-CGU -->
-                <div class="acc-item">
-                    <button class="acc-head" onclick="toggleAcc(this)" aria-expanded="false">
-                        <span class="doc-badge db-port"><span class="db-type">PORT</span><span class="db-num">581/21</span></span>
-                        <span class="acc-titles">
-                            <span class="acc-title block">Portaria nº 581-CGU, de 9/03/2021</span>
-                            <span class="acc-sub block">Competências das unidades de ouvidoria · alterada pela 3.126-CGU</span>
-                        </span>
-                        <i class="fas fa-chevron-down acc-chev"></i>
-                    </button>
-                    <div class="acc-body">
-                        <div class="acc-body-inner">
-                            <p class="acc-text">Estabelece orientações para o exercício das competências das unidades do
-                                Sistema de Ouvidoria do Poder Executivo federal, instituído pelo Decreto nº 9.492/2018;
-                                dispõe sobre o <strong>recebimento do relato de irregularidades</strong> de que trata o
-                                caput do art. 4º-A da Lei nº 13.608/2018, no âmbito do Poder Executivo federal, e dá
-                                outras providências.</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Resolução 7-CGU -->
-                <div class="acc-item">
-                    <button class="acc-head" onclick="toggleAcc(this)" aria-expanded="false">
-                        <span class="doc-badge db-res"><span class="db-type">RES</span><span class="db-num">07/21</span></span>
-                        <span class="acc-titles">
-                            <span class="acc-title block">Resolução nº 7-CGU, de 30/11/2021</span>
-                            <span class="acc-sub block">Normas modelo para unidades de ouvidoria</span>
-                        </span>
-                        <i class="fas fa-chevron-down acc-chev"></i>
-                    </button>
-                    <div class="acc-body">
-                        <div class="acc-body-inner">
-                            <p class="acc-text">Aprova a <strong>Norma Modelo para Criação de Unidades de Ouvidoria</strong>
-                                e a <strong>Norma Modelo para Regulamentação da Atividade de Ouvidoria</strong> em órgãos
-                                públicos.</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Portaria 3.126-CGU -->
-                <div class="acc-item">
-                    <button class="acc-head" onclick="toggleAcc(this)" aria-expanded="false">
-                        <span class="doc-badge db-port"><span class="db-type">PORT</span><span class="db-num">3126/21</span></span>
-                        <span class="acc-titles">
-                            <span class="acc-title block">Portaria nº 3.126-CGU, de 30/12/2021</span>
-                            <span class="acc-sub block">Altera a Portaria nº 581/2021</span>
-                        </span>
-                        <i class="fas fa-chevron-down acc-chev"></i>
-                    </button>
-                    <div class="acc-body">
-                        <div class="acc-body-inner">
-                            <p class="acc-text">Altera a Portaria nº 581, de 9 de março de 2021, em razão das alterações
-                                promovidas pelo Decreto nº 10.890/2021 no Decreto nº 9.492/2018 e no Decreto nº
-                                10.153/2019.</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Portaria 11/2023/OUV -->
-                <div class="acc-item">
-                    <button class="acc-head" onclick="toggleAcc(this)" aria-expanded="false">
-                        <span class="doc-badge db-port"><span class="db-type">PORT</span><span class="db-num">11/23</span></span>
-                        <span class="acc-titles">
-                            <span class="acc-title block">Portaria nº 11/2023/OUV/ANTAQ</span>
-                            <span class="acc-sub block">Boletim de Pessoal e Serviços — Fev/2023, 3ª Ed. Extraordinária</span>
-                        </span>
-                        <i class="fas fa-chevron-down acc-chev"></i>
-                    </button>
-                    <div class="acc-body">
-                        <div class="acc-body-inner">
-                            <p class="acc-text">Institui, no âmbito da Ouvidoria, os <strong>relatórios gerenciais e
-                                    estratégicos</strong> como instrumentos de análise de informações e apresentação de
-                                propostas de aprimoramento dos serviços prestados pela Agência Nacional de Transportes
-                                Aquaviários — ANTAQ.</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Portaria 3/2025/OUV -->
-                <div class="acc-item">
-                    <button class="acc-head" onclick="toggleAcc(this)" aria-expanded="false">
-                        <span class="doc-badge db-port"><span class="db-type">PORT</span><span class="db-num">03/25</span></span>
-                        <span class="acc-titles">
-                            <span class="acc-title block">Portaria nº 3/2025/OUV/ANTAQ</span>
-                            <span class="acc-sub block">Boletim de Pessoal e Serviços — Jun/2025, 5ª Ed. Extraordinária</span>
-                        </span>
-                        <i class="fas fa-chevron-down acc-chev"></i>
-                    </button>
-                    <div class="acc-body">
-                        <div class="acc-body-inner">
-                            <p class="acc-text">Regulamenta e estabelece as diretrizes para a <strong>organização e
-                                    funcionamento dos serviços da Ouvidoria da ANTAQ</strong>, como instância pública de
-                                controle e participação social, responsável pelo tratamento das reclamações, solicitações,
-                                denúncias, sugestões e elogios relativos às políticas e aos serviços públicos prestados e
-                                regulados pela ANTAQ, com vistas ao aprimoramento da gestão pública e à garantia da
-                                transparência em suas ações.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Footer -->
-        <div class="px-16 pb-8 flex justify-between items-center z-10">
-            <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ — 1º Trimestre (Jan–Mar)</p>
-            <p class="text-gray-300 text-xs font-mono">19 / 21</p>
-        </div>
-        <div class="bg-pattern"><i class="fas fa-stamp text-9xl"></i></div>
+        <p class="text-gray-500 font-medium ml-4 text-lg">Transparência passiva — ao longo do trimestre - Jan / Fev /
+          Mar
+          de 2026</p>
+      </div>
+      <div class="flex items-center gap-4 ml-6">
+        <span class="flex items-center gap-2 text-sm text-gray-500"><span class="legend-dot"
+            style="background:#0070C0;"></span>Janeiro</span>
+        <span class="flex items-center gap-2 text-sm text-gray-500"><span class="legend-dot"
+            style="background:#0090C0;"></span>Fevereiro</span>
+        <span class="flex items-center gap-2 text-sm text-gray-500"><span class="legend-dot"
+            style="background:#103050;"></span>Março</span>
+      </div>
     </div>
-    <script>
-        function toggleAcc(btn) {
-            var item = btn.closest('.acc-item');
-            var open = item.classList.toggle('open');
-            btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-        }
-        document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });
-    </script>
+    <!-- Charts -->
+    <div class="flex-1 grid grid-cols-2 gap-8 px-16 pb-10 z-10">
+      <div class="chart-card flex flex-col">
+        <p class="text-brand-primary font-montserrat font-bold text-xl mb-1 flex items-center gap-2"><i
+            class="fas fa-file-circle-plus text-brand-secondary"></i> Pedidos recebidos</p>
+        <p class="text-gray-400 text-sm mb-2">Total no trimestre: <strong class="text-brand-primary">130</strong></p>
+        <div class="flex-1 relative"><canvas id="chartRecebidos"></canvas></div>
+      </div>
+      <div class="chart-card flex flex-col">
+        <p class="text-brand-primary font-montserrat font-bold text-xl mb-1 flex items-center gap-2"><i
+            class="fas fa-file-circle-check text-brand-secondary"></i> Pedidos respondidos</p>
+        <p class="text-gray-400 text-sm mb-2">Total no trimestre: <strong class="text-brand-primary">130</strong> · 100%
+          no prazo</p>
+        <div class="flex-1 relative"><canvas id="chartRespondidos"></canvas></div>
+      </div>
+    </div>
+    <!-- Footer -->
+    <div class="px-16 pb-8 flex justify-between items-center z-10">
+      <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ</p>
+      <p class="text-gray-300 text-xs font-mono">19 / 33</p>
+    </div>
+  </div>
+  <script>
+    const monthColors = ['#0070C0', '#0090C0', '#103050'];
+    const valueLabels = {
+      id: 'valueLabels',
+      afterDatasetsDraw(chart) {
+        const { ctx } = chart; ctx.save();
+        ctx.font = '700 16px Montserrat, sans-serif'; ctx.fillStyle = '#103050'; ctx.textAlign = 'center';
+        chart.data.datasets.forEach((ds, di) => {
+          chart.getDatasetMeta(di).data.forEach((bar, i) => { ctx.fillText(ds.data[i], bar.x, bar.y - 8); });
+        });
+        ctx.restore();
+      }
+    };
+    function makeBar(id, data) {
+      new Chart(document.getElementById(id), {
+        type: 'bar',
+        data: { labels: ['Jan', 'Fev', 'Mar'], datasets: [{ data, backgroundColor: monthColors, borderRadius: 6, maxBarThickness: 90 }] },
+        options: {
+          responsive: true, maintainAspectRatio: false, layout: { padding: { top: 22 } },
+          plugins: { legend: { display: false }, tooltip: { enabled: false } },
+          scales: {
+            x: { grid: { display: false }, ticks: { color: '#6b7280', font: { size: 14, weight: '600' } } },
+            y: { beginAtZero: true, grid: { color: '#eef2f7' }, ticks: { color: '#9ca3af', font: { size: 12 } } }
+          }
+        },
+        plugins: [valueLabels]
+      });
+    }
+    makeBar('chartRecebidos', [34, 35, 61]);
+    makeBar('chartRespondidos', [34, 35, 61]);
+  </script>
+  <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
 </body>
 
 </html>

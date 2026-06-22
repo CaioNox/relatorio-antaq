@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Apresentação da Ouvidoria - Relatório Trimestral Ouvidoria ANTAQ</title>
+    <title>Cartas de Serviço ANTAQ - Relatório Trimestral Ouvidoria ANTAQ</title>
     <link rel="icon" type="image/png"
         href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
@@ -68,16 +68,6 @@
             width: 100%;
         }
 
-        .intro-card {
-            transition: transform .28s cubic-bezier(.2, .7, .3, 1), box-shadow .28s ease, border-color .28s ease;
-        }
-
-        .intro-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 22px 42px -12px rgba(16, 48, 80, .30);
-            border-color: #0070C0;
-        }
-
         .lead-frame {
             background-color: #EAF3FB;
             border: 2px solid #C0E0F0;
@@ -86,22 +76,19 @@
             position: relative;
         }
 
-        .tag-chip {
-            display: inline-flex;
-            align-items: center;
-            gap: .5rem;
+        .metric-card {
             background: #ffffff;
-            border: 2px solid #C0E0F0;
-            border-radius: 999px;
-            padding: .45rem 1rem;
-            font-weight: 700;
-            color: #103050;
-            font-size: .6rem;
-            transition: transform .25s ease, border-color .25s ease;
+            border: 2px solid #E2E8F0;
+            border-left: 4px solid #0070C0;
+            border-radius: 16px;
+            padding: 1.3rem 1.5rem;
+            box-shadow: 0 8px 22px -10px rgba(16, 48, 80, .18);
+            transition: transform .28s cubic-bezier(.2, .7, .3, 1), box-shadow .28s ease, border-color .28s ease;
         }
 
-        .tag-chip:hover {
-            transform: translateY(-3px);
+        .metric-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 24px 44px -14px rgba(16, 48, 80, .30);
             border-color: #0070C0;
         }
 
@@ -118,13 +105,16 @@
         }
 
         .lead-frame,
-        .intro-card,
-        .tag-chip {
+        .metric-card {
             animation: fadeIn .5s ease both;
         }
 
-        .intro-card:nth-child(2) {
-            animation-delay: .08s;
+        .metric-card:nth-child(2) {
+            animation-delay: .09s;
+        }
+
+        .metric-card:nth-child(3) {
+            animation-delay: .18s;
         }
 
         .bg-pattern {
@@ -160,13 +150,12 @@
             <div>
                 <div class="flex items-center gap-3 mb-2">
                     <div class="w-1 h-8 bg-brand-secondary"></div>
-                    <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Ouvidoria
-                        da ANTAQ</p>
+                    <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Cartas de
+                        Serviço da ANTAQ</p>
                 </div>
-                <p class="text-gray-500 font-medium ml-4 text-lg">Canal oficial de interlocução com a sociedade</p>
             </div>
             <div class="flex items-center gap-2 opacity-80 text-brand-secondary">
-                <i class="fas fa-landmark text-xl" aria-hidden="true"></i>
+                <i class="fas fa-file-contract text-xl" aria-hidden="true"></i>
                 <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">APRESENTAÇÃO</p>
             </div>
         </div>
@@ -174,59 +163,63 @@
         <div class="flex-1 flex flex-col justify-center px-16 pb-8 z-10">
             <div class="w-full max-w-6xl mx-auto relative">
                 <!-- Lead frame -->
-                <div class="lead-frame w-full px-12 py-7 mb-5">
+                <div class="lead-frame w-full px-12 py-7 mb-6">
                     <p class="text-brand-primary font-montserrat font-bold text-xl mb-3 flex items-center gap-3">
-                        <i class="fas fa-bullhorn text-brand-secondary text-2xl"></i>
-                        Instância pública de controle e participação social
+                        <i class="fas fa-shield-halved text-brand-secondary text-2xl"></i>
+                        A Ouvidoria como guardiã da Carta de Serviços
                     </p>
                     <p class="text-gray-700 text-base leading-relaxed">
-                        A Ouvidoria é o canal oficial de comunicação entre o cidadão e a ANTAQ, recebendo, tratando e
-                        encaminhando manifestações com foco na <strong>transparência, escuta ativa e
-                            melhoria contínua</strong> dos serviços prestados pela Agência.
+                        No primeiro trimestre de 2026, a Ouvidoria atuou diretamente como <strong>guardiã da Carta de
+                            Serviços da
+                            ANTAQ</strong> — documento fundamental que, respaldado pela <strong>Lei nº
+                            13.460/2017</strong>, informa os
+                        cidadãos sobre os serviços prestados pela agência, seus requisitos, prazos e padrões de
+                        atendimento. Visando
+                        promover a <strong>participação direta da sociedade civil</strong> na melhoria contínua dos 32
+                        serviços.
                     </p>
                 </div>
-                <!-- Two columns -->
-                <div class="grid grid-cols-2 gap-5">
-                    <div class="intro-card bg-white border-2 border-gray-100 rounded-2xl px-8 py-6"
-                        style="box-shadow:0 8px 22px -10px rgba(16,48,80,.18)">
-                        <p class="text-brand-primary font-montserrat font-bold text-lg mb-2 flex items-center gap-3">
-                            <i class="fas fa-scale-balanced text-brand-secondary text-xl"></i> Atuação neutra e autônoma
-                        </p>
-                        <p class="text-gray-700 text-sm leading-relaxed">
-                            Como ponte com o cidadão, a Ouvidoria analisa as demandas de maneira <strong>estritamente
-                                técnica, neutra
-                                e autônoma</strong>. Essa atuação é fortalecida por sua integração ao <strong>Sistema de
-                                Ouvidoria do Poder
-                                Executivo Federal (SisOuv)</strong>, sob supervisão, normatização e fiscalização da CGU,
-                            por meio da OGU.
-                        </p>
+                <!-- Metrics row -->
+                <div class="grid grid-cols-3 gap-5">
+                    <div class="metric-card flex items-center gap-4">
+                        <i class="fas fa-clipboard-list text-4xl text-brand-secondary"></i>
+                        <div>
+                            <p class="font-montserrat font-black text-4xl text-brand-primary leading-none">32</p>
+                            <p class="text-gray-500 text-sm mt-1">serviços monitorados pela Ouvidoria</p>
+                        </div>
                     </div>
-                    <div class="intro-card bg-white border-2 border-gray-100 rounded-2xl px-8 py-6"
-                        style="box-shadow:0 8px 22px -10px rgba(16,48,80,.18)">
-                        <p class="text-brand-primary font-montserrat font-bold text-lg mb-2 flex items-center gap-3">
-                            <i class="fas fa-chart-line text-brand-secondary text-xl"></i> Painel dinâmico e publicidade
-                        </p>
-                        <p class="text-gray-700 text-sm leading-relaxed">
-                            Este Relatório Trimestral, estruturado como <strong>painel dinâmico</strong>, foi
-                            desenvolvido pelo corpo
-                            técnico com base nos dados do Fala.BR. Confere ampla publicidade à <strong>Carta de
-                                Serviços</strong>, ao
-                            <strong>Conselho de Usuários</strong> e aos dados de transparência ativa e passiva da
-                            <strong>LAI</strong>,
-                            subsidiando a Alta Gestão e fortalecendo a participação social.
-                        </p>
+                    <div class="metric-card flex items-center gap-4">
+                        <i class="fas fa-users text-4xl text-brand-secondary"></i>
+                        <div>
+                            <p class="font-montserrat font-black text-4xl text-brand-primary leading-none">192</p>
+                            <p class="text-gray-500 text-sm mt-1">conselheiros na rede de participação social</p>
+                        </div>
+                    </div>
+                    <div class="metric-card flex items-center gap-4">
+                        <i class="fas fa-poll text-4xl text-brand-secondary"></i>
+                        <div>
+                            <p class="font-montserrat font-black text-4xl text-brand-primary leading-none">2025–2028</p>
+                            <p class="text-gray-500 text-sm mt-1">novo quadriênio de enquetes</p>
+                        </div>
                     </div>
                 </div>
+                <!-- Closing line -->
+                <p
+                    class="text-center text-brand-primary font-montserrat font-bold text-lg mt-7 flex items-center justify-center gap-3">
+                    <i class="fas fa-sitemap text-brand-secondary"></i>
+                    Serviços organizados por Superintendência
+                    <i class="fas fa-arrow-right text-brand-secondary"></i>
+                </p>
             </div>
         </div>
         <!-- Footer -->
         <div class="px-16 pb-8 flex justify-between items-center z-10">
             <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ</p>
-            <p class="text-gray-300 text-xs font-mono">2 / 33</p>
+            <p class="text-gray-300 text-xs font-mono">23 / 33</p>
         </div>
         <!-- Decorative Background Pattern -->
         <div class="bg-pattern">
-            <i class="fas fa-landmark text-9xl"></i>
+            <i class="fas fa-file-contract text-9xl"></i>
         </div>
     </div>
     <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>

@@ -1,0 +1,1725 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Relatório Trimestral 2026 · Ouvidoria da ANTAQ — 1º Trimestre</title>
+  <link rel="icon" type="image/png"
+    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Open+Sans:wght@400;600;700&display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <style>
+    :root {
+      --navy: #0A2236;
+      --navy2: #103050;
+      --navy3: #16466E;
+      --blue: #0070C0;
+      --cyan: #29ABE2;
+      --cyan2: #0090C0;
+      --ink: #243140;
+      --muted: #64707e;
+      --line: #dde3ec;
+      --line2: #eef2f7;
+      --soft: #f1f6fc;
+      --gold: #f2a900;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      background: linear-gradient(135deg, #3a4451 0%, #525a66 100%);
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Open Sans', 'Segoe UI', sans-serif;
+      color: var(--ink);
+      font-size: 10.5pt;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      letter-spacing: 0.2px;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-family: 'Montserrat', sans-serif;
+      color: var(--navy2);
+      letter-spacing: -0.5px;
+    }
+
+    a {
+      color: var(--blue);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    a:hover {
+      color: var(--cyan2);
+    }
+
+    /* ---- Página A4 ---- */
+    .page {
+      background: #fff;
+      width: 210mm;
+      min-height: 297mm;
+      margin: 12mm auto;
+      padding: 22mm 22mm 28mm 24mm;
+      position: relative;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+      border-radius: 2px;
+    }
+
+    /* faixa lateral institucional */
+    .page::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 5mm;
+      background: linear-gradient(180deg, var(--cyan2) 0%, var(--blue) 55%, var(--navy2) 100%);
+    }
+
+    /* cabeçalho de página */
+    .pg-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px solid var(--line2);
+      padding-bottom: 10px;
+      margin-bottom: 22px;
+      font-size: 7.8pt;
+      color: var(--muted);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .pg-head .brand {
+      font-weight: 900;
+      color: var(--navy2);
+      letter-spacing: .10em;
+      font-size: 8.2pt;
+    }
+
+    .pg-head .brand::before {
+      content: "";
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      margin-right: 8px;
+      background: linear-gradient(135deg, var(--cyan2), var(--blue));
+      border-radius: 2px;
+      vertical-align: middle;
+    }
+
+    /* rodapé de página */
+    .pg-foot {
+      position: absolute;
+      left: 24mm;
+      right: 22mm;
+      bottom: 14mm;
+      border-top: 1.5px solid var(--line2);
+      padding-top: 8px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 7.2pt;
+      color: var(--muted);
+      letter-spacing: .04em;
+    }
+
+    /* ---- Capa ---- */
+    .cover {
+      background:
+        radial-gradient(150% 100% at 85% 5%, rgba(41, 171, 226, .25), transparent 55%),
+        linear-gradient(135deg, #0A2236 0%, #103050 50%, #16466E 100%);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 30mm 24mm;
+    }
+
+    .cover::before {
+      background: var(--cyan2);
+      width: 5mm;
+    }
+
+    .cover .eyebrow {
+      letter-spacing: .36em;
+      text-transform: uppercase;
+      font-size: 9.3pt;
+      color: #00d4ff;
+      font-weight: 800;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .cover .eyebrow::after {
+      content: "";
+      flex: 0 0 72px;
+      height: 2.5px;
+      background: linear-gradient(90deg, rgba(41, 171, 226, 0.6), transparent);
+    }
+
+    .cover h1 {
+      color: #fff;
+      font-weight: 900;
+      font-size: 38pt;
+      line-height: 1.08;
+      margin: 0 0 6px;
+      letter-spacing: -1px;
+    }
+
+    .cover h1 span {
+      color: #00d4ff;
+    }
+
+    .cover .sub {
+      font-size: 12.8pt;
+      color: #d9e8f5;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 2px solid rgba(255, 255, 255, 0.2);
+      max-width: 138mm;
+      line-height: 1.6;
+      font-weight: 500;
+    }
+
+    .cover .period {
+      margin-top: 36px;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(41, 171, 226, 0.15);
+      border: 1.5px solid rgba(255, 255, 255, 0.3);
+      padding: 14px 26px;
+      border-radius: 10px;
+      font-weight: 800;
+      font-size: 12pt;
+      width: fit-content;
+      color: #d9f0ff;
+      letter-spacing: 0.3px;
+    }
+
+    .cover .org {
+      margin-top: auto;
+      padding-top: 44px;
+      font-size: 8.8pt;
+      color: #b8cfe6;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      line-height: 1.8;
+    }
+
+    .cover .org strong {
+      color: #fff;
+      display: block;
+      font-size: 11.2pt;
+      letter-spacing: .04em;
+      margin-bottom: 6px;
+      font-weight: 900;
+    }
+
+    /* ---- Tipografia de conteúdo ---- */
+    .sec-title {
+      font-size: 18pt;
+      font-weight: 900;
+      color: var(--navy2);
+      margin: 0 0 2px;
+      letter-spacing: -.8px;
+    }
+
+    .sec-num {
+      color: var(--cyan2);
+      font-weight: 900;
+    }
+
+    .sec-rule {
+      width: 68px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--cyan2) 0%, var(--blue) 100%);
+      border-radius: 2px;
+      margin: 10px 0 22px;
+    }
+
+    h3 {
+      font-size: 13pt;
+      margin: 26px 0 8px;
+      color: var(--blue);
+      font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+
+    h4 {
+      font-size: 11pt;
+      margin: 18px 0 6px;
+      color: var(--navy2);
+      font-weight: 800;
+      letter-spacing: -0.2px;
+    }
+
+    p {
+      margin: 0 0 11px;
+      text-align: justify;
+      hyphens: auto;
+      line-height: 1.75;
+    }
+
+    ul {
+      margin: 8px 0 14px;
+      padding-left: 22px;
+    }
+
+    li {
+      margin-bottom: 6px;
+      line-height: 1.6;
+    }
+
+    /* KPIs */
+    .kpis {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin: 16px 0 24px;
+    }
+
+    .kpi {
+      background: linear-gradient(165deg, var(--navy2) 0%, #1a4a7a 100%);
+      color: #fff;
+      border-radius: 12px;
+      padding: 18px 14px;
+      text-align: center;
+      border: 1.5px solid rgba(41, 171, 226, 0.15);
+      box-shadow: 0 8px 24px rgba(16, 48, 80, 0.25);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .kpi:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(16, 48, 80, 0.35);
+    }
+
+    .kpi .lbl {
+      font-size: 6.6pt;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: rgba(255, 255, 255, 0.75);
+      font-weight: 800;
+      min-height: 22px;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .kpi .val {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 24pt;
+      color: #ffc107;
+      line-height: 1;
+      letter-spacing: -0.5px;
+    }
+
+    .kpi .val small {
+      font-size: 10pt;
+      color: rgba(255, 255, 255, 0.9);
+      font-weight: 700;
+    }
+
+    /* cards/charts */
+    .chart-box {
+      border: 1.5px solid var(--line);
+      border-radius: 12px;
+      padding: 14px 16px 10px;
+      background: linear-gradient(to bottom, #fafbfc 0%, #fff 100%);
+      margin-bottom: 16px;
+      page-break-inside: avoid;
+      box-shadow: 0 2px 8px rgba(16, 48, 80, 0.06);
+      transition: box-shadow 0.3s ease;
+    }
+
+    .chart-box:hover {
+      box-shadow: 0 4px 16px rgba(16, 48, 80, 0.12);
+    }
+
+    .chart-box .cap {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 9.3pt;
+      color: var(--navy2);
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--line2);
+      letter-spacing: 0.3px;
+    }
+
+    .chart-wrap {
+      position: relative;
+      height: 52mm;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    /* tabelas */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 9.2pt;
+      margin: 12px 0 18px;
+      page-break-inside: avoid;
+      border: 1.5px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(16, 48, 80, 0.08);
+    }
+
+    thead th {
+      background: linear-gradient(135deg, var(--navy2) 0%, #1a4a7a 100%);
+      color: #fff;
+      text-align: center;
+      padding: 10px 10px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 8pt;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    thead th:first-child {
+      text-align: left;
+    }
+
+    tbody td {
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--line2);
+      text-align: center;
+    }
+
+    tbody td:first-child {
+      text-align: left;
+      font-weight: 700;
+      color: var(--navy2);
+    }
+
+    tbody tr:nth-child(even) {
+      background: linear-gradient(90deg, var(--soft) 0%, #ffffff 100%);
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    tfoot td {
+      padding: 10px;
+      font-weight: 900;
+      background: linear-gradient(135deg, #e3ecf5 0%, #d4e6f1 100%);
+      color: var(--navy2);
+      text-align: center;
+      border-top: 2.5px solid var(--navy2);
+    }
+
+    tfoot td:first-child {
+      text-align: left;
+    }
+
+    .callout {
+      background: linear-gradient(90deg, #f0f8ff 0%, #f5fbfd 100%);
+      border: 1.5px solid var(--line);
+      border-left: 5px solid var(--cyan2);
+      border-radius: 0 10px 10px 0;
+      padding: 15px 20px;
+      margin: 18px 0;
+      box-shadow: 0 2px 8px rgba(0, 112, 192, 0.08);
+    }
+
+    .callout p:last-child {
+      margin-bottom: 0;
+    }
+
+    .callout b {
+      color: var(--navy2);
+    }
+
+    .lead {
+      font-size: 11.8pt;
+      color: var(--navy2);
+      font-weight: 700;
+      line-height: 1.7;
+      letter-spacing: -0.2px;
+    }
+
+    .two-col {
+      columns: 2;
+      column-gap: 26px;
+    }
+
+    .two-col li {
+      break-inside: avoid;
+    }
+
+    .legal {
+      font-size: 9.5pt;
+      margin-bottom: 13px;
+      line-height: 1.65;
+    }
+
+    .legal b {
+      color: var(--navy2);
+      font-weight: 800;
+    }
+
+    .toc {
+      margin-top: 12px;
+    }
+
+    .toc-item {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      padding: 10px 4px;
+      border-bottom: 1px dotted var(--line);
+      font-size: 11.2pt;
+      transition: padding 0.3s ease;
+    }
+
+    .toc-item:hover {
+      padding-left: 8px;
+    }
+
+    .toc-item .n {
+      color: var(--cyan2);
+      font-weight: 900;
+      font-family: 'Montserrat';
+      min-width: 32px;
+      font-size: 11.5pt;
+    }
+
+    .toc-item .t {
+      font-weight: 700;
+      color: var(--navy2);
+      letter-spacing: -.2px;
+    }
+
+    .pill {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--cyan2) 0%, #00b8d4 100%);
+      color: #fff;
+      font-size: 7.8pt;
+      font-weight: 800;
+      padding: 4px 12px;
+      border-radius: 20px;
+      vertical-align: middle;
+      margin-left: 8px;
+      letter-spacing: 0.4px;
+      box-shadow: 0 3px 10px rgba(0, 144, 192, 0.25);
+    }
+
+    /* botão flutuante para baixar */
+    .dl-bar {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      z-index: 999;
+      display: flex;
+      gap: 8px;
+    }
+
+    .dl-btn {
+      background: linear-gradient(135deg, var(--blue) 0%, #0090C0 100%);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 11.2pt;
+      padding: 13px 22px;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0, 112, 192, 0.35);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.3s ease;
+      letter-spacing: 0.3px;
+    }
+
+    .dl-btn:hover {
+      background: linear-gradient(135deg, #0090C0 0%, #0070C0 100%);
+      box-shadow: 0 12px 32px rgba(0, 112, 192, 0.45);
+      transform: translateY(-2px);
+    }
+
+    .dl-btn.alt {
+      background: rgba(255, 255, 255, 0.95);
+      color: var(--navy2);
+      font-weight: 800;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .dl-btn.alt:hover {
+      background: #fff;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+    }
+
+    .hint {
+      position: fixed;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, rgba(10, 34, 54, 0.95), rgba(16, 48, 80, 0.95));
+      color: #e8f1f8;
+      font-size: 9.3pt;
+      padding: 10px 20px;
+      border-radius: 24px;
+      z-index: 999;
+      border: 1px solid rgba(41, 171, 226, 0.2);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+      font-weight: 600;
+      letter-spacing: 0.2px;
+    }
+
+    /* ---- Impressão / Salvar como PDF ---- */
+
+    /* @page sem margem: todo o controle de espaçamento fica no .page */
+    @page {
+      size: A4 portrait;
+      margin: 0;
+    }
+
+    @media print {
+
+      html,
+      body {
+        background: #fff;
+      }
+
+      .dl-bar,
+      .hint {
+        display: none !important;
+      }
+
+      /* Cada .page = exatamente uma folha A4 (210 × 297 mm) */
+      .page {
+        margin: 0;
+        width: 210mm;
+        height: 297mm;
+        overflow: hidden;
+        padding: 11mm 13mm 30mm 15mm;
+        /* bottom 30mm: zona de segurança que impede conteúdo de atingir o pg-foot */
+        box-shadow: none;
+        border-radius: 0;
+        page-break-after: always;
+        position: relative;
+      }
+
+      .page:last-child {
+        page-break-after: auto;
+      }
+
+      /* Capa: preenche a folha com padding visual adequado */
+      .cover {
+        padding: 28mm 22mm 20mm 18mm;
+      }
+
+      /* Faixa branca que mascara conteúdo que sangra para a zona do rodapé.
+         Fica entre o conteúdo (z-index padrão) e o pg-foot (z-index 10). */
+      .page:not(.cover)::after {
+        content: "";
+        position: absolute;
+        left: 5mm;
+        right: 0;
+        bottom: 0;
+        height: 24mm;
+        background: #fff;
+        z-index: 5;
+      }
+
+      /* Rodapé ancorado ao fundo da folha, acima da faixa branca */
+      .pg-foot {
+        position: absolute;
+        left: 15mm;
+        right: 13mm;
+        bottom: 8mm;
+        z-index: 10;
+      }
+
+      /* Evita quebra no meio de blocos críticos */
+      .callout,
+      .kpis,
+      .chart-box,
+      table,
+      .toc-item,
+      h2.sec-title,
+      h3,
+      h4 {
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      h2.sec-title,
+      h3,
+      h4 {
+        break-after: avoid;
+        page-break-after: avoid;
+      }
+
+      ul,
+      ol {
+        break-inside: avoid-page;
+      }
+
+      /* Força impressão de cores em fundos e gráficos */
+      canvas,
+      * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+    }
+
+    /* Aprimoramentos finais de tipografia */
+    b {
+      font-weight: 800;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="dl-bar">
+    <button class="dl-btn" onclick="window.print()"><i class="fas fa-file-pdf"></i> Baixar em PDF</button>
+    <button class="dl-btn alt" onclick="goBack()" title="Voltar à apresentação"><i
+        class="fas fa-arrow-left"></i></button>
+  </div>
+  <div class="hint"><i class="fas fa-circle-info"></i> Clique em “Baixar em PDF” e escolha <b>Salvar como PDF</b> no
+    destino da impressão.</div>
+
+  <!-- ===================== CAPA ===================== -->
+  <section class="page cover">
+    <div class="eyebrow">Agência Nacional de Transportes Aquaviários · Ouvidoria</div>
+    <h1>Relatório Trimestral <span>2026</span><br />Ouvidoria da ANTAQ</h1>
+    <p class="sub">Consolidação das manifestações, dos pedidos de acesso à informação e das ações de transparência da
+      Ouvidoria da ANTAQ.</p>
+    <div class="period"><i class="far fa-calendar-check"></i> 1º Trimestre de 2026 · Janeiro a Março</div>
+    <div class="org">
+      <strong>Ouvidoria da ANTAQ</strong>
+      SEPN Q. 514, Conj. E, Ed. Antaq · Brasília/DF · CEP 70760-545<br />
+      Disque Ouvidoria 0800 644 5001 · gov.br/antaq
+    </div>
+  </section>
+
+  <!-- ===================== SUMÁRIO ===================== -->
+  <section class="page">
+    <div class="pg-head"><span class="brand">Ouvidoria da ANTAQ</span><span>Relatório Trimestral 2026 · 1º
+        Trimestre</span></div>
+    <h2 class="sec-title"><span class="sec-num">·</span> Sumário</h2>
+    <div class="sec-rule"></div>
+    <div class="toc">
+      <div class="toc-item"><span class="n">1</span><span class="t">Sumário Executivo e Apresentação</span></div>
+      <div class="toc-item"><span class="n">2</span><span class="t">Manifestações Recebidas</span></div>
+      <div class="toc-item"><span class="n">3</span><span class="t">Evolução Histórica</span></div>
+      <div class="toc-item"><span class="n">4</span><span class="t">Destaques do Trimestre</span></div>
+      <div class="toc-item"><span class="n">5</span><span class="t">Análise Estratégica da Ouvidoria</span></div>
+      <div class="toc-item"><span class="n">6</span><span class="t">Tipos de Manifestações</span></div>
+      <div class="toc-item"><span class="n">7</span><span class="t">Manifestações por Canal</span></div>
+      <div class="toc-item"><span class="n">8</span><span class="t">LAI — Lei de Acesso à Informação</span></div>
+      <div class="toc-item"><span class="n">9</span><span class="t">Carta de Serviços da ANTAQ</span></div>
+      <div class="toc-item"><span class="n">10</span><span class="t">Conselho de Usuários</span></div>
+      <div class="toc-item"><span class="n">11</span><span class="t">Glossário e Definições</span></div>
+      <div class="toc-item"><span class="n">12</span><span class="t">Marco Legal — Leis, Decretos e Normas</span></div>
+      <div class="toc-item"><span class="n">13</span><span class="t">Conclusão</span></div>
+      <div class="toc-item"><span class="n">14</span><span class="t">Expediente e Links Úteis</span></div>
+    </div>
+    <div class="pg-foot"><span>Ouvidoria da ANTAQ</span><span>Agência Nacional de Transportes Aquaviários</span></div>
+  </section>
+
+  <!-- ===================== 1. APRESENTAÇÃO ===================== -->
+  <section class="page">
+    <div class="pg-head"><span class="brand">Ouvidoria da ANTAQ</span><span>1 · Apresentação</span></div>
+    <h2 class="sec-title"><span class="sec-num">1.</span> Sumário Executivo e Apresentação</h2>
+    <div class="sec-rule"></div>
+    <p class="lead">Este relatório apresenta, de forma consolidada, as atividades desenvolvidas pela Seção de Apoio ao
+      Cidadão (SAC) e pela Seção de Transparência e Acesso à Informação (STAI) da Ouvidoria da ANTAQ no primeiro
+      trimestre de 2026, abrangendo o período de janeiro a março.</p>
+    <p>O documento reúne os principais resultados do período, os pontos de atenção identificados no tratamento das
+      demandas e as oportunidades de aprimoramento dos fluxos internos e da atuação institucional da unidade.</p>
+
+    <h3>O Papel Institucional e Governança</h3>
+    <p>A Ouvidoria é instrumento de governança, transparência e integridade, promovendo a participação cidadã e o
+      controle social. Na ANTAQ, atua em posição estratégica de apoio à alta administração, identificando
+      vulnerabilidades e subsidiando o aprimoramento regulatório.</p>
+    <p>Com autonomia e independência, sem subordinação hierárquica, a Ouvidoria atua em conformidade com as Leis nº
+      13.460/2017 e nº 13.848/2019. Sua atuação técnica e imparcial fortalece a accountability e a confiança da
+      sociedade na autarquia.</p>
+    <ul>
+      <li><b>Missão:</b> Mediar, com autonomia e acessibilidade, a relação entre o público e a ANTAQ, assegurando
+        direitos e transparência.</li>
+      <li><b>Visão:</b> Ser referência nacional em governança e controle social no setor aquaviário.</li>
+      <li><b>Valores:</b> Transparência, imparcialidade, ética, responsividade, humanização e inovação.</li>
+    </ul>
+
+    <h3>Estrutura Estratégica da Ouvidoria</h3>
+    <p>A força de trabalho da Ouvidoria é composta por 1 ouvidora, 5 servidores efetivos, 3 colaboradores terceirizados,
+      2 secretárias e 2 estagiários. A estrutura operacional divide-se em duas seções finalísticas:</p>
+    <ul>
+      <li><b>Seção de Apoio ao Cidadão (SAC):</b> Responsável por acolher, triar e direcionar as manifestações da
+        sociedade, gerenciando canais de atendimento para passageiros, empresas reguladas, atores portuários e público
+        interno.</li>
+      <li><b>Seção de Transparência e Acesso à Informação (STAI):</b> Competente pelo monitoramento da LAI (Lei nº
+        12.527/2011) e da Política de Dados Abertos. No trimestre, a STAI coordenou a atualização do Manual de Restrição
+        de Documentos da Agência para uniformizar processos e fomentar a cultura da transparência.</li>
+    </ul>
+
+    <div class="callout">
+      <p><b>Obrigações legais e transparência ativa.</b> O Relatório Trimestral cumpre as obrigações da Lei nº
+        13.460/2017 e do Decreto nº 9.492/2018, seguindo as diretrizes da Controladoria-Geral da União (CGU) e da Rede
+        Nacional de Ouvidorias (RENOUV). Mais do que uma exigência legal, o documento funciona como uma ferramenta de
+        transparência ativa e prestação de contas para órgãos de controle — como o TCU, a CGU e o Congresso Nacional — e
+        para a sociedade civil. Seus indicadores subsidiam a alta administração na mitigação de riscos operacionais e na
+        melhoria contínua dos processos regulatórios.</p>
+    </div>
+    <div class="pg-foot"><span>Ouvidoria da ANTAQ</span><span>Agência Nacional de Transportes Aquaviários</span></div>
+  </section>
+
+  <!-- ===================== 2. MANIFESTAÇÕES RECEBIDAS ===================== -->
+  <section class="page">
+    <div class="pg-head"><span class="brand">Ouvidoria da ANTAQ</span><span>2 · Manifestações Recebidas</span></div>
+    <h2 class="sec-title"><span class="sec-num">2.</span> Manifestações Recebidas</h2>
+    <div class="sec-rule"></div>
+    <p>No primeiro trimestre de 2026, a Ouvidoria recepcionou 304 manifestações. Desse total, 46 foram arquivadas por
+      insuficiência de dados ou duplicidade, e 12 foram encaminhadas a outros órgãos públicos devido à competência
+      (majoritariamente à ANTT). As 246 manifestações restantes seguiram o fluxo regular de tratamento pela equipe
+      técnica, registrando um tempo médio de conclusão de 13,9 dias. Em relação aos canais de captação, o atendimento
+      omnichannel liderou o volume com 382 interações no trimestre, seguido pela plataforma oficial Fala.BR com 304
+      registros e pelo e-mail institucional com 70 demandas computadas.</p>
+
+    <div class="kpis">
+      <div class="kpi"><span class="lbl">Total de manifestações</span><span class="val">304</span></div>
+      <div class="kpi"><span class="lbl">Manifestações arquivadas</span><span class="val">46</span></div>
+      <div class="kpi"><span class="lbl">Encaminhadas a outros órgãos</span><span class="val">12</span></div>
+      <div class="kpi"><span class="lbl">Tempo médio de conclusão</span><span class="val">13,9
+          <small>dias</small></span></div>
+    </div>
+
+    <div class="chart-box">
+      <div class="cap">Manifestações recebidas por mês</div>
+      <div class="chart-wrap"><canvas id="cMes"></canvas></div>
+    </div>
+
+    <div class="grid-2">
+      <div class="chart-box">
+        <div class="cap">Manifestações arquivadas por mês</div>
+        <div class="chart-wrap"><canvas id="cArq"></canvas></div>
+      </div>
+      <div class="chart-box">
+        <div class="cap">Encaminhadas a outros órgãos por mês</div>
+        <div class="chart-wrap"><canvas id="cEnc"></canvas></div>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Indicador</th>
+          <th>Janeiro</th>
+          <th>Fevereiro</th>
+          <th>Março</th>
+          <th>Trimestre</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Manifestações recebidas</td>
+          <td>90</td>
+          <td>129</td>
+          <td>85</td>
+          <td>304</td>
+        </tr>
+        <tr>
+          <td>Manifestações arquivadas</td>
+          <td>17</td>
+          <td>16</td>
+          <td>13</td>
+          <td>46</td>
+        </tr>
+        <tr>
+          <td>Encaminhadas a outros órgãos</td>
+          <td>3</td>
+          <td>3</td>
+          <td>6</td>
+          <td>12</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="pg-foot"><span>Ouvidoria da ANTAQ</span><span>Agência Nacional de Transportes Aquaviários</span></div>
+  </section>
+
+  <!-- ===================== 3. EVOLUÇÃO HISTÓRICA ===================== -->
+  <section class="page">
+    <div class="pg-head"><span class="brand">Ouvidoria da ANTAQ</span><span>3 · Evolução Histórica</span></div>
+    <h2 class="sec-title"><span class="sec-num">3.</span> Evolução Histórica</h2>
+    <div class="sec-rule"></div>
+    <p>Apresenta-se a evolução dos indicadores da Ouvidoria ao longo dos últimos anos. A inclusão de séries históricas
+      permite identificar tendências, avaliar o comportamento das manifestações ao longo do tempo e fornecer subsídios
+      mais robustos para a tomada de decisão institucional.</p>
+
+    <div class="chart-box">
+      <div class="cap">Evolução das manifestações recebidas — 1º trimestre (2023–2026)</div>
+      <div class="chart-wrap"><canvas id="cHist"></canvas></div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Período</th>
+          <th>Manifestações recebidas</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1º Trimestre de 2023</td>
+          <td>205</td>
+        </tr>
+        <tr>
+          <td>1º Trimestre de 2024</td>
+          <td>201</td>
+        </tr>
+        <tr>
+          <td>1º Trimestre de 2025</td>
+          <td>337</td>
+        </tr>
+        <tr>
+          <td>1º Trimestre de 2026</td>
+          <td>304</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Recomenda-se, ainda, apresentar comparativos históricos relativos aos pedidos de acesso à informação, às
+      demandas encaminhadas à fiscalização e aos principais temas recorrentes.</p>
+    <div class="pg-foot"><span>Ouvidoria da ANTAQ</span><span>Agência Nacional de Transportes Aquaviários</span></div>
+  </section>
+
+  <!-- ===================== 4. DESTAQUES ===================== -->
+  <section class="page">
+    <div class="pg-head"><span class="brand">Ouvidoria da ANTAQ</span><span>4 · Destaques do Trimestre</span></div>
+    <h2 class="sec-title"><span class="sec-num">4.</span> Destaques do Trimestre</h2>
+    <div class="sec-rule"></div>
+    <p>As denúncias predominaram expressivamente no período, representando 67,1% do total de manifestações classificadas
+      por tipo (173 registros). O tema central do trimestre foi a tarifa portuária abusiva, que respondeu por 50,5% das
+      demandas (153 registros), evidenciando a relevância da pauta econômico-regulatória para os usuários.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Vertente operacional — tema “tarifa portuária abusiva”</th>
+          <th>Quantidade</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Sobrestadia de mercadorias / detention</td>
+          <td>55</td>
+        </tr>
+        <tr>
+          <td>Tarifa portuária abusiva</td>
+          <td>41</td>
+        </tr>
+        <tr>
+          <td>Falta de janelas para os navios</td>
+          <td>21</td>
+        </tr>
+        <tr>
+          <td>Pedido de medida cautelar</td>
+          <td>20</td>
+        </tr>
+        <tr>
+          <td>Cobrança indevida de taxa</td>
+          <td>7</td>
+        </tr>
+        <tr>
+          <td>Bloqueio de carga</td>
+          <td>3</td>
+        </tr>
+        <tr>
+          <td>Demurrage</td>
+          <td>3</td>
+        </tr>
+        <tr>
+          <td>Desbloqueio de carga</td>
+          <td>1</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td>Total do tema</td>
+          <td>153</td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <p>Essa pauta ramificou-se nas seguintes vertentes operacionais: sobrestadia de mercadorias/detention (55), tarifas
+      abusivas gerais (41), falta de janelas para navios (21), pedidos de medida cautelar (20), cobranças indevidas de
+      taxas (7), bloqueio de carga (3), demurrage (3) e desbloqueio de carga (1).</p>
+
+    <div class="callout">
+      <p>A concentração das manifestações em torno da tarifa portuária e de seus desdobramentos — sobrestadia,
+        detention, demurrage e cobrança indevida de taxas — evidencia a relevância da pauta econômico-regulatória
+        portuária para os usuários e orienta a priorização do tratamento e do encaminhamento técnico das demandas pela
+        Ouvidoria.</p>
+    </div>
+    <div class="pg-foot"><span>Ouvidoria da ANTAQ</span><span>Agência Nacional de Transportes Aquaviários</span></div>
+  </section>
+
+  <!-- ===================== 5. ANÁLISE ESTRATÉGICA ===================== -->
+  <section class="page">
+    <div class="pg-head"><span class="brand">Ouvidoria da ANTAQ</span><span>5 · Análise Estratégica da
+        Ouvidoria</span></div>
+    <h2 class="sec-title"><span class="sec-num">5.</span> Análise Estratégica da Ouvidoria</h2>
+    <div class="sec-rule"></div>
+    <p>A seção de destaques é ampliada para evidenciar não apenas os números, mas também os principais achados
+      decorrentes da análise das manifestações.</p>
+
+    <h3><span class="sec-num">5.1.</span> Principais Achados do Trimestre</h3>
+    <ul>
+      <li>As denúncias permaneceram como principal tipo de manifestação, representando 67,1% das manifestações
+        classificadas;</li>
+      <li>O tema “Tarifa Portuária Abusiva” respondeu por aproximadamente metade das manifestações classificadas;</li>
+      <li>Todos os pedidos de acesso à informação foram respondidos dentro do prazo legal;</li>
+      <li>A ANTAQ alcançou 100% dos requisitos avaliados no Painel LAI;</li>
+      <li>Houve ampliação das bases disponibilizadas no Plano de Dados Abertos;</li>
+      <li>O Conselho de Usuários contou com a participação de 192 conselheiros.</li>
+    </ul>
+
+    <h3><span class="sec-num">5.2.</span> Inteligência da Ouvidoria</h3>
+    <p>A análise consolidada das manifestações recebidas pela Ouvidoria permite identificar tendências regulatórias,
+      oportunidades de melhoria institucional, riscos emergentes e demandas recorrentes dos usuários dos serviços
+      regulados pela ANTAQ.</p>
+    <p>Nesse contexto, a Ouvidoria atua não apenas como canal de atendimento ao cidadão, mas também como importante
+      instrumento de apoio à gestão, à fiscalização e à tomada de decisão.</p>
+    <p>Os dados observados no período evidenciam a predominância de manifestações relacionadas à tarifa portuária e seus
+      desdobramentos operacionais, demonstrando a relevância do tema para os usuários e para o ambiente regulatório.</p>
+    <div class="pg-foot"><span>Ouvidoria da ANTAQ</span><span>Agência Nacional de Transportes Aquaviários</span></div>
+  </section>
+
+  <!-- ===================== 5.3 / 5.4 ===================== -->
+  <section class="page">
+    <div class="pg-head"><span class="brand">Ouvidoria da ANTAQ</span><span>5.3 / 5.4 · Análise Qualitativa · Riscos e
+        Oportunidades</span></div>
+    <h2 class="sec-title"><span class="sec-num">5.3.</span> Análise Qualitativa</h2>
+    <div class="sec-rule"></div>
+    <p>Os relatórios do 1º trimestre de 2023 e do 1º trimestre de 2024 continham análises relacionadas aos problemas
+      identificados, possíveis causas e propostas de solução. Resgata-se essa abordagem, considerando que ela agrega
+      valor estratégico ao relatório e fortalece a função institucional da Ouvidoria.</p>
+    <h4>Problema identificado</h4>
+    <p>Elevada concentração de manifestações relacionadas à tarifa portuária.</p>
+    <h4>Possíveis causas</h4>
+    <ul>
+      <li>Complexidade regulatória;</li>
+      <li>Divergências comerciais;</li>
+      <li>Desconhecimento dos usuários acerca das competências da Agência.</li>
+    </ul>
+    <h4>Possíveis ações</h4>
+    <ul>
+      <li>Ampliação de orientações ao usuário;</li>
+      <li>Fortalecimento da comunicação institucional;</li>
+      <li>Monitoramento contínuo do tema.</li>
+    </ul>
+
+    <h2 class="sec-title" style="margin-top:26px;"><span class="sec-num">5.4.</span> Riscos e Oportunidades</h2>
+    <div class="sec-rule"></div>
+    <h4>Riscos identificados</h4>
+    <ul>
+      <li>Crescimento de denúncias relacionadas à tarifa portuária;</li>
+      <li>Judicialização de conflitos regulatórios;</li>
+      <li>Demandas recorrentes relacionadas a <i>detention</i> e sobrestadia;</li>
+      <li>Crescimento da complexidade das manifestações.</li>
+    </ul>
+    <h4>Oportunidades identificadas</h4>
+    <ul>
+      <li>Utilização dos dados da Ouvidoria como ferramenta de apoio à gestão;</li>
+      <li>Ampliação das ações de transparência ativa;</li>
+      <li>Aprimoramento dos canais de atendimento;</li>
+      <li>Integração com áreas técnicas e fiscalizatórias.</li>
+    </ul>
+    <div class="pg-foot"><span>Ouvidoria da ANTAQ</span><span>Agência Nacional de Transportes Aquaviários</span></div>
+  </section>
+
+  <!-- ===================== 5.5 RECOMENDAÇÕES ===================== -->
+  <section class="page">
+    <div class="pg-head"><span class="brand">Ouvidoria da ANTAQ</span><span>5.5 · Recomendações
+        Institucionais</span></div>
+    <h2 class="sec-title"><span class="sec-num">5.5.</span> Recomendações Institucionais</h2>
+    <div class="sec-rule"></div>
+    <p>Apresentam-se recomendações decorrentes da análise das manifestações recebidas:</p>
+    <ul>
+      <li>Fortalecer a divulgação dos canais de atendimento da Agência;</li>
+      <li>Intensificar ações de orientação aos usuários;</li>
+      <li>Monitorar os temas recorrentes identificados pela Ouvidoria;</li>
+      <li>Utilizar os dados produzidos pela Ouvidoria como insumo para planejamento institucional;</li>
+      <li>Fortalecer a integração entre Ouvidoria, Fiscalização e áreas técnicas.</li>
+    </ul>
+    <div class="pg-foot"><span>Ouvidoria da ANTAQ</span><span>Agência Nacional de Transportes Aquaviários</span></div>
+  </section>
+
+  <!-- ===================== 6. TIPOS DE MANIFESTAÇÕES ===================== -->
+  <section class="page">
+    <div class="pg-head"><span class="brand">Ouvidoria da ANTAQ</span><span>6 · Tipos de Manifestações</span></div>
+    <h2 class="sec-title"><span class="sec-num">6.</span> Tipos de Manifestações</h2>
+    <div class="sec-rule"></div>
+    <p>A classificação das manifestações por tipo permite compreender a natureza das demandas recebidas. No trimestre,
+      as <b>denúncias</b> predominaram de forma expressiva, seguidas pelas <b>solicitações</b> e <b>reclamações</b>. As
+      sugestões, elogios e registros do tipo “Simplifique” tiveram participação residual.</p>
+
+    <div class="chart-box">
+      <div class="cap">Tipos de manifestações no trimestre</div>
+      <div class="chart-wrap"><canvas id="cTipo"></canvas></div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Tipo</th>
+          <th>Janeiro</th>
+          <th>Fevereiro</th>
+          <th>Março</th>
+          <th>Trimestre</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Denúncia</td>
+          <td>42</td>
+          <td>75</td>
+          <td>56</td>
+          <td>173</td>
+        </tr>
+        <tr>
+          <td>Solicitação</td>
+          <td>15</td>
+          <td>28</td>
+          <td>2</td>
+          <td>45</td>
+        </tr>
+        <tr>
+          <td>Reclamação</td>
+          <td>15</td>
+          <td>9</td>
+          <td>10</td>
+          <td>34</td>
+        </tr>
+        <tr>
+          <td>Sugestão</td>
+          <td>0</td>
+          <td>1</td>
+          <td>2</td>
+          <td>3</td>
+        </tr>
+        <tr>
+          <td>Elogio</td>
+          <td>0</td>
+          <td>0</td>
+          <td>2</td>
+          <td>2</td>
+        </tr>
+        <tr>
+          <td>Simplifique</td>
+          <td>1</td>
+          <td>0</td>
+          <td>0</td>
+          <td>1</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td>Total classificado</td>
+          <td>73</td>
+          <td>113</td>
+          <td>72</td>
+          <td>258</td>
+        </tr>
+      </tfoot>
+    </table>
+    <p style="font-size:9pt;color:var(--muted);">Observação: o total classificado por tipo refere-se às manifestações
+      com
+      tipificação registrada no período.</p>
+    <div class="pg-foot"><span>Ouvidoria da ANTAQ</span><span>Agência Nacional de Transportes Aquaviários</span></div>
+  </section>
+
+  <!-- ===================== 7. POR CANAL ===================== -->
+  <section class="page">
+    <div class="pg-head"><span class="brand">Ouvidoria da ANTAQ</span><span>7 · Manifestações por Canal</span></div>
+    <h2 class="sec-title"><span class="sec-num">7.</span> Manifestações por Canal</h2>
+    <div class="sec-rule"></div>
+    <p>A Ouvidoria da ANTAQ recebe demandas por múltiplos canais de atendimento. No trimestre, o atendimento
+      <b>omnichannel</b> concentrou o maior volume de interações, seguido pela plataforma <b>Fala.BR</b> — canal
+      oficial e integrado de manifestações — e pelo <b>e-mail</b>.
+    </p>
+
+    <div class="chart-box">
+      <div class="cap">Volume por canal no trimestre</div>
+      <div class="chart-wrap"><canvas id="cCanal"></canvas></div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Canal</th>
+          <th>Janeiro</th>
+          <th>Fevereiro</th>
+          <th>Março</th>
+          <th>Trimestre</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Omnichannel</td>
+          <td>186</td>
+          <td>106</td>
+          <td>90</td>
+          <td>382</td>
+        </tr>
+        <tr>
+          <td>Fala.BR</td>
+          <td>90</td>
+          <td>129</td>
+          <td>85</td>
+          <td>304</td>
+        </tr>
+        <tr>
+          <td>E-mail</td>
+          <td>23</td>
+          <td>33</td>
+          <td>14</td>
+          <td>70</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="pg-foot"><span>Ouvidoria da ANTAQ</span><span>Agência Nacional de Transportes Aquaviários</span></div>
+  </section>
+
+  <!-- ===================== 8. LAI ===================== -->
+  <section class="page">
+    <div class="pg-head"><span class="brand">Ouvidoria da ANTAQ</span><span>8 · LAI — Lei de Acesso à Informação</span>
+    </div>
+    <h2 class="sec-title"><span class="sec-num">8.</span> LAI — Lei de Acesso à Informação</h2>
+    <div class="sec-rule"></div>
+    <p>A Lei de Acesso à Informação (Lei nº 12.527/2011) estabelece a transparência pública como regra e o sigilo como
+      exceção. Sua aplicação se organiza em duas frentes: a <b>transparência passiva</b>, relativa às informações
+      disponibilizadas mediante solicitação específica do cidadão, e a <b>transparência ativa</b>, referente às
+      informações divulgadas por iniciativa própria do órgão.</p>
+
+    <h3><span class="sec-num">8.1.</span> Transparência Passiva</h3>
+    <p>A transparência passiva abrange o atendimento a cidadãos que solicitam informações específicas produzidas ou
+      custodiadas pela Agência, conforme o artigo 9º da LAI. No primeiro trimestre de 2026, a STAI gerenciou o
+      recebimento de 130 pedidos de acesso à informação via Fala.BR, mantendo a média de 43 mensais. A ANTAQ respondeu a
+      100% das demandas no prazo legal, com tempo médio de resposta de 9,1 dias para as solicitações iniciais e de 3,8
+      dias para os 6 recursos registrados no período.</p>
+
+    <div class="kpis">
+      <div class="kpi"><span class="lbl">Pedidos recebidos</span><span class="val">130</span></div>
+      <div class="kpi"><span class="lbl">Respondidos no prazo</span><span class="val">100%</span></div>
+      <div class="kpi"><span class="lbl">Respondidos fora do prazo</span><span class="val">0%</span></div>
+      <div class="kpi"><span class="lbl">Tempo médio de resposta</span><span class="val">9,1 <small>dias</small></span>
+      </div>
+    </div>
+
+    <div class="chart-box">
+      <div class="cap">Pedidos de acesso à informação recebidos e respondidos por mês</div>
+      <div class="chart-wrap"><canvas id="cLai"></canvas></div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Indicador</th>
+          <th>Janeiro</th>
+          <th>Fevereiro</th>
+          <th>Março</th>
+          <th>Trimestre</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Pedidos recebidos</td>
+          <td>34</td>
+          <td>35</td>
+          <td>61</td>
+          <td>130</td>
+        </tr>
+        <tr>
+          <td>Pedidos respondidos</td>
+          <td>34</td>
+          <td>35</td>
+          <td>61</td>
+          <td>130</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="pg-foot"><span>Ouvidoria da ANTAQ</span><span>Agência Nacional de Transportes Aquaviários</span></div>
+  </section>
+
+  <!-- ===================== 8.2 HISTÓRICO LAI ===================== -->
+  <section class="page">
+    <div class="pg-head"><span class="brand">Ouvidoria da ANTAQ</span><span>8.2 · Histórico de Pedidos LAI</span></div>
+    <h2 class="sec-title"><span class="sec-num">8.2.</span> Histórico de Pedidos de Acesso à Informação</h2>
+    <div class="sec-rule"></div>
+    <p>Além dos indicadores do período, apresenta-se o comparativo histórico dos pedidos de acesso à informação. Essa
+      análise demonstra a evolução da demanda por transparência pública e permite avaliar tendências de acesso à
+      informação.</p>
+
+    <div class="chart-box">
+      <div class="cap">Pedidos de acesso à informação — 1º trimestre (2023–2026)</div>
+      <div class="chart-wrap"><canvas id="cLaiHist"></canvas></div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Período</th>
+          <th>Pedidos de acesso à informação</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1º Trimestre de 2023</td>
+          <td>62</td>
+        </tr>
+        <tr>
+          <td>1º Trimestre de 2024</td>
+          <td>105</td>
+        </tr>
+        <tr>
+          <td>1º Trimestre de 2025</td>
+          <td>107</td>
+        </tr>
+        <tr>
+          <td>1º Trimestre de 2026</td>
+          <td>130</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="pg-foot"><span>Ouvidoria da ANTAQ</span><span>Agência Nacional de Transportes Aquaviários</span></div>
+  </section>
+
+  <!-- ===================== 8.3 / 8.4 ===================== -->
+  <section class="page">
+    <div class="pg-head"><span class="brand">Ouvidoria da ANTAQ</span><span>8.3 / 8.4 · Transparência Ativa e Dados
+        Abertos</span></div>
+    <h2 class="sec-title"><span class="sec-num">8.3.</span> Transparência Ativa</h2>
+    <div class="sec-rule"></div>
+    <p>A transparência ativa consiste na divulgação espontânea de informações de interesse público no portal
+      institucional da ANTAQ, em observância à Lei nº 12.527/2011 e ao Decreto nº 7.724/2012. No primeiro trimestre de
+      2026, a ANTAQ alcançou 100% dos 49 quesitos avaliados no Painel LAI, com cumprimento integral dos itens
+      analisados.</p>
+    <div class="kpis" style="grid-template-columns:repeat(2,1fr);max-width:120mm;">
+      <div class="kpi"><span class="lbl">Itens cumpridos</span><span class="val">100%</span></div>
+      <div class="kpi"><span class="lbl">Quesitos avaliados</span><span class="val">49/49</span></div>
+    </div>
+
+    <h2 class="sec-title" style="margin-top:26px;"><span class="sec-num">8.4.</span> Dados Abertos</h2>
+    <div class="sec-rule"></div>
+    <p>Alinhada ao Decreto nº 8.777/2016, a ANTAQ aprovou em março o seu Plano de Dados Abertos (PDA) para o ciclo
+      2026-2028. Atualmente, a Agência disponibiliza 18 bases de dados com atualização automática e prevê a abertura de
+      8 novas bases estruturadas (como tarifas homologadas e contratos vigentes). Adicionalmente, em termos de
+      integridade, a Ouvidoria monitora o cumprimento do sistema e-Agendas (Decreto nº 10.889/2021), tendo atualizado no
+      trimestre o registro de todos os servidores com cargos acima de FCE 1.13. Mais informações relacionadas ao PDA
+      podem ser encontradas no painel de dados abertos e no sítio dados.gov.</p>
+
+    <h4>Novas bases incorporadas ao Plano de Dados Abertos <span class="pill">8 novas</span></h4>
+    <ul class="two-col">
+      <li><b>Painel de Portos Públicos</b> — instrumentos contratuais de exploração de áreas e instalações portuárias.
+      </li>
+      <li><b>Plano Geral de Outorgas Hidroviárias (PGO)</b> — exploração de vias navegáveis de domínio da União.</li>
+      <li><b>Toneladas por quilômetro útil (TKU)</b> — volumetria de transporte na cabotagem e navegação interior.</li>
+      <li><b>Tarifas Portuárias Homologadas</b> — projetos tarifários e tarifas-teto aprovadas por porto desde 2019.
+      </li>
+      <li><b>Inventário de Painéis BI da ANTAQ</b> — referência e acesso aos painéis analíticos da Agência.</li>
+      <li><b>Sistema Eletrônico de Informação (SEI)</b> — gestão de documentos e processos eletrônicos.</li>
+      <li><b>Contratos Vigentes</b> — consolidação dos contratos vigentes da Agência.</li>
+      <li><b>Compras e Contratações</b> — consolidação das contratações realizadas pela Agência.</li>
+    </ul>
+    <p style="font-size:9pt;color:var(--muted);">As bases de dados abertos da ANTAQ estão disponíveis no portal
+      gov.br/antaq e em painéis públicos especializados (Estatístico Aquaviário, Outorgas, Instalações Privadas, entre
+      outros).</p>
+    <div class="pg-foot"><span>Ouvidoria da ANTAQ</span><span>Agência Nacional de Transportes Aquaviários</span></div>
+  </section>
+
+  <!-- ===================== 9. CARTA DE SERVIÇOS ===================== -->
+  <section class="page">
+    <div class="pg-head"><span class="brand">Ouvidoria da ANTAQ</span><span>9 · Carta de Serviços</span></div>
+    <h2 class="sec-title"><span class="sec-num">9.</span> Carta de Serviços da ANTAQ</h2>
+    <div class="sec-rule"></div>
+    <p>A Carta de Serviços da ANTAQ reúne <b>32 serviços</b> prestados ao cidadão e ao setor regulado, organizados por
+      superintendência. Em 2026, foi inserido <b>1 novo serviço</b> na Carta, no âmbito da Superintendência de
+      Fiscalização e Coordenação das Unidades Regionais (SFC).</p>
+
+    <h4>SOG — Superintendência de Outorgas <span class="pill">18 serviços</span></h4>
+    <p style="font-size:9.5pt;">Abrange autorização e registro de afretamento de embarcações (estrangeiras e
+      brasileiras), alteração de frota e de situação cadastral de EBN, autorização para construção/ampliação de
+      instalação portuária privada fora do Porto Organizado, autorizações para transporte aquaviário (marítimo, apoio,
+      cabotagem, longo curso e navegação interior), análise de tonelagem para o REB, atualização no Sistema Mercante,
+      homologação de Acordo Operacional, operações emergenciais/especiais, contratos de transição/uso temporário,
+      análise de projetos executivos e recomposição do equilíbrio econômico-financeiro de contratos.</p>
+
+    <h4>SRG — Superintendência de Regulação <span class="pill">8 serviços</span></h4>
+    <p style="font-size:9.5pt;">Inclui incorporação/desincorporação de bens da União, revisão/reajuste de tarifas
+      portuárias, antecipação de receitas de autoridades portuárias, transferência de titularidade e de controle
+      societário de instalação portuária, alteração de tabelas de preços de instalações e de serviços de transporte
+      aquaviário na navegação interior, e harmonização de conflitos de interesses nos portos e na navegação.</p>
+
+    <h4>SAF — Superintendência de Administração e Finanças <span class="pill">4 serviços</span></h4>
+    <p style="font-size:9.5pt;">Compreende a emissão de declarações para credenciamento/validação, parcelamento e
+      pagamento de multas aplicadas pela ANTAQ, e solicitação de parcela de contrato de concessão/arrendamento em que a
+      Agência seja interveniente.</p>
+
+    <h4>SFC — Superintendência de Fiscalização e Coordenação das Unidades Regionais <span class="pill">2 serviços</span>
+    </h4>
+    <p style="font-size:9.5pt;">Consulta a empresas e embarcações habilitadas ao transporte aquaviário federal de
+      passageiros (Navegue Seguro) e o envio à ANTAQ do inventário patrimonial e da lista de bens reversíveis dos portos
+      organizados — este último, <b>novo serviço inserido na Carta de Serviços 2026</b>.</p>
+    <div class="pg-foot"><span>Ouvidoria da ANTAQ</span><span>Agência Nacional de Transportes Aquaviários</span></div>
+  </section>
+
+  <!-- ===================== 10 / 11 ===================== -->
+  <section class="page">
+    <div class="pg-head"><span class="brand">Ouvidoria da ANTAQ</span><span>10 / 11 · Conselho de Usuários e
+        Glossário</span></div>
+    <h2 class="sec-title"><span class="sec-num">10.</span> Conselho de Usuários</h2>
+    <div class="sec-rule"></div>
+    <p>No âmbito da participação e do controle social, o <b>Conselho de Usuários</b> contou, no primeiro trimestre de
+      2026, com a participação de <b>192 conselheiros</b>. O Conselho constitui instância de diálogo permanente entre a
+      Agência e os usuários dos serviços de transporte aquaviário, contribuindo para o aprimoramento das políticas e dos
+      serviços públicos prestados e regulados pela ANTAQ.</p>
+
+    <h2 class="sec-title" style="margin-top:26px;"><span class="sec-num">11.</span> Glossário e Definições</h2>
+    <div class="sec-rule"></div>
+    <p>Apresentam-se as definições relevantes para a compreensão dos dados deste relatório:</p>
+    <h4>Fala.BR</h4>
+    <p>O Fala.BR, desenvolvido pela CGU, é o ambiente virtual unificado para o envio de manifestações de ouvidoria e
+      pedidos de acesso à informação no âmbito federal. A plataforma permite a cidadãos, empresas e servidores
+      interagirem com mais de 310 órgãos do Poder Executivo Federal e instâncias aderentes. Por meio de uma interface
+      amigável e gratuita, o usuário pode cadastrar demandas sem necessidade de justificativa, acompanhar prazos legais,
+      consultar respostas e interpor recursos de forma ágil.</p>
+    <h4>Atuação da Seção de Apoio ao Cidadão (SAC)</h4>
+    <p>A SAC exerce o papel de linha de frente no diálogo entre o cidadão e o Estado, garantindo que as demandas
+      registradas provoquem melhorias efetivas na prestação dos serviços públicos. Toda manifestação inserida no sistema
+      tramita pelas áreas técnicas competentes por meio de protocolos internos monitorados. A resposta conclusiva é
+      consolidada e enviada ao usuário pela Ouvidoria, fundamentada nos pareceres emitidos pelas superintendências
+      responsáveis.</p>
+    <h4>Fluxo de tratamento das manifestações</h4>
+    <ul>
+      <li>Realiza-se a primeira análise do conteúdo: algumas manifestações são arquivadas ou encaminhadas aos órgãos
+        competentes, e as restantes são avaliadas quanto à propriedade de ouvidoria;</li>
+      <li>As manifestações próprias de ouvidoria são distribuídas à equipe de tratamento; as não próprias são
+        respondidas
+        imediatamente com a indicação dos canais adequados;</li>
+      <li>Grande parte das manifestações próprias é tramitada às áreas técnicas responsáveis pelo assunto ou serviço; e
+      </li>
+      <li>Por fim, a resposta conclusiva é consolidada e enviada ao usuário pelo Fala.BR.</li>
+    </ul>
+    <h4>LAI — Lei de Acesso à Informação</h4>
+    <p>Instrumento legal (Lei nº 12.527/2011) que garante o direito constitucional de acessar informações públicas,
+      estabelecendo a transparência como regra e o sigilo como exceção, nas modalidades <b>ativa</b> (divulgação por
+      iniciativa do órgão) e <b>passiva</b> (mediante solicitação do cidadão).</p>
+    <h4>Dados Abertos</h4>
+    <p>Dados públicos formatados de modo a poderem ser livremente acessados, utilizados e compartilhados, em formatos
+      legíveis por máquina (CSV, JSON, XML) e sem restrições de patentes ou direitos autorais.</p>
+    <h4>Instrumentos de Acesso à Ouvidoria</h4>
+    <p>Como unidade setorial do Sistema de Ouvidoria do Poder Executivo Federal (SisOuv), a Ouvidoria da ANTAQ
+      centraliza o recebimento de reclamações, denúncias, sugestões, elogios, solicitações e pedidos de simplificação.
+      Conforme normativas da CGU, as manifestações devem ser cadastradas preferencialmente por meio eletrônico na
+      Plataforma Fala.BR. As demandas recebidas por outros canais físicos ou digitais são obrigatoriamente digitalizadas
+      e inseridas no sistema pela unidade, garantindo a padronização, a rastreabilidade e a integridade de todo o fluxo
+      de dados.</p>
+    <h4>Relatório Trimestral como Instrumento de Gestão</h4>
+    <p>O Relatório Trimestral cumpre as obrigações da Lei nº 13.460/2017 e do Decreto nº 9.492/2018, seguindo as
+      diretrizes da Controladoria-Geral da União (CGU) e da Rede Nacional de Ouvidorias (RENOUV). Mais do que uma
+      exigência legal, o documento funciona como uma ferramenta de transparência ativa e prestação de contas para órgãos
+      de controle — como o TCU, a CGU e o Congresso Nacional — e para a sociedade civil. Seus indicadores subsidiam a
+      alta administração na mitigação de riscos operacionais e na melhoria contínua dos processos regulatórios.</p>
+    <div class="pg-foot"><span>Ouvidoria da ANTAQ</span><span>Agência Nacional de Transportes Aquaviários</span></div>
+  </section>
+
+  <!-- ===================== 12. MARCO LEGAL ===================== -->
+  <section class="page">
+    <div class="pg-head"><span class="brand">Ouvidoria da ANTAQ</span><span>12 · Marco Legal</span></div>
+    <h2 class="sec-title"><span class="sec-num">12.</span> Marco Legal — Leis, Decretos e Normas</h2>
+    <div class="sec-rule"></div>
+
+    <h3>Leis</h3>
+    <p class="legal"><b>Lei nº 12.527, de 18/11/2011</b> — Lei de Acesso à Informação (LAI): dispõe sobre os
+      procedimentos a serem observados pela União, Estados, DF e Municípios para garantir o acesso à informação.</p>
+    <p class="legal"><b>Lei nº 12.846, de 1º/08/2013</b> — Lei Anticorrupção (Empresa Limpa): responsabilização objetiva
+      administrativa e civil de pessoas jurídicas por atos contra a administração pública.</p>
+    <p class="legal"><b>Lei nº 13.460, de 26/06/2017</b> — Código de Proteção e Defesa dos Usuários de Serviços
+      Públicos:
+      normas básicas para participação, proteção e defesa dos direitos do usuário.</p>
+    <p class="legal"><b>Lei nº 13.848, de 25/06/2019</b> — Lei Geral das Agências Reguladoras: enfatiza o papel da
+      Ouvidoria e a inexistência de subordinação hierárquica; dispõe sobre gestão, organização, processo decisório e
+      controle social das agências.</p>
+
+    <h3>Decretos</h3>
+    <p class="legal"><b>Decreto nº 9.094/2017</b> — simplificação do atendimento aos usuários dos serviços públicos.</p>
+    <p class="legal"><b>Decreto nº 9.492/2018</b> — regulamenta a Lei nº 13.460/2017 e institui o Sistema de Ouvidoria
+      do
+      Poder Executivo Federal.</p>
+    <p class="legal"><b>Decreto nº 9.690/2019</b> — altera o Decreto nº 7.724/2012, que regulamenta a LAI.</p>
+    <p class="legal"><b>Decreto nº 10.153/2019</b> — salvaguardas de proteção à identidade de denunciantes de ilícitos e
+      irregularidades.</p>
+    <p class="legal"><b>Decreto nº 10.890/2021</b> — altera os Decretos nº 9.492/2018 e nº 10.153/2019 quanto à proteção
+      ao denunciante.</p>
+    <p class="legal"><b>Decreto nº 10.889/2021</b> — divulgação da agenda de compromissos públicos e institui o Sistema
+      Eletrônico de Agendas (e-Agendas).</p>
+
+    <h3>Normas e Portarias</h3>
+    <p class="legal"><b>IN OGU/CGU nº 05/2018</b> · <b>IN CGU nº 19/2018</b> — diretrizes das ouvidorias federais e
+      recebimento de manifestações pelo Sistema de Ouvidoria.</p>
+    <p class="legal"><b>Portaria nº 235-DG-ANTAQ, de 02/07/2019</b> — institui a Ouvidoria da ANTAQ como canal único de
+      recebimento das manifestações de que trata o art. 10 da Lei nº 13.460/2017.</p>
+    <p class="legal"><b>Portaria nº 581-CGU/2021</b> (alterada pela <b>Portaria nº 3.126-CGU/2021</b>) ·
+      <b>Resolução nº 7-CGU/2021</b> — orientações sobre o exercício das competências das unidades de ouvidoria.
+    </p>
+    <p class="legal"><b>Portaria nº 11/2023/OUV-ANTAQ</b> — institui os relatórios gerenciais e estratégicos da
+      Ouvidoria.</p>
+    <p class="legal"><b>Portaria nº 3/2025/OUV-ANTAQ</b> — regulamenta as diretrizes de organização e funcionamento da
+      Ouvidoria da ANTAQ como instância de controle e participação social.</p>
+    <div class="pg-foot"><span>Ouvidoria da ANTAQ</span><span>Agência Nacional de Transportes Aquaviários</span></div>
+  </section>
+
+  <!-- ===================== 13. CONCLUSÃO ===================== -->
+  <section class="page">
+    <div class="pg-head"><span class="brand">Ouvidoria da ANTAQ</span><span>13 · Conclusão</span></div>
+    <h2 class="sec-title"><span class="sec-num">13.</span> Conclusão</h2>
+    <div class="sec-rule"></div>
+    <p>O primeiro trimestre de 2026 reafirmou a relevância da Ouvidoria da ANTAQ como instrumento de diálogo entre a
+      sociedade e a Administração Pública, contribuindo para o fortalecimento da transparência, da participação social e
+      da melhoria contínua dos serviços prestados pela Agência.</p>
+    <p>Os dados apresentados demonstram o compromisso institucional com o adequado tratamento das manifestações, com o
+      acesso à informação e com a promoção da transparência pública.</p>
+    <p>Além de assegurar o atendimento aos usuários, a Ouvidoria desempenha papel estratégico na produção de informações
+      qualificadas capazes de subsidiar a tomada de decisão, identificar tendências, apoiar a gestão e promover o
+      aperfeiçoamento dos serviços regulados.</p>
+    <p>Nesse contexto, o monitoramento permanente dos indicadores, aliado à análise qualitativa das manifestações
+      recebidas, contribui para o fortalecimento da governança institucional e para o aperfeiçoamento contínuo da
+      atuação da ANTAQ.</p>
+    <div class="callout">
+      <p>Por fim, a Ouvidoria reafirma seu compromisso com a escuta ativa da sociedade, a defesa dos direitos dos
+        usuários, a transparência pública e a busca permanente pela excelência na prestação dos serviços públicos.</p>
+    </div>
+    <div class="pg-foot"><span>Ouvidoria da ANTAQ</span><span>Agência Nacional de Transportes Aquaviários</span></div>
+  </section>
+
+  <!-- ===================== 14. EXPEDIENTE / LINKS ===================== -->
+  <section class="page">
+    <div class="pg-head"><span class="brand">Ouvidoria da ANTAQ</span><span>14 · Expediente e Links Úteis</span></div>
+    <h2 class="sec-title"><span class="sec-num">14.</span> Expediente e Links Úteis</h2>
+    <div class="sec-rule"></div>
+
+    <h3>Diretoria Colegiada</h3>
+    <p class="legal"><b>Diretor-Geral:</b> Frederico Carvalho Dias</p>
+    <p class="legal"><b>Diretora:</b> Cristina Castro Lucas de Souza</p>
+    <p class="legal"><b>Diretor:</b> Wilson Pereira de Lima Filho</p>
+    <p class="legal"><b>Diretor:</b> Alber Furtado de Vasconcelos Neto</p>
+    <p class="legal"><b>Diretor:</b> Caio César Farias Leôncio</p>
+    <p class="legal"><b>Chefe de Gabinete do Diretor-Geral:</b> Karoline Brasileiro Quirino Lemos</p>
+    <p class="legal"><b>Secretário-Geral:</b> Paulo Morum Xavier</p>
+    <p class="legal"><b>Auditor-Chefe:</b> Marcos Mendonça da Silva</p>
+
+    <h3>Corregedoria · Ouvidoria · Superintendências</h3>
+    <p class="legal"><b>Corregedora:</b> Joelma Maria Costa Barbosa</p>
+    <p class="legal"><b>Ouvidora:</b> Renata Sousa Cordeiro</p>
+    <p class="legal"><b>Superintendente de Outorgas:</b> Renildo Barros da Silva Júnior</p>
+    <p class="legal"><b>Superintendente de Regulação:</b> José Renato Ribas Fialho</p>
+    <p class="legal"><b>Superintendente de ESG e Inovação:</b> Cristina Castro Lucas de Souza</p>
+    <p class="legal"><b>Superintendente de Administração e Finanças:</b> Joelson Neves Miranda</p>
+    <p class="legal"><b>Superintendente de Estudos e Projetos Hidroviários:</b> Eduardo Pessoa de Queiroz</p>
+    <p class="legal"><b>Superintendente de Fiscalização e Coordenação das Unidades Regionais:</b> Alexandre Palmieri
+      Florambel</p>
+
+    <h3>Expediente Técnico</h3>
+    <p class="legal"><b>Projeto Gráfico e Editoração:</b> Ursula Quaresma da Silva, Caio Fábio Alves da Silva</p>
+    <p class="legal"><b>Revisão Gráfica:</b> Assessoria de Comunicação e Cerimonial</p>
+    <p class="legal"><b>Elaboração Técnica:</b> Alan Campelo de Oliveira Silva, Caio Fábio Alves da Silva, Leandro Lucas
+      da Silva Santos, Ursula Quaresma da Silva</p>
+
+    <h3>Canais de atendimento</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Canal</th>
+          <th>Acesso</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Portal ANTAQ</td>
+          <td>https://www.gov.br/antaq/pt-br</td>
+        </tr>
+        <tr>
+          <td>Plataforma Fala.BR</td>
+          <td>https://falabr.cgu.gov.br</td>
+        </tr>
+        <tr>
+          <td>Disque Ouvidoria</td>
+          <td>0800 644 5001 · +55 61 2029-6576</td>
+        </tr>
+        <tr>
+          <td>Endereço</td>
+          <td>SEPN Q. 514, Conj. E, Ed. Antaq — CEP 70760-545, Brasília/DF</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout">
+      <p style="font-size:9.5pt;">É permitida a reprodução parcial ou total desta obra, desde que citada a fonte. É
+        vedada a impressão, distribuição e reprodução desta obra para fins comerciais sem a prévia e expressa anuência
+        da
+        Agência Nacional de Transportes Aquaviários — ANTAQ.</p>
+    </div>
+    <div class="pg-foot"><span>Ouvidoria da ANTAQ · Relatório Trimestral 2026 — 1º Trimestre</span><span>Agência
+        Nacional de Transportes Aquaviários</span></div>
+  </section>
+
+  <script>
+    function goBack() {
+      if (window.opener) { window.close(); }
+      else { window.location.href = 'index.html'; }
+    }
+
+    // ---- Configuração comum dos gráficos ----
+    const NAVY = '#103050', BLUE = '#0070C0', CYAN = '#29ABE2';
+    const months = ['Janeiro', 'Fevereiro', 'Março'];
+    const monthColors = [BLUE, CYAN, NAVY];
+
+    Chart.defaults.font.family = "'Open Sans', sans-serif";
+    Chart.defaults.font.size = 11;
+    Chart.defaults.color = '#374151';
+    Chart.defaults.animation = false;
+    Chart.defaults.devicePixelRatio = 2;
+
+    const valueLabel = {
+      id: 'valueLabel',
+      afterDatasetsDraw(chart) {
+        const { ctx } = chart;
+        ctx.save();
+        ctx.font = '700 11px Open Sans';
+        ctx.fillStyle = '#1f2937';
+        ctx.textAlign = 'center';
+        chart.data.datasets.forEach((ds, di) => {
+          const meta = chart.getDatasetMeta(di);
+          if (meta.hidden) return;
+          meta.data.forEach((el, i) => {
+            const v = ds.data[i];
+            if (v === null || v === undefined) return;
+            ctx.fillText(v, el.x, el.y - 6);
+          });
+        });
+        ctx.restore();
+      }
+    };
+
+    function barOpts(extra) {
+      return Object.assign({
+        responsive: true, maintainAspectRatio: false,
+        layout: { padding: { top: 16 } },
+        plugins: { legend: { display: false }, tooltip: { enabled: true } },
+        scales: {
+          y: { beginAtZero: true, grid: { color: '#eef1f5' }, ticks: { precision: 0 } },
+          x: { grid: { display: false } }
+        }
+      }, extra || {});
+    }
+
+    // 2. Manifestações por mês
+    new Chart(document.getElementById('cMes'), {
+      type: 'bar',
+      data: { labels: months, datasets: [{ data: [90, 129, 85], backgroundColor: monthColors, borderRadius: 4, maxBarThickness: 90 }] },
+      options: barOpts(), plugins: [valueLabel]
+    });
+    // Arquivadas
+    new Chart(document.getElementById('cArq'), {
+      type: 'bar',
+      data: { labels: months, datasets: [{ data: [17, 16, 13], backgroundColor: monthColors, borderRadius: 4, maxBarThickness: 70 }] },
+      options: barOpts(), plugins: [valueLabel]
+    });
+    // Encaminhadas
+    new Chart(document.getElementById('cEnc'), {
+      type: 'bar',
+      data: { labels: months, datasets: [{ data: [3, 3, 6], backgroundColor: monthColors, borderRadius: 4, maxBarThickness: 70 }] },
+      options: barOpts(), plugins: [valueLabel]
+    });
+    // 3. Tipos no trimestre
+    new Chart(document.getElementById('cTipo'), {
+      type: 'bar',
+      data: {
+        labels: ['Denúncia', 'Solicitação', 'Reclamação', 'Sugestão', 'Elogio', 'Simplifique'],
+        datasets: [{ data: [173, 45, 34, 3, 2, 1], backgroundColor: [NAVY, BLUE, CYAN, '#7fc4e8', '#9aa7b5', '#c2ccd8'], borderRadius: 4, maxBarThickness: 70 }]
+      },
+      options: barOpts(), plugins: [valueLabel]
+    });
+    // 4. Canal no trimestre
+    new Chart(document.getElementById('cCanal'), {
+      type: 'bar',
+      data: { labels: ['Omnichannel', 'Fala.BR', 'E-mail'], datasets: [{ data: [382, 304, 70], backgroundColor: [NAVY, BLUE, CYAN], borderRadius: 4, maxBarThickness: 90 }] },
+      options: barOpts(), plugins: [valueLabel]
+    });
+    // 5.1 LAI recebidos vs respondidos
+    new Chart(document.getElementById('cLai'), {
+      type: 'bar',
+      data: {
+        labels: months,
+        datasets: [
+          { label: 'Recebidos', data: [34, 35, 61], backgroundColor: BLUE, borderRadius: 4, maxBarThickness: 50 },
+          { label: 'Respondidos', data: [34, 35, 61], backgroundColor: CYAN, borderRadius: 4, maxBarThickness: 50 }
+        ]
+      },
+      options: barOpts({ plugins: { legend: { display: true, position: 'bottom' }, tooltip: { enabled: true } } })
+    });
+    // 3. Evolução histórica das manifestações
+    new Chart(document.getElementById('cHist'), {
+      type: 'line',
+      data: {
+        labels: ['1º Tri 2023', '1º Tri 2024', '1º Tri 2025', '1º Tri 2026'],
+        datasets: [{
+          data: [205, 201, 337, 304],
+          borderColor: BLUE,
+          backgroundColor: 'rgba(0,112,192,0.10)',
+          pointBackgroundColor: NAVY,
+          pointBorderColor: '#ffffff',
+          pointBorderWidth: 2,
+          pointRadius: 5,
+          borderWidth: 3,
+          tension: 0.35,
+          fill: true
+        }]
+      },
+      options: barOpts({ layout: { padding: { top: 22 } } }),
+      plugins: [valueLabel]
+    });
+    // 8.2 Histórico de pedidos LAI
+    new Chart(document.getElementById('cLaiHist'), {
+      type: 'bar',
+      data: {
+        labels: ['1º Tri 2023', '1º Tri 2024', '1º Tri 2025', '1º Tri 2026'],
+        datasets: [{ data: [62, 105, 107, 130], backgroundColor: ['#C0E0F0', '#90C8E5', '#5AAFD8', '#0070C0'], borderRadius: 4, maxBarThickness: 80 }]
+      },
+      options: barOpts(), plugins: [valueLabel]
+    });
+  </script>
+</body>
+
+</html>

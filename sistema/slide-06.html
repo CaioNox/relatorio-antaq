@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <title>Tipos de Manifestações por Mês - Relatório Trimestral Ouvidoria ANTAQ</title>
+  <title>Manifestações Recebidas por Mês - Relatório Trimestral Ouvidoria ANTAQ</title>
   <link rel="icon" type="image/png"
     href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
@@ -66,14 +66,55 @@
     }
 
     /* ===== Interatividade ===== */
-    .chart-card {
-      transition: transform .28s cubic-bezier(.2, .7, .3, 1), box-shadow .28s ease, border-color .28s ease;
+    .chart-card,
+    .canal-card,
+    .period-chip,
+    .video-frame,
+    .kpi-card,
+    .glossary-card,
+    .exp-group {
+      transition: transform .28s cubic-bezier(.2, .7, .3, 1), box-shadow .28s ease, border-color .28s ease, background-color .28s ease;
     }
 
-    .chart-card:hover {
-      transform: translateY(-6px);
+    .chart-card:hover,
+    .canal-card:hover,
+    .period-chip:hover,
+    .video-frame:hover {
+      transform: translateY(-7px);
       box-shadow: 0 22px 42px -12px rgba(16, 48, 80, .30);
       border-color: #0070C0;
+    }
+
+    .glossary-card:hover {
+      transform: translateY(-7px);
+      border-color: #0070C0;
+      box-shadow: 0 22px 42px -12px rgba(0, 112, 192, .32);
+    }
+
+    .glossary-icon {
+      transition: transform .3s ease;
+    }
+
+    .glossary-card:hover .glossary-icon {
+      transform: scale(1.12) rotate(-6deg);
+    }
+
+    .kpi-card:hover {
+      transform: translateY(-9px) scale(1.018);
+      box-shadow: 0 30px 58px -16px rgba(16, 48, 80, .6);
+    }
+
+    .kpi-watermark {
+      transition: transform .4s ease, opacity .4s ease;
+    }
+
+    .kpi-card:hover .kpi-watermark {
+      transform: scale(1.12);
+      opacity: .2;
+    }
+
+    .exp-group:hover {
+      transform: translateX(5px);
     }
 
     @keyframes fadeIn {
@@ -86,8 +127,40 @@
       }
     }
 
-    .chart-card {
+    .chart-card,
+    .kpi-card,
+    .glossary-card,
+    .canal-card,
+    .period-chip {
       animation: fadeIn .5s ease both;
+    }
+
+    .chart-card:nth-child(2),
+    .kpi-card:nth-child(2),
+    .glossary-card:nth-child(2),
+    .canal-card:nth-child(2),
+    .period-chip:nth-child(2) {
+      animation-delay: .09s;
+    }
+
+    .chart-card:nth-child(3),
+    .kpi-card:nth-child(3),
+    .glossary-card:nth-child(3),
+    .canal-card:nth-child(3),
+    .period-chip:nth-child(3) {
+      animation-delay: .18s;
+    }
+
+    .glossary-card:nth-child(4) {
+      animation-delay: .27s;
+    }
+
+    .glossary-card:nth-child(5) {
+      animation-delay: .36s;
+    }
+
+    .glossary-card:nth-child(6) {
+      animation-delay: .45s;
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -105,7 +178,7 @@
       border: 2px solid #E2E8F0;
       border-radius: 16px;
       box-shadow: 0 8px 20px -8px rgba(16, 48, 80, 0.18);
-      padding: 1.4rem 1.8rem;
+      padding: 1.4rem 1.6rem;
     }
 
     .legend-dot {
@@ -126,10 +199,11 @@
       <div>
         <div class="flex items-center gap-3 mb-2">
           <div class="w-1 h-8 bg-brand-secondary"></div>
-          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Tipos de
-            Manifestações por Mês</p>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Manifestações
+            Por Mês</p>
         </div>
-        <p class="text-gray-500 font-medium ml-4 text-lg">Comparativo mensal por tipo — Jan / Fev / Mar de 2026</p>
+        <p class="text-gray-500 font-medium ml-4 text-lg">Recebidas, arquivadas e encaminhadas — Jan / Fev / Mar de 2026
+        </p>
       </div>
       <div class="flex items-center gap-4 ml-6">
         <span class="flex items-center gap-2 text-sm text-gray-500"><span class="legend-dot"
@@ -141,56 +215,69 @@
       </div>
     </div>
     <!-- Main Content -->
-    <div class="flex-1 px-16 pb-10 z-10 flex">
-      <div class="chart-card w-full flex flex-col">
-        <div class="flex-1 relative"><canvas id="chartTiposMes"></canvas></div>
+    <div class="flex-1 grid grid-cols-3 gap-6 px-16 pb-10 z-10">
+      <div class="chart-card col-span-1 flex flex-col">
+        <p class="text-brand-primary font-montserrat font-bold text-xl mb-1 flex items-center gap-2"><i
+            class="fas fa-inbox text-brand-secondary"></i> Recebidas</p>
+        <p class="text-gray-400 text-sm mb-2">Total no trimestre: <strong class="text-brand-primary">304</strong></p>
+        <div class="flex-1 relative"><canvas id="chartRecebidas"></canvas></div>
+      </div>
+      <div class="chart-card col-span-1 flex flex-col">
+        <p class="text-brand-primary font-montserrat font-bold text-xl mb-1 flex items-center gap-2"><i
+            class="fas fa-box-archive text-brand-secondary"></i> Arquivadas</p>
+        <p class="text-gray-400 text-sm mb-2">Total no trimestre: <strong class="text-brand-primary">46</strong></p>
+        <div class="flex-1 relative"><canvas id="chartArquivadas"></canvas></div>
+      </div>
+      <div class="chart-card col-span-1 flex flex-col">
+        <p class="text-brand-primary font-montserrat font-bold text-xl mb-1 flex items-center gap-2"><i
+            class="fas fa-share-from-square text-brand-secondary"></i> Encaminhadas</p>
+        <p class="text-gray-400 text-sm mb-2">Total no trimestre: <strong class="text-brand-primary">12</strong></p>
+        <div class="flex-1 relative"><canvas id="chartEncaminhadas"></canvas></div>
       </div>
     </div>
     <!-- Footer -->
     <div class="px-16 pb-8 flex justify-between items-center z-10">
-      <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ — 1º Trimestre (Jan–Mar)</p>
-      <p class="text-gray-300 text-xs font-mono">6 / 21</p>
+      <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ</p>
+      <p class="text-gray-300 text-xs font-mono">6 / 33</p>
     </div>
   </div>
   <script>
-    const labels = ['Reclamação', 'Solicitação', 'Denúncia', 'Sugestão', 'Elogio', 'Simplifique'];
+    const monthColors = ['#0070C0', '#0090C0', '#103050'];
     const valueLabels = {
       id: 'valueLabels',
       afterDatasetsDraw(chart) {
         const { ctx } = chart;
         ctx.save();
-        ctx.font = '700 12px Montserrat, sans-serif';
-        ctx.fillStyle = '#475569';
+        ctx.font = '700 16px Montserrat, sans-serif';
+        ctx.fillStyle = '#103050';
         ctx.textAlign = 'center';
         chart.data.datasets.forEach((ds, di) => {
           chart.getDatasetMeta(di).data.forEach((bar, i) => {
-            if (ds.data[i] > 0) ctx.fillText(ds.data[i], bar.x, bar.y - 6);
+            ctx.fillText(ds.data[i], bar.x, bar.y - 8);
           });
         });
         ctx.restore();
       }
     };
-    new Chart(document.getElementById('chartTiposMes'), {
-      type: 'bar',
-      data: {
-        labels,
-        datasets: [
-          { label: 'Janeiro', data: [15, 15, 42, 0, 0, 1], backgroundColor: '#0070C0', borderRadius: 5, maxBarThickness: 48 },
-          { label: 'Fevereiro', data: [9, 28, 75, 1, 0, 0], backgroundColor: '#0090C0', borderRadius: 5, maxBarThickness: 48 },
-          { label: 'Março', data: [10, 2, 56, 2, 2, 0], backgroundColor: '#103050', borderRadius: 5, maxBarThickness: 48 }
-        ]
-      },
-      options: {
-        responsive: true, maintainAspectRatio: false,
-        layout: { padding: { top: 20 } },
-        plugins: { legend: { display: false }, tooltip: { enabled: false } },
-        scales: {
-          x: { grid: { display: false }, ticks: { color: '#374151', font: { size: 14, weight: '600' } } },
-          y: { beginAtZero: true, grid: { color: '#eef2f7' }, ticks: { color: '#9ca3af', font: { size: 12 } } }
-        }
-      },
-      plugins: [valueLabels]
-    });
+    function makeBar(id, data) {
+      new Chart(document.getElementById(id), {
+        type: 'bar',
+        data: { labels: ['Jan', 'Fev', 'Mar'], datasets: [{ data, backgroundColor: monthColors, borderRadius: 6, maxBarThickness: 80 }] },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          layout: { padding: { top: 22 } },
+          plugins: { legend: { display: false }, tooltip: { enabled: false } },
+          scales: {
+            x: { grid: { display: false }, ticks: { color: '#6b7280', font: { size: 14, weight: '600' } } },
+            y: { beginAtZero: true, grid: { color: '#eef2f7' }, ticks: { color: '#9ca3af', font: { size: 12 } } }
+          }
+        },
+        plugins: [valueLabels]
+      });
+    }
+    makeBar('chartRecebidas', [90, 129, 85]);
+    makeBar('chartArquivadas', [17, 16, 13]);
+    makeBar('chartEncaminhadas', [3, 3, 6]);
   </script>
   <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
 </body>

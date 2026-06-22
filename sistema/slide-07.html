@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <title>Manifestações por Canal - Relatório Trimestral Ouvidoria ANTAQ</title>
+  <title>Evolução Histórica das Manifestações - Relatório Trimestral Ouvidoria ANTAQ</title>
   <link rel="icon" type="image/png"
     href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
@@ -65,51 +65,121 @@
       width: 100%;
     }
 
-    /* ===== Interatividade ===== */
-    .chart-card,
-    .canal-card {
-      transition: transform .28s cubic-bezier(.2, .7, .3, 1), box-shadow .28s ease, border-color .28s ease, background-color .28s ease;
+    .chart-card {
+      background-color: #ffffff;
+      border: 2px solid #E2E8F0;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px -8px rgba(16, 48, 80, 0.18);
+      padding: 1.4rem 1.6rem;
+      transition: transform .28s cubic-bezier(.2, .7, .3, 1), box-shadow .28s ease, border-color .28s ease;
     }
 
-    .chart-card:hover,
-    .canal-card:hover {
-      transform: translateY(-7px);
+    .chart-card:hover {
+      transform: translateY(-6px);
       box-shadow: 0 22px 42px -12px rgba(16, 48, 80, .30);
       border-color: #0070C0;
     }
 
-    .canal-card:hover {
-      background-color: #D8EEF8;
+    .chart-note {
+      font-size: .72rem;
+      color: #6b7280;
+      line-height: 1.45;
+      border-top: 1px solid #eef2f7;
+      padding-top: .7rem;
+      margin-top: .4rem;
+      display: flex;
+      align-items: flex-start;
+      gap: .5rem;
     }
 
-    .canal-card i {
-      transition: transform .3s ease;
+    .chart-note i {
+      color: #0070C0;
+      margin-top: .15rem;
     }
 
-    .canal-card:hover i {
-      transform: scale(1.18);
+    /* ===== KPI cards laterais (um por ano) ===== */
+    .hist-kpi {
+      border-left: 4px solid #0090C0;
+      background-color: #EAF3FB;
+      padding: 0.9rem 1.3rem;
+      border-radius: 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      flex: 1;
+      min-height: 0;
+      animation: fadeInUp 500ms cubic-bezier(.2, .7, .3, 1) both;
     }
 
-    @keyframes fadeIn {
+    .hist-kpi .hk-year {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #5a7a99;
+    }
+
+    .hist-kpi .hk-val {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 2.15rem;
+      color: #103050;
+      line-height: 1;
+      margin: .15rem 0 .1rem;
+    }
+
+    .hist-kpi .hk-label {
+      font-family: 'Open Sans', sans-serif;
+      font-weight: 400;
+      font-size: 0.8rem;
+      color: #6b7280;
+    }
+
+    .hist-kpi.hk-feat {
+      background: linear-gradient(160deg, #103050 0%, #0090C0 100%);
+      border-left: 4px solid #F2A900;
+      box-shadow: 0 18px 38px -16px rgba(16, 48, 80, .55);
+    }
+
+    .hist-kpi.hk-feat .hk-year {
+      color: #cfe5f3;
+    }
+
+    .hist-kpi.hk-feat .hk-val {
+      color: #ffffff;
+    }
+
+    .hist-kpi.hk-feat .hk-label {
+      color: #dbeaf5;
+    }
+
+    .hist-kpi:nth-child(1) {
+      animation-delay: 0ms;
+    }
+
+    .hist-kpi:nth-child(2) {
+      animation-delay: 80ms;
+    }
+
+    .hist-kpi:nth-child(3) {
+      animation-delay: 160ms;
+    }
+
+    .hist-kpi:nth-child(4) {
+      animation-delay: 240ms;
+    }
+
+    @keyframes fadeInUp {
       from {
         opacity: 0;
+        transform: translateY(12px);
       }
 
       to {
         opacity: 1;
+        transform: none;
       }
-    }
-
-    .canal-card {
-      animation: fadeIn .5s ease both;
-    }
-
-    .canal-card:nth-child(2) {
-      animation-delay: .1s;
-    }
-
-    .canal-card:nth-child(3) {
-      animation-delay: .2s;
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -121,21 +191,6 @@
         transition: none !important;
       }
     }
-
-    .chart-card {
-      background-color: #ffffff;
-      border: 2px solid #E2E8F0;
-      border-radius: 16px;
-      box-shadow: 0 8px 20px -8px rgba(16, 48, 80, 0.18);
-      padding: 1.4rem 1.8rem;
-    }
-
-    .canal-card {
-      border: 2px solid #C0E0F0;
-      background-color: #EAF3FB;
-      border-radius: 14px;
-      padding: 1.4rem;
-    }
   </style>
 </head>
 
@@ -144,83 +199,125 @@
     <div class="top-accent"></div>
     <div class="top-accent-secondary"></div>
     <!-- Header -->
-    <div class="flex items-center justify-between px-16 pt-12 pb-4 z-10">
+    <div class="flex items-center justify-between px-16 pt-8 pb-2 z-10">
       <div>
-        <div class="flex items-center gap-3 mb-2">
+        <div class="flex items-center gap-3 mb-1">
           <div class="w-1 h-8 bg-brand-secondary"></div>
-          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Manifestações por
-            Canal</p>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Evolução Histórica
+          </p>
         </div>
-        <p class="text-gray-500 font-medium ml-4 text-lg">Distribuição por canal de atendimento no 1º trimestre de 2026
-        </p>
+        <p class="text-gray-500 font-medium ml-4 text-lg">Manifestações recebidas — 1º trimestre de 2023 a 2026</p>
       </div>
       <div class="flex items-center gap-2 opacity-80 text-brand-secondary">
-        <i class="fas fa-diagram-project text-xl" aria-hidden="true"></i>
-        <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">TRIMESTRE</p>
+        <i class="fas fa-chart-line text-xl" aria-hidden="true"></i>
+        <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">SÉRIE HISTÓRICA</p>
       </div>
     </div>
     <!-- Main Content -->
-    <div class="flex-1 grid grid-cols-3 gap-8 px-16 pb-10 z-10">
-      <!-- Chart -->
-      <div class="chart-card col-span-2 flex flex-col">
-        <div class="flex-1 relative"><canvas id="chartCanal"></canvas></div>
+    <div class="flex-1 grid grid-cols-3 gap-6 px-16 pb-6 z-10" style="min-height:0;">
+      <!-- Gráfico -->
+      <div class="chart-card col-span-2 flex flex-col" style="min-height:0;">
+        <p class="text-brand-primary font-montserrat font-bold text-xl mb-1 flex items-center gap-2"><i
+            class="fas fa-arrow-trend-up text-brand-secondary"></i> Evolução das manifestações recebidas</p>
+        <div class="flex-1 relative" style="min-height:0;"><canvas id="chartHist"></canvas></div>
+        <p class="chart-note"><i class="fas fa-circle-info"></i><span>A inclusão de séries históricas permite identificar
+            tendências, avaliar o comportamento das manifestações ao longo do tempo e fornecer subsídios mais robustos
+            para a tomada de decisão institucional.</span></p>
       </div>
-      <!-- Cards -->
-      <div class="flex flex-col gap-4 justify-center">
-        <div class="canal-card flex items-center justify-between">
-          <div class="flex items-center gap-3"><i class="fas fa-headset text-brand-secondary text-3xl"></i><span
-              class="text-brand-primary font-montserrat font-bold text-xl">Omnichannel</span></div>
-          <span class="font-montserrat font-black text-4xl text-brand-primary">382</span>
+      <!-- KPIs por ano -->
+      <div class="col-span-1 flex flex-col gap-3" style="min-height:0;">
+        <div class="hist-kpi">
+          <p class="hk-year">1º Tri 2023</p>
+          <p class="hk-val">205</p>
+          <p class="hk-label">manifestações</p>
         </div>
-        <div class="canal-card flex items-center justify-between">
-          <div class="flex items-center gap-3"><i class="fas fa-comment-dots text-brand-secondary text-3xl"></i><span
-              class="text-brand-primary font-montserrat font-bold text-xl">Fala.BR</span></div>
-          <span class="font-montserrat font-black text-4xl text-brand-primary">304</span>
+        <div class="hist-kpi">
+          <p class="hk-year">1º Tri 2024</p>
+          <p class="hk-val">201</p>
+          <p class="hk-label">manifestações</p>
         </div>
-        <div class="canal-card flex items-center justify-between">
-          <div class="flex items-center gap-3"><i class="fas fa-envelope text-brand-secondary text-3xl"></i><span
-              class="text-brand-primary font-montserrat font-bold text-xl">E-mail</span></div>
-          <span class="font-montserrat font-black text-4xl text-brand-primary">70</span>
+        <div class="hist-kpi">
+          <p class="hk-year">1º Tri 2025</p>
+          <p class="hk-val">337</p>
+          <p class="hk-label">manifestações</p>
+        </div>
+        <div class="hist-kpi hk-feat">
+          <p class="hk-year">1º Tri 2026</p>
+          <p class="hk-val">304</p>
+          <p class="hk-label">manifestações</p>
         </div>
       </div>
     </div>
     <!-- Footer -->
-    <div class="px-16 pb-8 flex justify-between items-center z-10">
-      <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ — 1º Trimestre (Jan–Mar)</p>
-      <p class="text-gray-300 text-xs font-mono">7 / 21</p>
+    <div class="px-16 pb-6 pt-1 flex justify-between items-center z-10">
+      <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ</p>
+      <p class="text-gray-300 text-xs font-mono">7 / 33</p>
     </div>
   </div>
   <script>
-    const labels = ['Fala.BR', 'E-mail', 'Omnichannel'];
-    const data = [304, 70, 382];
-    const colors = ['#0070C0', '#0070C0', '#103050'];
-    const valueLabels = {
-      id: 'valueLabels',
+    const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // Rótulo de valor acima de cada ponto
+    const pointLabels = {
+      id: 'pointLabels',
       afterDatasetsDraw(chart) {
         const { ctx } = chart;
+        const meta = chart.getDatasetMeta(0);
         ctx.save();
         ctx.font = '700 18px Montserrat, sans-serif';
         ctx.fillStyle = '#103050';
         ctx.textAlign = 'center';
-        chart.getDatasetMeta(0).data.forEach((bar, i) => {
-          ctx.fillText(chart.data.datasets[0].data[i], bar.x, bar.y - 8);
+        meta.data.forEach((pt, i) => {
+          ctx.fillText(chart.data.datasets[0].data[i], pt.x, pt.y - 14);
         });
         ctx.restore();
       }
     };
-    new Chart(document.getElementById('chartCanal'), {
-      type: 'bar',
-      data: { labels, datasets: [{ data, backgroundColor: colors, borderRadius: 6, maxBarThickness: 120 }] },
+    // Halo âmbar no último ponto (2026)
+    const lastHalo = {
+      id: 'lastHalo',
+      beforeDatasetsDraw(chart) {
+        const meta = chart.getDatasetMeta(0);
+        if (!meta.data.length) return;
+        const pt = meta.data[meta.data.length - 1];
+        const { ctx } = chart;
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(pt.x, pt.y, 14, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(242, 169, 0, 0.25)';
+        ctx.fill();
+        ctx.restore();
+      }
+    };
+    new Chart(document.getElementById('chartHist'), {
+      type: 'line',
+      data: {
+        labels: ['1ºT 2023', '1ºT 2024', '1ºT 2025', '1ºT 2026'],
+        datasets: [{
+          data: [205, 201, 337, 304],
+          borderColor: '#0090C0',
+          backgroundColor: 'rgba(0,144,192,0.12)',
+          pointBackgroundColor: '#103050',
+          pointBorderColor: '#ffffff',
+          pointBorderWidth: 3,
+          pointRadius: 8,
+          pointHoverRadius: 12,
+          borderWidth: 3.5,
+          tension: 0.35,
+          fill: true
+        }]
+      },
       options: {
-        responsive: true, maintainAspectRatio: false,
-        layout: { padding: { top: 26 } },
+        responsive: true,
+        maintainAspectRatio: false,
+        layout: { padding: { top: 30, right: 16, left: 6 } },
+        animation: REDUCED ? false : { duration: 1400, easing: 'easeOutQuart' },
         plugins: { legend: { display: false }, tooltip: { enabled: false } },
         scales: {
-          x: { grid: { display: false }, ticks: { color: '#374151', font: { size: 15, weight: '600' } } },
-          y: { beginAtZero: true, grid: { color: '#eef2f7' }, ticks: { color: '#9ca3af', font: { size: 12 } } }
+          x: { grid: { display: false }, ticks: { color: '#6b7280', font: { family: 'Montserrat', size: 13, weight: '600' } } },
+          y: { beginAtZero: true, grid: { color: '#eef2f7' }, ticks: { color: '#6b7280', font: { family: 'Montserrat', size: 13, weight: '600' } } }
         }
       },
-      plugins: [valueLabels]
+      plugins: [pointLabels, lastHalo]
     });
   </script>
   <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
