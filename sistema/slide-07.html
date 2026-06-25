@@ -234,9 +234,14 @@
       </div>
       <!-- KPIs por ano -->
       <div class="col-span-1 flex flex-col gap-3" style="min-height:0;">
+        <div class="hist-kpi hk-feat">
+          <p class="hk-year">1º Tri 2026</p>
+          <p class="hk-val">304</p>
+          <p class="hk-label">manifestações</p>
+        </div>
         <div class="hist-kpi">
-          <p class="hk-year">1º Tri 2023</p>
-          <p class="hk-val">205</p>
+          <p class="hk-year">1º Tri 2025</p>
+          <p class="hk-val">337</p>
           <p class="hk-label">manifestações</p>
         </div>
         <div class="hist-kpi">
@@ -245,13 +250,8 @@
           <p class="hk-label">manifestações</p>
         </div>
         <div class="hist-kpi">
-          <p class="hk-year">1º Tri 2025</p>
-          <p class="hk-val">337</p>
-          <p class="hk-label">manifestações</p>
-        </div>
-        <div class="hist-kpi hk-feat">
-          <p class="hk-year">1º Tri 2026</p>
-          <p class="hk-val">304</p>
+          <p class="hk-year">1º Tri 2023</p>
+          <p class="hk-val">205</p>
           <p class="hk-label">manifestações</p>
         </div>
       </div>
@@ -280,13 +280,13 @@
         ctx.restore();
       }
     };
-    // Halo âmbar no último ponto (2026)
+    // Halo âmbar no primeiro ponto (2026, agora na posição 0)
     const lastHalo = {
       id: 'lastHalo',
       beforeDatasetsDraw(chart) {
         const meta = chart.getDatasetMeta(0);
         if (!meta.data.length) return;
-        const pt = meta.data[meta.data.length - 1];
+        const pt = meta.data[0];
         const { ctx } = chart;
         ctx.save();
         ctx.beginPath();
@@ -299,9 +299,9 @@
     new Chart(document.getElementById('chartHist'), {
       type: 'line',
       data: {
-        labels: ['1ºT 2023', '1ºT 2024', '1ºT 2025', '1ºT 2026'],
+        labels: ['1ºT 2026', '1ºT 2025', '1ºT 2024', '1ºT 2023'],
         datasets: [{
-          data: [205, 201, 337, 304],
+          data: [304, 337, 201, 205],
           borderColor: '#0090C0',
           backgroundColor: 'rgba(0,144,192,0.12)',
           pointBackgroundColor: '#103050',
