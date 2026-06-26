@@ -280,13 +280,12 @@
         ctx.restore();
       }
     };
-    // Halo âmbar no primeiro ponto (2026, agora na posição 0)
     const lastHalo = {
       id: 'lastHalo',
       beforeDatasetsDraw(chart) {
         const meta = chart.getDatasetMeta(0);
         if (!meta.data.length) return;
-        const pt = meta.data[0];
+        const pt = meta.data[meta.data.length - 1];
         const { ctx } = chart;
         ctx.save();
         ctx.beginPath();
@@ -299,9 +298,9 @@
     new Chart(document.getElementById('chartHist'), {
       type: 'line',
       data: {
-        labels: ['1ºT 2026', '1ºT 2025', '1ºT 2024', '1ºT 2023'],
+        labels: ['1ºT 2023', '1ºT 2024', '1ºT 2025', '1ºT 2026'],
         datasets: [{
-          data: [304, 337, 201, 205],
+          data: [205, 201, 337, 304],
           borderColor: '#0090C0',
           backgroundColor: 'rgba(0,144,192,0.12)',
           pointBackgroundColor: '#103050',
