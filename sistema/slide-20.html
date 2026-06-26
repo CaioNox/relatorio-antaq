@@ -283,13 +283,12 @@
         ctx.restore();
       }
     };
-    // Borda 3px âmbar no topo da primeira barra (2026, agora na posição 0)
     const lastBarTop = {
       id: 'lastBarTop',
       afterDatasetsDraw(chart) {
         const meta = chart.getDatasetMeta(0);
         if (!meta.data.length) return;
-        const bar = meta.data[0];
+        const bar = meta.data[meta.data.length - 1];
         const half = bar.width / 2;
         const { ctx } = chart;
         ctx.save();
@@ -305,10 +304,10 @@
     new Chart(document.getElementById('chartLaiHist'), {
       type: 'bar',
       data: {
-        labels: ['1ºT 2026', '1ºT 2025', '1ºT 2024', '1ºT 2023'],
+        labels: ['1ºT 2023', '1ºT 2024', '1ºT 2025', '1ºT 2026'],
         datasets: [{
-          data: [130, 107, 105, 62],
-          backgroundColor: ['#0090C0', '#5AAFD8', '#90C8E5', '#C0E0F0'],
+          data: [62, 105, 107, 130],
+          backgroundColor: ['#C0E0F0', '#90C8E5', '#5AAFD8', '#0090C0'],
           borderRadius: 8,
           maxBarThickness: 80
         }]
