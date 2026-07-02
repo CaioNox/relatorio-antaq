@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<!--
+  ╔══════════════════════════════════════════════════════════════╗
+  ║  SLIDE 17B — Sequência Lógica de Tramitação (stepper vertical)
+  ╠══════════════════════════════════════════════════════════════╣
+  ║  405 Omnichannel  −48 Ouvidoria  →  357 Fala.BR  −53 LAI  →  304 Painel
+  ║  Painel lateral: 434 total · 130 LAI (53 + 77)
+  ╚══════════════════════════════════════════════════════════════╝
+-->
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Sequência Lógica de Tramitação - Relatório Trimestral Ouvidoria ANTAQ</title>
+  <link rel="icon" type="image/png"
+    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@400;600&display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      font-size: 26px;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .slide-container {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background-color: #ffffff;
+      overflow: hidden;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    .font-montserrat {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .text-brand-primary {
+      color: #103050;
+    }
+
+    .text-brand-secondary {
+      color: #0070C0;
+    }
+
+    .bg-brand-secondary {
+      background-color: #0070C0;
+    }
+
+    .top-accent {
+      height: 8px;
+      background-color: #103050;
+      width: 100%;
+    }
+
+    .top-accent-secondary {
+      height: 4px;
+      background-color: #0070C0;
+      width: 100%;
+    }
+
+    .main {
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      gap: 1.4rem;
+      padding: 0 3.5rem 1rem;
+    }
+
+    /* ───────── Stepper (coluna esquerda) ───────── */
+    .stepper {
+      flex: 1 1 0;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0.35rem;
+    }
+
+    .step {
+      display: flex;
+      align-items: center;
+      gap: 1.1rem;
+      border-radius: 16px;
+      padding: 0.95rem 1.3rem;
+      position: relative;
+      box-shadow: 0 8px 22px -10px rgba(16, 48, 80, .28);
+      transition: transform .28s cubic-bezier(.2, .7, .3, 1), box-shadow .28s ease;
+    }
+
+    .step:hover {
+      transform: translateX(6px);
+      box-shadow: 0 14px 30px -10px rgba(16, 48, 80, .36);
+    }
+
+    .step-omni {
+      background: linear-gradient(120deg, #0a1e30, #103050 65%, #1a5070);
+      color: #fff;
+      border-left: 6px solid #29ABE2;
+    }
+
+    .step-falabr {
+      background: linear-gradient(120deg, #004a90, #0070C0 65%, #0090d8);
+      color: #fff;
+      border-left: 6px solid #7dd3fc;
+    }
+
+    .step-painel {
+      background: linear-gradient(120deg, #0a5a28, #0d7d3a 65%, #16a050);
+      color: #fff;
+      border-left: 6px solid #86efac;
+    }
+
+    .step-num {
+      width: 101px;
+      height: 101px;
+      border-radius: 20px;
+      flex-shrink: 0;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1.5px solid rgba(255, 255, 255, 0.22);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .step-num .n {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 1.80rem;
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+
+    .step-num .u {
+      font-size: 0.44rem;
+      opacity: 0.8;
+      margin-top: 2px;
+      letter-spacing: 0.05em;
+    }
+
+    .step-body {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .step-kicker {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .step-kicker i {
+      font-size: 0.95rem;
+      opacity: 0.9;
+    }
+
+    .step-kicker img {
+      height: 0.95rem;
+      width: auto;
+      filter: brightness(0) invert(1);
+      opacity: 0.92;
+    }
+
+    .step-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 0.98rem;
+      line-height: 1;
+    }
+
+    .step-chip {
+      margin-left: auto;
+      background: rgba(255, 255, 255, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 20px;
+      padding: 0.16rem 0.6rem;
+      font-size: 0.46rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+    }
+
+    .step-desc {
+      font-size: 0.56rem;
+      line-height: 1.5;
+      color: rgba(255, 255, 255, 0.86);
+    }
+
+    /* Ramo de dedução (à direita da etapa) */
+    .branch {
+      display: flex;
+      align-items: center;
+      margin-left: 0.4rem;
+    }
+
+    .branch-arm {
+      width: 26px;
+      height: 2px;
+      background: repeating-linear-gradient(90deg, #f59e0b 0 6px, transparent 6px 11px);
+      flex-shrink: 0;
+    }
+
+    .branch-card {
+      background: #fffbeb;
+      border: 1.5px solid #F2A900;
+      border-radius: 12px;
+      padding: 0.5rem 0.7rem;
+      width: 205px;
+      flex-shrink: 0;
+    }
+
+    .branch-num {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 0.92rem;
+      color: #b45309;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .branch-num i {
+      font-size: 0.7rem;
+    }
+
+    .branch-desc {
+      font-size: 0.46rem;
+      color: #78350f;
+      line-height: 1.42;
+      margin-top: 0.28rem;
+    }
+
+    /* Conector vertical entre etapas */
+    .connector {
+      display: flex;
+      align-items: center;
+      padding-left: 46px;
+      height: 0.55rem;
+
+    }
+
+    .connector .line {
+      width: 3px;
+      height: 100%;
+      background: #cbd5e1;
+      border-radius: 2px;
+    }
+
+    .connector .chev {
+      color: #94a3b8;
+      margin-left: 7px;
+    }
+
+    /* ───────── Painel lateral (direita) ───────── */
+    .side {
+      flex: 0 0 300px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0.85rem;
+    }
+
+    .side-total {
+      background: linear-gradient(150deg, #0a1e30, #103050 60%, #1a5070);
+      border-radius: 18px;
+      padding: 1.1rem 1.3rem;
+      color: #fff;
+      box-shadow: 0 14px 34px -12px rgba(16, 48, 80, .5);
+    }
+
+    .side-total .lbl {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .side-total .val {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 2.5rem;
+      line-height: 1;
+      margin: 0.15rem 0 0.55rem;
+    }
+
+    .side-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 9px;
+      padding: 0.35rem 0.6rem;
+      margin-top: 0.35rem;
+    }
+
+    .side-row .rl {
+      font-size: 0.5rem;
+      color: rgba(255, 255, 255, 0.78);
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .side-row .rv {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 0.5rem;
+    }
+
+    .side-lai {
+      background: linear-gradient(150deg, #f5f3ff, #ede9fe);
+      border: 2px solid #8b5cf6;
+      border-radius: 18px;
+      padding: 1rem 1.2rem;
+    }
+
+    .side-lai .lbl {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #6d28d9;
+    }
+
+    .side-lai .val {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 1.9rem;
+      color: #6d28d9;
+      line-height: 1;
+      margin: 0.1rem 0 0.4rem;
+    }
+
+    .side-lai .lrow {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #fff;
+      border: 1px solid #e9d5ff;
+      border-radius: 9px;
+      padding: 0.32rem 0.55rem;
+      margin-top: 0.32rem;
+    }
+
+    .side-lai .ll {
+      font-size: 0.48rem;
+      color: #5b5478;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .side-lai .lv {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 0.78rem;
+      color: #6d28d9;
+    }
+
+    .side-note {
+      background: #f0f7ff;
+      border: 1px solid #c8dff0;
+      border-radius: 12px;
+      padding: 0.55rem 0.75rem;
+      font-size: 0.48rem;
+      color: #4b6080;
+      line-height: 1.5;
+      display: flex;
+      gap: 0.4rem;
+      align-items: flex-start;
+    }
+
+    .side-note i {
+      color: #0070C0;
+      margin-top: 1px;
+      flex-shrink: 0;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    .anim {
+      animation: fadeUp .5s ease both;
+    }
+
+    .d1 {
+      animation-delay: .05s
+    }
+
+    .d2 {
+      animation-delay: .16s
+    }
+
+    .d3 {
+      animation-delay: .27s
+    }
+
+    .d4 {
+      animation-delay: .38s
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="slide-container">
+    <div class="top-accent"></div>
+    <div class="top-accent-secondary"></div>
+
+    <!-- Header -->
+    <div class="flex items-center justify-between px-16 pt-8 pb-2 z-10">
+      <div>
+        <div class="flex items-center gap-3 mb-1">
+          <div class="w-1 h-8 bg-brand-secondary"></div>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Sequência Lógica de
+            Tramitação</p>
+        </div>
+        <p class="text-gray-500 font-medium ml-4 text-lg">Toda demanda passa pelo Omnichannel — depois é resolvida na
+          Ouvidoria ou registrada no Fala.BR</p>
+      </div>
+      <div class="flex items-center gap-2 opacity-80 text-brand-secondary">
+        <i class="fas fa-diagram-project text-xl"></i>
+        <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">TRAMITAÇÃO</p>
+      </div>
+    </div>
+
+    <!-- Main -->
+    <div class="main">
+
+      <!-- Stepper -->
+      <div class="stepper">
+
+        <!-- Etapa 1: Omnichannel -->
+        <div class="step step-omni anim d1">
+          <div class="step-num"><span class="n">405</span><span class="u">DEMANDAS</span></div>
+          <div class="step-body">
+            <div class="step-kicker">
+              <i class="fas fa-headset"></i>
+              <span class="step-title">Omnichannel — Ponto de Entrada</span>
+              <span class="step-chip">100%</span>
+            </div>
+            <p class="step-desc">Centralização e gestão integrada das interações em todos os canais (WhatsApp, Telefone
+              e E-mail). Todas as demandas são recebidas e triadas nesta plataforma.</p>
+          </div>
+          <div class="branch">
+            <div class="branch-arm"></div>
+            <div class="branch-card">
+              <div class="branch-num"><i class="fas fa-shield-halved"></i>−48</div>
+              <div class="branch-desc">Resolvidas diretamente pela Ouvidoria, sem geração de protocolo no Fala.BR
+                (11,8%).</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="connector">
+          <div class="line"></div><i class="fas fa-chevron-down chev"></i>
+        </div>
+
+        <!-- Etapa 2: Fala.BR -->
+        <div class="step step-falabr anim d2">
+          <div class="step-num"><span class="n">357</span><span class="u">PROTOCOLOS</span></div>
+          <div class="step-body">
+            <div class="step-kicker">
+              <img src="Imagens/Logo_Fala_BR.png" alt="Fala.BR" />
+              <span class="step-title">Fala.BR — Registro Formal</span>
+              <span class="step-chip">88,2%</span>
+            </div>
+            <p class="step-desc">As demais demandas geram protocolo formal no Fala.BR. A segregação estruturada garante
+              agilidade no roteamento ao setor competente — indicador-chave de desempenho do atendimento.</p>
+          </div>
+          <div class="branch">
+            <div class="branch-arm"></div>
+            <div class="branch-card">
+              <div class="branch-num"><i class="fas fa-book-open"></i>−53</div>
+              <div class="branch-desc">Reclassificadas como Acesso à Informação (LAI) — não entram no Painel Resolveu.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="connector">
+          <div class="line"></div><i class="fas fa-chevron-down chev"></i>
+        </div>
+
+        <!-- Etapa 3: Painel Resolveu -->
+        <div class="step step-painel anim d3">
+          <div class="step-num"><span class="n">304</span><span class="u">RESOLVEU</span></div>
+          <div class="step-body">
+            <div class="step-kicker">
+              <i class="fas fa-check-circle"></i>
+              <span class="step-title">Painel Resolveu — Resultado</span>
+              <span class="step-chip">75% do Omni</span>
+            </div>
+            <p class="step-desc">Manifestações tratadas no fluxo oficial da Ouvidoria — reclamações, denúncias,
+              sugestões, elogios e solicitações. Equivalem a 75% do volume do Omnichannel (304/405).</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Painel lateral -->
+      <div class="side">
+
+        <div class="side-total anim d2">
+          <div class="lbl">Total recebidas</div>
+          <div class="val">434</div>
+          <div class="side-row">
+            <span class="rl"><i class="fas fa-check-circle" style="color:#86efac;"></i> Manifestações · Painel</span>
+            <span class="rv" style="color:#fff;">304</span>
+          </div>
+          <div class="side-row">
+            <span class="rl"><i class="fas fa-book-open" style="color:#F2A900;"></i> Acesso à Informação</span>
+            <span class="rv" style="color:#F2A900;">130</span>
+          </div>
+        </div>
+
+        <div class="side-lai anim d3">
+          <div class="lbl">LAI — como se forma</div>
+          <div class="val">130</div>
+          <div class="lrow">
+            <span class="ll"><i class="fas fa-rotate" style="color:#8b5cf6;"></i> Reclassificadas do Omni</span>
+            <span class="lv">53</span>
+          </div>
+          <div class="lrow">
+            <span class="ll"><i class="fas fa-arrow-right-to-bracket" style="color:#8b5cf6;"></i> Solicitações
+              diretas</span>
+            <span class="lv">77</span>
+          </div>
+        </div>
+
+        <div class="side-note anim d4" onclick="goToSecao6()" title="Clique para ir à Seção 6" style="cursor:pointer;">
+          <i class="fas fa-circle-info"></i>
+          <span>A LAI é contagem à parte — não entra no Painel Resolveu e é detalhada na <b><u>Seção 6</u></b> <i class="fas fa-arrow-up-right-from-square"></i>.</span>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="px-16 pb-5 flex justify-between items-center z-10">
+      <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ</p>
+      <p class="text-gray-300 text-xs font-mono">23 / 47</p>
+    </div>
+  </div>
+  <script>function goToSecao6(){if(window.parent&&window.parent!==window){window.parent.postMessage({type:'slide-goto-file',file:'capa-06.html'},'*');}else{window.location.href='capa-06.html';}}
+document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
+</body>
+
+</html>

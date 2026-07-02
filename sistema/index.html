@@ -487,7 +487,7 @@
       'capa-02.html', 'slide-04.html', 'slide-05.html', 'slide-06.html', 'slide-07.html',
       'capa-03.html', 'slide-08.html',
       'capa-04.html', 'slide-09.html', 'slide-10.html', 'slide-11.html', 'slide-12.html', 'slide-13.html',
-      'capa-05.html', 'slide-14.html', 'slide-15.html', 'slide-16.html', 'slide-17.html',
+      'capa-05.html', 'slide-14.html', 'slide-15.html', 'slide-16.html', 'slide-16b.html', 'slide-17b.html', 'slide-17.html', 'slide-17d.html', 'slide-17e.html',
       'capa-06.html', 'slide-18.html', 'slide-19.html', 'slide-20.html',
       'capa-07.html', 'slide-21.html',
       'capa-08.html', 'slide-22.html', 'slide-23.html',
@@ -567,6 +567,11 @@
       if (e.data && e.data.type === 'slide-goto' && e.data.slide) {
         current = e.data.slide;
         render();
+      }
+      // Navegação por nome de arquivo (robusto a reordenação do array slides)
+      if (e.data && e.data.type === 'slide-goto-file' && e.data.file) {
+        const idx = slides.indexOf(e.data.file);
+        if (idx !== -1) { current = idx + 1; render(); }
       }
     });
 

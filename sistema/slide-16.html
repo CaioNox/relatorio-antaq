@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <!--
   ╔══════════════════════════════════════════════════════════════╗
-  ║  SLIDE 16 — Manifestações por canal de entrada
+  ║  SLIDE 16 — Panorama Geral de Demandas
   ╠══════════════════════════════════════════════════════════════╣
   ║  O QUE ATUALIZAR A CADA TRIMESTRE:
-  ║  Atualizar: distribuição por canal (Fala.BR, telefone, e-mail, presencial)
+  ║  434 total = 304 Painel Resolveu + 130 LAI
+  ║  Omnichannel 405: 48 resolvidas + 357 pro Fala.BR (53 LAI + 304 SAC)
   ╚══════════════════════════════════════════════════════════════╝
 -->
-
 <html lang="pt-BR">
 
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <title>Manifestações por Canal - Relatório Trimestral Ouvidoria ANTAQ</title>
+  <title>Panorama Geral de Demandas - Relatório Trimestral Ouvidoria ANTAQ</title>
   <link rel="icon" type="image/png"
     href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
   <link
-    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&amp;family=Open+Sans:wght@400;600&amp;display=swap"
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@400;600&display=swap"
     rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -73,29 +73,74 @@
       width: 100%;
     }
 
-    /* ===== Interatividade ===== */
-    .chart-card,
-    .canal-card {
-      transition: transform .28s cubic-bezier(.2, .7, .3, 1), box-shadow .28s ease, border-color .28s ease, background-color .28s ease;
+    .chart-card {
+      background-color: #ffffff;
+      border: 2px solid #E2E8F0;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px -8px rgba(16, 48, 80, 0.18);
+      padding: 1.4rem 1.8rem;
+      transition: transform .28s cubic-bezier(.2, .7, .3, 1), box-shadow .28s ease, border-color .28s ease;
     }
 
-    .chart-card:hover,
-    .canal-card:hover {
+    .chart-card:hover {
       transform: translateY(-7px);
       box-shadow: 0 22px 42px -12px rgba(16, 48, 80, .30);
       border-color: #0070C0;
     }
 
+    .canal-card {
+      border: 2px solid #C0E0F0;
+      background-color: #EAF3FB;
+      border-radius: 14px;
+      padding: 1rem 1.2rem;
+      transition: transform .28s cubic-bezier(.2, .7, .3, 1), box-shadow .28s ease, border-color .28s ease, background-color .28s ease;
+    }
+
     .canal-card:hover {
+      transform: translateY(-7px);
+      box-shadow: 0 22px 42px -12px rgba(16, 48, 80, .30);
+      border-color: #0070C0;
       background-color: #D8EEF8;
     }
 
-    .canal-card i {
-      transition: transform .3s ease;
+    .sub-detail {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.3rem 0.5rem;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.55);
+      margin-top: 0.45rem;
     }
 
-    .canal-card:hover i {
-      transform: scale(1.18);
+    .sub-detail-label {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.55rem;
+      color: #4b6080;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .sub-detail-value {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 0.78rem;
+      color: #103050;
+    }
+
+    .badge-lai {
+      background: #fef9e7;
+      border: 1.5px solid #F2A900;
+      border-radius: 8px;
+      padding: 0.18rem 0.55rem;
+      font-size: 0.45rem;
+      font-weight: 700;
+      color: #92610a;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      margin-top: 0.4rem;
     }
 
     @keyframes fadeIn {
@@ -116,10 +161,6 @@
       animation-delay: .1s;
     }
 
-    .canal-card:nth-child(3) {
-      animation-delay: .2s;
-    }
-
     @media (prefers-reduced-motion: reduce) {
 
       *,
@@ -128,21 +169,6 @@
         animation: none !important;
         transition: none !important;
       }
-    }
-
-    .chart-card {
-      background-color: #ffffff;
-      border: 2px solid #E2E8F0;
-      border-radius: 16px;
-      box-shadow: 0 8px 20px -8px rgba(16, 48, 80, 0.18);
-      padding: 1.4rem 1.8rem;
-    }
-
-    .canal-card {
-      border: 2px solid #C0E0F0;
-      background-color: #EAF3FB;
-      border-radius: 14px;
-      padding: 1.4rem;
     }
   </style>
 </head>
@@ -156,83 +182,137 @@
       <div>
         <div class="flex items-center gap-3 mb-2">
           <div class="w-1 h-8 bg-brand-secondary"></div>
-          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Manifestações por
-            Canal</p>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Panorama Geral de
+            Demandas</p>
         </div>
-        <p class="text-gray-500 font-medium ml-4 text-lg">Distribuição por canal de atendimento no 1º trimestre de 2026
-        </p>
+        <p class="text-gray-500 font-medium ml-4 text-lg">434 demandas recebidas no 1º trimestre de 2026</p>
       </div>
       <div class="flex items-center gap-2 opacity-80 text-brand-secondary">
-        <i class="fas fa-diagram-project text-xl" aria-hidden="true"></i>
-        <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">TRIMESTRE</p>
+        <i class="fas fa-layer-group text-xl" aria-hidden="true"></i>
+        <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">VISÃO GERAL</p>
       </div>
     </div>
     <!-- Main Content -->
     <div class="flex-1 grid grid-cols-3 gap-8 px-16 pb-10 z-10">
-      <!-- Chart -->
+      <!-- Gráfico donut (col-span-2) -->
       <div class="chart-card col-span-2 flex flex-col">
-        <div class="flex-1 relative"><canvas id="chartCanal"></canvas></div>
+        <p class="text-brand-primary font-montserrat font-bold text-xl mb-1 flex items-center gap-2">
+          <i class="fas fa-chart-pie text-brand-secondary"></i> Composição das Demandas
+        </p>
+        <p class="text-gray-400 text-sm mb-3">Manifestações (Painel Resolveu) <span
+            style="color:#103050;font-weight:700;">304</span> + Acesso à Informação (LAI) <span
+            style="color:#F2A900;font-weight:700;">130</span> = <strong class="text-brand-primary">434</strong></p>
+        <div class="flex-1 relative"><canvas id="chartPanorama"></canvas></div>
       </div>
-      <!-- Cards -->
-      <div class="flex flex-col gap-4 justify-center">
-        <div class="canal-card flex items-center justify-between">
-          <div class="flex items-center gap-3"><i class="fas fa-headset text-brand-secondary text-3xl"></i><span
-              class="text-brand-primary font-montserrat font-bold text-xl">Omnichannel</span></div>
-          <span class="font-montserrat font-black text-4xl text-brand-primary">405</span>
+      <!-- Cards laterais -->
+      <div class="flex flex-col gap-5 justify-center">
+
+        <!-- Card 434 total -->
+        <div class="canal-card" style="background:linear-gradient(135deg,#f0f7ff,#e4eff8);border-color:#103050;">
+          <div class="flex items-center justify-between mb-2">
+            <div class="flex items-center gap-2">
+              <i class="fas fa-inbox" style="color:#103050;font-size:2rem;"></i>
+              <span class="text-brand-primary font-montserrat font-bold text-xl">Total Recebidas</span>
+            </div>
+            <span class="font-montserrat font-black text-4xl text-brand-primary">434</span>
+          </div>
+          <div class="sub-detail">
+            <span class="sub-detail-label"><i class="fas fa-check-circle" style="color:#0070C0;"></i> Manifestações —
+              Painel Resolveu</span>
+            <span class="sub-detail-value">304</span>
+          </div>
+          <div class="sub-detail">
+            <span class="sub-detail-label"><i class="fas fa-book-open" style="color:#F2A900;"></i> Acesso à Informação —
+              LAI</span>
+            <span class="sub-detail-value">130</span>
+          </div>
+          <div class="badge-lai" onclick="goToSecao6()" title="Clique para ir à Seção 6" style="cursor:pointer;"><i
+              class="fas fa-circle-info" style="color:#F2A900;"></i> Para mais informações sobre a LAI, consulte a
+            <u>Seção 6</u> <i class="fas fa-arrow-up-right-from-square" style="color:#F2A900;font-size:0.85em;"></i>
+          </div>
         </div>
-        <div class="canal-card flex items-center justify-between">
-          <div class="flex items-center gap-3"><img src="Imagens/Logo_Fala_BR.png" alt="Fala.BR"
-              style="height: 40px; width: auto;"><span
-              class="text-brand-primary font-montserrat font-bold text-xl">Fala.BR</span></div>
-          <span class="font-montserrat font-black text-4xl text-brand-primary">304</span>
+
+        <!-- Card Omnichannel -->
+        <div class="canal-card">
+          <div class="flex items-center justify-between mb-2">
+            <div class="flex items-center gap-2">
+              <i class="fas fa-headset text-brand-secondary" style="font-size:2rem;"></i>
+              <span class="text-brand-primary font-montserrat font-bold text-xl">Omnichannel</span>
+            </div>
+            <span class="font-montserrat font-black text-4xl text-brand-primary">405</span>
+          </div>
+          <div class="sub-detail">
+            <span class="sub-detail-label"><i class="fas fa-shield-halved" style="color:#0070C0;"></i> Resolvidas na
+              Ouvidoria (sem protocolo)</span>
+            <span class="sub-detail-value">48</span>
+          </div>
+          <div class="sub-detail">
+            <span class="sub-detail-label"><i class="fas fa-file-export" style="color:#0070C0;"></i> Encaminhadas ao
+              Fala.BR</span>
+            <span class="sub-detail-value">357</span>
+          </div>
         </div>
-        <div class="canal-card flex items-center justify-between">
-          <div class="flex items-center gap-3"><i class="fas fa-envelope text-brand-secondary text-3xl"></i><span
-              class="text-brand-primary font-montserrat font-bold text-xl">E-mail</span></div>
-          <span class="font-montserrat font-black text-4xl text-brand-primary">70</span>
-        </div>
+
       </div>
     </div>
     <!-- Footer -->
     <div class="px-16 pb-8 flex justify-between items-center z-10">
       <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ</p>
-      <p class="text-gray-300 text-xs font-mono">16 / 33</p>
+      <p class="text-gray-300 text-xs font-mono">21 / 47</p>
     </div>
   </div>
   <script>
-    const labels = ['Fala.BR', 'E-mail', 'Omnichannel'];
-    const data = [304, 70, 405];
-    const colors = ['#0070C0', '#0070C0', '#103050'];
-    const valueLabels = {
-      id: 'valueLabels',
-      afterDatasetsDraw(chart) {
-        const { ctx } = chart;
-        ctx.save();
-        ctx.font = '700 18px Montserrat, sans-serif';
-        ctx.fillStyle = '#103050';
-        ctx.textAlign = 'center';
-        chart.getDatasetMeta(0).data.forEach((bar, i) => {
-          ctx.fillText(chart.data.datasets[0].data[i], bar.x, bar.y - 8);
-        });
-        ctx.restore();
-      }
-    };
-    new Chart(document.getElementById('chartCanal'), {
-      type: 'bar',
-      data: { labels, datasets: [{ data, backgroundColor: colors, borderRadius: 6, maxBarThickness: 120 }] },
+    // 304 Manifestações + 130 LAI = 434 total
+    new Chart(document.getElementById('chartPanorama'), {
+      type: 'doughnut',
+      data: {
+        labels: ['Manifestações — Painel Resolveu', 'Acesso à Informação — LAI'],
+        datasets: [{
+          data: [304, 130],
+          backgroundColor: ['#103050', '#F2A900'],
+          borderColor: ['#ffffff', '#ffffff'],
+          borderWidth: 3,
+          hoverOffset: 14
+        }]
+      },
       options: {
-        responsive: true, maintainAspectRatio: false,
-        layout: { padding: { top: 26 } },
-        plugins: { legend: { display: false }, tooltip: { enabled: false } },
-        scales: {
-          x: { grid: { display: false }, ticks: { color: '#374151', font: { size: 15, weight: '600' } } },
-          y: { beginAtZero: true, grid: { color: '#eef2f7' }, ticks: { color: '#9ca3af', font: { size: 12 } } }
+        responsive: true,
+        maintainAspectRatio: false,
+        cutout: '60%',
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: { color: '#374151', font: { size: 12, weight: '600' }, padding: 22, usePointStyle: true, pointStyle: 'circle' }
+          },
+          tooltip: {
+            callbacks: {
+              label: function (ctx) {
+                return ctx.label + ': ' + ctx.parsed + ' (' + (ctx.parsed / 434 * 100).toFixed(1) + '%)';
+              }
+            }
+          }
         }
       },
-      plugins: [valueLabels]
+      plugins: [{
+        id: 'centerText',
+        afterDraw(chart) {
+          const w = chart.width, h = chart.height, ctx = chart.ctx;
+          ctx.save();
+          ctx.font = '900 38px Montserrat, sans-serif';
+          ctx.fillStyle = '#103050';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText('434', w / 2, h / 2 - 14);
+          ctx.font = '400 12px Open Sans, sans-serif';
+          ctx.fillStyle = '#6b7280';
+          ctx.fillText('total recebidas', w / 2, h / 2 + 16);
+          ctx.restore();
+        }
+      }]
     });
   </script>
-  <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
+  <script>function goToSecao6() { if (window.parent && window.parent !== window) { window.parent.postMessage({ type: 'slide-goto-file', file: 'capa-06.html' }, '*'); } else { window.location.href = 'capa-06.html'; } }
+    document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
 </body>
 
 </html>

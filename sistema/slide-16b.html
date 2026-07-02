@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<!--
+  ╔══════════════════════════════════════════════════════════════╗
+  ║  SLIDE 16B — Ecossistema de Atendimento (arquitetura dos canais)
+  ╠══════════════════════════════════════════════════════════════╣
+  ║  IMPORTANTE: o Omnichannel É a plataforma que unifica os canais
+  ║  (WhatsApp, Ligações, Portal) — não é um estágio à parte deles.
+  ║
+  ║  Fluxo lógico esquerda→direita:
+  ║  Omnichannel (405 = WhatsApp+Ligações+Portal)
+  ║   → −48 resolvidas na Ouvidoria · 357 registradas no Fala.BR (434)
+  ║   → destinação: Manifestações/Painel (304) e Acesso à Informação/LAI (130)
+  ╚══════════════════════════════════════════════════════════════╝
+-->
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Ecossistema de Atendimento - Relatório Trimestral Ouvidoria ANTAQ</title>
+  <link rel="icon" type="image/png"
+    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@400;600&display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      font-size: 26px;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .slide-container {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background-color: #ffffff;
+      overflow: hidden;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    .font-montserrat {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .text-brand-primary {
+      color: #103050;
+    }
+
+    .text-brand-secondary {
+      color: #0070C0;
+    }
+
+    .bg-brand-secondary {
+      background-color: #0070C0;
+    }
+
+    .top-accent {
+      height: 8px;
+      background-color: #103050;
+      width: 100%;
+    }
+
+    .top-accent-secondary {
+      height: 4px;
+      background-color: #0070C0;
+      width: 100%;
+    }
+
+    .main {
+      flex: 1;
+      min-height: 0;
+      padding: 0 3.5rem 0.8rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Faixa-resumo da lógica */
+    .logic-strip {
+      background: #fffbeb;
+      border: 1.5px solid #F2A900;
+      border-radius: 12px;
+      padding: 0.5rem 1rem;
+      font-size: 0.56rem;
+      color: #78350f;
+      text-align: center;
+      line-height: 1.4;
+      margin-bottom: 0.9rem;
+      flex-shrink: 0;
+    }
+
+    .logic-strip b {
+      color: #b45309;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+    }
+
+    /* Grid do fluxo (colunas encolhem: minmax(0,...)) */
+    .eco-grid {
+      flex: 1;
+      min-height: 0;
+      display: grid;
+      grid-template-columns: minmax(0, 1.18fr) 90px minmax(0, 0.92fr) 90px minmax(0, 1.08fr);
+      align-items: center;
+      gap: 0;
+    }
+
+    .zone-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #94a3b8;
+      margin-bottom: 0.6rem;
+      text-align: center;
+    }
+
+    /* ───────── Conector (seta + pílula de dedução) ───────── */
+    .connector {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.3rem;
+      padding: 0 0.25rem;
+    }
+
+    .conn-pill {
+      background: #fffbeb;
+      border: 1.5px solid #F2A900;
+      border-radius: 20px;
+      padding: 0.16rem 0.5rem;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .conn-pill .cn {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 0.66rem;
+      color: #b45309;
+      line-height: 1;
+    }
+
+    .conn-pill .cl {
+      font-size: 0.34rem;
+      color: #92610a;
+      line-height: 1.1;
+      margin-top: 1px;
+    }
+
+    .conn-arrow {
+      display: flex;
+      align-items: center;
+      width: 100%;
+    }
+
+    .conn-line {
+      flex: 1;
+      height: 3px;
+      background: linear-gradient(90deg, #cbd5e1, #94a3b8);
+      border-radius: 2px;
+    }
+
+    .conn-head {
+      width: 0;
+      height: 0;
+      border-top: 8px solid transparent;
+      border-bottom: 8px solid transparent;
+      border-left: 12px solid #94a3b8;
+      flex-shrink: 0;
+    }
+
+    /* ───────── Card Omnichannel (hero — contém os canais) ───────── */
+    .omni-hero {
+      background: linear-gradient(150deg, #0a1e30, #103050 58%, #1a5070);
+      border-radius: 18px;
+      padding: 1rem 1.15rem;
+      color: #fff;
+      box-shadow: 0 14px 34px -10px rgba(16, 48, 80, .5);
+      border-left: 6px solid #29ABE2;
+    }
+
+    .omni-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .omni-idwrap {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      min-width: 0;
+    }
+
+    .omni-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, .12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .omni-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 0.88rem;
+      line-height: 1.05;
+    }
+
+    .omni-num {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 2.1rem;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      flex-shrink: 0;
+      text-align: right;
+    }
+
+    .omni-num small {
+      font-size: 0.44rem;
+      font-weight: 700;
+      display: block;
+      opacity: 0.82;
+    }
+
+    .omni-desc {
+      font-size: 0.5rem;
+      line-height: 1.5;
+      color: rgba(255, 255, 255, .82);
+      margin-top: 0.5rem;
+    }
+
+    .omni-ch-label {
+      font-size: 0.4rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: rgba(255, 255, 255, .5);
+      font-weight: 700;
+      margin: 0.7rem 0 0.4rem;
+      text-align: center;
+    }
+
+    .omni-channels {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+    }
+
+    .omni-chip {
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 11px;
+      padding: 0.55rem 0.3rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.25rem;
+      text-align: center;
+      transition: background .25s ease, transform .25s ease;
+    }
+
+    .omni-chip:hover {
+      background: rgba(255, 255, 255, 0.13);
+      transform: translateY(-3px);
+    }
+
+    .omni-chip .ci {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      color: #fff;
+    }
+
+    .ci-wa {
+      background: linear-gradient(145deg, #22c55e, #16a34a);
+    }
+
+    .ci-lig {
+      background: linear-gradient(145deg, #3b82f6, #1d4ed8);
+    }
+
+    .ci-por {
+      background: linear-gradient(145deg, #f59e0b, #d97706);
+    }
+
+    .omni-chip .cname {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.48rem;
+      color: #fff;
+    }
+
+    .omni-chip .csub {
+      font-size: 0.34rem;
+      color: rgba(255, 255, 255, .55);
+      line-height: 1.2;
+    }
+
+    /* ───────── Cards de plataforma / destinação ───────── */
+    .box {
+      border-radius: 16px;
+      padding: 0.85rem 1rem;
+      width: 100%;
+      transition: transform .28s cubic-bezier(.2, .7, .3, 1), box-shadow .28s ease;
+    }
+
+    .box+.box {
+      margin-top: 0.7rem;
+    }
+
+    .box:hover {
+      transform: translateY(-5px);
+    }
+
+    .box-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .box-idwrap {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      min-width: 0;
+    }
+
+    .box-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .box-icon img {
+      height: 1.05rem;
+      width: auto;
+    }
+
+    .box-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 0.76rem;
+      line-height: 1.08;
+    }
+
+    .box-num {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 1.85rem;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      flex-shrink: 0;
+      text-align: right;
+    }
+
+    .box-num small {
+      font-size: 0.44rem;
+      font-weight: 700;
+      display: block;
+      letter-spacing: 0;
+      opacity: 0.85;
+    }
+
+    .box-desc {
+      font-size: 0.48rem;
+      line-height: 1.5;
+      margin-top: 0.45rem;
+    }
+
+    .box-falabr {
+      background: linear-gradient(150deg, #004a90, #0070C0 60%, #0090d8);
+      color: #fff;
+      box-shadow: 0 12px 30px -10px rgba(0, 112, 192, .45);
+    }
+
+    .box-falabr .box-icon {
+      background: rgba(255, 255, 255, .15);
+    }
+
+    .box-falabr .box-desc {
+      color: rgba(255, 255, 255, .84);
+    }
+
+    .box-ouv {
+      background: linear-gradient(135deg, #f0f7ff, #e4eff8);
+      border: 2px solid #0070C0;
+    }
+
+    .box-ouv .box-icon {
+      background: #0070C0;
+      color: #fff;
+    }
+
+    .box-ouv .box-title,
+    .box-ouv .box-num {
+      color: #103050;
+    }
+
+    .box-ouv .box-desc {
+      color: #4b6080;
+    }
+
+    .box-lai {
+      background: linear-gradient(135deg, #f5f3ff, #ede9fe);
+      border: 2px solid #8b5cf6;
+    }
+
+    .box-lai .box-icon {
+      background: #8b5cf6;
+      color: #fff;
+    }
+
+    .box-lai .box-title,
+    .box-lai .box-num {
+      color: #6d28d9;
+    }
+
+    .box-lai .box-desc {
+      color: #5b5478;
+    }
+
+    .box-tag {
+      display: inline-block;
+      margin-top: 0.4rem;
+      font-size: 0.42rem;
+      font-weight: 700;
+      padding: 0.14rem 0.5rem;
+      border-radius: 20px;
+    }
+
+    .tag-blue {
+      background: #dbeafe;
+      color: #1d4ed8;
+    }
+
+    .tag-purple {
+      background: #e9d5ff;
+      color: #6d28d9;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    .anim {
+      animation: fadeUp .5s ease both;
+    }
+
+    .a1 {
+      animation-delay: .05s;
+    }
+
+    .a2 {
+      animation-delay: .18s;
+    }
+
+    .a3 {
+      animation-delay: .32s;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="slide-container">
+    <div class="top-accent"></div>
+    <div class="top-accent-secondary"></div>
+
+    <!-- Header -->
+    <div class="flex items-center justify-between px-16 pt-8 pb-2 z-10">
+      <div>
+        <div class="flex items-center gap-3 mb-1">
+          <div class="w-1 h-8 bg-brand-secondary"></div>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Ecossistema de
+            Atendimento</p>
+        </div>
+        <p class="text-gray-500 font-medium ml-4 text-lg">Como as demandas fluem — do Omnichannel à destinação final</p>
+      </div>
+      <div class="flex items-center gap-2 opacity-80 text-brand-secondary">
+        <i class="fas fa-network-wired text-xl"></i>
+        <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">ARQUITETURA</p>
+      </div>
+    </div>
+
+    <!-- Main -->
+    <div class="main">
+
+      <div class="logic-strip anim a1">
+        O <b>Omnichannel (405)</b> é a plataforma que unifica os canais (WhatsApp, Ligações e Portal) · <b>48</b> são
+        resolvidas na própria Ouvidoria e <b>357</b> seguem para registro no <b>Fala.BR (357)</b>, que consolida
+        <b>304</b> manifestações e <b>130</b> pedidos de LAI
+      </div>
+
+      <div class="eco-grid">
+
+        <!-- Zona 1: Omnichannel (contém os canais) -->
+        <div class="anim a1">
+          <p class="zone-title">① Omnichannel · Canais de Atendimento</p>
+          <div class="omni-hero">
+            <div class="omni-head">
+              <div class="omni-idwrap">
+                <div class="omni-icon"><i class="fas fa-headset"></i></div>
+                <div class="omni-title">Omnichannel</div>
+              </div>
+              <div class="omni-num">405<small>demandas</small></div>
+            </div>
+            <p class="omni-desc">Plataforma que integra e centraliza, em um único ambiente, todos os canais de
+              atendimento ao cidadão. É o ponto único de entrada e triagem das demandas.</p>
+            <p class="omni-ch-label">Canais que compõem o Omnichannel</p>
+            <div class="omni-channels">
+              <div class="omni-chip">
+                <div class="ci ci-wa"><i class="fab fa-whatsapp"></i></div>
+                <div class="cname">WhatsApp</div>
+                <div class="csub">Mensagens</div>
+              </div>
+              <div class="omni-chip">
+                <div class="ci ci-lig"><i class="fas fa-phone"></i></div>
+                <div class="cname">Ligações</div>
+                <div class="csub">Atendimento por voz</div>
+              </div>
+              <div class="omni-chip">
+                <div class="ci ci-por"><i class="fas fa-globe"></i></div>
+                <div class="cname">Portal</div>
+                <div class="csub">Web / online</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Conector 1: −48 -->
+        <div class="connector anim a1">
+          <div class="conn-pill">
+            <div class="cn">−48</div>
+            <div class="cl">Resolvidas na<br>Ouvidoria</div>
+          </div>
+          <div class="conn-arrow">
+            <div class="conn-line"></div>
+            <div class="conn-head"></div>
+          </div>
+          <div style="font-size:0.36rem;color:#9ca3af;text-align:center;line-height:1.2;">357 seguem</div>
+        </div>
+
+        <!-- Zona 2: Fala.BR -->
+        <div class="anim a2">
+          <p class="zone-title">② Registro Formal</p>
+          <div class="box box-falabr">
+            <div class="box-head">
+              <div class="box-idwrap">
+                <div class="box-icon"><img src="Imagens/Logo_Fala_BR.png" alt="Fala.BR"
+                    style="filter:brightness(0) invert(1);" /></div>
+                <div class="box-title">Fala.BR</div>
+              </div>
+              <div class="box-num">357<small>demandas registradas</small></div>
+            </div>
+            <p class="box-desc">Plataforma oficial do Governo Federal para manifestações e pedidos de informação. As
+              demandas recebem protocolo formal (357 vindas do Omnichannel + 77 pedidos diretos de LAI).</p>
+          </div>
+        </div>
+
+        <!-- Conector 2: −53 -->
+        <div class="connector anim a2">
+          <div class="conn-pill">
+            <div class="cn">−53</div>
+            <div class="cl">vira LAI</div>
+          </div>
+          <div class="conn-arrow">
+            <div class="conn-line"></div>
+            <div class="conn-head"></div>
+          </div>
+          <div style="font-size:0.36rem;color:#9ca3af;text-align:center;line-height:1.2;">destinação</div>
+        </div>
+
+        <!-- Zona 3: Destinação -->
+        <div class="anim a3">
+          <p class="zone-title">③ Destinação</p>
+
+          <div class="box box-ouv">
+            <div class="box-head">
+              <div class="box-idwrap">
+                <div class="box-icon"><i class="fas fa-bullhorn"></i></div>
+                <div class="box-title">Ouvidoria · Manifestações</div>
+              </div>
+              <div class="box-num">304<small>Painel Resolveu</small></div>
+            </div>
+            <p class="box-desc">Recebimento e tratamento de manifestações: reclamações, sugestões, elogios e denúncias.
+            </p>
+            <span class="box-tag tag-blue">75% do volume do Omnichannel</span>
+          </div>
+
+          <div class="box box-lai">
+            <div class="box-head">
+              <div class="box-idwrap">
+                <div class="box-icon"><i class="fas fa-book-open"></i></div>
+                <div class="box-title">Acesso à Informação · LAI</div>
+              </div>
+              <div class="box-num">130<small>pedidos</small></div>
+            </div>
+            <p class="box-desc">Recebimento e gestão de pedidos com base na Lei de Acesso à Informação (53
+              reclassificadas + 77 diretas).</p>
+            <span class="box-tag tag-purple" onclick="goToSecao6()" title="Clique para ir à Seção 6" style="cursor:pointer;"><i class="fas fa-circle-info"></i> Detalhado na Seção 6 <i class="fas fa-arrow-up-right-from-square" style="font-size:0.85em;"></i></span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="px-16 pb-5 flex justify-between items-center z-10">
+      <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ</p>
+      <p class="text-gray-300 text-xs font-mono">22 / 47</p>
+    </div>
+  </div>
+  <script>function goToSecao6(){if(window.parent&&window.parent!==window){window.parent.postMessage({type:'slide-goto-file',file:'capa-06.html'},'*');}else{window.location.href='capa-06.html';}}
+document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
+</body>
+
+</html>

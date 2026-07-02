@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Perfil de Uso Fala.BR - Relatório Trimestral Ouvidoria ANTAQ</title>
+  <link rel="icon" type="image/png"
+    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&amp;family=Open+Sans:wght@400;600&amp;display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    html {
+      font-size: 26px;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f3f4f6;
+      overflow: hidden;
+    }
+
+    .slide-container {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background-color: #ffffff;
+      overflow: hidden;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    .font-montserrat {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .text-brand-primary {
+      color: #103050;
+    }
+
+    .text-brand-secondary {
+      color: #0070C0;
+    }
+
+    .bg-brand-secondary {
+      background-color: #0070C0;
+    }
+
+    .top-accent {
+      height: 8px;
+      background-color: #103050;
+      width: 100%;
+    }
+
+    .top-accent-secondary {
+      height: 4px;
+      background-color: #0070C0;
+      width: 100%;
+    }
+
+    .chart-card {
+      background-color: #ffffff;
+      border: 2px solid #E2E8F0;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px -8px rgba(16, 48, 80, 0.18);
+      padding: 1.4rem 1.6rem;
+      transition: transform .28s cubic-bezier(.2, .7, .3, 1), box-shadow .28s ease, border-color .28s ease;
+    }
+
+    .chart-card:hover {
+      transform: translateY(-7px);
+      box-shadow: 0 22px 42px -12px rgba(16, 48, 80, .30);
+      border-color: #0070C0;
+    }
+
+    .highlight-card {
+      background: linear-gradient(160deg, #f0f7ff, #e8f4fd);
+      border: 2px solid #0070C0;
+      border-radius: 16px;
+      padding: 1.4rem 1.6rem;
+      text-align: center;
+      transition: transform .28s ease, box-shadow .28s ease;
+    }
+
+    .highlight-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 30px -12px rgba(16, 48, 80, .25);
+    }
+
+    .percentage-ring {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: conic-gradient(#0070C0 0deg 107.8deg, #E2E8F0 107.8deg 360deg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+    }
+
+    .percentage-ring-inner {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="slide-container">
+    <div class="top-accent"></div>
+    <div class="top-accent-secondary"></div>
+    <!-- Header -->
+    <div class="flex items-center justify-between px-16 pt-12 pb-4 z-10">
+      <div>
+        <div class="flex items-center gap-3 mb-2">
+          <div class="w-1 h-8 bg-brand-secondary"></div>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Composição das Demandas Recebidas</p>
+        </div>
+        <p class="text-gray-500 font-medium ml-4 text-lg">Total de 434 demandas recebidas de todas as plataformas — manifestações e LAI</p>
+      </div>
+      <div class="flex items-center gap-2 opacity-80 text-brand-secondary">
+        <i class="fas fa-chart-pie text-xl" aria-hidden="true"></i>
+        <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">FALA.BR</p>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex-1 grid grid-cols-2 gap-8 px-16 pb-10 z-10">
+      <!-- Gráfico Donut / Pizza -->
+      <div class="chart-card flex flex-col">
+        <p class="text-brand-primary font-montserrat font-bold text-xl mb-1 flex items-center gap-2"><i class="fas fa-circle-pie slice text-brand-secondary"></i> Composição das Demandas</p>
+        <p class="text-gray-400 text-sm mb-3">Total: <strong class="text-brand-primary">434</strong> demandas no Fala.BR</p>
+        <div class="flex-1 relative"><canvas id="chartFalaPerfil"></canvas></div>
+      </div>
+
+      <!-- Indicadores -->
+      <div class="flex flex-col gap-6 justify-center">
+
+        <!-- LAI Card -->
+        <div class="highlight-card">
+          <i class="fas fa-book-open text-brand-secondary text-3xl mb-2"></i>
+          <p class="font-montserrat font-bold text-lg text-brand-primary">Pedidos de Acesso à Informação</p>
+          <p class="font-montserrat font-black text-5xl text-brand-primary mt-1">130</p>
+          <p class="text-gray-500 text-sm">demandas de LAI</p>
+          <div class="flex items-center justify-center gap-2 mt-2">
+            <div style="width:10px;height:10px;border-radius:3px;background:#0070C0;"></div>
+            <span class="text-brand-secondary font-bold text-2xl">29,95%</span>
+            <span class="text-gray-400 text-sm">do total Fala.BR</span>
+          </div>
+          <div class="mt-3 inline-flex items-center gap-2 rounded-lg px-3 py-1" onclick="goToSecao6()" title="Clique para ir à Seção 6" style="background:#fffbeb;border:1px solid #F2A900;cursor:pointer;">
+            <i class="fas fa-circle-info" style="color:#F2A900;"></i>
+            <span class="text-xs" style="color:#92610a;font-weight:600;">Mais informações na Seção 6</span>
+            <i class="fas fa-arrow-up-right-from-square" style="color:#F2A900;font-size:0.85em;"></i>
+          </div>
+        </div>
+
+        <!-- Painel Resolveu Card -->
+        <div class="highlight-card" style="background:#f8fafc;border-color:#E2E8F0;">
+          <i class="fas fa-check-circle text-brand-secondary text-3xl mb-2"></i>
+          <p class="font-montserrat font-bold text-lg text-brand-primary">Manifestações — Painel Resolveu</p>
+          <p class="font-montserrat font-black text-5xl text-brand-primary mt-1">304</p>
+          <p class="text-gray-500 text-sm">demandas de ouvidoria tratadas no Fala.BR</p>
+          <div class="flex items-center justify-center gap-2 mt-2">
+            <div style="width:10px;height:10px;border-radius:3px;background:#103050;"></div>
+            <span class="text-brand-primary font-bold text-2xl">70,05%</span>
+            <span class="text-gray-400 text-sm">do total Fala.BR</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="px-16 pb-8 flex justify-between items-center z-10">
+      <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ</p>
+      <p class="text-gray-300 text-xs font-mono">26 / 47</p>
+    </div>
+  </div>
+  <script>
+    new Chart(document.getElementById('chartFalaPerfil'), {
+      type: 'doughnut',
+      data: {
+        labels: ['Manifestações — Painel Resolveu', 'LAI — Acesso à Informação'],
+        datasets: [{
+          data: [304, 130],
+          backgroundColor: ['#103050', '#0070C0'],
+          borderColor: ['#ffffff', '#ffffff'],
+          borderWidth: 3,
+          hoverOffset: 12
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        cutout: '55%',
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: { color: '#374151', font: { size: 12, weight: '600' }, padding: 16, usePointStyle: true, pointStyle: 'circle' }
+          },
+          tooltip: {
+            callbacks: {
+              label: function(ctx) {
+                var total = ctx.dataset.data.reduce(function(a, b) { return a + b; }, 0);
+                return ctx.label + ': ' + ctx.parsed + ' (' + (ctx.parsed / total * 100).toFixed(2) + '%)';
+              }
+            }
+          }
+        }
+      },
+      plugins: [{
+        id: 'centerText',
+        afterDraw: function(chart) {
+          var w = chart.width, h = chart.height, ctx = chart.ctx;
+          ctx.save();
+          var text = '434';
+          ctx.font = '700 28px Montserrat, sans-serif';
+          ctx.fillStyle = '#103050';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText(text, w / 2, h / 2 - 8);
+          ctx.font = '400 11px Open Sans, sans-serif';
+          ctx.fillStyle = '#6b7280';
+          ctx.fillText('Total', w / 2, h / 2 + 16);
+          ctx.restore();
+        }
+      }]
+    });
+  </script>
+  <script>function goToSecao6(){if(window.parent&&window.parent!==window){window.parent.postMessage({type:'slide-goto-file',file:'capa-06.html'},'*');}else{window.location.href='capa-06.html';}}
+document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
+</body>
+
+</html>

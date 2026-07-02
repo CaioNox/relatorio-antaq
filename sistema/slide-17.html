@@ -1,135 +1,133 @@
 <!DOCTYPE html>
 <!--
   ╔══════════════════════════════════════════════════════════════╗
-  ║  SLIDE 17 — Série mensal de manifestações por canal
+  ║  SLIDE 17 — Jornada Mensal das Demandas
   ╠══════════════════════════════════════════════════════════════╣
   ║  O QUE ATUALIZAR A CADA TRIMESTRE:
-  ║  Atualizar: série mensal por canal de entrada
+  ║  Omnichannel mensal (entrada) · Fala.BR mensal (protocolo)
+  ║  Destrincha: 48 ouvidoria · 357 Fala.BR · 53 LAI · 304 Painel
   ╚══════════════════════════════════════════════════════════════╝
 -->
-
 <html lang="pt-BR">
 
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <title>Manifestações por Canal por Mês - Relatório Trimestral Ouvidoria ANTAQ</title>
+  <title>Jornada Mensal das Demandas - Relatório Trimestral Ouvidoria ANTAQ</title>
   <link rel="icon" type="image/png"
     href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
   <link
-    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&amp;family=Open+Sans:wght@400;600&amp;display=swap"
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@400;600&display=swap"
     rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
-    html {
-      font-size: 26px;
-    }
-
-    body {
-      margin: 0;
-      padding: 0;
-      background-color: #f3f4f6;
-      overflow: hidden;
-    }
-
-    .slide-container {
-      width: 100vw;
-      height: 100vh;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      background-color: #ffffff;
-      overflow: hidden;
-      font-family: 'Open Sans', sans-serif;
-    }
-
-    .font-montserrat {
-      font-family: 'Montserrat', sans-serif;
-    }
-
-    .text-brand-primary {
-      color: #103050;
-    }
-
-    .text-brand-secondary {
-      color: #0070C0;
-    }
-
-    .bg-brand-secondary {
-      background-color: #0070C0;
-    }
-
-    .top-accent {
-      height: 8px;
-      background-color: #103050;
-      width: 100%;
-    }
-
-    .top-accent-secondary {
-      height: 4px;
-      background-color: #0070C0;
-      width: 100%;
-    }
-
-    /* ===== Interatividade ===== */
-    .chart-card {
-      transition: transform .28s cubic-bezier(.2, .7, .3, 1), box-shadow .28s ease, border-color .28s ease;
-    }
-
-    .chart-card:hover {
-      transform: translateY(-7px);
-      box-shadow: 0 22px 42px -12px rgba(16, 48, 80, .30);
-      border-color: #0070C0;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-      }
-
-      to {
-        opacity: 1;
-      }
-    }
-
-    .chart-card {
-      animation: fadeIn .5s ease both;
-    }
-
-    .chart-card:nth-child(2) {
-      animation-delay: .1s;
-    }
-
-    .chart-card:nth-child(3) {
-      animation-delay: .2s;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-
-      *,
-      *::before,
-      *::after {
-        animation: none !important;
-        transition: none !important;
-      }
-    }
+    html { font-size: 26px; }
+    body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
+    .slide-container { width: 100vw; height: 100vh; position: relative; display: flex; flex-direction: column; background-color: #ffffff; overflow: hidden; font-family: 'Open Sans', sans-serif; }
+    .font-montserrat { font-family: 'Montserrat', sans-serif; }
+    .text-brand-primary { color: #103050; }
+    .text-brand-secondary { color: #0070C0; }
+    .bg-brand-secondary { background-color: #0070C0; }
+    .top-accent { height: 8px; background-color: #103050; width: 100%; }
+    .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
 
     .chart-card {
       background-color: #ffffff;
       border: 2px solid #E2E8F0;
       border-radius: 16px;
       box-shadow: 0 8px 20px -8px rgba(16, 48, 80, 0.18);
-      padding: 1.4rem 1.6rem;
+      padding: 1.2rem 1.4rem;
+      transition: transform .28s cubic-bezier(.2, .7, .3, 1), box-shadow .28s ease, border-color .28s ease;
+    }
+    .chart-card:hover { transform: translateY(-7px); box-shadow: 0 22px 42px -12px rgba(16, 48, 80, .30); border-color: #0070C0; }
+
+    /* Coluna do fluxo — painel direito */
+    .flow-panel {
+      background: linear-gradient(160deg, #f0f7ff, #e8f4fd);
+      border: 2px solid #c0d8f0;
+      border-radius: 16px;
+      padding: 1.2rem 1.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+      transition: transform .28s ease, box-shadow .28s ease;
+    }
+    .flow-panel:hover { transform: translateY(-5px); box-shadow: 0 16px 32px -10px rgba(16, 48, 80, .22); }
+
+    .flow-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.4rem 0.55rem;
+      border-radius: 10px;
+      background: #f8fafc;
+    }
+    .flow-row.highlight { background: linear-gradient(90deg, #e8f4fd, #f0f9ff); border: 1px solid #b8d8f0; }
+    .flow-row.gold { background: #fffbeb; border: 1px solid #F2A900; }
+
+    .flow-label { font-family: 'Open Sans', sans-serif; font-size: 0.52rem; color: #103050; display: flex; align-items: center; gap: 0.35rem; font-weight: 600; }
+    .flow-value { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 0.85rem; color: #103050; }
+    .flow-value.gold { color: #b45309; }
+    .flow-value.green { color: #065f46; }
+
+    .bar-track { background: #E2E8F0; border-radius: 6px; height: 7px; margin-top: 0.18rem; }
+    .bar-fill { border-radius: 6px; height: 7px; }
+
+    .legend-dot { width: 13px; height: 13px; border-radius: 3px; display: inline-block; flex-shrink: 0; }
+
+    /* Seta conectora entre os dois gráficos */
+    .seq-arrow {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.2rem;
+      padding: 0 0.3rem;
+      flex-shrink: 0;
+    }
+    .seq-arrow .arr-label {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 0.38rem;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      white-space: nowrap;
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      transform: rotate(180deg);
+    }
+    .seq-arrow .arr-line {
+      width: 2px;
+      flex: 1;
+      min-height: 30px;
+      background: linear-gradient(180deg, #c8d8e8, #94a3b8);
+      border-radius: 1px;
+    }
+    .seq-arrow .arr-head {
+      width: 0; height: 0;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 8px solid #94a3b8;
     }
 
-    .legend-dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 3px;
-      display: inline-block;
+    /* Numero mensal no gráfico */
+    .month-total {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 0.7rem;
+      color: #103050;
+      text-align: center;
     }
+
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .chart-card, .flow-panel { animation: fadeIn .5s ease both; }
+    .chart-card:nth-child(3) { animation-delay: .1s; }
+    .flow-panel { animation-delay: .2s; }
+
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
   </style>
 </head>
 
@@ -138,89 +136,154 @@
     <div class="top-accent"></div>
     <div class="top-accent-secondary"></div>
     <!-- Header -->
-    <div class="flex items-center justify-between px-16 pt-12 pb-4 z-10">
+    <div class="flex items-center justify-between px-16 pt-10 pb-3 z-10">
       <div>
-        <div class="flex items-center gap-3 mb-2">
+        <div class="flex items-center gap-3 mb-1">
           <div class="w-1 h-8 bg-brand-secondary"></div>
-          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Manifestações por
-            Canal por Mês</p>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Jornada Mensal das Demandas</p>
         </div>
-        <p class="text-gray-500 font-medium ml-4 text-lg">Distribuição dos canais ao longo do trimestre - Jan / Fev /
-          Mar de 2026</p>
+        <p class="text-gray-500 font-medium ml-4 text-lg">Entrada pelo Omnichannel → registro no Fala.BR — Jan / Fev / Mar 2026</p>
       </div>
       <div class="flex items-center gap-4 ml-6">
-        <span class="flex items-center gap-2 text-sm text-gray-500"><span class="legend-dot"
-            style="background:#0070C0;"></span>Janeiro</span>
-        <span class="flex items-center gap-2 text-sm text-gray-500"><span class="legend-dot"
-            style="background:#0090C0;"></span>Fevereiro</span>
-        <span class="flex items-center gap-2 text-sm text-gray-500"><span class="legend-dot"
-            style="background:#103050;"></span>Março</span>
+        <span class="flex items-center gap-2 text-sm text-gray-500"><span class="legend-dot" style="background:#0070C0;"></span>Janeiro</span>
+        <span class="flex items-center gap-2 text-sm text-gray-500"><span class="legend-dot" style="background:#0090C0;"></span>Fevereiro</span>
+        <span class="flex items-center gap-2 text-sm text-gray-500"><span class="legend-dot" style="background:#103050;"></span>Março</span>
       </div>
     </div>
-    <!-- Main Content -->
-    <div class="flex-1 grid grid-cols-3 gap-6 px-16 pb-10 z-10">
-      <div class="chart-card flex flex-col">
-        <p class="text-brand-primary font-montserrat font-bold text-xl mb-1 flex items-center gap-2"><i
-            class="fas fa-headset text-brand-secondary"></i> Omnichannel</p>
-        <p class="text-gray-400 text-sm mb-2">Total no trimestre: <strong class="text-brand-primary">405</strong></p>
+
+    <!-- Main content -->
+    <div class="flex-1 flex gap-4 px-16 pb-8 z-10" style="align-items:stretch;">
+
+      <!-- Gráfico 1: Omnichannel (entrada) -->
+      <div class="chart-card flex flex-col" style="flex:1;">
+        <div class="flex items-center gap-2 mb-1">
+          <div style="width:14px;height:14px;border-radius:4px;background:#103050;flex-shrink:0;"></div>
+          <p class="text-brand-primary font-montserrat font-bold text-xl">
+            <span style="font-size:0.55rem;font-weight:700;color:#6b7280;display:block;letter-spacing:.12em;text-transform:uppercase;">① Entrada</span>
+            Omnichannel
+          </p>
+        </div>
+        <p class="text-gray-400 text-sm mb-1">Total: <strong class="text-brand-primary">405</strong></p>
+        <p class="text-gray-400" style="font-size:0.48rem;margin-bottom:0.4rem;">WhatsApp · Portal · Ligações · E-mail</p>
         <div class="flex-1 relative"><canvas id="chartOmni"></canvas></div>
       </div>
-      <div class="chart-card flex flex-col">
-        <p class="text-brand-primary font-montserrat font-bold text-xl mb-1 flex items-center gap-2"><img
-            src="Imagens/Logo_Fala_BR.png" alt="Fala.BR" style="height: 26px; width: auto;"> Fala.BR</p>
-        <p class="text-gray-400 text-sm mb-2">Total no trimestre: <strong class="text-brand-primary">304</strong></p>
+
+      <!-- Seta sequência -->
+      <div class="seq-arrow">
+        <span class="arr-label">88% → Fala.BR</span>
+        <div class="arr-line"></div>
+        <div class="arr-head"></div>
+      </div>
+
+      <!-- Gráfico 2: Fala.BR (registro) -->
+      <div class="chart-card flex flex-col" style="flex:1;border-color:#0070C0;">
+        <div class="flex items-center gap-2 mb-1">
+          <img src="Imagens/Logo_Fala_BR.png" alt="Fala.BR" style="height:1rem;width:auto;">
+          <p class="text-brand-primary font-montserrat font-bold text-xl">
+            <span style="font-size:0.55rem;font-weight:700;color:#0070C0;display:block;letter-spacing:.12em;text-transform:uppercase;">② Protocolo gerado</span>
+            Painel Resolveu
+          </p>
+        </div>
+        <p class="text-gray-400 text-sm mb-1">Registradas: <strong class="text-brand-primary">357</strong> → Painel Resolveu: <strong class="text-brand-primary">304</strong></p>
+        <p class="text-gray-400" style="font-size:0.48rem;margin-bottom:0.4rem;">Jan (52) + Fev (123) + Mar (129) = 304</p>
         <div class="flex-1 relative"><canvas id="chartFalabr"></canvas></div>
       </div>
-      <div class="chart-card flex flex-col">
-        <p class="text-brand-primary font-montserrat font-bold text-xl mb-1 flex items-center gap-2"><i
-            class="fas fa-envelope text-brand-secondary"></i> E-mail</p>
-        <p class="text-gray-400 text-sm mb-2">Total no trimestre: <strong class="text-brand-primary">70</strong></p>
-        <div class="flex-1 relative"><canvas id="chartEmail"></canvas></div>
+
+      <!-- Painel do fluxo -->
+      <div class="flow-panel" style="flex:0 0 auto;width:320px;">
+        <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.68rem;color:#103050;display:flex;align-items:center;gap:0.35rem;margin-bottom:0.5rem;text-transform:uppercase;letter-spacing:0.06em;">
+          <i class="fas fa-sitemap" style="color:#0070C0;"></i> Relação de Tramitação
+        </p>
+        <p style="font-size:0.45rem;color:#6b7280;margin-bottom:0.45rem;">Das 405 demandas do Omnichannel:</p>
+
+        <!-- 48 resolvidas -->
+        <div class="flow-row gold">
+          <span class="flow-label"><i class="fas fa-shield-halved" style="color:#b45309;"></i> Resolvidas na Ouvidoria</span>
+          <span class="flow-value gold">48</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill" style="background:#F2A900;width:11.8%;"></div></div>
+        <p style="font-size:0.4rem;color:#9ca3af;margin-bottom:0.28rem;">11,8% — sem protocolo no Fala.BR</p>
+
+        <!-- 357 pro Fala.BR -->
+        <div class="flow-row highlight">
+          <span class="flow-label"><i class="fas fa-file-export" style="color:#0070C0;"></i> Registradas no Fala.BR</span>
+          <span class="flow-value">357</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill" style="background:#0070C0;width:88.2%;"></div></div>
+        <p style="font-size:0.4rem;color:#9ca3af;margin-bottom:0.28rem;">88,2% — com protocolo gerado</p>
+
+        <p style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:0.48rem;color:#103050;margin:0.28rem 0 0.22rem;">Das 357 registradas no Fala.BR:</p>
+
+        <!-- 53 LAI -->
+        <div class="flow-row gold">
+          <span class="flow-label"><i class="fas fa-book-open" style="color:#b45309;"></i> Reclassificadas como LAI</span>
+          <span class="flow-value gold">53</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill" style="background:#F2A900;width:14.8%;"></div></div>
+        <p onclick="goToSecao6()" title="Clique para ir à Seção 6" style="font-size:0.4rem;color:#b45309;margin-bottom:0.28rem;cursor:pointer;"><i class="fas fa-circle-info"></i> LAI — mais informações na <u>Seção 6</u> <i class="fas fa-arrow-up-right-from-square"></i></p>
+
+        <!-- 304 Painel Resolveu -->
+        <div class="flow-row highlight" style="margin-top:0.28rem;">
+          <span class="flow-label"><i class="fas fa-check-circle" style="color:#0070C0;"></i> Painel Resolveu</span>
+          <span class="flow-value green">304</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill" style="background:#0d7d3a;width:85.2%;"></div></div>
       </div>
+
     </div>
+
     <!-- Footer -->
-    <div class="px-16 pb-8 flex justify-between items-center z-10">
+    <div class="px-16 pb-6 flex justify-between items-center z-10">
       <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ</p>
-      <p class="text-gray-300 text-xs font-mono">17 / 33</p>
+      <p class="text-gray-300 text-xs font-mono">24 / 47</p>
     </div>
   </div>
+
   <script>
     const monthColors = ['#0070C0', '#0090C0', '#103050'];
-    const valueLabels = {
+    const valuePlugin = {
       id: 'valueLabels',
       afterDatasetsDraw(chart) {
         const { ctx } = chart;
         ctx.save();
-        ctx.font = '700 16px Montserrat, sans-serif';
+        ctx.font = '700 15px Montserrat, sans-serif';
         ctx.fillStyle = '#103050';
         ctx.textAlign = 'center';
         chart.getDatasetMeta(0).data.forEach((bar, i) => {
-          ctx.fillText(chart.data.datasets[0].data[i], bar.x, bar.y - 8);
+          ctx.fillText(chart.data.datasets[0].data[i], bar.x, bar.y - 7);
         });
         ctx.restore();
       }
     };
+
     function makeBar(id, data) {
       new Chart(document.getElementById(id), {
         type: 'bar',
-        data: { labels: ['Jan', 'Fev', 'Mar'], datasets: [{ data, backgroundColor: monthColors, borderRadius: 6, maxBarThickness: 80 }] },
+        data: {
+          labels: ['Jan', 'Fev', 'Mar'],
+          datasets: [{ data, backgroundColor: monthColors, borderRadius: 6, maxBarThickness: 80 }]
+        },
         options: {
-          responsive: true, maintainAspectRatio: false,
-          layout: { padding: { top: 22 } },
+          responsive: true,
+          maintainAspectRatio: false,
+          layout: { padding: { top: 20 } },
           plugins: { legend: { display: false }, tooltip: { enabled: false } },
           scales: {
-            x: { grid: { display: false }, ticks: { color: '#6b7280', font: { size: 14, weight: '600' } } },
-            y: { beginAtZero: true, grid: { color: '#eef2f7' }, ticks: { color: '#9ca3af', font: { size: 12 } } }
+            x: { grid: { display: false }, ticks: { color: '#6b7280', font: { size: 13, weight: '600' } } },
+            y: { beginAtZero: true, grid: { color: '#eef2f7' }, ticks: { color: '#9ca3af', font: { size: 11 } } }
           }
         },
-        plugins: [valueLabels]
+        plugins: [valuePlugin]
       });
     }
-    makeBar('chartOmni', [209, 106, 90]);
-    makeBar('chartFalabr', [90, 129, 85]);
-    makeBar('chartEmail', [23, 33, 14]);
+
+    // Omnichannel: 209 + 106 + 90 = 405
+    makeBar('chartOmni',   [209, 106, 90]);
+    // Fala.BR (Painel Resolveu): 52 + 123 + 129 = 304
+    makeBar('chartFalabr', [52,  123, 129]);
   </script>
-  <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
+  <script>function goToSecao6(){if(window.parent&&window.parent!==window){window.parent.postMessage({type:'slide-goto-file',file:'capa-06.html'},'*');}else{window.location.href='capa-06.html';}}
+document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
 </body>
 
 </html>

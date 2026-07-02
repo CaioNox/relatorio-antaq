@@ -7,380 +7,145 @@
   <title>Apresentação da Ouvidoria — ANTAQ</title>
   <link rel="icon" type="image/png"
     href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;900&family=Open+Sans:wght@400;600&display=swap"
-    rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800;900&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
   <style>
-    html,
-    body {
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-      width: 100%;
-      height: 100%;
+    html, body {
+      margin: 0; padding: 0; overflow: hidden; width: 100vw; height: 100vh;
+      background-color: #F8FAFC; /* Clean white-gray bg */
+      font-family: 'Open Sans', sans-serif;
     }
-
-    body {
-      background: linear-gradient(135deg, #050e18 0%, #0a2236 40%, #0d3358 100%);
-    }
-
     .slide {
-      width: 100vw;
-      height: 100vh;
-      position: relative;
-      display: flex;
-      align-items: stretch;
-      overflow: hidden;
-      font-family: 'Montserrat', sans-serif;
-      color: #fff;
+      width: 100%; height: 100%; position: relative;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
     }
-
-    .av1 {
-      position: absolute;
-      left: 0;
-      top: 0;
-      height: 100%;
-      width: 12px;
-      background: #0090C0;
-      z-index: 20;
+    
+    /* Background Waves */
+    .waves-container {
+      position: absolute; bottom: 0; left: 0; width: 100%; height: 250px;
+      overflow: hidden; z-index: 1; pointer-events: none;
     }
-
-    .av2 {
-      position: absolute;
-      left: 12px;
-      top: 0;
-      height: 100%;
-      width: 4px;
+    .wave {
+      position: absolute; bottom: 0; left: 0; width: 120%; height: 100%;
       background: #0070C0;
-      z-index: 20;
+      border-radius: 100% 100% 0 0 / 100% 100% 0 0;
+      transform-origin: center bottom;
+    }
+    .wave-bg {
+      background: #0090C0; transform: translateX(-5%) scaleY(1.2); opacity: 0.3;
+    }
+    .wave-fg {
+      background: #103050; transform: translateX(-2%) scaleY(0.7);
     }
 
-    .top-prog {
-      position: absolute;
-      top: 0;
-      left: 16px;
-      right: 0;
-      height: 3px;
-      background: rgba(255, 255, 255, 0.06);
-      z-index: 25;
+    /* Content */
+    .content-wrapper {
+      position: relative; z-index: 10; text-align: center; max-width: 1200px;
+      margin-top: -80px;
     }
-
-    .top-fill {
-      height: 100%;
-      width: 9%;
-      background: linear-gradient(90deg, #F2A900, #0090C0);
-      border-radius: 0 2px 2px 0;
-    }
-
-    .ring {
-      position: absolute;
-      border-radius: 50%;
-      border: 1px solid rgba(0, 144, 192, 0.1);
-    }
-
-    .dots {
-      position: absolute;
-      opacity: 0.05;
-      background-image: radial-gradient(rgba(255, 255, 255, 1) 1.5px, transparent 1.5px);
-      background-size: 30px 30px;
-    }
-
-    .content {
-      position: relative;
-      z-index: 10;
-      padding: 0 60px 0 100px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      width: 58%;
-      flex-shrink: 0;
-    }
-
     .kicker {
-      font-size: 0.97rem;
-      font-weight: 700;
-      letter-spacing: 0.4em;
-      text-transform: uppercase;
-      color: #F2A900;
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-      margin-bottom: 1.8rem;
+      font-family: 'Montserrat', sans-serif; font-size: 1.1rem; font-weight: 700;
+      letter-spacing: 0.3em; text-transform: uppercase; color: #0090C0;
+      margin-bottom: 1.5rem; animation: fadeInDown 0.6s ease both;
     }
-
-    .kicker::before {
-      content: '';
-      width: 36px;
-      height: 2px;
-      background: #F2A900;
-      flex-shrink: 0;
+    .title {
+      font-family: 'Montserrat', sans-serif; font-size: 4.8rem; font-weight: 900;
+      line-height: 1.1; color: #103050; margin-bottom: 1.5rem;
+      animation: fadeInDown 0.6s ease 0.1s both;
     }
-
-    .s-icon {
-      font-size: 3.5rem;
-      margin-bottom: 1.4rem;
-      filter: drop-shadow(0 0 24px rgba(0, 144, 192, 0.7));
-    }
-
-    .s-title {
-      font-size: 5.6rem;
-      font-weight: 900;
-      line-height: 0.9;
-      letter-spacing: -0.02em;
-      margin-bottom: 1.4rem;
-    }
-
-    .s-title .acc {
-      color: #0090C0;
-      display: block;
-    }
-
-    .div {
-      width: 80px;
-      height: 4px;
-      border-radius: 2px;
-      background: linear-gradient(90deg, #F2A900, #0090C0, transparent);
-      margin-bottom: 1.6rem;
+    .title .acc { color: #0070C0; display: block; }
+    
+    .divider {
+      width: 100px; height: 4px; background: #0090C0;
+      margin: 0 auto 1.5rem auto; border-radius: 2px;
+      animation: fadeIn 0.6s ease 0.2s both;
     }
 
     .desc {
-      font-family: 'Open Sans', sans-serif;
-      font-size: 1.22rem;
-      line-height: 1.75;
-      color: rgba(255, 255, 255, 0.65);
-      max-width: 480px;
-      margin-bottom: 1.4rem;
+      font-size: 1.4rem; color: #475569; max-width: 900px; margin: 0 auto 3rem auto;
+      line-height: 1.6; animation: fadeInUp 0.6s ease 0.3s both;
     }
 
-    .topics {
-      display: flex;
-      flex-direction: column;
-      gap: 0.55rem;
+    /* Icons Row */
+    .icons-row {
+      display: flex; gap: 4rem; justify-content: center;
+      animation: fadeInUp 0.6s ease 0.4s both;
+    }
+    .icon-box {
+      display: flex; flex-direction: column; align-items: center; width: 220px;
+    }
+    .circle {
+      width: 110px; height: 110px; border-radius: 50%;
+      background: #ffffff; border: 3px solid #E2E8F0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.8rem; color: #103050; margin-bottom: 1rem;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.05); transition: all 0.3s ease;
+    }
+    .icon-box:hover .circle {
+      border-color: #0070C0; color: #0070C0; transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0,112,192,0.15);
+    }
+    .icon-label {
+      font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1rem;
+      color: #1E293B; line-height: 1.4;
     }
 
-    .topic {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      font-family: 'Open Sans', sans-serif;
-      font-size: 1.15rem;
-      color: rgba(255, 255, 255, 0.52);
+    /* Watermark */
+    .wm {
+      position: absolute; top: -50px; left: -50px;
+      font-size: 400px; color: rgba(16,48,80,0.02); z-index: 0; pointer-events: none;
     }
 
-    .tdot {
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: #0090C0;
-      flex-shrink: 0;
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: none; }
     }
-
-    .stat-pane {
-      flex: 1;
-      position: relative;
-      z-index: 10;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 40px;
-    }
-
-    .stat-icon {
-      font-size: 11rem;
-      background: linear-gradient(160deg, #fff 0%, rgba(255, 255, 255, 0.18) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      text-align: center;
-    }
-
-    .stat-label {
-      font-size: 1.05rem;
-      font-weight: 700;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.3);
-      text-align: center;
-      margin-top: 1rem;
-    }
-
-    .vdiv {
-      position: absolute;
-      left: 58%;
-      top: 10%;
-      bottom: 10%;
-      width: 1px;
-      background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.08) 30%, rgba(255, 255, 255, 0.08) 70%, transparent);
-      z-index: 5;
-    }
-
-    .hint {
-      position: absolute;
-      bottom: 36px;
-      right: 72px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      color: rgba(255, 255, 255, 0.28);
-      font-size: 0.97rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-    }
-
-    .aline {
-      width: 40px;
-      height: 1px;
-      background: rgba(255, 255, 255, 0.22);
-      position: relative;
-    }
-
-    .aline::after {
-      content: '';
-      position: absolute;
-      right: -2px;
-      top: -4px;
-      border-left: 8px solid rgba(255, 255, 255, 0.22);
-      border-top: 5px solid transparent;
-      border-bottom: 5px solid transparent;
-    }
-
-    .wmark {
-      position: absolute;
-      right: -30px;
-      bottom: -80px;
-      font-size: 480px;
-      color: rgba(255, 255, 255, 0.02);
-      line-height: 1;
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    .logo-wm {
-      position: absolute;
-      top: 36px;
-      right: 60px;
-      height: 44px;
-      opacity: 0.10;
-      filter: brightness(0) invert(1);
-      pointer-events: none;
-    }
-
     @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px)
-      }
-
-      to {
-        opacity: 1;
-        transform: none
-      }
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: none; }
     }
-
-    @keyframes fadeInLeft {
-      from {
-        opacity: 0;
-        transform: translateX(20px)
-      }
-
-      to {
-        opacity: 1;
-        transform: none
-      }
-    }
-
-    .a {
-      animation: fadeInUp .55s ease both;
-    }
-
-    .ar {
-      animation: fadeInLeft .7s ease both;
-    }
-
-    .d1 {
-      animation-delay: .06s
-    }
-
-    .d2 {
-      animation-delay: .14s
-    }
-
-    .d3 {
-      animation-delay: .22s
-    }
-
-    .d4 {
-      animation-delay: .30s
-    }
-
-    .d5 {
-      animation-delay: .40s
-    }
-
-    @media(prefers-reduced-motion:reduce) {
-
-      *,
-      *::before,
-      *::after {
-        animation: none !important;
-        transition: none !important;
-      }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
   </style>
 </head>
 
 <body>
   <div class="slide">
-    <div class="av1"></div>
-    <div class="av2"></div>
-    <div class="top-prog">
-      <div class="top-fill"></div>
-    </div>
-    <!-- Rings -->
-    <div class="ring" style="width:700px;height:700px;right:-200px;top:-200px;"></div>
-    <div class="ring" style="width:460px;height:460px;right:-80px;top:-80px;border-color:rgba(0,144,192,0.16);"></div>
-    <div class="ring"
-      style="width:240px;height:240px;right:40px;top:40px;background:radial-gradient(circle,rgba(0,112,192,0.12) 0%,transparent 70%);border:none;">
-    </div>
-    <!-- Dots bottom-left -->
-    <div class="dots" style="bottom:0;left:0;width:320px;height:320px;"></div>
-    <!-- Logo watermark -->
-    <img class="logo-wm" src="Imagens/Logo Horizontal_Branca_C_N.png" alt="" />
-    <!-- Content -->
-    <div class="content">
-      <div class="kicker a">Seção 01 · Relatório Trimestral 2026</div>
-      <div class="s-icon a d1"><i class="fas fa-bullhorn"></i></div>
-      <h1 class="s-title a d2">Apresentação<span class="acc">da Ouvidoria</span></h1>
-      <div class="div a d3"></div>
-      <p class="desc a d4">Conheça a estrutura, missão e competências da Ouvidoria da ANTAQ —
-        instância pública de controle, participação social e garantia da transparência institucional.</p>
-      <div class="topics a d5">
-        <div class="topic">
-          <div class="tdot"></div>Missão e atribuições da Ouvidoria
+    <i class="fas fa-bullhorn wm"></i>
+    
+    <div class="content-wrapper">
+      <div class="kicker">Seção 01 · Relatório Trimestral 2026</div>
+      <h1 class="title">Apresentação <span class="acc">da Ouvidoria</span></h1>
+      <div class="divider"></div>
+      <p class="desc">Conheça a estrutura, missão e competências da Ouvidoria da ANTAQ — instância pública de controle, participação social e garantia da transparência institucional.</p>
+      
+      <div class="icons-row">
+        <div class="icon-box">
+          <div class="circle"><i class="fas fa-bullseye"></i></div>
+          <div class="icon-label">Missão e atribuições da Ouvidoria</div>
         </div>
-        <div class="topic">
-          <div class="tdot"></div>Base legal e normativa
+        <div class="icon-box">
+          <div class="circle"><i class="fas fa-gavel"></i></div>
+          <div class="icon-label">Base legal e normativa</div>
         </div>
-        <div class="topic">
-          <div class="tdot"></div>Canais oficiais de atendimento
+        <div class="icon-box">
+          <div class="circle"><i class="fas fa-headset"></i></div>
+          <div class="icon-label">Canais oficiais de atendimento</div>
         </div>
       </div>
     </div>
-    <!-- Vertical divider -->
-    <div class="vdiv"></div>
-    <!-- Stat pane -->
-    <div class="stat-pane">
-      <div class="stat-icon ar"><i class="fas fa-bullhorn"></i></div>
-      <div class="stat-label ar d2">Ouvidoria da ANTAQ</div>
+
+    <!-- Waves Background -->
+    <div class="waves-container">
+      <div class="wave wave-bg"></div>
+      <div class="wave"></div>
+      <div class="wave wave-fg"></div>
     </div>
-    <!-- Continue hint -->
-    <div class="hint">Avançar<div class="aline"></div>
-    </div>
-    <!-- Watermark -->
-    <div class="wmark"><i class="fas fa-bullhorn"></i></div>
   </div>
+
   <script>
     document.addEventListener("keydown", function (e) {
       if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) {
@@ -389,5 +154,4 @@
     });
   </script>
 </body>
-
 </html>
