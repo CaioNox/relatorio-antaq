@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <!--
   ╔══════════════════════════════════════════════════════════════╗
-  ║  SLIDE 02 — Apresentação institucional da Ouvidoria da ANTAQ
+  ║  SLIDE 02 — Missão e Visão da Ouvidoria da ANTAQ (institucional)
   ╠══════════════════════════════════════════════════════════════╣
   ║  O QUE ATUALIZAR A CADA TRIMESTRE:
-  ║  Atualizar: nome da ouvidora; missão e competências se houver mudança institucional
+  ║    .metric-value (faixa institucional) → total, prazo médio,
+  ║    variação e pedidos de acesso à informação.
+  ║    Missão/Visão só mudam por revisão do planejamento estratégico.
   ╚══════════════════════════════════════════════════════════════╝
 -->
 
@@ -13,7 +15,7 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Apresentação da Ouvidoria - Relatório Trimestral Ouvidoria ANTAQ</title>
+    <title>Missão e Visão da Ouvidoria - Relatório Trimestral Ouvidoria ANTAQ</title>
     <link rel="icon" type="image/png"
         href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
@@ -22,220 +24,197 @@
         rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
     <style>
-        html {
-            font-size: 26px;
-        }
-
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #f3f4f6;
-            overflow: hidden;
-        }
+        html { font-size: 26px; }
+        body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
 
         .slide-container {
-            width: 100vw;
-            height: 100vh;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            background-color: #ffffff;
-            overflow: hidden;
+            width: 100vw; height: 100vh; position: relative;
+            display: flex; flex-direction: column;
+            background-color: #ffffff; overflow: hidden;
             font-family: 'Open Sans', sans-serif;
         }
 
-        .font-montserrat {
-            font-family: 'Montserrat', sans-serif;
+        .font-montserrat { font-family: 'Montserrat', sans-serif; }
+        .text-brand-primary { color: #103050; }
+        .text-brand-secondary { color: #0070C0; }
+        .bg-brand-secondary { background-color: #0070C0; }
+
+        .top-accent { height: 8px; background-color: #103050; width: 100%; }
+        .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
+
+        /* ===== Cabeçalho institucional (cara de gov) ===== */
+        .gov-eyebrow {
+            display: flex; align-items: center; gap: .5rem;
+            font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: .62rem;
+            letter-spacing: .16em; text-transform: uppercase; color: #64748B; margin-bottom: .55rem;
         }
+        .gov-eyebrow i { color: #0070C0; }
 
-        .text-brand-primary {
-            color: #103050;
+        /* ===== Intro institucional ===== */
+        .gov-lead {
+            background: #F5F8FC; border: 1px solid #E2E8F0; border-left: 4px solid #0070C0;
+            border-radius: 12px; padding: .85rem 1.2rem;
+            color: #334155; font-size: .8rem; line-height: 1.5;
+            animation: fadeInUp .5s cubic-bezier(.2,.7,.3,1) both;
         }
+        .gov-lead b { color: #103050; font-weight: 700; }
 
-        .bg-brand-primary {
-            background-color: #103050;
+        /* ===== Painéis Missão / Visão ===== */
+        .mv-card {
+            background: #ffffff; border: 1px solid #E2E8F0; border-top: 4px solid #0090C0;
+            border-radius: 14px; padding: 1.5rem 1.7rem;
+            position: relative; display: flex; flex-direction: column;
+            box-shadow: 0 10px 26px -16px rgba(16, 48, 80, 0.28);
+            transition: transform .28s cubic-bezier(.2,.7,.3,1), box-shadow .28s ease, border-color .28s ease;
+            animation: fadeInUp .5s cubic-bezier(.2,.7,.3,1) .08s both;
         }
+        .mv-card:hover { transform: translateY(-5px); box-shadow: 0 24px 44px -18px rgba(16,48,80,.32); border-color: #0070C0; }
+        .mv-card.mv-vision { border-top-color: #103050; animation-delay: .16s; }
 
-        .text-brand-secondary {
-            color: #0070C0;
+        .mv-head { display: flex; align-items: center; gap: .85rem; margin-bottom: .95rem; }
+        .mv-ico {
+            width: 3rem; height: 3rem; border-radius: 12px; flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.35rem; color: #fff; background: linear-gradient(150deg, #0090C0, #0070C0);
         }
-
-        .bg-brand-secondary {
-            background-color: #0070C0;
+        .mv-vision .mv-ico { background: linear-gradient(150deg, #103050, #1c4e7a); }
+        .mv-kicker {
+            font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .62rem;
+            letter-spacing: .18em; text-transform: uppercase; color: #0070C0;
         }
+        .mv-vision .mv-kicker { color: #103050; }
+        .mv-title { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.55rem; color: #103050; line-height: 1; }
+        .mv-text { color: #334155; font-size: .88rem; line-height: 1.62; margin: 0; }
+        .mv-text b { color: #103050; font-weight: 700; }
 
-        .top-accent {
-            height: 8px;
-            background-color: #103050;
-            width: 100%;
+        /* ===== Faixa institucional de indicadores ===== */
+        .metric-strip {
+            border: 1px solid #E2E8F0; border-radius: 14px; overflow: hidden;
+            display: flex; align-items: stretch; background: #ffffff;
+            box-shadow: 0 10px 26px -18px rgba(16,48,80,.28);
+            animation: fadeInUp .5s cubic-bezier(.2,.7,.3,1) .24s both;
         }
-
-        .top-accent-secondary {
-            height: 4px;
-            background-color: #0070C0;
-            width: 100%;
+        .metric-head {
+            background: #103050; color: #fff; display: flex; flex-direction: column; justify-content: center;
+            padding: 0 1.4rem; min-width: 230px;
         }
-
-        .intro-card {
-            transition: transform .28s cubic-bezier(.2, .7, .3, 1), box-shadow .28s ease, border-color .28s ease;
+        .metric-head p { margin: 0; }
+        .metric-head .mh-k { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .62rem; letter-spacing: .14em; text-transform: uppercase; color: #7fb2d6; }
+        .metric-head .mh-t { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .95rem; margin-top: .2rem; }
+        .metric-cells { flex: 1; display: grid; grid-template-columns: repeat(4, 1fr); }
+        .metric-cell {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            text-align: center; padding: .9rem .8rem;
         }
+        .metric-cell + .metric-cell { border-left: 1px solid #EDF1F6; }
+        .metric-value { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.9rem; color: #103050; line-height: 1; }
+        .metric-value .up { color: #0090C0; }
+        .metric-label { font-size: .64rem; font-weight: 600; color: #64748B; margin-top: .4rem; line-height: 1.3; text-transform: uppercase; letter-spacing: .03em; }
 
-        .intro-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 22px 42px -12px rgba(16, 48, 80, .30);
-            border-color: #0070C0;
-        }
+        .bg-pattern { position: absolute; bottom: -60px; right: -50px; width: 400px; height: 400px; opacity: 0.03; z-index: 0; color: #103050; }
 
-        .lead-frame {
-            background-color: #EAF3FB;
-            border: 2px solid #C0E0F0;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px -5px rgba(0, 112, 192, 0.15);
-            position: relative;
-        }
-
-        .tag-chip {
-            display: inline-flex;
-            align-items: center;
-            gap: .5rem;
-            background: #ffffff;
-            border: 2px solid #C0E0F0;
-            border-radius: 999px;
-            padding: .45rem 1rem;
-            font-weight: 700;
-            color: #103050;
-            font-size: .6rem;
-            transition: transform .25s ease, border-color .25s ease;
-        }
-
-        .tag-chip:hover {
-            transform: translateY(-3px);
-            border-color: #0070C0;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: none;
-            }
-        }
-
-        .lead-frame,
-        .intro-card,
-        .tag-chip {
-            animation: fadeIn .5s ease both;
-        }
-
-        .intro-card:nth-child(2) {
-            animation-delay: .08s;
-        }
-
-        .bg-pattern {
-            position: absolute;
-            bottom: -50px;
-            right: -50px;
-            width: 400px;
-            height: 400px;
-            opacity: 0.03;
-            z-index: 0;
-            color: #103050;
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-
-            *,
-            *::before,
-            *::after {
-                animation: none !important;
-                transition: none !important;
-            }
-        }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+        @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
     </style>
 </head>
 
 <body>
     <div class="slide-container">
-        <!-- Top Accents -->
         <div class="top-accent"></div>
         <div class="top-accent-secondary"></div>
-        <!-- Header -->
-        <div class="flex items-center justify-between px-16 pt-10 pb-4 z-10">
+
+        <!-- Cabeçalho institucional -->
+        <div class="flex items-center justify-between px-16 pt-6 pb-3 z-10">
             <div>
-                <div class="flex items-center gap-3 mb-2">
+                <p class="gov-eyebrow"><i class="fas fa-landmark"></i> Agência Nacional de Transportes Aquaviários — ANTAQ</p>
+                <div class="flex items-center gap-3 mb-1">
                     <div class="w-1 h-8 bg-brand-secondary"></div>
-                    <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Ouvidoria
-                        da ANTAQ</p>
+                    <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Missão e Visão</p>
                 </div>
-                <p class="text-gray-500 font-medium ml-4 text-lg">Canal oficial de interlocução com a sociedade</p>
+                <p class="text-gray-500 font-medium ml-4 text-lg">Diretrizes institucionais da Ouvidoria da ANTAQ</p>
             </div>
             <div class="flex items-center gap-2 opacity-80 text-brand-secondary">
-                <i class="fas fa-landmark text-xl" aria-hidden="true"></i>
-                <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">APRESENTAÇÃO</p>
+                <i class="fas fa-compass text-xl" aria-hidden="true"></i>
+                <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">IDENTIDADE INSTITUCIONAL</p>
             </div>
         </div>
-        <!-- Main Content -->
-        <div class="flex-1 flex flex-col justify-center px-16 pb-8 z-10">
-            <div class="w-full max-w-6xl mx-auto relative">
-                <!-- Lead frame -->
-                <div class="lead-frame w-full px-12 py-7 mb-5">
-                    <p class="text-brand-primary font-montserrat font-bold text-xl mb-3 flex items-center gap-3">
-                        <i class="fas fa-bullhorn text-brand-secondary text-2xl"></i>
-                        Instância pública de controle e participação social
-                    </p>
-                    <p class="text-gray-700 text-base leading-relaxed">
-                        A Ouvidoria é o canal oficial de comunicação entre o cidadão e a ANTAQ, recebendo, tratando e
-                        encaminhando manifestações com foco na <strong>transparência, escuta ativa e
-                            melhoria contínua</strong> dos serviços prestados pela Agência.
+
+        <!-- Conteúdo -->
+        <div class="flex-1 flex flex-col justify-center px-16 pb-3 z-10 gap-4" style="min-height:0;">
+            <!-- Intro institucional -->
+            <div class="gov-lead">
+                A ANTAQ exerce a regulação, a supervisão e a fiscalização de todas as atividades que envolvem a infraestrutura
+                marítima e fluvial e a prestação de serviços de transporte aquaviário no Brasil. Nesse contexto, a Ouvidoria atua
+                como <b>canal estratégico de comunicação e mediação entre os cidadãos e a Agência</b> — e, para assegurar a
+                efetividade de sua atuação, sua <b>missão, visão e valores</b> estão claramente definidos e alinhados às diretrizes
+                institucionais da ANTAQ e às expectativas da sociedade.
+            </div>
+
+            <!-- Missão + Visão -->
+            <div class="grid grid-cols-2 gap-6">
+                <div class="mv-card mv-mission">
+                    <div class="mv-head">
+                        <div class="mv-ico"><i class="fas fa-bullseye"></i></div>
+                        <div>
+                            <p class="mv-kicker">Nossa razão de existir</p>
+                            <p class="mv-title">Missão</p>
+                        </div>
+                    </div>
+                    <p class="mv-text">
+                        Atuar como <b>instância de integridade, autônoma e acessível</b> para mediação entre a sociedade e a ANTAQ,
+                        assegurando a <b>participação social, a transparência e a defesa dos direitos dos usuários</b>, contribuindo
+                        para a melhoria contínua dos serviços e para o fortalecimento do setor aquaviário.
                     </p>
                 </div>
-                <!-- Two columns -->
-                <div class="grid grid-cols-2 gap-5">
-                    <div class="intro-card bg-white border-2 border-gray-100 rounded-2xl px-8 py-6"
-                        style="box-shadow:0 8px 22px -10px rgba(16,48,80,.18)">
-                        <p class="text-brand-primary font-montserrat font-bold text-lg mb-2 flex items-center gap-3">
-                            <i class="fas fa-scale-balanced text-brand-secondary text-xl"></i> Atuação neutra e autônoma
-                        </p>
-                        <p class="text-gray-700 text-sm leading-relaxed">
-                            Como ponte com o cidadão, a Ouvidoria analisa as demandas de maneira estritamente técnica,
-                            neutra e autônoma. Essa governança é fortalecida por sua integração à <strong>Rede Nacional
-                                de
-                                Ouvidorias (RENOUV)</strong> e ao <strong>Sistema de Ouvidoria do Poder Executivo
-                                Federal (SisOuv)</strong> — ambos supervisionados, normatizados e fiscalizados pela
-                            <strong>Controladoria-Geral da União (CGU)</strong>, por meio da <strong>Ouvidoria-Geral da
-                                União (OGU)</strong>.
-                        </p>
+                <div class="mv-card mv-vision">
+                    <div class="mv-head">
+                        <div class="mv-ico"><i class="fas fa-eye"></i></div>
+                        <div>
+                            <p class="mv-kicker">Aonde queremos chegar</p>
+                            <p class="mv-title">Visão</p>
+                        </div>
                     </div>
-                    <div class="intro-card bg-white border-2 border-gray-100 rounded-2xl px-8 py-6"
-                        style="box-shadow:0 8px 22px -10px rgba(16,48,80,.18)">
-                        <p class="text-brand-primary font-montserrat font-bold text-lg mb-2 flex items-center gap-3">
-                            <i class="fas fa-chart-line text-brand-secondary text-xl"></i> Painel dinâmico e publicidade
-                        </p>
-                        <p class="text-gray-700 text-sm leading-relaxed">
-                            Este Relatório Trimestral, estruturado como
-                            painel dinâmico, foi desenvolvido pelo corpo técnico com base nos dados das manifestações
-                            recebidas pelos principais canais da Ouvidoria: a plataforma Fala.BR, o e-mail e o
-                            omnichannel. O documento confere ampla publicidade à Carta de Serviços, ao Conselho de
-                            Usuários e aos dados de transparência ativa e passiva da LAI, subsidiando a Alta Gestão da
-                            ANTAQ e fortalecendo a participação social.
-                        </p>
+                    <p class="mv-text">
+                        Ser <b>referência nacional em governança e transparência social</b>, consolidando-se como unidade estratégica
+                        e focada no nível otimizado de gestão, para o <b>aperfeiçoamento da regulação do setor aquaviário</b> e para o
+                        fortalecimento da confiança da sociedade na atuação da ANTAQ.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Faixa institucional de indicadores -->
+            <div class="metric-strip">
+                <div class="metric-head">
+                    <p class="mh-k">1º Trimestre de 2026</p>
+                    <p class="mh-t">A atuação em números</p>
+                </div>
+                <div class="metric-cells">
+                    <div class="metric-cell">
+                        <span class="metric-value">434</span>
+                        <span class="metric-label">Manifestações tratadas</span>
+                    </div>
+                    <div class="metric-cell">
+                        <span class="metric-value"><span class="up">+28,8%</span></span>
+                        <span class="metric-label">vs. 1º Tri 2025</span>
+                    </div>
+                    <div class="metric-cell">
+                        <span class="metric-value">13,9</span>
+                        <span class="metric-label">Dias — prazo médio</span>
+                    </div>
+                    <div class="metric-cell">
+                        <span class="metric-value">130</span>
+                        <span class="metric-label">Pedidos de acesso (LAI)</span>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Footer -->
-        <div class="px-16 pb-8 flex justify-between items-center z-10">
-            <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ</p>
-            <p class="text-gray-300 text-xs font-mono">3 / 47</p>
+
+        <!-- Rodapé institucional -->
+        <div class="px-16 pb-6 pt-1 flex justify-between items-center z-10">
+            <p class="text-gray-400 text-xs">Relatório Trimestral da Ouvidoria · 2026 — Agência Nacional de Transportes Aquaviários</p>
+            <p class="text-gray-300 text-xs font-mono">3 / 58</p>
         </div>
-        <!-- Decorative Background Pattern -->
-        <div class="bg-pattern">
-            <i class="fas fa-landmark text-9xl"></i>
-        </div>
+        <div class="bg-pattern"><i class="fas fa-landmark text-9xl"></i></div>
     </div>
     <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
 </body>

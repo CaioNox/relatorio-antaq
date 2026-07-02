@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<!--
+  ╔══════════════════════════════════════════════════════════════╗
+  ║  SLIDE PDA — Apresentação do Plano de Dados Abertos 2026–2028
+  ╠══════════════════════════════════════════════════════════════╣
+  ║  Abre a Seção 07 (após capa-07): o que é o PDA e o que o
+  ║  cidadão vai encontrar. Fonte: PDA 2026–2028 da ANTAQ.
+  ╚══════════════════════════════════════════════════════════════╝
+-->
+
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Plano de Dados Abertos 2026–2028 - Relatório Trimestral Ouvidoria ANTAQ</title>
+    <link rel="icon" type="image/png"
+        href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&amp;family=Open+Sans:wght@400;600&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        html { font-size: 26px; }
+        body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
+
+        .slide-container {
+            width: 100vw; height: 100vh; position: relative;
+            display: flex; flex-direction: column;
+            background-color: #ffffff; overflow: hidden;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .font-montserrat { font-family: 'Montserrat', sans-serif; }
+        .text-brand-primary { color: #103050; }
+        .text-brand-secondary { color: #0070C0; }
+        .bg-brand-secondary { background-color: #0070C0; }
+
+        .top-accent { height: 8px; background-color: #103050; width: 100%; }
+        .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
+
+        .gov-eyebrow {
+            display: flex; align-items: center; gap: .5rem;
+            font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: .62rem;
+            letter-spacing: .16em; text-transform: uppercase; color: #64748B; margin-bottom: .5rem;
+        }
+        .gov-eyebrow i { color: #0070C0; }
+
+        .gov-lead {
+            background: #F5F8FC; border: 1px solid #E2E8F0; border-left: 4px solid #0070C0;
+            border-radius: 12px; padding: .85rem 1.2rem; color: #334155; font-size: .8rem; line-height: 1.5;
+            animation: fadeInUp .5s cubic-bezier(.2,.7,.3,1) both;
+        }
+        .gov-lead b { color: #103050; font-weight: 700; }
+
+        /* Cartões */
+        .info-card {
+            background: #ffffff; border: 1px solid #E2E8F0; border-top: 4px solid #0090C0;
+            border-radius: 14px; padding: 1.2rem 1.35rem; display: flex; flex-direction: column;
+            box-shadow: 0 10px 26px -16px rgba(16,48,80,.26); height: 100%; overflow: hidden;
+            transition: transform .28s cubic-bezier(.2,.7,.3,1), box-shadow .28s ease, border-color .28s ease;
+            animation: fadeInUp .5s cubic-bezier(.2,.7,.3,1) .1s both;
+        }
+        .info-card.navy { border-top-color: #103050; animation-delay: .18s; }
+        .info-card:hover { transform: translateY(-5px); box-shadow: 0 24px 44px -18px rgba(16,48,80,.32); border-color: #0070C0; }
+        .ic-head { display: flex; align-items: center; gap: .7rem; margin-bottom: .75rem; }
+        .ic-ico {
+            width: 2.7rem; height: 2.7rem; border-radius: 11px; flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem; color: #fff; background: linear-gradient(150deg, #0090C0, #0070C0);
+        }
+        .info-card.navy .ic-ico { background: linear-gradient(150deg, #103050, #1c4e7a); }
+        .ic-k { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .58rem; letter-spacing: .14em; text-transform: uppercase; color: #0070C0; }
+        .info-card.navy .ic-k { color: #103050; }
+        .ic-t { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.1rem; color: #103050; line-height: 1.05; }
+
+        .ic-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: .5rem; }
+        .ic-list li { display: flex; align-items: flex-start; gap: .55rem; font-size: .76rem; color: #334155; line-height: 1.4; }
+        .ic-list li i { color: #0090C0; font-size: .72rem; margin-top: .22rem; flex-shrink: 0; }
+        .ic-list li b { color: #103050; font-weight: 700; }
+
+        .mini-label { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .56rem; letter-spacing: .12em; text-transform: uppercase; color: #94a3b8; margin: .1rem 0 .5rem; }
+        .chips { display: flex; flex-wrap: wrap; gap: .4rem; }
+        .chip {
+            display: inline-flex; align-items: center; gap: .35rem; background: #EAF3FB; border: 1px solid #C0E0F0;
+            border-radius: 999px; padding: .28rem .7rem; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: .62rem; color: #103050;
+        }
+        .chip i { color: #0070C0; font-size: .6rem; }
+
+        /* Bases priorizadas (2 colunas) */
+        .bases-grid { columns: 2; column-gap: 1.1rem; margin-top: .1rem; }
+        .base-item { display: flex; align-items: center; gap: .5rem; break-inside: avoid; margin-bottom: .42rem; font-size: .72rem; color: #334155; }
+        .base-n { width: 1.25rem; height: 1.25rem; border-radius: 50%; background: #103050; color: #fff; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .58rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+
+        /* Faixa de indicadores */
+        .metric-strip {
+            border: 1px solid #E2E8F0; border-radius: 14px; overflow: hidden; display: flex; align-items: stretch; background: #fff;
+            box-shadow: 0 10px 26px -18px rgba(16,48,80,.28); animation: fadeInUp .5s cubic-bezier(.2,.7,.3,1) .26s both;
+        }
+        .metric-head { background: #103050; color: #fff; display: flex; flex-direction: column; justify-content: center; padding: 0 1.3rem; min-width: 220px; }
+        .metric-head .mh-k { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .58rem; letter-spacing: .14em; text-transform: uppercase; color: #7fb2d6; }
+        .metric-head .mh-t { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .92rem; margin-top: .15rem; }
+        .metric-cells { flex: 1; display: grid; grid-template-columns: repeat(4, 1fr); }
+        .metric-cell { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: .75rem .7rem; }
+        .metric-cell + .metric-cell { border-left: 1px solid #EDF1F6; }
+        .metric-value { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.75rem; color: #103050; line-height: 1; }
+        .metric-value .up { color: #0090C0; }
+        .metric-label { font-size: .62rem; font-weight: 600; color: #64748B; margin-top: .35rem; line-height: 1.25; text-transform: uppercase; letter-spacing: .03em; }
+
+        .bg-pattern { position: absolute; bottom: -60px; right: -50px; width: 400px; height: 400px; opacity: 0.03; z-index: 0; color: #103050; }
+
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+        @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+    </style>
+</head>
+
+<body>
+    <div class="slide-container">
+        <div class="top-accent"></div>
+        <div class="top-accent-secondary"></div>
+
+        <!-- Cabeçalho institucional -->
+        <div class="flex items-center justify-between px-16 pt-5 pb-2 z-10">
+            <div>
+                <p class="gov-eyebrow"><i class="fas fa-landmark"></i> Agência Nacional de Transportes Aquaviários — ANTAQ · Seção 07</p>
+                <div class="flex items-center gap-3 mb-1">
+                    <div class="w-1 h-8 bg-brand-secondary"></div>
+                    <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Plano de Dados Abertos · PDA 2026–2028</p>
+                </div>
+                <p class="text-gray-500 font-medium ml-4 text-lg">O que é o Plano e o que você vai encontrar nesta seção</p>
+            </div>
+            <div class="flex items-center gap-2 opacity-80 text-brand-secondary">
+                <i class="fas fa-database text-xl" aria-hidden="true"></i>
+                <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">DADOS ABERTOS</p>
+            </div>
+        </div>
+
+        <!-- Conteúdo -->
+        <div class="flex-1 flex flex-col justify-center px-16 pb-3 z-10 gap-4" style="min-height:0;">
+            <!-- Intro -->
+            <div class="gov-lead">
+                O <b>Plano de Dados Abertos (PDA) 2026–2028</b> é o documento orientador da política de dados abertos e o
+                <b>plano tático institucional</b> da ANTAQ. Seu objetivo geral é <b>promover a abertura, a ampliação e o
+                aprimoramento contínuo dos dados públicos</b> sob responsabilidade da Agência — em observância aos princípios da
+                publicidade, transparência e eficiência —, ampliando a disseminação de informações de qualidade, estimulando o
+                <b>controle social e a participação</b> e fomentando a pesquisa científica, o desenvolvimento tecnológico e a
+                geração de novos negócios.
+            </div>
+
+            <!-- Dois cartões -->
+            <div class="grid gap-5" style="grid-template-columns: 0.92fr 1.08fr;">
+                <!-- O que é o PDA -->
+                <div class="info-card">
+                    <div class="ic-head">
+                        <div class="ic-ico"><i class="fas fa-compass-drafting"></i></div>
+                        <div>
+                            <p class="ic-k">Documento orientador</p>
+                            <p class="ic-t">O que é o PDA</p>
+                        </div>
+                    </div>
+                    <ul class="ic-list">
+                        <li><i class="fas fa-calendar-check"></i><span><b>Vigência de março de 2026 a março de 2028</b>, com revisão contínua e acompanhamento do cronograma.</span></li>
+                        <li><i class="fas fa-sitemap"></i><span>Alinhado ao <b>Plano Estratégico 2025–2028</b>, ao PDTIC e à Política de Gestão de Riscos da ANTAQ.</span></li>
+                        <li><i class="fas fa-scale-balanced"></i><span>Fundamentado no <b>Decreto nº 8.777/2016</b> e nas boas práticas da CGU.</span></li>
+                    </ul>
+                    <p class="mini-label">Público de interesse</p>
+                    <div class="chips">
+                        <span class="chip"><i class="fas fa-industry"></i> Mercado regulado</span>
+                        <span class="chip"><i class="fas fa-graduation-cap"></i> Academia</span>
+                        <span class="chip"><i class="fas fa-landmark-flag"></i> Poder Público</span>
+                        <span class="chip"><i class="fas fa-users"></i> Sociedade</span>
+                    </div>
+                </div>
+
+                <!-- O que você vai encontrar -->
+                <div class="info-card navy">
+                    <div class="ic-head">
+                        <div class="ic-ico"><i class="fas fa-folder-open"></i></div>
+                        <div>
+                            <p class="ic-k">Nesta seção</p>
+                            <p class="ic-t">O que você vai encontrar</p>
+                        </div>
+                    </div>
+                    <p style="font-size:.76rem;color:#334155;line-height:1.4;margin:0 0 .5rem;">
+                        <b>18 bases já disponíveis</b> e <b>8 novas bases</b> selecionadas por matriz de priorização para abertura
+                        na vigência do Plano:
+                    </p>
+                    <div class="bases-grid">
+                        <div class="base-item"><span class="base-n">1</span> Painel de Portos Públicos</div>
+                        <div class="base-item"><span class="base-n">2</span> Plano Geral de Outorgas Hidroviárias (PGO)</div>
+                        <div class="base-item"><span class="base-n">3</span> Toneladas por Quilômetro Útil (TKU)</div>
+                        <div class="base-item"><span class="base-n">4</span> Tarifas Portuárias Homologadas</div>
+                        <div class="base-item"><span class="base-n">5</span> Inventário de Painéis BI</div>
+                        <div class="base-item"><span class="base-n">6</span> Sistema Eletrônico de Informação (SEI)</div>
+                        <div class="base-item"><span class="base-n">7</span> Contratos Vigentes</div>
+                        <div class="base-item"><span class="base-n">8</span> Compras e Contratações</div>
+                    </div>
+                    <p class="mini-label">Base normativa</p>
+                    <div class="chips">
+                        <span class="chip"><i class="fas fa-scroll"></i> Decreto 8.777/2016</span>
+                        <span class="chip"><i class="fas fa-network-wired"></i> IN 4/2012 (INDA)</span>
+                        <span class="chip"><i class="fas fa-gavel"></i> Resolução CGINDA 3/2017</span>
+                        <span class="chip"><i class="fas fa-unlock"></i> LAI 12.527/2011</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Faixa de indicadores -->
+            <div class="metric-strip">
+                <div class="metric-head">
+                    <p class="mh-k">Dados Abertos · ANTAQ</p>
+                    <p class="mh-t">O PDA em números</p>
+                </div>
+                <div class="metric-cells">
+                    <div class="metric-cell">
+                        <span class="metric-value">18</span>
+                        <span class="metric-label">Bases já disponíveis</span>
+                    </div>
+                    <div class="metric-cell">
+                        <span class="metric-value"><span class="up">+8</span></span>
+                        <span class="metric-label">Novas bases previstas</span>
+                    </div>
+                    <div class="metric-cell">
+                        <span class="metric-value">2026–28</span>
+                        <span class="metric-label">Vigência do Plano</span>
+                    </div>
+                    <div class="metric-cell">
+                        <span class="metric-value">4</span>
+                        <span class="metric-label">Públicos de interesse</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rodapé institucional -->
+        <div class="px-16 pb-6 pt-1 flex justify-between items-center z-10">
+            <p class="text-gray-400 text-xs">Relatório Trimestral da Ouvidoria · 2026 — Agência Nacional de Transportes Aquaviários</p>
+            <p class="text-gray-300 text-xs font-mono">39 / 58</p>
+        </div>
+        <div class="bg-pattern"><i class="fas fa-database text-9xl"></i></div>
+    </div>
+    <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
+</body>
+
+</html>

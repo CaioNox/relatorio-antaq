@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<!--
+  ╔══════════════════════════════════════════════════════════════╗
+  ║  SLIDE 03c — Papel Institucional da Ouvidoria (Proteção & Participação)
+  ╠══════════════════════════════════════════════════════════════╣
+  ║  Texto institucional — atualizar apenas em revisão estratégica.
+  ╚══════════════════════════════════════════════════════════════╝
+-->
+
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Papel Institucional da Ouvidoria - Relatório Trimestral Ouvidoria ANTAQ</title>
+    <link rel="icon" type="image/png"
+        href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&amp;family=Open+Sans:wght@400;600&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        html { font-size: 26px; }
+        body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
+
+        .slide-container {
+            width: 100vw; height: 100vh; position: relative;
+            display: flex; flex-direction: column;
+            background-color: #ffffff; overflow: hidden;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .font-montserrat { font-family: 'Montserrat', sans-serif; }
+        .text-brand-primary { color: #103050; }
+        .text-brand-secondary { color: #0070C0; }
+        .bg-brand-secondary { background-color: #0070C0; }
+
+        .top-accent { height: 8px; background-color: #103050; width: 100%; }
+        .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
+
+        .gov-eyebrow {
+            display: flex; align-items: center; gap: .5rem;
+            font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: .62rem;
+            letter-spacing: .16em; text-transform: uppercase; color: #64748B; margin-bottom: .5rem;
+        }
+        .gov-eyebrow i { color: #0070C0; }
+
+        /* Painel-tema (esquerda) */
+        .theme-panel {
+            background: linear-gradient(160deg, #0A2236 0%, #103050 55%, #0e5f96 100%);
+            border-radius: 16px; padding: 1.35rem 1.45rem; color: #fff; position: relative; overflow: hidden;
+            display: flex; flex-direction: column; height: 100%;
+            box-shadow: 0 18px 40px -18px rgba(16,48,80,.55);
+            animation: fadeInUp .5s cubic-bezier(.2,.7,.3,1) both;
+        }
+        .theme-ico { position: absolute; right: -14px; bottom: -20px; font-size: 7rem; opacity: .1; }
+        .theme-k { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: .62rem; letter-spacing: .18em; text-transform: uppercase; color: #9fd0ea; }
+        .theme-title {
+            font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.85rem; line-height: 1.04;
+            margin: .4rem 0 .15rem; text-transform: uppercase; letter-spacing: .02em;
+        }
+        .theme-title .amp { color: #7fd3f0; font-weight: 700; display: block; font-size: 1.15rem; margin: .1rem 0; }
+        .theme-desc { font-size: .76rem; line-height: 1.5; color: #d6e6f2; margin: .5rem 0 .85rem; }
+        .fn-label { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .56rem; letter-spacing: .14em; text-transform: uppercase; color: #9fd0ea; margin-bottom: .45rem; }
+        .fn-chips { display: flex; flex-wrap: wrap; gap: .4rem; margin-bottom: .8rem; }
+        .fn-chips:last-of-type { margin-bottom: 0; }
+        .fn-chip {
+            display: inline-flex; align-items: center; gap: .35rem;
+            background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2); border-radius: 999px;
+            padding: .28rem .65rem; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: .62rem; color: #eaf4fb;
+        }
+        .fn-chip i { color: #7fd3f0; font-size: .6rem; }
+
+        /* Texto documental (direita) */
+        .doc-panel {
+            background: #ffffff; border: 1px solid #E2E8F0; border-radius: 16px;
+            padding: 1.3rem 1.55rem; box-shadow: 0 10px 26px -18px rgba(16,48,80,.26);
+            height: 100%; overflow: hidden; display: flex; flex-direction: column; justify-content: center;
+            animation: fadeInUp .5s cubic-bezier(.2,.7,.3,1) .1s both;
+        }
+        .doc-kicker {
+            font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .62rem;
+            letter-spacing: .16em; text-transform: uppercase; color: #0070C0; margin-bottom: .7rem;
+            display: flex; align-items: center; gap: .5rem;
+        }
+        .doc-cols { columns: 2; column-gap: 1.9rem; }
+        .doc-text { color: #334155; font-size: .76rem; line-height: 1.5; margin: 0 0 .6rem; break-inside: avoid; }
+        .doc-text:last-child { margin-bottom: 0; }
+        .doc-text b { color: #103050; font-weight: 700; }
+        .doc-synthesis {
+            break-inside: avoid; background: #F5F8FC; border-left: 4px solid #0090C0; border-radius: 10px;
+            padding: .7rem .95rem; margin-top: .2rem;
+        }
+        .doc-synthesis p { margin: 0; font-size: .76rem; line-height: 1.48; color: #334155; }
+        .doc-synthesis b { color: #103050; font-weight: 700; }
+
+        .bg-pattern { position: absolute; bottom: -60px; right: -50px; width: 400px; height: 400px; opacity: 0.03; z-index: 0; color: #103050; }
+
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+        @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+    </style>
+</head>
+
+<body>
+    <div class="slide-container">
+        <div class="top-accent"></div>
+        <div class="top-accent-secondary"></div>
+
+        <!-- Cabeçalho institucional -->
+        <div class="flex items-center justify-between px-16 pt-5 pb-2 z-10">
+            <div>
+                <p class="gov-eyebrow"><i class="fas fa-landmark"></i> Agência Nacional de Transportes Aquaviários — ANTAQ</p>
+                <div class="flex items-center gap-3 mb-1">
+                    <div class="w-1 h-8 bg-brand-secondary"></div>
+                    <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Papel Institucional da Ouvidoria</p>
+                </div>
+                <p class="text-gray-500 font-medium ml-4 text-lg">Escuta qualificada, governança e controle social no setor aquaviário</p>
+            </div>
+            <div class="flex items-center gap-2 opacity-80 text-brand-secondary">
+                <i class="fas fa-people-roof text-xl" aria-hidden="true"></i>
+                <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">SEÇÃO 01 · APRESENTAÇÃO</p>
+            </div>
+        </div>
+
+        <!-- Conteúdo -->
+        <div class="flex-1 grid gap-6 px-16 pb-3 z-10" style="grid-template-columns: 0.82fr 1.18fr; min-height:0;">
+            <!-- Painel-tema -->
+            <div class="theme-panel">
+                <p class="theme-k">A essência da Ouvidoria</p>
+                <p class="theme-title">Proteção <span class="amp">&amp;</span> Participação</p>
+                <p class="theme-desc">
+                    Instância de escuta qualificada e de mediação entre a sociedade e a Administração Pública — em defesa dos
+                    direitos dos usuários e do aperfeiçoamento das políticas regulatórias.
+                </p>
+                <p class="fn-label">Funções essenciais</p>
+                <div class="fn-chips">
+                    <span class="fn-chip"><i class="fas fa-inbox"></i> Receber</span>
+                    <span class="fn-chip"><i class="fas fa-gears"></i> Tratar</span>
+                    <span class="fn-chip"><i class="fas fa-chart-line"></i> Monitorar</span>
+                    <span class="fn-chip"><i class="fas fa-reply"></i> Responder</span>
+                </div>
+                <p class="fn-label">E, para além delas</p>
+                <div class="fn-chips">
+                    <span class="fn-chip"><i class="fas fa-sitemap"></i> Governança</span>
+                    <span class="fn-chip"><i class="fas fa-eye"></i> Transparência</span>
+                    <span class="fn-chip"><i class="fas fa-scale-balanced"></i> Prestação de contas</span>
+                </div>
+                <i class="fas fa-people-roof theme-ico" aria-hidden="true"></i>
+            </div>
+
+            <!-- Texto documental -->
+            <div class="doc-panel">
+                <p class="doc-kicker"><i class="fas fa-quote-left"></i> O papel estratégico da unidade</p>
+                <div class="doc-cols">
+                    <p class="doc-text">
+                        O papel institucional da Ouvidoria da ANTAQ é <b>fundamental para que a Agência cumpra sua missão</b> de
+                        promover o desenvolvimento sustentável do setor de transportes aquaviários, beneficiando a sociedade
+                        através da regulação eficiente, da fiscalização responsiva, das outorgas estratégicas e de estudos
+                        inovadores. Ao atuar como <b>instância de escuta qualificada e de mediação</b> entre a sociedade e a
+                        Administração Pública, a Ouvidoria contribui diretamente para a defesa do direito à prestação de serviços
+                        adequados e para o aperfeiçoamento das políticas regulatórias, permitindo que cidadãos, empresas e
+                        organizações expressem percepções, preocupações e sugestões sobre temas que impactam sua qualidade de vida.
+                    </p>
+                    <p class="doc-text">
+                        Além de seu papel no campo dos transportes aquaviários e na infraestrutura portuária e hidroviária do
+                        Brasil, a Ouvidoria contribui de forma decisiva para a <b>eficiência e a responsabilidade na gestão
+                        pública</b>. Suas funções, para além de receber, tratar, monitorar e responder manifestações, incluem
+                        <b>fortalecer a governança</b>, aprimorar a transparência e ampliar a prestação de contas institucional
+                        com a sociedade.
+                    </p>
+                    <p class="doc-text">
+                        Ao gerar <b>informações qualificadas, diagnósticos e recomendações</b>, a unidade apoia a melhoria contínua
+                        dos processos internos, favorece a prevenção de conflitos e reforça a confiança pública na atuação da Agência.
+                    </p>
+                    <div class="doc-synthesis">
+                        <p>
+                            <b>Em síntese</b>, a Ouvidoria da ANTAQ desempenha papel estratégico na promoção da transparência, na
+                            defesa dos direitos dos usuários e no fortalecimento do controle social, consolidando-se como
+                            <b>elemento essencial de uma gestão eficaz, íntegra e alinhada aos interesses da sociedade brasileira</b>.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rodapé institucional -->
+        <div class="px-16 pb-6 pt-1 flex justify-between items-center z-10">
+            <p class="text-gray-400 text-xs">Relatório Trimestral da Ouvidoria · 2026 — Agência Nacional de Transportes Aquaviários</p>
+            <p class="text-gray-300 text-xs font-mono">6 / 58</p>
+        </div>
+        <div class="bg-pattern"><i class="fas fa-people-roof text-9xl"></i></div>
+    </div>
+    <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
+</body>
+
+</html>

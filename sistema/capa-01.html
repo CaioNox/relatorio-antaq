@@ -1,4 +1,13 @@
 <!DOCTYPE html>
+<!--
+  ╔══════════════════════════════════════════════════════════════╗
+  ║  CAPA 01 — Abertura da Seção 1 · APRESENTAÇÃO
+  ╠══════════════════════════════════════════════════════════════╣
+  ║  Introduz a seção: o que é a Ouvidoria (missão, visão, valores,
+  ║  papel institucional) e o que este relatório traz (sumário
+  ║  executivo). O preview "Nesta seção" espelha os slides seguintes.
+  ╚══════════════════════════════════════════════════════════════╝
+-->
 <html lang="pt-BR">
 
 <head>
@@ -13,14 +22,14 @@
   <style>
     html, body {
       margin: 0; padding: 0; overflow: hidden; width: 100vw; height: 100vh;
-      background-color: #F8FAFC; /* Clean white-gray bg */
+      background-color: #F8FAFC;
       font-family: 'Open Sans', sans-serif;
     }
     .slide {
       width: 100%; height: 100%; position: relative;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
     }
-    
+
     /* Background Waves */
     .waves-container {
       position: absolute; bottom: 0; left: 0; width: 100%; height: 250px;
@@ -32,64 +41,81 @@
       border-radius: 100% 100% 0 0 / 100% 100% 0 0;
       transform-origin: center bottom;
     }
-    .wave-bg {
-      background: #0090C0; transform: translateX(-5%) scaleY(1.2); opacity: 0.3;
-    }
-    .wave-fg {
-      background: #103050; transform: translateX(-2%) scaleY(0.7);
-    }
+    .wave-bg { background: #0090C0; transform: translateX(-5%) scaleY(1.2); opacity: 0.3; }
+    .wave-fg { background: #103050; transform: translateX(-2%) scaleY(0.7); }
 
     /* Content */
     .content-wrapper {
-      position: relative; z-index: 10; text-align: center; max-width: 1200px;
-      margin-top: -80px;
+      position: relative; z-index: 10; text-align: center; max-width: 1280px;
+      margin-top: -46px;
     }
-    .kicker {
-      font-family: 'Montserrat', sans-serif; font-size: 1.1rem; font-weight: 700;
-      letter-spacing: 0.3em; text-transform: uppercase; color: #0090C0;
-      margin-bottom: 1.5rem; animation: fadeInDown 0.6s ease both;
+    .gov-tag {
+      display: inline-flex; align-items: center; gap: .55rem;
+      font-family: 'Montserrat', sans-serif; font-size: .78rem; font-weight: 700;
+      letter-spacing: .14em; text-transform: uppercase; color: #64748B;
+      margin-bottom: 1.1rem; animation: fadeInDown 0.6s ease both;
     }
+    .gov-tag i { color: #0070C0; }
     .title {
-      font-family: 'Montserrat', sans-serif; font-size: 4.8rem; font-weight: 900;
-      line-height: 1.1; color: #103050; margin-bottom: 1.5rem;
+      font-family: 'Montserrat', sans-serif; font-size: 4.5rem; font-weight: 900;
+      line-height: 1.04; color: #103050; margin-bottom: 1rem;
       animation: fadeInDown 0.6s ease 0.1s both;
     }
     .title .acc { color: #0070C0; display: block; }
-    
+
     .divider {
       width: 100px; height: 4px; background: #0090C0;
-      margin: 0 auto 1.5rem auto; border-radius: 2px;
+      margin: 0 auto 1.2rem auto; border-radius: 2px;
       animation: fadeIn 0.6s ease 0.2s both;
     }
 
     .desc {
-      font-size: 1.4rem; color: #475569; max-width: 900px; margin: 0 auto 3rem auto;
-      line-height: 1.6; animation: fadeInUp 0.6s ease 0.3s both;
+      font-size: 1.24rem; color: #475569; max-width: 1000px; margin: 0 auto 2.1rem auto;
+      line-height: 1.55; animation: fadeInUp 0.6s ease 0.3s both;
     }
+    .desc b { color: #103050; font-weight: 700; }
 
-    /* Icons Row */
-    .icons-row {
-      display: flex; gap: 4rem; justify-content: center;
-      animation: fadeInUp 0.6s ease 0.4s both;
+    /* Preview "Nesta seção" */
+    .section-label {
+      font-family: 'Montserrat', sans-serif; font-size: .78rem; font-weight: 800;
+      letter-spacing: .2em; text-transform: uppercase; color: #94a3b8;
+      margin-bottom: 1.2rem; display: flex; align-items: center; justify-content: center; gap: .7rem;
+      animation: fadeInUp 0.6s ease 0.38s both;
     }
-    .icon-box {
-      display: flex; flex-direction: column; align-items: center; width: 220px;
+    .section-label::before, .section-label::after {
+      content: ""; width: 46px; height: 2px; background: #E2E8F0; display: inline-block;
     }
-    .circle {
-      width: 110px; height: 110px; border-radius: 50%;
-      background: #ffffff; border: 3px solid #E2E8F0;
+    .toc-row {
+      display: flex; gap: 1.4rem; justify-content: center;
+      animation: fadeInUp 0.6s ease 0.46s both;
+    }
+    .toc-card {
+      background: #ffffff; border: 1px solid #E2E8F0; border-top: 3px solid #0090C0;
+      border-radius: 16px; width: 268px; padding: 1.5rem 1.4rem 1.4rem;
+      box-shadow: 0 14px 34px -20px rgba(16,48,80,0.30);
+      transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+      text-align: left; position: relative;
+    }
+    .toc-card:hover {
+      transform: translateY(-6px); border-top-color: #0070C0;
+      box-shadow: 0 24px 44px -18px rgba(0,112,192,0.28);
+    }
+    .toc-circle {
+      width: 62px; height: 62px; border-radius: 15px;
       display: flex; align-items: center; justify-content: center;
-      font-size: 2.8rem; color: #103050; margin-bottom: 1rem;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.05); transition: all 0.3s ease;
+      font-size: 1.65rem; color: #0070C0; background: #EAF3FB; border: 1px solid #C0E0F0;
+      margin-bottom: 1rem; transition: all .3s ease;
     }
-    .icon-box:hover .circle {
-      border-color: #0070C0; color: #0070C0; transform: translateY(-5px);
-      box-shadow: 0 15px 35px rgba(0,112,192,0.15);
+    .toc-card:hover .toc-circle { background: #103050; color: #fff; border-color: #103050; }
+    .toc-kicker {
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .62rem;
+      letter-spacing: .12em; text-transform: uppercase; color: #94a3b8; margin-bottom: .3rem;
     }
-    .icon-label {
-      font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1rem;
-      color: #1E293B; line-height: 1.4;
+    .toc-title {
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.12rem;
+      color: #103050; line-height: 1.15; margin-bottom: .4rem;
     }
+    .toc-sub { font-size: .84rem; color: #64748B; line-height: 1.35; }
 
     /* Watermark */
     .wm {
@@ -97,17 +123,11 @@
       font-size: 400px; color: rgba(16,48,80,0.02); z-index: 0; pointer-events: none;
     }
 
-    @keyframes fadeInDown {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: none; }
-    }
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: none; }
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+    @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: none; } }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
     }
   </style>
 </head>
@@ -115,25 +135,38 @@
 <body>
   <div class="slide">
     <i class="fas fa-bullhorn wm"></i>
-    
+
     <div class="content-wrapper">
-      <div class="kicker">Seção 01 · Relatório Trimestral 2026</div>
+      <div class="gov-tag"><i class="fas fa-landmark"></i> Agência Nacional de Transportes Aquaviários — ANTAQ · Seção 01</div>
       <h1 class="title">Apresentação <span class="acc">da Ouvidoria</span></h1>
       <div class="divider"></div>
-      <p class="desc">Conheça a estrutura, missão e competências da Ouvidoria da ANTAQ — instância pública de controle, participação social e garantia da transparência institucional.</p>
-      
-      <div class="icons-row">
-        <div class="icon-box">
-          <div class="circle"><i class="fas fa-bullseye"></i></div>
-          <div class="icon-label">Missão e atribuições da Ouvidoria</div>
+      <p class="desc">Antes dos números, conheça <b>quem somos e o que este relatório traz</b>: a missão, a visão e os valores que orientam a Ouvidoria da ANTAQ, o seu <b>papel institucional</b> na defesa dos direitos do usuário e o <b>sumário executivo</b> do 1º trimestre de 2026.</p>
+
+      <div class="section-label">Nesta seção</div>
+      <div class="toc-row">
+        <div class="toc-card">
+          <div class="toc-circle"><i class="fas fa-compass"></i></div>
+          <p class="toc-kicker">O que é a Ouvidoria</p>
+          <p class="toc-title">Missão e Visão</p>
+          <p class="toc-sub">A razão de existir e aonde queremos chegar.</p>
         </div>
-        <div class="icon-box">
-          <div class="circle"><i class="fas fa-gavel"></i></div>
-          <div class="icon-label">Base legal e normativa</div>
+        <div class="toc-card">
+          <div class="toc-circle"><i class="fas fa-shield-halved"></i></div>
+          <p class="toc-kicker">O que é a Ouvidoria</p>
+          <p class="toc-title">Valores Institucionais</p>
+          <p class="toc-sub">Os seis princípios que orientam a atuação.</p>
         </div>
-        <div class="icon-box">
-          <div class="circle"><i class="fas fa-headset"></i></div>
-          <div class="icon-label">Canais oficiais de atendimento</div>
+        <div class="toc-card">
+          <div class="toc-circle"><i class="fas fa-people-roof"></i></div>
+          <p class="toc-kicker">O que é a Ouvidoria</p>
+          <p class="toc-title">Papel Institucional</p>
+          <p class="toc-sub">Proteção &amp; participação — escuta e controle social.</p>
+        </div>
+        <div class="toc-card">
+          <div class="toc-circle"><i class="fas fa-clipboard-list"></i></div>
+          <p class="toc-kicker">O que vem no relatório</p>
+          <p class="toc-title">Sumário Executivo</p>
+          <p class="toc-sub">O balanço e o diagnóstico do trimestre.</p>
         </div>
       </div>
     </div>
