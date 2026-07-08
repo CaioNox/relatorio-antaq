@@ -89,6 +89,12 @@
     }
     .exp-group:hover { transform: translateX(5px); border-color: #F2A900; }
     .exp-group:last-child { margin-bottom: 0; }
+    .exp-group.dev {
+      border-left: 2px solid #F2A900;
+      background: rgba(242,169,0,0.06);
+      border-radius: 0 8px 8px 0; padding: 0.4rem 0.7rem; margin-bottom: 0.7rem;
+    }
+    .exp-group.dev .exp-title { color: #F2A900; }
     .exp-title {
       font-size: 0.6rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
       color: rgba(255,255,255,0.5); margin-bottom: 0.12rem;
@@ -172,6 +178,10 @@
       <!-- Coluna 3 — Expediente Técnico -->
       <div class="col">
         <p class="sec-label"><i class="fas fa-pen-ruler"></i> Expediente Técnico</p>
+        <div class="exp-group dev">
+          <p class="exp-title">Desenvolvimento da Plataforma Digital</p>
+          <p class="exp-name">Caio Fábio Alves da Silva</p>
+        </div>
         <div class="exp-group">
           <p class="exp-title">Projeto Gráfico e Editoração</p>
           <p class="exp-name">Ursula Quaresma da Silva</p>
