@@ -38,46 +38,46 @@
     .inst-law p { margin: 0; font-size: .68rem; line-height: 1.5; color: #475569; font-style: italic; }
     .inst-law b { color: #103050; font-style: normal; }
 
-    /* Painel direita - organograma */
+    /* Painel direita - organograma (Figura 2) */
     .org-panel {
-      background: linear-gradient(160deg, #0A2236 0%, #103050 55%, #0e5f96 100%);
-      border-radius: 16px; padding: 1.2rem 1.3rem; color: #fff; position: relative; overflow: hidden;
+      background: #ffffff; border: 1px solid #E2E8F0;
+      border-radius: 16px; padding: 1.2rem 1.3rem; position: relative; overflow: hidden;
       height: 100%; display: flex; flex-direction: column;
-      box-shadow: 0 18px 40px -18px rgba(16,48,80,.55);
+      box-shadow: 0 12px 30px -18px rgba(16,48,80,.28);
       animation: fadeInUp .5s cubic-bezier(.2,.7,.3,1) .1s both;
     }
-    .org-k { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: .58rem; letter-spacing: .18em; text-transform: uppercase; color: #9fd0ea; margin-bottom: .65rem; }
-    .org-title { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.15rem; margin-bottom: 1rem; line-height: 1.15; }
-    .org-title span { color: #7fd3f0; }
+    .org-k { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .58rem; letter-spacing: .18em; text-transform: uppercase; color: #94a3b8; margin-bottom: .35rem; }
+    .org-title { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.1rem; margin-bottom: .3rem; line-height: 1.15; color: #103050; }
+    .org-title span { color: #0070C0; }
 
-    /* Organograma simples */
-    .org-tree { display: flex; flex-direction: column; align-items: center; gap: 0; flex: 1; justify-content: center; }
-    .org-node-main {
-      background: rgba(255,255,255,0.15); border: 1.5px solid rgba(255,255,255,0.3);
-      border-radius: 10px; padding: .55rem 1.1rem; text-align: center; width: 200px;
+    /* Figura com conectores curvos */
+    .org-fig { flex: 1; position: relative; min-height: 0; }
+    .org-svg { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; }
+    .org-node { position: absolute; left: 50%; z-index: 2; }
+
+    .node-stai { top: 3%; transform: translateX(-58%); }
+    .node-ouv  { top: 50%; transform: translate(-50%, -50%); }
+    .node-sac  { bottom: 3%; transform: translateX(-42%); }
+
+    .pill {
+      display: inline-flex; align-items: center; gap: .55rem;
+      border-radius: 999px; padding: .45rem .95rem .45rem .5rem; color: #fff;
+      box-shadow: 0 10px 22px -10px rgba(16,48,80,.4);
     }
-    .org-node-main .n-ico { font-size: 1.4rem; color: #7fd3f0; margin-bottom: .22rem; }
-    .org-node-main .n-title { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .72rem; letter-spacing: .06em; text-transform: uppercase; }
-    .org-node-main .n-sub { font-size: .6rem; color: rgba(255,255,255,0.6); margin-top: .1rem; }
+    .pill .p-ico { width: 2rem; height: 2rem; border-radius: 9px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 1rem; background: rgba(255,255,255,.22); }
+    .pill .p-ac { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: .9rem; letter-spacing: .04em; line-height: 1; }
+    .pill .p-sub { font-size: .48rem; font-weight: 600; opacity: .95; text-transform: uppercase; letter-spacing: .05em; line-height: 1.2; margin-top: .18rem; max-width: 130px; }
+    .pill-stai { background: linear-gradient(135deg, #b06fb8, #8a4a9c); }
+    .pill-sac  { background: linear-gradient(135deg, #5b9bd5, #3f7cc0); }
 
-    .org-connector { width: 2px; height: 22px; background: rgba(255,255,255,0.25); margin: 0 auto; }
-    .org-branch { display: flex; align-items: flex-start; gap: 24px; position: relative; margin-top: 0; }
-    .org-branch::before { content: ''; position: absolute; top: 0; left: calc(50% - 65px); right: calc(50% - 65px); height: 2px; background: rgba(255,255,255,0.2); }
-
-    .org-node-child {
-      display: flex; flex-direction: column; align-items: center;
+    .ouv-circle {
+      width: 108px; height: 108px; border-radius: 50%; background: #fff;
+      border: 2px solid #cbd5e1; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 10px 24px -10px rgba(16,48,80,.28);
     }
-    .org-node-child .c-line { width: 2px; height: 20px; background: rgba(255,255,255,0.22); }
-    .org-card {
-      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
-      border-radius: 10px; padding: .65rem .85rem; text-align: center; width: 130px;
-    }
-    .org-card .c-ico { font-size: 1.3rem; color: #7fd3f0; margin-bottom: .2rem; }
-    .org-card .c-title { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .64rem; letter-spacing: .04em; text-transform: uppercase; }
-    .org-card .c-sub { font-size: .56rem; color: rgba(255,255,255,0.55); margin-top: .12rem; line-height: 1.3; }
+    .ouv-circle span { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .74rem; letter-spacing: .08em; color: #475569; text-transform: uppercase; }
 
-    .org-bg-ico { position: absolute; right: -16px; bottom: -24px; font-size: 7rem; opacity: 0.07; }
-    .workers-note { font-size: .62rem; color: rgba(255,255,255,0.5); text-align: center; margin-top: .9rem; line-height: 1.4; }
+    .org-caption { font-size: .58rem; color: #94a3b8; text-align: center; margin-top: .6rem; line-height: 1.35; font-style: italic; }
 
     .bg-pattern { position: absolute; bottom: -60px; right: -50px; width: 360px; height: 360px; opacity: 0.025; z-index: 0; color: #103050; }
     @keyframes fadeInUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
@@ -135,38 +135,45 @@
         </div>
       </div>
 
-      <!-- Organograma -->
+      <!-- Organograma (Figura 2) -->
       <div class="org-panel">
         <p class="org-k">Estrutura organizacional</p>
         <p class="org-title">Organograma da <span>Ouvidoria</span></p>
-        <div class="org-tree">
-          <div class="org-node-main">
-            <div class="n-ico"><i class="fas fa-bullhorn"></i></div>
-            <div class="n-title">Ouvidoria</div>
-            <div class="n-sub">Coordenação</div>
-          </div>
-          <div class="org-connector"></div>
-          <div class="org-branch">
-            <div class="org-node-child">
-              <div class="c-line"></div>
-              <div class="org-card">
-                <div class="c-ico"><i class="fas fa-headset"></i></div>
-                <div class="c-title">SAC</div>
-                <div class="c-sub">Seção de Apoio<br>ao Cidadão</div>
+        <div class="org-fig">
+          <!-- Conectores curvos -->
+          <svg class="org-svg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M50,50 C26,43 26,36 50,29" fill="none" stroke="#b06fb8" stroke-width="2.4" vector-effect="non-scaling-stroke" stroke-linecap="round" />
+            <path d="M50,50 C74,57 74,64 50,71" fill="none" stroke="#5b9bd5" stroke-width="2.4" vector-effect="non-scaling-stroke" stroke-linecap="round" />
+          </svg>
+
+          <!-- STAI (topo) -->
+          <div class="org-node node-stai">
+            <div class="pill pill-stai">
+              <div class="p-ico"><i class="fas fa-lock"></i></div>
+              <div>
+                <div class="p-ac">STAI</div>
+                <div class="p-sub">Seção de Transparência e Acesso à Informação</div>
               </div>
             </div>
-            <div class="org-node-child">
-              <div class="c-line"></div>
-              <div class="org-card">
-                <div class="c-ico"><i class="fas fa-magnifying-glass"></i></div>
-                <div class="c-title">STAI</div>
-                <div class="c-sub">Transparência e<br>Acesso à Informação</div>
+          </div>
+
+          <!-- OUVIDORIA (centro) -->
+          <div class="org-node node-ouv">
+            <div class="ouv-circle"><span>Ouvidoria</span></div>
+          </div>
+
+          <!-- SAC (base) -->
+          <div class="org-node node-sac">
+            <div class="pill pill-sac">
+              <div class="p-ico"><i class="fas fa-headset"></i></div>
+              <div>
+                <div class="p-ac">SAC</div>
+                <div class="p-sub">Seção de Apoio ao Cidadão</div>
               </div>
             </div>
           </div>
         </div>
-        <p class="workers-note">13 colaboradores · Servidores e terceirizados</p>
-        <i class="fas fa-sitemap org-bg-ico"></i>
+        <p class="org-caption">Figura 2 — Estrutura Organizacional da Ouvidoria</p>
       </div>
     </div>
 

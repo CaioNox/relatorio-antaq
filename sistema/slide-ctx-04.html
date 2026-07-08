@@ -1,102 +1,85 @@
 <!DOCTYPE html>
-<!-- SLIDE CTX-04 — Contexto da Seção 4 · Análise Estratégica e Inteligência -->
+<!-- SLIDE CTX-04 — Contexto da Seção 4 · Análise Estratégica e Inteligência (texto centralizado) -->
 <html lang="pt-BR">
-
 <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Análise Estratégica — Contexto - Relatório Trimestral Ouvidoria ANTAQ</title>
-    <link rel="icon" type="image/png" href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&amp;family=Open+Sans:wght@400;600&amp;display=swap" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
-    <style>
-        html { font-size: 26px; }
-        body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
-        .slide-container { width: 100vw; height: 100vh; position: relative; display: flex; flex-direction: column; background: #fff; overflow: hidden; font-family: 'Open Sans', sans-serif; }
-        .font-montserrat { font-family: 'Montserrat', sans-serif; }
-        .text-brand-primary { color: #103050; } .text-brand-secondary { color: #0070C0; } .bg-brand-secondary { background-color: #0070C0; }
-        .top-accent { height: 8px; background: #103050; } .top-accent-secondary { height: 4px; background: #0070C0; }
-        .gov-eyebrow { display: flex; align-items: center; gap: .5rem; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: .62rem; letter-spacing: .16em; text-transform: uppercase; color: #64748B; margin-bottom: .5rem; }
-        .gov-eyebrow i { color: #0070C0; }
-        .gov-lead { background: #F5F8FC; border: 1px solid #E2E8F0; border-left: 4px solid #0070C0; border-radius: 12px; padding: 1rem 1.3rem; color: #334155; font-size: .86rem; line-height: 1.6; animation: fadeInUp .5s cubic-bezier(.2,.7,.3,1) both; }
-        .gov-lead b { color: #103050; font-weight: 700; }
-        .metric-strip { border: 1px solid #E2E8F0; border-radius: 14px; overflow: hidden; display: flex; align-items: stretch; background: #fff; box-shadow: 0 10px 26px -18px rgba(16,48,80,.28); animation: fadeInUp .5s cubic-bezier(.2,.7,.3,1) .12s both; }
-        .metric-head { background: #103050; color: #fff; display: flex; flex-direction: column; justify-content: center; padding: 0 1.4rem; min-width: 210px; }
-        .metric-head .mh-k { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .58rem; letter-spacing: .14em; text-transform: uppercase; color: #7fb2d6; }
-        .metric-head .mh-t { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .95rem; margin-top: .15rem; }
-        .metric-cells { flex: 1; display: grid; grid-template-columns: repeat(3, 1fr); }
-        .metric-cell { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 1rem .6rem; }
-        .metric-cell + .metric-cell { border-left: 1px solid #EDF1F6; }
-        .metric-value { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.9rem; color: #103050; line-height: 1; }
-        .metric-label { font-size: .62rem; font-weight: 600; color: #64748B; margin-top: .4rem; line-height: 1.25; text-transform: uppercase; letter-spacing: .03em; }
-        .pts-label { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .62rem; letter-spacing: .14em; text-transform: uppercase; color: #94a3b8; display: flex; align-items: center; gap: .5rem; }
-        .pts-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
-        .pt-card { background: #fff; border: 1px solid #E2E8F0; border-top: 3px solid #0090C0; border-radius: 12px; padding: .9rem 1.05rem; display: flex; align-items: center; gap: .8rem; box-shadow: 0 8px 20px -14px rgba(16,48,80,.24); transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease; animation: fadeInUp .5s cubic-bezier(.2,.7,.3,1) both; }
-        .pt-card:hover { transform: translateY(-5px); border-top-color: #103050; box-shadow: 0 18px 32px -18px rgba(16,48,80,.3); }
-        .pt-card:nth-child(2){animation-delay:.08s}.pt-card:nth-child(3){animation-delay:.16s}.pt-card:nth-child(4){animation-delay:.24s}
-        .pt-ico { width: 2.5rem; height: 2.5rem; border-radius: 10px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 1.05rem; color: #0070C0; background: #EAF3FB; border: 1px solid #C0E0F0; }
-        .pt-t { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .76rem; color: #103050; line-height: 1.1; }
-        .pt-s { font-size: .64rem; color: #64748B; margin-top: .12rem; line-height: 1.25; }
-        .bg-pattern { position: absolute; bottom: -60px; right: -50px; width: 400px; height: 400px; opacity: .03; z-index: 0; color: #103050; }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
-        @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
-    </style>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Análise Estratégica — Contexto - Relatório Trimestral Ouvidoria ANTAQ</title>
+  <link rel="icon" type="image/png" href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&amp;family=Open+Sans:wght@400;600&amp;display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    html { font-size: 26px; }
+    body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
+    .slide-container { width: 100vw; height: 100vh; position: relative; display: flex; flex-direction: column; background: #fff; overflow: hidden; font-family: 'Open Sans', sans-serif; }
+    .font-montserrat { font-family: 'Montserrat', sans-serif; }
+    .text-brand-primary { color: #103050; } .text-brand-secondary { color: #0070C0; }
+    .top-accent { height: 8px; background: #103050; } .top-accent-secondary { height: 4px; background: #0070C0; }
+    .gov-eyebrow { display: flex; align-items: center; gap: .5rem; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: .62rem; letter-spacing: .16em; text-transform: uppercase; color: #64748B; }
+    .gov-eyebrow i { color: #0070C0; }
+
+    .tc-wrap { flex: 1; min-height: 0; position: relative; z-index: 10; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 1.2rem 5rem; animation: fadeInUp .55s cubic-bezier(.2,.7,.3,1) both; }
+    .tc-eyebrow { display: flex; align-items: center; gap: .8rem; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .68rem; letter-spacing: .28em; text-transform: uppercase; color: #0070C0; margin-bottom: 1.1rem; }
+    .tc-eyebrow::before, .tc-eyebrow::after { content: ""; width: 34px; height: 2px; background: #F2A900; }
+    .tc-title { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 2.7rem; color: #103050; line-height: 1.05; letter-spacing: -.01em; margin: 0 0 .5rem; }
+    .tc-sub { font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: .9rem; color: #64748B; letter-spacing: .02em; margin-bottom: 1.2rem; }
+    .tc-divider { width: 90px; height: 4px; border-radius: 2px; margin: 0 auto 1.6rem; background: linear-gradient(90deg, #F2A900, #0090C0); }
+    .tc-body { max-width: 52rem; }
+    .tc-body p { color: #334155; font-size: 1.0rem; line-height: 1.85; margin: 0 0 1.05rem; }
+    .tc-body p:last-child { margin-bottom: 0; }
+    .tc-body b { color: #103050; font-weight: 700; }
+    .tc-close { max-width: 52rem; margin-top: 1.5rem; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1.05rem; line-height: 1.5; color: #0070C0; }
+    .tc-close i { color: #F2A900; margin: 0 .4rem; }
+
+    .bg-pattern { position: absolute; bottom: -70px; right: -60px; width: 420px; height: 420px; opacity: .03; z-index: 0; color: #103050; }
+    .bg-pattern-2 { position: absolute; top: -80px; left: -60px; width: 340px; height: 340px; opacity: .025; z-index: 0; color: #0070C0; }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+  </style>
 </head>
-
 <body>
-    <div class="slide-container">
-        <div class="top-accent"></div>
-        <div class="top-accent-secondary"></div>
-        <div class="flex items-center justify-between px-16 pt-6 pb-3 z-10">
-            <div>
-                <p class="gov-eyebrow"><i class="fas fa-landmark"></i> Agência Nacional de Transportes Aquaviários — ANTAQ · Seção 04</p>
-                <div class="flex items-center gap-3 mb-1">
-                    <div class="w-1 h-8 bg-brand-secondary"></div>
-                    <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Análise Estratégica e Inteligência</p>
-                </div>
-                <p class="text-gray-500 font-medium ml-4 text-lg">Padrões, rankings e leituras que subsidiam a decisão institucional</p>
-            </div>
-            <div class="flex items-center gap-2 opacity-80 text-brand-secondary">
-                <i class="fas fa-lightbulb text-xl"></i>
-                <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">INTELIGÊNCIA</p>
-            </div>
-        </div>
+  <div class="slide-container">
+    <div class="top-accent"></div>
+    <div class="top-accent-secondary"></div>
 
-        <div class="flex-1 flex flex-col justify-center px-16 pb-4 z-10 gap-5" style="min-height:0;">
-            <div class="gov-lead">
-                Esta seção traz a <b>visão analítica e de inteligência</b> sobre os padrões das manifestações: os <b>principais achados</b>,
-                o ranking de assuntos e temas recorrentes, a análise por instância e modalidade, a <b>leitura qualitativa</b> — problemas,
-                possíveis causas e propostas de solução —, os <b>riscos e oportunidades</b> e as <b>recomendações</b> decorrentes. É a
-                transformação dos dados da Ouvidoria em subsídios concretos para a tomada de decisão institucional.
-            </div>
-
-            <div class="metric-strip">
-                <div class="metric-head"><p class="mh-k">1º Trimestre de 2026</p><p class="mh-t">A seção em números</p></div>
-                <div class="metric-cells">
-                    <div class="metric-cell"><span class="metric-value">434</span><span class="metric-label">Manifestações analisadas</span></div>
-                    <div class="metric-cell"><span class="metric-value">5</span><span class="metric-label">Frentes de análise e inteligência</span></div>
-                    <div class="metric-cell"><span class="metric-value">100%</span><span class="metric-label">Das demandas classificadas por tema</span></div>
-                </div>
-            </div>
-
-            <div>
-                <p class="pts-label mb-3"><i class="fas fa-list-ul text-brand-secondary"></i> Nesta seção você vai encontrar</p>
-                <div class="pts-row">
-                    <div class="pt-card"><div class="pt-ico"><i class="fas fa-magnifying-glass-chart"></i></div><div><p class="pt-t">Principais achados</p><p class="pt-s">Rankings de assuntos e temas</p></div></div>
-                    <div class="pt-card"><div class="pt-ico"><i class="fas fa-chart-pie"></i></div><div><p class="pt-t">Analytics da Ouvidoria</p><p class="pt-s">Interpretação dos dados</p></div></div>
-                    <div class="pt-card"><div class="pt-ico"><i class="fas fa-clipboard-question"></i></div><div><p class="pt-t">Análise qualitativa</p><p class="pt-s">Problemas, causas e propostas</p></div></div>
-                    <div class="pt-card"><div class="pt-ico"><i class="fas fa-triangle-exclamation"></i></div><div><p class="pt-t">Riscos e recomendações</p><p class="pt-s">Oportunidades de melhoria</p></div></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="px-16 pb-6 pt-1 flex justify-between items-center z-10">
-            <p class="text-gray-400 text-xs">Relatório Trimestral da Ouvidoria · 2026 — Agência Nacional de Transportes Aquaviários</p>
-            <p class="text-gray-300 text-xs font-mono">17 / 58</p>
-        </div>
-        <div class="bg-pattern"><i class="fas fa-lightbulb text-9xl"></i></div>
+    <div class="flex items-center justify-between px-16 pt-5 z-10">
+      <p class="gov-eyebrow"><i class="fas fa-landmark"></i> Agência Nacional de Transportes Aquaviários — ANTAQ</p>
+      <p class="gov-eyebrow" style="color:#94a3b8;"><i class="fas fa-lightbulb" style="color:#0070C0;"></i> Seção 04 · Análise</p>
     </div>
-    <script>document.addEventListener("keydown", function (e) { if (["ArrowRight","ArrowLeft","PageDown","PageUp","Home","End"," ","f","F"].indexOf(e.key)!==-1){ e.preventDefault(); window.parent.postMessage({type:"slide-nav",key:e.key},"*"); } });</script>
+
+    <div class="tc-wrap">
+      <div class="tc-eyebrow">Análise Estratégica e Inteligência</div>
+      <h1 class="tc-title">Leitura Estratégica dos Dados</h1>
+      <p class="tc-sub">Padrões, rankings e leituras que subsidiam a decisão institucional</p>
+      <div class="tc-divider"></div>
+
+      <div class="tc-body">
+        <p>
+          A análise consolidada das manifestações recebidas pela Ouvidoria permite identificar <b>tendências
+          regulatórias</b>, oportunidades de melhoria institucional, <b>riscos emergentes</b> e demandas recorrentes
+          dos usuários dos serviços regulados pela ANTAQ.
+        </p>
+        <p>
+          Nesse contexto, a Ouvidoria atua não apenas como canal de atendimento ao cidadão, mas também como
+          <b>importante instrumento de apoio à gestão</b>, à fiscalização e à tomada de decisão — traduzindo os dados
+          do período em rankings, padrões e recomendações.
+        </p>
+      </div>
+
+      <p class="tc-close">
+        <i class="fas fa-chart-line"></i>
+        Da escuta ao insight: transformar o volume de manifestações em inteligência para a decisão institucional.
+      </p>
+    </div>
+
+    <div class="px-16 pb-6 pt-1 flex justify-between items-center z-10">
+      <p class="text-gray-400 text-xs">Relatório Trimestral da Ouvidoria · 2026 — Agência Nacional de Transportes Aquaviários</p>
+      <p class="text-gray-300 text-xs font-mono">Seção 04 · Análise Estratégica</p>
+    </div>
+    <div class="bg-pattern"><i class="fas fa-lightbulb text-9xl"></i></div>
+    <div class="bg-pattern-2"><i class="fas fa-chart-line text-9xl"></i></div>
+  </div>
+  <script>document.addEventListener("keydown", function (e) { if (["ArrowRight","ArrowLeft","PageDown","PageUp","Home","End"," ","f","F"].indexOf(e.key)!==-1){ e.preventDefault(); window.parent.postMessage({type:"slide-nav",key:e.key},"*"); } });</script>
 </body>
 </html>
