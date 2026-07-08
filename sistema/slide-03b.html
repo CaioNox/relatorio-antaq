@@ -21,71 +21,212 @@
     rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
   <style>
-    html { font-size: 26px; }
-    body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
+    html {
+      font-size: 26px;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f3f4f6;
+      overflow: hidden;
+    }
 
     .slide-container {
-      width: 100vw; height: 100vh; position: relative;
-      display: flex; flex-direction: column;
-      background-color: #ffffff; overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background-color: #ffffff;
+      overflow: hidden;
       font-family: 'Open Sans', sans-serif;
     }
-    .font-montserrat { font-family: 'Montserrat', sans-serif; }
-    .text-brand-primary { color: #103050; }
-    .text-brand-secondary { color: #0070C0; }
-    .top-accent { height: 8px; background-color: #103050; width: 100%; }
-    .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
+
+    .font-montserrat {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .text-brand-primary {
+      color: #103050;
+    }
+
+    .text-brand-secondary {
+      color: #0070C0;
+    }
+
+    .top-accent {
+      height: 8px;
+      background-color: #103050;
+      width: 100%;
+    }
+
+    .top-accent-secondary {
+      height: 4px;
+      background-color: #0070C0;
+      width: 100%;
+    }
 
     /* ── Bloco de texto centralizado (padrão documental) ── */
     .tc-wrap {
-      flex: 1; min-height: 0; position: relative; z-index: 10;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      text-align: center; padding: 1.2rem 5rem;
-      animation: fadeInUp .55s cubic-bezier(.2,.7,.3,1) both;
+      flex: 1;
+      min-height: 0;
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 1.2rem 5rem;
+      animation: fadeInUp .55s cubic-bezier(.2, .7, .3, 1) both;
     }
+
     .tc-eyebrow {
-      display: flex; align-items: center; gap: .8rem;
-      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .68rem;
-      letter-spacing: .28em; text-transform: uppercase; color: #0070C0; margin-bottom: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: .8rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: .68rem;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      color: #0070C0;
+      margin-bottom: 1.1rem;
     }
-    .tc-eyebrow::before, .tc-eyebrow::after { content: ""; width: 34px; height: 2px; background: #F2A900; }
+
+    .tc-eyebrow::before,
+    .tc-eyebrow::after {
+      content: "";
+      width: 34px;
+      height: 2px;
+      background: #F2A900;
+    }
+
     .tc-title {
-      font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 2.7rem;
-      color: #103050; line-height: 1.05; letter-spacing: -.01em; margin: 0 0 .5rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 2.7rem;
+      color: #103050;
+      line-height: 1.05;
+      letter-spacing: -.01em;
+      margin: 0 0 .5rem;
     }
+
     .tc-sub {
-      font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: .9rem;
-      color: #64748B; letter-spacing: .02em; margin-bottom: 1.2rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      font-size: .9rem;
+      color: #64748B;
+      letter-spacing: .02em;
+      margin-bottom: 1.2rem;
     }
+
     .tc-divider {
-      width: 90px; height: 4px; border-radius: 2px; margin: 0 auto 1.6rem;
+      width: 90px;
+      height: 4px;
+      border-radius: 2px;
+      margin: 0 auto 1.6rem;
       background: linear-gradient(90deg, #F2A900, #0090C0);
     }
-    .tc-body { max-width: 50rem; }
+
+    .tc-body {
+      max-width: 50rem;
+      text-align: justify;
+      text-align-last: center;
+      hyphens: auto;
+    }
+
     .tc-body p {
-      color: #334155; font-size: 1.0rem; line-height: 1.85; margin: 0 0 1.05rem;
+      color: #334155;
+      font-size: 1.0rem;
+      line-height: 1.85;
+      margin: 0 0 1.05rem;
     }
-    .tc-body p:last-child { margin-bottom: 0; }
-    .tc-body b { color: #103050; font-weight: 700; }
+
+    .tc-body p:last-child {
+      margin-bottom: 0;
+    }
+
+    .tc-body b {
+      color: #103050;
+      font-weight: 700;
+    }
+
     .tc-close {
-      max-width: 52rem; margin-top: 1.5rem;
-      font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1.05rem;
-      line-height: 1.5; color: #0070C0;
+      max-width: 52rem;
+      margin-top: 1.5rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      line-height: 1.5;
+      color: #0070C0;
     }
-    .tc-close i { color: #F2A900; margin: 0 .4rem; }
+
+    .tc-close i {
+      color: #F2A900;
+      margin: 0 .4rem;
+    }
 
     .gov-eyebrow {
-      display: flex; align-items: center; gap: .5rem;
-      font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: .62rem;
-      letter-spacing: .16em; text-transform: uppercase; color: #64748B;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: .62rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: #64748B;
     }
-    .gov-eyebrow i { color: #0070C0; }
 
-    .bg-pattern { position: absolute; bottom: -70px; right: -60px; width: 420px; height: 420px; opacity: 0.03; z-index: 0; color: #103050; }
-    .bg-pattern-2 { position: absolute; top: -80px; left: -60px; width: 340px; height: 340px; opacity: 0.025; z-index: 0; color: #0070C0; }
+    .gov-eyebrow i {
+      color: #0070C0;
+    }
 
-    @keyframes fadeInUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
-    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+    .bg-pattern {
+      position: absolute;
+      bottom: -70px;
+      right: -60px;
+      width: 420px;
+      height: 420px;
+      opacity: 0.03;
+      z-index: 0;
+      color: #103050;
+    }
+
+    .bg-pattern-2 {
+      position: absolute;
+      top: -80px;
+      left: -60px;
+      width: 340px;
+      height: 340px;
+      opacity: 0.025;
+      z-index: 0;
+      color: #0070C0;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
   </style>
 </head>
 
@@ -97,27 +238,28 @@
     <!-- Cabeçalho institucional minimalista -->
     <div class="flex items-center justify-between px-16 pt-5 z-10">
       <p class="gov-eyebrow"><i class="fas fa-landmark"></i> Agência Nacional de Transportes Aquaviários — ANTAQ</p>
-      <p class="gov-eyebrow" style="color:#94a3b8;"><i class="fas fa-clipboard-list" style="color:#0070C0;"></i> Seção 01 · Apresentação</p>
+      <p class="gov-eyebrow" style="color:#94a3b8;"><i class="fas fa-clipboard-list" style="color:#0070C0;"></i> Seção
+        01 · Apresentação</p>
     </div>
 
     <!-- Texto centralizado -->
     <div class="tc-wrap">
-      <div class="tc-eyebrow">Sumário Executivo</div>
-      <h1 class="tc-title">Balanço do 1º Trimestre</h1>
+
+      <h1 class="tc-title">Sumário Executivo</h1>
       <p class="tc-sub">Atividades da Ouvidoria da ANTAQ · Janeiro a Março de 2026</p>
       <div class="tc-divider"></div>
 
       <div class="tc-body">
         <p>
-          O presente relatório apresenta o <b>balanço das atividades</b> realizadas pela Seção de Apoio ao Cidadão
+          O presente relatório apresenta o balanço das atividades realizadas pela Seção de Apoio ao Cidadão
           (SAC) e pela Seção de Transparência e Acesso à Informação (STAI) da Ouvidoria da ANTAQ, englobando o
-          <b>monitoramento das ações</b> desenvolvidas ao longo do primeiro trimestre de 2026 — período que
-          compreende os meses de <b>janeiro a março</b>.
+          monitoramento das ações desenvolvidas ao longo do primeiro trimestre de 2026 — período que
+          compreende os meses de janeiro a março.
         </p>
         <p>
-          Além do histórico do período, o levantamento traz um <b>diagnóstico detalhado dos gargalos</b> detectados
-          na fase de análise, a indicação dos problemas identificados, suas <b>possíveis causas</b> e as respectivas
-          <b>propostas de solução</b>, orientando a melhoria contínua dos fluxos internos da unidade.
+          Além do histórico do período, o levantamento traz um diagnóstico detalhado dos gargalos detectados
+          na fase de análise, a indicação dos problemas identificados, suas possíveis causas e as respectivas
+          propostas de solução, orientando a melhoria contínua dos fluxos internos da unidade.
         </p>
       </div>
 
@@ -131,7 +273,8 @@
 
     <!-- Rodapé institucional -->
     <div class="px-16 pb-6 pt-1 flex justify-between items-center z-10">
-      <p class="text-gray-400 text-xs">Relatório Trimestral da Ouvidoria · 2026 — Agência Nacional de Transportes Aquaviários</p>
+      <p class="text-gray-400 text-xs">Relatório Trimestral da Ouvidoria · 2026 — Agência Nacional de Transportes
+        Aquaviários</p>
       <p class="text-gray-300 text-xs font-mono">Seção 01 · Sumário Executivo</p>
     </div>
     <div class="bg-pattern"><i class="fas fa-clipboard-list text-9xl"></i></div>
