@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Apresentação Geral da Ouvidoria - Relatório Trimestral Ouvidoria ANTAQ</title>
+  <link rel="icon" type="image/png" href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    html { font-size: 26px; }
+    body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
+    .slide-container { width: 100vw; height: 100vh; position: relative; display: flex; flex-direction: column; background-color: #ffffff; overflow: hidden; font-family: 'Open Sans', sans-serif; }
+    .font-montserrat { font-family: 'Montserrat', sans-serif; }
+    .text-brand-primary { color: #103050; }
+    .text-brand-secondary { color: #0070C0; }
+    .top-accent { height: 8px; background-color: #103050; width: 100%; }
+    .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
+    .gov-eyebrow { display: flex; align-items: center; gap: .5rem; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: .62rem; letter-spacing: .16em; text-transform: uppercase; color: #64748B; margin-bottom: .5rem; }
+    .gov-eyebrow i { color: #0070C0; }
+
+    /* Painel esquerda - texto institucional */
+    .inst-panel {
+      background: #ffffff; border: 1px solid #E2E8F0; border-radius: 16px;
+      padding: 1.2rem 1.4rem; height: 100%; overflow: hidden;
+      display: flex; flex-direction: column; justify-content: flex-start;
+      box-shadow: 0 8px 24px -14px rgba(16,48,80,.22);
+      animation: fadeInUp .5s cubic-bezier(.2,.7,.3,1) both;
+    }
+    .inst-kicker { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .6rem; letter-spacing: .18em; text-transform: uppercase; color: #0070C0; margin-bottom: .65rem; display: flex; align-items: center; gap: .45rem; }
+    .inst-text { color: #334155; font-size: .73rem; line-height: 1.55; margin: 0 0 .55rem; }
+    .inst-text b { color: #103050; font-weight: 700; }
+    .inst-law {
+      background: #F5F8FC; border-left: 4px solid #0090C0; border-radius: 8px;
+      padding: .6rem .85rem; margin-top: .4rem;
+    }
+    .inst-law p { margin: 0; font-size: .68rem; line-height: 1.5; color: #475569; font-style: italic; }
+    .inst-law b { color: #103050; font-style: normal; }
+
+    /* Painel direita - organograma */
+    .org-panel {
+      background: linear-gradient(160deg, #0A2236 0%, #103050 55%, #0e5f96 100%);
+      border-radius: 16px; padding: 1.2rem 1.3rem; color: #fff; position: relative; overflow: hidden;
+      height: 100%; display: flex; flex-direction: column;
+      box-shadow: 0 18px 40px -18px rgba(16,48,80,.55);
+      animation: fadeInUp .5s cubic-bezier(.2,.7,.3,1) .1s both;
+    }
+    .org-k { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: .58rem; letter-spacing: .18em; text-transform: uppercase; color: #9fd0ea; margin-bottom: .65rem; }
+    .org-title { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.15rem; margin-bottom: 1rem; line-height: 1.15; }
+    .org-title span { color: #7fd3f0; }
+
+    /* Organograma simples */
+    .org-tree { display: flex; flex-direction: column; align-items: center; gap: 0; flex: 1; justify-content: center; }
+    .org-node-main {
+      background: rgba(255,255,255,0.15); border: 1.5px solid rgba(255,255,255,0.3);
+      border-radius: 10px; padding: .55rem 1.1rem; text-align: center; width: 200px;
+    }
+    .org-node-main .n-ico { font-size: 1.4rem; color: #7fd3f0; margin-bottom: .22rem; }
+    .org-node-main .n-title { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .72rem; letter-spacing: .06em; text-transform: uppercase; }
+    .org-node-main .n-sub { font-size: .6rem; color: rgba(255,255,255,0.6); margin-top: .1rem; }
+
+    .org-connector { width: 2px; height: 22px; background: rgba(255,255,255,0.25); margin: 0 auto; }
+    .org-branch { display: flex; align-items: flex-start; gap: 24px; position: relative; margin-top: 0; }
+    .org-branch::before { content: ''; position: absolute; top: 0; left: calc(50% - 65px); right: calc(50% - 65px); height: 2px; background: rgba(255,255,255,0.2); }
+
+    .org-node-child {
+      display: flex; flex-direction: column; align-items: center;
+    }
+    .org-node-child .c-line { width: 2px; height: 20px; background: rgba(255,255,255,0.22); }
+    .org-card {
+      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 10px; padding: .65rem .85rem; text-align: center; width: 130px;
+    }
+    .org-card .c-ico { font-size: 1.3rem; color: #7fd3f0; margin-bottom: .2rem; }
+    .org-card .c-title { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .64rem; letter-spacing: .04em; text-transform: uppercase; }
+    .org-card .c-sub { font-size: .56rem; color: rgba(255,255,255,0.55); margin-top: .12rem; line-height: 1.3; }
+
+    .org-bg-ico { position: absolute; right: -16px; bottom: -24px; font-size: 7rem; opacity: 0.07; }
+    .workers-note { font-size: .62rem; color: rgba(255,255,255,0.5); text-align: center; margin-top: .9rem; line-height: 1.4; }
+
+    .bg-pattern { position: absolute; bottom: -60px; right: -50px; width: 360px; height: 360px; opacity: 0.025; z-index: 0; color: #103050; }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; } }
+  </style>
+</head>
+<body>
+  <div class="slide-container">
+    <div class="top-accent"></div>
+    <div class="top-accent-secondary"></div>
+
+    <div class="flex items-center justify-between px-16 pt-5 pb-2 z-10">
+      <div>
+        <p class="gov-eyebrow"><i class="fas fa-landmark"></i> Agência Nacional de Transportes Aquaviários — ANTAQ</p>
+        <div class="flex items-center gap-3 mb-1">
+          <div class="w-1 h-8 bg-brand-secondary"></div>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Ouvidoria da ANTAQ</p>
+        </div>
+        <p class="text-gray-500 font-medium ml-4 text-lg">Canal oficial de interlocução com a sociedade e instância pública de controle</p>
+      </div>
+      <div class="flex items-center gap-2 opacity-80 text-brand-secondary">
+        <i class="fas fa-bullhorn text-xl" aria-hidden="true"></i>
+        <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">SEÇÃO 01 · APRESENTAÇÃO</p>
+      </div>
+    </div>
+
+    <div class="flex-1 grid gap-6 px-16 pb-3 z-10" style="grid-template-columns: 1.15fr 0.85fr; min-height:0;">
+      <!-- Texto institucional -->
+      <div class="inst-panel">
+        <p class="inst-kicker"><i class="fas fa-quote-left"></i> Definição institucional</p>
+        <p class="inst-text">
+          A Ouvidoria da Agência Nacional de Transportes Aquaviários — ANTAQ é a <b>instância pública de controle
+          e participação social</b>, responsável pelo tratamento das reclamações, solicitações, denúncias, sugestões
+          e elogios relativos às políticas e aos serviços públicos fiscalizados e regulados pela ANTAQ.
+        </p>
+        <p class="inst-text">
+          Comprometida com a <b>produtividade e a tempestividade</b> no atendimento ao cidadão, a Ouvidoria promove
+          ações de transparência e presta contas de suas atividades, essenciais para o fortalecimento da
+          <em>accountability</em> na Administração Pública e na sociedade.
+        </p>
+        <p class="inst-text">
+          O Ouvidor atua <b>sem subordinação hierárquica</b> com vistas ao aprimoramento da gestão pública e a garantia
+          da transparência em suas ações, com <b>independência e autonomia</b> em relação aos demais setores que compõem
+          a Agência. (Lei N° 13.848/2019).
+        </p>
+        <p class="inst-text">
+          A Ouvidoria tem em sua estrutura hierárquica duas Coordenações: <b>Coordenação de Apoio ao Cidadão — SAC</b>
+          e <b>Coordenação de Transparência e Acesso à Informação — STAI</b>. A unidade conta com <b>13 colaboradores</b>,
+          divididos entre servidores e terceirizados.
+        </p>
+        <div class="inst-law">
+          <p><b>Figura 2 — Estrutura Organizacional da Ouvidoria.</b> A Ouvidoria é composta pela coordenação da
+          unidade e duas seções especializadas: SAC (Seção de Apoio ao Cidadão) e STAI (Seção de Transparência
+          e Acesso à Informação), atuando de forma integrada e complementar.</p>
+        </div>
+      </div>
+
+      <!-- Organograma -->
+      <div class="org-panel">
+        <p class="org-k">Estrutura organizacional</p>
+        <p class="org-title">Organograma da <span>Ouvidoria</span></p>
+        <div class="org-tree">
+          <div class="org-node-main">
+            <div class="n-ico"><i class="fas fa-bullhorn"></i></div>
+            <div class="n-title">Ouvidoria</div>
+            <div class="n-sub">Coordenação</div>
+          </div>
+          <div class="org-connector"></div>
+          <div class="org-branch">
+            <div class="org-node-child">
+              <div class="c-line"></div>
+              <div class="org-card">
+                <div class="c-ico"><i class="fas fa-headset"></i></div>
+                <div class="c-title">SAC</div>
+                <div class="c-sub">Seção de Apoio<br>ao Cidadão</div>
+              </div>
+            </div>
+            <div class="org-node-child">
+              <div class="c-line"></div>
+              <div class="org-card">
+                <div class="c-ico"><i class="fas fa-magnifying-glass"></i></div>
+                <div class="c-title">STAI</div>
+                <div class="c-sub">Transparência e<br>Acesso à Informação</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="workers-note">13 colaboradores · Servidores e terceirizados</p>
+        <i class="fas fa-sitemap org-bg-ico"></i>
+      </div>
+    </div>
+
+    <div class="px-16 pb-6 pt-1 flex justify-between items-center z-10">
+      <p class="text-gray-400 text-xs">Relatório Trimestral da Ouvidoria · 2026 — Agência Nacional de Transportes Aquaviários</p>
+      <p class="text-gray-300 text-xs font-mono">SEÇÃO 01</p>
+    </div>
+    <div class="bg-pattern"><i class="fas fa-bullhorn text-9xl"></i></div>
+  </div>
+  <script>document.addEventListener("keydown", function (e) { if (["ArrowRight","ArrowLeft","PageDown","PageUp","Home","End"," ","f","F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Mensagem da Ouvidora - Relatório Trimestral Ouvidoria ANTAQ</title>
+  <link rel="icon" type="image/png" href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { width: 100vw; height: 100vh; overflow: hidden; font-family: 'Montserrat', sans-serif; }
+
+    .slide {
+      width: 100vw; height: 100vh; position: relative;
+      display: flex; align-items: stretch;
+      background: linear-gradient(135deg, #050e18 0%, #0a2236 40%, #0d3358 100%);
+      overflow: hidden; color: #fff;
+    }
+
+    .av1 { position: absolute; left: 0; top: 0; height: 100%; width: 12px; background: #0090C0; z-index: 20; }
+    .av2 { position: absolute; left: 12px; top: 0; height: 100%; width: 4px; background: #0070C0; z-index: 20; }
+
+    .ring { position: absolute; border-radius: 50%; border: 1px solid rgba(0,144,192,0.09); pointer-events: none; }
+    .dots { position: absolute; opacity: 0.04; background-image: radial-gradient(rgba(255,255,255,1) 1.5px, transparent 1.5px); background-size: 28px 28px; }
+
+    .content {
+      position: relative; z-index: 10;
+      padding: 0 72px 0 104px;
+      display: flex; flex-direction: column; justify-content: center;
+      width: 60%; flex-shrink: 0;
+    }
+
+    .kicker {
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.36em; text-transform: uppercase;
+      color: #F2A900; display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1.6rem;
+    }
+    .kicker::before { content: ''; width: 32px; height: 2px; background: #F2A900; flex-shrink: 0; }
+
+    .title {
+      font-size: 3.2rem; font-weight: 900; line-height: 1.0;
+      letter-spacing: -0.02em; margin-bottom: 1.4rem;
+    }
+    .title .acc { color: #0090C0; display: block; }
+
+    .divbar { width: 64px; height: 4px; border-radius: 2px; background: linear-gradient(90deg, #F2A900, #0090C0, transparent); margin-bottom: 1.8rem; }
+
+    .quote-block {
+      border-left: 3px solid rgba(0,144,192,0.5);
+      padding: 0 0 0 1.4rem;
+      margin-bottom: 1.6rem;
+    }
+    .quote-text {
+      font-family: 'Open Sans', sans-serif; font-style: italic;
+      font-size: 1.0rem; line-height: 1.72; color: rgba(255,255,255,0.72);
+    }
+
+    .body-text {
+      font-family: 'Open Sans', sans-serif; font-size: 0.92rem; line-height: 1.7;
+      color: rgba(255,255,255,0.58); margin-bottom: 0.9rem;
+    }
+
+    .signature {
+      margin-top: 1.8rem; display: flex; flex-direction: column; gap: 0.2rem;
+    }
+    .sig-name { font-size: 1.05rem; font-weight: 800; letter-spacing: 0.03em; color: #fff; }
+    .sig-role { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(0,144,192,0.85); }
+
+    .right-pane {
+      flex: 1; position: relative; z-index: 10;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px;
+    }
+    .vdiv { position: absolute; left: 60%; top: 10%; bottom: 10%; width: 1px; background: linear-gradient(180deg, transparent, rgba(255,255,255,0.07) 30%, rgba(255,255,255,0.07) 70%, transparent); z-index: 5; }
+
+    .avatar-circle {
+      width: 160px; height: 160px; border-radius: 50%;
+      border: 2px solid rgba(0,144,192,0.4);
+      background: linear-gradient(145deg, rgba(0,144,192,0.18), rgba(0,70,120,0.35));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 5.5rem; color: rgba(255,255,255,0.25);
+      margin-bottom: 1.4rem;
+    }
+    .role-badge {
+      text-align: center; font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.26em; text-transform: uppercase; color: rgba(255,255,255,0.28);
+    }
+    .logo-wm { position: absolute; top: 36px; right: 60px; height: 40px; opacity: 0.08; filter: brightness(0) invert(1); pointer-events: none; }
+
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+    .a { animation: fadeInUp .55s ease both; }
+    .d1 { animation-delay: .06s } .d2 { animation-delay: .14s } .d3 { animation-delay: .22s } .d4 { animation-delay: .32s } .d5 { animation-delay: .42s }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; } }
+  </style>
+</head>
+<body>
+  <div class="slide">
+    <div class="av1"></div>
+    <div class="av2"></div>
+    <div class="ring" style="width:680px;height:680px;right:-210px;top:-180px;"></div>
+    <div class="ring" style="width:420px;height:420px;right:-60px;top:-40px;border-color:rgba(0,144,192,0.14);"></div>
+    <div class="dots" style="bottom:0;left:0;width:300px;height:300px;"></div>
+    <img class="logo-wm" src="Imagens/Logo Horizontal_Branca_C_N.png" alt="" />
+
+    <div class="content">
+      <div class="kicker a">Relatório Trimestral 2026 · 1º Trimestre</div>
+      <h1 class="title a d1">Mensagem<span class="acc">da Ouvidora</span></h1>
+      <div class="divbar a d2"></div>
+
+      <div class="quote-block a d3">
+        <p class="quote-text">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque habitant morbi tristique senectus et netus
+          et malesuada fames ac turpis egestas. Curabitur pretium tincidunt lacus. Nulla gravida orci a odio, et tempus feugiat.
+        </p>
+      </div>
+
+      <p class="body-text a d4">
+        Nullam varius, turpis molestie dictum ultricies, nunc quam pellentesque est, congue sagittis arcu sem nec
+        velit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+        Suspendisse potenti. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate
+        magna eros eu erat. Aliquam erat volutpat.
+      </p>
+      <p class="body-text a d4">
+        Sed commodo posuere pede. Mauris ut est. Ut quis purus. Sed ac odio. Sed vehicula hendrerit sem.
+        Duis non odio. Morbi ut dui. Sed accumsan risus eget odio. In hac habitasse platea dictumst.
+      </p>
+
+      <div class="signature a d5">
+        <span class="sig-name">Nome da Ouvidora</span>
+        <span class="sig-role">Ouvidora da ANTAQ · 1º Trimestre 2026</span>
+      </div>
+    </div>
+
+    <div class="vdiv"></div>
+    <div class="right-pane">
+      <div class="avatar-circle"><i class="fas fa-user"></i></div>
+      <p class="role-badge">Ouvidoria da ANTAQ</p>
+    </div>
+  </div>
+  <script>
+    document.addEventListener("keydown", function (e) {
+      if (["ArrowRight","ArrowLeft","PageDown","PageUp","Home","End"," ","f","F"].indexOf(e.key) !== -1) {
+        e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*");
+      }
+    });
+  </script>
+</body>
+</html>

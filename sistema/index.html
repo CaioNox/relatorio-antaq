@@ -78,6 +78,47 @@
       transform-origin: top left;
     }
 
+    /* Wave acima do navbar */
+    .nav-wave {
+      position: fixed;
+      bottom: 56px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 320px;
+      height: 18px;
+      z-index: 999;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .nav-wave::before,
+    .nav-wave::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: -20%;
+      width: 140%;
+      height: 100%;
+      border-radius: 50% 50% 0 0 / 80% 80% 0 0;
+    }
+
+    .nav-wave::before {
+      background: rgba(0, 144, 192, 0.22);
+      animation: navWave 4s ease-in-out infinite;
+    }
+
+    .nav-wave::after {
+      background: rgba(0, 112, 192, 0.12);
+      animation: navWave 5.5s ease-in-out infinite reverse;
+      transform: scaleY(0.7);
+    }
+
+    @keyframes navWave {
+      0%   { transform: translateX(0)    scaleY(1); }
+      50%  { transform: translateX(5%)   scaleY(1.1); }
+      100% { transform: translateX(0)    scaleY(1); }
+    }
+
     /* Navigation bar - same style as Kenia */
     .nav-bar {
       position: fixed;
@@ -139,14 +180,14 @@
     /* Slide dots */
     .nav-dots {
       display: flex;
-      gap: 4px;
+      gap: 2px;
       align-items: center;
-      margin: 0 8px;
+      margin: 0 6px;
     }
 
     .nav-dots button {
-      width: 8px;
-      height: 8px;
+      width: 5px;
+      height: 5px;
       border-radius: 50%;
       background: rgba(255, 255, 255, 0.3);
       border: none;
@@ -157,8 +198,8 @@
 
     .nav-dots button.active {
       background: #0090C0;
-      width: 24px;
-      border-radius: 4px;
+      width: 16px;
+      border-radius: 3px;
     }
 
     .nav-dots button:hover:not(.active) {
@@ -409,6 +450,7 @@
     <div id="clickRight" class="click-zone" title="Próximo slide"></div>
   </div>
 
+  <div class="nav-wave"></div>
   <div class="nav-bar">
     <button onclick="goHome()" class="home-btn" title="Ir para o slide inicial"><i
         class="fa-solid fa-house"></i></button>
@@ -429,7 +471,7 @@
 
   <div class="nav-hints-overlay" id="navHints">
     <div class="nav-hints-panel">
-      <h2><i class="fa-solid fa-circle-question" style="color:#0090C0;"></i> Como navegar a apresentação</h2>
+      <h2><i class="fa-solid fa-circle-question" style="color:#0090C0;"></i> Como navegar na apresentação</h2>
       <p class="subtitle">Use o teclado ou o mouse para avançar entre os slides.</p>
 
       <div class="hint-row">
@@ -482,19 +524,67 @@
 
   <script>
     const slides = [
-      'slide-01.html',
-      'capa-01.html', 'slide-02.html', 'slide-03.html', 'slide-03b.html', 'slide-03c.html',
-      'capa-02.html', 'slide-ctx-02.html', 'slide-04.html', 'slide-05.html', 'slide-06.html', 'slide-07.html',
-      'capa-03.html', 'slide-ctx-03.html', 'slide-08.html',
-      'capa-04.html', 'slide-ctx-04.html', 'slide-09.html', 'slide-10.html', 'slide-11.html', 'slide-12.html', 'slide-13.html',
-      'capa-05.html', 'slide-ctx-05.html', 'slide-14.html', 'slide-15.html', 'slide-16.html', 'slide-16b.html', 'slide-17b.html', 'slide-17.html', 'slide-17d.html', 'slide-17e.html',
-      'capa-06.html', 'slide-ctx-06.html', 'slide-18.html', 'slide-19.html', 'slide-20.html',
-      'capa-07.html', 'slide-pda.html', 'slide-21.html',
-      'capa-08.html', 'slide-ctx-08.html', 'slide-22.html', 'slide-23.html',
-      'capa-10.html', 'slide-ctx-09.html', 'slide-25.html', 'slide-26.html', 'slide-27.html',
-      'slide-conclusao.html',
-      'capa-11.html', 'slide-28.html', 'slide-29.html', 'slide-30.html', 'slide-31.html',
-      'slide-32.html', 'slide-34.html', 'slide-35.html'
+      // ── Introdução ──
+      'slide-00.html',              // 01 · Capa de abertura
+      'slide-34.html',              // 02 · Ficha Técnica / Expediente
+      'slide-msg-ouvidora.html',    // 03 · Mensagem da Ouvidora
+      'slide-01.html',              // 04 · Sumário
+      'slide-03b.html',             // 05 · Sumário Executivo
+
+      // ── Seção 01 · Apresentação da Ouvidoria ──
+      'capa-01.html',               // 06 · Capa Seção 01
+      'slide-ouvidoria-geral.html', // 07 · Ouvidoria da ANTAQ — canal oficial de interlocução
+      'slide-principios.html',      // 08 · Princípios · Diretrizes · Atribuições
+      'slide-03c.html',             // 09 · Papel Institucional da Ouvidoria
+
+      // ── Seção SAC · Seção de Apoio ao Cidadão ──
+      'capa-sac.html',              // 10 · Capa Seção SAC
+      'slide-sac-apres.html',       // 11 · Apresentação da SAC
+      'slide-sac-ativ.html',        // 12 · Principais Atividades da SAC
+      'slide-sac-refs.html',        // 13 · Referências e Fontes de Dados
+
+      // ── Dados de Manifestações ──
+      'slide-07.html',              // 14 · Evolução Histórica das Manifestações
+      'slide-04.html',              // 15 · Manifestações Recebidas na Plataforma Fala.BR
+      'slide-14.html',              // 16 · Tipos de Manifestações + por Mês
+      'slide-canal.html',           // 17 · Manifestações por Canal + por Canal por Mês
+
+      // ── Seção 04 · Análise Quantitativa ──
+      'capa-04.html',               // 18 · Capa Seção 04 — Análise Quantitativa
+      'slide-08.html',              // 19 · Destaques do Trimestre
+      'slide-05.html',              // 20 · Tratamento de Demandas do Fala.BR (fluxo interno vs ANTAQ)
+      'slide-16.html',              // 21 · Panorama Geral das Demandas
+      'slide-16b.html',             // 22 · Ecossistema de Atendimento (foco Fala.BR)
+      'slide-17b.html',             // 23 · Sequência Lógica de Tramitação
+      'slide-17.html',              // 24 · Jornada Mensal das Demandas
+      'slide-17d.html',             // 25 · Fluxo Mensal — Painel Resolveu
+
+      // ── Seção STAI · Transparência e Acesso à Informação ──
+      'capa-stai.html',             // 26 · Capa Seção STAI
+      'slide-18.html',              // 27 · LAI — Transparência Passiva
+      'slide-19.html',              // 28 · LAI — Pedidos por Mês
+      'slide-20.html',              // 29 · Histórico de Pedidos LAI
+
+      // ── Seção Dados Abertos ──
+      'capa-07.html',               // 30 · Capa Dados Abertos
+      'slide-pda.html',             // 31 · Plano de Dados Abertos 2026–2028
+      'slide-21.html',              // 32 · Transparência Ativa e Dados Abertos
+
+      // ── Seção Transparência Ativa e Passiva ──
+      'capa-08.html',               // 33 · Capa Seção 08
+      'slide-22.html',              // 34 · Transparência Ativa
+      'slide-23.html',              // 35 · Transparência Passiva
+
+      // ── Encerramento ──
+      'slide-conclusao.html',       // 36 · Conclusão
+
+      // ── Glossário e Legislação ──
+      'capa-11.html',               // 37 · Capa Glossário e Legislação
+      'slide-31.html',              // 38 · Decretos
+      'slide-29.html',              // 39 · Glossário e Definições
+      'slide-30.html',              // 40 · Leis
+      'slide-35.html',              // 41 · Links Úteis
+      'slide-32.html',              // 42 · Normativas e Portarias
     ];
     const total = slides.length;
     const frame = document.getElementById('slideFrame');

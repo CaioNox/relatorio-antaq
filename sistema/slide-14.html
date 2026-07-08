@@ -1,246 +1,121 @@
 <!DOCTYPE html>
 <!--
   ╔══════════════════════════════════════════════════════════════╗
-  ║  SLIDE 14 — Tipos de manifestações — distribuição por categoria
-  ╠══════════════════════════════════════════════════════════════╣
-  ║  O QUE ATUALIZAR A CADA TRIMESTRE:
-  ║  Atualizar: dados do gráfico de barras/pizza com a distribuição por tipo (denúncia, reclamação, etc.)
+  ║  SLIDE 14 — Tipos de manifestações + Tipos por Mês         ║
+  ║  ATUALIZAR: dados dos dois gráficos a cada trimestre        ║
   ╚══════════════════════════════════════════════════════════════╝
 -->
-
 <html lang="pt-BR">
-
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
   <title>Tipos de Manifestações - Relatório Trimestral Ouvidoria ANTAQ</title>
-  <link rel="icon" type="image/png"
-    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link rel="icon" type="image/png" href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&amp;family=Open+Sans:wght@400;600&amp;display=swap"
-    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
-    html {
-      font-size: 26px;
-    }
-
-    body {
-      margin: 0;
-      padding: 0;
-      background-color: #f3f4f6;
-      overflow: hidden;
-    }
-
-    .slide-container {
-      width: 100vw;
-      height: 100vh;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      background-color: #ffffff;
-      overflow: hidden;
-      font-family: 'Open Sans', sans-serif;
-    }
-
-    .font-montserrat {
-      font-family: 'Montserrat', sans-serif;
-    }
-
-    .text-brand-primary {
-      color: #103050;
-    }
-
-    .text-brand-secondary {
-      color: #0070C0;
-    }
-
-    .bg-brand-secondary {
-      background-color: #0070C0;
-    }
-
-    .top-accent {
-      height: 8px;
-      background-color: #103050;
-      width: 100%;
-    }
-
-    .top-accent-secondary {
-      height: 4px;
-      background-color: #0070C0;
-      width: 100%;
-    }
-
-    /* ===== Interatividade ===== */
-    .chart-card,
-    .canal-card,
-    .period-chip,
-    .video-frame,
-    .kpi-card,
-    .glossary-card,
-    .exp-group,
-    .highlight-card {
-      transition: transform .28s cubic-bezier(.2, .7, .3, 1), box-shadow .28s ease, border-color .28s ease, background-color .28s ease;
-    }
-
-    .chart-card:hover,
-    .canal-card:hover,
-    .period-chip:hover,
-    .video-frame:hover {
-      transform: translateY(-7px);
-      box-shadow: 0 22px 42px -12px rgba(16, 48, 80, .30);
-      border-color: #0070C0;
-    }
-
-    .highlight-card:hover {
-      transform: translateY(-7px);
-      box-shadow: 0 26px 50px -14px rgba(16, 48, 80, .55);
-    }
-
-    .glossary-card:hover {
-      transform: translateY(-7px);
-      border-color: #0070C0;
-      box-shadow: 0 22px 42px -12px rgba(0, 112, 192, .32);
-    }
-
-    .glossary-icon {
-      transition: transform .3s ease;
-    }
-
-    .glossary-card:hover .glossary-icon {
-      transform: scale(1.12) rotate(-6deg);
-    }
-
-    .kpi-card:hover {
-      transform: translateY(-9px) scale(1.018);
-      box-shadow: 0 30px 58px -16px rgba(16, 48, 80, .6);
-    }
-
-    .kpi-watermark {
-      transition: transform .4s ease, opacity .4s ease;
-    }
-
-    .kpi-card:hover .kpi-watermark {
-      transform: scale(1.12);
-      opacity: .2;
-    }
-
-    .exp-group:hover {
-      transform: translateX(5px);
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-      }
-
-      to {
-        opacity: 1;
-      }
-    }
-
-    .chart-card,
-    .kpi-card,
-    .glossary-card,
-    .canal-card,
-    .period-chip,
-    .highlight-card {
-      animation: fadeIn .5s ease both;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-
-      *,
-      *::before,
-      *::after {
-        animation: none !important;
-        transition: none !important;
-      }
-    }
+    html { font-size: 26px; }
+    body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
+    .slide-container { width: 100vw; height: 100vh; position: relative; display: flex; flex-direction: column; background-color: #ffffff; overflow: hidden; font-family: 'Open Sans', sans-serif; }
+    .font-montserrat { font-family: 'Montserrat', sans-serif; }
+    .text-brand-primary { color: #103050; }
+    .text-brand-secondary { color: #0070C0; }
+    .bg-brand-secondary { background-color: #0070C0; }
+    .top-accent { height: 8px; background-color: #103050; width: 100%; }
+    .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
 
     .chart-card {
-      background-color: #ffffff;
-      border: 2px solid #E2E8F0;
-      border-radius: 16px;
-      box-shadow: 0 8px 20px -8px rgba(16, 48, 80, 0.18);
-      padding: 1rem 1.3rem;
+      background-color: #ffffff; border: 2px solid #E2E8F0; border-radius: 16px;
+      box-shadow: 0 8px 20px -8px rgba(16, 48, 80, 0.18); padding: .75rem 1rem;
+      transition: transform .28s cubic-bezier(.2,.7,.3,1), box-shadow .28s ease, border-color .28s ease;
+      animation: fadeIn .5s ease both;
+    }
+    .chart-card:hover { transform: translateY(-5px); box-shadow: 0 22px 42px -12px rgba(16,48,80,.30); border-color: #0070C0; }
+
+    .highlight-mini {
+      background: linear-gradient(160deg, #103050 0%, #0070C0 100%);
+      border-radius: 12px; color: #fff; padding: .65rem .85rem;
+      box-shadow: 0 10px 24px -10px rgba(16,48,80,.45);
     }
 
-    .highlight-card {
-      background: linear-gradient(180deg, #103050 0%, #0070C0 100%);
-      border-radius: 16px;
-      color: #fff;
-      padding: 1.3rem 1.5rem;
-      box-shadow: 0 12px 28px -10px rgba(16, 48, 80, 0.45);
-    }
+    .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
   </style>
 </head>
-
 <body>
   <div class="slide-container">
     <div class="top-accent"></div>
     <div class="top-accent-secondary"></div>
-    <!-- Header -->
-    <div class="flex items-center justify-between px-16 pt-8 pb-4 z-10">
+
+    <div class="flex items-center justify-between px-16 pt-5 pb-2 z-10">
       <div>
-        <div class="flex items-center gap-3 mb-2">
+        <div class="flex items-center gap-3 mb-1">
           <div class="w-1 h-8 bg-brand-secondary"></div>
-          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Tipos de
-            Manifestações</p>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Tipos de Manifestações</p>
         </div>
-        <p class="text-gray-500 font-medium ml-4 text-lg">Distribuição por tipo no 1º trimestre de 2026</p>
+        <p class="text-gray-500 font-medium ml-4 text-lg">Distribuição por tipo — trimestre e evolução mensal · 2026</p>
       </div>
       <div class="flex items-center gap-2 opacity-80 text-brand-secondary">
-        <i class="fas fa-layer-group text-xl" aria-hidden="true"></i>
+        <i class="fas fa-layer-group text-xl"></i>
         <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">TRIMESTRE</p>
       </div>
     </div>
-    <!-- Main Content -->
-    <div class="flex-1 grid grid-cols-3 gap-8 px-16 pb-6 z-10">
-      <!-- Chart -->
-      <div class="chart-card col-span-2 flex flex-col">
-        <div class="flex-1 relative"><canvas id="chartTipos"></canvas></div>
-      </div>
-      <!-- Highlight -->
-      <div class="flex flex-col gap-5">
-        <div class="highlight-card">
-          <p class="text-blue-100 font-montserrat font-bold text-sm uppercase tracking-widest mb-1">Tipo mais frequente
-          </p>
-          <p class="font-montserrat font-black text-3xl mb-2">Denúncia</p>
-          <p class="font-montserrat font-black text-7xl leading-none mb-2">173</p>
-          <p class="text-blue-100 text-base leading-relaxed">Representa <strong>67,1%</strong> das manifestações
-            classificadas do trimestre.</p>
+
+    <div class="flex-1 grid gap-4 px-16 pb-3 z-10" style="grid-template-columns: 1fr 1.4fr; min-height:0;">
+
+      <!-- Coluna esquerda: gráfico trimestre + destaque -->
+      <div class="flex flex-col gap-3">
+        <div class="chart-card flex-1 flex flex-col" style="min-height:0;">
+          <p class="text-gray-400 text-xs font-montserrat font-bold uppercase tracking-wide mb-1">Total por tipo · Trimestre</p>
+          <div class="flex-1 relative" style="min-height:0;"><canvas id="chartTipos"></canvas></div>
         </div>
-        <div class="chart-card flex-1 flex flex-col justify-center">
-          <p class="text-gray-400 text-xs font-bold uppercase tracking-wide mb-3">Total por tipo · trimestre</p>
-          <div class="space-y-1.5 text-sm">
-            <div class="flex justify-between"><span class="text-gray-600">Denúncia</span><strong
-                class="text-brand-primary">173</strong></div>
-            <div class="flex justify-between"><span class="text-gray-600">Solicitação</span><strong
-                class="text-brand-primary">45</strong></div>
-            <div class="flex justify-between"><span class="text-gray-600">Reclamação</span><strong
-                class="text-brand-primary">34</strong></div>
-            <div class="flex justify-between"><span class="text-gray-600">Sugestão</span><strong
-                class="text-brand-primary">3</strong></div>
-            <div class="flex justify-between"><span class="text-gray-600">Elogio</span><strong
-                class="text-brand-primary">2</strong></div>
-            <div class="flex justify-between"><span class="text-gray-600">Simplifique</span><strong
-                class="text-brand-primary">1</strong></div>
-            <div class="flex justify-between border-t border-gray-200 pt-1.5 mt-1.5"><span
-                class="text-gray-500 font-semibold">Total</span><strong class="text-brand-secondary">258</strong></div>
+        <div class="highlight-mini">
+          <p class="text-blue-100 font-montserrat font-bold uppercase tracking-widest mb-0" style="font-size:.55rem;">Tipo mais frequente</p>
+          <p class="font-montserrat font-black leading-none mb-0" style="font-size:1.5rem;">Denúncia</p>
+          <p class="font-montserrat font-black leading-none" style="font-size:2.5rem;">173</p>
+          <p class="text-blue-100 leading-tight" style="font-size:.65rem;">Representa <strong>67,1%</strong> das manifestações classificadas</p>
+        </div>
+        <div class="chart-card">
+          <div class="space-y-1" style="font-size:.65rem;">
+            <div class="flex justify-between"><span class="text-gray-600">Denúncia</span><strong class="text-brand-primary">173</strong></div>
+            <div class="flex justify-between"><span class="text-gray-600">Solicitação</span><strong class="text-brand-primary">45</strong></div>
+            <div class="flex justify-between"><span class="text-gray-600">Reclamação</span><strong class="text-brand-primary">34</strong></div>
+            <div class="flex justify-between"><span class="text-gray-600">Sugestão</span><strong class="text-brand-primary">3</strong></div>
+            <div class="flex justify-between"><span class="text-gray-600">Elogio</span><strong class="text-brand-primary">2</strong></div>
+            <div class="flex justify-between"><span class="text-gray-600">Simplifique</span><strong class="text-brand-primary">1</strong></div>
+            <div class="flex justify-between border-t border-gray-200 pt-1 mt-1"><span class="text-gray-500 font-semibold">Total</span><strong class="text-brand-secondary">258</strong></div>
           </div>
         </div>
       </div>
+
+      <!-- Coluna direita: gráfico por mês -->
+      <div class="flex flex-col gap-3">
+        <div class="chart-card flex-1 flex flex-col" style="min-height:0;">
+          <p class="text-gray-400 text-xs font-montserrat font-bold uppercase tracking-wide mb-1">Tipos por mês · Janeiro – Março</p>
+          <div class="flex-1 relative" style="min-height:0;"><canvas id="chartTiposMes"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <div class="flex gap-4 justify-center" style="font-size:.62rem;">
+            <div class="flex items-center gap-1"><div class="legend-dot" style="background:#0070C0;"></div>Janeiro</div>
+            <div class="flex items-center gap-1"><div class="legend-dot" style="background:#0090C0;"></div>Fevereiro</div>
+            <div class="flex items-center gap-1"><div class="legend-dot" style="background:#103050;"></div>Março</div>
+          </div>
+        </div>
+      </div>
+
     </div>
-    <!-- Footer -->
-    <div class="px-16 pt-1 pb-8 flex justify-between items-center z-10">
+
+    <div class="px-16 pb-4 pt-1 flex justify-between items-center z-10">
       <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ</p>
-      <p class="text-gray-300 text-xs font-mono">25 / 58</p>
+      <p class="text-gray-300 text-xs font-mono">Tipos · Trimestre e Mensal</p>
     </div>
   </div>
   <script>
+    // Gráfico 1 — Total por tipo (trimestre)
     const labels = ['Reclamação', 'Solicitação', 'Denúncia', 'Sugestão', 'Elogio', 'Simplifique'];
     const data = [34, 45, 173, 3, 2, 1];
     const colors = data.map((_, i) => i === 2 ? '#103050' : '#0070C0');
@@ -249,31 +124,74 @@
       afterDatasetsDraw(chart) {
         const { ctx } = chart;
         ctx.save();
-        ctx.font = '700 16px Montserrat, sans-serif';
+        ctx.font = '700 13px Montserrat, sans-serif';
         ctx.fillStyle = '#103050';
         ctx.textAlign = 'center';
         chart.getDatasetMeta(0).data.forEach((bar, i) => {
-          ctx.fillText(chart.data.datasets[0].data[i], bar.x, bar.y - 8);
+          if (chart.data.datasets[0].data[i]) ctx.fillText(chart.data.datasets[0].data[i], bar.x, bar.y - 6);
         });
         ctx.restore();
       }
     };
     new Chart(document.getElementById('chartTipos'), {
       type: 'bar',
-      data: { labels, datasets: [{ data, backgroundColor: colors, borderRadius: 6, maxBarThickness: 90 }] },
+      data: { labels, datasets: [{ data, backgroundColor: colors, borderRadius: 5, maxBarThickness: 70 }] },
       options: {
         responsive: true, maintainAspectRatio: false,
-        layout: { padding: { top: 24 } },
+        layout: { padding: { top: 20 } },
         plugins: { legend: { display: false }, tooltip: { enabled: false } },
         scales: {
-          x: { grid: { display: false }, ticks: { color: '#374151', font: { size: 14, weight: '600' } } },
-          y: { beginAtZero: true, grid: { color: '#eef2f7' }, ticks: { color: '#9ca3af', font: { size: 12 } } }
+          x: { grid: { display: false }, ticks: { color: '#374151', font: { size: 11, weight: '600' } } },
+          y: { beginAtZero: true, grid: { color: '#eef2f7' }, ticks: { color: '#9ca3af', font: { size: 10 } } }
         }
       },
       plugins: [valueLabels]
     });
-  </script>
-  <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
-</body>
 
+    // Gráfico 2 — Tipos por mês
+    const valueLabels2 = {
+      id: 'valueLabels2',
+      afterDatasetsDraw(chart) {
+        const { ctx } = chart;
+        ctx.save();
+        ctx.font = '600 10px Montserrat, sans-serif';
+        ctx.textAlign = 'center';
+        chart.data.datasets.forEach((ds, di) => {
+          ctx.fillStyle = ds.backgroundColor;
+          chart.getDatasetMeta(di).data.forEach((bar, i) => {
+            if (ds.data[i]) ctx.fillText(ds.data[i], bar.x, bar.y - 5);
+          });
+        });
+        ctx.restore();
+      }
+    };
+    new Chart(document.getElementById('chartTiposMes'), {
+      type: 'bar',
+      data: {
+        labels,
+        datasets: [
+          { label: 'Janeiro', data: [15, 15, 42, null, null, 1], backgroundColor: '#0070C0', borderRadius: 4, maxBarThickness: 36, skipNull: true },
+          { label: 'Fevereiro', data: [9, 28, 75, 1, null, null], backgroundColor: '#0090C0', borderRadius: 4, maxBarThickness: 36, skipNull: true },
+          { label: 'Março', data: [10, 2, 56, 2, 2, null], backgroundColor: '#103050', borderRadius: 4, maxBarThickness: 36, skipNull: true }
+        ]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        layout: { padding: { top: 18 } },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: { label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y}` }
+          }
+        },
+        scales: {
+          x: { grid: { display: false }, ticks: { color: '#374151', font: { size: 10, weight: '600' } } },
+          y: { beginAtZero: true, grid: { color: '#eef2f7' }, ticks: { color: '#9ca3af', font: { size: 10 } } }
+        }
+      },
+      plugins: [valueLabels2]
+    });
+  </script>
+  <script>document.addEventListener("keydown", function (e) { if (["ArrowRight","ArrowLeft","PageDown","PageUp","Home","End"," ","f","F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
+</body>
 </html>

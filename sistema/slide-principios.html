@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Princípios, Diretrizes e Atribuições - Relatório Trimestral Ouvidoria ANTAQ</title>
+  <link rel="icon" type="image/png" href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    html { font-size: 26px; }
+    body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
+    .slide-container { width: 100vw; height: 100vh; position: relative; display: flex; flex-direction: column; background-color: #ffffff; overflow: hidden; font-family: 'Open Sans', sans-serif; }
+    .font-montserrat { font-family: 'Montserrat', sans-serif; }
+    .text-brand-primary { color: #103050; }
+    .text-brand-secondary { color: #0070C0; }
+    .top-accent { height: 8px; background-color: #103050; width: 100%; }
+    .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
+    .gov-eyebrow { display: flex; align-items: center; gap: .5rem; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: .62rem; letter-spacing: .16em; text-transform: uppercase; color: #64748B; margin-bottom: .5rem; }
+    .gov-eyebrow i { color: #0070C0; }
+
+    /* Accordion */
+    .accordion { display: flex; flex-direction: column; gap: .5rem; }
+    .acc-item { border-radius: 12px; overflow: hidden; border: 1px solid #E2E8F0; }
+    .acc-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: .8rem 1.2rem; cursor: pointer; user-select: none;
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .75rem;
+      letter-spacing: .06em; text-transform: uppercase;
+      transition: background .2s;
+    }
+    .acc-header .h-left { display: flex; align-items: center; gap: .65rem; }
+    .acc-header .h-ico { font-size: 1rem; }
+    .acc-header .chevron { font-size: .65rem; transition: transform .3s; color: inherit; opacity: 0.6; }
+    .acc-item.open .chevron { transform: rotate(180deg); }
+
+    .acc-item:nth-child(1) .acc-header { background: linear-gradient(90deg, #0a2236, #103050); color: #fff; }
+    .acc-item:nth-child(1) .acc-header .h-ico { color: #7fd3f0; }
+    .acc-item:nth-child(2) .acc-header { background: linear-gradient(90deg, #0e3d6e, #0070C0); color: #fff; }
+    .acc-item:nth-child(2) .acc-header .h-ico { color: #bde8ff; }
+    .acc-item:nth-child(3) .acc-header { background: linear-gradient(90deg, #0a4726, #0d6b3a); color: #fff; }
+    .acc-item:nth-child(3) .acc-header .h-ico { color: #7fffc4; }
+
+    .acc-body {
+      max-height: 0; overflow: hidden; transition: max-height .4s cubic-bezier(.2,.7,.3,1);
+      background: #F8FAFC;
+    }
+    .acc-item.open .acc-body { max-height: 260px; }
+    .acc-body-inner { padding: .85rem 1.2rem; display: grid; grid-template-columns: repeat(3,1fr); gap: .5rem; }
+
+    .pda-chip {
+      display: flex; align-items: flex-start; gap: .45rem;
+      background: #fff; border: 1px solid #E2E8F0; border-radius: 8px;
+      padding: .5rem .65rem; font-size: .65rem; color: #334155; line-height: 1.4;
+    }
+    .pda-chip i { color: #0070C0; font-size: .7rem; margin-top: .1rem; flex-shrink: 0; }
+    .acc-item:nth-child(2) .pda-chip i { color: #0090C0; }
+    .acc-item:nth-child(3) .pda-chip i { color: #0d6b3a; }
+
+    .bg-pattern { position: absolute; bottom: -60px; right: -50px; width: 360px; height: 360px; opacity: 0.025; z-index: 0; color: #103050; }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+    .a { animation: fadeInUp .45s ease both; }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; } }
+  </style>
+</head>
+<body>
+  <div class="slide-container">
+    <div class="top-accent"></div>
+    <div class="top-accent-secondary"></div>
+
+    <div class="flex items-center justify-between px-16 pt-5 pb-2 z-10">
+      <div>
+        <p class="gov-eyebrow"><i class="fas fa-landmark"></i> Agência Nacional de Transportes Aquaviários — ANTAQ</p>
+        <div class="flex items-center gap-3 mb-1">
+          <div class="w-1 h-8 bg-brand-secondary"></div>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Princípios · Diretrizes · Atribuições</p>
+        </div>
+        <p class="text-gray-500 font-medium ml-4 text-lg">Fundamentos que norteiam a atuação da Ouvidoria da ANTAQ</p>
+      </div>
+      <div class="flex items-center gap-2 opacity-80 text-brand-secondary">
+        <i class="fas fa-scale-balanced text-xl" aria-hidden="true"></i>
+        <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">SEÇÃO 01 · APRESENTAÇÃO</p>
+      </div>
+    </div>
+
+    <div class="flex-1 px-16 pb-3 z-10 flex flex-col justify-center" style="min-height:0;">
+      <div class="accordion a">
+
+        <!-- Princípios -->
+        <div class="acc-item open">
+          <div class="acc-header" onclick="toggle(this)">
+            <div class="h-left">
+              <i class="fas fa-star h-ico"></i>
+              Princípios
+            </div>
+            <i class="fas fa-chevron-down chevron"></i>
+          </div>
+          <div class="acc-body">
+            <div class="acc-body-inner">
+              <div class="pda-chip"><i class="fas fa-check"></i>Imparcialidade e independência no exercício das atividades</div>
+              <div class="pda-chip"><i class="fas fa-check"></i>Transparência no acesso à informação e publicidade dos atos</div>
+              <div class="pda-chip"><i class="fas fa-check"></i>Tempestividade e qualidade no atendimento ao cidadão</div>
+              <div class="pda-chip"><i class="fas fa-check"></i>Confidencialidade e sigilo das informações prestadas</div>
+              <div class="pda-chip"><i class="fas fa-check"></i>Isonomia no tratamento e não discriminação de manifestantes</div>
+              <div class="pda-chip"><i class="fas fa-check"></i>Resolutividade e efetividade das ações adotadas</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Diretrizes -->
+        <div class="acc-item">
+          <div class="acc-header" onclick="toggle(this)">
+            <div class="h-left">
+              <i class="fas fa-compass h-ico"></i>
+              Diretrizes
+            </div>
+            <i class="fas fa-chevron-down chevron"></i>
+          </div>
+          <div class="acc-body">
+            <div class="acc-body-inner">
+              <div class="pda-chip"><i class="fas fa-arrow-right"></i>Priorizar o atendimento qualificado e humanizado ao cidadão</div>
+              <div class="pda-chip"><i class="fas fa-arrow-right"></i>Fortalecer os mecanismos de participação e controle social</div>
+              <div class="pda-chip"><i class="fas fa-arrow-right"></i>Integrar os canais de atendimento para maior acessibilidade</div>
+              <div class="pda-chip"><i class="fas fa-arrow-right"></i>Promover a melhoria contínua dos processos internos da ANTAQ</div>
+              <div class="pda-chip"><i class="fas fa-arrow-right"></i>Garantir a proteção de dados pessoais dos manifestantes</div>
+              <div class="pda-chip"><i class="fas fa-arrow-right"></i>Fomentar a cultura de transparência e prestação de contas</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Atribuições -->
+        <div class="acc-item">
+          <div class="acc-header" onclick="toggle(this)">
+            <div class="h-left">
+              <i class="fas fa-list-check h-ico"></i>
+              Atribuições
+            </div>
+            <i class="fas fa-chevron-down chevron"></i>
+          </div>
+          <div class="acc-body">
+            <div class="acc-body-inner">
+              <div class="pda-chip"><i class="fas fa-inbox"></i>Receber e registrar manifestações dos cidadãos</div>
+              <div class="pda-chip"><i class="fas fa-gears"></i>Analisar, encaminhar e monitorar o tratamento das demandas</div>
+              <div class="pda-chip"><i class="fas fa-reply"></i>Responder tempestivamente às manifestações recebidas</div>
+              <div class="pda-chip"><i class="fas fa-chart-bar"></i>Produzir relatórios e análises estratégicas periódicas</div>
+              <div class="pda-chip"><i class="fas fa-eye"></i>Zelar pelo cumprimento da LAI e da transparência ativa</div>
+              <div class="pda-chip"><i class="fas fa-handshake"></i>Articular com áreas internas para aprimoramento dos serviços</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="px-16 pb-6 pt-1 flex justify-between items-center z-10">
+      <p class="text-gray-400 text-xs">Relatório Trimestral da Ouvidoria · 2026 — Agência Nacional de Transportes Aquaviários</p>
+      <p class="text-gray-300 text-xs font-mono">SEÇÃO 01</p>
+    </div>
+    <div class="bg-pattern"><i class="fas fa-scale-balanced text-9xl"></i></div>
+  </div>
+  <script>
+    function toggle(header) {
+      const item = header.closest('.acc-item');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.acc-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    }
+    document.addEventListener("keydown", function (e) {
+      if (["ArrowRight","ArrowLeft","PageDown","PageUp","Home","End"," ","f","F"].indexOf(e.key) !== -1) {
+        e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*");
+      }
+    });
+  </script>
+</body>
+</html>

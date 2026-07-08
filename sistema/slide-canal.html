@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<!--
+  ╔══════════════════════════════════════════════════════════════╗
+  ║  SLIDE CANAL — Manifestações por Canal + por Canal por Mês  ║
+  ║  ATUALIZAR: dados dos dois gráficos a cada trimestre        ║
+  ║  Omnichannel: Jan 209 | Fev 106 | Mar 90 | Total 405       ║
+  ║  Fala.BR:     Jan  90 | Fev 129 | Mar 85 | Total 304       ║
+  ║  E-mail:      Jan  23 | Fev  33 | Mar 14 | Total  70       ║
+  ╚══════════════════════════════════════════════════════════════╝
+-->
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Manifestações por Canal - Relatório Trimestral Ouvidoria ANTAQ</title>
+  <link rel="icon" type="image/png" href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    html { font-size: 26px; }
+    body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
+    .slide-container { width: 100vw; height: 100vh; position: relative; display: flex; flex-direction: column; background-color: #ffffff; overflow: hidden; font-family: 'Open Sans', sans-serif; }
+    .font-montserrat { font-family: 'Montserrat', sans-serif; }
+    .text-brand-primary { color: #103050; }
+    .text-brand-secondary { color: #0070C0; }
+    .bg-brand-secondary { background-color: #0070C0; }
+    .top-accent { height: 8px; background-color: #103050; width: 100%; }
+    .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
+
+    .chart-card {
+      background-color: #ffffff; border: 2px solid #E2E8F0; border-radius: 16px;
+      box-shadow: 0 8px 20px -8px rgba(16, 48, 80, 0.18); padding: .75rem 1rem;
+      transition: transform .28s cubic-bezier(.2,.7,.3,1), box-shadow .28s ease, border-color .28s ease;
+      animation: fadeIn .5s ease both;
+    }
+    .chart-card:hover { transform: translateY(-5px); box-shadow: 0 22px 42px -12px rgba(16,48,80,.30); border-color: #0070C0; }
+
+    .canal-stat {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: .35rem 0; border-bottom: 1px solid #F1F5F9;
+    }
+    .canal-stat:last-child { border-bottom: none; }
+    .canal-stat .cs-left { display: flex; align-items: center; gap: .45rem; font-size: .66rem; color: #334155; }
+    .canal-stat .cs-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .canal-stat .cs-val { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .8rem; color: #103050; }
+
+    .legend-item { display: flex; align-items: center; gap: .3rem; font-size: .6rem; color: #475569; }
+    .legend-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+  </style>
+</head>
+<body>
+  <div class="slide-container">
+    <div class="top-accent"></div>
+    <div class="top-accent-secondary"></div>
+
+    <div class="flex items-center justify-between px-16 pt-5 pb-2 z-10">
+      <div>
+        <div class="flex items-center gap-3 mb-1">
+          <div class="w-1 h-8 bg-brand-secondary"></div>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Manifestações por Canal</p>
+        </div>
+        <p class="text-gray-500 font-medium ml-4 text-lg">Volume por canal — total trimestral e distribuição mensal · 2026</p>
+      </div>
+      <div class="flex items-center gap-2 opacity-80 text-brand-secondary">
+        <i class="fas fa-broadcast-tower text-xl"></i>
+        <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">CANAIS</p>
+      </div>
+    </div>
+
+    <div class="flex-1 grid gap-4 px-16 pb-3 z-10" style="grid-template-columns: 1fr 1.5fr; min-height:0;">
+
+      <!-- Coluna esquerda: gráfico total + tabela -->
+      <div class="flex flex-col gap-3">
+        <div class="chart-card flex-1 flex flex-col" style="min-height:0;">
+          <p class="text-gray-400 text-xs font-montserrat font-bold uppercase tracking-wide mb-1">Total por canal · Trimestre</p>
+          <div class="flex-1 relative" style="min-height:0;"><canvas id="chartCanal"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <div class="canal-stat">
+            <div class="cs-left"><div class="cs-dot" style="background:#0070C0;"></div>Omnichannel</div>
+            <span class="cs-val">405</span>
+          </div>
+          <div class="canal-stat">
+            <div class="cs-left"><div class="cs-dot" style="background:#0090C0;"></div>Fala.BR</div>
+            <span class="cs-val">304</span>
+          </div>
+          <div class="canal-stat">
+            <div class="cs-left"><div class="cs-dot" style="background:#103050;"></div>E-mail</div>
+            <span class="cs-val">70</span>
+          </div>
+          <div class="canal-stat" style="border-top:1px solid #E2E8F0; margin-top:.2rem; padding-top:.35rem;">
+            <div class="cs-left text-gray-500 font-semibold">Total</div>
+            <span class="cs-val" style="color:#0070C0;">779</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Coluna direita: gráfico por mês -->
+      <div class="flex flex-col gap-3">
+        <div class="chart-card flex-1 flex flex-col" style="min-height:0;">
+          <p class="text-gray-400 text-xs font-montserrat font-bold uppercase tracking-wide mb-1">Por canal por mês · Janeiro – Março</p>
+          <div class="flex-1 relative" style="min-height:0;"><canvas id="chartCanalMes"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <div class="flex gap-5 justify-center">
+            <div class="legend-item"><div class="legend-dot" style="background:#0070C0;"></div>Omnichannel</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#0090C0;"></div>Fala.BR</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#103050;"></div>E-mail</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="px-16 pb-4 pt-1 flex justify-between items-center z-10">
+      <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ</p>
+      <p class="text-gray-300 text-xs font-mono">Canais · Trimestre e Mensal</p>
+    </div>
+  </div>
+  <script>
+    // Gráfico 1 — Total por canal (trimestre, rosca)
+    new Chart(document.getElementById('chartCanal'), {
+      type: 'doughnut',
+      data: {
+        labels: ['Omnichannel', 'Fala.BR', 'E-mail'],
+        datasets: [{
+          data: [405, 304, 70],
+          backgroundColor: ['#0070C0', '#0090C0', '#103050'],
+          borderWidth: 3, borderColor: '#fff', hoverOffset: 8
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        cutout: '62%',
+        plugins: {
+          legend: { display: false },
+          tooltip: { callbacks: { label: ctx => ` ${ctx.label}: ${ctx.parsed}` } }
+        }
+      }
+    });
+
+    // Gráfico 2 — Por canal por mês (barras agrupadas)
+    const valueLabels = {
+      id: 'valueLabels',
+      afterDatasetsDraw(chart) {
+        const { ctx } = chart;
+        ctx.save();
+        ctx.font = '600 10px Montserrat, sans-serif';
+        ctx.textAlign = 'center';
+        chart.data.datasets.forEach((ds, di) => {
+          ctx.fillStyle = ds.backgroundColor;
+          chart.getDatasetMeta(di).data.forEach((bar, i) => {
+            if (ds.data[i]) ctx.fillText(ds.data[i], bar.x, bar.y - 5);
+          });
+        });
+        ctx.restore();
+      }
+    };
+    new Chart(document.getElementById('chartCanalMes'), {
+      type: 'bar',
+      data: {
+        labels: ['Janeiro', 'Fevereiro', 'Março'],
+        datasets: [
+          { label: 'Omnichannel', data: [209, 106, 90], backgroundColor: '#0070C0', borderRadius: 5, maxBarThickness: 52 },
+          { label: 'Fala.BR', data: [90, 129, 85], backgroundColor: '#0090C0', borderRadius: 5, maxBarThickness: 52 },
+          { label: 'E-mail', data: [23, 33, 14], backgroundColor: '#103050', borderRadius: 5, maxBarThickness: 52 }
+        ]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        layout: { padding: { top: 18 } },
+        plugins: {
+          legend: { display: false },
+          tooltip: { callbacks: { label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y}` } }
+        },
+        scales: {
+          x: { grid: { display: false }, ticks: { color: '#374151', font: { size: 11, weight: '600' } } },
+          y: { beginAtZero: true, grid: { color: '#eef2f7' }, ticks: { color: '#9ca3af', font: { size: 10 } } }
+        }
+      },
+      plugins: [valueLabels]
+    });
+  </script>
+  <script>document.addEventListener("keydown", function (e) { if (["ArrowRight","ArrowLeft","PageDown","PageUp","Home","End"," ","f","F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
+</body>
+</html>

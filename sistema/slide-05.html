@@ -224,19 +224,19 @@
 
     .bracket-int {
       grid-column: span 2;
-      background: linear-gradient(135deg, #0090C0, #00a9d6);
+      background: linear-gradient(135deg, #0070C0, #0090C0);
     }
 
     .bracket-ext {
       grid-column: span 3;
-      background: linear-gradient(135deg, #103050, #1c4e7a);
+      background: linear-gradient(135deg, #0A6B3A, #15803D);
     }
 
     /* ===== Cartões de desfecho ===== */
     .ocard {
       background: #fff;
       border: 2px solid #E2E8F0;
-      border-top: 4px solid #0090C0;
+      border-top: 4px solid #0070C0;
       border-radius: 14px;
       padding: 1.1rem 1.1rem;
       display: flex;
@@ -253,7 +253,18 @@
     }
 
     .ocard.g-ext {
-      border-top-color: #103050;
+      border-top-color: #15803D;
+    }
+    .ocard.g-ext .oc-ico {
+      background: #DCFCE7;
+      color: #15803D;
+    }
+    .ocard.g-ext .oc-pct {
+      background: #DCFCE7;
+      color: #0A6B3A;
+    }
+    .ocard.g-ext .oc-fill {
+      background: linear-gradient(90deg, #0A6B3A, #16A34A);
     }
 
     .ocard:nth-child(1) {
@@ -338,36 +349,31 @@
       transition: width .9s cubic-bezier(.2, .7, .3, 1);
     }
 
-    /* ===== Cartão clímax: 103 ===== */
-    .ocard.hero103 {
+    /* ===== Cartão destaque g-int (106) ===== */
+    .ocard.g-int.hero103 {
       background: linear-gradient(150deg, #103050 0%, #0090C0 100%);
       border: 2px solid transparent;
       border-top: 4px solid #F2A900;
       box-shadow: 0 16px 34px -14px rgba(16, 48, 80, .55);
     }
+    .ocard.g-int.hero103 .oc-ico { background: rgba(255,255,255,.18); color: #F2A900; }
+    .ocard.g-int.hero103 .oc-pct { background: rgba(242,169,0,.95); color: #103050; }
+    .ocard.g-int.hero103 .oc-num, .ocard.g-int.hero103 .oc-lbl { color: #fff; }
+    .ocard.g-int.hero103 .oc-track { background: rgba(255,255,255,.22); }
+    .ocard.g-int.hero103 .oc-fill { background: linear-gradient(90deg, #F2A900, #ffd166); }
 
-    .ocard.hero103 .oc-ico {
-      background: rgba(255, 255, 255, .18);
-      color: #F2A900;
+    /* ===== Cartão destaque g-ext (103) ===== */
+    .ocard.g-ext.hero103 {
+      background: linear-gradient(150deg, #0A6B3A 0%, #16A34A 100%);
+      border: 2px solid transparent;
+      border-top: 4px solid #F2A900;
+      box-shadow: 0 16px 34px -14px rgba(10,107,58,.55);
     }
-
-    .ocard.hero103 .oc-pct {
-      background: rgba(242, 169, 0, .95);
-      color: #103050;
-    }
-
-    .ocard.hero103 .oc-num,
-    .ocard.hero103 .oc-lbl {
-      color: #fff;
-    }
-
-    .ocard.hero103 .oc-track {
-      background: rgba(255, 255, 255, .22);
-    }
-
-    .ocard.hero103 .oc-fill {
-      background: linear-gradient(90deg, #F2A900, #ffd166);
-    }
+    .ocard.g-ext.hero103 .oc-ico { background: rgba(255,255,255,.18); color: #F2A900; }
+    .ocard.g-ext.hero103 .oc-pct { background: rgba(242,169,0,.95); color: #0A6B3A; }
+    .ocard.g-ext.hero103 .oc-num, .ocard.g-ext.hero103 .oc-lbl { color: #fff; }
+    .ocard.g-ext.hero103 .oc-track { background: rgba(255,255,255,.22); }
+    .ocard.g-ext.hero103 .oc-fill { background: linear-gradient(90deg, #F2A900, #ffd166); }
 
     @keyframes fadeInUp {
       from {
