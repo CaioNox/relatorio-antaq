@@ -13,7 +13,7 @@
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <title>Destaques do Trimestre - Relatório Trimestral Ouvidoria ANTAQ</title>
+  <title>Demandas recorrentes - Relatório Trimestral Ouvidoria ANTAQ</title>
 
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
   <link
@@ -323,7 +323,7 @@
     }
 
     .bar-label {
-      width: 340px;
+      width: 470px;
       flex-shrink: 0;
       font-family: 'Open Sans', sans-serif;
       font-weight: 600;
@@ -331,13 +331,14 @@
       font-size: .8rem;
       line-height: 1.15;
       text-align: right;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      white-space: normal;
+      overflow: visible;
+      text-overflow: clip;
     }
 
     .bar-track {
       flex: 1;
+      max-width: 680px;
       height: 1.05rem;
       background: #eef2f7;
       border-radius: 999px;
@@ -379,39 +380,35 @@
     }
 
     .rows[data-density="3"] {
-      gap: .26rem;
+      gap: .34rem;
     }
 
     .rows[data-density="3"] .bar-label {
-      font-size: .62rem;
-    }
-
-    .rows[data-density="3"] .bar-track {
-      height: .6rem;
-    }
-
-    .rows[data-density="3"] .bar-val {
       font-size: .64rem;
     }
 
+    .rows[data-density="3"] .bar-track {
+      height: .7rem;
+    }
+
+    .rows[data-density="3"] .bar-val {
+      font-size: .68rem;
+    }
+
     .rows[data-density="4"] {
-      gap: .08rem;
+      gap: .28rem;
     }
 
     .rows[data-density="4"] .bar-label {
-      font-size: .5rem;
+      font-size: .58rem;
     }
 
     .rows[data-density="4"] .bar-track {
-      height: .38rem;
+      height: .58rem;
     }
 
     .rows[data-density="4"] .bar-val {
-      font-size: .54rem;
-    }
-
-    .rows[data-density="4"] .bar-row {
-      gap: .5rem;
+      font-size: .62rem;
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -439,7 +436,7 @@
           <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Destaques do
             Trimestre</p>
         </div>
-        <p class="text-gray-500 font-medium ml-4 text-lg">Filtre os temas · múltipla seleção · 434 manifestações · 1º
+        <p class="text-gray-500 font-medium ml-4 text-lg">Filtre os temas · múltipla seleção · 304 manifestações · 1º
           trimestre de 2026</p>
         <!-- chips de filtro -->
         <div class="chips ml-4" id="chips"></div>
@@ -487,7 +484,7 @@
         subs: [
           ['Detention/ Sobrestadia de Mercadorias', 56],
           ['Cobrança Portuária Abusiva', 43],
-          ['Cobrança Portuária Abusiva - falta de Bookings/janelas para os navios', 21],
+          ['Falta de Bookings/janelas para os navios', 21],
           ['Cobrança Portuária Abusiva com Denúncia com Pedido de Medida Cautelar', 20],
           ['Cobrança indevida de taxa', 7],
           ['Demurrage - (Cobrança Portuária Abusiva)', 3],
