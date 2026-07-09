@@ -442,44 +442,67 @@
                 window.parent.postMessage({ type: "slide-goto-file", file: file }, "*");
             }
 
-            // ===== Árvore do Sumário (Opção A: seções como tópicos) =====
-            // tópicos -> subtópicos -> slides. Manter em sincronia com o `deck`
-            // de index.html. `f` = arquivo (folha navegável); sem `f` = nó pai.
+            // ===== Árvore do Sumário — 6 blocos temáticos =====
+            // Nós de 1º nível = os 6 Blocos. `f` = arquivo (folha navegável);
+            // sem `f` = nó pai (retrátil). Manter em sincronia com o `deck`
+            // de index.html; a numeração 1 / 1.1 / 1.1.1 é gerada sozinha.
             const tree = [
                 {
-                    t: 'As Ouvidorias Públicas', icon: 'fa-bullhorn', children: [
-                        { t: 'Capa', f: 'capa-01.html' },
-                        { t: 'A Ouvidoria da ANTAQ', f: 'slide-ouvidoria-geral.html' },
+                    t: 'Visão Geral das Ouvidorias Públicas', icon: 'fa-bullhorn', children: [
+                        { t: 'Capa do bloco', f: 'capa-bloco-1.html' },
                         { t: 'Princípios · Diretrizes · Atribuições', f: 'slide-principios.html' },
+                    ]
+                },
+                {
+                    t: 'A Ouvidoria da ANTAQ', icon: 'fa-landmark', children: [
+                        { t: 'Capa do bloco', f: 'capa-bloco-2.html' },
                         { t: 'Papel Institucional da Ouvidoria', f: 'slide-03c.html' },
+                        { t: 'A Ouvidoria da ANTAQ', f: 'slide-ouvidoria-geral.html' },
+                        {
+                            t: 'Carta de Serviços', children: [
+                                { t: 'Contexto', f: 'slide-ctx-09.html' },
+                                { t: 'Cartas de Serviço ANTAQ', f: 'slide-25.html' },
+                                { t: 'Carta de Serviços — SOG', f: 'slide-26.html' },
+                                { t: 'Carta de Serviços — SRG/SAF/SFC', f: 'slide-27.html' },
+                            ]
+                        },
+                        { t: 'Ouvidoria em Números — Total 434', f: 'slide-17e.html' },
+                        { t: 'Evolução Histórica', f: 'slide-07.html' },
                     ]
                 },
                 {
-                    t: 'Canais de Atendimento', icon: 'fa-tower-broadcast', children: [
-                        { t: 'Apresentação', f: 'capa-05.html' },
-                        { t: 'Contexto', f: 'slide-ctx-05.html' },
-                        { t: 'Manifestações por Canal', f: 'slide-canal.html' },
-                    ]
-                },
-                {
-                    t: 'Tipos de Manifestações', icon: 'fa-comments', children: [
-                        { t: 'Tipos de Manifestações', f: 'slide-14.html' },
-                    ]
-                },
-                {
-                    t: 'Seção de Apoio ao Cidadão - SAC', icon: 'fa-headset', children: [
-                        { t: 'Seção', f: 'capa-sac.html' },
+                    t: 'SAC — Seção de Atendimento ao Cidadão', icon: 'fa-headset', children: [
+                        { t: 'Capa do bloco', f: 'capa-bloco-3.html' },
                         { t: 'Apresentação da SAC', f: 'slide-sac-apres.html' },
                         { t: 'Principais Atividades da SAC', f: 'slide-sac-ativ.html' },
                         { t: 'Referências e Fontes de Dados', f: 'slide-sac-refs.html' },
+                        { t: 'Tipos de Manifestações', f: 'slide-14.html' },
+                        { t: 'Manifestações por Canal', f: 'slide-canal.html' },
+                        { t: 'Manifestações no Fala.BR', f: 'slide-04.html' },
+                        { t: 'Destaques do Trimestre', f: 'slide-ctx-03.html' },
+                        {
+                            t: 'Análise Quantitativa e Qualitativa', children: [
+                                { t: 'Contexto', f: 'slide-ctx-04.html' },
+                                { t: 'Tratamento de Demandas do Fala.BR', f: 'slide-05.html' },
+                                { t: 'Análise Qualitativa', f: 'slide-11.html' },
+                                { t: 'Riscos e Oportunidades', f: 'slide-12.html' },
+                            ]
+                        },
+                        {
+                            t: 'Panorama de Demandas', children: [
+                                { t: 'Panorama Geral das Demandas', f: 'slide-16.html' },
+                                { t: 'Ecossistema de Atendimento', f: 'slide-16b.html' },
+                                { t: 'Jornada Mensal das Demandas', f: 'slide-17.html' },
+                                { t: 'Fluxo Mensal — Painel Resolveu', f: 'slide-17d.html' },
+                            ]
+                        },
                     ]
                 },
                 {
-                    t: 'Seção de Transparência e Acesso à Informação - STAI', icon: 'fa-eye', children: [
-                        { t: 'Capa da seção', f: 'capa-stai.html' },
+                    t: 'STAI — Transparência e Acesso à Informação', icon: 'fa-eye', children: [
+                        { t: 'Capa do bloco', f: 'capa-bloco-4.html' },
                         {
                             t: 'Acesso à Informação (LAI)', children: [
-                                { t: 'Capa — LAI', f: 'capa-06.html' },
                                 { t: 'LAI · Transparência Passiva', f: 'slide-18.html' },
                                 { t: 'LAI · Pedidos por Mês', f: 'slide-19.html' },
                                 { t: 'Histórico de Pedidos LAI', f: 'slide-20.html' },
@@ -487,14 +510,12 @@
                         },
                         {
                             t: 'Dados Abertos', children: [
-                                { t: 'Capa — Dados Abertos', f: 'capa-07.html' },
                                 { t: 'Plano de Dados Abertos 2026–2028', f: 'slide-pda.html' },
                                 { t: 'Transparência Ativa e Dados Abertos', f: 'slide-21.html' },
                             ]
                         },
                         {
                             t: 'Transparência Ativa e Passiva', children: [
-                                { t: 'Contexto', f: 'slide-ctx-08.html' },
                                 { t: 'Transparência Ativa', f: 'slide-22.html' },
                                 { t: 'Transparência Passiva', f: 'slide-23.html' },
                             ]
@@ -502,54 +523,16 @@
                     ]
                 },
                 {
-                    t: 'Carta de Serviços', icon: 'fa-file-contract', children: [
-                        { t: 'Capa da seção', f: 'capa-10.html' },
-                        { t: 'Contexto', f: 'slide-ctx-09.html' },
-                        { t: 'Cartas de Serviço ANTAQ', f: 'slide-25.html' },
-                        { t: 'Carta de Serviços — SOG', f: 'slide-26.html' },
-                        { t: 'Carta de Serviços — SRG/SAF/SFC', f: 'slide-27.html' },
-                    ]
-                },
-                {
-                    t: 'Dados do Trimestre', icon: 'fa-chart-column', children: [
-                        {
-                            t: 'Manifestações Recebidas', children: [
-                                { t: 'Capa', f: 'capa-02.html' },
-                                { t: 'Evolução Histórica', f: 'slide-07.html' },
-                                { t: 'Manifestações no Fala.BR', f: 'slide-04.html' },
-                            ]
-                        },
-                        {
-                            t: 'Destaques do Trimestre', children: [
-                                { t: 'Capa', f: 'capa-03.html' },
-                                { t: 'Contexto', f: 'slide-ctx-03.html' },
-                                { t: 'Destaques do Trimestre', f: 'slide-08.html' },
-                            ]
-                        },
-                        {
-                            t: 'Análise Quantitativa', children: [
-                                { t: 'Capa', f: 'capa-04.html' },
-                                { t: 'Contexto', f: 'slide-ctx-04.html' },
-                                { t: 'Tratamento de Demandas do Fala.BR', f: 'slide-05.html' },
-                                { t: 'Principais Achados do Trimestre', f: 'slide-09.html' },
-                                { t: 'Inteligência da Ouvidoria', f: 'slide-10.html' },
-                                { t: 'Análise Qualitativa', f: 'slide-11.html' },
-                                { t: 'Riscos e Oportunidades', f: 'slide-12.html' },
-                                { t: 'Recomendações Institucionais', f: 'slide-13.html' },
-                                { t: 'Panorama Geral das Demandas', f: 'slide-16.html' },
-                                { t: 'Ecossistema de Atendimento', f: 'slide-16b.html' },
-                                { t: 'Sequência Lógica de Tramitação', f: 'slide-17b.html' },
-                                { t: 'Jornada Mensal das Demandas', f: 'slide-17.html' },
-                                { t: 'Fluxo Mensal — Painel Resolveu', f: 'slide-17d.html' },
-                                { t: 'Perfil de Uso Fala.BR', f: 'slide-17e.html' },
-                            ]
-                        },
-                    ]
-                },
-                {
-                    t: 'Encerramento', icon: 'fa-flag-checkered', children: [
+                    t: 'Considerações Finais', icon: 'fa-lightbulb', children: [
+                        { t: 'Capa do bloco', f: 'capa-bloco-5.html' },
+                        { t: 'Principais Achados', f: 'slide-09.html' },
+                        { t: 'Recomendações Institucionais', f: 'slide-13.html' },
                         { t: 'Conclusão', f: 'slide-conclusao.html' },
-                        { t: 'Capa — Glossário e Legislação', f: 'capa-11.html' },
+                    ]
+                },
+                {
+                    t: 'Apêndice', icon: 'fa-book-bookmark', children: [
+                        { t: 'Capa do bloco', f: 'capa-bloco-6.html' },
                         { t: 'Decretos', f: 'slide-31.html' },
                         { t: 'Glossário e Definições', f: 'slide-29.html' },
                         { t: 'Leis', f: 'slide-30.html' },
