@@ -111,8 +111,8 @@
 
         /* ===== Sumário ===== */
         .sumario {
-            margin-top: 1.6rem;
-            max-width: 780px;
+            margin-top: 1.2rem;
+            max-width: 960px;
         }
 
         .sumario-label {
@@ -135,89 +135,117 @@
             background: rgba(0, 144, 192, 0.3);
         }
 
-        /* Sub-rótulo de bloco dentro do sumário */
-        .sum-block {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.66rem;
-            font-weight: 800;
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            color: #5AB4DC;
-            margin: 0.85rem 0 0.15rem;
-            opacity: 0.85;
+        /* ===== Árvore do Sumário (multinível, estilo IDE) ===== */
+        .tree {
+            max-height: 600px;
+            overflow-y: auto;
+            padding-right: 0.5rem;
         }
 
-        .sum-block:first-of-type {
-            margin-top: 0.2rem;
+        .tree::-webkit-scrollbar { width: 8px; }
+        .tree::-webkit-scrollbar-thumb { background: rgba(0, 144, 192, 0.35); border-radius: 4px; }
+        .tree::-webkit-scrollbar-track { background: transparent; }
+
+        .tree ul { list-style: none; margin: 0; padding: 0; }
+
+        /* filhos: indentação + linha-guia; recolhidos por padrão */
+        .tree li > ul {
+            margin-left: 1.05rem;
+            padding-left: 0.95rem;
+            border-left: 1px solid rgba(255, 255, 255, 0.12);
+            display: none;
         }
 
-        .sum-item {
+        .tree li.open > ul {
+            display: block;
+            animation: fadeInUp .28s ease both;
+        }
+
+        /* linha (nó) */
+        .tnode {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            padding: 0.42rem 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            transition: padding-left 0.2s ease;
+            gap: 0.55rem;
+            padding: 0.32rem 0.55rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color .2s ease, padding-left .2s ease;
+            user-select: none;
         }
 
-        .sum-item:hover {
-            padding-left: 0.5rem;
+        .tnode:hover {
+            background: rgba(255, 255, 255, 0.06);
+            padding-left: 0.85rem;
         }
 
-        .sum-num {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1rem;
-            font-weight: 900;
-            color: #0090C0;
-            width: 2.4rem;
+        /* chevron (pai) / ponto (folha) */
+        .tw-chev {
+            width: 1rem;
             flex-shrink: 0;
+            text-align: center;
+            font-size: 0.72rem;
+            color: #6f9be0;
+            transition: transform .2s ease, color .2s ease;
         }
 
-        .sum-icon {
-            width: 2rem;
+        .tree li.open > .tnode .tw-chev {
+            transform: rotate(90deg);
+            color: #0090C0;
+        }
+
+        .tw-chev .tw-leaf {
+            font-size: 0.42rem;
+            color: rgba(0, 144, 192, 0.55);
+            vertical-align: middle;
+        }
+
+        /* número multinível (1 / 1.1 / 1.1.1) */
+        .tw-num {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            color: #0090C0;
+            font-size: 0.8rem;
+            min-width: 3rem;
+            flex-shrink: 0;
+            letter-spacing: 0.01em;
+        }
+
+        /* ícone do tópico (só nível 1) */
+        .tw-icon {
+            width: 1.35rem;
             text-align: center;
             color: #6f9be0;
-            font-size: 0.95rem;
+            font-size: 0.92rem;
             flex-shrink: 0;
+            transition: color .2s ease, transform .2s ease;
         }
 
-        .sum-text {
+        /* rótulo */
+        .tw-label {
             font-family: 'Montserrat', sans-serif;
-            font-size: 1.15rem;
             font-weight: 600;
-            color: #ffffff;
-            letter-spacing: 0.02em;
-            transition: color .25s ease;
+            color: #eaf2fb;
+            letter-spacing: 0.01em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transition: color .2s ease;
         }
 
-        /* ===== Interatividade ===== */
-        .sum-item {
-            border-radius: 8px;
-            transition: padding-left .25s ease, background-color .25s ease;
-        }
+        /* tamanhos por nível */
+        .tnode.lvl-1 .tw-label { font-size: 1.12rem; font-weight: 700; color: #ffffff; }
+        .tnode.lvl-2 .tw-label { font-size: 0.96rem; }
+        .tnode.lvl-3 .tw-label { font-size: 0.86rem; color: #cfe0f7; }
+        .tnode.lvl-2 .tw-num,
+        .tnode.lvl-3 .tw-num { color: #5AB4DC; font-weight: 700; font-size: 0.74rem; }
 
-        .sum-item:hover {
-            padding-left: 0.9rem;
-            background: rgba(255, 255, 255, 0.06);
-        }
+        .tnode:hover .tw-label { color: #0090C0; }
+        .tnode:hover .tw-icon { color: #0090C0; transform: scale(1.12); }
 
-        .sum-item:hover .sum-num {
-            color: #5AB4DC;
-        }
-
-        .sum-item:hover .sum-icon {
-            color: #0090C0;
-            transform: scale(1.18);
-        }
-
-        .sum-item:hover .sum-text {
-            color: #0090C0;
-        }
-
-        .sum-num,
-        .sum-icon {
-            transition: color .25s ease, transform .25s ease;
-        }
+        /* slide atual — "você está aqui" */
+        .tnode.current { background: rgba(0, 144, 192, 0.16); }
+        .tnode.current .tw-label { color: #ffffff; }
+        .tnode.current .tw-num { color: #F2A900; }
 
         @keyframes fadeInUp {
             from {
@@ -231,10 +259,7 @@
             }
         }
 
-        /* Stagger definido inline (style="animation-delay") por linha,
-           robusto aos sub-rótulos de bloco intercalados. */
-        .sum-item,
-        .sum-block {
+        .tree {
             animation: fadeInUp .5s ease both;
         }
 
@@ -284,83 +309,16 @@
                 <p class="cover-sub">Relatório Trimestral 2026</p>
                 <p class="cover-org">Agência Nacional de Transportes Aquaviários — ANTAQ</p>
 
-                <!-- ===== SUMÁRIO — atualizar se mudar a estrutura de blocos/seções =====
-                 Cada item usa goToFile('capa-XX.html') — navegação por NOME de arquivo,
-                 robusta à reordenação (o índice é resolvido no array `slides` do index.html).
-                 Ordem macro: Fundamentos Institucionais (S1–S6) → Dados do Trimestre → Encerramento.
-                 Todas as capas referenciadas existem no array de sistema/index.html.
-                 capa-07 (Dados Abertos) e capa-08 (Transp. Ativa/Passiva) foram consolidadas
-                 sob a Seção 5 · STAI, então não aparecem como itens próprios aqui.
+                <!-- ===== SUMÁRIO — árvore recolhível (lista multinível / estilo IDE) =====
+                 A hierarquia (tópicos → subtópicos → slides) é definida no objeto `tree`
+                 do <script> abaixo; a numeração 1 / 1.1 / 1.1.1 é gerada automaticamente.
+                 Nó pai: clique expande/recolhe. Folha (slide): clique navega via goToFile
+                 (robusto à ordem do array `slides` do index.html).
              ================================================== -->
                 <!-- Sumário -->
                 <div class="sumario">
                     <p class="sumario-label">Sumário</p>
-
-                    <p class="sum-block" style="animation-delay:.04s">Fundamentos Institucionais</p>
-
-                    <div class="sum-item" onclick="goToFile('capa-01.html')" style="cursor:pointer; animation-delay:.08s">
-                        <span class="sum-num">01</span>
-                        <span class="sum-icon"><i class="fas fa-bullhorn"></i></span>
-                        <span class="sum-text">As Ouvidorias Públicas</span>
-                    </div>
-
-                    <div class="sum-item" onclick="goToFile('capa-05.html')" style="cursor:pointer; animation-delay:.13s">
-                        <span class="sum-num">02</span>
-                        <span class="sum-icon"><i class="fas fa-tower-broadcast"></i></span>
-                        <span class="sum-text">Canais de Atendimento</span>
-                    </div>
-
-                    <div class="sum-item" onclick="goToFile('slide-14.html')" style="cursor:pointer; animation-delay:.18s">
-                        <span class="sum-num">03</span>
-                        <span class="sum-icon"><i class="fas fa-comments"></i></span>
-                        <span class="sum-text">Tipos de Manifestações</span>
-                    </div>
-
-                    <div class="sum-item" onclick="goToFile('capa-sac.html')" style="cursor:pointer; animation-delay:.23s">
-                        <span class="sum-num">04</span>
-                        <span class="sum-icon"><i class="fas fa-headset"></i></span>
-                        <span class="sum-text">SAC — Seção de Apoio ao Cidadão</span>
-                    </div>
-
-                    <div class="sum-item" onclick="goToFile('capa-stai.html')" style="cursor:pointer; animation-delay:.28s">
-                        <span class="sum-num">05</span>
-                        <span class="sum-icon"><i class="fas fa-eye"></i></span>
-                        <span class="sum-text">STAI — Transparência e Acesso à Informação</span>
-                    </div>
-
-                    <div class="sum-item" onclick="goToFile('capa-10.html')" style="cursor:pointer; animation-delay:.33s">
-                        <span class="sum-num">06</span>
-                        <span class="sum-icon"><i class="fas fa-file-contract"></i></span>
-                        <span class="sum-text">Carta de Serviços da ANTAQ</span>
-                    </div>
-
-                    <p class="sum-block" style="animation-delay:.38s">Dados do Trimestre</p>
-
-                    <div class="sum-item" onclick="goToFile('capa-02.html')" style="cursor:pointer; animation-delay:.43s">
-                        <span class="sum-num">07</span>
-                        <span class="sum-icon"><i class="fas fa-inbox"></i></span>
-                        <span class="sum-text">Manifestações Recebidas</span>
-                    </div>
-
-                    <div class="sum-item" onclick="goToFile('capa-03.html')" style="cursor:pointer; animation-delay:.48s">
-                        <span class="sum-num">08</span>
-                        <span class="sum-icon"><i class="fas fa-fire"></i></span>
-                        <span class="sum-text">Destaques do Trimestre</span>
-                    </div>
-
-                    <div class="sum-item" onclick="goToFile('capa-04.html')" style="cursor:pointer; animation-delay:.53s">
-                        <span class="sum-num">09</span>
-                        <span class="sum-icon"><i class="fas fa-lightbulb"></i></span>
-                        <span class="sum-text">Análise Estratégica e Inteligência</span>
-                    </div>
-
-                    <p class="sum-block" style="animation-delay:.58s">Encerramento</p>
-
-                    <div class="sum-item" onclick="goToFile('capa-11.html')" style="cursor:pointer; animation-delay:.63s">
-                        <span class="sum-num">10</span>
-                        <span class="sum-icon"><i class="fas fa-book"></i></span>
-                        <span class="sum-text">Glossário · Legislação · Encerramento</span>
-                    </div>
+                    <div class="tree" id="tree"></div>
                 </div>
             </div>
 
@@ -440,6 +398,160 @@
             function goToFile(file) {
                 window.parent.postMessage({ type: "slide-goto-file", file: file }, "*");
             }
+
+            // ===== Árvore do Sumário (Opção A: seções como tópicos) =====
+            // tópicos -> subtópicos -> slides. Manter em sincronia com o `deck`
+            // de index.html. `f` = arquivo (folha navegável); sem `f` = nó pai.
+            const tree = [
+                { t: 'Abertura', icon: 'fa-door-open', children: [
+                    { t: 'Capa de abertura', f: 'slide-00.html' },
+                    { t: 'Ficha Técnica', f: 'slide-34.html' },
+                    { t: 'Mensagem da Ouvidora', f: 'slide-msg-ouvidora.html' },
+                    { t: 'Sumário', f: 'slide-01.html' },
+                    { t: 'Sumário Executivo', f: 'slide-03b.html' },
+                ] },
+                { t: 'As Ouvidorias Públicas', icon: 'fa-bullhorn', children: [
+                    { t: 'Capa da seção', f: 'capa-01.html' },
+                    { t: 'A Ouvidoria da ANTAQ', f: 'slide-ouvidoria-geral.html' },
+                    { t: 'Princípios · Diretrizes · Atribuições', f: 'slide-principios.html' },
+                    { t: 'Papel Institucional da Ouvidoria', f: 'slide-03c.html' },
+                ] },
+                { t: 'Canais de Atendimento', icon: 'fa-tower-broadcast', children: [
+                    { t: 'Capa da seção', f: 'capa-05.html' },
+                    { t: 'Contexto', f: 'slide-ctx-05.html' },
+                    { t: 'Manifestações por Canal', f: 'slide-canal.html' },
+                ] },
+                { t: 'Tipos de Manifestações', icon: 'fa-comments', children: [
+                    { t: 'Tipos de Manifestações', f: 'slide-14.html' },
+                ] },
+                { t: 'SAC — Seção de Apoio ao Cidadão', icon: 'fa-headset', children: [
+                    { t: 'Capa da seção', f: 'capa-sac.html' },
+                    { t: 'Apresentação da SAC', f: 'slide-sac-apres.html' },
+                    { t: 'Principais Atividades da SAC', f: 'slide-sac-ativ.html' },
+                    { t: 'Referências e Fontes de Dados', f: 'slide-sac-refs.html' },
+                ] },
+                { t: 'STAI — Transparência e Acesso à Informação', icon: 'fa-eye', children: [
+                    { t: 'Capa da seção', f: 'capa-stai.html' },
+                    { t: 'Acesso à Informação (LAI)', children: [
+                        { t: 'Capa — LAI', f: 'capa-06.html' },
+                        { t: 'LAI · Transparência Passiva', f: 'slide-18.html' },
+                        { t: 'LAI · Pedidos por Mês', f: 'slide-19.html' },
+                        { t: 'Histórico de Pedidos LAI', f: 'slide-20.html' },
+                    ] },
+                    { t: 'Dados Abertos', children: [
+                        { t: 'Capa — Dados Abertos', f: 'capa-07.html' },
+                        { t: 'Plano de Dados Abertos 2026–2028', f: 'slide-pda.html' },
+                        { t: 'Transparência Ativa e Dados Abertos', f: 'slide-21.html' },
+                    ] },
+                    { t: 'Transparência Ativa e Passiva', children: [
+                        { t: 'Contexto', f: 'slide-ctx-08.html' },
+                        { t: 'Transparência Ativa', f: 'slide-22.html' },
+                        { t: 'Transparência Passiva', f: 'slide-23.html' },
+                    ] },
+                ] },
+                { t: 'Carta de Serviços', icon: 'fa-file-contract', children: [
+                    { t: 'Capa da seção', f: 'capa-10.html' },
+                    { t: 'Contexto', f: 'slide-ctx-09.html' },
+                    { t: 'Cartas de Serviço ANTAQ', f: 'slide-25.html' },
+                    { t: 'Carta de Serviços — SOG', f: 'slide-26.html' },
+                    { t: 'Carta de Serviços — SRG/SAF/SFC', f: 'slide-27.html' },
+                ] },
+                { t: 'Dados do Trimestre', icon: 'fa-chart-column', children: [
+                    { t: 'Manifestações Recebidas', children: [
+                        { t: 'Capa', f: 'capa-02.html' },
+                        { t: 'Evolução Histórica', f: 'slide-07.html' },
+                        { t: 'Manifestações no Fala.BR', f: 'slide-04.html' },
+                    ] },
+                    { t: 'Destaques do Trimestre', children: [
+                        { t: 'Capa', f: 'capa-03.html' },
+                        { t: 'Contexto', f: 'slide-ctx-03.html' },
+                        { t: 'Destaques do Trimestre', f: 'slide-08.html' },
+                    ] },
+                    { t: 'Análise Quantitativa', children: [
+                        { t: 'Capa', f: 'capa-04.html' },
+                        { t: 'Contexto', f: 'slide-ctx-04.html' },
+                        { t: 'Tratamento de Demandas do Fala.BR', f: 'slide-05.html' },
+                        { t: 'Principais Achados do Trimestre', f: 'slide-09.html' },
+                        { t: 'Inteligência da Ouvidoria', f: 'slide-10.html' },
+                        { t: 'Análise Qualitativa', f: 'slide-11.html' },
+                        { t: 'Riscos e Oportunidades', f: 'slide-12.html' },
+                        { t: 'Recomendações Institucionais', f: 'slide-13.html' },
+                        { t: 'Panorama Geral das Demandas', f: 'slide-16.html' },
+                        { t: 'Ecossistema de Atendimento', f: 'slide-16b.html' },
+                        { t: 'Sequência Lógica de Tramitação', f: 'slide-17b.html' },
+                        { t: 'Jornada Mensal das Demandas', f: 'slide-17.html' },
+                        { t: 'Fluxo Mensal — Painel Resolveu', f: 'slide-17d.html' },
+                        { t: 'Perfil de Uso Fala.BR', f: 'slide-17e.html' },
+                    ] },
+                ] },
+                { t: 'Encerramento', icon: 'fa-flag-checkered', children: [
+                    { t: 'Conclusão', f: 'slide-conclusao.html' },
+                    { t: 'Capa — Glossário e Legislação', f: 'capa-11.html' },
+                    { t: 'Decretos', f: 'slide-31.html' },
+                    { t: 'Glossário e Definições', f: 'slide-29.html' },
+                    { t: 'Leis', f: 'slide-30.html' },
+                    { t: 'Links Úteis', f: 'slide-35.html' },
+                    { t: 'Normativas e Portarias', f: 'slide-32.html' },
+                ] },
+            ];
+
+            function buildNode(node, num, level) {
+                const li = document.createElement('li');
+                const row = document.createElement('div');
+                row.className = 'tnode lvl-' + level;
+                const kids = node.children && node.children.length;
+
+                const chev = document.createElement('span');
+                chev.className = 'tw-chev';
+                chev.innerHTML = kids ? '<i class="fas fa-chevron-right"></i>' : '<i class="fas fa-circle tw-leaf"></i>';
+                row.appendChild(chev);
+
+                const n = document.createElement('span');
+                n.className = 'tw-num';
+                n.textContent = num;
+                row.appendChild(n);
+
+                if (node.icon) {
+                    const ic = document.createElement('span');
+                    ic.className = 'tw-icon';
+                    ic.innerHTML = '<i class="fas ' + node.icon + '"></i>';
+                    row.appendChild(ic);
+                }
+
+                const lab = document.createElement('span');
+                lab.className = 'tw-label';
+                lab.textContent = node.t;
+                row.appendChild(lab);
+
+                li.appendChild(row);
+
+                if (kids) {
+                    const ul = document.createElement('ul');
+                    node.children.forEach((c, i) => ul.appendChild(buildNode(c, num + '.' + (i + 1), level + 1)));
+                    li.appendChild(ul);
+                    row.addEventListener('click', () => li.classList.toggle('open'));
+                } else if (node.f) {
+                    row.classList.add('leaf');
+                    row.addEventListener('click', () => goToFile(node.f));
+                    if (node.f === 'slide-01.html') row.classList.add('current');
+                }
+                return li;
+            }
+
+            (function renderTree() {
+                const root = document.getElementById('tree');
+                if (!root) return;
+                const ul = document.createElement('ul');
+                tree.forEach((node, i) => ul.appendChild(buildNode(node, String(i + 1), 1)));
+                root.appendChild(ul);
+                // abre o ramo do slide atual e destaca ("você está aqui")
+                const cur = root.querySelector('.tnode.current');
+                if (cur) {
+                    let li = cur.closest('li');
+                    while (li) { li.classList.add('open'); const p = li.parentElement; li = p ? p.closest('li') : null; }
+                }
+            })();
+
             document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });
         </script>
 </body>
