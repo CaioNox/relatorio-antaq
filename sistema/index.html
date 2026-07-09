@@ -224,11 +224,17 @@
       width: 5px;
       height: 5px;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.3);
+      /* Tom sutil por bloco: variação de opacidade do azul institucional */
+      background: rgba(122, 178, 216, calc(0.20 + (var(--dot-tint, 0.6) * 0.28)));
       border: none;
       cursor: pointer;
       padding: 0;
       transition: all 0.2s;
+    }
+
+    /* Separação visível entre os 4 blocos (Abertura · Fundamentos · Dados · Encerramento) */
+    .nav-dots button.block-start {
+      margin-left: 9px;
     }
 
     .nav-dots button.active {
@@ -238,7 +244,44 @@
     }
 
     .nav-dots button:hover:not(.active) {
-      background: rgba(255, 255, 255, 0.6);
+      background: rgba(255, 255, 255, 0.65);
+    }
+
+    /* Breadcrumb discreto — bloco/seção atual (camada de leitura sobre o array) */
+    .breadcrumb {
+      position: fixed;
+      top: 18px;
+      left: 18px;
+      z-index: 1000;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      max-width: 46vw;
+      padding: 8px 15px;
+      border-radius: 22px;
+      background: rgba(12, 50, 111, 0.72);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #cfe0f7;
+      font-family: 'Roboto', sans-serif;
+      font-size: 12.5px;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .breadcrumb i {
+      color: #0090C0;
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+
+    .breadcrumb .bc-sep {
+      opacity: 0.4;
     }
 
     /* Fullscreen button */
@@ -485,6 +528,12 @@
     <div id="clickRight" class="click-zone" title="Próximo slide"></div>
   </div>
 
+  <!-- Breadcrumb: bloco/seção atual (atualizado por render()) -->
+  <div class="breadcrumb" id="breadcrumb">
+    <i class="fa-solid fa-location-dot"></i>
+    <span id="breadcrumbText"></span>
+  </div>
+
   <div class="nav-dock">
     <div class="nav-trigger"></div>
     <div class="nav-wave"></div>
@@ -494,7 +543,7 @@
       <button onclick="prev()" id="btnPrev" title="Anterior"><i class="fa-solid fa-chevron-left"></i></button>
       <div class="nav-dots" id="navDots"></div>
       <button onclick="next()" id="btnNext" title="Próximo"><i class="fa-solid fa-chevron-right"></i></button>
-      <span class="page-info" id="pageInfo">1 / 58</span>
+      <span class="page-info" id="pageInfo"></span>
       <button class="help-btn" id="helpBtn" onclick="toggleHints()"><i class="fa-solid fa-circle-question"></i>
       </button>
     </div>
@@ -561,92 +610,63 @@
   </div>
 
   <script>
-    const slides = [
-      // ── Introdução ──
-      'slide-00.html',              // 01 · Capa de abertura
-      'slide-34.html',              // 02 · Ficha Técnica
-      'slide-msg-ouvidora.html',    // 03 · Mensagem da Ouvidora
-      'slide-01.html',              // 04 · Sumário
-      'slide-03b.html',             // 05 · Sumário Executivo
-
-      // ── Seção 01 · Apresentação da Ouvidoria ──
-      'capa-01.html',               // 06 · Capa Seção 01
-      'slide-ouvidoria-geral.html', // 07 · Ouvidoria da ANTAQ — canal oficial de interlocução
-      'slide-principios.html',      // 08 · Princípios · Diretrizes · Atribuições
-      'slide-03c.html',             // 09 · Papel Institucional da Ouvidoria
-
-      // ── Seção SAC · Seção de Apoio ao Cidadão ──
-      'capa-sac.html',              // 10 · Capa Seção SAC
-      'slide-sac-apres.html',       // 11 · Apresentação da SAC
-      'slide-sac-ativ.html',        // 12 · Principais Atividades da SAC
-      'slide-sac-refs.html',        // 13 · Referências e Fontes de Dados
-
-      // ── Seção 02 · Manifestações Recebidas ──
-      'capa-02.html',               // Capa Seção 02
-      'slide-07.html',              // Evolução Histórica das Manifestações
-      'slide-04.html',              // Manifestações Recebidas na Plataforma Fala.BR
-      'slide-14.html',              // Tipos de Manifestações + por Mês
-
-      // ── Seção 03 · Destaques do Trimestre ──
-      'capa-03.html',               // Capa Seção 03
-      'slide-ctx-03.html',          // Contexto Seção 03
-      'slide-08.html',              // Destaques do Trimestre
-
-      // ── Seção 04 · Análise Quantitativa ──
-      'capa-04.html',               // Capa Seção 04 — Análise Quantitativa
-      'slide-ctx-04.html',          // Contexto Seção 04
-      'slide-05.html',              // Tratamento de Demandas do Fala.BR (fluxo interno vs ANTAQ)
-      'slide-09.html',              // Principais Achados do Trimestre
-      'slide-10.html',              // Inteligência da Ouvidoria
-      'slide-11.html',              // Análise Qualitativa
-      'slide-12.html',              // Riscos e Oportunidades
-      'slide-13.html',              // Recomendações Institucionais
-      'slide-16.html',              // Panorama Geral das Demandas
-      'slide-16b.html',             // Ecossistema de Atendimento (foco Fala.BR)
-      'slide-17b.html',             // Sequência Lógica de Tramitação
-      'slide-17.html',              // Jornada Mensal das Demandas
-      'slide-17d.html',             // Fluxo Mensal — Painel Resolveu
-      'slide-17e.html',             // Perfil de Uso Fala.BR
-
-      // ── Seção 05 · Tipos e Canais ──
-      'capa-05.html',               // Capa Seção 05
-      'slide-ctx-05.html',          // Contexto Seção 05
-
-      // ── Seção STAI · Transparência e Acesso à Informação ──
-      'capa-stai.html',             // Capa Seção STAI
-      'slide-18.html',              // LAI — Transparência Passiva
-      'slide-19.html',              // LAI — Pedidos por Mês
-      'slide-20.html',              // Histórico de Pedidos LAI
-
-      // ── Seção Dados Abertos ──
-      'capa-07.html',               // Capa Dados Abertos
-      'slide-pda.html',             // Plano de Dados Abertos 2026–2028
-      'slide-21.html',              // Transparência Ativa e Dados Abertos
-
-      // ── Seção 08 · Transparência Ativa e Passiva ──
-      'capa-08.html',               // Capa Seção 08
-      'slide-ctx-08.html',          // Contexto Seção 08
-      'slide-22.html',              // Transparência Ativa
-      'slide-23.html',              // Transparência Passiva
-
-      // ── Carta de Serviços ──
-      'capa-10.html',               // Capa Carta de Serviços
-      'slide-ctx-09.html',          // Contexto Carta de Serviços
-      'slide-25.html',              // Cartas de Serviço ANTAQ
-      'slide-26.html',              // Carta de Serviços (SOG)
-      'slide-27.html',              // Carta de Serviços (SRG/SAF/SFC)
-
-      // ── Encerramento ──
-      'slide-conclusao.html',       // Conclusão
-
-      // ── Glossário e Legislação ──
-      'capa-11.html',               // Capa Glossário e Legislação
-      'slide-31.html',              // Decretos
-      'slide-29.html',              // Glossário e Definições
-      'slide-30.html',              // Leis
-      'slide-35.html',              // Links Úteis
-      'slide-32.html',              // Normativas e Portarias
+    // ╔══════════════════════════════════════════════════════════════╗
+    // ║  ESTRUTURA DA APRESENTAÇÃO — fonte única da ordem             ║
+    // ╠══════════════════════════════════════════════════════════════╣
+    // ║  4 blocos (Abertura · Fundamentos Institucionais · Dados do   ║
+    // ║  Trimestre · Encerramento). O Bloco B tem 6 seções (estrutura ║
+    // ║  definida pelo Caio). Para reordenar: mova arquivos aqui.     ║
+    // ║  `slides`, o contador, os dots e o breadcrumb derivam disto.  ║
+    // ║  `tint` = variação de opacidade do azul (0..1) usada nos dots.║
+    // ╚══════════════════════════════════════════════════════════════╝
+    const deck = [
+      {
+        block: 'Abertura', short: 'Abertura', tint: 0.35,
+        files: ['slide-00.html', 'slide-34.html', 'slide-msg-ouvidora.html', 'slide-01.html', 'slide-03b.html'],
+      },
+      {
+        block: 'Fundamentos Institucionais', short: 'Fundamentos', tint: 1,
+        sections: [
+          { n: 1, label: 'As Ouvidorias Públicas', files: ['capa-01.html', 'slide-ouvidoria-geral.html', 'slide-principios.html', 'slide-03c.html'] },
+          { n: 2, label: 'Canais de Atendimento', files: ['capa-05.html', 'slide-ctx-05.html', 'slide-canal.html'] },
+          { n: 3, label: 'Tipos de Manifestações', files: ['slide-14.html'] },
+          { n: 4, label: 'SAC — Seção de Apoio ao Cidadão', files: ['capa-sac.html', 'slide-sac-apres.html', 'slide-sac-ativ.html', 'slide-sac-refs.html'] },
+          { n: 5, label: 'STAI — Transparência e Acesso à Informação', files: ['capa-stai.html', 'capa-06.html', 'slide-18.html', 'slide-19.html', 'slide-20.html', 'capa-07.html', 'slide-pda.html', 'slide-21.html', 'slide-ctx-08.html', 'slide-22.html', 'slide-23.html'] },
+          { n: 6, label: 'Carta de Serviços', files: ['capa-10.html', 'slide-ctx-09.html', 'slide-25.html', 'slide-26.html', 'slide-27.html'] },
+        ],
+      },
+      {
+        block: 'Dados do Trimestre', short: 'Dados do Trimestre', tint: 0.62,
+        files: ['capa-02.html', 'slide-07.html', 'slide-04.html', 'capa-03.html', 'slide-ctx-03.html', 'slide-08.html', 'capa-04.html', 'slide-ctx-04.html', 'slide-05.html', 'slide-09.html', 'slide-10.html', 'slide-11.html', 'slide-12.html', 'slide-13.html', 'slide-16.html', 'slide-16b.html', 'slide-17b.html', 'slide-17.html', 'slide-17d.html', 'slide-17e.html'],
+      },
+      {
+        block: 'Encerramento', short: 'Encerramento', tint: 0.35,
+        files: ['slide-conclusao.html', 'capa-11.html', 'slide-31.html', 'slide-29.html', 'slide-30.html', 'slide-35.html', 'slide-32.html'],
+      },
     ];
+
+    // Nº de seções do Bloco B (para o breadcrumb "Seção X de N")
+    const SECTION_TOTAL = 6;
+
+    // Deriva `slides` (governa a navegação, como antes) + `meta` paralelo
+    // com o bloco/seção de cada slide (usado por dots e breadcrumb).
+    const slides = [];
+    const meta = [];
+    deck.forEach((b, bi) => {
+      const push = (file, section) => {
+        slides.push(file);
+        meta.push({
+          block: b.block, blockShort: b.short, blockIndex: bi, tint: b.tint,
+          section: section ? section.n : null,
+          sectionLabel: section ? section.label : null,
+        });
+      };
+      if (b.sections) {
+        b.sections.forEach((s) => s.files.forEach((f) => push(f, s)));
+      } else {
+        b.files.forEach((f) => push(f, null));
+      }
+    });
     const total = slides.length;
     const frame = document.getElementById('slideFrame');
     let current = 1;
@@ -655,11 +675,22 @@
       return slides[n - 1];
     }
 
+    // Texto do breadcrumb: no Bloco B mostra "Fundamentos · Seção X de 6 · Título";
+    // nos demais blocos mostra apenas o rótulo do bloco.
+    function breadcrumbText(n) {
+      const m = meta[n - 1];
+      if (m.section) {
+        return `${m.blockShort} · Seção ${m.section} de ${SECTION_TOTAL} · ${m.sectionLabel}`;
+      }
+      return m.block;
+    }
+
     function render() {
       frame.src = fileFor(current);
       document.getElementById('pageInfo').textContent = `${current} / ${total}`;
       document.getElementById('btnPrev').disabled = current === 1;
       document.getElementById('btnNext').disabled = current === total;
+      document.getElementById('breadcrumbText').textContent = breadcrumbText(current);
       updateDots();
     }
 
@@ -673,12 +704,17 @@
       });
     }
 
-    // Build dots
+    // Build dots — 1 por slide (navegação direta preservada), tingidos e
+    // separados por bloco para dar leitura visual dos 4 blocos.
     const dotsContainer = document.getElementById('navDots');
     for (let i = 0; i < total; i++) {
       const dot = document.createElement('button');
       dot.addEventListener('click', () => { current = i + 1; render(); });
-      dot.title = `Slide ${i + 1}`;
+      dot.title = `Slide ${i + 1} · ${meta[i].block}`;
+      dot.style.setProperty('--dot-tint', meta[i].tint);
+      if (i > 0 && meta[i].blockIndex !== meta[i - 1].blockIndex) {
+        dot.classList.add('block-start');
+      }
       dotsContainer.appendChild(dot);
     }
 

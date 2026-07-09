@@ -19,36 +19,42 @@ da unidade com base nos dados do **Fala.BR**, e tem como objetivos:
 `.html` independente, exibido por um visualizador com navegação por teclado, cliques e
 miniaturas.
 
-## Conteúdo (33 slides)
+## Conteúdo (60 telas, em 4 blocos)
 
-| # | Slide | Tema |
-|---|-------|------|
-| 01 | Capa | Identificação e **sumário clicável** (cada item leva ao slide) |
-| 02–03 | Apresentação | A Ouvidoria, sua atuação e o objeto do relatório |
-| 04 | Manifestações Recebidas | Indicadores gerais (total, arquivadas, encaminhadas, tempo médio) |
-| 05 | Encaminhamentos / Tratamento | Funil das manifestações que geraram processos sancionatórios |
-| 06 | Manifestações por mês | Recebidas / arquivadas / encaminhadas (Jan–Mar) |
-| 07 | Evolução Histórica | Série histórica das manifestações recebidas (1º Tri 2023–2026) |
-| 08 | Destaques do Trimestre | Tema central: cobranças portuárias abusivas e suas vertentes |
-| 09–13 | Análise Estratégica | Principais achados, Inteligência da Ouvidoria, Análise qualitativa, Riscos e oportunidades e Recomendações institucionais |
-| 14–15 | Tipos de Manifestações | Distribuição por tipo e comparativo mensal |
-| 16–17 | Manifestações por Canal | Distribuição por canal e evolução mensal |
-| 18–19 | LAI · Transparência Passiva | Pedidos de acesso à informação (totais e por mês) |
-| 20 | Histórico LAI | Série histórica dos pedidos de acesso à informação (1º Tri 2023–2026) |
-| 21–22 | Transparência Ativa e Dados Abertos | Painel LAI, bases publicadas e novas bases |
-| 23–25 | Carta de Serviços | Apresentação e 32 serviços por superintendência (SOG, SRG, SAF, SFC) |
-| 26–27 | Definições e Glossário | Conceitos relevantes para a leitura dos dados |
-| 28–30 | Base Legal | Leis, decretos e normativas/portarias |
-| 31 | Conclusão | Conclusão institucional do trimestre |
-| 32 | Expediente | Diretoria, estrutura e equipe técnica |
-| 33 | Links Úteis | Contatos, canais oficiais e **download do relatório em PDF** |
+A ordem de exibição é a **única fonte da verdade** no array `slides` de
+`sistema/index.html` — derivado de um objeto `deck` estruturado em **4 blocos**
+(o Bloco B tem **6 seções institucionais**). A apresentação começa pelo
+institucional/conceitual e só então mostra os números do trimestre; o contador,
+os dots e o breadcrumb são calculados automaticamente a partir desse array.
+
+### Bloco A · Abertura
+Capa de abertura, ficha técnica, mensagem da Ouvidora, **sumário clicável** e sumário executivo.
+
+### Bloco B · Fundamentos Institucionais
+
+| Seção | Tema |
+|-------|------|
+| 1 | **As Ouvidorias Públicas** — a Ouvidoria da ANTAQ, princípios, diretrizes, atribuições e papel institucional |
+| 2 | **Canais de Atendimento** — tramitação e manifestações por canal |
+| 3 | **Tipos de Manifestações** — denúncia, elogio, reclamação (simples, solicitação, sugestão) |
+| 4 | **SAC — Seção de Apoio ao Cidadão** — apresentação, atividades e referências |
+| 5 | **STAI — Transparência e Acesso à Informação** — pedidos de acesso à informação (LAI), Dados Abertos/PDA 2026–2028 e transparência ativa/passiva |
+| 6 | **Carta de Serviços da ANTAQ** — serviços por superintendência (SOG, SRG, SAF, SFC) |
+
+### Bloco C · Dados do Trimestre
+Manifestações recebidas (volumes, evolução histórica, tratamento no Fala.BR), destaques
+do trimestre (temas dominantes) e análise quantitativa (principais achados, inteligência
+da Ouvidoria, análise qualitativa, riscos, recomendações, panorama e fluxos de tramitação).
+
+### Bloco D · Encerramento
+Conclusão institucional, glossário e definições, decretos, leis, normativas/portarias e links úteis.
 
 ## Relatório em PDF
 
-O slide **33 (Links Úteis)** traz o botão **"Baixar Relatório em PDF"**, que abre
-`sistema/relatorio.html` — uma versão em **documento formal A4** com os mesmos dados,
-gráficos (Chart.js) e tabelas. Basta clicar em **"Baixar em PDF"** e escolher
-**Salvar como PDF** no destino de impressão do navegador.
+O botão **"Baixar PDF"** fica sempre visível no topo do visualizador (e a tela de
+**Links Úteis**, no Bloco D, também o traz). Ele abre `sistema/relatorio.html` — uma
+versão em **documento formal A4** com os mesmos dados, gráficos (Chart.js) e tabelas.
+Basta escolher **Salvar como PDF** no destino de impressão do navegador.
 
 ## Estrutura
 
@@ -59,8 +65,8 @@ gráficos (Chart.js) e tabelas. Basta clicar em **"Baixar em PDF"** e escolher
 ├── README.md
 ├── .nojekyll               # Desliga o Jekyll no GitHub Pages
 └── sistema/
-    ├── index.html          # Visualizador dos slides (navegação)
-    ├── slide-01.html … slide-33.html
+    ├── index.html          # Visualizador dos slides (array `deck`/`slides` = ordem)
+    ├── slide-*.html / capa-*.html   # Telas individuais (uma por arquivo)
     ├── relatorio.html      # Versão A4 imprimível / "Salvar como PDF"
     └── Imagens/            # Logos da ANTAQ
 ```
@@ -99,10 +105,13 @@ python3 -m http.server 8000
 
 ## Como editar / adicionar slides
 
-- Cada slide é `sistema/slide-NN.html`. O número total fica em `sistema/index.html`
-  (`const total = 33;`) e o rodapé de cada slide mostra `N / 33`.
-- Ao **inserir** um slide no meio, renumere os arquivos seguintes, atualize os rodapés,
-  o `total` e os destinos do **sumário clicável** da capa (`goToSlide(n)` no `slide-01.html`).
-- Se mudar a ordem/numeração, revise também o `sistema/relatorio.html` para manter os
-  **mesmos dados** dos slides.
+- Cada tela é um `.html` independente (`slide-*.html` / `capa-*.html`). A **ordem** e o
+  **total** vêm do objeto `deck` em `sistema/index.html` (`const total = slides.length;`) —
+  não há números de página hardcoded nos slides; o contador `N / total`, os dots e o
+  breadcrumb são calculados a partir do array.
+- Para **inserir/mover/remover** uma tela, basta editar o `deck` (arquivo e bloco/seção).
+  O **sumário clicável** da capa (`slide-01.html`) usa `goToFile('capa-XX.html')` — navegação
+  por nome de arquivo, robusta à reordenação; só atualize-o se mudar a estrutura de seções.
+- Se mudar a ordem/estrutura, revise também o `sistema/relatorio.html` (versão PDF, separada
+  do array) para manter os **mesmos dados**.
 - O servidor é **case-sensitive** (Linux/Pages): a pasta de logos é `Imagens/` (I maiúsculo).
