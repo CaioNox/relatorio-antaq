@@ -247,7 +247,7 @@
       background: rgba(255, 255, 255, 0.65);
     }
 
-    /* Breadcrumb discreto — bloco/seção atual (camada de leitura sobre o array) */
+    /* Breadcrumb discreto — bloco/capítulo atual (camada de leitura sobre o array) */
     .breadcrumb {
       position: fixed;
       top: 18px;
@@ -528,7 +528,7 @@
     <div id="clickRight" class="click-zone" title="Próximo slide"></div>
   </div>
 
-  <!-- Breadcrumb: bloco/seção atual (atualizado por render()) -->
+  <!-- Breadcrumb: bloco/capítulo atual (atualizado por render()) -->
   <div class="breadcrumb" id="breadcrumb">
     <i class="fa-solid fa-location-dot"></i>
     <span id="breadcrumbText"></span>
@@ -645,11 +645,11 @@
       },
     ];
 
-    // Nº de seções do Bloco B (para o breadcrumb "Seção X de N")
+    // Nº de seções do Bloco B (para o breadcrumb "Capítulo X de N")
     const SECTION_TOTAL = 6;
 
     // Deriva `slides` (governa a navegação, como antes) + `meta` paralelo
-    // com o bloco/seção de cada slide (usado por dots e breadcrumb).
+    // com o bloco/capítulo de cada slide (usado por dots e breadcrumb).
     const slides = [];
     const meta = [];
     deck.forEach((b, bi) => {
@@ -675,12 +675,12 @@
       return slides[n - 1];
     }
 
-    // Texto do breadcrumb: no Bloco B mostra "Fundamentos · Seção X de 6 · Título";
+    // Texto do breadcrumb: no Bloco B mostra "Fundamentos · Capítulo X de 6 · Título";
     // nos demais blocos mostra apenas o rótulo do bloco.
     function breadcrumbText(n) {
       const m = meta[n - 1];
       if (m.section) {
-        return `${m.blockShort} · Seção ${m.section} de ${SECTION_TOTAL} · ${m.sectionLabel}`;
+        return `${m.blockShort} · Capítulo ${m.section} de ${SECTION_TOTAL} · ${m.sectionLabel}`;
       }
       return m.block;
     }
