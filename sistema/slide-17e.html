@@ -9,7 +9,7 @@
     href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
   <link
-    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&amp;family=Open+Sans:ital,wght@0,400;0,600;1,400&amp;display=swap"
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap"
     rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -130,18 +130,22 @@
   <div class="slide-container">
     <div class="top-accent"></div>
     <div class="top-accent-secondary"></div>
-    <!-- Header -->
-    <div class="flex items-center justify-between px-16 pt-12 pb-4 z-10">
+    
+    <!-- Header Ajustado com Barra Azul e Tag Capítulo 02 -->
+    <div class="flex items-center justify-between px-16 pt-10 pb-4 z-10">
       <div>
-        <div class="flex items-center gap-3 mb-2">
+        <div class="flex items-center gap-3 mb-1">
           <div class="w-1 h-8 bg-brand-secondary"></div>
-          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Composição das Demandas Recebidas</p>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Ouvidoria em Números</p>
         </div>
-        <p class="text-gray-500 font-medium ml-4 text-lg">Total de 434 demandas recebidas de todas as plataformas — manifestações e LAI</p>
+        <p class="text-gray-500 font-medium ml-4 text-lg">Composição das Demandas Recebidas</p>
       </div>
-      <div class="flex items-center gap-2 opacity-80 text-brand-secondary">
-        <i class="fas fa-chart-pie text-xl" aria-hidden="true"></i>
-        <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">FALA.BR</p>
+      <div class="flex items-center gap-3 opacity-80 text-brand-secondary">
+        <i class="fas fa-bullhorn text-3xl align-middle" aria-hidden="true"></i>
+        <div class="flex flex-col justify-center border-left pl-2" style="border-left: 1px solid #CBD5E1;">
+          <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1">CAPÍTULO 02</p>
+          <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none">A Ouvidoria da ANTAQ</p>
+        </div>
       </div>
     </div>
 
@@ -167,11 +171,6 @@
             <div style="width:10px;height:10px;border-radius:3px;background:#0070C0;"></div>
             <span class="text-brand-secondary font-bold text-2xl">29,95%</span>
             <span class="text-gray-400 text-sm">do total Fala.BR</span>
-          </div>
-          <div class="mt-3 inline-flex items-center gap-2 rounded-lg px-3 py-1" onclick="goToSecao6()" title="Clique para ir ao Capítulo 6" style="background:#fffbeb;border:1px solid #F2A900;cursor:pointer;">
-            <i class="fas fa-circle-info" style="color:#F2A900;"></i>
-            <span class="text-xs" style="color:#92610a;font-weight:600;">Mais informações no Capítulo 6</span>
-            <i class="fas fa-arrow-up-right-from-square" style="color:#F2A900;font-size:0.85em;"></i>
           </div>
         </div>
 
@@ -247,8 +246,9 @@
       }]
     });
   </script>
-  <script>function goToSecao6(){if(window.parent&&window.parent!==window){window.parent.postMessage({type:'slide-goto-file',file:'capa-06.html'},'*');}else{window.location.href='capa-06.html';}}
-document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
+  <script>
+    document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });
+  </script>
 </body>
 
 </html>

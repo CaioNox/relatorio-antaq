@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <title>Apresentação Geral da Ouvidoria - Relatório Trimestral Ouvidoria ANTAQ</title>
+  <title>Estrutura Organizacional da Ouvidoria - Relatório Trimestral Ouvidoria ANTAQ</title>
   <link rel="icon" type="image/png" href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
@@ -17,71 +17,84 @@
     .text-brand-secondary { color: #0070C0; }
     .top-accent { height: 8px; background-color: #103050; width: 100%; }
     .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
-    .gov-eyebrow { display: flex; align-items: center; gap: .5rem; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: .62rem; letter-spacing: .16em; text-transform: uppercase; color: #64748B; margin-bottom: .5rem; }
-    .gov-eyebrow i { color: #0070C0; }
 
-    /* Painel esquerda - texto institucional */
-    .inst-panel {
-      background: #ffffff; border: 1px solid #E2E8F0; border-radius: 16px;
-      padding: 1.2rem 1.4rem; height: 100%; overflow: hidden;
-      display: flex; flex-direction: column; justify-content: flex-start;
-      box-shadow: 0 8px 24px -14px rgba(16,48,80,.22);
+    /* Coluna da Esquerda Sem Caixa (Solta no Fundo) */
+    .inst-clean-column {
+      padding: 1rem .5rem 1rem 0; height: 100%;
+      display: flex; flex-direction: column; justify-content: center;
       animation: fadeInUp .5s cubic-bezier(.2,.7,.3,1) both;
     }
-    .inst-kicker { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .6rem; letter-spacing: .18em; text-transform: uppercase; color: #0070C0; margin-bottom: .65rem; display: flex; align-items: center; gap: .45rem; }
-    .inst-text { color: #334155; font-size: .73rem; line-height: 1.55; margin: 0 0 .55rem; }
+    .inst-text { color: #334155; font-size: .68rem; line-height: 1.55; margin: 0 0 .65rem; text-align: justify; }
+    .inst-text:last-child { margin-bottom: 0; }
     .inst-text b { color: #103050; font-weight: 700; }
-    .inst-law {
-      background: #F5F8FC; border-left: 4px solid #0090C0; border-radius: 8px;
-      padding: .6rem .85rem; margin-top: .4rem;
-    }
-    .inst-law p { margin: 0; font-size: .68rem; line-height: 1.5; color: #475569; font-style: italic; }
-    .inst-law b { color: #103050; font-style: normal; }
 
-    /* Painel direita - organograma (Figura 2) */
+    /* Painel do Diagrama */
     .org-panel {
       background: #ffffff; border: 1px solid #E2E8F0;
-      border-radius: 16px; padding: 1.2rem 1.3rem; position: relative; overflow: hidden;
+      border-radius: 16px; padding: .8rem; position: relative; overflow: hidden;
       height: 100%; display: flex; flex-direction: column;
       box-shadow: 0 12px 30px -18px rgba(16,48,80,.28);
       animation: fadeInUp .5s cubic-bezier(.2,.7,.3,1) .1s both;
     }
-    .org-k { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .58rem; letter-spacing: .18em; text-transform: uppercase; color: #94a3b8; margin-bottom: .35rem; }
-    .org-title { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.1rem; margin-bottom: .3rem; line-height: 1.15; color: #103050; }
-    .org-title span { color: #0070C0; }
-
-    /* Figura com conectores curvos */
-    .org-fig { flex: 1; position: relative; min-height: 0; }
+    .org-fig { flex: 1; position: relative; min-height: 0; width: 100%; height: 100%; }
     .org-svg { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; }
-    .org-node { position: absolute; left: 50%; z-index: 2; }
+    .org-node { position: absolute; z-index: 2; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; }
 
-    .node-stai { top: 3%; transform: translateX(-58%); }
-    .node-ouv  { top: 50%; transform: translate(-50%, -50%); }
-    .node-sac  { bottom: 3%; transform: translateX(-42%); }
+    /* Mapeamento de Coordenadas do Fluxo Radial Expandido (Nível 1, Nível 2 e Nível 3) */
+    .node-root  { left: 16%; top: 50%; }
+    
+    .node-stai  { left: 52%; top: 22%; }
+    .node-sac   { left: 52%; top: 78%; }
+    
+    /* Serviços da Ouvidoria */
+    .node-so-1  { left: 48%; top: 43%; }
+    .node-so-2  { left: 48%; top: 50%; }
+    .node-so-3  { left: 48%; top: 57%; }
+    
+    /* Serviços da STAI */
+    .node-st-1  { left: 84%; top: 12%; }
+    .node-st-2  { left: 84%; top: 22%; }
+    .node-st-3  { left: 84%; top: 32%; }
+    
+    /* Serviços da SAC */
+    .node-sc-1  { left: 84%; top: 68%; }
+    .node-sc-2  { left: 84%; top: 82%; }
+
+    /* Componentes Visuais do Grafo */
+    .ouv-circle {
+      width: 102px; height: 100px; border-radius: 50%; 
+      background: linear-gradient(135deg, #103050, #0070C0);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      box-shadow: 0 10px 24px -10px rgba(16,48,80,.4); color: #fff; text-align: center;
+    }
+    .ouv-circle i { font-size: 1rem; margin-bottom: 2px; }
+    .ouv-circle span { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .52rem; letter-spacing: .06em; text-transform: uppercase; }
 
     .pill {
-      display: inline-flex; align-items: center; gap: .55rem;
-      border-radius: 999px; padding: .45rem .95rem .45rem .5rem; color: #fff;
-      box-shadow: 0 10px 22px -10px rgba(16,48,80,.4);
+      display: inline-flex; align-items: center; gap: .4rem;
+      border-radius: 999px; padding: .35rem .75rem .35rem .4rem; color: #fff;
+      box-shadow: 0 8px 20px -10px rgba(16,48,80,.35); min-width: 135px;
     }
-    .pill .p-ico { width: 2rem; height: 2rem; border-radius: 9px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 1rem; background: rgba(255,255,255,.22); }
-    .pill .p-ac { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: .9rem; letter-spacing: .04em; line-height: 1; }
-    .pill .p-sub { font-size: .48rem; font-weight: 600; opacity: .95; text-transform: uppercase; letter-spacing: .05em; line-height: 1.2; margin-top: .18rem; max-width: 130px; }
-    .pill-stai { background: linear-gradient(135deg, #b06fb8, #8a4a9c); }
-    .pill-sac  { background: linear-gradient(135deg, #5b9bd5, #3f7cc0); }
+    .pill .p-ico { width: 1.4rem; height: 1.4rem; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: .65rem; background: rgba(255,255,255,.22); }
+    .pill .p-ac { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: .75rem; line-height: 1; }
+    .pill-stai { background: linear-gradient(135deg, #0070C0, #0090C0); }
+    .pill-sac  { background: linear-gradient(135deg, #103050, #1e40af); }
 
-    .ouv-circle {
-      width: 108px; height: 108px; border-radius: 50%; background: #fff;
-      border: 2px solid #cbd5e1; display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 10px 24px -10px rgba(16,48,80,.28);
+    /* Caixas de Serviços Finalísticos */
+    .svc-box {
+      background: #F8FAFC; border: 1px solid #CBD5E1; border-radius: 9px;
+      padding: .3rem .5rem; display: flex; align-items: center; gap: .3rem;
+      box-shadow: 0 4px 10px -4px rgba(0,0,0,0.06); width: 175px;
     }
-    .ouv-circle span { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .74rem; letter-spacing: .08em; color: #475569; text-transform: uppercase; }
+    .svc-box i { font-size: .6rem; color: #0070C0; flex-shrink: 0; }
+    .svc-box span { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: .44rem; color: #334155; text-transform: uppercase; line-height: 1.2; text-align: left; }
 
-    .org-caption { font-size: .58rem; color: #94a3b8; text-align: center; margin-top: .6rem; line-height: 1.35; font-style: italic; }
+    /* Caixa menor específica para os serviços diretos da Ouvidoria central */
+    .svc-box-ouv { border-left: 3px solid #F2A900; width: 160px; }
+    .svc-box-ouv i { color: #F2A900; }
 
     .bg-pattern { position: absolute; bottom: -60px; right: -50px; width: 360px; height: 360px; opacity: 0.025; z-index: 0; color: #103050; }
     @keyframes fadeInUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
-    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; } }
   </style>
 </head>
 <body>
@@ -89,100 +102,146 @@
     <div class="top-accent"></div>
     <div class="top-accent-secondary"></div>
 
-    <div class="flex items-center justify-between px-16 pt-5 pb-2 z-10">
+    <div class="flex items-center justify-between px-16 pt-10 pb-3 z-10">
       <div>
-        <p class="gov-eyebrow"><i class="fas fa-landmark"></i> Agência Nacional de Transportes Aquaviários — ANTAQ</p>
+        <!-- Container flexível que alinha a barra com o título -->
         <div class="flex items-center gap-3 mb-1">
-          <div class="w-1 h-8 bg-brand-secondary"></div>
-          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Ouvidoria da ANTAQ</p>
+          <div class="w-1 h-8 bg-brand-secondary"></div> <!-- A BARRINHA AZUL -->
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Estrutura Organizacional da Ouvidoria</p>
         </div>
-        <p class="text-gray-500 font-medium ml-4 text-lg">Canal oficial de interlocução com a sociedade e instância pública de controle</p>
       </div>
-      <div class="flex items-center gap-2 opacity-80 text-brand-secondary">
-        <i class="fas fa-bullhorn text-xl" aria-hidden="true"></i>
-        <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">CAPÍTULO 01 · APRESENTAÇÃO</p>
+      <div class="flex items-center gap-3 opacity-80 text-brand-secondary">
+        <i class="fas fa-bullhorn text-3xl align-middle" aria-hidden="true"></i>
+        <div class="flex flex-col justify-center border-left pl-2" style="border-left: 1px solid #CBD5E1;">
+          <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1">CAPÍTULO 02</p>
+          <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none">A Ouvidoria da ANTAQ</p>
+        </div>
       </div>
     </div>
 
-    <div class="flex-1 grid gap-6 px-16 pb-3 z-10" style="grid-template-columns: 1.15fr 0.85fr; min-height:0;">
-      <!-- Texto institucional -->
-      <div class="inst-panel">
-        <p class="inst-kicker"><i class="fas fa-quote-left"></i> Definição institucional</p>
+    <div class="flex-1 grid gap-10 px-16 pb-6 z-10" style="grid-template-columns: 1fr 1.25fr; min-height:0;">
+      
+      <div class="inst-clean-column">
         <p class="inst-text">
-          A Ouvidoria da Agência Nacional de Transportes Aquaviários — ANTAQ é a <b>instância pública de controle
-          e participação social</b>, responsável pelo tratamento das reclamações, solicitações, denúncias, sugestões
-          e elogios relativos às políticas e aos serviços públicos fiscalizados e regulados pela ANTAQ.
+          A Ouvidoria da ANTAQ consolidou sua estrutura estratégica alinhando-se às diretrizes técnicas do Sistema de Ouvidoria do Poder Executivo Federal (SISOuv). Atuando como uma instância autônoma de mediação e controle social, a unidade coordena o fluxo de demandas de ponta a ponta e subsidia de forma direta a governança, a integridade e a transparência ativa e passiva em âmbito regulatório.
         </p>
         <p class="inst-text">
-          Comprometida com a <b>produtividade e a tempestividade</b> no atendimento ao cidadão, a Ouvidoria promove
-          ações de transparência e presta contas de suas atividades, essenciais para o fortalecimento da
-          <em>accountability</em> na Administração Pública e na sociedade.
+          Como o canal direto de relacionamento com a sociedade, a SAC atua no acolhimento de denúncias, reclamações, solicitações, sugestões e elogios. Suas competências englobam a recepção de demandas por múltiplos canais — incluindo o atendimento digital, o suporte presencial e a plataforma Omnichannel —, promovendo a triagem, o monitoramento de prazos e o roteamento qualificado às áreas técnicas.
         </p>
         <p class="inst-text">
-          O Ouvidor atua <b>sem subordinação hierárquica</b> com vistas ao aprimoramento da gestão pública e a garantia
-          da transparência em suas ações, com <b>independência e autonomia</b> em relação aos demais setores que compõem
-          a Agência. (Lei N° 13.848/2019).
+          A STAI responde pela gestão centralizada dos pedidos de acesso à informação (LAI) e pela garantia do cumprimento dos prazos legais de resposta. Além disso, a seção é responsável por coordenar e conduzir as políticas de Dados Abertos da Agência, acompanhar a integridade do sítio eletrônico institucional e atualizar continuamente o Sistema e-Agendas.
         </p>
-        <p class="inst-text">
-          A Ouvidoria tem em sua estrutura hierárquica duas Coordenações: <b>Coordenação de Apoio ao Cidadão — SAC</b>
-          e <b>Coordenação de Transparência e Acesso à Informação — STAI</b>. A unidade conta com <b>13 colaboradores</b>,
-          divididos entre servidores e terceirizados.
-        </p>
-        <div class="inst-law">
-          <p><b>Figura 2 — Estrutura Organizacional da Ouvidoria.</b> A Ouvidoria é composta pela coordenação da
-          unidade e duas seções especializadas: SAC (Seção de Apoio ao Cidadão) e STAI (Seção de Transparência
-          e Acesso à Informação), atuando de forma integrada e complementar.</p>
-        </div>
       </div>
 
-      <!-- Organograma (Figura 2) -->
       <div class="org-panel">
-        <p class="org-k">Estrutura organizacional</p>
-        <p class="org-title">Organograma da <span>Ouvidoria</span></p>
         <div class="org-fig">
-          <!-- Conectores curvos -->
+          
           <svg class="org-svg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-            <path d="M50,50 C26,43 26,36 50,29" fill="none" stroke="#b06fb8" stroke-width="2.4" vector-effect="non-scaling-stroke" stroke-linecap="round" />
-            <path d="M50,50 C74,57 74,64 50,71" fill="none" stroke="#5b9bd5" stroke-width="2.4" vector-effect="non-scaling-stroke" stroke-linecap="round" />
+            <path d="M 16,50 L 52,22" fill="none" stroke="#CBD5E1" stroke-width="2.5" stroke-linecap="round" />
+            <path d="M 16,50 L 52,78" fill="none" stroke="#CBD5E1" stroke-width="2.5" stroke-linecap="round" />
+            
+            <path d="M 16,50 L 48,43" fill="none" stroke="#F2A900" stroke-width="1.8" stroke-dasharray="5,3" stroke-linecap="round" />
+            <path d="M 16,50 L 48,50" fill="none" stroke="#F2A900" stroke-width="1.8" stroke-dasharray="5,3" stroke-linecap="round" />
+            <path d="M 16,50 L 48,57" fill="none" stroke="#F2A900" stroke-width="1.8" stroke-dasharray="5,3" stroke-linecap="round" />
+            
+            <path d="M 52,22 L 84,12" fill="none" stroke="#94A3B8" stroke-width="1.8" stroke-dasharray="5,3" stroke-linecap="round" />
+            <path d="M 52,22 L 84,22" fill="none" stroke="#94A3B8" stroke-width="1.8" stroke-dasharray="5,3" stroke-linecap="round" />
+            <path d="M 52,22 L 84,32" fill="none" stroke="#94A3B8" stroke-width="1.8" stroke-dasharray="5,3" stroke-linecap="round" />
+            
+            <path d="M 52,78 L 84,68" fill="none" stroke="#94A3B8" stroke-width="1.8" stroke-dasharray="5,3" stroke-linecap="round" />
+            <path d="M 52,78 L 84,82" fill="none" stroke="#94A3B8" stroke-width="1.8" stroke-dasharray="5,3" stroke-linecap="round" />
           </svg>
 
-          <!-- STAI (topo) -->
-          <div class="org-node node-stai">
-            <div class="pill pill-stai">
-              <div class="p-ico"><i class="fas fa-lock"></i></div>
-              <div>
-                <div class="p-ac">STAI</div>
-                <div class="p-sub">Seção de Transparência e Acesso à Informação</div>
-              </div>
+          <div class="org-node node-root">
+            <div class="ouv-circle">
+              <i class="fas fa-bullhorn"></i>
+              <span>Ouvidoria</span>
             </div>
           </div>
 
-          <!-- OUVIDORIA (centro) -->
-          <div class="org-node node-ouv">
-            <div class="ouv-circle"><span>Ouvidoria</span></div>
+          <div class="org-node node-so-1">
+            <div class="svc-box svc-box-ouv">
+              <i class="fas fa-file-contract"></i>
+              <span>Carta de Usuários</span>
+            </div>
+          </div>
+          <div class="org-node node-so-2">
+            <div class="svc-box svc-box-ouv">
+              <i class="fas fa-users-rectangle"></i>
+              <span>Conselho de Usuários</span>
+            </div>
+          </div>
+          <div class="org-node node-so-3">
+            <div class="svc-box svc-box-ouv">
+              <i class="fas fa-clipboard-check"></i>
+              <span>MMOuP</span>
+            </div>
           </div>
 
-          <!-- SAC (base) -->
+          <div class="org-node node-stai">
+            <div class="pill pill-stai">
+              <div class="p-ico"><i class="fas fa-eye"></i></div>
+              <div class="p-ac">STAI</div>
+            </div>
+          </div>
+
+          <div class="org-node node-st-1">
+            <div class="svc-box">
+              <i class="fas fa-circle-nodes"></i>
+              <span>Transparência Ativa e Passiva</span>
+            </div>
+          </div>
+          <div class="org-node node-st-2">
+            <div class="svc-box">
+              <i class="fas fa-folder-tree"></i>
+              <span>Dados Abertos</span>
+            </div>
+          </div>
+          <div class="org-node node-st-3">
+            <div class="svc-box">
+              <i class="fas fa-calendar-days"></i>
+              <span>e-Agendas</span>
+            </div>
+          </div>
+
           <div class="org-node node-sac">
             <div class="pill pill-sac">
               <div class="p-ico"><i class="fas fa-headset"></i></div>
-              <div>
-                <div class="p-ac">SAC</div>
-                <div class="p-sub">Seção de Apoio ao Cidadão</div>
-              </div>
+              <div class="p-ac">SAC</div>
             </div>
           </div>
+
+          <div class="org-node node-sc-1">
+            <div class="svc-box">
+              <i class="fas fa-phone-volume"></i>
+              <span>Atendimento ao Cidadão</span>
+            </div>
+          </div>
+          <div class="org-node node-sc-2">
+            <div class="svc-box">
+              <i class="fas fa-envelopes-bulk"></i>
+              <span>Registro e Gerenciamento de Demandas</span>
+            </div>
+          </div>
+
         </div>
-        <p class="org-caption">Figura 2 — Estrutura Organizacional da Ouvidoria</p>
       </div>
     </div>
 
     <div class="px-16 pb-6 pt-1 flex justify-between items-center z-10">
       <p class="text-gray-400 text-xs">Relatório Trimestral da Ouvidoria · 2026 — Agência Nacional de Transportes Aquaviários</p>
-      <p class="text-gray-300 text-xs font-mono">CAPÍTULO 01</p>
+      <p class="text-gray-300 text-xs font-mono">A Ouvidoria da ANTAQ · Estrutura</p>
     </div>
     <div class="bg-pattern"><i class="fas fa-bullhorn text-9xl"></i></div>
   </div>
-  <script>document.addEventListener("keydown", function (e) { if (["ArrowRight","ArrowLeft","PageDown","PageUp","Home","End"," ","f","F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
+  
+  <script>
+    document.addEventListener("keydown", function (e) { 
+      if (["ArrowRight","ArrowLeft","PageDown","PageUp","Home","End"," ","f","F"].indexOf(e.key) !== -1) { 
+        e.preventDefault(); 
+        window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); 
+      } 
+    });
+  </script>
 </body>
 </html>
