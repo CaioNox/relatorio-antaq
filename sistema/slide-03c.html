@@ -1,52 +1,181 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
   <title>Papel Institucional da Ouvidoria - Relatório Trimestral Ouvidoria ANTAQ</title>
-  <link rel="icon" type="image/png" href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link rel="icon" type="image/png"
+    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap"
+    rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
   <style>
-    html { font-size: 26px; }
-    body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
-    .slide-container { width: 100vw; height: 100vh; position: relative; display: flex; flex-direction: column; background-color: #ffffff; overflow: hidden; font-family: 'Open Sans', sans-serif; }
-    .font-montserrat { font-family: 'Montserrat', sans-serif; }
-    .text-brand-primary { color: #103050; }
-    .text-brand-secondary { color: #0070C0; }
-    .bg-brand-secondary { background-color: #0070C0; }
-    .top-accent { height: 8px; background-color: #103050; width: 100%; }
-    .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
+    html {
+      font-size: 26px;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f3f4f6;
+      overflow: hidden;
+    }
+
+    .slide-container {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background-color: #ffffff;
+      overflow: hidden;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    .font-montserrat {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .text-brand-primary {
+      color: #103050;
+    }
+
+    .text-brand-secondary {
+      color: #0070C0;
+    }
+
+    .bg-brand-secondary {
+      background-color: #0070C0;
+    }
+
+    .top-accent {
+      height: 8px;
+      background-color: #103050;
+      width: 100%;
+    }
+
+    .top-accent-secondary {
+      height: 4px;
+      background-color: #0070C0;
+      width: 100%;
+    }
 
     /* ── Corpo em formato de texto/documento ── */
     .doc {
-      flex: 1; min-height: 0; position: relative; z-index: 10;
+      flex: 1;
+      min-height: 0;
+      position: relative;
+      z-index: 10;
       padding: 0.7rem 5rem 0.6rem 5rem;
-      display: flex; flex-direction: column; justify-content: center;
-      animation: fadeInUp .5s cubic-bezier(.2,.7,.3,1) both;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      animation: fadeInUp .5s cubic-bezier(.2, .7, .3, 1) both;
     }
+
     .doc-lead {
-      font-size: 1.02rem; line-height: 1.5; color: #103050; font-weight: 600;
-      border-left: 4px solid #0090C0; padding-left: 1.1rem; margin-bottom: 1.1rem;
+      font-size: 1.02rem;
+      line-height: 1.5;
+      color: #103050;
+      font-weight: 600;
+      border-left: 4px solid #0090C0;
+      padding-left: 1.1rem;
+      margin-bottom: 1.1rem;
     }
-    .doc-cols { columns: 2; column-gap: 2.6rem; }
-    .doc-text { color: #334155; font-size: .82rem; line-height: 1.62; margin: 0 0 .85rem; break-inside: avoid; text-align: justify; }
+
+    .doc-cols {
+      columns: 2;
+      column-gap: 2.6rem;
+    }
+
+    .doc-text {
+      color: #334155;
+      font-size: .82rem;
+      line-height: 1.62;
+      margin: 0 0 .85rem;
+      break-inside: avoid;
+      text-align: justify;
+    }
 
     .doc-subtitle {
-      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .68rem;
-      letter-spacing: .1em; text-transform: uppercase; color: #0070C0;
-      margin: 0 0 .5rem; display: flex; align-items: center; gap: .5rem; break-inside: avoid;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: .68rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: #0070C0;
+      margin: 0 0 .5rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      break-inside: avoid;
     }
-    .act-list { list-style: none; margin: 0 0 .3rem; padding: 0; break-inside: avoid; }
-    .act-list li { position: relative; padding-left: 1.3rem; margin-bottom: .48rem; font-size: .8rem; line-height: 1.45; color: #334155; text-align: justify; }
-    .act-list li::before { content: "\f105"; font-family: "Font Awesome 6 Free"; font-weight: 900; position: absolute; left: 0; top: .05rem; color: #0090C0; }
 
-    .bg-pattern { position: absolute; bottom: -60px; right: -50px; width: 400px; height: 400px; opacity: 0.03; z-index: 0; color: #103050; }
-    @keyframes fadeInUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
-    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+    .act-list {
+      list-style: none;
+      margin: 0 0 .3rem;
+      padding: 0;
+      break-inside: avoid;
+    }
+
+    .act-list li {
+      position: relative;
+      padding-left: 1.3rem;
+      margin-bottom: .48rem;
+      font-size: .8rem;
+      line-height: 1.45;
+      color: #334155;
+      text-align: justify;
+    }
+
+    .act-list li::before {
+      content: "\f105";
+      font-family: "Font Awesome 6 Free";
+      font-weight: 900;
+      position: absolute;
+      left: 0;
+      top: .05rem;
+      color: #0090C0;
+    }
+
+    .bg-pattern {
+      position: absolute;
+      bottom: -60px;
+      right: -50px;
+      width: 400px;
+      height: 400px;
+      opacity: 0.03;
+      z-index: 0;
+      color: #103050;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
   </style>
 </head>
+
 <body>
   <div class="slide-container">
     <div class="top-accent"></div>
@@ -57,7 +186,8 @@
       <div>
         <div class="flex items-center gap-3 mb-1">
           <div class="w-1 h-8 bg-brand-secondary"></div>
-          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Papel Institucional da Ouvidoria</p>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Papel Institucional
+          </p>
         </div>
       </div>
       <!-- Badge lateral direito com o ícone fa-bullhorn -->
@@ -65,7 +195,8 @@
         <i class="fas fa-bullhorn text-3xl align-middle" aria-hidden="true"></i>
         <div class="flex flex-col justify-center border-left pl-2" style="border-left: 1px solid #CBD5E1;">
           <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1">CAPÍTULO 02</p>
-          <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none">A Ouvidoria da ANTAQ</p>
+          <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none">A
+            Ouvidoria da ANTAQ</p>
         </div>
       </div>
     </div>
@@ -73,43 +204,55 @@
     <!-- Corpo do Slide formatado em duas colunas -->
     <div class="doc">
       <p class="doc-lead">
-        A Ouvidoria atua como instância de escuta qualificada e de mediação entre a sociedade e a ANTAQ, sendo fundamental para o desenvolvimento sustentável, a regulação e a fiscalização do setor de transportes aquaviários.
+        A Ouvidoria da ANTAQ atua como instância de mediação e escuta qualificada com a sociedade, sendo fundamental
+        para o desenvolvimento sustentável, regulação e fiscalização do setor de transportes aquaviários.
       </p>
 
       <div class="doc-cols">
         <!-- Coluna da Esquerda: Resumo Conceitual -->
-        <p class="doc-text">
-          O papel da Ouvidoria é vital para a missão da ANTAQ de promover o desenvolvimento sustentável do setor aquaviário por meio da regulação eficiente, da fiscalização responsiva e de outorgas estratégicas. Como instância de mediação, contribui para a defesa de serviços adequados e para o aperfeiçoamento das políticas regulatórias na infraestrutura portuária e hidroviária do Brasil.
+        <p class="doc-text" style="text-indent: 1.8em;">
+          O papel da Ouvidoria é vital para a missão da ANTAQ de promover o desenvolvimento sustentável do setor
+          aquaviário por meio da regulação eficiente, da fiscalização responsiva e de outorgas estratégicas. Como
+          instância de mediação, contribui para a defesa de serviços adequados e para o aperfeiçoamento das políticas
+          regulatórias na infraestrutura portuária e hidroviária do Brasil.
         </p>
         <p class="doc-text">
-          Além de receber, tratar e monitorar manifestações de cidadãos e empresas, a Ouvidoria gera informações qualificadas e diagnósticos. Essa atuação fortalece a governança, apoia a melhoria contínua dos processos internos da Agência e amplia a transparência e a prestação de contas com a sociedade.
+          Além de receber, tratar e monitorar manifestações de cidadãos e empresas, a Ouvidoria gera informações
+          qualificadas e diagnósticos. Essa atuação fortalece a governança, apoia a melhoria contínua dos processos
+          internos da Agência e amplia a transparência e a prestação de contas com a sociedade.
         </p>
 
         <!-- Coluna da Direita: Tópicos da Definição Institucional -->
         <p class="doc-subtitle"><i class="fas fa-list-check"></i> Definição institucional</p>
         <ul class="act-list">
-          <li><strong>Participação Social:</strong> Atua como instância pública responsável pelo tratamento de reclamações, solicitudes, denúncias, sugestões e elogios relativos às políticas e aos serviços fiscalizados e regulados pela ANTAQ.</li>
-          <li><strong>Transparência:</strong> Compromete-se com o atendimento regular e efetivo ao cidadão, promovendo ações de transparência e prestação de contas das atividades da agência.</li>
-          <li><strong>Independência:</strong>  Para garantir a transparência e segurança, o ouvidor atual com autonomia em relação aos demais setores da Agência.</li>
+          <li><strong>Participação Social:</strong> Atua como instância pública responsável pelo tratamento de
+            reclamações, solicitudes, denúncias, sugestões e elogios relativos às políticas e aos serviços fiscalizados
+            e regulados pela ANTAQ.</li>
+          <li><strong>Transparência:</strong> Compromete-se com o atendimento regular e efetivo ao cidadão, promovendo
+            ações de transparência e prestação de contas das atividades da agência.</li>
+          <li><strong>Independência:</strong> Para garantir a transparência e segurança, o ouvidor atual com autonomia
+            em relação aos demais setores da Agência.</li>
         </ul>
       </div>
     </div>
 
     <!-- Footer -->
     <div class="px-16 pb-6 pt-1 flex justify-between items-center z-10">
-      <p class="text-gray-400 text-xs">Relatório Trimestral da Ouvidoria · 2026 — Agência Nacional de Transportes Aquaviários</p>
+      <p class="text-gray-400 text-xs">Relatório Trimestral da Ouvidoria · 2026 — Agência Nacional de Transportes
+        Aquaviários</p>
       <p class="text-gray-300 text-xs font-mono">A Ouvidoria da ANTAQ · Papel Institucional</p>
     </div>
     <div class="bg-pattern"><i class="fas fa-bullhorn text-9xl"></i></div>
   </div>
-  
+
   <script>
-    document.addEventListener("keydown", function (e) { 
-      if (["ArrowRight","ArrowLeft","PageDown","PageUp","Home","End"," ","f","F"].indexOf(e.key) !== -1) { 
-        e.preventDefault(); 
-        window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); 
-      } 
+    document.addEventListener("keydown", function (e) {
+      if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) {
+        e.preventDefault();
+        window.parent.postMessage({ type: "slide-nav", key: e.key }, "*");
+      }
     });
   </script>
 </body>
+
 </html>

@@ -116,6 +116,7 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
+
       *,
       *::before,
       *::after {
@@ -130,21 +131,23 @@
   <div class="slide-container">
     <div class="top-accent"></div>
     <div class="top-accent-secondary"></div>
-    
+
     <!-- Header Ajustado com Barra Azul e Tag Capítulo 02 -->
     <div class="flex items-center justify-between px-16 pt-10 pb-4 z-10">
       <div>
         <div class="flex items-center gap-3 mb-1">
           <div class="w-1 h-8 bg-brand-secondary"></div>
-          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Ouvidoria em Números</p>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Ouvidoria em Números
+          </p>
         </div>
-        <p class="text-gray-500 font-medium ml-4 text-lg">Composição das Demandas Recebidas</p>
+        <p class="text-gray-500 font-medium ml-4 text-lg">Distribuicao das Demandas</p>
       </div>
       <div class="flex items-center gap-3 opacity-80 text-brand-secondary">
         <i class="fas fa-bullhorn text-3xl align-middle" aria-hidden="true"></i>
         <div class="flex flex-col justify-center border-left pl-2" style="border-left: 1px solid #CBD5E1;">
           <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1">CAPÍTULO 02</p>
-          <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none">A Ouvidoria da ANTAQ</p>
+          <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none">A
+            Ouvidoria da ANTAQ</p>
         </div>
       </div>
     </div>
@@ -153,8 +156,9 @@
     <div class="flex-1 grid grid-cols-2 gap-8 px-16 pb-10 z-10">
       <!-- Gráfico Donut / Pizza -->
       <div class="chart-card flex flex-col">
-        <p class="text-brand-primary font-montserrat font-bold text-xl mb-1 flex items-center gap-2"><i class="fas fa-circle-pie slice text-brand-secondary"></i> Composição das Demandas</p>
-        <p class="text-gray-400 text-sm mb-3">Total: <strong class="text-brand-primary">434</strong> demandas no Fala.BR</p>
+        <p class="text-brand-primary font-montserrat font-bold text-xl mb-1 flex items-center gap-6"><i
+            class="fas fa-circle-pie slice text-brand-secondary"></i> Composição das Demandas no Fala.BR</p>
+        </p>
         <div class="flex-1 relative"><canvas id="chartFalaPerfil"></canvas></div>
       </div>
 
@@ -219,8 +223,8 @@
           },
           tooltip: {
             callbacks: {
-              label: function(ctx) {
-                var total = ctx.dataset.data.reduce(function(a, b) { return a + b; }, 0);
+              label: function (ctx) {
+                var total = ctx.dataset.data.reduce(function (a, b) { return a + b; }, 0);
                 return ctx.label + ': ' + ctx.parsed + ' (' + (ctx.parsed / total * 100).toFixed(2) + '%)';
               }
             }
@@ -229,18 +233,18 @@
       },
       plugins: [{
         id: 'centerText',
-        afterDraw: function(chart) {
+        afterDraw: function (chart) {
           var w = chart.width, h = chart.height, ctx = chart.ctx;
           ctx.save();
           var text = '434';
-          ctx.font = '700 28px Montserrat, sans-serif';
+          ctx.font = '700 58px Montserrat, sans-serif';
           ctx.fillStyle = '#103050';
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
           ctx.fillText(text, w / 2, h / 2 - 8);
-          ctx.font = '400 11px Open Sans, sans-serif';
+          ctx.font = '400 21px Open Sans, sans-serif';
           ctx.fillStyle = '#6b7280';
-          ctx.fillText('Total', w / 2, h / 2 + 16);
+          ctx.fillText('Total', w / 2, h / 2 + 28);
           ctx.restore();
         }
       }]
