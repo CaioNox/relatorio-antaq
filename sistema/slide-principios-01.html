@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Princípios das Ouvidorias - Relatório Trimestral Ouvidoria ANTAQ</title>
+  <link rel="icon" type="image/png" href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    html { font-size: 26px; }
+    body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
+    .slide-container { width: 100vw; height: 100vh; position: relative; display: flex; flex-direction: column; background-color: #ffffff; overflow: hidden; font-family: 'Open Sans', sans-serif; }
+    .font-montserrat { font-family: 'Montserrat', sans-serif; }
+    .text-brand-primary { color: #103050; }
+    .text-brand-secondary { color: #0070C0; }
+    .top-accent { height: 8px; background-color: #103050; width: 100%; }
+    .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
+
+    .act-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: .6rem; }
+    .act-card {
+      background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 14px;
+      padding: .85rem .9rem; display: flex; flex-direction: column; gap: .45rem;
+      transition: box-shadow .2s, border-color .2s;
+    }
+    .act-card:hover { box-shadow: 0 8px 20px -8px rgba(16,48,80,.18); border-color: #0070C0; }
+    .act-card .ico-wrap {
+      width: 38px; height: 38px; border-radius: 8px;
+      background: linear-gradient(135deg, #103050, #0070C0);
+      display: flex; align-items: center; justify-content: center;
+      font-size: .95rem; color: #fff;
+    }
+    /* Fonte maior nas descrições */
+    .act-card .c-desc { font-size: .68rem; color: #475569; line-height: 1.45; text-align: left; }
+
+    .bg-pattern { position: absolute; bottom: -60px; right: -50px; width: 360px; height: 360px; opacity: 0.025; z-index: 0; color: #103050; }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+    .a { animation: fadeInUp .45s ease both; }
+  </style>
+</head>
+<body>
+  <div class="slide-container">
+    <div class="top-accent"></div>
+    <div class="top-accent-secondary"></div>
+
+    <div class="flex items-center justify-between px-16 pt-10 pb-3 z-10">
+      <div>
+        <div class="flex items-center gap-3 mb-1">
+          <div class="w-1 h-8 bg-brand-secondary"></div>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Princípios das Ouvidorias</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-3 opacity-80 text-brand-secondary">
+        <i class="fas fa-comments text-3xl align-middle" aria-hidden="true"></i>
+        <div class="flex flex-col justify-center border-left pl-2" style="border-left: 1px solid #CBD5E1;">
+          <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1">CAPÍTULO 01</p>
+          <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none">Visão Geral das Ouvidorias Públicas</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex-1 px-16 pb-3 z-10 flex flex-col justify-center" style="min-height:0;">
+      <div class="act-grid a">
+        <div class="act-card">
+          <div class="ico-wrap"><i class="fas fa-check-double"></i></div>
+          <p class="c-desc"><strong>REGULARIDADE</strong> Mesmo padrão de qualidade.</p>
+        </div>
+        <div class="act-card">
+          <div class="ico-wrap"><i class="fas fa-infinity"></i></div>
+          <p class="c-desc"><strong>CONTINUIDADE</strong> Prestação ininterrupta do serviço.</p>
+        </div>
+        <div class="act-card">
+          <div class="ico-wrap"><i class="fas fa-bullseye"></i></div>
+          <p class="c-desc"><strong>EFETIVIDADE</strong> Resultados para a sociedade.</p>
+        </div>
+        <div class="act-card">
+          <div class="ico-wrap"><i class="fas fa-shield-halved"></i></div>
+          <p class="c-desc"><strong>SEGURANÇA</strong> Prestação sem riscos para usuários.</p>
+        </div>
+        <div class="act-card">
+          <div class="ico-wrap"><i class="fas fa-handshake"></i></div>
+          <p class="c-desc"><strong>CORTESIA</strong> Tratamento respeitoso do usuário atendido.</p>
+        </div>
+        <div class="act-card">
+          <div class="ico-wrap"><i class="fas fa-eye"></i></div>
+          <p class="c-desc"><strong>TRANSPARÊNCIA</strong> Divulgação de informações claras e precisas sobre acesso aos serviços públicos.</p>
+        </div>
+        <div class="act-card">
+          <div class="ico-wrap"><i class="fas fa-users"></i></div>
+          <p class="c-desc"><strong>GENERALIDADE</strong> Atendimento de forma igualitária.</p>
+        </div>
+        <div class="act-card">
+          <div class="ico-wrap"><i class="fas fa-bolt"></i></div>
+          <p class="c-desc"><strong>ATUALIDADE</strong> Modernidade de técnicas, equipamentos e instalações.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="px-16 pb-6 pt-1 flex justify-between items-center z-10">
+      <p class="text-gray-400 text-xs">Relatório Trimestral da Ouvidoria · 2026 — Agência Nacional de Transportes Aquaviários</p>
+      <p class="text-gray-300 text-xs font-mono">Visão Geral · Princípios</p>
+    </div>
+    <div class="bg-pattern"><i class="fas fa-comments text-9xl"></i></div>
+  </div>
+  <script>
+    document.addEventListener("keydown", function (e) { 
+      if (["ArrowRight","ArrowLeft","PageDown","PageUp","Home","End"," ","f","F"].indexOf(e.key) !== -1) { 
+        e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); 
+      } 
+    });
+  </script>
+</body>
+</html>
