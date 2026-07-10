@@ -14,7 +14,7 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Glossário e Definições - Relatório Trimestral Ouvidoria ANTAQ</title>
+    <title>Glossário - Relatório Trimestral Ouvidoria ANTAQ</title>
     <link rel="icon" type="image/png"
         href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
@@ -23,102 +23,418 @@
         rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
     <style>
-        html { font-size: 18px; }
+        html {
+            font-size: 18px;
+        }
 
-        body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f3f4f6;
+            overflow: hidden;
+        }
 
         .slide-container {
-            width: 100vw; height: 100vh; position: relative;
-            display: flex; flex-direction: column;
-            background-color: #ffffff; overflow-y: auto;
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            background-color: #ffffff;
+            overflow-y: auto;
             font-family: 'Open Sans', sans-serif;
         }
 
-        .font-montserrat { font-family: 'Montserrat', sans-serif; }
-        .text-brand-primary { color: #103050; }
-        .text-brand-secondary { color: #0070C0; }
-        .bg-brand-secondary { background-color: #0070C0; }
+        .font-montserrat {
+            font-family: 'Montserrat', sans-serif;
+        }
 
-        .top-accent { height: 8px; background-color: #103050; width: 100%; }
-        .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
+        .text-brand-primary {
+            color: #103050;
+        }
+
+        .text-brand-secondary {
+            color: #0070C0;
+        }
+
+        .bg-brand-secondary {
+            background-color: #0070C0;
+        }
+
+        .top-accent {
+            height: 8px;
+            background-color: #103050;
+            width: 100%;
+        }
+
+        .top-accent-secondary {
+            height: 4px;
+            background-color: #0070C0;
+            width: 100%;
+        }
 
         /* ===== Grade de quadros ===== */
-        .tile-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+        .tile-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
 
         .tile {
-            position: relative; background: #fff; border: 2px solid #E2E8F0; border-radius: 16px;
-            padding: 1.2rem 1.3rem; cursor: pointer; text-align: left;
-            display: flex; flex-direction: column; gap: .6rem;
+            position: relative;
+            background: #fff;
+            border: 2px solid #E2E8F0;
+            border-radius: 16px;
+            padding: 1.2rem 1.3rem;
+            cursor: pointer;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            gap: .6rem;
             box-shadow: 0 6px 16px -8px rgba(16, 48, 80, .18);
             transition: transform .25s cubic-bezier(.2, .7, .3, 1), box-shadow .25s ease, border-color .25s ease;
-            animation: fadeIn .5s ease both; font-family: 'Open Sans', sans-serif;
+            animation: fadeIn .5s ease both;
+            font-family: 'Open Sans', sans-serif;
         }
-        .tile:nth-child(2) { animation-delay: .06s } .tile:nth-child(3) { animation-delay: .12s }
-        .tile:nth-child(4) { animation-delay: .18s } .tile:nth-child(5) { animation-delay: .24s }
-        .tile:nth-child(6) { animation-delay: .30s } .tile:nth-child(7) { animation-delay: .36s }
-        .tile:nth-child(8) { animation-delay: .42s } .tile:nth-child(9) { animation-delay: .48s }
-        .tile:nth-child(10) { animation-delay: .54s } .tile:nth-child(11) { animation-delay: .60s }
-        .tile:hover { transform: translateY(-7px); border-color: #0070C0; box-shadow: 0 26px 46px -18px rgba(16, 48, 80, .34); }
-        .tile:focus-visible { outline: 3px solid #0090C0; outline-offset: 3px; }
+
+        .tile:nth-child(2) {
+            animation-delay: .06s
+        }
+
+        .tile:nth-child(3) {
+            animation-delay: .12s
+        }
+
+        .tile:nth-child(4) {
+            animation-delay: .18s
+        }
+
+        .tile:nth-child(5) {
+            animation-delay: .24s
+        }
+
+        .tile:nth-child(6) {
+            animation-delay: .30s
+        }
+
+        .tile:nth-child(7) {
+            animation-delay: .36s
+        }
+
+        .tile:nth-child(8) {
+            animation-delay: .42s
+        }
+
+        .tile:nth-child(9) {
+            animation-delay: .48s
+        }
+
+        .tile:nth-child(10) {
+            animation-delay: .54s
+        }
+
+        .tile:nth-child(11) {
+            animation-delay: .60s
+        }
+
+        .tile:hover {
+            transform: translateY(-7px);
+            border-color: #0070C0;
+            box-shadow: 0 26px 46px -18px rgba(16, 48, 80, .34);
+        }
+
+        .tile:focus-visible {
+            outline: 3px solid #0090C0;
+            outline-offset: 3px;
+        }
 
         .tile-ico {
-            width: 3rem; height: 3rem; border-radius: 13px;
-            background: linear-gradient(160deg, #103050, #0070C0); color: #fff;
-            display: flex; align-items: center; justify-content: center; font-size: 1.35rem; transition: transform .3s ease;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 13px;
+            background: linear-gradient(160deg, #103050, #0070C0);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.35rem;
+            transition: transform .3s ease;
         }
-        .tile:hover .tile-ico { transform: scale(1.08) rotate(-6deg); }
-        .tile-name { color: #103050; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.12rem; line-height: 1.12; }
-        .tile-tag { color: #5b7185; font-size: .8rem; line-height: 1.28; }
-        .tile-more { margin-top: auto; color: #0070C0; font-size: .74rem; font-weight: 700; display: inline-flex; align-items: center; gap: .4rem; }
-        .tile:hover .tile-more { color: #0090C0; }
-        .tile-full { display: none; }
+
+        .tile:hover .tile-ico {
+            transform: scale(1.08) rotate(-6deg);
+        }
+
+        .tile-name {
+            color: #103050;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 1.12rem;
+            line-height: 1.12;
+        }
+
+        .tile-tag {
+            color: #5b7185;
+            font-size: .8rem;
+            line-height: 1.28;
+        }
+
+        .tile-more {
+            margin-top: auto;
+            color: #0070C0;
+            font-size: .74rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: .4rem;
+        }
+
+        .tile:hover .tile-more {
+            color: #0090C0;
+        }
+
+        .tile-full {
+            display: none;
+        }
 
         .tile-cta {
-            grid-column: span 1; border: 2px dashed #C0E0F0; background: #f6fafe; border-radius: 16px;
-            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .5rem;
-            color: #0070C0; text-align: center; padding: 1rem; animation: fadeIn .5s ease both; animation-delay: .42s;
+            grid-column: span 1;
+            border: 2px dashed #C0E0F0;
+            background: #f6fafe;
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: .5rem;
+            color: #0070C0;
+            text-align: center;
+            padding: 1rem;
+            animation: fadeIn .5s ease both;
+            animation-delay: .42s;
         }
-        .tile-cta i { font-size: 1.6rem; }
-        .tile-cta span { font-size: .82rem; font-weight: 600; line-height: 1.3; }
+
+        .tile-cta i {
+            font-size: 1.6rem;
+        }
+
+        .tile-cta span {
+            font-size: .82rem;
+            font-weight: 600;
+            line-height: 1.3;
+        }
 
         /* ===== Overlay (expande sobrepondo) ===== */
         .overlay {
-            position: fixed; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center;
-            padding: 5vh 8vw; background: rgba(16, 48, 80, .5); backdrop-filter: blur(3px);
-            opacity: 0; pointer-events: none; transition: opacity .3s ease;
+            position: fixed;
+            inset: 0;
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5vh 8vw;
+            background: rgba(16, 48, 80, .5);
+            backdrop-filter: blur(3px);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .3s ease;
         }
-        .overlay.open { opacity: 1; pointer-events: auto; }
+
+        .overlay.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
         .overlay-card {
-            position: relative; background: #fff; border-radius: 22px; max-width: 58rem; width: 100%; max-height: 82vh; overflow: hidden;
-            box-shadow: 0 40px 90px -30px rgba(0, 0, 0, .6); border-top: 7px solid #0070C0;
-            transform: scale(.88) translateY(12px); transition: transform .34s cubic-bezier(.2, .7, .3, 1);
-            display: flex; flex-direction: column;
+            position: relative;
+            background: #fff;
+            border-radius: 22px;
+            max-width: 58rem;
+            width: 100%;
+            max-height: 82vh;
+            overflow: hidden;
+            box-shadow: 0 40px 90px -30px rgba(0, 0, 0, .6);
+            border-top: 7px solid #0070C0;
+            transform: scale(.88) translateY(12px);
+            transition: transform .34s cubic-bezier(.2, .7, .3, 1);
+            display: flex;
+            flex-direction: column;
         }
-        .overlay.open .overlay-card { transform: scale(1) translateY(0); }
-        .overlay-head { display: flex; align-items: center; gap: 1.2rem; padding: 1.8rem 2.2rem 1.2rem 2.2rem; border-bottom: 1px solid #eef2f7; }
-        .ov-ico { flex-shrink: 0; width: 3.8rem; height: 3.8rem; border-radius: 15px; background: linear-gradient(160deg, #103050, #0070C0); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 1.7rem; }
-        .ov-titles { min-width: 0; }
-        .ov-title { color: #103050; font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.55rem; line-height: 1.1; }
-        .ov-sub { color: #0070C0; font-size: .92rem; font-weight: 600; margin-top: .25rem; }
-        .overlay-body { padding: 1.5rem 2.2rem 2rem 2.2rem; overflow-y: auto; }
-        .ov-body p { color: #37475a; font-size: 1.02rem; line-height: 1.62; }
-        .ov-body p + p { margin-top: .9rem; }
-        .ov-body strong { color: #103050; }
-        .ov-focus { display: flex; gap: .7rem; align-items: flex-start; margin-top: 1.1rem; background: #EAF3FB; border: 1px solid #C0E0F0; border-left: 4px solid #0070C0; border-radius: 12px; padding: .9rem 1.1rem; }
-        .ov-focus i { color: #0070C0; margin-top: .2rem; }
-        .ov-focus span { color: #103050; font-size: .95rem; line-height: 1.45; }
-        .overlay-close { position: absolute; top: 1.1rem; right: 1.2rem; width: 2.7rem; height: 2.7rem; border-radius: 999px; border: none; background: #f0f4f8; color: #103050; font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background .2s ease, transform .25s ease; z-index: 2; }
-        .overlay-close:hover { background: #0070C0; color: #fff; transform: rotate(90deg); }
 
-        .ov-reference { margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid #e0e7ff; }
-        .ov-reference p { color: #64748b; font-size: .9rem; margin: 0; }
-        .ov-reference a { color: #0070C0; text-decoration: none; font-weight: 600; }
-        .ov-reference a:hover { text-decoration: underline; }
+        .overlay.open .overlay-card {
+            transform: scale(1) translateY(0);
+        }
 
-        .hint { display: inline-flex; align-items: center; gap: .5rem; color: #0070C0; font-size: .8rem; font-weight: 600; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
-        .bg-pattern { position: absolute; bottom: -50px; right: -50px; width: 400px; height: 400px; opacity: 0.03; z-index: 0; color: #103050; }
+        .overlay-head {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            padding: 1.8rem 2.2rem 1.2rem 2.2rem;
+            border-bottom: 1px solid #eef2f7;
+        }
+
+        .ov-ico {
+            flex-shrink: 0;
+            width: 3.8rem;
+            height: 3.8rem;
+            border-radius: 15px;
+            background: linear-gradient(160deg, #103050, #0070C0);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.7rem;
+        }
+
+        .ov-titles {
+            min-width: 0;
+        }
+
+        .ov-title {
+            color: #103050;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            font-size: 1.55rem;
+            line-height: 1.1;
+        }
+
+        .ov-sub {
+            color: #0070C0;
+            font-size: .92rem;
+            font-weight: 600;
+            margin-top: .25rem;
+        }
+
+        .overlay-body {
+            padding: 1.5rem 2.2rem 2rem 2.2rem;
+            overflow-y: auto;
+        }
+
+        .ov-body p {
+            color: #37475a;
+            font-size: 1.02rem;
+            line-height: 1.62;
+        }
+
+        .ov-body p+p {
+            margin-top: .9rem;
+        }
+
+        .ov-body strong {
+            color: #103050;
+        }
+
+        .ov-focus {
+            display: flex;
+            gap: .7rem;
+            align-items: flex-start;
+            margin-top: 1.1rem;
+            background: #EAF3FB;
+            border: 1px solid #C0E0F0;
+            border-left: 4px solid #0070C0;
+            border-radius: 12px;
+            padding: .9rem 1.1rem;
+        }
+
+        .ov-focus i {
+            color: #0070C0;
+            margin-top: .2rem;
+        }
+
+        .ov-focus span {
+            color: #103050;
+            font-size: .95rem;
+            line-height: 1.45;
+        }
+
+        .overlay-close {
+            position: absolute;
+            top: 1.1rem;
+            right: 1.2rem;
+            width: 2.7rem;
+            height: 2.7rem;
+            border-radius: 999px;
+            border: none;
+            background: #f0f4f8;
+            color: #103050;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background .2s ease, transform .25s ease;
+            z-index: 2;
+        }
+
+        .overlay-close:hover {
+            background: #0070C0;
+            color: #fff;
+            transform: rotate(90deg);
+        }
+
+        .ov-reference {
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e0e7ff;
+        }
+
+        .ov-reference p {
+            color: #64748b;
+            font-size: .9rem;
+            margin: 0;
+        }
+
+        .ov-reference a {
+            color: #0070C0;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .ov-reference a:hover {
+            text-decoration: underline;
+        }
+
+        .hint {
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            color: #0070C0;
+            font-size: .8rem;
+            font-weight: 600;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+
+        .bg-pattern {
+            position: absolute;
+            bottom: -50px;
+            right: -50px;
+            width: 400px;
+            height: 400px;
+            opacity: 0.03;
+            z-index: 0;
+            color: #103050;
+        }
     </style>
 </head>
 
@@ -131,15 +447,17 @@
             <div>
                 <div class="flex items-center gap-3 mb-2">
                     <div class="w-1 h-8 bg-brand-secondary"></div>
-                    <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Glossário e Definições
+                    <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Glossário
                     </p>
                 </div>
-                <p class="text-gray-500 font-medium ml-4 text-lg">Tipos de manifestação, instrumentos e conceitos-chave da Ouvidoria —
-                    <span class="hint"><i class="fas fa-hand-pointer"></i> clique em um quadro para ampliar</span></p>
+                <p class="text-gray-500 font-medium ml-4 text-lg">Tipos de manifestação, instrumentos e conceitos-chave
+                    da Ouvidoria —
+                    <span class="hint"><i class="fas fa-hand-pointer"></i> clique em um quadro para ampliar</span>
+                </p>
             </div>
             <div class="flex items-center gap-2 opacity-80 text-brand-secondary">
                 <i class="fas fa-book text-xl" aria-hidden="true"></i>
-                <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">DEFINIÇÕES</p>
+
             </div>
         </div>
         <!-- Grade -->
@@ -186,7 +504,8 @@
                         <p>Demonstração de insatisfação com o serviço público prestado ou com o atendimento recebido.
                             Refere-se a falhas operacionais, atrasos excessivos, mau atendimento ou ineficiência da
                             prestação estatal.</p>
-                        <div class="ov-focus"><i class="fas fa-crosshairs"></i><span>O foco da reclamação é a correção do
+                        <div class="ov-focus"><i class="fas fa-crosshairs"></i><span>O foco da reclamação é a correção
+                                do
                                 problema na prestação do serviço e a resposta direta ao usuário afetado.</span></div>
                     </div>
                 </button>
@@ -212,7 +531,8 @@
                     <span class="tile-more"><i class="fas fa-up-right-and-down-left-from-center"></i> ampliar</span>
                     <div class="tile-full">
                         <p>É um requerimento de adoção de uma providência concreta ou de prestação de um serviço por
-                            parte da administração pública. Diferente da reclamação (que aponta uma falha), a solicitação
+                            parte da administração pública. Diferente da reclamação (que aponta uma falha), a
+                            solicitação
                             pede que o órgão execute algo a que o cidadão tem direito ou de que necessita, como uma
                             manutenção, uma emissão de documento ou uma ação operacional específica.</p>
                     </div>
@@ -255,9 +575,16 @@
                     <span class="tile-tag">Principal motivo de denúncias à Ouvidoria</span>
                     <span class="tile-more"><i class="fas fa-up-right-and-down-left-from-center"></i> ampliar</span>
                     <div class="tile-full">
-                        <p>Refere-se à prática de cobrar valores excessivos, indevidos ou sem respaldo contratual no ambiente portuário. As cobranças contestadas pelos usuários se organizam em vertentes operacionais relacionadas:</p>
-                        <div class="ov-focus"><i class="fas fa-list"></i><span><strong>Principais vertentes:</strong> sobrestadia de mercadorias (demurrage), detenção de contêiner (detention), falta de bookings/janelas para navios, bloqueio de carga e cobrança de taxas indevidas. Juntas, representaram mais de 50% das manifestações classificadas no 1º trimestre de 2026.</span></div>
-                        <p>A Ouvidoria encaminha essas denúncias à Superintendência de Fiscalização (SFC) para apuração regulatória, podendo resultar em processo sancionatório contra o agente infrator.</p>
+                        <p>Refere-se à prática de cobrar valores excessivos, indevidos ou sem respaldo contratual no
+                            ambiente portuário. As cobranças contestadas pelos usuários se organizam em vertentes
+                            operacionais relacionadas:</p>
+                        <div class="ov-focus"><i class="fas fa-list"></i><span><strong>Principais vertentes:</strong>
+                                sobrestadia de mercadorias (demurrage), detenção de contêiner (detention), falta de
+                                bookings/janelas para navios, bloqueio de carga e cobrança de taxas indevidas. Juntas,
+                                representaram mais de 50% das manifestações classificadas no 1º trimestre de
+                                2026.</span></div>
+                        <p>A Ouvidoria encaminha essas denúncias à Superintendência de Fiscalização (SFC) para apuração
+                            regulatória, podendo resultar em processo sancionatório contra o agente infrator.</p>
                     </div>
                 </button>
                 <!-- Demurrage / Sobrestadia -->
@@ -268,8 +595,14 @@
                     <span class="tile-tag">Cobrança por atraso na retirada de carga</span>
                     <span class="tile-more"><i class="fas fa-up-right-and-down-left-from-center"></i> ampliar</span>
                     <div class="tile-full">
-                        <p><strong>Demurrage</strong> (sobrestadia de navio) é a taxa cobrada pelo armador quando o navio permanece no porto além do período livre contratado para carga/descarga. <strong>Sobrestadia de contêiner</strong> é a taxa cobrada pelo operador portuário ou armador quando a carga permanece no terminal além do período de "free time" acordado.</p>
-                        <div class="ov-focus"><i class="fas fa-triangle-exclamation"></i><span>Quando cobradas de forma abusiva, sem previsão contratual ou em valor excessivo, essas taxas se tornam objeto de denúncia à Ouvidoria da ANTAQ.</span></div>
+                        <p><strong>Demurrage</strong> (sobrestadia de navio) é a taxa cobrada pelo armador quando o
+                            navio permanece no porto além do período livre contratado para carga/descarga.
+                            <strong>Sobrestadia de contêiner</strong> é a taxa cobrada pelo operador portuário ou
+                            armador quando a carga permanece no terminal além do período de "free time" acordado.
+                        </p>
+                        <div class="ov-focus"><i class="fas fa-triangle-exclamation"></i><span>Quando cobradas de forma
+                                abusiva, sem previsão contratual ou em valor excessivo, essas taxas se tornam objeto de
+                                denúncia à Ouvidoria da ANTAQ.</span></div>
                     </div>
                 </button>
                 <!-- SIC -->
@@ -280,10 +613,15 @@
                     <span class="tile-tag">Serviço de Informação ao Cidadão</span>
                     <span class="tile-more"><i class="fas fa-up-right-and-down-left-from-center"></i> ampliar</span>
                     <div class="tile-full">
-                        <p>O <strong>Serviço de Informação ao Cidadão (SIC)</strong> é a estrutura responsável por receber, registrar, analisar e responder os pedidos de acesso à informação formulados com base na Lei nº 12.527/2011 (LAI). Todo órgão público federal é obrigado a mantê-lo.</p>
-                        <div class="ov-focus"><i class="fas fa-circle-info"></i><span>Na ANTAQ, os pedidos são registrados pela plataforma Fala.BR. O prazo legal de resposta é de 20 dias, prorrogável por mais 10, mediante justificativa.</span></div>
+                        <p>O <strong>Serviço de Informação ao Cidadão (SIC)</strong> é a estrutura responsável por
+                            receber, registrar, analisar e responder os pedidos de acesso à informação formulados com
+                            base na Lei nº 12.527/2011 (LAI). Todo órgão público federal é obrigado a mantê-lo.</p>
+                        <div class="ov-focus"><i class="fas fa-circle-info"></i><span>Na ANTAQ, os pedidos são
+                                registrados pela plataforma Fala.BR. O prazo legal de resposta é de 20 dias, prorrogável
+                                por mais 10, mediante justificativa.</span></div>
                         <div class="ov-reference">
-                            <p><i class="fas fa-link"></i> <strong>Acesso:</strong> <a href="https://falabr.cgu.gov.br/" target="_blank">falabr.cgu.gov.br</a> — Plataforma integrada LAI / Ouvidoria</p>
+                            <p><i class="fas fa-link"></i> <strong>Acesso:</strong> <a href="https://falabr.cgu.gov.br/"
+                                    target="_blank">falabr.cgu.gov.br</a> — Plataforma integrada LAI / Ouvidoria</p>
                         </div>
                     </div>
                 </button>
@@ -295,10 +633,17 @@
                     <span class="tile-tag">Plano de Dados Abertos da ANTAQ</span>
                     <span class="tile-more"><i class="fas fa-up-right-and-down-left-from-center"></i> ampliar</span>
                     <div class="tile-full">
-                        <p>O <strong>Plano de Dados Abertos (PDA)</strong> é um documento de planejamento bienal que estabelece quais bases de dados o órgão se compromete a disponibilizar em formato aberto e acessível ao público dentro do período vigente. É exigido pelo Decreto nº 8.777/2016 para todos os órgãos do Poder Executivo Federal.</p>
-                        <div class="ov-focus"><i class="fas fa-calendar"></i><span>A ANTAQ está no ciclo <strong>PDA 2026–2028</strong>, com 18 bases já publicadas e 8 previstas para abertura no período.</span></div>
+                        <p>O <strong>Plano de Dados Abertos (PDA)</strong> é um documento de planejamento bienal que
+                            estabelece quais bases de dados o órgão se compromete a disponibilizar em formato aberto e
+                            acessível ao público dentro do período vigente. É exigido pelo Decreto nº 8.777/2016 para
+                            todos os órgãos do Poder Executivo Federal.</p>
+                        <div class="ov-focus"><i class="fas fa-calendar"></i><span>A ANTAQ está no ciclo <strong>PDA
+                                    2026–2028</strong>, com 18 bases já publicadas e 8 previstas para abertura no
+                                período.</span></div>
                         <div class="ov-reference">
-                            <p><i class="fas fa-link"></i> <a href="https://www.gov.br/antaq/pt-br/acesso-a-informacao/dados-abertos/PDA20262028ANTAQOCR.pdf" target="_blank">Plano de Dados Abertos da ANTAQ</a></p>
+                            <p><i class="fas fa-link"></i> <a
+                                    href="https://www.gov.br/antaq/pt-br/acesso-a-informacao/dados-abertos/PDA20262028ANTAQOCR.pdf"
+                                    target="_blank">Plano de Dados Abertos da ANTAQ</a></p>
                         </div>
                     </div>
                 </button>
@@ -306,13 +651,19 @@
                 <!-- Fala.BR -->
                 <button class="tile" onclick="openCard(this)" data-title="Fala.BR"
                     data-sub="Plataforma integrada de ouvidoria e acesso à informação" data-icon="fa-comments">
-                    <span class="tile-ico"><img src="Imagens/Logo_Fala_BR.png" alt="Fala.BR" style="height: 40px; width: auto;"></span>
+                    <span class="tile-ico"><img src="Imagens/Logo_Fala_BR.png" alt="Fala.BR"
+                            style="height: 40px; width: auto;"></span>
                     <span class="tile-name">Fala.BR</span>
                     <span class="tile-tag">Plataforma integrada de manifestações</span>
                     <span class="tile-more"><i class="fas fa-up-right-and-down-left-from-center"></i> ampliar</span>
                     <div class="tile-full">
-                        <p>Canal integrado para envio de manifestações de ouvidoria ou de acesso a informação a órgãos e entidades do poder público. A plataforma está disponível em tempo integral e permite a execução de todas as etapas necessárias para o tratamento das manifestações.</p>
-                        <div class="ov-reference"><p><i class="fas fa-link"></i> <strong>Fonte:</strong> <a href="https://falabr.cgu.gov.br/" target="_blank">falabr.cgu.gov.br</a></p></div>
+                        <p>Canal integrado para envio de manifestações de ouvidoria ou de acesso a informação a órgãos e
+                            entidades do poder público. A plataforma está disponível em tempo integral e permite a
+                            execução de todas as etapas necessárias para o tratamento das manifestações.</p>
+                        <div class="ov-reference">
+                            <p><i class="fas fa-link"></i> <strong>Fonte:</strong> <a href="https://falabr.cgu.gov.br/"
+                                    target="_blank">falabr.cgu.gov.br</a></p>
+                        </div>
                     </div>
                 </button>
                 <!-- Fluxo de tratamento -->
@@ -325,9 +676,14 @@
                     <div class="tile-full">
                         <p>Os atuais procedimentos adotados pela Ouvidoria da ANTAQ podem ser resumidos como segue:</p>
                         <ul class="ov-flow">
-                            <li><span>Primeira análise do conteúdo: algumas são arquivadas ou encaminhadas a órgãos competentes; as restantes são avaliadas quanto à propriedade de ouvidoria.</span></li>
-                            <li><span>As manifestações próprias de ouvidoria são distribuídas à equipe de tratamento; as não próprias são respondidas imediatamente com indicação de canais adequados.</span></li>
-                            <li><span>Grande parte das manifestações próprias são tramitadas às áreas técnicas responsáveis.</span></li>
+                            <li><span>Primeira análise do conteúdo: algumas são arquivadas ou encaminhadas a órgãos
+                                    competentes; as restantes são avaliadas quanto à propriedade de ouvidoria.</span>
+                            </li>
+                            <li><span>As manifestações próprias de ouvidoria são distribuídas à equipe de tratamento; as
+                                    não próprias são respondidas imediatamente com indicação de canais adequados.</span>
+                            </li>
+                            <li><span>Grande parte das manifestações próprias são tramitadas às áreas técnicas
+                                    responsáveis.</span></li>
                             <li><span>A resposta conclusiva é consolidada e enviada pelo Fala.BR ao usuário.</span></li>
                         </ul>
                     </div>
@@ -340,10 +696,20 @@
                     <span class="tile-tag">Instância responsável por ouvir e processar manifestações</span>
                     <span class="tile-more"><i class="fas fa-up-right-and-down-left-from-center"></i> ampliar</span>
                     <div class="tile-full">
-                        <p>A Ouvidoria é uma instância independente e imparcial responsável por ouvir, investigar e mediar conflitos entre cidadãos e a administração pública.</p>
+                        <p>A Ouvidoria é uma instância independente e imparcial responsável por ouvir, investigar e
+                            mediar conflitos entre cidadãos e a administração pública.</p>
                         <div class="ov-pills" style="display:flex;flex-wrap:wrap;gap:.9rem;margin-top:1.1rem;">
-                            <span class="ov-pill" style="flex:1 1 18rem;display:flex;gap:.7rem;align-items:flex-start;background:#EAF3FB;border:1px solid #C0E0F0;border-radius:12px;padding:.9rem 1.1rem;"><i class="fas fa-exclamation-triangle" style="color:#0070C0;margin-top:.25rem;"></i><span style="color:#103050;font-size:.95rem;line-height:1.4;"><strong>Denunciar</strong> irregularidades ou abuso de poder</span></span>
-                            <span class="ov-pill" style="flex:1 1 18rem;display:flex;gap:.7rem;align-items:flex-start;background:#EAF3FB;border:1px solid #C0E0F0;border-radius:12px;padding:.9rem 1.1rem;"><i class="fas fa-message" style="color:#0070C0;margin-top:.25rem;"></i><span style="color:#103050;font-size:.95rem;line-height:1.4;"><strong>Reclamar</strong> de falhas ou mau atendimento</span></span>
+                            <span class="ov-pill"
+                                style="flex:1 1 18rem;display:flex;gap:.7rem;align-items:flex-start;background:#EAF3FB;border:1px solid #C0E0F0;border-radius:12px;padding:.9rem 1.1rem;"><i
+                                    class="fas fa-exclamation-triangle"
+                                    style="color:#0070C0;margin-top:.25rem;"></i><span
+                                    style="color:#103050;font-size:.95rem;line-height:1.4;"><strong>Denunciar</strong>
+                                    irregularidades ou abuso de poder</span></span>
+                            <span class="ov-pill"
+                                style="flex:1 1 18rem;display:flex;gap:.7rem;align-items:flex-start;background:#EAF3FB;border:1px solid #C0E0F0;border-radius:12px;padding:.9rem 1.1rem;"><i
+                                    class="fas fa-message" style="color:#0070C0;margin-top:.25rem;"></i><span
+                                    style="color:#103050;font-size:.95rem;line-height:1.4;"><strong>Reclamar</strong> de
+                                    falhas ou mau atendimento</span></span>
                         </div>
                     </div>
                 </button>
@@ -356,9 +722,12 @@
                     <span class="tile-more"><i class="fas fa-up-right-and-down-left-from-center"></i> ampliar</span>
                     <div class="tile-full">
                         <ul class="ov-flow">
-                            <li><span><strong>SFC:</strong> fiscalização de portos, instalações portuárias, navegação marítima e intermodalidade.</span></li>
-                            <li><span><strong>GPF:</strong> coordena procedimentos de fiscalização e análise técnica de denúncias.</span></li>
-                            <li><span><strong>GCOR:</strong> gerencia a distribuição de demandas entre unidades regionais.</span></li>
+                            <li><span><strong>SFC:</strong> fiscalização de portos, instalações portuárias, navegação
+                                    marítima e intermodalidade.</span></li>
+                            <li><span><strong>GPF:</strong> coordena procedimentos de fiscalização e análise técnica de
+                                    denúncias.</span></li>
+                            <li><span><strong>GCOR:</strong> gerencia a distribuição de demandas entre unidades
+                                    regionais.</span></li>
                         </ul>
                     </div>
                 </button>
@@ -370,7 +739,9 @@
                     <span class="tile-tag">Denúncia, reclamação, sugestão, elogio ou solicitação</span>
                     <span class="tile-more"><i class="fas fa-up-right-and-down-left-from-center"></i> ampliar</span>
                     <div class="tile-full">
-                        <p>É qualquer solicitação, denúncia, reclamação, sugestão ou elogio enviado por um cidadão ou empresa por meio do Fala.BR. Cada manifestação é registrada, analisada e respondida conforme o tipo e a relevância para a ANTAQ.</p>
+                        <p>É qualquer solicitação, denúncia, reclamação, sugestão ou elogio enviado por um cidadão ou
+                            empresa por meio do Fala.BR. Cada manifestação é registrada, analisada e respondida conforme
+                            o tipo e a relevância para a ANTAQ.</p>
                     </div>
                 </button>
                 <!-- Dados Abertos -->
@@ -381,7 +752,9 @@
                     <span class="tile-tag">Dados públicos legíveis por máquina (CSV, JSON, XML)</span>
                     <span class="tile-more"><i class="fas fa-up-right-and-down-left-from-center"></i> ampliar</span>
                     <div class="tile-full">
-                        <p>São dados públicos formatados de maneira que possam ser livremente acessados, utilizados, modificados e compartilhados por qualquer pessoa, disponíveis em formatos digitais legíveis por máquina (CSV, JSON, XML).</p>
+                        <p>São dados públicos formatados de maneira que possam ser livremente acessados, utilizados,
+                            modificados e compartilhados por qualquer pessoa, disponíveis em formatos digitais legíveis
+                            por máquina (CSV, JSON, XML).</p>
                     </div>
                 </button>
                 <!-- LAI -->
@@ -392,13 +765,15 @@
                     <span class="tile-tag">Lei nº 12.527/2011 · transparência como regra</span>
                     <span class="tile-more"><i class="fas fa-up-right-and-down-left-from-center"></i> ampliar</span>
                     <div class="tile-full">
-                        <p>Garante o direito constitucional do cidadão de acessar informações públicas. Estabelece a transparência como regra e o sigilo como exceção, dividindo-se em transparência ativa (divulgação espontânea) e passiva (mediante solicitação via Fala.BR).</p>
+                        <p>Garante o direito constitucional do cidadão de acessar informações públicas. Estabelece a
+                            transparência como regra e o sigilo como exceção, dividindo-se em transparência ativa
+                            (divulgação espontânea) e passiva (mediante solicitação via Fala.BR).</p>
                     </div>
                 </button>
                 <!-- CTA preenche o 12º espaço -->
                 <div class="tile-cta">
                     <i class="fas fa-hand-pointer"></i>
-                    <span>Clique em qualquer quadro para ler a definição completa</span>
+                    <span>Clique em qualquer quadro para mais detalhes</span>
                 </div>
             </div>
         </div>
@@ -413,7 +788,8 @@
     <!-- Overlay -->
     <div class="overlay" id="overlay" onclick="closeCard(event)">
         <div class="overlay-card" role="dialog" aria-modal="true" onclick="event.stopPropagation()">
-            <button class="overlay-close" onclick="closeCard(event)" aria-label="Fechar"><i class="fas fa-xmark"></i></button>
+            <button class="overlay-close" onclick="closeCard(event)" aria-label="Fechar"><i
+                    class="fas fa-xmark"></i></button>
             <div class="overlay-head">
                 <span class="ov-ico"><i class="fas fa-book"></i></span>
                 <span class="ov-titles">

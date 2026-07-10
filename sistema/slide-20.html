@@ -107,10 +107,11 @@
 
     /* ===== KPI cards laterais (um por ano) ===== */
     .hist-kpi {
+      position: relative;
       border-left: 4px solid #0090C0;
       background-color: #EAF3FB;
-      padding: 0.9rem 1.3rem;
-      border-radius: 14px;
+      padding: 0.55rem 1.2rem;
+      border-radius: 34px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -122,7 +123,7 @@
     .hist-kpi .hk-year {
       font-family: 'Montserrat', sans-serif;
       font-weight: 600;
-      font-size: 0.875rem;
+      font-size: 0.78rem;
       text-transform: uppercase;
       letter-spacing: 0.12em;
       color: #5a7a99;
@@ -131,17 +132,127 @@
     .hist-kpi .hk-val {
       font-family: 'Montserrat', sans-serif;
       font-weight: 900;
-      font-size: 2.15rem;
+      font-size: 1.55rem;
       color: #103050;
       line-height: 1;
-      margin: .15rem 0 .1rem;
+      margin: .08rem 0;
     }
 
     .hist-kpi .hk-label {
       font-family: 'Open Sans', sans-serif;
       font-weight: 400;
-      font-size: 0.8rem;
+      font-size: 0.72rem;
       color: #6b7280;
+    }
+
+    /* ===== Tempo médio de resposta (sub-bloco dentro de cada caixinha) ===== */
+    .hist-kpi .hk-resp {
+      margin-top: .4rem;
+      padding-top: .38rem;
+      border-top: 1px solid rgba(90, 122, 153, .25);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hist-kpi .hk-resp-val {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 0.98rem;
+      color: #0070C0;
+      line-height: 1;
+    }
+
+    .hist-kpi .hk-resp-lbl {
+      font-family: 'Open Sans', sans-serif;
+      font-size: .66rem;
+      color: #6b7280;
+      margin-top: .1rem;
+    }
+
+    .hist-kpi.hk-feat .hk-resp {
+      border-top-color: rgba(255, 255, 255, .28);
+    }
+
+    .hist-kpi.hk-feat .hk-resp-val {
+      color: #F2A900;
+    }
+
+    .hist-kpi.hk-feat .hk-resp-lbl {
+      color: #dbeaf5;
+    }
+
+    /* ===== Ícone de ajuda "?" + tooltip ===== */
+    .hk-help {
+      position: absolute;
+      top: .55rem;
+      right: .6rem;
+      width: 1.2rem;
+      height: 1.2rem;
+      border-radius: 50%;
+      border: 1.5px solid #9db8cf;
+      background: #ffffff;
+      color: #5a7a99;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: .72rem;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: help;
+      z-index: 20;
+      transition: background .18s ease, color .18s ease, border-color .18s ease;
+    }
+
+    .hk-help:hover,
+    .hk-help:focus {
+      background: #0070C0;
+      color: #ffffff;
+      border-color: #0070C0;
+      outline: none;
+    }
+
+    .hist-kpi.hk-feat .hk-help {
+      background: rgba(255, 255, 255, .14);
+      border-color: rgba(255, 255, 255, .65);
+      color: #ffffff;
+    }
+
+    .hist-kpi.hk-feat .hk-help:hover,
+    .hist-kpi.hk-feat .hk-help:focus {
+      background: #ffffff;
+      color: #103050;
+    }
+
+    .hk-tip {
+      position: absolute;
+      top: .35rem;
+      right: 2rem;
+      width: 14.5rem;
+      background: #ffffff;
+      color: #334155;
+      border: 1px solid #d5dee8;
+      border-radius: 10px;
+      box-shadow: 0 18px 36px -12px rgba(16, 48, 80, .40);
+      padding: .7rem .85rem;
+      font-family: 'Open Sans', sans-serif;
+      font-weight: 400;
+      font-size: .6rem;
+      line-height: 1.55;
+      text-align: left;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateX(6px);
+      transition: opacity .18s ease, transform .18s ease, visibility .18s;
+      z-index: 30;
+      pointer-events: none;
+    }
+
+    .hk-help:hover+.hk-tip,
+    .hk-help:focus+.hk-tip {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(0);
     }
 
     .hist-kpi.hk-feat {
@@ -222,9 +333,9 @@
       </div>
     </div>
     <!-- Main Content -->
-    <div class="flex-1 grid grid-cols-3 gap-6 px-16 pb-6 z-10" style="min-height:0;">
+    <div class="flex-1 grid gap-6 px-16 pb-6 z-10" style="min-height:0; grid-template-columns: 1.73fr 1fr;">
       <!-- Gráfico -->
-      <div class="chart-card col-span-2 flex flex-col" style="min-height:0;">
+      <div class="chart-card flex flex-col" style="min-height:0;">
         <p class="text-brand-primary font-montserrat font-bold text-xl mb-1 flex items-center gap-2"><i
             class="fas fa-file-circle-plus text-brand-secondary"></i> Pedidos de acesso à informação</p>
         <div class="flex-1 relative" style="min-height:0;"><canvas id="chartLaiHist"></canvas></div>
@@ -237,26 +348,58 @@
          Atualize também labels[] e data[] no Chart.js abaixo.
      ================================================= -->
       <!-- KPIs por ano — ordem: mais recente primeiro -->
-      <div class="col-span-1 flex flex-col gap-3" style="min-height:0;">
+      <div class="flex flex-col gap-2" style="min-height:0;">
         <div class="hist-kpi hk-feat">
+          <span class="hk-help" tabindex="0" role="button"
+            aria-label="Como o tempo médio de resposta é calculado">?</span>
+          <span class="hk-tip">Quantidade de dias – calculada em dias corridos – entre o recebimento do recurso e a data
+            em que ele foi respondido. O gráfico mostra os dados da instância selecionada no painel lai.</span>
           <p class="hk-year">1º Tri 2026</p>
           <p class="hk-val">130</p>
           <p class="hk-label">pedidos</p>
+          <div class="hk-resp">
+            <span class="hk-resp-val">3.8 dias</span>
+            <span class="hk-resp-lbl">tempo médio de resposta</span>
+          </div>
         </div>
         <div class="hist-kpi">
+          <span class="hk-help" tabindex="0" role="button"
+            aria-label="Como o tempo médio de resposta é calculado">?</span>
+          <span class="hk-tip">Quantidade de dias – calculada em dias corridos – entre o recebimento do recurso e a data
+            em que ele foi respondido. O gráfico mostra os dados da instância selecionada no painel.</span>
           <p class="hk-year">1º Tri 2025</p>
           <p class="hk-val">107</p>
           <p class="hk-label">pedidos</p>
+          <div class="hk-resp">
+            <span class="hk-resp-val">3.7 dias</span>
+            <span class="hk-resp-lbl">tempo médio de resposta</span>
+          </div>
         </div>
         <div class="hist-kpi">
+          <span class="hk-help" tabindex="0" role="button"
+            aria-label="Como o tempo médio de resposta é calculado">?</span>
+          <span class="hk-tip">Quantidade de dias – calculada em dias corridos – entre o recebimento do recurso e a data
+            em que ele foi respondido. O gráfico mostra os dados da instância selecionada no painel.</span>
           <p class="hk-year">1º Tri 2024</p>
           <p class="hk-val">105</p>
           <p class="hk-label">pedidos</p>
+          <div class="hk-resp">
+            <span class="hk-resp-val">6 dias</span>
+            <span class="hk-resp-lbl">tempo médio de resposta</span>
+          </div>
         </div>
         <div class="hist-kpi">
+          <span class="hk-help" tabindex="0" role="button"
+            aria-label="Como o tempo médio de resposta é calculado">?</span>
+          <span class="hk-tip">Quantidade de dias – calculada em dias corridos – entre o recebimento do recurso e a data
+            em que ele foi respondido. O gráfico mostra os dados da instância selecionada no painel.</span>
           <p class="hk-year">1º Tri 2023</p>
           <p class="hk-val">62</p>
           <p class="hk-label">pedidos</p>
+          <div class="hk-resp">
+            <span class="hk-resp-val">5 dias</span>
+            <span class="hk-resp-lbl">tempo médio de resposta</span>
+          </div>
         </div>
       </div>
     </div>
