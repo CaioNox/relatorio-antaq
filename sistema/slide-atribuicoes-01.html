@@ -15,24 +15,40 @@
     .font-montserrat { font-family: 'Montserrat', sans-serif; }
     .text-brand-primary { color: #103050; }
     .text-brand-secondary { color: #0070C0; }
+    .bg-brand-secondary { background-color: #0070C0; }
     .top-accent { height: 8px; background-color: #103050; width: 100%; }
     .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
 
-    .act-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: .6rem; }
-    .act-card {
-      background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 14px;
-      padding: .85rem .9rem; display: flex; flex-direction: column; gap: .45rem;
-      transition: box-shadow .2s, border-color .2s;
+    /* ── Lista numerada estilo "etiqueta" (2 colunas) ── */
+    .ref-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(4, 1fr);
+      grid-auto-flow: column;
+      gap: .7rem 1.6rem;
     }
-    .act-card:hover { box-shadow: 0 8px 20px -8px rgba(16,48,80,.18); border-color: #0070C0; }
-    .act-card .ico-wrap {
-      width: 38px; height: 38px; border-radius: 8px;
-      background: linear-gradient(135deg, #103050, #0070C0);
+    .ref-card {
+      display: flex; align-items: stretch;
+      background: #fff; border: 1px solid #E2E8F0; border-radius: 12px;
+      box-shadow: 0 2px 6px -3px rgba(16,48,80,.18);
+    }
+    .ref-num {
+      position: relative; flex: 0 0 3.1rem;
       display: flex; align-items: center; justify-content: center;
-      font-size: .95rem; color: #fff;
+      font-family: 'Montserrat', sans-serif; font-weight: 800;
+      font-size: 1.85rem; color: #fff; line-height: 1;
+      background: var(--tag); border-radius: 12px 0 0 12px;
     }
-    /* Fonte maior nas descrições */
-    .act-card .c-desc { font-size: .66rem; color: #475569; line-height: 1.45; text-align: left; }
+    .ref-num::after {
+      content: ''; position: absolute; right: -9px; top: 50%;
+      transform: translateY(-50%);
+      border-top: 9px solid transparent; border-bottom: 9px solid transparent;
+      border-left: 9px solid var(--tag);
+    }
+    .ref-num.c-a { --tag: #103050; }
+    .ref-num.c-b { --tag: #0070C0; }
+    .ref-body { padding: .45rem .95rem; display: flex; flex-direction: column; justify-content: center; }
+    .ref-desc { font-size: .68rem; line-height: 1.32; color: #334155; margin: 0; }
 
     .bg-pattern { position: absolute; bottom: -60px; right: -50px; width: 360px; height: 360px; opacity: 0.025; z-index: 0; color: #103050; }
     @keyframes fadeInUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
@@ -50,6 +66,7 @@
           <div class="w-1 h-8 bg-brand-secondary"></div>
           <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Atribuições das Ouvidorias</p>
         </div>
+        <p class="text-gray-500 font-medium ml-4 text-base">Precípuas da Ouvidoria · Art. 13 da Lei nº 13.460/2017</p>
       </div>
       <div class="flex items-center gap-3 opacity-80 text-brand-secondary">
         <i class="fas fa-comments text-3xl align-middle" aria-hidden="true"></i>
@@ -60,36 +77,35 @@
       </div>
     </div>
 
-    <!-- O 7º card ocupa naturalmente a próxima célula disponível, sem esticar. -->
-    <div class="flex-1 px-16 pb-3 z-10 flex flex-col justify-center" style="min-height:0;">
-      <div class="act-grid a">
-        <div class="act-card">
-          <div class="ico-wrap"><i class="fas fa-users-gear"></i></div>
-          <p class="c-desc">Promover a participação do usuário na administração pública, em cooperação com outras entidades de defesa do usuário.</p>
+    <div class="flex-1 px-16 pt-2 pb-5 z-10" style="min-height:0; display:flex;">
+      <div class="ref-grid a" style="flex:1; min-height:0;">
+        <div class="ref-card">
+          <div class="ref-num c-a">1</div>
+          <div class="ref-body"><p class="ref-desc">Promover a participação do usuário na administração pública, em cooperação com outras entidades de defesa do usuário.</p></div>
         </div>
-        <div class="act-card">
-          <div class="ico-wrap"><i class="fas fa-chart-line"></i></div>
-          <p class="c-desc">Acompanhar a prestação dos serviços, visando a garantir a sua efetividade.</p>
+        <div class="ref-card">
+          <div class="ref-num c-b">2</div>
+          <div class="ref-body"><p class="ref-desc">Acompanhar a prestação dos serviços, visando a garantir a sua efetividade.</p></div>
         </div>
-        <div class="act-card">
-          <div class="ico-wrap"><i class="fas fa-lightbulb"></i></div>
-          <p class="c-desc">Propor aperfeiçoamentos na prestação dos serviços.</p>
+        <div class="ref-card">
+          <div class="ref-num c-a">3</div>
+          <div class="ref-body"><p class="ref-desc">Propor aperfeiçoamentos na prestação dos serviços.</p></div>
         </div>
-        <div class="act-card">
-          <div class="ico-wrap"><i class="fas fa-inbox"></i></div>
-          <p class="c-desc">Receber, analisar e encaminhar às autoridades competentes as manifestações, acompanhando o tratamento e a efetiva conclusão das manifestações de usuário perante órgão ou entidade a que se vincula.</p>
+        <div class="ref-card">
+          <div class="ref-num c-b">4</div>
+          <div class="ref-body"><p class="ref-desc">Receber, analisar e encaminhar às autoridades competentes as manifestações, acompanhando o tratamento e a efetiva conclusão das manifestações de usuário perante órgão ou entidade a que se vincula.</p></div>
         </div>
-        <div class="act-card">
-          <div class="ico-wrap"><i class="fas fa-handshake-angle"></i></div>
-          <p class="c-desc">Promover a adoção de mediação e conciliação entre o usuário e o órgão ou a entidade pública, sem prejuízo de outros órgãos competentes.</p>
+        <div class="ref-card">
+          <div class="ref-num c-a">5</div>
+          <div class="ref-body"><p class="ref-desc">Promover a adoção de mediação e conciliação entre o usuário e o órgão ou a entidade pública, sem prejuízo de outros órgãos competentes.</p></div>
         </div>
-        <div class="act-card">
-          <div class="ico-wrap"><i class="fas fa-shield-halved"></i></div>
-          <p class="c-desc">Propor adoção de medidas para a defesa dos direitos do usuário, em observância às determinações desta Lei.</p>
+        <div class="ref-card">
+          <div class="ref-num c-b">6</div>
+          <div class="ref-body"><p class="ref-desc">Propor adoção de medidas para a defesa dos direitos do usuário, em observância às determinações desta Lei.</p></div>
         </div>
-        <div class="act-card">
-          <div class="ico-wrap"><i class="fas fa-screwdriver-wrench"></i></div>
-          <p class="c-desc">Auxiliar na prevenção e correção dos atos e procedimentos incompatíveis com os princípios estabelecidos nesta Lei.</p>
+        <div class="ref-card">
+          <div class="ref-num c-a">7</div>
+          <div class="ref-body"><p class="ref-desc">Auxiliar na prevenção e correção dos atos e procedimentos incompatíveis com os princípios estabelecidos nesta Lei.</p></div>
         </div>
       </div>
     </div>
@@ -101,10 +117,10 @@
     <div class="bg-pattern"><i class="fas fa-comments text-9xl"></i></div>
   </div>
   <script>
-    document.addEventListener("keydown", function (e) { 
-      if (["ArrowRight","ArrowLeft","PageDown","PageUp","Home","End"," ","f","F"].indexOf(e.key) !== -1) { 
-        e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); 
-      } 
+    document.addEventListener("keydown", function (e) {
+      if (["ArrowRight","ArrowLeft","PageDown","PageUp","Home","End"," ","f","F"].indexOf(e.key) !== -1) {
+        e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*");
+      }
     });
   </script>
 </body>

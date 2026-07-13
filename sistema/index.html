@@ -214,6 +214,36 @@
       font-weight: 500;
       min-width: 80px;
       text-align: center;
+      cursor: pointer;
+      border-radius: 6px;
+      padding: 2px 4px;
+      transition: background 0.2s;
+    }
+
+    .nav-bar .page-info:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .nav-bar .page-input {
+      width: 52px;
+      min-width: 52px;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid #0090C0;
+      color: #fff;
+      border-radius: 6px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 600;
+      font-family: 'Roboto', sans-serif;
+      padding: 2px 4px;
+      outline: none;
+      -moz-appearance: textfield;
+    }
+
+    .nav-bar .page-input::-webkit-inner-spin-button,
+    .nav-bar .page-input::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
     }
 
     .nav-bar .home-btn {
@@ -648,7 +678,7 @@
       },
       {
         block: 'Bloco 4 · STAI — Transparência e Acesso à Informação', short: 'STAI', tint: 0.55,
-        files: ['capa-bloco-4.html', 'slide-4a.html', 'slide-22.html', 'slide-23.html', 'slide-18.html', 'slide-19.html', 'slide-20.html', 'slide-pda.html', 'slide-21.html'],
+        files: ['capa-bloco-4.html', 'slide-4a.html', 'slide-22.html', 'slide-23.html', 'slide-18.html', 'slide-20.html', 'slide-pda.html', 'slide-21.html'],
       },
       {
         block: 'Bloco 5 · Considerações Finais', short: 'Considerações Finais', tint: 0.4,
@@ -771,6 +801,46 @@
     document.getElementById('clickRight').addEventListener('click', () => next());
 
     render();
+
+    // ===== Contador de página editável — clicar permite digitar o nº do slide =====
+    const pageInfoEl = document.getElementById('pageInfo');
+    pageInfoEl.title = 'Clique para digitar o número do slide';
+    pageInfoEl.addEventListener('click', () => {
+      if (document.querySelector('.page-input')) return; // já aberto
+      const input = document.createElement('input');
+      input.type = 'number';
+      input.className = 'page-input';
+      input.min = 1;
+      input.max = total;
+      input.value = current;
+      pageInfoEl.style.display = 'none';
+      pageInfoEl.parentNode.insertBefore(input, pageInfoEl.nextSibling);
+      input.focus();
+      input.select();
+
+      let done = false;
+      function close() {
+        if (done) return;
+        done = true;
+        input.remove();
+        pageInfoEl.style.display = '';
+      }
+      function commit() {
+        let v = parseInt(input.value, 10);
+        if (!isNaN(v)) {
+          current = Math.max(1, Math.min(total, v));
+          render();
+        }
+        close();
+      }
+      // Impede que as teclas cheguem ao atalho global de navegação (setas/espaço)
+      input.addEventListener('keydown', (e) => {
+        e.stopPropagation();
+        if (e.key === 'Enter') commit();
+        else if (e.key === 'Escape') close();
+      });
+      input.addEventListener('blur', commit);
+    });
 
     // Nav hints modal
     const navHints = document.getElementById('navHints');
