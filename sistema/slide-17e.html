@@ -80,10 +80,11 @@
     }
 
     .highlight-card {
+      position: relative;
       background: linear-gradient(160deg, #f0f7ff, #e8f4fd);
       border: 2px solid #0070C0;
       border-radius: 16px;
-      padding: 1.4rem 1.6rem;
+      padding: 0.7rem 1.3rem;
       text-align: center;
       transition: transform .28s ease, box-shadow .28s ease;
     }
@@ -91,6 +92,46 @@
     .highlight-card:hover {
       transform: translateY(-5px);
       box-shadow: 0 16px 30px -12px rgba(16, 48, 80, .25);
+    }
+
+    /* Botão de ajuda "?" (com dica) que leva ao painel oficial da CGU */
+    .card-help {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.18rem 0.3rem 0.18rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(0, 112, 192, 0.10);
+      color: #0070C0;
+      font-size: 0.55rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      white-space: nowrap;
+      text-decoration: none;
+      transition: background .2s ease, color .2s ease;
+    }
+
+    .card-help i {
+      width: 1.05rem;
+      height: 1.05rem;
+      border-radius: 50%;
+      background: rgba(0, 112, 192, 0.16);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.55rem;
+    }
+
+    .card-help:hover {
+      background: #0070C0;
+      color: #fff;
+    }
+
+    .card-help:hover i {
+      background: rgba(255, 255, 255, 0.25);
     }
 
     .percentage-ring {
@@ -133,7 +174,7 @@
     <div class="top-accent-secondary"></div>
 
     <!-- Header Ajustado com Barra Azul e Tag Capítulo 02 -->
-    <div class="flex items-center justify-between px-16 pt-10 pb-4 z-10">
+    <div class="flex items-center justify-between px-16 pt-6 pb-3 z-10">
       <div>
         <div class="flex items-center gap-3 mb-1">
           <div class="w-1 h-8 bg-brand-secondary"></div>
@@ -153,7 +194,7 @@
     </div>
 
     <!-- Main Content -->
-    <div class="flex-1 grid grid-cols-2 gap-8 px-16 pb-10 z-10">
+    <div class="flex-1 grid grid-cols-2 gap-8 px-16 pb-6 z-10">
       <!-- Gráfico Donut / Pizza -->
       <div class="chart-card flex flex-col">
         <p class="text-brand-primary font-montserrat font-bold text-xl mb-1 flex items-center gap-6"><i
@@ -163,31 +204,43 @@
       </div>
 
       <!-- Indicadores -->
-      <div class="flex flex-col gap-6 justify-center">
+      <div class="flex flex-col gap-2 justify-center">
+
+        <!-- Card explicativo (sem números) -->
+        <div class="chart-card" style="padding:.6rem 1.15rem;">
+          <p class="text-brand-primary font-montserrat font-bold text-base mb-1 flex items-center gap-3">
+            <i class="fas fa-diagram-project text-brand-secondary"></i> Como as demandas se distribuem
+          </p>
+          <p class="text-gray-600" style="font-size:.66rem; line-height:1.35; text-align:justify; text-indent:1.5em; margin:0;">
+            As 434 demandas recebidas pela Ouvidoria da ANTAQ neste trimestre chegaram por meio da plataforma Fala.BR e se distribuem conforme a sua natureza: de um lado, os pedidos de acesso à informação, amparados pela Lei de Acesso à Informação (LAI); de outro, as manifestações de ouvidoria — denúncias, reclamações, solicitações, sugestões e elogios. Essa classificação define o fluxo de tratamento e o painel oficial em que cada tipo de demanda é acompanhado.
+          </p>
+        </div>
 
         <!-- LAI Card -->
         <div class="highlight-card">
-          <i class="fas fa-book-open text-brand-secondary text-3xl mb-2"></i>
-          <p class="font-montserrat font-bold text-lg text-brand-primary">Pedidos de Acesso à Informação</p>
-          <p class="font-montserrat font-black text-5xl text-brand-primary mt-1">130</p>
-          <p class="text-gray-500 text-sm">demandas de LAI</p>
-          <div class="flex items-center justify-center gap-2 mt-2">
-            <div style="width:10px;height:10px;border-radius:3px;background:#0070C0;"></div>
-            <span class="text-brand-secondary font-bold text-2xl">29,95%</span>
-            <span class="text-gray-400 text-sm">do total Fala.BR</span>
+          <a href="https://centralpaineis.cgu.gov.br/visualizar/lai" target="_blank" rel="noopener noreferrer" class="card-help" title="Abrir Painel LAI — CGU"><span>Clique aqui para saber mais</span><i class="fas fa-question"></i></a>
+          <i class="fas fa-book-open text-brand-secondary text-xl mb-1"></i>
+          <p class="font-montserrat font-bold text-base text-brand-primary">Pedidos de Acesso à Informação</p>
+          <p class="font-montserrat font-black text-3xl text-brand-primary mt-0 mb-0">130</p>
+          <p class="text-gray-500 text-xs">demandas de LAI</p>
+          <div class="flex items-center justify-center gap-2 mt-1">
+            <div style="width:9px;height:9px;border-radius:3px;background:#0070C0;"></div>
+            <span class="text-brand-secondary font-bold text-xl">29,95%</span>
+            <span class="text-gray-400 text-xs">do total Fala.BR</span>
           </div>
         </div>
 
         <!-- Painel Resolveu Card -->
         <div class="highlight-card" style="background:#f8fafc;border-color:#E2E8F0;">
-          <i class="fas fa-check-circle text-brand-secondary text-3xl mb-2"></i>
-          <p class="font-montserrat font-bold text-lg text-brand-primary">Manifestações — Painel Resolveu</p>
-          <p class="font-montserrat font-black text-5xl text-brand-primary mt-1">304</p>
-          <p class="text-gray-500 text-sm">demandas de ouvidoria tratadas no Fala.BR</p>
-          <div class="flex items-center justify-center gap-2 mt-2">
-            <div style="width:10px;height:10px;border-radius:3px;background:#103050;"></div>
-            <span class="text-brand-primary font-bold text-2xl">70,05%</span>
-            <span class="text-gray-400 text-sm">do total Fala.BR</span>
+          <a href="https://centralpaineis.cgu.gov.br/visualizar/resolveu" target="_blank" rel="noopener noreferrer" class="card-help" title="Abrir Painel Resolveu? — CGU"><span>Clique aqui para saber mais</span><i class="fas fa-question"></i></a>
+          <i class="fas fa-check-circle text-brand-secondary text-xl mb-1"></i>
+          <p class="font-montserrat font-bold text-base text-brand-primary">Manifestações — Painel Resolveu</p>
+          <p class="font-montserrat font-black text-3xl text-brand-primary mt-0 mb-0">304</p>
+          <p class="text-gray-500 text-xs">demandas de ouvidoria tratadas no Fala.BR</p>
+          <div class="flex items-center justify-center gap-2 mt-1">
+            <div style="width:9px;height:9px;border-radius:3px;background:#103050;"></div>
+            <span class="text-brand-primary font-bold text-xl">70,05%</span>
+            <span class="text-gray-400 text-xs">do total Fala.BR</span>
           </div>
         </div>
 
