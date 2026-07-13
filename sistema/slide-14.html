@@ -55,9 +55,8 @@
       <div>
         <div class="flex items-center gap-3 mb-1">
           <div class="w-1 h-8 bg-brand-secondary"></div>
-          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Tipos de Manifestações</p>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Distribuição de Manifestações por Tipo</p>
         </div>
-        <p class="text-gray-500 font-medium ml-4 text-lg">Distribuição por tipo — trimestre e evolução mensal · 2026</p>
       </div>
       <div class="flex items-center gap-2 opacity-80 text-brand-secondary">
         <i class="fas fa-layer-group text-xl"></i>
@@ -70,24 +69,23 @@
       <!-- Coluna esquerda: gráfico trimestre + destaque -->
       <div class="flex flex-col gap-3">
         <div class="chart-card flex-1 flex flex-col" style="min-height:0;">
-          <p class="text-gray-400 text-xs font-montserrat font-bold uppercase tracking-wide mb-1">Total por tipo · Trimestre</p>
           <div class="flex-1 relative" style="min-height:0;"><canvas id="chartTipos"></canvas></div>
         </div>
         <div class="highlight-mini">
           <p class="text-blue-100 font-montserrat font-bold uppercase tracking-widest mb-0" style="font-size:.55rem;">Tipo mais frequente</p>
           <p class="font-montserrat font-black leading-none mb-0" style="font-size:1.5rem;">Denúncia</p>
-          <p class="font-montserrat font-black leading-none" style="font-size:2.5rem;">173</p>
-          <p class="text-blue-100 leading-tight" style="font-size:.65rem;">Representa <strong>67,1%</strong> das manifestações classificadas</p>
+          <p class="font-montserrat font-black leading-none" style="font-size:2.5rem;">194</p>
+          <p class="text-blue-100 leading-tight" style="font-size:.65rem;">Representa <strong>63,8%</strong> das manifestações classificadas</p>
         </div>
         <div class="chart-card">
           <div class="space-y-1" style="font-size:.65rem;">
-            <div class="flex justify-between"><span class="text-gray-600">Denúncia</span><strong class="text-brand-primary">173</strong></div>
-            <div class="flex justify-between"><span class="text-gray-600">Solicitação</span><strong class="text-brand-primary">45</strong></div>
-            <div class="flex justify-between"><span class="text-gray-600">Reclamação</span><strong class="text-brand-primary">34</strong></div>
+            <div class="flex justify-between"><span class="text-gray-600">Denúncia</span><strong class="text-brand-primary">194</strong></div>
+            <div class="flex justify-between"><span class="text-gray-600">Solicitação</span><strong class="text-brand-primary">60</strong></div>
+            <div class="flex justify-between"><span class="text-gray-600">Reclamação</span><strong class="text-brand-primary">44</strong></div>
             <div class="flex justify-between"><span class="text-gray-600">Sugestão</span><strong class="text-brand-primary">3</strong></div>
             <div class="flex justify-between"><span class="text-gray-600">Elogio</span><strong class="text-brand-primary">2</strong></div>
             <div class="flex justify-between"><span class="text-gray-600">Simplifique</span><strong class="text-brand-primary">1</strong></div>
-            <div class="flex justify-between border-t border-gray-200 pt-1 mt-1"><span class="text-gray-500 font-semibold">Total</span><strong class="text-brand-secondary">258</strong></div>
+            <div class="flex justify-between border-t border-gray-200 pt-1 mt-1"><span class="text-gray-500 font-semibold">Total</span><strong class="text-brand-secondary">304</strong></div>
           </div>
         </div>
       </div>
@@ -95,7 +93,6 @@
       <!-- Coluna direita: gráfico por mês -->
       <div class="flex flex-col gap-3">
         <div class="chart-card flex-1 flex flex-col" style="min-height:0;">
-          <p class="text-gray-400 text-xs font-montserrat font-bold uppercase tracking-wide mb-1">Tipos por mês · Janeiro – Março</p>
           <div class="flex-1 relative" style="min-height:0;"><canvas id="chartTiposMes"></canvas></div>
         </div>
         <div class="chart-card">
@@ -117,7 +114,7 @@
   <script>
     // Gráfico 1 — Total por tipo (trimestre)
     const labels = ['Reclamação', 'Solicitação', 'Denúncia', 'Sugestão', 'Elogio', 'Simplifique'];
-    const data = [34, 45, 173, 3, 2, 1];
+    const data = [44, 60, 194, 3, 2, 1];
     const colors = data.map((_, i) => i === 2 ? '#103050' : '#0070C0');
     const valueLabels = {
       id: 'valueLabels',
@@ -170,9 +167,9 @@
       data: {
         labels,
         datasets: [
-          { label: 'Janeiro', data: [15, 15, 42, null, null, 1], backgroundColor: '#0070C0', borderRadius: 4, maxBarThickness: 36, skipNull: true },
-          { label: 'Fevereiro', data: [9, 28, 75, 1, null, null], backgroundColor: '#0090C0', borderRadius: 4, maxBarThickness: 36, skipNull: true },
-          { label: 'Março', data: [10, 2, 56, 2, 2, null], backgroundColor: '#103050', borderRadius: 4, maxBarThickness: 36, skipNull: true }
+          { label: 'Janeiro', data: [19, 23, 47, 0, 0, 1], backgroundColor: '#0070C0', borderRadius: 4, maxBarThickness: 36, skipNull: true },
+          { label: 'Fevereiro', data: [14, 33, 81, 1, 0, 0], backgroundColor: '#0090C0', borderRadius: 4, maxBarThickness: 36, skipNull: true },
+          { label: 'Março', data: [11, 4, 66, 2, 2, 0], backgroundColor: '#103050', borderRadius: 4, maxBarThickness: 36, skipNull: true }
         ]
       },
       options: {

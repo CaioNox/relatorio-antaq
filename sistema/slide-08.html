@@ -20,6 +20,7 @@
     href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&amp;family=Open+Sans:ital,wght@0,400;0,600;1,400&amp;display=swap"
     rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     html {
       font-size: 26px;
@@ -293,6 +294,42 @@
       transition: color 250ms ease;
     }
 
+    .charts-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 1rem;
+      height: 100%;
+      min-height: 0;
+    }
+
+    .chart-canvas-wrap {
+      flex: 1;
+      min-height: 300px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .pie-empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+      color: #94a3b8;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: .82rem;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    .pie-empty-state i {
+      font-size: 1.4rem;
+      color: #cbd5e1;
+    }
+
     /* ===================== BARRAS ===================== */
     .rows {
       flex: 1;
@@ -451,11 +488,17 @@
       </div>
     </div>
 
-    <!-- ===================== ZONA INFERIOR — gráfico dinâmico ===================== -->
+    <!-- ===================== ZONA INFERIOR — gráficos dinâmicos ===================== -->
     <div class="flex-1 px-16 pb-3 z-10" style="min-height:0;">
-      <div class="chart-card">
-        <p class="chart-cap" id="chartCap"></p>
-        <div class="rows" id="rows" data-density="1"></div>
+      <div class="charts-grid" style="height:100%;">
+        <div class="chart-card">
+          <p class="chart-cap" id="chartCap"></p>
+          <div class="rows" id="rows" data-density="1"></div>
+        </div>
+        <div class="chart-card">
+          <p class="chart-cap" id="pieCap"><i class="fas fa-chart-pie"></i> Distribuição por tema</p>
+          <div class="chart-canvas-wrap" id="pieWrap"></div>
+        </div>
       </div>
     </div>
 
@@ -493,7 +536,7 @@
         ]
       },
       {
-        id: 'diversos', name: 'Diversos — Solicitação', short: 'Diversos · Solicitação',
+        id: 'diversos', name: 'Diversos', short: 'Diversos',
         icon: 'fa-clipboard-list', color: '#10B981', total: 51,
         subs: [
           ['Solicitação de Informação', 8],
@@ -516,7 +559,7 @@
         ]
       },
       {
-        id: 'regport', name: 'Regulação Portuária', short: 'Reg. Portuária',
+        id: 'regport', name: 'Regulação Portuária', short: 'Regulação Portuária',
         icon: 'fa-anchor', color: '#0090C0', total: 41,
         subs: [
           ['Serviços Portuários/ Acesso /funcionamento', 15],
@@ -530,7 +573,7 @@
         ]
       },
       {
-        id: 'navint', name: 'Serviços na Navegação Interior', short: 'Nav. Interior',
+        id: 'navint', name: 'Serviços na Navegação Interior', short: 'Serviços na Navegação Interior',
         icon: 'fa-ship', color: '#6366F1', total: 37,
         subs: [
           ['Empresa irregular', 14],
@@ -542,7 +585,7 @@
         ]
       },
       {
-        id: 'navmar', name: 'Regulação na Navegação Marítima', short: 'Nav. Marítima',
+        id: 'navmar', name: 'Regulação na Navegação Marítima', short: 'Regulação na Navegação Marítima',
         icon: 'fa-compass', color: '#0EA5E9', total: 14,
         subs: [
           ['Direitos do Usuário na Navegação', 8],
@@ -553,7 +596,7 @@
         ]
       },
       {
-        id: 'fora', name: 'Jurisdição (Legislação) — Demandas fora do âmbito de atuação da Antaq', short: 'Fora do âmbito',
+        id: 'fora', name: 'Jurisdição (Legislação) — Demandas fora do âmbito de atuação da ANTAQ', short: 'Fora do âmbito de atuação',
         icon: 'fa-share-from-square', color: '#94A3B8', total: 4,
         subs: [
           ['Jurisdição - Questão de competência da ANTAQ', 3],
@@ -561,7 +604,7 @@
         ]
       },
       {
-        id: 'meioamb', name: 'Meio ambiente', short: 'Meio Ambiente',
+        id: 'meioamb', name: 'Meio Ambiente', short: 'Meio Ambiente',
         icon: 'fa-leaf', color: '#22C55E', total: 3,
         subs: [
           ['Meio ambiente', 3]
@@ -571,6 +614,7 @@
 
     const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const selected = new Set(THEMES.map(t => t.id)); // abre com tudo selecionado (panorama completo)
+    let pieChart = null;
 
     /* ===================== CHIPS ===================== */
     const chipsWrap = document.getElementById('chips');
@@ -698,6 +742,102 @@
       }
     }
 
+    function renderPieChart() {
+      const sel = THEMES.filter(t => selected.has(t.id));
+      const wrap = document.getElementById('pieWrap');
+      const cap = document.getElementById('pieCap');
+
+      if (!sel.length) {
+        if (pieChart) {
+          pieChart.destroy();
+          pieChart = null;
+        }
+        wrap.innerHTML = '<div class="pie-empty-state"><i class="far fa-chart-pie"></i><span>Selecione ao menos um tema para ver a distribuição</span></div>';
+        cap.style.color = '#94a3b8';
+        cap.innerHTML = '<i class="fas fa-chart-pie"></i> Distribuição por tema · 0 selecionados';
+        return;
+      }
+
+      wrap.innerHTML = '<canvas id="pieChart"></canvas>';
+      const canvas = document.getElementById('pieChart');
+      if (pieChart) pieChart.destroy();
+
+      const percentageLabelsPlugin = {
+        id: 'percentageLabels',
+        afterDraw(chart) {
+          const { ctx } = chart;
+          const meta = chart.getDatasetMeta(0);
+          const total = chart.data.datasets[0].data.reduce((s, v) => s + v, 0) || 1;
+
+          ctx.save();
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+
+          meta.data.forEach((arc, index) => {
+            const value = chart.data.datasets[0].data[index];
+            const pct = value / total * 100;
+            if (!value || pct < 1) return;
+
+            const angle = (arc.startAngle + arc.endAngle) / 2;
+            const radius = (arc.outerRadius + arc.innerRadius) / 2;
+            const x = arc.x + Math.cos(angle) * radius * 0.8;
+            const y = arc.y + Math.sin(angle) * radius * 0.8;
+            const fontSize = pct >= 10 ? 13 : pct >= 5 ? 11 : 9;
+
+            ctx.font = '700 ' + fontSize + 'px Montserrat, sans-serif';
+            ctx.fillStyle = '#ffffff';
+            ctx.strokeStyle = 'rgba(16, 48, 80, 0.35)';
+            ctx.lineWidth = 3;
+            ctx.strokeText(pct.toFixed(1) + '%', x, y);
+            ctx.fillText(pct.toFixed(1) + '%', x, y);
+          });
+
+          ctx.restore();
+        }
+      };
+
+      pieChart = new Chart(canvas, {
+        type: 'doughnut',
+        data: {
+          labels: sel.map(t => t.name),
+          datasets: [{
+            data: sel.map(t => t.total),
+            backgroundColor: sel.map(t => t.color),
+            borderColor: '#ffffff',
+            borderWidth: 2,
+            hoverOffset: 8
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          animation: { duration: REDUCED ? 0 : 650 },
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: {
+                color: '#103050',
+                boxWidth: 12,
+                boxHeight: 12,
+                padding: 12,
+                font: { family: 'Open Sans', size: 11, weight: '600' }
+              }
+            },
+            tooltip: {
+              callbacks: {
+                label: (context) => context.label + ': ' + context.parsed + ' manifestações'
+              }
+            }
+          }
+        },
+        plugins: [percentageLabelsPlugin]
+      });
+
+      cap.style.color = '#475569';
+      cap.innerHTML = '<i class="fas fa-chart-pie"></i> Distribuição por tema · ' + sel.length +
+        ' tema' + (sel.length > 1 ? 's' : '') + ' selecionado' + (sel.length > 1 ? 's' : '');
+    }
+
     /* ===================== CONTADOR ODÔMETRO ===================== */
     const odo = document.getElementById('odo');
     let currentPct = null; // valor numérico atual
@@ -813,6 +953,7 @@
       refreshChips();
       refreshCaption();
       renderBars();
+      renderPieChart();
       const sum = THEMES.filter(t => selected.has(t.id)).reduce((s, t) => s + t.total, 0);
       setCounter(sum / TOTAL * 100);
     }

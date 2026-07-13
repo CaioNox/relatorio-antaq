@@ -198,8 +198,47 @@
       background: #fefcf0;
       border: 2px solid #F2A900;
       border-radius: 16px;
-      padding: 1.2rem 1.4rem;
-      text-align: center;
+      padding: 1.1rem 1.2rem;
+      text-align: left;
+    }
+
+    .growth-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: .6rem;
+      padding: .25rem 0;
+      border-bottom: 1px solid rgba(242, 169, 0, 0.22);
+    }
+
+    .growth-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .growth-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: .58rem;
+      font-weight: 700;
+      color: #8a6400;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+
+    .growth-value {
+      font-family: 'Montserrat', sans-serif;
+      font-size: .98rem;
+      font-weight: 800;
+      color: #103050;
+      white-space: nowrap;
+    }
+
+    .growth-value.up {
+      color: #16a34a;
+    }
+
+    .growth-value.down {
+      color: #dc2626;
     }
   </style>
 </head>
@@ -213,18 +252,8 @@
       <div>
         <div class="flex items-center gap-3 mb-2">
           <div class="w-1 h-8 bg-brand-secondary"></div>
-          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Fluxo Mensal —
-            Painel Resolveu</p>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Distribuição das Manifestações por mês</p>
         </div>
-        <p class="text-gray-500 font-medium ml-4 text-lg">Painel Resolveu — Fala.BR: 304 demandas no trimestre</p>
-      </div>
-      <div class="flex items-center gap-4 ml-6">
-        <span class="flex items-center gap-2 text-sm text-gray-500"><span class="legend-dot"
-            style="background:#0070C0;"></span>Jan</span>
-        <span class="flex items-center gap-2 text-sm text-gray-500"><span class="legend-dot"
-            style="background:#0090C0;"></span>Fev</span>
-        <span class="flex items-center gap-2 text-sm text-gray-500"><span class="legend-dot"
-            style="background:#103050;"></span>Mar</span>
       </div>
     </div>
 
@@ -233,11 +262,8 @@
       <div class="chart-card col-span-2 flex flex-col">
         <p class="text-brand-primary font-montserrat font-bold text-xl mb-1 flex items-center gap-2"><i
             class="fas fa-chart-bar text-brand-secondary"></i> Atendimentos Painel Resolveu por Mês</p>
-        <p class="text-gray-400 text-sm mb-1">52 + 123 + 129 = <strong class="text-brand-primary">304</strong> — 75% do
-          volume do Omnichannel</p>
-        <p class="text-gray-400 mb-2" style="font-size:0.5rem;">Demanda moderada em janeiro. Tendência se estabilizou em
-          março (+4,8%), evidenciando o momento de maior
-          atividade operacional do trimestre.</p>
+        <p class="text-gray-400 text-sm mb-1">90 + 129 + 85 = <strong class="text-brand-primary">304</strong> manifestações no trimestre</p>
+        <p class="text-gray-400 mb-2" style="font-size:0.5rem;">Distribuição mensal das manifestações recebidas no Fala.BR ao longo do trimestre.</p>
         <div class="flex-1 relative"><canvas id="chartFluxo"></canvas></div>
       </div>
 
@@ -247,8 +273,7 @@
           <p class="text-blue-100 font-montserrat font-bold text-xs uppercase tracking-widest mb-2">Fala.BR — Painel
             Resolveu</p>
           <p class="kpi-num text-6xl">304</p>
-          <p class="text-blue-200 text-sm mt-2"><span class="font-bold text-white">75%</span> do Omnichannel (304/405)
-          </p>
+          <p class="text-blue-200 text-sm mt-2">Total de manifestações registradas no trimestre</p>
           <i class="fas fa-check-circle kpi-watermark"></i>
         </div>
 
@@ -257,26 +282,29 @@
           <div class="month-grid">
             <div class="month-item">
               <p class="month-label">Janeiro</p>
-              <p class="month-value">52</p>
+              <p class="month-value">90</p>
             </div>
             <div class="month-item">
               <p class="month-label">Fevereiro</p>
-              <p class="month-value">123</p>
+              <p class="month-value">129</p>
             </div>
             <div class="month-item">
               <p class="month-label">Março</p>
-              <p class="month-value">129</p>
+              <p class="month-value">85</p>
             </div>
           </div>
         </div>
 
         <!-- Crescimentos mensais -->
-        <div style="display:flex;gap:0.5rem;">
-
-          <div class="growth-card" style="flex:1;">
-            <i class="fas fa-arrow-trend-up text-xl mb-1" style="color:#F2A900;"></i>
-            <p class="font-montserrat font-bold" style="font-size:1.2rem;color:#16a34a;">+4,8%</p>
-            <p class="text-gray-500" style="font-size:0.42rem;">Fev → Mar</p>
+        <div class="growth-card" style="flex:1;">
+          <p class="font-montserrat font-bold text-sm text-brand-primary mb-2">Evolução mensal</p>
+          <div class="growth-row">
+            <span class="growth-label">Jan → Fev</span>
+            <span class="growth-value up">+43,3%</span>
+          </div>
+          <div class="growth-row">
+            <span class="growth-label">Fev → Mar</span>
+            <span class="growth-value down">-34,1%</span>
           </div>
         </div>
 
@@ -293,7 +321,7 @@
     const monthColors = ['#0070C0', '#0090C0', '#103050'];
     new Chart(document.getElementById('chartFluxo'), {
       type: 'bar',
-      data: { labels: ['Janeiro', 'Fevereiro', 'Março'], datasets: [{ data: [52, 123, 129], backgroundColor: monthColors, borderRadius: 6, maxBarThickness: 120 }] },
+      data: { labels: ['Janeiro', 'Fevereiro', 'Março'], datasets: [{ data: [90, 129, 85], backgroundColor: monthColors, borderRadius: 6, maxBarThickness: 120 }] },
       options: { responsive: true, maintainAspectRatio: false, layout: { padding: { top: 20 } }, plugins: { legend: { display: false }, tooltip: { enabled: false } }, scales: { x: { grid: { display: false }, ticks: { color: '#6b7280', font: { size: 13, weight: '600' } } }, y: { beginAtZero: true, grid: { color: '#eef1f5' }, ticks: { color: '#9ca3af', font: { size: 11 } } } } },
       plugins: [{ id: 'valueLabels', afterDatasetsDraw(chart) { const { ctx } = chart; ctx.save(); ctx.font = '700 16px Montserrat, sans-serif'; ctx.fillStyle = '#103050'; ctx.textAlign = 'center'; chart.getDatasetMeta(0).data.forEach((bar, i) => { ctx.fillText(chart.data.datasets[0].data[i], bar.x, bar.y - 8); }); ctx.restore(); } }]
     });
