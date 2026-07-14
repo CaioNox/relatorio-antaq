@@ -1,215 +1,500 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
   <title>Ouvidoria em Números - Relatório Trimestral Ouvidoria ANTAQ</title>
-  <link rel="icon" type="image/png" href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link rel="icon" type="image/png"
+    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap"
+    rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
   <style>
-    * { box-sizing: border-box; }
-    html { font-size: 26px; }
-    body { margin: 0; padding: 0; overflow: hidden; background-color: #ffffff; }
-    .slide-container { width: 100vw; height: 100vh; position: relative; display: flex; flex-direction: column; font-family: 'Open Sans', sans-serif; overflow: hidden; }
-    .font-montserrat { font-family: 'Montserrat', sans-serif; }
-    .text-brand-primary { color: #103050; }
-    .text-brand-secondary { color: #0070C0; }
-    .bg-brand-secondary { background-color: #0070C0; }
-    .top-accent { height: 8px; background-color: #103050; width: 100%; }
-    .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
+    * {
+      box-sizing: border-box;
+    }
 
-    /* ───────── Stepper Principal ───────── */
-    .stepper-wrapper { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 0 4rem 1rem; }
-    .stepper { display: flex; flex-direction: column; gap: 0.55rem; width: 100%; max-width: 1400px; margin: 0 auto; }
-    
-    .step {
-      display: flex; align-items: center; gap: 1.2rem; border-radius: 16px;
-      padding: 0.95rem 1.4rem; position: relative;
-      box-shadow: 0 8px 22px -10px rgba(16, 48, 80, .28);
-      transition: transform .28s cubic-bezier(.2, .7, .3, 1), box-shadow .28s ease;
+    html {
+      font-size: 26px;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: #ffffff;
+    }
+
+    .slide-container {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      font-family: 'Open Sans', sans-serif;
+      overflow: hidden;
+    }
+
+    .font-montserrat {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .text-brand-primary {
+      color: #103050;
+    }
+
+    .text-brand-secondary {
+      color: #0070C0;
+    }
+
+    .bg-brand-secondary {
+      background-color: #0070C0;
+    }
+
+    .top-accent {
+      height: 8px;
+      background-color: #103050;
+      width: 100%;
+    }
+
+    .top-accent-secondary {
+      height: 4px;
+      background-color: #0070C0;
+      width: 100%;
+    }
+
+    /* ───────── Layout ───────── */
+    .main {
+      flex: 1;
+      min-height: 0;
+      display: grid;
+      grid-template-columns: 34% 1fr;
+      gap: 1.6rem;
+      padding: 0.6rem 4rem 1rem;
+      z-index: 10;
+    }
+
+    /* ── Painel-herói (esquerda) ── */
+    .hero {
+      background: linear-gradient(150deg, #0A1E30, #17426A);
+      border-radius: 20px;
       color: #fff;
+      padding: 1.6rem 1.7rem;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 16px 34px -14px rgba(16, 48, 80, .5);
     }
-    .step:hover { transform: translateX(6px); box-shadow: 0 14px 30px -10px rgba(16, 48, 80, .36); }
 
-    /* Estilo Especial para as Subcaixas Identadas */
-    .step-sub {
-      margin-left: 2.2rem; /* Indentação à direita */
-      padding: 0.75rem 1.4rem; /* Um pouco menor em altura */
+    .hero::after {
+      content: "\f3fa";
+      font-family: "Font Awesome 6 Free";
+      font-weight: 900;
+      position: absolute;
+      right: -1.2rem;
+      bottom: -1.8rem;
+      font-size: 8rem;
+      color: rgba(255, 255, 255, 0.06);
     }
 
-    /* Tons de Azul em Cascata */
-    .step-b1 { background: linear-gradient(120deg, #0A1E30, #103050); border-left: 6px solid #1E40AF; }
-    .step-b2 { background: linear-gradient(120deg, #103050, #17426A); border-left: 6px solid #2563EB; }
-    .step-b3 { background: linear-gradient(120deg, #17426A, #1C548A); border-left: 6px solid #3B82F6; }
-    .step-b4 { background: linear-gradient(120deg, #1C548A, #246BAA); border-left: 6px solid #60A5FA; }
-    .step-b5 { background: linear-gradient(120deg, #246BAA, #2C82CD); border-left: 6px solid #93C5FD; }
-
-    /* Caixa Numérica (Subcaixa esquerda) */
-    .step-num {
-      width: 105px; height: 105px; border-radius: 18px; flex-shrink: 0;
-      background: rgba(255, 255, 255, 0.12); border: 1.5px solid rgba(255, 255, 255, 0.22);
-      display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: .55rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: .6rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: #93C5FD;
     }
-    .step-sub .step-num { width: 90px; height: 90px; border-radius: 14px; } /* Numérica menor para subcaixas */
 
-    .step-num .n { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.95rem; line-height: 1; letter-spacing: -0.03em; }
-    .step-sub .step-num .n { font-size: 1.65rem; }
+    .hero-num {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 5.3rem;
+      line-height: .9;
+      letter-spacing: -.04em;
+      margin-top: .5rem;
+    }
 
-    .step-num .u { font-size: 0.44rem; font-weight: 700; opacity: 0.9; margin-top: 4px; letter-spacing: 0.05em; text-transform: uppercase; }
-    .step-sub .step-num .u { font-size: 0.4rem; margin-top: 2px; }
+    .hero-unit {
+      font-size: .8rem;
+      font-weight: 600;
+      color: rgba(255, 255, 255, .85);
+      margin-top: .1rem;
+    }
 
-    /* Área de Texto Ampliada */
-    .step-body { min-width: 0; flex: 1; }
-    .step-kicker { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.35rem; }
-    .step-kicker i { font-size: 1.05rem; opacity: 0.9; }
-    .step-sub .step-kicker i { font-size: 0.95rem; }
-    .step-kicker img { height: 1.05rem; width: auto; filter: brightness(0) invert(1); opacity: 0.95; }
-    .step-title { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.15rem; line-height: 1; }
-    .step-sub .step-title { font-size: 1.02rem; }
-    .step-desc { font-size: 0.66rem; line-height: 1.55; color: rgba(255, 255, 255, 0.88); text-align: justify; }
-    .step-sub .step-desc { font-size: 0.62rem; }
+    .hero-period {
+      font-size: .62rem;
+      color: rgba(255, 255, 255, .6);
+      margin-top: .15rem;
+      letter-spacing: .04em;
+    }
 
-    /* Animações */
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
-    .anim { animation: fadeUp .5s ease both; }
-    .d1 { animation-delay: .05s }
-    .d2 { animation-delay: .15s }
-    .d3 { animation-delay: .25s }
-    .d4 { animation-delay: .35s }
-    .d5 { animation-delay: .45s }
+    .hero-div {
+      height: 1px;
+      background: rgba(255, 255, 255, .16);
+      margin: 1.15rem 0 1rem;
+    }
 
-    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+    .hero-contact {
+      display: flex;
+      flex-direction: column;
+      gap: .7rem;
+    }
+
+    .hc-item {
+      display: flex;
+      align-items: center;
+      gap: .7rem;
+    }
+
+    .hc-ico {
+      width: 34px;
+      height: 34px;
+      border-radius: 9px;
+      background: rgba(255, 255, 255, .12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .85rem;
+      flex-shrink: 0;
+    }
+
+    .hc-label {
+      font-size: .55rem;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: rgba(255, 255, 255, .55);
+      font-weight: 700;
+    }
+
+    .hc-value {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: .82rem;
+      line-height: 1.1;
+    }
+
+    /* ── Painel direito ── */
+    .right {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .lead {
+      font-size: .8rem;
+      line-height: 1.55;
+      color: #103050;
+      font-weight: 600;
+      border-left: 4px solid #0090C0;
+      padding-left: 1rem;
+      margin-bottom: 1.05rem;
+    }
+
+    .lead b {
+      color: #0070C0;
+      font-weight: 700;
+    }
+
+    .block-label {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: .64rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: #0070C0;
+      margin-bottom: .8rem;
+    }
+
+    .block-label::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: #E2E8F0;
+    }
+
+    /* Canais */
+    .channels {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: .7rem;
+      margin-bottom: 1.15rem;
+    }
+
+    .ch {
+      border: 1px solid #E2E8F0;
+      border-radius: 12px;
+      padding: .75rem .5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .4rem;
+      background: #F8FAFC;
+      transition: border-color .2s, box-shadow .2s, transform .2s;
+    }
+
+    .ch:hover {
+      border-color: #0070C0;
+      box-shadow: 0 8px 18px -10px rgba(16, 48, 80, .22);
+      transform: translateY(-2px);
+    }
+
+    .ch-ico {
+      width: 42px;
+      height: 42px;
+      border-radius: 11px;
+      background: linear-gradient(135deg, #103050, #0070C0);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.05rem;
+    }
+
+    .ch-name {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: .66rem;
+      color: #103050;
+    }
+
+    /* Distribuição mensal — ancorada ao fundo, alinhando com o rodapé do herói */
+    .chart-block {
+      margin-top: auto;
+    }
+
+    .months {
+      display: flex;
+      align-items: flex-end;
+      gap: 1.6rem;
+      height: 430px;
+      padding: 0 .5rem;
+    }
+
+    .m {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100%;
+      justify-content: flex-end;
+    }
+
+    .m-val {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 1rem;
+      color: #103050;
+      margin-bottom: .35rem;
+    }
+
+    .m-bar {
+      width: 100%;
+      max-width: 96px;
+      border-radius: 10px 10px 0 0;
+      background: linear-gradient(180deg, #2C82CD, #103050);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .08);
+    }
+
+    .m-name {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: .62rem;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: #64748B;
+      margin-top: .55rem;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    @keyframes grow {
+      from {
+        transform: scaleY(0);
+      }
+
+      to {
+        transform: scaleY(1);
+      }
+    }
+
+    .anim {
+      animation: fadeUp .5s ease both;
+    }
+
+    .d1 {
+      animation-delay: .05s
+    }
+
+    .d2 {
+      animation-delay: .15s
+    }
+
+    .d3 {
+      animation-delay: .25s
+    }
+
+    .m-bar {
+      transform-origin: bottom;
+      animation: grow .6s cubic-bezier(.2, .7, .3, 1) both;
+    }
+
+    .m:nth-child(1) .m-bar {
+      animation-delay: .2s
+    }
+
+    .m:nth-child(2) .m-bar {
+      animation-delay: .32s
+    }
+
+    .m:nth-child(3) .m-bar {
+      animation-delay: .44s
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
   </style>
 </head>
+
 <body>
   <div class="slide-container">
     <div class="top-accent"></div>
     <div class="top-accent-secondary"></div>
 
-    <!-- Header Limpo com Tag do Capítulo 02 -->
-    <div class="flex items-center justify-between px-16 pt-10 pb-2 z-10">
+    <!-- Header -->
+    <div class="flex items-center justify-between px-16 pt-8 pb-2 z-10">
       <div>
         <div class="flex items-center gap-3 mb-1">
           <div class="w-1 h-8 bg-brand-secondary"></div>
-          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Ouvidoria em Números</p>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Ouvidoria em Números
+          </p>
         </div>
-        <p class="text-gray-500 font-medium ml-4 text-lg">Canais de Atendimento</p>
+        <p class="text-gray-500 font-medium ml-4 text-lg">Atendimento realizados via Omnichannel</p>
       </div>
       <div class="flex items-center gap-3 opacity-80 text-brand-secondary">
         <i class="fas fa-landmark text-3xl align-middle" aria-hidden="true"></i>
-        <div class="flex flex-col justify-center border-left pl-2" style="border-left: 1px solid #CBD5E1;">
+        <div class="flex flex-col justify-center pl-2" style="border-left: 1px solid #CBD5E1;">
           <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1">CAPÍTULO 02</p>
-          <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none">A Ouvidoria da ANTAQ</p>
+          <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none">A
+            Ouvidoria da ANTAQ</p>
         </div>
       </div>
     </div>
 
-    <!-- Conteúdo Principal - As 5 Barras Horizontais -->
-    <div class="stepper-wrapper z-10">
-      <div class="stepper">
+    <!-- Conteúdo -->
+    <div class="main">
 
-        <!-- 1: Omnichannel -->
-        <div class="step step-b1 anim d1">
-          <div class="step-num">
-            <span class="n">405</span>
-            <span class="u">atendimentos</span>
-          </div>
-          <div class="step-body">
-            <div class="step-kicker">
-              <i class="fas fa-headset"></i>
-              <span class="step-title">Omnichannel</span>
+      <!-- Herói: número total + contato -->
+      <div class="hero anim d1">
+        <p class="hero-eyebrow"><i class="fas fa-landmark"></i> No trimestre</p>
+        <p class="hero-num">405</p>
+        <p class="hero-unit">atendimentos realizados</p>
+        <p class="hero-period">1º trimestre de 2026 · Jan a Mar</p>
+
+        <div class="hero-div"></div>
+
+        <div class="hero-contact">
+          <div class="hc-item">
+            <div class="hc-ico"><i class="fas fa-phone"></i></div>
+            <div>
+              <p class="hc-label">Disque Ouvidoria</p>
+              <p class="hc-value">0800 644 5001</p>
             </div>
-            <p class="step-desc">
-              Plataforma que centraliza os atendimentos realizados via WhatsApp e telefone. Destina-se a orientações e atendimentos rápidos, sendo que parte dessas interações gera registros formais no Fala.BR.
-            </p>
+          </div>
+          <div class="hc-item">
+            <div class="hc-ico"><i class="fab fa-whatsapp"></i></div>
+            <div>
+              <p class="hc-label">Assistente virtual</p>
+              <p class="hc-value">Iara · WhatsApp</p>
+            </div>
           </div>
         </div>
-
-        <!-- 2: Outros Canais -->
-        <div class="step step-b2 anim d2">
-          <div class="step-num">
-            <i class="fas fa-share-nodes text-4xl opacity-90"></i>
-          </div>
-          <div class="step-body">
-            <div class="step-kicker">
-              <i class="fas fa-envelope-open-text"></i>
-              <span class="step-title">Outros Canais de Atendimento</span>
-            </div>
-            <p class="step-desc">
-              O cidadão também pode contatar a Ouvidoria por meio de e-mail, redes sociais e atendimento presencial. Assim como no Omnichannel, essas interações também podem ser convertidas em demandas no Fala.BR.
-            </p>
-          </div>
-        </div>
-
-        <!-- 3: Fala.BR -->
-        <div class="step step-b3 anim d3">
-          <div class="step-num">
-            <span class="n">434</span>
-            <span class="u">registros</span>
-          </div>
-          <div class="step-body">
-            <div class="step-kicker">
-              <img src="Imagens/Logo_Fala_BR.png" alt="Fala.BR" />
-              <span class="step-title">Fala.BR</span>
-            </div>
-            <p class="step-desc">
-              Plataforma oficial que centraliza o tratamento das demandas da Agência. Este número consolida tanto as manifestações tratadas pela SAC quanto os pedidos de acesso à informação geridos pela STAI.
-            </p>
-          </div>
-        </div>
-
-        <!-- 4: SAC (Subcaixa Identada) -->
-        <div class="step step-sub step-b4 anim d4">
-          <div class="step-num">
-            <span class="n">304</span>
-            <span class="u">demandas</span>
-          </div>
-          <div class="step-body">
-            <div class="step-kicker">
-              <i class="fas fa-list-check"></i>
-              <span class="step-title">Seção de Apoio ao Cidadão — SAC</span>
-            </div>
-            <p class="step-desc">
-              Manifestações que podem ser dos tipos: denúncia, elogio, reclamação, simplifique, solicitação e sugestão. O andamento e os quantitativos destas demandas podem ser consultados publicamente no Painel Resolveu.
-            </p>
-          </div>
-        </div>
-
-        <!-- 5: STAI (Subcaixa Identada) -->
-        <div class="step step-sub step-b5 anim d5">
-          <div class="step-num">
-            <span class="n">130</span>
-            <span class="u">atendimentos</span>
-          </div>
-          <div class="step-body">
-            <div class="step-kicker">
-              <i class="fas fa-lock-open"></i>
-              <span class="step-title">Seção de Transparência e Acesso à Informação — STAI</span>
-            </div>
-            <p class="step-desc">
-              Tratamento exclusivo de pedidos de acesso à informação (LAI). O desempenho e os prazos destas respostas podem ser acompanhados detalhadamente por meio do Painel LAI.
-            </p>
-          </div>
-        </div>
-
       </div>
+
+      <!-- Direita: explicação + canais + distribuição mensal -->
+      <div class="right">
+        <p class="lead anim d2">
+          O <b>Omnichannel</b> é a plataforma que centraliza, em um único fluxo, os atendimentos da Ouvidoria.
+          Voltado a <b>orientações e atendimentos rápidos</b>, reúne os diferentes meios de contato do cidadão em
+          uma experiência integrada e padronizada.
+        </p>
+
+        <p class="block-label"><i class="fas fa-diagram-project"></i> Meios de contato integrados</p>
+        <div class="channels anim d2">
+          <div class="ch">
+            <div class="ch-ico"><i class="fab fa-whatsapp"></i></div><span class="ch-name">WhatsApp</span>
+          </div>
+          <div class="ch">
+            <div class="ch-ico"><i class="fas fa-phone"></i></div><span class="ch-name">Telefone</span>
+          </div>
+          <div class="ch">
+            <div class="ch-ico"><i class="fas fa-globe"></i></div><span class="ch-name">Portal</span>
+          </div>
+          <div class="ch">
+            <div class="ch-ico"><i class="fas fa-envelope"></i></div><span class="ch-name">E-mail</span>
+          </div>
+        </div>
+
+        <div class="chart-block">
+          <p class="block-label"><i class="fas fa-chart-column"></i> Distribuição mensal dos atendimentos</p>
+          <div class="months anim d3">
+            <div class="m"><span class="m-val">209</span>
+              <div class="m-bar" style="height: 100%;"></div><span class="m-name">Janeiro</span>
+            </div>
+            <div class="m"><span class="m-val">106</span>
+              <div class="m-bar" style="height: 51%;"></div><span class="m-name">Fevereiro</span>
+            </div>
+            <div class="m"><span class="m-val">90</span>
+              <div class="m-bar" style="height: 43%;"></div><span class="m-name">Março</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <!-- Footer -->
     <div class="px-16 pb-6 flex justify-between items-center z-10">
       <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ</p>
+      <p class="text-gray-300 text-xs font-montserrat font-bold tracking-widest uppercase">Omnichannel</p>
     </div>
   </div>
-  
+
   <script>
-    document.addEventListener("keydown", function (e) { 
-      if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { 
-        e.preventDefault(); 
-        window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); 
-      } 
+    document.addEventListener("keydown", function (e) {
+      if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) {
+        e.preventDefault();
+        window.parent.postMessage({ type: "slide-nav", key: e.key }, "*");
+      }
     });
   </script>
 </body>
+
 </html>

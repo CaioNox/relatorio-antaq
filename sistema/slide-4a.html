@@ -21,38 +21,31 @@
     .gov-eyebrow { display: flex; align-items: center; gap: .5rem; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: .62rem; letter-spacing: .16em; text-transform: uppercase; color: #64748B; margin-bottom: .5rem; }
     .gov-eyebrow i { color: #0070C0; }
 
-    /* ── Corpo editorial — documento em prosa ── */
+    /* ── Corpo em formato de texto/documento ── */
     .doc {
       flex: 1; min-height: 0; position: relative; z-index: 10;
-      padding: 0.6rem 5rem 0.5rem 5rem;
+      padding: 0.7rem 5rem 0.6rem 5rem;
       display: flex; flex-direction: column; justify-content: center;
       animation: fadeInUp .5s cubic-bezier(.2,.7,.3,1) both;
     }
     .doc-lead {
-      font-size: .98rem; line-height: 1.48; color: #103050; font-weight: 600;
-      border-left: 4px solid #0090C0; padding-left: 1.1rem; margin-bottom: 1rem; text-indent: 1.8em;
+      font-size: 1.02rem; line-height: 1.5; color: #103050; font-weight: 600;
+      border-left: 4px solid #0090C0; padding-left: 1.1rem; margin-bottom: 1.1rem;
     }
     .doc-lead b { color: #0070C0; font-weight: 700; }
+    .doc-cols { columns: 2; column-gap: 2.6rem; }
+    .doc-text { color: #334155; font-size: .82rem; line-height: 1.62; margin: 0 0 .85rem; break-inside: avoid; text-indent: 1.8em; text-align: justify; }
+    .doc-text b { color: #103050; font-weight: 700; }
 
-    .doc-cols { columns: 2; column-gap: 3rem; text-align: justify; hyphens: auto; }
-    .doc-cols p { color: #334155; font-size: .77rem; line-height: 1.6; margin: 0 0 .72rem; break-inside: avoid; text-indent: 1.8em; }
-    .doc-cols p b { color: #103050; font-weight: 700; }
-    .doc-cols p.first { text-indent: 0; }
-    /* Capitular */
-    .doc-cols p.first::first-letter {
-      font-family: 'Montserrat', sans-serif; font-weight: 800; color: #0070C0;
-      font-size: 2.9rem; line-height: .82; float: left; margin: .08rem .5rem 0 0;
+    .doc-subtitle {
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .68rem;
+      letter-spacing: .1em; text-transform: uppercase; color: #0070C0;
+      margin: 0 0 .5rem; display: flex; align-items: center; gap: .5rem; break-inside: avoid;
     }
-    .doc-run { display: inline-flex; align-items: center; gap: .4rem; }
-    .doc-tag {
-      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .66rem;
-      letter-spacing: .06em; text-transform: uppercase; color: #0070C0;
-    }
-    .doc-close {
-      margin-top: .55rem; padding-top: .6rem; border-top: 1px solid #E2E8F0;
-      font-size: .72rem; color: #475569; font-style: italic; line-height: 1.5;
-    }
-    .doc-close b { color: #103050; font-style: normal; font-weight: 700; }
+    .act-list { list-style: none; margin: 0 0 .3rem; padding: 0; break-inside: avoid; }
+    .act-list li { position: relative; padding-left: 1.3rem; margin-bottom: .48rem; font-size: .8rem; line-height: 1.45; color: #334155; text-align: justify; }
+    .act-list li::before { content: "\f105"; font-family: "Font Awesome 6 Free"; font-weight: 900; position: absolute; left: 0; top: .05rem; color: #0090C0; }
+    .act-list li b { color: #103050; font-weight: 700; }
 
     .bg-pattern { position: absolute; bottom: -60px; right: -50px; width: 400px; height: 400px; opacity: 0.03; z-index: 0; color: #103050; }
     @keyframes fadeInUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
@@ -64,7 +57,7 @@
     <div class="top-accent"></div>
     <div class="top-accent-secondary"></div>
 
-    <div class="flex items-center justify-between px-16 pt-5 pb-2 z-10">
+    <div class="flex items-center justify-between px-16 pt-6 pb-3 z-10">
       <div>
         <p class="gov-eyebrow"><i class="fas fa-landmark"></i> Agência Nacional de Transportes Aquaviários — ANTAQ</p>
         <div class="flex items-center gap-3 mb-1">
@@ -79,55 +72,39 @@
       </div>
     </div>
 
-    <!-- Corpo — documento em prosa -->
+    <!-- Corpo — formato de texto -->
     <div class="doc">
       <p class="doc-lead">
-        A <b>Seção de Transparência e Acesso à Informação (STAI)</b> é responsável pela gestão dos <b>pedidos de acesso à informação</b>, pela promoção da
-        <b>transparência ativa e passiva</b> e pela condução das <b>políticas de dados abertos</b>, conforme a
-        Lei nº 12.527/2011 e o seu regulamento.
+        A <b>Seção de Transparência e Acesso à Informação (STAI)</b> é responsável pela gestão dos pedidos de acesso à
+        informação, pela promoção da transparência ativa e passiva e pela condução das políticas de dados abertos,
+        conforme a Lei nº 12.527/2011.
       </p>
 
       <div class="doc-cols">
-        <p class="first">
-          Integrada à estrutura da <b>Ouvidoria da ANTAQ</b>, a <b>STAI</b>
-          é a unidade encarregada de assegurar, no âmbito da Agência, a plena efetividade do direito fundamental de
-          acesso à informação pública. Atua como ponto focal do <b>Serviço de Informação ao Cidadão (e-SIC)</b>,
-          articulando as áreas técnicas para que cada demanda seja respondida com exatidão, tempestividade e linguagem
-          acessível ao cidadão.
+        <p class="doc-text">
+          Integrada à estrutura da <b>Ouvidoria da ANTAQ</b>, a STAI é a unidade encarregada de assegurar a plena
+          efetividade do direito fundamental de acesso à informação pública. Atua como ponto focal do <b>Serviço de
+          Informação ao Cidadão (e-SIC)</b>, articulando as áreas técnicas para que cada demanda seja respondida com
+          exatidão, tempestividade e linguagem acessível ao cidadão.
         </p>
-        <p>
-          No campo da <b>transparência passiva</b>, a STAI recebe, registra, instrui e responde aos pedidos de acesso à
-          informação formulados por qualquer pessoa, por meio da <b>Plataforma Integrada de Ouvidoria e Acesso à
-          Informação (Fala.BR)</b>. Cabe-lhe monitorar o cumprimento dos prazos legais, orientar os requerentes e
-          processar eventuais recursos, sempre à luz das hipóteses de restrição previstas na legislação.
+        <p class="doc-text">
+          Na <b>transparência passiva</b>, recebe, instrui e responde aos pedidos formulados via <b>Fala.BR</b>,
+          monitorando o cumprimento dos prazos legais; na <b>transparência ativa</b>, promove a divulgação proativa de
+          informações de interesse coletivo. A condução das <b>políticas de dados abertos</b>, por meio do Plano de
+          Dados Abertos (PDA), completa esse tripé, reduzindo a assimetria de informação e estimulando o controle social.
         </p>
-        <p>
-          Na <b>transparência ativa</b>, promove a divulgação espontânea e proativa de informações de interesse
-          coletivo, independentemente de solicitação, mantendo atualizados os conteúdos obrigatórios e ampliando,
-          de forma contínua, o conjunto de dados disponibilizados à sociedade.
-        </p>
-        <p>
-          A condução das <b>políticas de dados abertos</b> completa esse tripé. Por meio do <b>Plano de Dados Abertos
-          (PDA)</b>, a Seção planeja, publica e monitora a abertura de bases produzidas pela ANTAQ em formato
-          reutilizável, contribuindo para reduzir a <b>assimetria de informação</b> entre o setor aquaviário e a
-          sociedade e para estimular o controle social e a inovação.
-        </p>
-        <p>
-          Todas essas atribuições encontram fundamento na <b>Lei nº 12.527/2011</b> — a Lei de Acesso à Informação (LAI) —
-          e em seu regulamento, que consagram a publicidade como preceito geral e o sigilo como exceção, orientando a
-          atuação da STAI pela transparência como <b>instrumento de cidadania</b> e de fortalecimento da confiança pública.
-        </p>
-      </div>
 
-      <p class="doc-close">
-        <b>Fundamento legal:</b> Lei nº 12.527/2011 (Lei de Acesso à Informação) e regulamento vigente — a publicidade
-        como regra, o sigilo como exceção.
-      </p>
+        <p class="doc-subtitle"><i class="fas fa-list-check"></i> Principais atividades da STAI</p>
+        <ul class="act-list">
+          <li><b>Apoio técnico à restrição:</b> auxiliar o corpo técnico da ANTAQ a identificar os elementos que caracterizam as hipóteses de restrição de acesso a documentos dos processos administrativos da Agência.</li>
+          <li><b>Uniformização das ações:</b> uniformizar as ações de restrição entre todas as diferentes unidades organizacionais da Agência.</li>
+          <li><b>Cultura da transparência:</b> fomentar a substituição da cultura de sigilo pela cultura da transparência, sem deixar de observar a segurança das informações resguardadas por lei.</li>
+        </ul>
+      </div>
     </div>
 
-    <div class="px-16 pb-5 pt-1 flex justify-between items-center z-10">
+    <div class="px-16 pb-6 pt-1 flex justify-between items-center z-10">
       <p class="text-gray-400 text-xs">Relatório Trimestral da Ouvidoria · 2026 — Agência Nacional de Transportes Aquaviários</p>
-      <p class="text-gray-300 text-xs font-mono">STAI · Apresentação</p>
     </div>
     <div class="bg-pattern"><i class="fas fa-unlock-keyhole text-9xl"></i></div>
   </div>
