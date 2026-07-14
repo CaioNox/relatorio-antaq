@@ -167,7 +167,9 @@
             margin-top: 0.3rem;
         }
 
-        .sum-col { min-width: 0; }
+        .sum-col {
+            min-width: 0;
+        }
 
         .sum-num {
             font-family: 'Montserrat', sans-serif;
@@ -198,7 +200,10 @@
             cursor: pointer;
             transition: color .18s ease;
         }
-        a.sum-title:hover { color: #0090C0; }
+
+        a.sum-title:hover {
+            color: #0090C0;
+        }
 
         .sum-item {
             position: relative;
@@ -213,6 +218,7 @@
             cursor: pointer;
             transition: color .18s ease;
         }
+
         .sum-item::before {
             content: "\f105";
             font-family: "Font Awesome 6 Free";
@@ -224,8 +230,14 @@
             color: #0090C0;
             transition: transform .18s ease;
         }
-        a.sum-item:hover { color: #0090C0; }
-        a.sum-item:hover::before { transform: translateX(3px); }
+
+        a.sum-item:hover {
+            color: #0090C0;
+        }
+
+        a.sum-item:hover::before {
+            transform: translateX(3px);
+        }
 
         .sum-group {
             position: relative;
@@ -238,6 +250,7 @@
             margin: 0.72rem 0 0.42rem;
             padding-left: 0.95rem;
         }
+
         .sum-group::before {
             content: "";
             position: absolute;
@@ -262,7 +275,11 @@
             cursor: pointer;
             transition: color .18s ease, border-color .18s ease;
         }
-        a.sum-subitem:hover { color: #0090C0; border-color: #0090C0; }
+
+        a.sum-subitem:hover {
+            color: #0090C0;
+            border-color: #0090C0;
+        }
 
         .sum-hint {
             font-family: 'Open Sans', sans-serif;
@@ -273,7 +290,10 @@
             align-items: center;
             gap: 0.45rem;
         }
-        .sum-hint i { color: #0090C0; }
+
+        .sum-hint i {
+            color: #0090C0;
+        }
 
         /* ===== Árvore do Sumário (multinível, estilo IDE) ===== */
         .tree {
@@ -499,7 +519,8 @@
              ================================================== -->
                 <!-- Sumário -->
                 <div class="sumario">
-                    <p class="sum-hint"><i class="fas fa-hand-pointer"></i> Clique em um capítulo ou seção para ir direto ao slide</p>
+                    <p class="sum-hint"><i class="fas fa-hand-pointer"></i> Clique em um capítulo ou seção para ir
+                        direto ao slide</p>
                     <div class="sum-grid" id="sumGrid"></div>
                 </div>
             </div>
@@ -590,15 +611,15 @@
                     t: 'Visão Geral das Ouvidorias Públicas', icon: 'fa-bullhorn', children: [
                         { t: 'Capa do bloco', f: 'capa-bloco-1.html' },
                         { t: 'Apresentação das ouvidorias', f: 'slide-ctx-01.html' },
+                        { t: 'Atribuições das ouvidorias', f: 'slide-atribuicoes-01.html' },
                         { t: 'Princípios das ouvidorias', f: 'slide-principios-01.html' },
                         { t: 'Diretrizes das ouvidorias', f: 'slide-diretrizes-01.html' },
-                        { t: 'Atribuições das ouvidorias', f: 'slide-atribuicoes-01.html' },
                     ]
                 },
                 {
                     t: 'A Ouvidoria da ANTAQ', icon: 'fa-landmark', children: [
                         { t: 'Capa do bloco', f: 'capa-bloco-2.html' },
-                        { t: 'Papel Institucional', f: 'slide-03c.html' },
+                        { t: 'Apresentação da ouvidoria da ANTAQ', f: 'slide-03c.html' },
                         { t: 'Estrutura Organizacional', f: 'slide-ouvidoria-geral.html' },
                         { t: 'Carta de Serviços da Antaq', f: 'slide-25.html' },
                         { t: 'Carta de Serviços (SOG)', f: 'slide-26.html' },
