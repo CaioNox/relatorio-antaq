@@ -133,18 +133,11 @@
       font-weight: 800;
       font-size: .82rem;
       color: #fff;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      white-space: normal;
+      overflow: visible;
+      text-overflow: unset;
       padding: 0 .4rem;
-    }
-
-    .split-seg.s-int {
-      background: rgba(255, 255, 255, .28);
-    }
-
-    .split-seg.s-ext {
-      background: rgba(255, 255, 255, .12);
+      line-height: 1.1;
     }
 
     .split-legend {
@@ -199,7 +192,7 @@
     .groups,
     .ocards {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 1.2rem;
     }
 
@@ -265,6 +258,22 @@
     }
     .ocard.g-ext .oc-fill {
       background: linear-gradient(90deg, #0A2A43, #1C5E92);
+    }
+
+    .ocard.ocard-processos {
+      border-top-color: #F2A900;
+      background: linear-gradient(180deg, #fff 0%, #fef6dc 100%);
+    }
+    .ocard.ocard-processos .oc-ico {
+      background: #fff4cf;
+      color: #F2A900;
+    }
+    .ocard.ocard-processos .oc-pct {
+      background: #fff4cf;
+      color: #B17C00;
+    }
+    .ocard.ocard-processos .oc-fill {
+      background: linear-gradient(90deg, #F2A900, #ffd166);
     }
 
     .ocard:nth-child(1) {
@@ -410,28 +419,30 @@
           <div class="w-1 h-8 bg-brand-secondary"></div>
           <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Tratamento de Demandas do Fala.BR</p>
         </div>
-        <p class="text-gray-500 font-medium ml-4 text-lg">Fluxo das 304 manifestações do Fala.BR até os processos administrativos
-          sancionatórios — 1º trimestre de 2026</p>
+        <p class="text-gray-500 font-medium ml-4 text-lg">Fluxo das 258 manifestações do Fala.BR tratadas no 1º trimestre de 2026</p>
       </div>
-      <div class="flex items-center gap-2 opacity-80 text-brand-secondary">
-        <i class="fas fa-code-branch text-xl" aria-hidden="true"></i>
-        <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">FLUXO · SANCIONATÓRIOS</p>
+      <div class="flex items-center gap-3 opacity-80 text-brand-secondary">
+        <i class="fas fa-headset text-3xl" aria-hidden="true"></i>
+        <div class="flex flex-col justify-center pl-2" style="border-left:1px solid #CBD5E1;">
+          <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1">CAPÍTULO 03</p>
+          <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none">Seção de Apoio ao Cidadão — SAC</p>
+        </div>
       </div>
     </div>
 
     <!-- Main -->
     <div class="flex-1 flex flex-col justify-center gap-5 px-16 pt-2 pb-5 z-10" style="min-height:0;">
-      <!-- HERO 304 + split -->
+      <!-- HERO -->
       <div class="hero">
-        <div class="hero-num">304<span>Demandas · Fala.BR · Jan–Mar 2026</span></div>
+        <div class="hero-num">258<span>Demandas tratadas no 1º trimestre</span></div>
         <div class="hero-split">
           <div class="split-bar">
-            <div class="split-seg s-int" style="flex:122 1 0;">122 · Ouvidoria e demais unidades da ANTAQ</div>
-            <div class="split-seg s-ext" style="flex:182 1 0;">182 · SFC e GPF</div>
+            <div class="split-seg s-int" style="flex:106 1 0;">106 demandas tratadas pela Ouvidoria e demais unidades da ANTAQ</div>
+            <div class="split-seg s-ext" style="flex:152 1 0;">152 demandas analisadas pela SFC e GPF</div>
           </div>
           <div class="split-legend">
-            <span style="flex:122 1 0;">Encaminhadas às demais áreas ou respondidas pela Ouvidoria</span>
-            <span style="flex:182 1 0;">Encaminhadas à SFC e GPF</span>
+            <span style="flex:106 1 0;">Total de manifestações tratadas internamente pela Ouvidoria</span>
+            <span style="flex:152 1 0;">Total de manifestações encaminhadas para SFC e GPF</span>
           </div>
         </div>
         <i class="fas fa-diagram-project hero-ico" aria-hidden="true"></i>
@@ -440,77 +451,42 @@
       <!-- Texto explicativo -->
       <div class="explain">
         <i class="fas fa-circle-info" aria-hidden="true"></i>
-        <p>Das <b>304</b> manifestações do Fala.BR analisadas no 1º trimestre, <b>122</b> foram tratadas pela
-          <b>Ouvidoria e demais unidades da ANTAQ</b> — encaminhadas às demais áreas ou respondidas pela própria
-          Ouvidoria — e <b>182</b> foram encaminhadas à
-          <b>SFC e à GPF</b> — unidades internas da ANTAQ. Dessas, <b>103</b> geraram processos administrativos sancionatórios ou
-          foram associadas a processos já existentes, para apuração de denúncias e reclamações.
-        </p>
-      </div>
-
-      <!-- Faixas de grupo -->
-      <div class="groups">
-        <div class="bracket bracket-int"><span class="b-count">122</span><span>Ouvidoria e demais unidades da ANTAQ</span></div>
-        <div class="bracket bracket-ext"><span class="b-count">182</span><span>SFC e GPF · unidades internas da ANTAQ</span></div>
+        <p>No 1º trimestre de 2026, <b>258</b> manifestações do Fala.BR foram tratadas pela Ouvidoria e unidades internas da ANTAQ. Destas, <b>106</b> foram concluídas pela própria Ouvidoria e demais unidades, enquanto <b>152</b> foram encaminhadas para análise da SFC e GPF. Do total encaminhado à SFC e GPF, <b>49</b> também foram respondidas e <b>103</b> deram origem a processos administrativos sancionatórios.</p>
       </div>
 
       <!-- Cartões de desfecho -->
       <div class="ocards">
-        <!-- 122 -->
-        <div class="ocard g-int hero103">
+        <div class="ocard">
           <div class="oc-top">
             <div class="oc-ico"><i class="fas fa-reply"></i></div>
-            <span class="oc-pct">34,9%</span>
+            <span class="oc-pct">41%</span>
           </div>
           <div class="oc-num">106</div>
-          <div class="oc-lbl">Respondidas</div>
+          <div class="oc-lbl">Tratadas pela Ouvidoria e demais unidades</div>
           <div class="oc-track">
-            <div class="oc-fill" data-w="34.9"></div>
+            <div class="oc-fill" data-w="41"></div>
           </div>
         </div>
-        <div class="ocard g-int">
-          <div class="oc-top">
-            <div class="oc-ico"><i class="fas fa-box-archive"></i></div>
-            <span class="oc-pct">5,3%</span>
-          </div>
-          <div class="oc-num">16</div>
-          <div class="oc-lbl">Arquivadas</div>
-          <div class="oc-track">
-            <div class="oc-fill" data-w="5.3"></div>
-          </div>
-        </div>
-        <!-- 182 -->
-        <div class="ocard g-ext">
+        <div class="ocard">
           <div class="oc-top">
             <div class="oc-ico"><i class="fas fa-reply"></i></div>
-            <span class="oc-pct">16,1%</span>
+            <span class="oc-pct">19%</span>
           </div>
           <div class="oc-num">49</div>
-          <div class="oc-lbl">Respondidas</div>
+          <div class="oc-lbl">Respondidas pela SFC e GPF</div>
           <div class="oc-track">
-            <div class="oc-fill" data-w="16.1"></div>
+            <div class="oc-fill" data-w="19"></div>
           </div>
         </div>
-        <div class="ocard g-ext">
-          <div class="oc-top">
-            <div class="oc-ico"><i class="fas fa-box-archive"></i></div>
-            <span class="oc-pct">9,9%</span>
-          </div>
-          <div class="oc-num">30</div>
-          <div class="oc-lbl">Arquivadas</div>
-          <div class="oc-track">
-            <div class="oc-fill" data-w="9.9"></div>
-          </div>
-        </div>
-        <div class="ocard g-ext hero103">
+        <div class="ocard ocard-processos">
           <div class="oc-top">
             <div class="oc-ico"><i class="fas fa-gavel"></i></div>
-            <span class="oc-pct">33,9%</span>
+            <span class="oc-pct">40%</span>
           </div>
           <div class="oc-num">103</div>
-          <div class="oc-lbl">Processos administrativos</div>
+          <div class="oc-lbl">Processos administrativos sancionatórios</div>
           <div class="oc-track">
-            <div class="oc-fill" data-w="33.9"></div>
+            <div class="oc-fill" data-w="40"></div>
           </div>
         </div>
       </div>

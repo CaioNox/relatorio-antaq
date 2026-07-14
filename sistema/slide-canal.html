@@ -42,12 +42,12 @@
       padding: .35rem 0; border-bottom: 1px solid #F1F5F9;
     }
     .canal-stat:last-child { border-bottom: none; }
-    .canal-stat .cs-left { display: flex; align-items: center; gap: .45rem; font-size: .66rem; color: #334155; }
-    .canal-stat .cs-dot { width: 8px; height: 8px; border-radius: 50%; }
-    .canal-stat .cs-val { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .8rem; color: #103050; }
+    .canal-stat .cs-left { display: flex; align-items: center; gap: .45rem; font-size: .78rem; color: #334155; }
+    .canal-stat .cs-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .canal-stat .cs-val { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .95rem; color: #103050; }
 
-    .legend-item { display: flex; align-items: center; gap: .3rem; font-size: .6rem; color: #475569; }
-    .legend-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+    .legend-item { display: flex; align-items: center; gap: .4rem; font-size: .8rem; color: #475569; }
+    .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
 
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
@@ -65,9 +65,12 @@
           <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Distribuição de Manifestações por Canal</p>
         </div>
       </div>
-      <div class="flex items-center gap-2 opacity-80 text-brand-secondary">
-        <i class="fas fa-broadcast-tower text-xl"></i>
-        <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">CANAIS</p>
+      <div class="flex items-center gap-3 opacity-80 text-brand-secondary">
+        <i class="fas fa-headset text-3xl" aria-hidden="true"></i>
+        <div class="flex flex-col justify-center pl-2" style="border-left:1px solid #CBD5E1;">
+          <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1">CAPÍTULO 03</p>
+          <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none">Seção de Apoio ao Cidadão — SAC</p>
+        </div>
       </div>
     </div>
 
@@ -80,23 +83,23 @@
         </div>
         <div class="chart-card">
           <div class="canal-stat">
-            <div class="cs-left"><div class="cs-dot" style="background:#0070C0;"></div>Email</div>
+            <div class="cs-left"><div class="cs-dot" style="background:#103050;"></div>Email</div>
             <span class="cs-val">57</span>
           </div>
           <div class="canal-stat">
-            <div class="cs-left"><div class="cs-dot" style="background:#0090C0;"></div>Internet</div>
+            <div class="cs-left"><div class="cs-dot" style="background:#0A75B7;"></div>Internet</div>
             <span class="cs-val">215</span>
           </div>
           <div class="canal-stat">
-            <div class="cs-left"><div class="cs-dot" style="background:#103050;"></div>Outros</div>
+            <div class="cs-left"><div class="cs-dot" style="background:#1F97D4;"></div>Outros</div>
             <span class="cs-val">3</span>
           </div>
           <div class="canal-stat">
-            <div class="cs-left"><div class="cs-dot" style="background:#0EA5E9;"></div>Telefone</div>
+            <div class="cs-left"><div class="cs-dot" style="background:#4EAFE8;"></div>Telefone</div>
             <span class="cs-val">7</span>
           </div>
           <div class="canal-stat">
-            <div class="cs-left"><div class="cs-dot" style="background:#22C55E;"></div>WhatsApp</div>
+            <div class="cs-left"><div class="cs-dot" style="background:#86C6EB;"></div>WhatsApp</div>
             <span class="cs-val">22</span>
           </div>
           <div class="canal-stat" style="border-top:1px solid #E2E8F0; margin-top:.2rem; padding-top:.35rem;">
@@ -114,11 +117,11 @@
         </div>
         <div class="chart-card">
           <div class="flex gap-4 justify-center flex-wrap">
-            <div class="legend-item"><div class="legend-dot" style="background:#0070C0;"></div>Email</div>
-            <div class="legend-item"><div class="legend-dot" style="background:#0090C0;"></div>Internet</div>
-            <div class="legend-item"><div class="legend-dot" style="background:#103050;"></div>Outros</div>
-            <div class="legend-item"><div class="legend-dot" style="background:#0EA5E9;"></div>Telefone</div>
-            <div class="legend-item"><div class="legend-dot" style="background:#22C55E;"></div>WhatsApp</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#103050;"></div>Email</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#0A75B7;"></div>Internet</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#1F97D4;"></div>Outros</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#4EAFE8;"></div>Telefone</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#86C6EB;"></div>WhatsApp</div>
           </div>
         </div>
       </div>
@@ -132,7 +135,7 @@
   <script>
     const canalLabels = ['Outros', 'Telefone', 'WhatsApp', 'Email', 'Internet'];
     const canalData = [3, 7, 22, 57, 215];
-    const canalColors = ['#103050', '#0EA5E9', '#22C55E', '#0070C0', '#0090C0'];
+    const canalColors = ['#1F97D4', '#4EAFE8', '#86C6EB', '#103050', '#0A75B7'];
 
     const pieLabelsPlugin = {
       id: 'pieLabels',
@@ -151,7 +154,7 @@
           const radius = (arc.outerRadius + arc.innerRadius) / 2;
           const x = arc.x + Math.cos(angle) * radius * 0.82;
           const y = arc.y + Math.sin(angle) * radius * 0.82;
-          const fontSize = pct >= 15 ? 13 : pct >= 8 ? 11 : 9;
+          const fontSize = pct >= 15 ? 15 : pct >= 8 ? 13 : 11;
           ctx.font = '700 ' + fontSize + 'px Montserrat, sans-serif';
           ctx.fillStyle = '#ffffff';
           ctx.strokeStyle = 'rgba(16, 48, 80, 0.35)';
@@ -206,8 +209,8 @@
           tooltip: { callbacks: { label: ctx => ` ${ctx.label}: ${ctx.parsed.y}` } }
         },
         scales: {
-          x: { grid: { display: false }, ticks: { color: '#374151', font: { size: 11, weight: '600' } } },
-          y: { beginAtZero: true, grid: { color: '#eef2f7' }, ticks: { color: '#9ca3af', font: { size: 10 } } }
+          x: { grid: { display: false }, ticks: { color: '#374151', font: { size: 13, weight: '600' } } },
+          y: { beginAtZero: true, grid: { color: '#eef2f7' }, ticks: { color: '#9ca3af', font: { size: 12 } } }
         }
       },
       plugins: [{
@@ -215,7 +218,7 @@
         afterDatasetsDraw(chart) {
           const { ctx } = chart;
           ctx.save();
-          ctx.font = '700 11px Montserrat, sans-serif';
+          ctx.font = '700 12px Montserrat, sans-serif';
           ctx.textAlign = 'center';
           ctx.fillStyle = '#103050';
           chart.getDatasetMeta(0).data.forEach((bar, i) => {
