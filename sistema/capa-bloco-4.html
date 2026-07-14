@@ -176,6 +176,30 @@
       flex-shrink: 0;
     }
 
+    .subtopics {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      margin: 0.2rem 0 0.15rem 1.5rem;
+    }
+
+    .subtopic {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.98rem;
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    .subtopic::before {
+      content: '';
+      width: 14px;
+      height: 1px;
+      background: rgba(0, 144, 192, 0.6);
+      flex-shrink: 0;
+    }
+
     .stat-pane {
       flex: 1;
       position: relative;
@@ -407,17 +431,17 @@
       <div class="s-icon a d1"><i class="fas fa-lock-open"></i></div>
       <h1 class="s-title a d2">Seção de Transparência e<span class="acc">Acesso à Informação</span> - STAI</h1>
       <div class="div a d3"></div>
-      <p class="desc a d4">Monitoramento da Lei de Acesso à Informação, dados abertos e transparência ativa e passiva na
-        ANTAQ.</p>
-      <div class="topics">
-        <div class="topic">
-          <div class="tdot"></div>Acesso à Informação (LAI)
+      <div class="topics a d4">
+        <div class="topic"><div class="tdot"></div>Apresentação da STAI</div>
+        <div class="topic"><div class="tdot"></div>Transparência ativa</div>
+        <div class="topic"><div class="tdot"></div>Transparência passiva</div>
+        <div class="topic"><div class="tdot"></div>Lei de Acesso à Informação (LAI)</div>
+        <div class="subtopics">
+          <div class="subtopic">Histórico da LAI</div>
         </div>
-        <div class="topic">
-          <div class="tdot"></div>Dados Abertos
-        </div>
-        <div class="topic">
-          <div class="tdot"></div>Transparência ativa e passiva
+        <div class="topic"><div class="tdot"></div>Dados abertos</div>
+        <div class="subtopics">
+          <div class="subtopic">Plano de Dados Abertos · PDA 2026–2028</div>
         </div>
       </div>
     </div>
@@ -429,8 +453,6 @@
       <div class="stat-label ar d2">STAI</div>
     </div>
     <!-- Continue hint -->
-    <div class="hint">Avançar<div class="aline"></div>
-    </div>
     <!-- Watermark -->
     <div class="wmark"><i class="fas fa-lock-open"></i></div>
     <!-- Ondas -->

@@ -285,43 +285,6 @@
       background: rgba(255, 255, 255, 0.65);
     }
 
-    /* Breadcrumb discreto — bloco/capítulo atual (camada de leitura sobre o array) */
-    .breadcrumb {
-      position: fixed;
-      top: 18px;
-      left: 18px;
-      z-index: 1000;
-      display: inline-flex;
-      align-items: center;
-      gap: 9px;
-      max-width: 46vw;
-      padding: 8px 15px;
-      border-radius: 22px;
-      background: rgba(12, 50, 111, 0.72);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      color: #cfe0f7;
-      font-family: 'Roboto', sans-serif;
-      font-size: 12.5px;
-      font-weight: 500;
-      letter-spacing: 0.01em;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-    }
-
-    .breadcrumb i {
-      color: #0090C0;
-      font-size: 12px;
-      flex-shrink: 0;
-    }
-
-    .breadcrumb .bc-sep {
-      opacity: 0.4;
-    }
-
     /* Fullscreen button */
     .fs-btn {
       position: fixed;
@@ -566,12 +529,6 @@
     <div id="clickRight" class="click-zone" title="Próximo slide"></div>
   </div>
 
-  <!-- Breadcrumb: bloco/capítulo atual (atualizado por render()) -->
-  <div class="breadcrumb" id="breadcrumb">
-    <i class="fa-solid fa-location-dot"></i>
-    <span id="breadcrumbText"></span>
-  </div>
-
   <div class="nav-dock">
     <div class="nav-trigger"></div>
     <div class="nav-wave"></div>
@@ -656,7 +613,7 @@
     // ║   5 Considerações Finais · 6 Apêndice. + bloco "Sobras" no    ║
     // ║  fim com os slides ainda não reposicionados / desativados.    ║
     // ║  Para reordenar: mova arquivos aqui. `slides`, o contador,    ║
-    // ║  os dots e o breadcrumb derivam disto.                        ║
+    // ║  os dots derivam disto.                                       ║
     // ║  `tint` = variação de opacidade do azul (0..1) usada nos dots.║
     // ╚══════════════════════════════════════════════════════════════╝
     const deck = [
@@ -670,7 +627,7 @@
       },
       {
         block: 'Bloco 2 · A Ouvidoria da ANTAQ', short: 'A Ouvidoria da ANTAQ', tint: 0.85,
-        files: ['capa-bloco-2.html', 'slide-03c.html', 'slide-ouvidoria-geral.html', 'slide-25.html', 'slide-26.html', 'slide-27.html', 'slide-17b.html', 'slide-17e.html', 'slide-07.html'],
+        files: ['capa-bloco-2.html', 'slide-03c.html', 'slide-canais-atend.html', 'slide-ouvidoria-geral.html', 'slide-25.html', 'slide-26.html', 'slide-27.html', 'slide-17b.html', 'slide-17e.html', 'slide-07.html'],
       },
       {
         block: 'Bloco 3 · Seção de Apoio ao Cidadão — SAC', short: 'SAC', tint: 0.7,
@@ -678,7 +635,7 @@
       },
       {
         block: 'Bloco 4 · Seção de Transparência e Acesso à Informação — STAI', short: 'STAI', tint: 0.55,
-        files: ['capa-bloco-4.html', 'slide-4a.html', 'slide-22.html', 'slide-23.html', 'slide-18.html', 'slide-20.html', 'slide-pda.html', 'slide-21.html'],
+        files: ['capa-bloco-4.html', 'slide-4a.html', 'slide-stai-ativ.html', 'slide-22.html', 'slide-23.html', 'slide-18.html', 'slide-20.html', 'slide-pda.html', 'slide-21.html'],
       },
       {
         block: 'Bloco 5 · Considerações Finais', short: 'Considerações Finais', tint: 0.4,
@@ -695,7 +652,7 @@
     ];
 
     // Deriva `slides` (governa a navegação) + `meta` paralelo com o
-    // bloco de cada slide (usado por dots e breadcrumb).
+    // bloco de cada slide (usado pelos dots).
     const slides = [];
     const meta = [];
     deck.forEach((b, bi) => {
@@ -712,18 +669,11 @@
       return slides[n - 1];
     }
 
-    // Texto do breadcrumb: no Bloco B mostra "Fundamentos · Capítulo X de 6 · Título";
-    // nos demais blocos mostra apenas o rótulo do bloco.
-    function breadcrumbText(n) {
-      return meta[n - 1].block;
-    }
-
     function render() {
       frame.src = fileFor(current);
       document.getElementById('pageInfo').textContent = `${current} / ${total}`;
       document.getElementById('btnPrev').disabled = current === 1;
       document.getElementById('btnNext').disabled = current === total;
-      document.getElementById('breadcrumbText').textContent = breadcrumbText(current);
       updateDots();
     }
 

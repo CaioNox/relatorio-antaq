@@ -176,6 +176,30 @@
       flex-shrink: 0;
     }
 
+    .subtopics {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      margin: 0.2rem 0 0.15rem 1.5rem;
+    }
+
+    .subtopic {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.98rem;
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    .subtopic::before {
+      content: '';
+      width: 14px;
+      height: 1px;
+      background: rgba(0, 144, 192, 0.6);
+      flex-shrink: 0;
+    }
+
     .stat-pane {
       flex: 1;
       position: relative;
@@ -407,10 +431,20 @@
       <div class="s-icon a d1"><i class="fas fa-headset"></i></div>
       <h1 class="s-title a d2">Seção de Apoio<span class="acc">ao Cidadão — SAC</span></h1>
       <div class="div a d3"></div>
-      <div class="topics">
-        <div class="topic"><div class="tdot"></div>Canais e tipos de manifestação</div>
-        <div class="topic"><div class="tdot"></div>Tratamento das demandas</div>
-        <div class="topic"><div class="tdot"></div>Análise quantitativa e qualitativa</div>
+      <div class="topics a d4">
+        <div class="topic"><div class="tdot"></div>Apresentação do SAC</div>
+        <div class="topic"><div class="tdot"></div>Tipos de manifestações</div>
+        <div class="topic"><div class="tdot"></div>Manifestações recebidas no Fala.BR</div>
+        <div class="topic"><div class="tdot"></div>Distribuição das manifestações</div>
+        <div class="subtopics">
+          <div class="subtopic">Por tipo</div>
+          <div class="subtopic">Por canal</div>
+          <div class="subtopic">Por mês</div>
+        </div>
+        <div class="topic"><div class="tdot"></div>Tratamento de demandas do Fala.BR</div>
+        <div class="topic"><div class="tdot"></div>Análise qualitativa</div>
+        <div class="topic"><div class="tdot"></div>Destaques do trimestre</div>
+        <div class="topic"><div class="tdot"></div>Riscos e oportunidades</div>
       </div>
   </div>
   <!-- Vertical divider -->
@@ -421,8 +455,6 @@
     <div class="stat-label ar d2">SAC</div>
   </div>
   <!-- Continue hint -->
-  <div class="hint">Avançar<div class="aline"></div>
-  </div>
   <!-- Watermark -->
   <div class="wmark"><i class="fas fa-headset"></i></div>
   <!-- Ondas -->

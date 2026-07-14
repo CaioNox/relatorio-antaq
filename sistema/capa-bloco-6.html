@@ -176,6 +176,30 @@
       flex-shrink: 0;
     }
 
+    .subtopics {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      margin: 0.2rem 0 0.15rem 1.5rem;
+    }
+
+    .subtopic {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.98rem;
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    .subtopic::before {
+      content: '';
+      width: 14px;
+      height: 1px;
+      background: rgba(0, 144, 192, 0.6);
+      flex-shrink: 0;
+    }
+
     .stat-pane {
       flex: 1;
       position: relative;
@@ -407,18 +431,15 @@
       <div class="s-icon a d1"><i class="fas fa-book-bookmark"></i></div>
       <h1 class="s-title a d2">Apêndices</h1>
       <div class="div a d3"></div>
-      <p class="desc a d4">Glossário, decretos, leis, normativas, portarias e links úteis que embasam a atuação da
-        Ouvidoria.</p>
-      <div class="topics">
-        <div class="topic">
-          <div class="tdot"></div>Glossário
+      <div class="topics a d4">
+        <div class="topic"><div class="tdot"></div>Glossário</div>
+        <div class="topic"><div class="tdot"></div>Legislação e normativas</div>
+        <div class="subtopics">
+          <div class="subtopic">Decretos</div>
+          <div class="subtopic">Leis</div>
+          <div class="subtopic">Normativos</div>
         </div>
-        <div class="topic">
-          <div class="tdot"></div>Legislação e normativas
-        </div>
-        <div class="topic">
-          <div class="tdot"></div>Links úteis e contatos
-        </div>
+        <div class="topic"><div class="tdot"></div>Links úteis</div>
       </div>
     </div>
     <!-- Vertical divider -->
@@ -429,8 +450,6 @@
       <div class="stat-label ar d2">Apêndices</div>
     </div>
     <!-- Continue hint -->
-    <div class="hint">Avançar<div class="aline"></div>
-    </div>
     <!-- Watermark -->
     <div class="wmark"><i class="fas fa-book-bookmark"></i></div>
     <!-- Ondas -->

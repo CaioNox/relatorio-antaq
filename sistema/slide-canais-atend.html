@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Canais de Atendimento — Relatório Trimestral Ouvidoria ANTAQ</title>
+  <link rel="icon" type="image/png"
+    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    html {
+      font-size: 26px;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f3f4f6;
+      overflow: hidden;
+    }
+
+    .slide-container {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background-color: #ffffff;
+      overflow: hidden;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    .font-montserrat {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .text-brand-primary {
+      color: #103050;
+    }
+
+    .text-brand-secondary {
+      color: #0070C0;
+    }
+
+    .bg-brand-secondary {
+      background-color: #0070C0;
+    }
+
+    .top-accent {
+      height: 8px;
+      background-color: #103050;
+      width: 100%;
+    }
+
+    .top-accent-secondary {
+      height: 4px;
+      background-color: #0070C0;
+      width: 100%;
+    }
+
+    /* ── Área dos canais ── */
+    .board {
+      flex: 1;
+      min-height: 0;
+      position: relative;
+      z-index: 10;
+      padding: 0.5rem 5rem 0.4rem 5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1.05fr;
+      grid-template-rows: auto 1fr 1fr;
+      grid-template-areas:
+        "lead  lead  featured"
+        "c1    c2    featured"
+        "c3    c4    featured";
+      gap: 0.9rem 1.4rem;
+      animation: fadeInUp .5s cubic-bezier(.2, .7, .3, 1) both;
+    }
+
+    .lead {
+      grid-area: lead;
+      font-size: .92rem;
+      line-height: 1.45;
+      color: #103050;
+      font-weight: 600;
+      border-left: 4px solid #F2A900;
+      padding-left: 1.05rem;
+      align-self: center;
+    }
+
+    /* Cartões de canal */
+    .ch-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      background: #ffffff;
+      border: 1px solid #E5E9F0;
+      border-radius: 16px;
+      padding: 1rem 1.15rem;
+      box-shadow: 0 6px 18px rgba(16, 48, 80, 0.05);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ch-card::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 5px;
+      background: linear-gradient(180deg, #0090C0, #0070C0);
+    }
+
+    .ch-icon {
+      flex-shrink: 0;
+      width: 3.1rem;
+      height: 3.1rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.35rem;
+      color: #fff;
+      background: linear-gradient(145deg, #103050 0%, #0070C0 100%);
+      box-shadow: 0 6px 14px rgba(16, 48, 80, 0.28);
+    }
+
+    .ch-label {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: .66rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: #0070C0;
+      margin: .15rem 0 .35rem;
+    }
+
+    .ch-text {
+      font-size: .74rem;
+      line-height: 1.4;
+      color: #334155;
+      margin: 0;
+    }
+
+    .ch-text strong {
+      color: #103050;
+    }
+
+    .ch-mail {
+      font-weight: 700;
+      color: #103050;
+      display: block;
+    }
+
+    .ch-note {
+      display: block;
+      font-size: .64rem;
+      color: #64748B;
+      font-style: italic;
+      margin-top: .15rem;
+    }
+
+    /* Cartão em destaque — Assistente Virtual Lara */
+    .featured {
+      grid-area: featured;
+      border-radius: 20px;
+      background: linear-gradient(160deg, #103050 0%, #0a2036 100%);
+      padding: 1.4rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 14px 34px rgba(16, 48, 80, 0.35);
+    }
+
+    .featured::after {
+      content: "\f4ad";
+      font-family: "Font Awesome 6 Free";
+      font-weight: 900;
+      position: absolute;
+      right: -1.2rem;
+      bottom: -1.8rem;
+      font-size: 12rem;
+      color: rgba(255, 255, 255, 0.04);
+    }
+
+    .feat-badge {
+      align-self: flex-start;
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      background: rgba(242, 169, 0, 0.16);
+      border: 1px solid rgba(242, 169, 0, 0.5);
+      color: #F2A900;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: .6rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      padding: .35rem .8rem;
+      border-radius: 30px;
+    }
+
+    .feat-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 1.7rem;
+      line-height: 1.02;
+      color: #fff;
+      margin: .8rem 0 .2rem;
+      z-index: 2;
+    }
+
+    .feat-title .accent {
+      color: #4dbce6;
+    }
+
+    .feat-sub {
+      font-size: .76rem;
+      line-height: 1.45;
+      color: rgba(255, 255, 255, 0.72);
+      margin: 0 0 1rem;
+      max-width: 88%;
+      z-index: 2;
+    }
+
+    .feat-qr-row {
+      display: flex;
+      align-items: center;
+      gap: 1.1rem;
+      z-index: 2;
+    }
+
+    .qr-box {
+      flex-shrink: 0;
+      width: 6.2rem;
+      height: 6.2rem;
+      background: #fff;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #103050;
+      font-size: 4.2rem;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      position: relative;
+    }
+
+    .qr-box .wa {
+      position: absolute;
+      right: -.55rem;
+      bottom: -.55rem;
+      width: 2.1rem;
+      height: 2.1rem;
+      border-radius: 50%;
+      background: #25D366;
+      color: #fff;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 3px solid #103050;
+    }
+
+    .qr-caption {
+      font-size: .72rem;
+      line-height: 1.4;
+      color: rgba(255, 255, 255, 0.82);
+    }
+
+    .qr-caption strong {
+      color: #fff;
+      display: block;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      margin-bottom: .15rem;
+    }
+
+    .feat-libras {
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: .64rem;
+      color: rgba(255, 255, 255, 0.55);
+      padding-top: 1rem;
+      z-index: 2;
+    }
+
+    .feat-libras i {
+      color: #F2A900;
+      font-size: .9rem;
+    }
+
+    .bg-pattern {
+      position: absolute;
+      bottom: -70px;
+      left: -50px;
+      width: 380px;
+      height: 380px;
+      opacity: 0.03;
+      z-index: 0;
+      color: #103050;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="slide-container">
+    <div class="top-accent"></div>
+    <div class="top-accent-secondary"></div>
+
+    <!-- Header -->
+    <div class="flex items-center justify-between px-16 pt-8 pb-2 z-10">
+      <div>
+        <div class="flex items-center gap-3 mb-1">
+          <div class="w-1 h-8 bg-brand-secondary"></div>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Canais de Atendimento
+          </p>
+        </div>
+      </div>
+      <div class="flex items-center gap-3 opacity-80 text-brand-secondary">
+        <i class="fas fa-headset text-3xl align-middle" aria-hidden="true"></i>
+        <div class="flex flex-col justify-center border-left pl-2" style="border-left: 1px solid #CBD5E1;">
+          <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1">CAPÍTULO 02</p>
+          <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none">A
+            Ouvidoria da ANTAQ</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Board de canais -->
+    <div class="board">
+      <p class="lead">
+        A Ouvidoria mantém múltiplas portas de entrada para o cidadão — do contato tradicional ao atendimento digital
+        24 horas — garantindo acessibilidade, agilidade e escuta em todos os canais oficiais da ANTAQ.
+      </p>
+
+      <!-- E-mails -->
+      <div class="ch-card" style="grid-area: c1;">
+        <div class="ch-icon"><i class="fas fa-at"></i></div>
+        <div>
+          <p class="ch-label">E-mails</p>
+          <p class="ch-text">
+            <span class="ch-mail">ouvidoria@antaq.gov.br</span>
+            <span class="ch-mail">sac@antaq.gov.br</span>
+            <span class="ch-mail">ouvidoria.interno@antaq.gov.br</span>
+            <span class="ch-note">Canal interno — servidores e colaboradores da ANTAQ.</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Correspondência -->
+      <div class="ch-card" style="grid-area: c2;">
+        <div class="ch-icon"><i class="fas fa-envelope"></i></div>
+        <div>
+          <p class="ch-label">Correspondência</p>
+          <p class="ch-text">
+            <strong>SEPN Quadra 514, Conjunto E</strong> — Edifício ANTAQ<br>
+            CEP 70160-545 · Brasília — DF<br>
+            <span class="ch-note">Ou por meio das Unidades Regionais.</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Central Telefônica -->
+      <div class="ch-card" style="grid-area: c3;">
+        <div class="ch-icon"><i class="fas fa-phone-volume"></i></div>
+        <div>
+          <p class="ch-label">Central de Atendimento Telefônico</p>
+          <p class="ch-text">
+            <strong>0800 644 5001</strong> — ligação gratuita<br>
+            Registro de manifestações de forma rápida e direta.<br>
+            <span class="ch-note">Segunda a sexta, das 08h às 20h.</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Site -->
+      <div class="ch-card" style="grid-area: c4;">
+        <div class="ch-icon"><i class="fas fa-desktop"></i></div>
+        <div>
+          <p class="ch-label">Site da ANTAQ</p>
+          <p class="ch-text">
+            Fale com a <strong>Lara</strong>, a assistente virtual.<br>
+            <strong>gov.br/antaq</strong>
+            <span class="ch-note">Informações e serviços da Agência online.</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Destaque: Assistente Virtual Lara / WhatsApp -->
+      <div class="featured">
+        <span class="feat-badge"><i class="fas fa-robot"></i> Atendimento digital · 24h</span>
+        <h2 class="feat-title">Fale com a <span class="accent">Lara</span></h2>
+        <p class="feat-sub">
+          A assistente virtual da Ouvidoria da ANTAQ atende pelo WhatsApp de forma rápida e fácil, a qualquer hora do
+          dia.
+        </p>
+        <div class="feat-qr-row">
+          <div class="qr-box">
+            <i class="fas fa-qrcode"></i>
+            <span class="wa"><i class="fa-brands fa-whatsapp"></i></span>
+          </div>
+          <div class="qr-caption">
+            <strong>WhatsApp · QR Code</strong>
+            Aponte a câmera do celular para o código e inicie a conversa com a Assistente Virtual da Ouvidoria.
+          </div>
+        </div>
+        <div class="feat-libras"><i class="fas fa-hands"></i> Atendimento acessível em Libras</div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="px-16 pb-6 pt-1 flex justify-between items-center z-10">
+      <p class="text-gray-400 text-xs">Relatório Trimestral da Ouvidoria · 2026 — Agência Nacional de Transportes
+        Aquaviários</p>
+    </div>
+    <div class="bg-pattern"><i class="fas fa-headset text-9xl"></i></div>
+  </div>
+
+  <script>
+    document.addEventListener("keydown", function (e) {
+      if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) {
+        e.preventDefault();
+        window.parent.postMessage({ type: "slide-nav", key: e.key }, "*");
+      }
+    });
+  </script>
+</body>
+
+</html>

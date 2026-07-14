@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <title>Principais Atividades da SAC - Relatório Trimestral Ouvidoria ANTAQ</title>
+  <title>Principais Atividades da STAI - Relatório Trimestral Ouvidoria ANTAQ</title>
   <link rel="icon" type="image/png"
     href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
@@ -83,61 +83,98 @@
     .act-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: .7rem;
+      gap: 1rem;
     }
 
     .act-card {
-      background: #F8FAFC;
+      background: #fff;
       border: 1px solid #E2E8F0;
       border-radius: 14px;
-      padding: .95rem 1rem;
+      padding: 1.35rem 1.3rem 1.4rem;
       display: flex;
       flex-direction: column;
-      gap: .45rem;
-      transition: box-shadow .2s, border-color .2s;
+      gap: .65rem;
+      transition: box-shadow .2s, border-color .2s, transform .2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .act-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, #103050, #0070C0);
     }
 
     .act-card:hover {
-      box-shadow: 0 8px 20px -8px rgba(16, 48, 80, .18);
+      box-shadow: 0 12px 26px -10px rgba(16, 48, 80, .24);
       border-color: #0070C0;
+      transform: translateY(-3px);
     }
 
     .act-card .ico-wrap {
-      width: 38px;
-      height: 38px;
-      border-radius: 10px;
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
       background: linear-gradient(135deg, #103050, #0070C0);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: .9rem;
+      font-size: 1.2rem;
       color: #fff;
+      margin-top: .2rem;
+      box-shadow: 0 6px 14px -6px rgba(0, 112, 192, .55);
+    }
+
+    .act-card .c-num {
+      position: absolute;
+      top: 1.15rem;
+      right: 1.2rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 1.7rem;
+      color: #EAF0F6;
+      line-height: 1;
     }
 
     .act-card .c-title {
       font-family: 'Montserrat', sans-serif;
       font-weight: 800;
-      font-size: .68rem;
+      font-size: .72rem;
       color: #103050;
       text-transform: uppercase;
       letter-spacing: .04em;
+      padding-bottom: .5rem;
+      border-bottom: 2px solid #0090C0;
+      align-self: flex-start;
     }
 
     .act-card .c-desc {
-      font-size: .65rem;
+      font-size: .7rem;
       color: #475569;
-      line-height: 1.5;
+      line-height: 1.6;
+    }
+
+    .act-card .c-desc b {
+      color: #103050;
+      font-weight: 700;
     }
 
     .intro-text {
-      font-size: .72rem;
-      color: #475569;
-      line-height: 1.55;
-      margin-bottom: .65rem;
+      font-size: .82rem;
+      color: #103050;
+      font-weight: 600;
+      line-height: 1.5;
+      margin-bottom: 1rem;
+      border-left: 4px solid #0090C0;
+      padding-left: 1.1rem;
     }
 
     .intro-text b {
-      color: #103050;
+      color: #0070C0;
     }
 
     .bg-pattern {
@@ -183,53 +220,49 @@
     <div class="top-accent"></div>
     <div class="top-accent-secondary"></div>
 
-    <div class="px-16 pt-5 pb-2 z-10">
-      <div class="flex items-center gap-3 mb-2">
-        <div class="w-1 h-8 bg-brand-secondary"></div>
-        <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Tipos de Manifestações
-          de Ouvidoria</p>
+    <div class="flex items-center justify-between px-16 pt-5 pb-2 z-10">
+      <div>
+        <p class="gov-eyebrow"><i class="fas fa-landmark"></i> Agência Nacional de Transportes Aquaviários — ANTAQ</p>
+        <div class="flex items-center gap-3 mb-1">
+          <div class="w-1 h-8 bg-brand-secondary"></div>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Principais Atividades
+            da STAI</p>
+        </div>
+        <p class="text-gray-500 font-medium ml-4 text-lg">Seção de Transparência e Acesso à Informação — no âmbito da
+          Ouvidoria</p>
+      </div>
+      <div class="flex items-center gap-2 opacity-80 text-brand-secondary">
+        <i class="fas fa-unlock-keyhole text-xl" aria-hidden="true"></i>
+        <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">STAI · OUVIDORIA</p>
       </div>
     </div>
 
     <div class="flex-1 px-16 pb-3 z-10 flex flex-col justify-center" style="min-height:0;">
-      <p class="intro-text a">No Fala.BR, o demandante pode cadastrar manifestações de diferentes tipos para registrar
-        situações e demandas que precisam de resposta da Administração Pública.</p>
+      <p class="intro-text a">Cabe à <b>STAI</b> conduzir um conjunto de atividades voltadas ao equilíbrio entre o
+        <b>direito de acesso à informação</b> e a proteção das hipóteses legais de restrição, promovendo a uniformidade
+        e a cultura da transparência na Agência.</p>
       <div class="act-grid a">
         <div class="act-card">
-          <div class="ico-wrap"><i class="fas fa-circle-exclamation"></i></div>
-          <p class="c-title">Denúncia</p>
-          <p class="c-desc">Utilizada para comunicar uma irregularidade, um ato ilícito ou uma violação de direitos no
-            âmbito da administração pública ou dos serviços regulados pela ANTAQ.</p>
+          <span class="c-num">01</span>
+          <div class="ico-wrap"><i class="fas fa-magnifying-glass"></i></div>
+          <p class="c-title">Apoio Técnico à Restrição</p>
+          <p class="c-desc">Auxiliar o corpo técnico da ANTAQ a identificar os elementos que caracterizam as
+            <b>hipóteses de restrição</b> de acesso a documentos que compõem os processos administrativos no âmbito
+            desta Agência Reguladora;</p>
         </div>
         <div class="act-card">
-          <div class="ico-wrap"><i class="fas fa-comment-dots"></i></div>
-          <p class="c-title">Reclamação</p>
-          <p class="c-desc">Canal para que o cidadão manifeste sua insatisfação com a qualidade da prestação de um
-            serviço público ou com o atendimento recebido.</p>
+          <span class="c-num">02</span>
+          <div class="ico-wrap"><i class="fas fa-layer-group"></i></div>
+          <p class="c-title">Uniformização das Ações</p>
+          <p class="c-desc"><b>Uniformizar as ações de restrição</b> por todas as diferentes unidades
+            organizacionais da Agência; e</p>
         </div>
         <div class="act-card">
-          <div class="ico-wrap"><i class="fas fa-file-signature"></i></div>
-          <p class="c-title">Solicitação</p>
-          <p class="c-desc">Direcionada para que o usuário requeira a adoção de alguma providência específica por parte
-            da Administração Pública.</p>
-        </div>
-        <div class="act-card">
+          <span class="c-num">03</span>
           <div class="ico-wrap"><i class="fas fa-lightbulb"></i></div>
-          <p class="c-title">Sugestão</p>
-          <p class="c-desc">Espaço dedicado para o envio de ideias ou propostas de melhoria, visando o aprimoramento
-            contínuo das políticas e dos serviços públicos.</p>
-        </div>
-        <div class="act-card">
-          <div class="ico-wrap"><i class="fas fa-thumbs-up"></i></div>
-          <p class="c-title">Elogio</p>
-          <p class="c-desc">Ferramenta para expressar satisfação, reconhecimento ou agradecimento por um serviço
-            prestado com excelência ou por um bom atendimento público.</p>
-        </div>
-        <div class="act-card">
-          <div class="ico-wrap"><i class="fas fa-broom"></i></div>
-          <p class="c-title">Simplifique</p>
-          <p class="c-desc">Canal específico para o cidadão sugerir ideias e mudanças focadas em desburocratizar,
-            modernizar e simplificar a prestação dos serviços públicos.</p>
+          <p class="c-title">Cultura da Transparência</p>
+          <p class="c-desc">Fomentar a substituição da <b>cultura de sigilo pela cultura da transparência</b>, sem
+            deixar de observar a segurança das informações e dados resguardados por lei.</p>
         </div>
       </div>
     </div>
@@ -238,7 +271,7 @@
       <p class="text-gray-400 text-xs">Relatório Trimestral da Ouvidoria · 2026 — Agência Nacional de Transportes
         Aquaviários</p>
     </div>
-    <div class="bg-pattern"><i class="fas fa-list-check text-9xl"></i></div>
+    <div class="bg-pattern"><i class="fas fa-unlock-keyhole text-9xl"></i></div>
   </div>
   <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
 </body>

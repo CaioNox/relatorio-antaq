@@ -83,11 +83,7 @@
             font-weight: 800;
             letter-spacing: -0.5px;
             text-transform: uppercase;
-            background: linear-gradient(180deg, #FFD37A 0%, #F2A900 55%, #E08A00 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            color: transparent;
+            color: #ffffff;
             filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.4));
             margin: 0.4rem 0 0 0;
         }
@@ -115,7 +111,7 @@
             width: 2.6rem;
             height: 3px;
             border-radius: 2px;
-            background: linear-gradient(90deg, #00AEEF, #F2A900);
+            background: linear-gradient(90deg, #00AEEF, #0090C0);
         }
 
         .cover-sub {
@@ -137,7 +133,7 @@
 
         /* ===== Sumário ===== */
         .sumario {
-            margin-top: 1rem;
+            margin-top: 0.4rem;
             max-width: none;
             width: 100%;
         }
@@ -238,7 +234,7 @@
             font-size: 0.78rem;
             letter-spacing: 0.04em;
             text-transform: uppercase;
-            color: #F2A900;
+            color: #0090C0;
             margin: 0.72rem 0 0.42rem;
             padding-left: 0.95rem;
         }
@@ -250,7 +246,7 @@
             width: 0.55rem;
             height: 0.55rem;
             border-radius: 2px;
-            background: #F2A900;
+            background: #0090C0;
         }
 
         .sum-subitem {
@@ -431,7 +427,7 @@
         }
 
         .tnode.current .tw-num {
-            color: #F2A900;
+            color: #0090C0;
         }
 
         @keyframes fadeInUp {
@@ -593,75 +589,47 @@
                 {
                     t: 'Visão Geral das Ouvidorias Públicas', icon: 'fa-bullhorn', children: [
                         { t: 'Capa do bloco', f: 'capa-bloco-1.html' },
-                        { t: 'Princípios · Diretrizes · Atribuições', f: 'slide-principios.html' },
+                        { t: 'Apresentação das ouvidorias', f: 'slide-ctx-01.html' },
+                        { t: 'Atribuições das ouvidorias', f: 'slide-atribuicoes-01.html' },
+                        { t: 'Princípios das ouvidorias', f: 'slide-principios-01.html' },
+                        { t: 'Diretrizes das ouvidorias', f: 'slide-diretrizes-01.html' },
                     ]
                 },
                 {
                     t: 'A Ouvidoria da ANTAQ', icon: 'fa-landmark', children: [
                         { t: 'Capa do bloco', f: 'capa-bloco-2.html' },
-                        { t: 'Papel Institucional da Ouvidoria', f: 'slide-03c.html' },
-                        { t: 'A Ouvidoria da ANTAQ', f: 'slide-ouvidoria-geral.html' },
-                        {
-                            t: 'Carta de Serviços', children: [
-                                { t: 'Contexto', f: 'slide-ctx-09.html' },
-                                { t: 'Cartas de Serviço ANTAQ', f: 'slide-25.html' },
-                                { t: 'Carta de Serviços — SOG', f: 'slide-26.html' },
-                                { t: 'Carta de Serviços — SRG/SAF/SFC', f: 'slide-27.html' },
-                            ]
-                        },
-                        { t: 'Ouvidoria em Números — Total 434', f: 'slide-17e.html' },
-                        { t: 'Evolução Histórica', f: 'slide-07.html' },
+                        { t: 'Papel Institucional', f: 'slide-03c.html' },
+                        { t: 'Estrutura Organizacional', f: 'slide-ouvidoria-geral.html' },
+                        { t: 'Carta de Serviços', f: 'slide-25.html' },
+                        { t: 'Canais de Atendimento', f: 'slide-17b.html' },
+                        { t: 'Tipos de manifestações do Fala.BR', f: 'slide-14.html' },
+                        { t: 'Ouvidoria em Números', f: 'slide-17e.html' },
                     ]
                 },
                 {
                     t: 'Seção de Apoio ao Cidadão — SAC', icon: 'fa-headset', children: [
                         { t: 'Capa do bloco', f: 'capa-bloco-3.html' },
-                        { t: 'Apresentação da SAC', f: 'slide-sac-apres.html' },
-                        { t: 'Principais Atividades da SAC', f: 'slide-sac-ativ.html' },
-                        { t: 'Referências e Fontes de Dados', f: 'slide-sac-refs.html' },
-                        { t: 'Tipos de Manifestações', f: 'slide-14.html' },
-                        { t: 'Manifestações por Canal', f: 'slide-canal.html' },
-                        { t: 'Manifestações no Fala.BR', f: 'slide-04.html' },
+                        { t: 'Apresentação e principais atividades da SAC', f: 'slide-sac-apres.html' },
+                        { t: 'Histórico SAC', f: 'slide-07.html' },
+                        { t: 'Distribuição das manifestações por mês', f: 'slide-17d.html' },
+                        { t: 'Distribuição de manifestações por tipo', f: 'slide-14.html' },
+                        { t: 'Distribuição de manifestações por canal', f: 'slide-canal.html' },
+                        { t: 'Tratamento de demandas do Fala.BR', f: 'slide-05.html' },
                         { t: 'Destaques do Trimestre', f: 'slide-ctx-03.html' },
-                        {
-                            t: 'Análise Quantitativa e Qualitativa', children: [
-                                { t: 'Contexto', f: 'slide-ctx-04.html' },
-                                { t: 'Tratamento de Demandas do Fala.BR', f: 'slide-05.html' },
-                                { t: 'Análise Qualitativa', f: 'slide-11.html' },
-                                { t: 'Riscos e Oportunidades', f: 'slide-12.html' },
-                            ]
-                        },
-                        {
-                            t: 'Panorama de Demandas', children: [
-                                { t: 'Panorama Geral das Demandas', f: 'slide-16.html' },
-                                { t: 'Ecossistema de Atendimento', f: 'slide-16b.html' },
-                                { t: 'Jornada Mensal das Demandas', f: 'slide-17.html' },
-                                { t: 'Fluxo Mensal — Painel Resolveu', f: 'slide-17d.html' },
-                            ]
-                        },
+                        { t: 'Análise qualitativa', f: 'slide-11.html' },
+                        { t: 'Riscos e oportunidades', f: 'slide-12.html' },
                     ]
                 },
                 {
                     t: 'Seção de Transparência e Acesso à Informação — STAI', icon: 'fa-lock-open', children: [
                         { t: 'Capa do bloco', f: 'capa-bloco-4.html' },
-                        {
-                            t: 'Acesso à Informação (LAI)', children: [
-                                { t: 'LAI · Transparência Passiva', f: 'slide-18.html' },
-                                { t: 'Histórico de Pedidos LAI', f: 'slide-20.html' },
-                            ]
-                        },
-                        {
-                            t: 'Dados Abertos', children: [
-                                { t: 'Plano de Dados Abertos 2026–2028', f: 'slide-pda.html' },
-                                { t: 'Transparência Ativa e Dados Abertos', f: 'slide-21.html' },
-                            ]
-                        },
-                        {
-                            t: 'Transparência Ativa e Passiva', children: [
-                                { t: 'Transparência Ativa', f: 'slide-22.html' },
-                                { t: 'Transparência Passiva', f: 'slide-23.html' },
-                            ]
-                        },
+                        { t: 'Apresentação e principais atividades da STAI', f: 'slide-4a.html' },
+                        { t: 'Transparência ativa', f: 'slide-22.html' },
+                        { t: 'Transparência passiva', f: 'slide-23.html' },
+                        { t: 'LAI — Transparência passiva', f: 'slide-18.html' },
+                        { t: 'Histórico LAI', f: 'slide-20.html' },
+                        { t: 'Plano de Dados Abertos — PDA 2026–2028', f: 'slide-pda.html' },
+                        { t: 'Dados Abertos', f: 'slide-21.html' },
                     ]
                 },
                 {
@@ -780,6 +748,20 @@
 
                     root.appendChild(col);
                 });
+
+                // Alinha as barrinhas (underline) dos títulos de capítulo: iguala a
+                // altura de todos os .sum-title à do maior, para que os border-bottom
+                // fiquem na mesma linha de base, independente do nº de linhas do título.
+                function alignTitles() {
+                    const titles = root.querySelectorAll('.sum-title');
+                    let max = 0;
+                    titles.forEach(function (t) { t.style.minHeight = ''; });
+                    titles.forEach(function (t) { max = Math.max(max, t.offsetHeight); });
+                    titles.forEach(function (t) { t.style.minHeight = max + 'px'; });
+                }
+                requestAnimationFrame(alignTitles);
+                if (document.fonts && document.fonts.ready) document.fonts.ready.then(alignTitles);
+                window.addEventListener('resize', alignTitles);
             })();
 
             document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });
