@@ -610,8 +610,8 @@
     // ╠══════════════════════════════════════════════════════════════╣
     // ║  Abertura + 6 blocos temáticos (estrutura definida pelo Caio):║
     // ║   1 Visão Geral · 2 A Ouvidoria da ANTAQ · 3 SAC · 4 STAI ·   ║
-    // ║   5 Considerações Finais · 6 Apêndice. + bloco "Sobras" no    ║
-    // ║  fim com os slides ainda não reposicionados / desativados.    ║
+    // ║   5 Considerações Finais · 6 Apêndice.                       ║
+    // ║  (O antigo bloco "Sobras" foi arquivado fora do projeto.)    ║
     // ║  Para reordenar: mova arquivos aqui. `slides`, o contador,    ║
     // ║  os dots derivam disto.                                       ║
     // ║  `tint` = variação de opacidade do azul (0..1) usada nos dots.║
@@ -645,10 +645,10 @@
         block: 'Bloco 6 · Apêndice', short: 'Apêndice', tint: 0.3,
         files: ['capa-bloco-6.html', 'slide-31.html', 'slide-29.html', 'slide-30.html', 'slide-32.html', 'slide-35.html'],
       },
-      {
-        block: 'Sobras · Capas desativadas / Revisar', short: 'Sobras', tint: 0.15,
-        files: ['capa-01.html', 'slide-ctx-05.html', 'capa-sac.html', 'capa-02.html', 'slide-ctx-08.html', 'slide-10.html', 'capa-10.html', 'capa-05.html', 'capa-03.html', 'capa-04.html', 'capa-stai.html', 'capa-06.html', 'capa-07.html', 'capa-11.html', 'slide-ctx-09.html', 'slide-sac-refs.html', 'slide-16.html', 'slide-16b.html', 'slide-17.html', 'slide-ctx-04.html', 'slide-stai-ativ.html'],
-      },
+      // Bloco "Sobras" (capas desativadas / slides a revisar) foi ARQUIVADO fora do projeto
+      // em jul/2026 — os 21 arquivos foram movidos para a pasta "sobras-relatorio" na
+      // Área de Trabalho. Se precisar reativar algum, traga o arquivo de volta para
+      // sistema/ e re-adicione o nome aqui no deck.
     ];
 
     // Deriva `slides` (governa a navegação) + `meta` paralelo com o

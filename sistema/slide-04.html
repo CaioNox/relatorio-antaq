@@ -4,7 +4,8 @@
   ║  SLIDE 04 — KPIs principais de manifestações recebidas no trimestre
   ╠══════════════════════════════════════════════════════════════╣
   ║  O QUE ATUALIZAR A CADA TRIMESTRE:
-  ║  Atualizar: total de manifestações, número de denúncias, reclamações, elogios, solicitações e sugestões
+  ║  Atualizar: total respondidas, arquivadas, encaminhadas e tempo médio de conclusão
+  ║  (design portado do slide-18 — KPIs em 4 cards)
   ╚══════════════════════════════════════════════════════════════╝
 -->
 
@@ -73,37 +74,8 @@
         }
 
         /* ===== Interatividade ===== */
-        .chart-card,
-        .canal-card,
-        .period-chip,
-        .video-frame,
-        .kpi-card,
-        .glossary-card,
-        .exp-group {
+        .kpi-card {
             transition: transform .28s cubic-bezier(.2, .7, .3, 1), box-shadow .28s ease, border-color .28s ease, background-color .28s ease;
-        }
-
-        .chart-card:hover,
-        .canal-card:hover,
-        .period-chip:hover,
-        .video-frame:hover {
-            transform: translateY(-7px);
-            box-shadow: 0 22px 42px -12px rgba(16, 48, 80, .30);
-            border-color: #0070C0;
-        }
-
-        .glossary-card:hover {
-            transform: translateY(-7px);
-            border-color: #0070C0;
-            box-shadow: 0 22px 42px -12px rgba(0, 112, 192, .32);
-        }
-
-        .glossary-icon {
-            transition: transform .3s ease;
-        }
-
-        .glossary-card:hover .glossary-icon {
-            transform: scale(1.12) rotate(-6deg);
         }
 
         .kpi-card:hover {
@@ -120,10 +92,6 @@
             opacity: .2;
         }
 
-        .exp-group:hover {
-            transform: translateX(5px);
-        }
-
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -134,40 +102,20 @@
             }
         }
 
-        .chart-card,
-        .kpi-card,
-        .glossary-card,
-        .canal-card,
-        .period-chip {
+        .kpi-card {
             animation: fadeIn .5s ease both;
         }
 
-        .chart-card:nth-child(2),
-        .kpi-card:nth-child(2),
-        .glossary-card:nth-child(2),
-        .canal-card:nth-child(2),
-        .period-chip:nth-child(2) {
+        .kpi-card:nth-child(2) {
             animation-delay: .09s;
         }
 
-        .chart-card:nth-child(3),
-        .kpi-card:nth-child(3),
-        .glossary-card:nth-child(3),
-        .canal-card:nth-child(3),
-        .period-chip:nth-child(3) {
+        .kpi-card:nth-child(3) {
             animation-delay: .18s;
         }
 
-        .glossary-card:nth-child(4) {
+        .kpi-card:nth-child(4) {
             animation-delay: .27s;
-        }
-
-        .glossary-card:nth-child(5) {
-            animation-delay: .36s;
-        }
-
-        .glossary-card:nth-child(6) {
-            animation-delay: .45s;
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -182,7 +130,7 @@
 
         .kpi-card {
             border-radius: 20px;
-            padding: 2.5rem 2rem;
+            padding: 2.2rem 2rem;
             position: relative;
             overflow: hidden;
             display: flex;
@@ -226,32 +174,6 @@
             z-index: 0;
             color: #103050;
         }
-
-        .kpi-fraction {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            line-height: 1.1;
-        }
-
-        .kpi-fraction-num {
-            font-size: 3.5rem;
-            font-weight: 900;
-        }
-
-        .kpi-fraction-bar {
-            width: 80px;
-            height: 3px;
-            background-color: rgba(255, 255, 255, 0.5);
-            margin: 0.3rem 0;
-        }
-
-        .kpi-fraction-denom {
-            font-size: 1.1rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
     </style>
 </head>
 
@@ -260,68 +182,90 @@
         <div class="top-accent"></div>
         <div class="top-accent-secondary"></div>
         <!-- Header -->
-        <div class="flex items-center justify-between px-16 pt-12 pb-6 z-10">
+        <div class="flex items-center justify-between px-16 pt-12 pb-4 z-10">
             <div>
                 <div class="flex items-center gap-3 mb-2">
                     <div class="w-1 h-8 bg-brand-secondary"></div>
                     <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">
                         Manifestações Recebidas no Fala.BR</p>
                 </div>
+                <p class="text-gray-500 font-medium ml-4 text-lg">Manifestações recebidas e tratadas no Fala.BR — 1º
+                    trimestre de 2026</p>
             </div>
             <div class="flex items-center gap-3 opacity-80 text-brand-secondary">
                 <i class="fas fa-headset text-3xl" aria-hidden="true"></i>
                 <div class="flex flex-col justify-center pl-2" style="border-left:1px solid #CBD5E1;">
-                    <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1">CAPÍTULO 03</p>
-                    <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none">Seção de Apoio ao Cidadão — SAC</p>
+                    <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1">
+                        CAPÍTULO 03</p>
+                    <p
+                        class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none">
+                        Seção de Apoio ao Cidadão — SAC</p>
                 </div>
             </div>
         </div>
         <!-- ===== ÁREA DE DADOS — atualizar a cada trimestre =====
-         Cada .kpi-num abaixo é um número em destaque.
-         Troque pelo valor real do trimestre.
+     Cada .kpi-num abaixo é um número em destaque. Troque pelo valor real do trimestre.
      ===== FIM DA ÁREA DE DADOS ============================= -->
-        <!-- Main Content -->
-        <div class="flex-1 flex flex-col justify-center px-16 pb-10 z-10">
+        <!-- KPIs -->
+        <div class="flex-1 flex flex-col justify-center px-16 pb-6 z-10 gap-5">
             <div class="grid grid-cols-4 gap-6">
-                <!-- Total Respondidas -->
-                <div class="kpi-card kpi-primary">
+                <!-- Total Recebidas -->
+                <div class="kpi-card kpi-primary" style="min-height:280px;">
                     <div>
-                        <p class="text-blue-100 font-montserrat font-bold text-sm uppercase tracking-widest mb-2">Total de Manifestações Respondidas</p>
-                        <p class="kpi-num text-8xl">258</p>
+                        <p class="text-blue-100 font-montserrat font-bold text-sm uppercase tracking-widest mb-2">Total
+                            de manifestações</p>
+                        <p class="kpi-num text-7xl">304</p>
                     </div>
-                    <p class="text-blue-100 text-base leading-relaxed relative z-10">Manifestações respondidas e analisadas no trimestre.</p>
-                    <i class="fas fa-inbox kpi-watermark"></i>
+                    <p class="text-blue-100 text-base leading-relaxed relative z-10">O total de manifestações inclui
+                        tanto as arquivadas quanto as respondidas.</p>
+                    <i class="fas fa-comments kpi-watermark"></i>
                 </div>
                 <!-- Total Arquivadas -->
-                <div class="kpi-card kpi-primary">
+                <div class="kpi-card kpi-soft" style="min-height:280px;">
                     <div>
-                        <p class="text-blue-100 font-montserrat font-bold text-sm uppercase tracking-widest mb-2">Total de Manifestações Arquivadas</p>
-                        <p class="kpi-num text-8xl">46</p>
+                        <p class="text-blue-100 font-montserrat font-bold text-sm uppercase tracking-widest mb-2">
+                            Manifestações Arquivadas</p>
+                        <p class="kpi-num text-7xl">46</p>
                     </div>
-                    <p class="text-blue-100 text-base leading-relaxed relative z-10">Manifestações arquivadas, ou seja: concluídas e colocadas em arquivo após o devido tratamento ou por atendimento ao prazo de guarda.</p>
+                    <p class="text-blue-100 text-base leading-relaxed relative z-10">Principal razão de arquivamento:
+                        Falta de clareza/Insuficiência de dados.</p>
                     <i class="fas fa-archive kpi-watermark"></i>
                 </div>
-                <!-- Encaminhadas -->
-                <div class="kpi-card kpi-soft">
+                <!-- Total Respondidas -->
+                <div class="kpi-card kpi-primary" style="min-height:280px;">
                     <div>
-                        <p class="text-blue-100 font-montserrat font-bold text-sm uppercase tracking-widest mb-2">Encaminhadas a outros órgãos</p>
-                        <p class="kpi-num text-8xl">12</p>
+                        <p class="text-blue-100 font-montserrat font-bold text-sm uppercase tracking-widest mb-2">
+                            Manifestações Respondidas</p>
+                        <p class="kpi-num text-7xl">258</p>
                     </div>
-                    <p class="text-blue-100 text-base leading-relaxed relative z-10">Manifestações adicionais redirecionadas a outros órgãos para o devido tratamento.</p>
-                    <i class="fas fa-share-from-square kpi-watermark"></i>
+                    <p class="text-blue-100 text-base leading-relaxed relative z-10">Manifestações que concluiram o
+                        fluxo de atendimento.</p>
+                    <i class="fas fa-inbox kpi-watermark"></i>
                 </div>
                 <!-- Tempo médio -->
-                <div class="kpi-card kpi-soft">
+                <div class="kpi-card kpi-soft" style="min-height:280px;">
                     <div>
-                        <p class="text-blue-100 font-montserrat font-bold text-sm uppercase tracking-widest mb-2">Tempo médio de conclusão</p>
-                        <div class="kpi-fraction text-white font-montserrat">
-                            <div class="kpi-fraction-num">13,9</div>
-                            <div class="kpi-fraction-bar"></div>
-                            <div class="kpi-fraction-denom text-blue-100">dias</div>
-                        </div>
+                        <p class="text-blue-100 font-montserrat font-bold text-sm uppercase tracking-widest mb-2">Tempo
+                            médio de conclusão</p>
+                        <p class="kpi-num text-7xl">13,9<span class="text-2xl font-bold ml-1">dias</span></p>
                     </div>
-                    <p class="text-blue-100 text-base leading-relaxed relative z-10">Tempo médio, em dias, da abertura à conclusão das manifestações no trimestre.</p>
+                    <p class="text-blue-100 text-base leading-relaxed relative z-10">Da abertura à conclusão das
+                        manifestações no trimestre.</p>
                     <i class="fas fa-clock kpi-watermark"></i>
+                </div>
+            </div>
+            <!-- Encaminhadas (linha inferior) -->
+            <div class="grid grid-cols-1">
+                <div class="kpi-card kpi-primary"
+                    style="min-height:0; padding:1.4rem 2rem; flex-direction:row; align-items:center; justify-content:flex-start; gap:2rem;">
+                    <p class="kpi-num text-6xl">12</p>
+                    <div>
+                        <p class="text-blue-100 font-montserrat font-bold text-sm uppercase tracking-widest mb-1">
+                            Encaminhadas a outros órgãos</p>
+                        <p class="text-blue-100 text-base leading-relaxed relative z-10">Manifestações redirecionadas a
+                            outros órgãos para o devido tratamento.</p>
+                    </div>
+                    <i class="fas fa-share-from-square kpi-watermark"></i>
                 </div>
             </div>
         </div>

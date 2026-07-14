@@ -9,50 +9,156 @@
   ╚══════════════════════════════════════════════════════════════╝
 -->
 <html lang="pt-BR">
+
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
   <title>Manifestações por Canal - Relatório Trimestral Ouvidoria ANTAQ</title>
-  <link rel="icon" type="image/png" href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link rel="icon" type="image/png"
+    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap"
+    rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
-    html { font-size: 26px; }
-    body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
-    .slide-container { width: 100vw; height: 100vh; position: relative; display: flex; flex-direction: column; background-color: #ffffff; overflow: hidden; font-family: 'Open Sans', sans-serif; }
-    .font-montserrat { font-family: 'Montserrat', sans-serif; }
-    .text-brand-primary { color: #103050; }
-    .text-brand-secondary { color: #0070C0; }
-    .bg-brand-secondary { background-color: #0070C0; }
-    .top-accent { height: 8px; background-color: #103050; width: 100%; }
-    .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
+    html {
+      font-size: 26px;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f3f4f6;
+      overflow: hidden;
+    }
+
+    .slide-container {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background-color: #ffffff;
+      overflow: hidden;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    .font-montserrat {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .text-brand-primary {
+      color: #103050;
+    }
+
+    .text-brand-secondary {
+      color: #0070C0;
+    }
+
+    .bg-brand-secondary {
+      background-color: #0070C0;
+    }
+
+    .top-accent {
+      height: 8px;
+      background-color: #103050;
+      width: 100%;
+    }
+
+    .top-accent-secondary {
+      height: 4px;
+      background-color: #0070C0;
+      width: 100%;
+    }
 
     .chart-card {
-      background-color: #ffffff; border: 2px solid #E2E8F0; border-radius: 16px;
-      box-shadow: 0 8px 20px -8px rgba(16, 48, 80, 0.18); padding: .75rem 1rem;
-      transition: transform .28s cubic-bezier(.2,.7,.3,1), box-shadow .28s ease, border-color .28s ease;
+      background-color: #ffffff;
+      border: 2px solid #E2E8F0;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px -8px rgba(16, 48, 80, 0.18);
+      padding: .75rem 1rem;
+      transition: transform .28s cubic-bezier(.2, .7, .3, 1), box-shadow .28s ease, border-color .28s ease;
       animation: fadeIn .5s ease both;
     }
-    .chart-card:hover { transform: translateY(-5px); box-shadow: 0 22px 42px -12px rgba(16,48,80,.30); border-color: #0070C0; }
+
+    .chart-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 22px 42px -12px rgba(16, 48, 80, .30);
+      border-color: #0070C0;
+    }
 
     .canal-stat {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: .35rem 0; border-bottom: 1px solid #F1F5F9;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: .35rem 0;
+      border-bottom: 1px solid #F1F5F9;
     }
-    .canal-stat:last-child { border-bottom: none; }
-    .canal-stat .cs-left { display: flex; align-items: center; gap: .45rem; font-size: .78rem; color: #334155; }
-    .canal-stat .cs-dot { width: 10px; height: 10px; border-radius: 50%; }
-    .canal-stat .cs-val { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .95rem; color: #103050; }
 
-    .legend-item { display: flex; align-items: center; gap: .4rem; font-size: .8rem; color: #475569; }
-    .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .canal-stat:last-child {
+      border-bottom: none;
+    }
 
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+    .canal-stat .cs-left {
+      display: flex;
+      align-items: center;
+      gap: .45rem;
+      font-size: .78rem;
+      color: #334155;
+    }
+
+    .canal-stat .cs-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .canal-stat .cs-val {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: .95rem;
+      color: #103050;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+      font-size: .8rem;
+      color: #475569;
+    }
+
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
   </style>
 </head>
+
 <body>
   <div class="slide-container">
     <div class="top-accent"></div>
@@ -62,14 +168,16 @@
       <div>
         <div class="flex items-center gap-3 mb-1">
           <div class="w-1 h-8 bg-brand-secondary"></div>
-          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Distribuição de Manifestações por Canal</p>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Distribuição de
+            Manifestações por Canal</p>
         </div>
       </div>
       <div class="flex items-center gap-3 opacity-80 text-brand-secondary">
         <i class="fas fa-headset text-3xl" aria-hidden="true"></i>
         <div class="flex flex-col justify-center pl-2" style="border-left:1px solid #CBD5E1;">
           <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1">CAPÍTULO 03</p>
-          <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none">Seção de Apoio ao Cidadão — SAC</p>
+          <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none">Seção
+            de Apoio ao Cidadão — SAC</p>
         </div>
       </div>
     </div>
@@ -83,24 +191,34 @@
         </div>
         <div class="chart-card">
           <div class="canal-stat">
-            <div class="cs-left"><div class="cs-dot" style="background:#103050;"></div>Email</div>
-            <span class="cs-val">57</span>
-          </div>
-          <div class="canal-stat">
-            <div class="cs-left"><div class="cs-dot" style="background:#0A75B7;"></div>Internet</div>
+            <div class="cs-left">
+              <div class="cs-dot" style="background:#0A75B7;"></div>Internet
+            </div>
             <span class="cs-val">215</span>
           </div>
           <div class="canal-stat">
-            <div class="cs-left"><div class="cs-dot" style="background:#1F97D4;"></div>Outros</div>
-            <span class="cs-val">3</span>
+            <div class="cs-left">
+              <div class="cs-dot" style="background:#103050;"></div>Email
+            </div>
+            <span class="cs-val">57</span>
           </div>
           <div class="canal-stat">
-            <div class="cs-left"><div class="cs-dot" style="background:#4EAFE8;"></div>Telefone</div>
+            <div class="cs-left">
+              <div class="cs-dot" style="background:#86C6EB;"></div>WhatsApp
+            </div>
+            <span class="cs-val">22</span>
+          </div>
+          <div class="canal-stat">
+            <div class="cs-left">
+              <div class="cs-dot" style="background:#4EAFE8;"></div>Telefone
+            </div>
             <span class="cs-val">7</span>
           </div>
           <div class="canal-stat">
-            <div class="cs-left"><div class="cs-dot" style="background:#86C6EB;"></div>WhatsApp</div>
-            <span class="cs-val">22</span>
+            <div class="cs-left">
+              <div class="cs-dot" style="background:#1F97D4;"></div>Outros
+            </div>
+            <span class="cs-val">3</span>
           </div>
           <div class="canal-stat" style="border-top:1px solid #E2E8F0; margin-top:.2rem; padding-top:.35rem;">
             <div class="cs-left text-gray-500 font-semibold">Total</div>
@@ -112,16 +230,27 @@
       <!-- Coluna direita: gráfico por mês -->
       <div class="flex flex-col gap-3">
         <div class="chart-card flex-1 flex flex-col" style="min-height:0;">
-          <p class="text-gray-400 text-xs font-montserrat font-bold uppercase tracking-wide mb-1">Totais por canal · Trimestre</p>
+          <p class="text-gray-400 text-xs font-montserrat font-bold uppercase tracking-wide mb-1">Totais por canal ·
+            Trimestre</p>
           <div class="flex-1 relative" style="min-height:0;"><canvas id="chartCanalMes"></canvas></div>
         </div>
         <div class="chart-card">
           <div class="flex gap-4 justify-center flex-wrap">
-            <div class="legend-item"><div class="legend-dot" style="background:#103050;"></div>Email</div>
-            <div class="legend-item"><div class="legend-dot" style="background:#0A75B7;"></div>Internet</div>
-            <div class="legend-item"><div class="legend-dot" style="background:#1F97D4;"></div>Outros</div>
-            <div class="legend-item"><div class="legend-dot" style="background:#4EAFE8;"></div>Telefone</div>
-            <div class="legend-item"><div class="legend-dot" style="background:#86C6EB;"></div>WhatsApp</div>
+            <div class="legend-item">
+              <div class="legend-dot" style="background:#103050;"></div>Email
+            </div>
+            <div class="legend-item">
+              <div class="legend-dot" style="background:#0A75B7;"></div>Internet
+            </div>
+            <div class="legend-item">
+              <div class="legend-dot" style="background:#1F97D4;"></div>Outros
+            </div>
+            <div class="legend-item">
+              <div class="legend-dot" style="background:#4EAFE8;"></div>Telefone
+            </div>
+            <div class="legend-item">
+              <div class="legend-dot" style="background:#86C6EB;"></div>WhatsApp
+            </div>
           </div>
         </div>
       </div>
@@ -231,6 +360,7 @@
       }]
     });
   </script>
-  <script>document.addEventListener("keydown", function (e) { if (["ArrowRight","ArrowLeft","PageDown","PageUp","Home","End"," ","f","F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
+  <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
 </body>
+
 </html>

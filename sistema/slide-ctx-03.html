@@ -1,43 +1,226 @@
 <!DOCTYPE html>
 <!-- SLIDE CTX-03 — Contexto do Capítulo 3 · Destaques do Trimestre (texto centralizado) -->
 <html lang="pt-BR">
+
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
   <title>Destaques do Trimestre — Contexto - Relatório Trimestral Ouvidoria ANTAQ</title>
-  <link rel="icon" type="image/png" href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link rel="icon" type="image/png"
+    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&amp;family=Open+Sans:ital,wght@0,400;0,600;1,400&amp;display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&amp;family=Open+Sans:ital,wght@0,400;0,600;1,400&amp;display=swap"
+    rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
   <style>
-    html { font-size: 26px; }
-    body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
-    .slide-container { width: 100vw; height: 100vh; position: relative; display: flex; flex-direction: column; background: #fff; overflow: hidden; font-family: 'Open Sans', sans-serif; }
-    .font-montserrat { font-family: 'Montserrat', sans-serif; }
-    .text-brand-primary { color: #103050; } .text-brand-secondary { color: #0070C0; }
-    .top-accent { height: 8px; background: #103050; } .top-accent-secondary { height: 4px; background: #0070C0; }
-    .gov-eyebrow { display: flex; align-items: center; gap: .5rem; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: .62rem; letter-spacing: .16em; text-transform: uppercase; color: #64748B; }
-    .gov-eyebrow i { color: #0070C0; }
+    html {
+      font-size: 26px;
+    }
 
-    .tc-wrap { flex: 1; min-height: 0; position: relative; z-index: 10; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 1.2rem 5rem; animation: fadeInUp .55s cubic-bezier(.2,.7,.3,1) both; }
-    .tc-eyebrow { display: flex; align-items: center; gap: .8rem; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .68rem; letter-spacing: .28em; text-transform: uppercase; color: #0070C0; margin-bottom: 1.1rem; }
-    .tc-eyebrow::before, .tc-eyebrow::after { content: ""; width: 34px; height: 2px; background: #F2A900; }
-    .tc-title { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 2.7rem; color: #103050; line-height: 1.05; letter-spacing: -.01em; margin: 0 0 .5rem; }
-    .tc-sub { font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: .9rem; color: #64748B; letter-spacing: .02em; margin-bottom: 1.2rem; }
-    .tc-divider { width: 90px; height: 4px; border-radius: 2px; margin: 0 auto 1.6rem; background: linear-gradient(90deg, #F2A900, #0090C0); }
-    .tc-body { max-width: 52rem; text-align: justify; text-align-last: left; hyphens: auto; }
-    .tc-body p { color: #334155; font-size: 1.0rem; line-height: 1.85; margin: 0 0 1.05rem; text-indent: 1.8em; }
-    .tc-body p:last-child { margin-bottom: 0; }
-    .tc-body b { color: #103050; font-weight: 700; }
-    .tc-close { max-width: 52rem; margin-top: 1.5rem; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1.05rem; line-height: 1.5; color: #0070C0; }
-    .tc-close i { color: #F2A900; margin: 0 .4rem; }
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f3f4f6;
+      overflow: hidden;
+    }
 
-    .bg-pattern { position: absolute; bottom: -70px; right: -60px; width: 420px; height: 420px; opacity: .03; z-index: 0; color: #103050; }
-    .bg-pattern-2 { position: absolute; top: -80px; left: -60px; width: 340px; height: 340px; opacity: .025; z-index: 0; color: #0070C0; }
-    @keyframes fadeInUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
-    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+    .slide-container {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background: #fff;
+      overflow: hidden;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    .font-montserrat {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .text-brand-primary {
+      color: #103050;
+    }
+
+    .text-brand-secondary {
+      color: #0070C0;
+    }
+
+    .top-accent {
+      height: 8px;
+      background: #103050;
+    }
+
+    .top-accent-secondary {
+      height: 4px;
+      background: #0070C0;
+    }
+
+    .gov-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: .62rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: #64748B;
+    }
+
+    .gov-eyebrow i {
+      color: #0070C0;
+    }
+
+    .tc-wrap {
+      flex: 1;
+      min-height: 0;
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 1.2rem 5rem;
+      animation: fadeInUp .55s cubic-bezier(.2, .7, .3, 1) both;
+    }
+
+    .tc-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: .8rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: .68rem;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      color: #0070C0;
+      margin-bottom: 1.1rem;
+    }
+
+    .tc-eyebrow::before,
+    .tc-eyebrow::after {
+      content: "";
+      width: 34px;
+      height: 2px;
+      background: #F2A900;
+    }
+
+    .tc-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 2.7rem;
+      color: #103050;
+      line-height: 1.05;
+      letter-spacing: -.01em;
+      margin: 0 0 .5rem;
+    }
+
+    .tc-sub {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      font-size: .9rem;
+      color: #64748B;
+      letter-spacing: .02em;
+      margin-bottom: 1.2rem;
+    }
+
+    .tc-divider {
+      width: 90px;
+      height: 4px;
+      border-radius: 2px;
+      margin: 0 auto 1.6rem;
+      background: linear-gradient(90deg, #F2A900, #0090C0);
+    }
+
+    .tc-body {
+      max-width: 52rem;
+      text-align: justify;
+      text-align-last: left;
+      hyphens: auto;
+    }
+
+    .tc-body p {
+      color: #334155;
+      font-size: 1.0rem;
+      line-height: 1.85;
+      margin: 0 0 1.05rem;
+      text-indent: 1.8em;
+    }
+
+    .tc-body p:last-child {
+      margin-bottom: 0;
+    }
+
+    .tc-body b {
+      color: #103050;
+      font-weight: 700;
+    }
+
+    .tc-close {
+      max-width: 52rem;
+      margin-top: 1.5rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      line-height: 1.5;
+      color: #0070C0;
+    }
+
+    .tc-close i {
+      color: #F2A900;
+      margin: 0 .4rem;
+    }
+
+    .bg-pattern {
+      position: absolute;
+      bottom: -70px;
+      right: -60px;
+      width: 420px;
+      height: 420px;
+      opacity: .03;
+      z-index: 0;
+      color: #103050;
+    }
+
+    .bg-pattern-2 {
+      position: absolute;
+      top: -80px;
+      left: -60px;
+      width: 340px;
+      height: 340px;
+      opacity: .025;
+      z-index: 0;
+      color: #0070C0;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
   </style>
 </head>
+
 <body>
   <div class="slide-container">
     <div class="top-accent"></div>
@@ -49,7 +232,8 @@
         <i class="fas fa-headset text-3xl" aria-hidden="true"></i>
         <div class="flex flex-col justify-center pl-2" style="border-left:1px solid #CBD5E1;">
           <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1">CAPÍTULO 03</p>
-          <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none">Seção de Apoio ao Cidadão — SAC</p>
+          <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none">Seção
+            de Apoio ao Cidadão — SAC</p>
         </div>
       </div>
     </div>
@@ -61,31 +245,30 @@
       <div class="tc-body">
         <p>
           Das <b>304 manifestações</b> recebidas no 1º trimestre de 2026, mais da metade — <b>154 registros
-          (50,7% do total)</b> — concentrou-se em <b>Cobranças Abusivas</b>, o que confirma esse eixo como a principal
+            (50,7% do total)</b> — concentrou-se em <b>Cobranças Abusivas</b>, o que confirma esse eixo como a principal
           fonte de insatisfação dos usuários do setor aquaviário.
         </p>
         <p>
           Dentro desse tema, a <b>sobrestadia/detention de mercadorias</b> lidera isoladamente, com <b>56 manifestações
-          (18,4% de todas as demandas)</b>, seguida da <b>cobrança portuária abusiva</b> — <b>43 registros</b>, aos
-          quais se somam outros <b>20 acompanhados de pedido de medida cautelar</b>. Os demais eixos distribuem-se entre
+            (18,4% de todas as demandas)</b>, seguida da <b>cobrança portuária abusiva</b> — <b>43 registros</b>, aos
+          quais se somam outros <b>20 acompanhados de pedido de medida cautelar</b>.
+        </p>
+        <p>
+          Os demais eixos distribuem-se entre
           <b>Regulação Portuária (41 · 13,5%)</b> e <b>Serviços na Navegação Interior (37 · 12,2%)</b>, enquanto
           Regulação Marítima e Meio Ambiente respondem, juntas, por <b>menos de 6%</b>.
         </p>
       </div>
-
-      <p class="tc-close">
-        <i class="fas fa-fire"></i>
-        Concentração e recorrência: enfrentar sobrestadia e cobranças portuárias é o caminho mais direto para reduzir
-        o volume de demandas do trimestre.
-      </p>
     </div>
 
     <div class="px-16 pb-6 pt-1 flex justify-between items-center z-10">
-      <p class="text-gray-400 text-xs">Relatório Trimestral da Ouvidoria · 2026 — Agência Nacional de Transportes Aquaviários</p>
+      <p class="text-gray-400 text-xs">Relatório Trimestral da Ouvidoria · 2026 — Agência Nacional de Transportes
+        Aquaviários</p>
     </div>
     <div class="bg-pattern"><i class="fas fa-fire text-9xl"></i></div>
     <div class="bg-pattern-2"><i class="fas fa-anchor text-9xl"></i></div>
   </div>
-  <script>document.addEventListener("keydown", function (e) { if (["ArrowRight","ArrowLeft","PageDown","PageUp","Home","End"," ","f","F"].indexOf(e.key)!==-1){ e.preventDefault(); window.parent.postMessage({type:"slide-nav",key:e.key},"*"); } });</script>
+  <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
 </body>
+
 </html>
