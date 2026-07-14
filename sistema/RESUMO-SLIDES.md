@@ -41,7 +41,7 @@
 | 14 | `slide-17e.html` | Composição das Demandas — Total 434 *(escolhido para "Ouvidoria em números", opção 34 ou 53)* |
 | 15 | `slide-07.html` | Evolução Histórica |
 
-## Bloco 3 · SAC — Seção de Atendimento ao Cidadão
+## Bloco 3 · Seção de Apoio ao Cidadão — SAC
 | # | Arquivo | Título |
 |---|---------|--------|
 | 16 | `slide-sac-apres.html` | Apresentação da SAC |

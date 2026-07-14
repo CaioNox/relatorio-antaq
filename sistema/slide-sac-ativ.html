@@ -1,51 +1,183 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
   <title>Principais Atividades da SAC - Relatório Trimestral Ouvidoria ANTAQ</title>
-  <link rel="icon" type="image/png" href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link rel="icon" type="image/png"
+    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap"
+    rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
   <style>
-    html { font-size: 26px; }
-    body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
-    .slide-container { width: 100vw; height: 100vh; position: relative; display: flex; flex-direction: column; background-color: #ffffff; overflow: hidden; font-family: 'Open Sans', sans-serif; }
-    .font-montserrat { font-family: 'Montserrat', sans-serif; }
-    .text-brand-primary { color: #103050; }
-    .text-brand-secondary { color: #0070C0; }
-    .bg-brand-secondary { background-color: #0070C0; }
-    .top-accent { height: 8px; background-color: #103050; width: 100%; }
-    .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
-    .gov-eyebrow { display: flex; align-items: center; gap: .5rem; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: .62rem; letter-spacing: .16em; text-transform: uppercase; color: #64748B; margin-bottom: .5rem; }
-    .gov-eyebrow i { color: #0070C0; }
+    html {
+      font-size: 26px;
+    }
 
-    .act-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: .7rem; }
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f3f4f6;
+      overflow: hidden;
+    }
+
+    .slide-container {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background-color: #ffffff;
+      overflow: hidden;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    .font-montserrat {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .text-brand-primary {
+      color: #103050;
+    }
+
+    .text-brand-secondary {
+      color: #0070C0;
+    }
+
+    .bg-brand-secondary {
+      background-color: #0070C0;
+    }
+
+    .top-accent {
+      height: 8px;
+      background-color: #103050;
+      width: 100%;
+    }
+
+    .top-accent-secondary {
+      height: 4px;
+      background-color: #0070C0;
+      width: 100%;
+    }
+
+    .gov-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: .62rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: #64748B;
+      margin-bottom: .5rem;
+    }
+
+    .gov-eyebrow i {
+      color: #0070C0;
+    }
+
+    .act-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: .7rem;
+    }
+
     .act-card {
-      background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 14px;
-      padding: .95rem 1rem; display: flex; flex-direction: column; gap: .45rem;
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 14px;
+      padding: .95rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: .45rem;
       transition: box-shadow .2s, border-color .2s;
     }
-    .act-card:hover { box-shadow: 0 8px 20px -8px rgba(16,48,80,.18); border-color: #0070C0; }
-    .act-card .ico-wrap {
-      width: 38px; height: 38px; border-radius: 10px;
-      background: linear-gradient(135deg, #103050, #0070C0);
-      display: flex; align-items: center; justify-content: center;
-      font-size: .9rem; color: #fff;
+
+    .act-card:hover {
+      box-shadow: 0 8px 20px -8px rgba(16, 48, 80, .18);
+      border-color: #0070C0;
     }
-    .act-card .c-title { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .68rem; color: #103050; text-transform: uppercase; letter-spacing: .04em; }
-    .act-card .c-desc { font-size: .65rem; color: #475569; line-height: 1.5; }
 
-    .intro-text { font-size: .72rem; color: #475569; line-height: 1.55; margin-bottom: .65rem; }
-    .intro-text b { color: #103050; }
+    .act-card .ico-wrap {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #103050, #0070C0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .9rem;
+      color: #fff;
+    }
 
-    .bg-pattern { position: absolute; bottom: -60px; right: -50px; width: 360px; height: 360px; opacity: 0.025; z-index: 0; color: #103050; }
-    @keyframes fadeInUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
-    .a { animation: fadeInUp .45s ease both; }
-    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; } }
+    .act-card .c-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: .68rem;
+      color: #103050;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+
+    .act-card .c-desc {
+      font-size: .65rem;
+      color: #475569;
+      line-height: 1.5;
+    }
+
+    .intro-text {
+      font-size: .72rem;
+      color: #475569;
+      line-height: 1.55;
+      margin-bottom: .65rem;
+    }
+
+    .intro-text b {
+      color: #103050;
+    }
+
+    .bg-pattern {
+      position: absolute;
+      bottom: -60px;
+      right: -50px;
+      width: 360px;
+      height: 360px;
+      opacity: 0.025;
+      z-index: 0;
+      color: #103050;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    .a {
+      animation: fadeInUp .45s ease both;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+      }
+    }
   </style>
 </head>
+
 <body>
   <div class="slide-container">
     <div class="top-accent"></div>
@@ -54,52 +186,62 @@
     <div class="px-16 pt-5 pb-2 z-10">
       <div class="flex items-center gap-3 mb-2">
         <div class="w-1 h-8 bg-brand-secondary"></div>
-        <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Tipos de Manifestações do Fala.BR</p>
+        <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Tipos de Manifestações
+          de Ouvidoria</p>
       </div>
     </div>
 
     <div class="flex-1 px-16 pb-3 z-10 flex flex-col justify-center" style="min-height:0;">
-      <p class="intro-text a">No Fala.BR, o demandante pode cadastrar manifestações de diferentes tipos para registrar situações e demandas que precisam de resposta da Administração Pública.</p>
+      <p class="intro-text a">No Fala.BR, o demandante pode cadastrar manifestações de diferentes tipos para registrar
+        situações e demandas que precisam de resposta da Administração Pública.</p>
       <div class="act-grid a">
         <div class="act-card">
           <div class="ico-wrap"><i class="fas fa-circle-exclamation"></i></div>
           <p class="c-title">Denúncia</p>
-          <p class="c-desc">Utilizada para comunicar uma irregularidade, um ato ilícito ou uma violação de direitos no âmbito da administração pública ou dos serviços regulados pela ANTAQ.</p>
+          <p class="c-desc">Utilizada para comunicar uma irregularidade, um ato ilícito ou uma violação de direitos no
+            âmbito da administração pública ou dos serviços regulados pela ANTAQ.</p>
         </div>
         <div class="act-card">
           <div class="ico-wrap"><i class="fas fa-comment-dots"></i></div>
           <p class="c-title">Reclamação</p>
-          <p class="c-desc">Canal para que o cidadão manifeste sua insatisfação com a qualidade da prestação de um serviço público ou com o atendimento recebido.</p>
+          <p class="c-desc">Canal para que o cidadão manifeste sua insatisfação com a qualidade da prestação de um
+            serviço público ou com o atendimento recebido.</p>
         </div>
         <div class="act-card">
           <div class="ico-wrap"><i class="fas fa-file-signature"></i></div>
           <p class="c-title">Solicitação</p>
-          <p class="c-desc">Direcionada para que o usuário requeira a adoção de alguma providência específica por parte da Administração Pública.</p>
+          <p class="c-desc">Direcionada para que o usuário requeira a adoção de alguma providência específica por parte
+            da Administração Pública.</p>
         </div>
         <div class="act-card">
           <div class="ico-wrap"><i class="fas fa-lightbulb"></i></div>
           <p class="c-title">Sugestão</p>
-          <p class="c-desc">Espaço dedicado para o envio de ideias ou propostas de melhoria, visando o aprimoramento contínuo das políticas e dos serviços públicos.</p>
+          <p class="c-desc">Espaço dedicado para o envio de ideias ou propostas de melhoria, visando o aprimoramento
+            contínuo das políticas e dos serviços públicos.</p>
         </div>
         <div class="act-card">
           <div class="ico-wrap"><i class="fas fa-thumbs-up"></i></div>
           <p class="c-title">Elogio</p>
-          <p class="c-desc">Ferramenta para expressar satisfação, reconhecimento ou agradecimento por um serviço prestado com excelência ou por um bom atendimento público.</p>
+          <p class="c-desc">Ferramenta para expressar satisfação, reconhecimento ou agradecimento por um serviço
+            prestado com excelência ou por um bom atendimento público.</p>
         </div>
         <div class="act-card">
           <div class="ico-wrap"><i class="fas fa-broom"></i></div>
           <p class="c-title">Simplifique</p>
-          <p class="c-desc">Canal específico para o cidadão sugerir ideias e mudanças focadas em desburocratizar, modernizar e simplificar a prestação dos serviços públicos.</p>
+          <p class="c-desc">Canal específico para o cidadão sugerir ideias e mudanças focadas em desburocratizar,
+            modernizar e simplificar a prestação dos serviços públicos.</p>
         </div>
       </div>
     </div>
 
     <div class="px-16 pb-6 pt-1 flex justify-between items-center z-10">
-      <p class="text-gray-400 text-xs">Relatório Trimestral da Ouvidoria · 2026 — Agência Nacional de Transportes Aquaviários</p>
+      <p class="text-gray-400 text-xs">Relatório Trimestral da Ouvidoria · 2026 — Agência Nacional de Transportes
+        Aquaviários</p>
       <p class="text-gray-300 text-xs font-mono">SAC · Atividades</p>
     </div>
     <div class="bg-pattern"><i class="fas fa-list-check text-9xl"></i></div>
   </div>
-  <script>document.addEventListener("keydown", function (e) { if (["ArrowRight","ArrowLeft","PageDown","PageUp","Home","End"," ","f","F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
+  <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
 </body>
+
 </html>
