@@ -151,6 +151,80 @@
             animation: fadeIn .5s ease both;
         }
 
+        /* ===== QR WhatsApp da Ouvidoria (IARA) — compacto, canto inferior direito ===== */
+        .qr-wa {
+            position: absolute;
+            right: 3.2rem;
+            bottom: 8.5rem;
+            z-index: 30;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.7rem 0.7rem 0.55rem;
+            background: rgba(255, 255, 255, 0.97);
+            border: 1px solid rgba(37, 211, 102, 0.55);
+            border-radius: 14px;
+            box-shadow: 0 14px 30px -10px rgba(0, 0, 0, 0.55);
+            text-decoration: none;
+            animation: fadeIn .6s ease .4s both, qrPulse 2.4s ease-in-out infinite;
+        }
+
+        .qr-wa::before {
+            content: "";
+            position: absolute;
+            inset: -5px;
+            border-radius: 18px;
+            border: 2px solid rgba(37, 211, 102, 0.6);
+            opacity: 0;
+            animation: qrRing 2.4s ease-out infinite;
+            pointer-events: none;
+        }
+
+        .qr-wa-head {
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 0.72rem;
+            letter-spacing: 0.02em;
+            color: #0d3358;
+            text-transform: uppercase;
+        }
+
+        .qr-wa-head i {
+            color: #25D366;
+            font-size: 1rem;
+        }
+
+        .qr-wa img {
+            width: 104px;
+            height: 104px;
+            display: block;
+            border-radius: 6px;
+        }
+
+        .qr-wa-sub {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 0.64rem;
+            font-weight: 600;
+            color: #4b5563;
+            text-align: center;
+            line-height: 1.15;
+        }
+
+        @keyframes qrPulse {
+            0%, 100% { box-shadow: 0 14px 30px -10px rgba(0, 0, 0, 0.55), 0 0 0 0 rgba(37, 211, 102, 0.0); }
+            50% { box-shadow: 0 14px 30px -10px rgba(0, 0, 0, 0.55), 0 0 22px 2px rgba(37, 211, 102, 0.45); }
+        }
+
+        @keyframes qrRing {
+            0% { opacity: 0.7; transform: scale(1); }
+            70% { opacity: 0; transform: scale(1.12); }
+            100% { opacity: 0; transform: scale(1.12); }
+        }
+
         .link-card:nth-child(2) {
             animation-delay: .1s;
         }
@@ -225,6 +299,10 @@
                         <div class="link-icon"><i class="fas fa-circle-info"></i></div>
                         <div><p class="lc-title">Acesso à Informação</p><p class="lc-sub">gov.br/antaq · Acesso à Informação</p></div>
                     </a>
+                    <a class="link-card lc-sm" href="https://www.gov.br/pt-br/orgaos/agencia-nacional-de-transportes-aquaviarios/@@download.pdf" target="_blank" rel="noopener noreferrer">
+                        <div class="link-icon"><i class="fas fa-file-contract"></i></div>
+                        <div><p class="lc-title">Carta de Serviços ao Usuário</p><p class="lc-sub">gov.br/antaq (PDF)</p></div>
+                    </a>
                     <a class="link-card lc-sm" href="https://falabr.cgu.gov.br" target="_blank" rel="noopener noreferrer">
                         <div class="link-icon"><img src="Imagens/Logo_Fala_BR.png" alt="Fala.BR" style="height: 26px; width: auto;"></div>
                         <div><p class="lc-title">Plataforma Fala.BR</p><p class="lc-sub">falabr.cgu.gov.br</p></div>
@@ -264,6 +342,13 @@
                         <div><p class="lc-title">Endereço</p><p class="lc-sub">SEPN Q. 514, Ed. Antaq — Brasília/DF</p></div>
                     </a>
                 </div>
+            </div>
+
+            <!-- QR WhatsApp da Ouvidoria (IARA) -->
+            <div class="qr-wa" title="WhatsApp da Ouvidoria — Assistente IARA">
+                <span class="qr-wa-head"><i class="fa-brands fa-whatsapp"></i> WhatsApp · IARA</span>
+                <img src="Imagens/QRCODE_IARA.jpeg" alt="QR Code do WhatsApp da Ouvidoria da ANTAQ (IARA)" />
+                <span class="qr-wa-sub">Aponte a câmera<br />para falar com a Ouvidoria</span>
             </div>
 
             <!-- Footer -->
