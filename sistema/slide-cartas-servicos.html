@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<!--
+  ╔══════════════════════════════════════════════════════════════╗
+  ║  SLIDE — Carta de Serviços da ANTAQ (SOG + SRG + SAF + SFC)   ║
+  ║  Fusão dos antigos slides 26 e 27 — 32 serviços              ║
+  ║  Template/lógica de hover copiados do slide-21 (PDA)         ║
+  ╚══════════════════════════════════════════════════════════════╝
+-->
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Carta de Serviços da ANTAQ - Relatório Trimestral Ouvidoria ANTAQ</title>
+  <link rel="icon" type="image/png"
+    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&amp;family=Open+Sans:ital,wght@0,400;0,600;1,400&amp;display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    html { font-size: 26px; }
+    body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
+    .slide-container {
+      width: 100vw; height: 100vh; position: relative; display: flex; flex-direction: column;
+      background-color: #ffffff; overflow: hidden; font-family: 'Open Sans', sans-serif;
+    }
+    .font-montserrat { font-family: 'Montserrat', sans-serif; }
+    .text-brand-primary { color: #103050; }
+    .text-brand-secondary { color: #0070C0; }
+    .bg-brand-secondary { background-color: #0070C0; }
+    .top-accent { height: 8px; background-color: #103050; width: 100%; }
+    .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
+
+    /* ── Banner de resumo (mantém os números) ── */
+    .insight-banner {
+      background: linear-gradient(135deg, #f4f9ff 0%, #eaf3fb 100%);
+      border: 2px solid #C0E0F0; border-left: 5px solid #0070C0; border-radius: 14px;
+      padding: .4rem 1.1rem; box-shadow: 0 10px 24px -12px rgba(16, 48, 80, .22);
+      display: flex; align-items: center; gap: 1.2rem; flex-wrap: wrap;
+    }
+    .insight-banner .ib-stat { display: flex; align-items: center; gap: .5rem; }
+    .insight-banner .ib-stat i { color: #0070C0; font-size: 1.05rem; }
+    .insight-banner .ib-num { font-family: 'Montserrat', sans-serif; font-weight: 900; color: #103050; font-size: .92rem; line-height: 1; }
+    .insight-banner .ib-sep { width: 1px; height: 1.3rem; background: #C0E0F0; }
+    .insight-banner .ib-hint { margin-left: auto; color: #0070C0; font-weight: 700; font-size: .68rem; display: flex; align-items: center; gap: .4rem; }
+
+    /* ── Badge de superintendência ── */
+    .svc-badge {
+      display: inline-flex; align-items: center; gap: .6rem;
+      background: linear-gradient(135deg, #103050, #0070C0); color: #fff;
+      border-radius: 4px; padding: .34rem 1rem;
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .7rem;
+      letter-spacing: .03em; box-shadow: 0 10px 24px -10px rgba(16, 48, 80, .5);
+    }
+
+    /* ── Barrinhas horizontais de serviço (estilo slide-21) ── */
+    .svc-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 9px; }
+    .svc-bar {
+      display: flex; align-items: center; gap: .6rem;
+      background: #f8fafc; border: 1px solid #E2E8F0; border-left: 4px solid #0070C0;
+      border-radius: 10px; padding: .5rem .7rem; cursor: pointer;
+      transition: transform .25s ease, border-color .25s ease, background-color .25s ease, box-shadow .25s ease;
+      animation: fadeIn .5s ease both;
+    }
+    .svc-bar:hover {
+      border-color: #0070C0; background: #eef6fc; transform: translateX(4px);
+      box-shadow: 0 12px 24px -14px rgba(16, 48, 80, .3);
+    }
+    .svc-bar .sb-num {
+      font-family: 'Montserrat', sans-serif; font-weight: 900; color: #0090C0;
+      font-size: 1rem; line-height: 1; flex-shrink: 0; min-width: 1.45rem; text-align: center;
+    }
+    .svc-bar .sb-name {
+      font-family: 'Open Sans', sans-serif; font-size: .6rem; font-weight: 600; color: #103050; line-height: 1.17;
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    }
+    .svc-bar .sb-plus { margin-left: auto; color: #CBD5E1; font-size: .58rem; flex-shrink: 0; transition: color .25s ease, transform .25s ease; }
+    .svc-bar:hover .sb-plus { color: #0070C0; transform: rotate(90deg); }
+    .sb-desc { display: none; }
+
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    /* ── Popover de detalhe no hover (copiado do slide-21) ── */
+    .svc-pop {
+      position: fixed; z-index: 90; width: 360px; max-width: 92vw;
+      background: #ffffff; border-radius: 14px; border-top: 5px solid #0070C0;
+      box-shadow: 0 30px 60px -20px rgba(16, 48, 80, .5); padding: 16px 18px;
+      opacity: 0; visibility: hidden; transform: translateY(6px);
+      transition: opacity .16s ease, transform .16s ease, visibility .16s;
+      pointer-events: none; font-family: 'Open Sans', sans-serif;
+    }
+    .svc-pop.open { opacity: 1; visibility: visible; transform: translateY(0); pointer-events: auto; }
+    .svc-pop .sp-head { display: flex; align-items: center; gap: 10px; margin-bottom: 9px; }
+    .svc-pop .sp-num {
+      flex-shrink: 0; width: 34px; height: 34px; border-radius: 10px;
+      background: linear-gradient(135deg, #103050, #0070C0); color: #fff;
+      font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 13px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .svc-pop .sp-kicker {
+      font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 9px;
+      letter-spacing: .12em; text-transform: uppercase; color: #0070C0; margin: 0 0 2px;
+    }
+    .svc-pop .sp-title { font-family: 'Montserrat', sans-serif; font-weight: 800; color: #103050; font-size: 14px; line-height: 1.2; margin: 0; }
+    .svc-pop .sp-desc { color: #334155; font-size: 12.5px; line-height: 1.5; margin: 9px 0 0; max-height: 42vh; overflow: auto; }
+
+    .bg-pattern { position: absolute; bottom: -50px; right: -50px; width: 400px; height: 400px; opacity: 0.03; z-index: 0; color: #103050; }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+  </style>
+</head>
+
+<body>
+  <div class="slide-container">
+    <div class="top-accent"></div>
+    <div class="top-accent-secondary"></div>
+
+    <!-- Header -->
+    <div class="flex items-start justify-between px-16 pt-6 pb-2 z-10">
+      <div>
+        <div class="flex items-center gap-3 mb-1">
+          <div class="w-1 h-8 bg-brand-secondary"></div>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Carta de Serviços da
+            Antaq</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-3 opacity-80 text-brand-secondary">
+        <i class="fas fa-landmark text-3xl align-middle" aria-hidden="true"></i>
+        <div class="flex flex-col justify-center border-left pl-2" style="border-left: 1px solid #CBD5E1;">
+          <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1">CAPÍTULO 02</p>
+          <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none">A
+            Ouvidoria da ANTAQ</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Corpo: 4 superintendências -->
+    <div class="flex-1 px-16 pt-2 pb-2 z-10" style="min-height:0;">
+
+      <!-- SOG -->
+      <div class="pb-1"><span class="svc-badge"><i class="fas fa-stamp"></i>Superintendência de Outorgas - SOG · 18 serviços</span></div>
+      <div class="svc-grid mb-3">
+        <div class="svc-bar" data-num="01" data-kicker="Superintendência de Outorgas · SOG" data-title="Solicitar autorização e registro na Antaq para afretamento de embarcação estrangeira">
+          <span class="sb-num">01</span><span class="sb-name">Solicitar autorização e registro na Antaq para afretamento de embarcação estrangeira</span><i class="fas fa-plus sb-plus"></i>
+          <span class="sb-desc">Solicitação de autorização e/ou registro de afretamento de embarcação estrangeira para operar nas navegações de cabotagem, longo curso, apoio marítimo e apoio portuário. Solicitação de autorização para afretamento de embarcação estrangeira, por viagem ou por tempo, para operar na navegação interior.</span>
+        </div>
+        <div class="svc-bar" data-num="02" data-kicker="Superintendência de Outorgas · SOG" data-title="Registrar na Antaq afretamento de embarcação brasileira">
+          <span class="sb-num">02</span><span class="sb-name">Registrar na Antaq afretamento de embarcação brasileira</span><i class="fas fa-plus sb-plus"></i>
+          <span class="sb-desc">Solicitação de registro para afretamento de embarcação nacional para operar nas navegações de cabotagem, longo curso, apoio marítimo e apoio portuário. Solicitação de registro para afretamento de embarcação nacional para operar na navegação interior.</span>
+        </div>
+        <div class="svc-bar" data-num="03" data-kicker="Superintendência de Outorgas · SOG" data-title="Registrar na Antaq comunicação sobre alteração de frota">
+          <span class="sb-num">03</span><span class="sb-name">Registrar na Antaq comunicação sobre alteração de frota</span><i class="fas fa-plus sb-plus"></i>
+          <span class="sb-desc">Através deste serviço o usuário poderá comunicar a inclusão, alteração ou exclusão de embarcação na frota da Empresa Brasileira de Navegação. O registro somente será efetivado se a comunicação vier acompanhada da documentação da(s) embarcação(ões) envolvidas.</span>
+        </div>
+        <div class="svc-bar" data-num="04" data-kicker="Superintendência de Outorgas · SOG" data-title="Registrar na Antaq alteração de situação cadastral de empresa brasileira de navegação">
+          <span class="sb-num">04</span><span class="sb-name">Registrar na Antaq alteração de situação cadastral de empresa brasileira de navegação</span><i class="fas fa-plus sb-plus"></i>
+          <span class="sb-desc">Através deste serviço o usuário poderá comunicar alterações da pessoa jurídica, como tipo, porte, endereço da matriz, abertura de filial, composição societária etc.</span>
+        </div>
+        <div class="svc-bar" data-num="05" data-kicker="Superintendência de Outorgas · SOG" data-title="Obter outorga de autorização da Antaq para construção e exploração de instalação portuária privada localizada fora da área do Porto Organizado">
+          <span class="sb-num">05</span><span class="sb-name">Obter outorga de autorização da Antaq para construção e exploração de instalação portuária privada localizada fora da área do Porto Organizado</span><i class="fas fa-plus sb-plus"></i>
+          <span class="sb-desc">Através deste serviço o usuário poderá obter autorização da Antaq para celebrar contrato de adesão com o poder concedente (MPOR) visando à construção e exploração de instalações portuárias localizadas fora da área do porto organizado, nas modalidades: TUP, ETC, IP4 e IPTur.</span>
+        </div>
+        <div class="svc-bar" data-num="06" data-kicker="Superintendência de Outorgas · SOG" data-title="Obter da Antaq autorização, aditamento ou renúncia para transporte aquaviário na navegação marítima e de apoio, cabotagem e longo curso">
+          <span class="sb-num">06</span><span class="sb-name">Obter da Antaq autorização, aditamento ou renúncia para transporte aquaviário na navegação marítima e de apoio, cabotagem e longo curso</span><i class="fas fa-plus sb-plus"></i>
+          <span class="sb-desc">Obter autorização para que a pessoa jurídica, constituída nos termos da legislação brasileira e com sede e administração no país, que tenha por objeto operar nas navegações de apoio marítimo, apoio portuário, cabotagem ou longo curso.</span>
+        </div>
+        <div class="svc-bar" data-num="07" data-kicker="Superintendência de Outorgas · SOG" data-title="Obter autorização da Antaq para transporte de cargas na navegação interior de percurso longitudinal interestadual e internacional">
+          <span class="sb-num">07</span><span class="sb-name">Obter autorização da Antaq para transporte de cargas na navegação interior de percurso longitudinal interestadual e internacional</span><i class="fas fa-plus sb-plus"></i>
+          <span class="sb-desc">Obter autorização para que a pessoa jurídica, constituída nos termos da legislação brasileira e com sede e administração no país, que tenha por objeto a prestação de serviços de transporte aquaviário de cargas na navegação interior de percurso longitudinal interestadual e internacional.</span>
+        </div>
+        <div class="svc-bar" data-num="08" data-kicker="Superintendência de Outorgas · SOG" data-title="Obter autorização da Antaq para transporte de passageiros, veículos e cargas na navegação interior de travessia">
+          <span class="sb-num">08</span><span class="sb-name">Obter autorização da Antaq para transporte de passageiros, veículos e cargas na navegação interior de travessia</span><i class="fas fa-plus sb-plus"></i>
+          <span class="sb-desc">Obter autorização para que a pessoa jurídica, constituída nos termos da legislação brasileira e com sede e administração no país, que tenha por objeto a prestação de serviços de transporte de passageiros, veículos e cargas na navegação interior de travessia, em uma determinada linha de navegação.</span>
+        </div>
+        <div class="svc-bar" data-num="09" data-kicker="Superintendência de Outorgas · SOG" data-title="Obter autorização da Antaq para transporte de passageiros e misto na navegação interior de percurso longitudinal interestadual e internacional">
+          <span class="sb-num">09</span><span class="sb-name">Obter autorização da Antaq para transporte de passageiros e misto na navegação interior de percurso longitudinal interestadual e internacional</span><i class="fas fa-plus sb-plus"></i>
+          <span class="sb-desc">Obter autorização para que a pessoa jurídica, constituída nos termos da legislação brasileira e com sede e administração no país, que tenha por objeto a prestação de serviços de transporte aquaviário de passageiros e misto na navegação interior de percurso longitudinal interestadual e internacional.</span>
+        </div>
+        <div class="svc-bar" data-num="10" data-kicker="Superintendência de Outorgas · SOG" data-title="Obter autorização da Antaq para ampliação da área da instalação portuária privada localizada fora da área de Porto Organizado">
+          <span class="sb-num">10</span><span class="sb-name">Obter autorização da Antaq para ampliação da área da instalação portuária privada localizada fora da área de Porto Organizado</span><i class="fas fa-plus sb-plus"></i>
+          <span class="sb-desc">O usuário já detentor de autorização para exploração de instalação portuária privada (TUP, ETC, IP4, IPTur) poderá solicitar autorização da Antaq para ampliação da área da instalação localizada fora dos limites dos portos organizados, conforme art. 35, II, do Decreto nº 8.033/2013.</span>
+        </div>
+        <div class="svc-bar" data-num="11" data-kicker="Superintendência de Outorgas · SOG" data-title="Registrar na Antaq instalação de apoio ao transporte aquaviário não passível de autorização">
+          <span class="sb-num">11</span><span class="sb-name">Registrar na Antaq instalação de apoio ao transporte aquaviário não passível de autorização</span><i class="fas fa-plus sb-plus"></i>
+          <span class="sb-desc">O registro de instalações de apoio ao transporte aquaviário consiste no cadastramento, de caráter discricionário, perante a ANTAQ, das instalações não passíveis de outorga de autorização de que trata o art. 8º da Lei nº 12.815/2013, com vistas à regulação da prestação de serviço adequado.</span>
+        </div>
+        <div class="svc-bar" data-num="12" data-kicker="Superintendência de Outorgas · SOG" data-title="Solicitar da Antaq análise de tonelagem para inscrição no Registro Especial Brasileiro (REB)">
+          <span class="sb-num">12</span><span class="sb-name">Solicitar da Antaq análise de tonelagem para inscrição no Registro Especial Brasileiro (REB)</span><i class="fas fa-plus sb-plus"></i>
+          <span class="sb-desc">Através deste serviço a Antaq poderá emitir o Atestado de Tonelagem e comunicar o Tribunal Marítimo se o usuário preencheu os requisitos de tonelagem disponível para inscrição de embarcação estrangeira no Registro Especial Brasileiro — REB.</span>
+        </div>
+        <div class="svc-bar" data-num="13" data-kicker="Superintendência de Outorgas · SOG" data-title="Solicitar atualização de dados na Antaq para o Sistema Mercante — AFRMM">
+          <span class="sb-num">13</span><span class="sb-name">Solicitar atualização de dados na Antaq para o Sistema Mercante — AFRMM</span><i class="fas fa-plus sb-plus"></i>
+          <span class="sb-desc">Através deste serviço o usuário poderá ter seu pedido de cadastros de embarcações, portos, terminais portuários, armadores e NVOCCs analisado e homologado no Sistema Mercante da Receita Federal do Brasil.</span>
+        </div>
+        <div class="svc-bar" data-num="14" data-kicker="Superintendência de Outorgas · SOG" data-title="Solicitar homologação da Antaq para Acordo Operacional na navegação marítima ou interior">
+          <span class="sb-num">14</span><span class="sb-name">Solicitar homologação da Antaq para Acordo Operacional na navegação marítima ou interior</span><i class="fas fa-plus sb-plus"></i>
+          <span class="sb-desc">Através deste serviço a Antaq poderá homologar os Acordos Operacionais entre os usuários, empresas brasileiras e estrangeiras de navegação, para troca de espaços no transporte marítimo internacional e entre empresas de navegação autorizadas a operar na prestação de serviço de transporte de carga na navegação interior.</span>
+        </div>
+        <div class="svc-bar" data-num="15" data-kicker="Superintendência de Outorgas · SOG" data-title="Solicitar à Antaq autorização para operação em caráter emergencial e especial">
+          <span class="sb-num">15</span><span class="sb-name">Solicitar à Antaq autorização para operação em caráter emergencial e especial</span><i class="fas fa-plus sb-plus"></i>
+          <span class="sb-desc">Através deste serviço a Antaq poderá autorizar que o usuário realize movimentação ou armazenagem de cargas ou movimentação de passageiros, em caráter emergencial ou especial, pelo prazo máximo de 180 dias, atestadas as condições predispostas na legislação vigente.</span>
+        </div>
+        <div class="svc-bar" data-num="16" data-kicker="Superintendência de Outorgas · SOG" data-title="Obter autorização da ANTAQ para celebração de contrato de transição">
+          <span class="sb-num">16</span><span class="sb-name">Obter autorização da ANTAQ para celebração de contrato de transição</span><i class="fas fa-plus sb-plus"></i>
+          <span class="sb-desc">Serviço destinado à obtenção de autorização da ANTAQ para celebração de contrato de transição entre a administração do porto e uma empresa interessada na exploração transitória de área ou instalação portuária. A autorização objetiva garantir a continuidade da prestação dos serviços portuários.</span>
+        </div>
+        <div class="svc-bar" data-num="17" data-kicker="Superintendência de Outorgas · SOG" data-title="Solicitar da Antaq análise de Projetos Executivos apresentados no âmbito das Concessões e dos Arrendamentos Portuários">
+          <span class="sb-num">17</span><span class="sb-name">Solicitar da Antaq análise de Projetos Executivos apresentados no âmbito das Concessões e dos Arrendamentos Portuários</span><i class="fas fa-plus sb-plus"></i>
+          <span class="sb-desc">Através deste serviço o usuário poderá obter declaração da Antaq de que o Projeto Executivo apresentado no âmbito das concessões e dos arrendamentos portuários consta adequado com os estudos e instrumentos contratuais correspondentes.</span>
+        </div>
+        <div class="svc-bar" data-num="18" data-kicker="Superintendência de Outorgas · SOG" data-title="Propor à Antaq recomposição do equilíbrio econômico-financeiro de contratos de Arrendamentos Portuários ou de EVTEA">
+          <span class="sb-num">18</span><span class="sb-name">Propor à Antaq recomposição do equilíbrio econômico-financeiro de contratos de Arrendamentos Portuários ou de EVTEA</span><i class="fas fa-plus sb-plus"></i>
+          <span class="sb-desc">Analisar requerimentos de recomposição do equilíbrio econômico-financeiro contratual e Estudos de Viabilidade Técnica, Econômica e Ambiental — EVTEAs referentes a eventos que impliquem impacto no fluxo de caixa do empreendimento e cujo risco tenha sido assumido pela Administração Pública.</span>
+        </div>
+      </div>
+
+      <!-- SRG -->
+      <div class="pb-1"><span class="svc-badge"><i class="fas fa-scale-balanced"></i>Superintendência de Regulação - SRG · 8 serviços</span></div>
+      <div class="svc-grid mb-3">
+        <div class="svc-bar" data-num="01" data-kicker="Superintendência de Regulação · SRG" data-title="Obter autorização da Antaq para incorporação/desincorporação de bens da União ao/do acervo patrimonial dos portos organizados">
+          <span class="sb-num">01</span><span class="sb-name">Obter autorização da Antaq para incorporação/desincorporação de bens da União ao/do acervo patrimonial dos portos organizados</span><i class="fas fa-plus sb-plus"></i>
+          <span class="sb-desc">Controle dos bens da União junto ao acervo patrimonial dos portos organizados. Desincorporação é a exclusão de bem do acervo patrimonial da União. Incorporação é a inclusão de bem no acervo patrimonial da União, conforme a Resolução ANTAQ nº 43/2021.</span>
+        </div>
+        <div class="svc-bar" data-num="02" data-kicker="Superintendência de Regulação · SRG" data-title="Obter autorização da Antaq para revisão/reajuste das tarifas portuárias">
+          <span class="sb-num">02</span><span class="sb-name">Obter autorização da Antaq para revisão/reajuste das tarifas portuárias</span><i class="fas fa-plus sb-plus"></i>
+          <span class="sb-desc">Obter autorização da Antaq para a revisão ou o reajuste das tarifas cobradas pelo porto das empresas arrendatárias e usuários em geral, nos termos do art. 27, inciso VII, da Lei nº 10.233/2001. Revisão realizada a pedido ou promovida de ofício pela Antaq.</span>
+        </div>
+        <div class="svc-bar" data-num="03" data-kicker="Superintendência de Regulação · SRG" data-title="Obter autorização da Antaq para antecipação de receitas de autoridades portuárias">
+          <span class="sb-num">03</span><span class="sb-name">Obter autorização da Antaq para antecipação de receitas de autoridades portuárias</span><i class="fas fa-plus sb-plus"></i>
+          <span class="sb-desc">Permite que autoridades portuárias solicitem à Antaq a antecipação de receitas de tarifas junto aos usuários para fins de realização de investimentos imediatos na infraestrutura custeada pela tarifa, respeitado o equilíbrio das contas da administração portuária.</span>
+        </div>
+        <div class="svc-bar" data-num="04" data-kicker="Superintendência de Regulação · SRG" data-title="Obter análise da Antaq para transferência de titularidade de instalação portuária">
+          <span class="sb-num">04</span><span class="sb-name">Obter análise da Antaq para transferência de titularidade de instalação portuária</span><i class="fas fa-plus sb-plus"></i>
+          <span class="sb-desc">Transferência de titularidade dos contratos de concessão de porto organizado, de arrendamento de instalação portuária e de adesão de instalação portuária, previamente à deliberação pelo poder concedente. Formalizada através de termo aditivo contratual.</span>
+        </div>
+        <div class="svc-bar" data-num="05" data-kicker="Superintendência de Regulação · SRG" data-title="Obter autorização da Antaq para transferência de controle societário de instalação portuária">
+          <span class="sb-num">05</span><span class="sb-name">Obter autorização da Antaq para transferência de controle societário de instalação portuária</span><i class="fas fa-plus sb-plus"></i>
+          <span class="sb-desc">Transferência de controle societário de contratos de concessão de porto organizado, de arrendamento de instalação portuária e de adesão (autorização) de instalação portuária. Transferência de controle societário é a transferência, de forma direta ou indireta, de ações ou quotas integrantes do bloco de controle.</span>
+        </div>
+        <div class="svc-bar" data-num="06" data-kicker="Superintendência de Regulação · SRG" data-title="Obter análise da Antaq quanto à alteração da tabela de preços de instalações portuárias arrendadas ou autorizadas">
+          <span class="sb-num">06</span><span class="sb-name">Obter análise da Antaq quanto à alteração da tabela de preços de instalações portuárias arrendadas ou autorizadas</span><i class="fas fa-plus sb-plus"></i>
+          <span class="sb-desc">Apreciação das alterações promovidas nas tabelas de preços das instalações portuárias arrendadas ou autorizadas, a fim de verificar se há abusividade de preços praticados nessas instalações, levando em consideração a avaliação de possíveis infrações à ordem econômica.</span>
+        </div>
+        <div class="svc-bar" data-num="07" data-kicker="Superintendência de Regulação · SRG" data-title="Obter autorização da Antaq para alteração de tabela de preços dos serviços de transporte aquaviário na navegação interior">
+          <span class="sb-num">07</span><span class="sb-name">Obter autorização da Antaq para alteração de tabela de preços dos serviços de transporte aquaviário na navegação interior</span><i class="fas fa-plus sb-plus"></i>
+          <span class="sb-desc">Reajuste de preços dos serviços de transporte aquaviário prestados nas travessias e no transporte longitudinal de passageiros, a fim de verificar se há abusividade de preços praticados nesses serviços, levando em consideração a avaliação de possíveis infrações à ordem econômica.</span>
+        </div>
+        <div class="svc-bar" data-num="08" data-kicker="Superintendência de Regulação · SRG" data-title="Solicitar à Antaq a harmonização de conflito de interesses nos portos e na navegação">
+          <span class="sb-num">08</span><span class="sb-name">Solicitar à Antaq a harmonização de conflito de interesses nos portos e na navegação</span><i class="fas fa-plus sb-plus"></i>
+          <span class="sb-desc">Na ocorrência de conflitos de interesses entre os agentes regulados pela Antaq no setor portuário ou na navegação, a partir da solicitação de uma das partes, é iniciado um processo de harmonização, no qual todas as partes envolvidas terão ampla oportunidade de manifestação.</span>
+        </div>
+      </div>
+
+      <!-- SAF -->
+      <div class="pb-1"><span class="svc-badge"><i class="fas fa-coins"></i>Superintendência de Administração e Finanças - SAF · 4 serviços</span></div>
+      <div class="svc-grid mb-3">
+        <div class="svc-bar" data-num="01" data-kicker="Superintendência de Administração e Finanças · SAF" data-title="Obter declaração da Antaq para fins de credenciamento, validação ou outros atestados">
+          <span class="sb-num">01</span><span class="sb-name">Obter declaração da Antaq para fins de credenciamento, validação ou outros atestados</span><i class="fas fa-plus sb-plus"></i>
+          <span class="sb-desc">Emissão de declaração de adimplência junto à Agência Nacional de Transportes Aquaviários (ANTAQ).</span>
+        </div>
+        <div class="svc-bar" data-num="02" data-kicker="Superintendência de Administração e Finanças · SAF" data-title="Obter parcelamento de multas emitidas pela Antaq">
+          <span class="sb-num">02</span><span class="sb-name">Obter parcelamento de multas emitidas pela Antaq</span><i class="fas fa-plus sb-plus"></i>
+          <span class="sb-desc">Parcelamento/reparcelamento de débitos que ainda não foram enviados para inscrição em dívida ativa, a ser solicitado pelo devedor junto à ANTAQ. Após inscrição em dívida ativa, o parcelamento deve ser solicitado junto à Procuradoria-Geral Federal.</span>
+        </div>
+        <div class="svc-bar" data-num="03" data-kicker="Superintendência de Administração e Finanças · SAF" data-title="Realizar pagamento de multa e outros débitos junto à ANTAQ">
+          <span class="sb-num">03</span><span class="sb-name">Realizar pagamento de multa e outros débitos junto à ANTAQ</span><i class="fas fa-plus sb-plus"></i>
+          <span class="sb-desc">Realizar pagamentos referentes a multas, ressarcimento ao erário, indenizações, devolução de salários e diárias, cujos processos ainda não foram enviados para inscrição em dívida ativa pela Agência Nacional de Transportes Aquaviários (ANTAQ).</span>
+        </div>
+        <div class="svc-bar" data-num="04" data-kicker="Superintendência de Administração e Finanças · SAF" data-title="Obter parcela de Contrato de Concessão/Arrendamento em que a Agência Nacional de Transportes Aquaviários (Antaq) seja interveniente">
+          <span class="sb-num">04</span><span class="sb-name">Obter parcela de Contrato de Concessão/Arrendamento em que a Agência Nacional de Transportes Aquaviários (Antaq) seja interveniente</span><i class="fas fa-plus sb-plus"></i>
+          <span class="sb-desc">Realizar pagamentos referentes a parcelas de Contrato de Concessão/Arrendamento em que a Agência Nacional de Transportes Aquaviários (Antaq) seja interveniente.</span>
+        </div>
+      </div>
+
+      <!-- SFC -->
+      <div class="pb-1"><span class="svc-badge"><i class="fas fa-magnifying-glass-chart"></i>Superintendência de Fiscalização e Coordenação das Unidades Regionais - SFC · 2 serviços</span></div>
+      <div class="svc-grid">
+        <div class="svc-bar" data-num="01" data-kicker="Superintendência de Fiscalização e Coordenação · SFC" data-title="Consultar empresas e embarcações para o transporte aquaviário federal de passageiros na navegação interior (Navegue Seguro)">
+          <span class="sb-num">01</span><span class="sb-name">Consultar empresas e embarcações para o transporte aquaviário federal de passageiros na navegação interior (Navegue Seguro)</span><i class="fas fa-plus sb-plus"></i>
+          <span class="sb-desc">O aplicativo Navegue Seguro é uma ferramenta que permite ao usuário consultar a regularidade das empresas e embarcações autorizadas pela ANTAQ para o transporte aquaviário federal de passageiros na navegação interior, em travessias internacionais, interestaduais ou intermunicipais em diretriz de rodovia federal, e embarcações de percurso longitudinal interestadual e internacional.</span>
+        </div>
+        <div class="svc-bar" data-num="02" data-kicker="Superintendência de Fiscalização e Coordenação · SFC" data-title="Enviar à Antaq o inventário patrimonial e a Lista de Bens Reversíveis dos portos organizados (SisPAT)">
+          <span class="sb-num">02</span><span class="sb-name">Enviar à Antaq o inventário patrimonial e a Lista de Bens Reversíveis dos portos organizados (SisPAT)</span><i class="fas fa-plus sb-plus"></i>
+          <span class="sb-desc">O envio anual do inventário patrimonial e da Lista de Bens Reversíveis é uma obrigação periódica das autoridades portuárias e dos arrendatários dos portos organizados, conforme a Resolução ANTAQ nº 43/2021. O prazo final é 30 de abril de cada ano. O serviço é operacionalizado pelo Sistema de Controle Patrimonial dos Portos Organizados (SisPAT). Novo serviço inserido na Carta de Serviços em 2026.</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="px-16 pb-4 pt-1 flex justify-between items-center z-10">
+      <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ</p>
+    </div>
+    <div class="bg-pattern"><i class="fas fa-file-contract text-9xl"></i></div>
+  </div>
+
+  <!-- Popover de detalhe do serviço (aparece ao passar o mouse) -->
+  <div class="svc-pop" id="svcPop">
+    <div class="sp-head">
+      <div class="sp-num" id="spNum">01</div>
+      <div>
+        <p class="sp-kicker" id="spKicker">Carta de Serviços · ANTAQ</p>
+        <p class="sp-title" id="spTitle">—</p>
+      </div>
+    </div>
+    <p class="sp-desc" id="spDesc">—</p>
+  </div>
+
+  <script>
+    const pop = document.getElementById('svcPop');
+    const spNum = document.getElementById('spNum');
+    const spKicker = document.getElementById('spKicker');
+    const spTitle = document.getElementById('spTitle');
+    const spDesc = document.getElementById('spDesc');
+    let hideTimer = null;
+
+    function positionPop(bar) {
+      const r = bar.getBoundingClientRect();
+      const pw = pop.offsetWidth, ph = pop.offsetHeight, m = 12;
+      let left = r.right + m;                                   // abre à direita da barra
+      if (left + pw > window.innerWidth - m) left = r.left - m - pw;  // sem espaço → à esquerda
+      if (left < m) left = m;
+      let top = r.top + r.height / 2 - ph / 2;                  // centraliza verticalmente
+      if (top < m) top = m;
+      if (top + ph > window.innerHeight - m) top = window.innerHeight - m - ph;
+      pop.style.left = left + 'px';
+      pop.style.top = top + 'px';
+    }
+
+    function showPop(bar) {
+      clearTimeout(hideTimer);
+      spNum.textContent = bar.dataset.num;
+      spKicker.textContent = bar.dataset.kicker || 'Carta de Serviços · ANTAQ';
+      spTitle.textContent = bar.dataset.title;
+      spDesc.textContent = bar.querySelector('.sb-desc').textContent;
+      pop.classList.add('open');
+      positionPop(bar);
+    }
+
+    function hidePop() { hideTimer = setTimeout(function () { pop.classList.remove('open'); }, 200); }
+
+    document.querySelectorAll('.svc-bar').forEach(function (bar) {
+      bar.addEventListener('mouseenter', function () { showPop(bar); });
+      bar.addEventListener('mouseleave', hidePop);
+    });
+    pop.addEventListener('mouseenter', function () { clearTimeout(hideTimer); });
+    pop.addEventListener('mouseleave', hidePop);
+
+    document.addEventListener("keydown", function (e) {
+      if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) {
+        e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*");
+      }
+    });
+  </script>
+</body>
+
+</html>

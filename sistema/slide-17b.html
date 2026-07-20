@@ -181,6 +181,51 @@
       line-height: 1.1;
     }
 
+    .hc-value a {
+      color: #fff;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255, 255, 255, .4);
+      transition: border-color .2s;
+    }
+
+    .hc-value a:hover {
+      border-color: #fff;
+    }
+
+    /* ── Caixa explicativa da IARA ── */
+    .iara-note {
+      margin-top: 1.1rem;
+      background: rgba(255, 255, 255, .07);
+      border: 1px solid rgba(255, 255, 255, .12);
+      border-radius: 12px;
+      padding: .75rem .85rem;
+    }
+
+    .iara-title {
+      display: flex;
+      align-items: center;
+      gap: .45rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: .58rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: #93C5FD;
+      margin: 0 0 .38rem 0;
+    }
+
+    .iara-text {
+      font-size: .555rem;
+      line-height: 1.5;
+      color: rgba(255, 255, 255, .82);
+      margin: 0;
+    }
+
+    .iara-text b {
+      color: #fff;
+      font-weight: 700;
+    }
+
     /* ── Painel direito ── */
     .right {
       display: flex;
@@ -429,12 +474,17 @@
             </div>
           </div>
           <div class="hc-item">
-            <div class="hc-ico"><i class="fab fa-whatsapp"></i></div>
+            <div class="hc-ico"><i class="fas fa-globe"></i></div>
             <div>
-              <p class="hc-label">Assistente virtual</p>
-              <p class="hc-value">Iara · WhatsApp</p>
+              <p class="hc-label">Portal institucional</p>
+              <p class="hc-value"><a href="https://www.gov.br/antaq/pt-br" target="_blank" rel="noopener">Portal ANTAQ</a></p>
             </div>
           </div>
+        </div>
+
+        <div class="iara-note">
+          <p class="iara-title"><i class="fas fa-robot"></i> Sobre a IARA</p>
+          <p class="iara-text">Inteligência artificial da ANTAQ que atua como <b>intermédio ao cidadão</b>, reunindo em um só fluxo o <b>WhatsApp</b>, o <b>Portal ANTAQ</b> e o <b>telefone</b>. Ela orienta, organiza e trata os dados das demandas e, quando necessário, encaminha o cidadão a um <b>atendente humano</b>.</p>
         </div>
       </div>
 

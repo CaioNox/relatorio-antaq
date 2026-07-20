@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
   <style>
-    html { font-size: 29.9px; }
+    html { font-size: 26px; }
     body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
     .slide-container { width: 100vw; height: 100vh; position: relative; display: flex; flex-direction: column; background-color: #ffffff; overflow: hidden; font-family: 'Open Sans', sans-serif; }
     .font-montserrat { font-family: 'Montserrat', sans-serif; }
@@ -49,6 +49,9 @@
     .ref-num.c-b { --tag: #0070C0; }
     .ref-body { padding: .45rem .95rem; display: flex; flex-direction: column; justify-content: center; }
     .ref-desc { font-size: .68rem; line-height: 1.32; color: #334155; margin: 0; }
+    .ref-source { font-size: .72rem; color: #94A3B8; }
+    .ref-source a { color: #0070C0; font-weight: 600; text-decoration: none; }
+    .ref-source a:hover { text-decoration: underline; }
 
     .bg-pattern { position: absolute; bottom: -60px; right: -50px; width: 360px; height: 360px; opacity: 0.025; z-index: 0; color: #103050; }
     @keyframes fadeInUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
@@ -60,7 +63,7 @@
     <div class="top-accent"></div>
     <div class="top-accent-secondary"></div>
 
-    <div class="flex items-center justify-between px-16 pt-10 pb-3 z-10">
+    <div class="flex items-start justify-between px-16 pt-10 pb-3 z-10" style="min-height: 7.25rem;">
       <div>
         <div class="flex items-center gap-3 mb-1">
           <div class="w-1 h-8 bg-brand-secondary"></div>
@@ -69,49 +72,50 @@
         <p class="text-gray-500 font-medium ml-4 text-base">Precípuas da Ouvidoria · Art. 13 da Lei nº 13.460/2017</p>
       </div>
       <div class="flex items-center gap-3 opacity-80 text-brand-secondary">
-        <i class="fas fa-bullhorn text-3xl align-middle" aria-hidden="true"></i>
+        <i class="fas fa-bullhorn align-middle" aria-hidden="true" style="font-size:48px;"></i>
         <div class="flex flex-col justify-center border-left pl-2" style="border-left: 1px solid #CBD5E1;">
-          <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1">CAPÍTULO 01</p>
-          <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none">Visão Geral das Ouvidorias Públicas</p>
+          <p class="font-montserrat font-bold text-gray-400 tracking-widest leading-none mb-1" style="font-size:22px;">CAPÍTULO 01</p>
+          <p class="font-montserrat font-bold text-brand-secondary tracking-tight uppercase leading-none" style="font-size:19px;">Visão Geral das Ouvidorias Públicas</p>
         </div>
       </div>
     </div>
 
-    <div class="flex-1 px-16 pt-2 pb-5 z-10" style="min-height:0; display:flex;">
+    <div class="flex-1 px-16 pt-2 pb-4 z-10" style="min-height:0; display:flex;">
       <div class="ref-grid a" style="flex:1; min-height:0;">
         <div class="ref-card">
           <div class="ref-num c-a">1</div>
-          <div class="ref-body"><p class="ref-desc">Promover a participação do usuário na administração pública, em cooperação com outras entidades de defesa do usuário.</p></div>
+          <div class="ref-body"><p class="ref-desc">Promover a participação do usuário na administração pública, em cooperação com outras entidades de defesa do usuário;</p></div>
         </div>
         <div class="ref-card">
           <div class="ref-num c-b">2</div>
-          <div class="ref-body"><p class="ref-desc">Acompanhar a prestação dos serviços, visando a garantir a sua efetividade.</p></div>
+          <div class="ref-body"><p class="ref-desc">Acompanhar a prestação dos serviços, visando a garantir a sua efetividade;</p></div>
         </div>
         <div class="ref-card">
           <div class="ref-num c-a">3</div>
-          <div class="ref-body"><p class="ref-desc">Propor aperfeiçoamentos na prestação dos serviços.</p></div>
+          <div class="ref-body"><p class="ref-desc">Propor aperfeiçoamentos na prestação dos serviços;</p></div>
         </div>
         <div class="ref-card">
           <div class="ref-num c-b">4</div>
-          <div class="ref-body"><p class="ref-desc">Receber, analisar e encaminhar às autoridades competentes as manifestações, acompanhando o tratamento e a efetiva conclusão das manifestações de usuário perante órgão ou entidade a que se vincula.</p></div>
+          <div class="ref-body"><p class="ref-desc">Auxiliar na prevenção e correção dos atos e procedimentos incompatíveis com os princípios estabelecidos nesta Lei;</p></div>
         </div>
         <div class="ref-card">
           <div class="ref-num c-a">5</div>
-          <div class="ref-body"><p class="ref-desc">Promover a adoção de mediação e conciliação entre o usuário e o órgão ou a entidade pública, sem prejuízo de outros órgãos competentes.</p></div>
+          <div class="ref-body"><p class="ref-desc">Propor a adoção de medidas para a defesa dos direitos do usuário, em observância às determinações desta Lei;</p></div>
         </div>
         <div class="ref-card">
           <div class="ref-num c-b">6</div>
-          <div class="ref-body"><p class="ref-desc">Propor adoção de medidas para a defesa dos direitos do usuário, em observância às determinações desta Lei.</p></div>
+          <div class="ref-body"><p class="ref-desc">Receber, analisar e encaminhar às autoridades competentes as manifestações, acompanhando o tratamento e a efetiva conclusão das manifestações de usuário perante órgão ou entidade a que se vincula; e</p></div>
         </div>
         <div class="ref-card">
           <div class="ref-num c-a">7</div>
-          <div class="ref-body"><p class="ref-desc">Auxiliar na prevenção e correção dos atos e procedimentos incompatíveis com os princípios estabelecidos nesta Lei.</p></div>
+          <div class="ref-body"><p class="ref-desc">Promover a adoção de mediação e conciliação entre o usuário e o órgão ou a entidade pública, sem prejuízo de outros órgãos competentes.</p></div>
         </div>
       </div>
     </div>
 
     <div class="px-16 pb-6 pt-1 flex justify-between items-center z-10">
       <p class="text-gray-400 text-xs">Relatório Trimestral da Ouvidoria · 2026 — Agência Nacional de Transportes Aquaviários</p>
+      <p class="ref-source">Extraído em 20/07/2026 de <a href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2017/lei/l13460.htm" target="_blank" rel="noopener">Planalto</a></p>
     </div>
     <div class="bg-pattern"><i class="fas fa-comments text-9xl"></i></div>
   </div>

@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <!--
   ╔══════════════════════════════════════════════════════════════╗
-  ║  SLIDE — Canais de Atendimento (Ecossistema Fala.BR)
+  ║  SLIDE — Canais de Atendimento da Ouvidoria da ANTAQ
   ╠══════════════════════════════════════════════════════════════╣
-  ║  Diagrama de mapa mental: 5 canais de entrada → círculo Fala.BR →
-  ║  6 tipos de manifestação + galho inferior "Acesso à Informação — LAI".
-  ║  Paleta institucional (azuis); LAI em destaque laranja.
+  ║  Quatro canais oficiais de atendimento ao cidadão:
+  ║  Telefone · WhatsApp (QR Code) · Presencial · Correspondência/E-mail.
   ╚══════════════════════════════════════════════════════════════╝
 -->
 <html lang="pt-BR">
@@ -72,161 +71,104 @@
       width: 100%;
     }
 
-    /* ═══════════ Diagrama (mapa mental) ═══════════
-       Camada absoluta em coordenadas 1920×1080 — o iframe do
-       visualizador tem exatamente esse tamanho, então px = viewBox. */
-    .diagram {
-      position: absolute;
-      inset: 0;
-      z-index: 1;
+    /* ═══════════ Grid de canais ═══════════ */
+    .channels {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: 1.6rem;
+      padding: 1.2rem 4rem 1rem;
       animation: fadeIn .6s ease both;
     }
 
-    .diagram svg {
-      position: absolute;
-      inset: 0;
-      width: 1920px;
-      height: 1080px;
-    }
-
-    /* ── Nós à esquerda (canais de entrada) ── */
-    .node-l-icon {
-      position: absolute;
-      width: 62px;
-      height: 62px;
-      border-radius: 50%;
+    .card {
+      position: relative;
       display: flex;
       align-items: center;
-      justify-content: center;
-      color: #fff;
-      font-size: 1.35rem;
-      box-shadow: 0 6px 14px rgba(16, 48, 80, 0.28);
-      z-index: 3;
-    }
-
-    .node-l-label {
-      position: absolute;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 800;
-      font-size: .92rem;
-      color: #103050;
-      white-space: nowrap;
-      z-index: 3;
-    }
-
-    /* ── Círculo central ── */
-    .core {
-      position: absolute;
-      left: 825px;
-      top: 440px;
-      width: 270px;
-      height: 270px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 35% 30%, #16466E 0%, #103050 55%, #0a2036 100%);
-      border: 10px solid #eef2f7;
-      box-shadow: 0 22px 50px rgba(16, 48, 80, 0.40);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 4;
-    }
-
-    .core span {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 900;
-      font-size: 2.1rem;
-      color: #fff;
-      letter-spacing: .01em;
-    }
-
-    /* ── Cartões à direita (tipos de manifestação) ── */
-    .node-r {
-      position: absolute;
-      left: 1235px;
-      width: 560px;
-      height: 84px;
-      transform: translateY(-50%);
-      display: flex;
-      align-items: center;
-      gap: 1rem;
+      gap: 1.6rem;
       background: #ffffff;
       border: 1px solid #E5E9F0;
-      border-radius: 12px;
-      box-shadow: 0 8px 20px -8px rgba(16, 48, 80, 0.18);
-      padding: 0 1.1rem 0 0;
-      overflow: hidden;
-      z-index: 3;
+      border-left: 8px solid #0070C0;
+      border-radius: 16px;
+      box-shadow: 0 12px 30px -14px rgba(16, 48, 80, 0.30);
+      padding: 1.5rem 1.8rem;
     }
 
-    .node-r-icon {
+    .card-icon {
       flex-shrink: 0;
-      width: 74px;
-      height: 84px;
+      width: 92px;
+      height: 92px;
+      border-radius: 20px;
       display: flex;
       align-items: center;
       justify-content: center;
       color: #fff;
-      font-size: 1.5rem;
+      font-size: 2.4rem;
+      box-shadow: 0 8px 18px rgba(16, 48, 80, 0.25);
     }
 
-    .node-r-txt strong {
-      display: block;
+    .card-body {
+      min-width: 0;
+    }
+
+    .card-tag {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: .62rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: #0070C0;
+      margin-bottom: .15rem;
+    }
+
+    .card-title {
       font-family: 'Montserrat', sans-serif;
       font-weight: 800;
-      font-size: 1rem;
+      font-size: 1.35rem;
       color: #103050;
       line-height: 1.05;
+      margin-bottom: .35rem;
     }
 
-    .node-r-txt span {
-      font-size: .74rem;
-      color: #64748B;
+    .card-info {
+      font-size: .92rem;
+      color: #475569;
+      line-height: 1.3;
     }
 
-    /* ── Galho inferior: Acesso à Informação — LAI (laranja) ── */
-    .node-lai {
-      position: absolute;
-      left: 720px;
-      top: 888px;
-      width: 480px;
-      height: 92px;
-      transform: none;
-      display: flex;
-      align-items: center;
-      gap: .7rem;
-      border-radius: 12px;
-      background: linear-gradient(135deg, #F2A900 0%, #d98e00 100%);
-      box-shadow: 0 12px 26px -8px rgba(217, 142, 0, 0.55);
-      padding: 0 1rem;
-      z-index: 4;
+    .card-info strong {
+      color: #103050;
+      font-weight: 700;
     }
 
-    .node-lai-icon {
+    /* Card do WhatsApp com QR Code */
+    .card-wa {
+      border-left-color: #25D366;
+    }
+
+    .qr-box {
       flex-shrink: 0;
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.22);
+      margin-left: auto;
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: center;
-      color: #fff;
-      font-size: 1.1rem;
+      gap: .2rem;
     }
 
-    .node-lai-txt strong {
-      display: block;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 900;
-      font-size: .86rem;
-      color: #fff;
-      letter-spacing: .02em;
-      line-height: 1.05;
+    .qr-box img {
+      width: 118px;
+      height: 118px;
+      border-radius: 10px;
+      border: 4px solid #ffffff;
+      box-shadow: 0 6px 16px rgba(16, 48, 80, 0.25);
     }
 
-    .node-lai-txt span {
-      font-size: .64rem;
-      color: rgba(255, 255, 255, 0.9);
+    .qr-box span {
+      font-size: .58rem;
+      color: #64748B;
+      font-weight: 600;
+      text-align: center;
     }
 
     @keyframes fadeIn {
@@ -256,16 +198,16 @@
     <div class="top-accent"></div>
     <div class="top-accent-secondary"></div>
 
-    <!-- Header (mantido) -->
+    <!-- Header -->
     <div class="flex items-start justify-between px-16 pt-10 pb-3 z-10">
       <div>
         <div class="flex items-center gap-3 mb-1">
           <div class="w-1 h-8 bg-brand-secondary"></div>
-          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Fluxo de
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Canais de
             Atendimento
           </p>
         </div>
-        <p class="text-gray-500 font-medium ml-4 text-lg">Canais de atendimento · Tipos de manifestações · LAI</p>
+        <p class="text-gray-500 font-medium ml-4 text-lg">Como o cidadão pode acionar a Ouvidoria da ANTAQ</p>
       </div>
       <div class="flex items-center gap-3 opacity-80 text-brand-secondary">
         <i class="fas fa-landmark text-3xl align-middle" aria-hidden="true"></i>
@@ -277,89 +219,60 @@
       </div>
     </div>
 
-    <!-- ═══════════ Diagrama ═══════════ -->
-    <div class="diagram">
-      <svg viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
-        <!-- Conectores da esquerda (grossos, tom institucional por canal) -->
-        <g fill="none" stroke-linecap="round">
-          <path d="M153,345 L560,345 C665,345 730,460 843,507" stroke="#103050" stroke-width="6" />
-          <path d="M153,450 L560,450 C675,450 745,515 835,545" stroke="#16466E" stroke-width="6" />
-          <path d="M153,575 L825,575" stroke="#0070C0" stroke-width="6" />
-          <path d="M153,700 L560,700 C675,700 745,635 835,605" stroke="#0090C0" stroke-width="6" />
-          <path d="M153,805 L560,805 C675,805 740,695 843,643" stroke="#11598f" stroke-width="6" />
-        </g>
-        <!-- Conectores da direita (finos, navy) -->
-        <g fill="none" stroke="#103050" stroke-width="3" stroke-linecap="round" opacity="0.85">
-          <path d="M1077,507 C1150,470 1180,300 1235,300" />
-          <path d="M1085,545 C1150,510 1180,405 1235,405" />
-          <path d="M1095,575 C1160,560 1185,510 1235,510" />
-          <path d="M1085,605 C1150,600 1180,615 1235,615" />
-          <path d="M1077,643 C1150,660 1180,720 1235,720" />
-          <path d="M1065,655 C1140,690 1180,825 1235,825" />
-        </g>
-        <!-- Galho inferior LAI (grosso, laranja, 90°) -->
-        <path d="M960,710 L960,888" fill="none" stroke="#F2A900" stroke-width="6" stroke-linecap="round" />
-      </svg>
-
-      <!-- Canais de entrada (esquerda) -->
-      <div class="node-l-icon" style="left:88px; top:314px; background:linear-gradient(145deg,#103050,#0070C0);"><i
-          class="fas fa-laptop"></i></div>
-      <div class="node-l-label" style="left:165px; top:307px;">Plataforma Fala.BR</div>
-
-      <div class="node-l-icon" style="left:88px; top:419px; background:linear-gradient(145deg,#16466E,#0070C0);"><i
-          class="fas fa-phone-volume"></i></div>
-      <div class="node-l-label" style="left:165px; top:412px;">Telefone: 0800 644 5001</div>
-
-      <div class="node-l-icon" style="left:88px; top:544px; background:linear-gradient(145deg,#0070C0,#0090C0);"><i
-          class="fa-brands fa-whatsapp"></i></div>
-      <div class="node-l-label" style="left:165px; top:537px;">WhatsApp (via QR Code)</div>
-
-      <div class="node-l-icon" style="left:88px; top:669px; background:linear-gradient(145deg,#0090C0,#0070C0);"><i
-          class="fas fa-user"></i></div>
-      <div class="node-l-label" style="left:165px; top:662px;">Atendimento Presencial</div>
-
-      <div class="node-l-icon" style="left:88px; top:774px; background:linear-gradient(145deg,#11598f,#0090C0);"><i
-          class="fas fa-envelope"></i></div>
-      <div class="node-l-label" style="left:165px; top:767px;">Correspondência e E-mail</div>
-
-      <!-- Núcleo -->
-      <div class="core"><span>Fala.BR</span></div>
-
-      <!-- Tipos de manifestação (direita) -->
-      <div class="node-r" style="top:300px;">
-        <div class="node-r-icon" style="background:#103050;"><i class="fas fa-bullhorn"></i></div>
-        <div class="node-r-txt"><strong>Denúncia</strong><span>(Ato ilícito)</span></div>
-      </div>
-      <div class="node-r" style="top:405px;">
-        <div class="node-r-icon" style="background:#16466E;"><i class="fas fa-thumbs-up"></i></div>
-        <div class="node-r-txt"><strong>Elogio</strong><span>(Satisfação)</span></div>
-      </div>
-      <div class="node-r" style="top:510px;">
-        <div class="node-r-icon" style="background:#0070C0;"><i class="fas fa-thumbs-down"></i></div>
-        <div class="node-r-txt"><strong>Reclamação</strong><span>(Insatisfação)</span></div>
-      </div>
-      <div class="node-r" style="top:615px;">
-        <div class="node-r-icon" style="background:#0090C0;"><i class="fas fa-arrows-rotate"></i></div>
-        <div class="node-r-txt"><strong>Simplifique</strong><span>(Desburocratização)</span></div>
-      </div>
-      <div class="node-r" style="top:720px;">
-        <div class="node-r-icon" style="background:#11598f;"><i class="fas fa-clipboard-check"></i></div>
-        <div class="node-r-txt"><strong>Solicitação</strong><span>(Prestação de serviço)</span></div>
-      </div>
-      <div class="node-r" style="top:825px;">
-        <div class="node-r-icon" style="background:#16466E;"><i class="fas fa-comments"></i></div>
-        <div class="node-r-txt"><strong>Sugestão</strong><span>(Melhoria)</span></div>
+    <!-- ═══════════ Cartões dos canais ═══════════ -->
+    <div class="channels">
+      <!-- Telefone -->
+      <div class="card">
+        <div class="card-icon" style="background:linear-gradient(145deg,#16466E,#0070C0);">
+          <i class="fas fa-phone-volume"></i>
+        </div>
+        <div class="card-body">
+          <div class="card-tag">Disque Ouvidoria</div>
+          <div class="card-title">Telefone</div>
+          <div class="card-info"><strong>0800 644 5001</strong></div>
+        </div>
       </div>
 
-      <!-- Galho inferior: Acesso à Informação — LAI -->
-      <div class="node-lai">
-        <div class="node-lai-icon"><i class="fas fa-unlock-keyhole"></i></div>
-        <div class="node-lai-txt"><strong>Acesso à Informação — LAI</strong><span>Lei nº 12.527/2011 ·
-            Transparência passiva</span></div>
+      <!-- WhatsApp com QR Code -->
+      <div class="card card-wa">
+        <div class="card-icon" style="background:linear-gradient(145deg,#128C7E,#25D366);">
+          <i class="fa-brands fa-whatsapp"></i>
+        </div>
+        <div class="card-body">
+          <div class="card-tag">Atendimento digital</div>
+          <div class="card-title">WhatsApp</div>
+          <div class="card-info">Aponte a câmera<br />para falar com a Ouvidoria</div>
+        </div>
+        <div class="qr-box">
+          <img src="Imagens/QRCODE_IARA.jpeg" alt="QR Code do WhatsApp da Ouvidoria da ANTAQ" />
+          <span>Escaneie o QR Code</span>
+        </div>
+      </div>
+
+      <!-- Atendimento Presencial -->
+      <div class="card">
+        <div class="card-icon" style="background:linear-gradient(145deg,#0090C0,#0070C0);">
+          <i class="fas fa-user"></i>
+        </div>
+        <div class="card-body">
+          <div class="card-tag">Presencial</div>
+          <div class="card-title">Atendimento Presencial</div>
+          <div class="card-info">SEPN Q. 514, Conj. E, Ed. Antaq<br />CEP 70760-545 · Brasília/DF</div>
+        </div>
+      </div>
+
+      <!-- Correspondência e E-mail -->
+      <div class="card">
+        <div class="card-icon" style="background:linear-gradient(145deg,#11598f,#0090C0);">
+          <i class="fas fa-envelope"></i>
+        </div>
+        <div class="card-body">
+          <div class="card-tag">Escrito</div>
+          <div class="card-title">Correspondência e E-mail</div>
+          <div class="card-info">Envio de manifestações por carta<br />ou por meio eletrônico</div>
+        </div>
       </div>
     </div>
-
-    <div style="flex:1;"></div>
 
     <!-- Footer -->
     <div class="px-16 pb-6 pt-1 flex justify-between items-center z-10">

@@ -74,7 +74,7 @@
 
     .inst-text {
       color: #334155;
-      font-size: .8rem;
+      font-size: 1rem;
       line-height: 1.6;
       margin: 0 0 .65rem;
       text-align: justify;
@@ -90,6 +90,35 @@
       box-shadow: 0 10px 25px -5px rgba(0, 112, 192, 0.15);
       position: relative;
       animation: fadeInUp .5s cubic-bezier(.2, .7, .3, 1) .1s both;
+    }
+
+    /* ── Botão discreto: baixar Carta de Serviços ── */
+    .btn-carta {
+      display: inline-flex;
+      align-items: center;
+      gap: .55rem;
+      padding: .42rem 1.15rem;
+      border-radius: 999px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      font-size: .8rem;
+      letter-spacing: .01em;
+      color: #0070C0;
+      background: rgba(0, 112, 192, .06);
+      border: 1px solid rgba(0, 112, 192, .30);
+      text-decoration: none;
+      transition: all .2s ease;
+    }
+
+    .btn-carta:hover {
+      background: #0070C0;
+      color: #fff;
+      border-color: #0070C0;
+      box-shadow: 0 6px 16px -6px rgba(0, 112, 192, .55);
+    }
+
+    .btn-carta .btn-ico {
+      font-size: .95rem;
     }
 
     .bg-pattern {
@@ -151,6 +180,7 @@
       </div>
     </div>
 
+
     <!-- Corpo do Slide dividido entre as duas metades -->
     <div class="flex-1 flex flex-col justify-between px-16 pb-8 z-10" style="min-height:0;">
       <div class="w-full max-w-6xl mx-auto flex flex-col justify-center height-full h-full gap-4">
@@ -181,11 +211,19 @@
             No primeiro trimestre de 2026, a Ouvidoria atuou diretamente como guardiã da Carta de Serviços da ANTAQ —
             documento fundamental que, respaldado pela Lei nº 13.460/2017, informa os cidadãos sobre os serviços
             prestados pela agência, seus requisitos, prazos e padrões de atendimento. Visando promover a participação
-            direta da sociedade civil na melhoria contínua dos 32 serviços.
+            direta da sociedade civil na melhoria contínua dos 32 serviços disponiveis.
           </p>
         </div>
 
       </div>
+    </div>
+
+    <!-- Ação: baixar a Carta de Serviços (PDF) -->
+    <div class="px-16 pb-2 flex justify-center z-10">
+      <a href="https://www.gov.br/pt-br/orgaos/agencia-nacional-de-transportes-aquaviarios/@@download.pdf"
+        target="_blank" rel="noopener" class="btn-carta" title="Baixar a Carta de Serviços completa (PDF)">
+        <i class="fas fa-file-pdf btn-ico"></i> Baixar Carta de Serviços
+      </a>
     </div>
 
     <!-- Footer -->

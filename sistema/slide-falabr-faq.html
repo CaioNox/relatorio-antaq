@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<!--
+  ╔══════════════════════════════════════════════════════════════╗
+  ║  SLIDE — Fala.BR em Perguntas e Respostas
+  ╠══════════════════════════════════════════════════════════════╣
+  ║  O que é / para que serve / objetivo / o que posso fazer,
+  ║  + conceitos de Manifestação e Pedido de Informação.
+  ╚══════════════════════════════════════════════════════════════╝
+-->
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Fala.BR — Perguntas e Respostas — Relatório Trimestral Ouvidoria ANTAQ</title>
+  <link rel="icon" type="image/png"
+    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    html {
+      font-size: 26px;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f3f4f6;
+      overflow: hidden;
+    }
+
+    .slide-container {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background-color: #ffffff;
+      overflow: hidden;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    .font-montserrat {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .text-brand-primary {
+      color: #103050;
+    }
+
+    .text-brand-secondary {
+      color: #0070C0;
+    }
+
+    .bg-brand-secondary {
+      background-color: #0070C0;
+    }
+
+    .top-accent {
+      height: 8px;
+      background-color: #103050;
+      width: 100%;
+    }
+
+    .top-accent-secondary {
+      height: 4px;
+      background-color: #0070C0;
+      width: 100%;
+    }
+
+    /* ═══════════ Conteúdo ═══════════ */
+    .content {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 1.6rem;
+      padding: 1.1rem 4rem 1rem;
+      animation: fadeIn .6s ease both;
+    }
+
+    /* Coluna de perguntas e respostas */
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: .85rem;
+    }
+
+    .faq {
+      display: flex;
+      gap: .9rem;
+      background: #F7F9FC;
+      border: 1px solid #E5E9F0;
+      border-radius: 12px;
+      padding: .8rem 1rem;
+    }
+
+    .faq-q {
+      flex-shrink: 0;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: linear-gradient(145deg, #103050, #0070C0);
+      color: #fff;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 14px rgba(16, 48, 80, 0.28);
+    }
+
+    .faq-txt strong {
+      display: block;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: .96rem;
+      color: #103050;
+      line-height: 1.1;
+      margin-bottom: .18rem;
+    }
+
+    .faq-txt span {
+      font-size: .82rem;
+      color: #475569;
+      line-height: 1.32;
+    }
+
+    /* Coluna de conceitos */
+    .concepts {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .concept {
+      position: relative;
+      border-radius: 14px;
+      padding: 1.1rem 1.3rem;
+      color: #fff;
+      box-shadow: 0 12px 28px -12px rgba(16, 48, 80, 0.45);
+    }
+
+    .concept.c-manif {
+      background: linear-gradient(135deg, #16466E 0%, #103050 100%);
+    }
+
+    .concept.c-info {
+      background: linear-gradient(135deg, #0070C0 0%, #0090C0 100%);
+    }
+
+    .concept-head {
+      display: flex;
+      align-items: center;
+      gap: .7rem;
+      margin-bottom: .55rem;
+    }
+
+    .concept-head i {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.18);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+    }
+
+    .concept-head strong {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 1.2rem;
+      letter-spacing: .01em;
+    }
+
+    .concept p {
+      font-size: .86rem;
+      line-height: 1.4;
+      color: rgba(255, 255, 255, 0.95);
+      margin: 0;
+    }
+
+    .concept .tags {
+      margin-top: .6rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: .35rem;
+    }
+
+    .concept .tags span {
+      font-size: .62rem;
+      font-weight: 700;
+      font-family: 'Montserrat', sans-serif;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      background: rgba(255, 255, 255, 0.18);
+      border-radius: 20px;
+      padding: .2rem .6rem;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="slide-container">
+    <div class="top-accent"></div>
+    <div class="top-accent-secondary"></div>
+
+    <!-- Header -->
+    <div class="flex items-start justify-between px-16 pt-10 pb-3 z-10">
+      <div>
+        <div class="flex items-center gap-3 mb-1">
+          <div class="w-1 h-8 bg-brand-secondary"></div>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Plataforma Fala.BR
+          </p>
+        </div>
+        <p class="text-gray-500 font-medium ml-4 text-lg">Perguntas e respostas · Manifestação e Pedido de Informação
+        </p>
+      </div>
+      <div class="flex items-center gap-3 opacity-80 text-brand-secondary">
+        <i class="fas fa-landmark text-3xl align-middle" aria-hidden="true"></i>
+        <div class="flex flex-col justify-center border-left pl-2" style="border-left: 1px solid #CBD5E1;">
+          <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1">CAPÍTULO 02</p>
+          <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none">A
+            Ouvidoria da ANTAQ</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════ Conteúdo ═══════════ -->
+    <div class="content">
+      <!-- Perguntas e respostas -->
+      <div class="faq-list">
+        <div class="faq">
+          <div class="faq-q">?</div>
+          <div class="faq-txt">
+            <strong>O que é o Fala.BR?</strong>
+            <span>É a plataforma digital integrada de Ouvidoria e Acesso à Informação do Governo Federal, mantida pela
+              Controladoria-Geral da União (CGU), que reúne em um só ambiente todos os canais de atendimento ao
+              cidadão.</span>
+          </div>
+        </div>
+        <div class="faq">
+          <div class="faq-q">?</div>
+          <div class="faq-txt">
+            <strong>Para que serve o Fala.BR?</strong>
+            <span>Serve para o cidadão registrar manifestações de ouvidoria e solicitar informações públicas aos órgãos
+              e entidades do poder público, acompanhando cada demanda de forma centralizada.</span>
+          </div>
+        </div>
+        <div class="faq">
+          <div class="faq-q">?</div>
+          <div class="faq-txt">
+            <strong>Qual o objetivo do Fala.BR?</strong>
+            <span>Ampliar a participação social, dar transparência à gestão pública e aproximar cidadão e Estado,
+              garantindo o direito de manifestação e de acesso à informação com padronização e rastreabilidade.</span>
+          </div>
+        </div>
+        <div class="faq">
+          <div class="faq-q">?</div>
+          <div class="faq-txt">
+            <strong>O que eu posso fazer no Fala.BR?</strong>
+            <span>Registrar denúncia, reclamação, elogio, sugestão, solicitação e simplifique; apresentar pedidos de
+              acesso à informação (LAI); e acompanhar as respostas das suas demandas.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Conceitos: Manifestação e Pedido de Informação -->
+      <div class="concepts">
+        <div class="concept c-manif">
+          <div class="concept-head">
+            <i class="fas fa-bullhorn"></i>
+            <strong>Manifestação</strong>
+          </div>
+          <p>É toda comunicação do cidadão dirigida à Ouvidoria para relatar, avaliar ou pedir uma providência sobre um
+            serviço público. Abrange denúncia, reclamação, elogio, sugestão, solicitação e simplifique.</p>
+          <div class="tags">
+            <span>Denúncia</span><span>Reclamação</span><span>Elogio</span><span>Sugestão</span><span>Solicitação</span><span>Simplifique</span>
+          </div>
+        </div>
+        <div class="concept c-info">
+          <div class="concept-head">
+            <i class="fas fa-unlock-keyhole"></i>
+            <strong>Pedido de Informação</strong>
+          </div>
+          <p>É a solicitação de acesso a informações públicas produzidas ou custodiadas pelo órgão, com base na Lei de
+            Acesso à Informação (Lei nº 12.527/2011), assegurando a transparência passiva.</p>
+          <div class="tags">
+            <span>LAI · Lei 12.527/2011</span><span>Transparência passiva</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="px-16 pb-6 pt-1 flex justify-between items-center z-10">
+      <p class="text-gray-400 text-xs">Relatório Trimestral da Ouvidoria · 2026 — Agência Nacional de Transportes
+        Aquaviários</p>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("keydown", function (e) {
+      if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) {
+        e.preventDefault();
+        window.parent.postMessage({ type: "slide-nav", key: e.key }, "*");
+      }
+    });
+  </script>
+</body>
+
+</html>
