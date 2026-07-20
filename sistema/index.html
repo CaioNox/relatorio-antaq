@@ -164,11 +164,13 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      background: rgba(12, 50, 111, 0.95);
-      backdrop-filter: blur(12px);
+      background: rgba(13, 40, 66, 0.38);
+      backdrop-filter: blur(20px) saturate(170%);
+      -webkit-backdrop-filter: blur(20px) saturate(170%);
       padding: 8px 16px;
       border-radius: 50px;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.22);
       z-index: 1000;
       font-family: 'Roboto', sans-serif;
       pointer-events: auto;
@@ -181,8 +183,8 @@
     }
 
     .nav-bar button {
-      background: none;
-      border: none;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
       color: white;
       cursor: pointer;
       width: 38px;
@@ -192,11 +194,13 @@
       align-items: center;
       justify-content: center;
       font-size: 14px;
-      transition: background 0.2s;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.55);
+      transition: background 0.2s, border-color 0.2s;
     }
 
     .nav-bar button:hover {
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.28);
+      border-color: rgba(255, 255, 255, 0.35);
     }
 
     .nav-bar button:disabled {
@@ -217,6 +221,7 @@
       cursor: pointer;
       border-radius: 6px;
       padding: 2px 4px;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.55);
       transition: background 0.2s;
     }
 

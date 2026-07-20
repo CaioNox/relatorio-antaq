@@ -209,7 +209,7 @@
     .photo-frame {
       width: 100%;
       max-width: 460px;
-      height: 82%;
+      height: 70%;
       border-radius: 20px;
       overflow: hidden;
       border: 2px solid rgba(0, 144, 192, 0.45);
@@ -288,6 +288,49 @@
         animation: none !important;
       }
     }
+
+    /* ── Lupa de zoom no texto (estilo e-commerce) ── */
+    .quote-block {
+      cursor: zoom-in;
+    }
+
+    .zoom-lens {
+      position: absolute;
+      width: 340px;
+      height: 340px;
+      border-radius: 50%;
+      border: 3px solid rgba(0, 144, 192, 0.75);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6), 0 0 0 6px rgba(0, 144, 192, 0.12), inset 0 0 40px rgba(0, 0, 0, 0.45);
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 60;
+      display: none;
+      opacity: 0;
+      transition: opacity 0.16s ease;
+      background: #0a2236;
+    }
+
+    .zoom-lens.on {
+      display: block;
+    }
+
+    .zoom-lens-inner {
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform-origin: 0 0;
+      pointer-events: none;
+    }
+
+    .zoom-lens-inner .quote-text {
+      color: rgba(255, 255, 255, 0.96);
+    }
+
+    .zoom-lens-inner .a {
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
   </style>
 </head>
 
@@ -307,26 +350,47 @@
 
       <div class="quote-block a d3">
         <p class="quote-text">
-          " É com grande satisfação que realizamos a entrega deste <strong>Relatório Trimestral 2026</strong>, um
-          documento institucional que consolida as manifestações, os aprendizados e os avanços alcançados pela Ouvidoria
-          da ANTAQ ao longo dos últimos meses.
+          É com satisfação que apresentamos o Relatório Trimestral de 2026 da Ouvidoria da Agência Nacional de
+          Transportes Aquaviários (ANTAQ), documento que consolida as principais manifestações recebidas no período, os
+          resultados alcançados a partir de sua análise e as iniciativas desenvolvidas para o aprimoramento contínuo da
+          atuação institucional.
         </p>
         <p class="quote-text">
-          Mais do que o cumprimento de uma formalidade legal, este balanço funciona como um importante instrumento de
-          acompanhamento da nossa relação com os usuários do setor aquaviário, transformando elogios, denúncias,
-          reclamações e sugestões em oportunidades concretas de aprimoramento.
+          Mais do que atender a uma obrigação formal de prestação de contas, este relatório evidencia os resultados
+          concretos da atuação da Ouvidoria como instrumento essencial de participação social, transparência, controle
+          social e aperfeiçoamento da gestão pública. Por meio da escuta qualificada das manifestações encaminhadas
+          pelos usuários, a Ouvidoria contribuiu para a identificação de falhas operacionais, para o encaminhamento
+          tempestivo de demandas às áreas competentes e para a adoção de providências voltadas à melhoria dos processos
+          internos e dos serviços prestados pela Agência. Esse trabalho permitiu não apenas o tratamento mais adequado
+          das manifestações, mas também o fortalecimento do diálogo entre a sociedade e a administração pública,
+          ampliando a capacidade institucional de resposta às necessidades dos cidadãos.
         </p>
         <p class="quote-text">
-          Nosso objetivo permanece firme: transformar cada feedback recebido em ações efetivas que contribuam para
-          elevar a qualidade, a segurança, a transparência e a eficiência da regulação e da fiscalização do setor
-          aquaviário."
+          Ao longo do trimestre, a atuação da Ouvidoria também se destacou pela produção de informações relevantes para
+          a gestão, subsidiando análises, correções de rumo e ações voltadas ao aperfeiçoamento da governança. Como
+          resultado, os usuários foram beneficiados por respostas mais qualificadas, maior efetividade na solução das
+          demandas apresentadas e maior confiança na atuação institucional da ANTAQ. Além disso, a consolidação das
+          manifestações recebidas permitiu identificar tendências, recorrências e oportunidades de melhoria,
+          contribuindo para uma atuação mais preventiva, eficiente e orientada ao interesse público.
+        </p>
+        <p class="quote-text">
+          Ao consolidar dados, análises e recomendações, este relatório reafirma o compromisso da Ouvidoria com a escuta
+          qualificada, a transparência e a melhoria contínua dos serviços públicos. Sua atuação gerou impactos concretos
+          ao assegurar o direito de manifestação dos cidadãos, promover a mediação entre sociedade e administração
+          pública e subsidiar decisões com base em evidências, contribuindo para correções de rumo, aprimoramento de
+          procedimentos e qualificação da governança e da atuação institucional da ANTAQ em benefício direto dos
+          usuários.
+        </p>
+        <p class="quote-text">
+          Nesse sentido, a Ouvidoria reafirma seu papel estratégico no fortalecimento da relação entre a Agência e a
+          sociedade, atuando não apenas como canal de recebimento de manifestações, mas também como espaço de análise,
+          articulação e indução de melhorias. O conjunto de informações apresentado neste relatório demonstra a
+          relevância da escuta ativa e da resposta institucional qualificada como elementos fundamentais para a
+          construção de uma administração pública mais eficiente, transparente, responsiva e comprometida com o
+          interesse coletivo.
         </p>
       </div>
 
-      <div class="signature a d5">
-        <p class="sig-assinatura"> Renata Sousa Cordeiro</p>
-        <span class="sig-role" style="color:#23c6fc"> Ouvidora <br><br> Autoridade de Monitoramento da LAI</span>
-      </div>
     </div>
 
     <div class="vdiv"></div>
@@ -334,6 +398,14 @@
       <div class="photo-frame a d3">
         <img class="ouvidora-photo" src="Imagens/renata.jpeg" alt="Renata, Ouvidora da ANTAQ" />
       </div>
+      <div class="signature a d5" style="align-items:center;text-align:center;">
+        <p class="sig-assinatura"> Renata Sousa Cordeiro</p>
+        <span class="sig-role" style="color:#23c6fc"> Ouvidora <br><br> Autoridade de Monitoramento da LAI</span>
+      </div>
+    </div>
+
+    <div class="zoom-lens" id="zoomLens">
+      <div class="zoom-lens-inner" id="zoomInner"></div>
     </div>
   </div>
   <script>
@@ -342,6 +414,46 @@
         e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*");
       }
     });
+
+    /* ── Lupa de zoom no texto da mensagem ── */
+    (function () {
+      var block = document.querySelector('.quote-block');
+      var slide = document.querySelector('.slide');
+      var lens = document.getElementById('zoomLens');
+      var inner = document.getElementById('zoomInner');
+      if (!block || !slide || !lens || !inner) return;
+
+      var Z = 2.0;                       // fator de ampliação
+      var R = lens.offsetWidth / 2 || 170; // raio da lente
+
+      // clona o texto uma única vez (cópia estática ampliada dentro da lente)
+      var clone = block.cloneNode(true);
+      clone.classList.remove('a', 'd3');
+      inner.appendChild(clone);
+
+      function move(e) {
+        var sr = block.getBoundingClientRect();
+        var slr = slide.getBoundingClientRect();
+        inner.style.width = sr.width + 'px';           // mesma largura => mesma quebra de linha
+        var rx = e.clientX - sr.left;                  // cursor relativo ao texto
+        var ry = e.clientY - sr.top;
+        lens.style.left = (e.clientX - slr.left - R) + 'px';
+        lens.style.top = (e.clientY - slr.top - R) + 'px';
+        // posiciona a cópia ampliada para que o ponto sob o cursor fique no centro da lente
+        inner.style.transform = 'translate(' + (R - rx * Z) + 'px,' + (R - ry * Z) + 'px) scale(' + Z + ')';
+      }
+
+      block.addEventListener('mouseenter', function (e) {
+        lens.classList.add('on');
+        move(e);
+        requestAnimationFrame(function () { lens.style.opacity = 1; });
+      });
+      block.addEventListener('mousemove', move);
+      block.addEventListener('mouseleave', function () {
+        lens.style.opacity = 0;
+        setTimeout(function () { lens.classList.remove('on'); }, 180);
+      });
+    })();
   </script>
 </body>
 

@@ -24,26 +24,28 @@
     /* ── Corpo em formato de texto/documento ── */
     .doc {
       flex: 1; min-height: 0; position: relative; z-index: 10;
-      padding: 0.7rem 5rem 0.6rem 5rem;
+      padding: 1rem 5rem 1rem 5rem;
       display: flex; flex-direction: column; justify-content: center;
       animation: fadeInUp .5s cubic-bezier(.2,.7,.3,1) both;
     }
     .doc-lead {
-      font-size: 1.02rem; line-height: 1.5; color: #103050; font-weight: 600;
-      border-left: 4px solid #0090C0; padding-left: 1.1rem; margin-bottom: 1.1rem;
+      font-size: 1.16rem; line-height: 1.58; color: #103050; font-weight: 600;
+      border-left: 4px solid #0090C0; padding-left: 1.2rem; margin-bottom: 1.5rem;
     }
     .doc-lead b { color: #0070C0; font-weight: 700; }
     .doc-cols { columns: 2; column-gap: 2.6rem; }
-    .doc-text { color: #334155; font-size: .82rem; line-height: 1.62; margin: 0 0 .85rem; break-inside: avoid; text-indent: 1.8em; text-align: justify; }
+    .doc-text { color: #334155; font-size: .93rem; line-height: 1.68; margin: 0 0 .95rem; break-inside: avoid; text-indent: 1.8em; text-align: justify; }
     .doc-text b { color: #103050; font-weight: 700; }
 
     .doc-subtitle {
-      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .68rem;
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .78rem;
       letter-spacing: .1em; text-transform: uppercase; color: #0070C0;
-      margin: 0 0 .5rem; display: flex; align-items: center; gap: .5rem; break-inside: avoid;
+      margin: 0 0 .65rem; display: flex; align-items: center; gap: .5rem; break-inside: avoid;
+      break-before: column; -webkit-column-break-before: column;
+      break-after: avoid; -webkit-column-break-after: avoid;
     }
     .act-list { list-style: none; margin: 0 0 .3rem; padding: 0; break-inside: avoid; }
-    .act-list li { position: relative; padding-left: 1.3rem; margin-bottom: .48rem; font-size: .8rem; line-height: 1.45; color: #334155; text-align: justify; }
+    .act-list li { position: relative; padding-left: 1.3rem; margin-bottom: .62rem; font-size: .92rem; line-height: 1.54; color: #334155; text-align: justify; }
     .act-list li::before { content: "\f105"; font-family: "Font Awesome 6 Free"; font-weight: 900; position: absolute; left: 0; top: .05rem; color: #0090C0; }
     .act-list li b { color: #103050; font-weight: 700; }
 
@@ -57,9 +59,8 @@
     <div class="top-accent"></div>
     <div class="top-accent-secondary"></div>
 
-    <div class="flex items-center justify-between px-16 pt-6 pb-3 z-10">
+    <div class="flex items-start justify-between px-16 pt-10 pb-3 z-10">
       <div>
-        <p class="gov-eyebrow"><i class="fas fa-landmark"></i> Agência Nacional de Transportes Aquaviários — ANTAQ</p>
         <div class="flex items-center gap-3 mb-1">
           <div class="w-1 h-8 bg-brand-secondary"></div>
           <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Apresentação da STAI</p>

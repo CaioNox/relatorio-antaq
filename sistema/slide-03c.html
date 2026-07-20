@@ -69,7 +69,7 @@
       min-height: 0;
       position: relative;
       z-index: 10;
-      padding: 0.7rem 5rem 0.6rem 5rem;
+      padding: 1rem 5rem 1rem 5rem;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -77,13 +77,13 @@
     }
 
     .doc-lead {
-      font-size: 1.02rem;
-      line-height: 1.5;
+      font-size: 1.16rem;
+      line-height: 1.58;
       color: #103050;
       font-weight: 600;
       border-left: 4px solid #0090C0;
-      padding-left: 1.1rem;
-      margin-bottom: 1.1rem;
+      padding-left: 1.2rem;
+      margin-bottom: 1.5rem;
     }
 
     .doc-cols {
@@ -94,9 +94,9 @@
     .doc-text {
       text-indent: 1.8em;
       color: #334155;
-      font-size: .82rem;
-      line-height: 1.62;
-      margin: 0 0 .85rem;
+      font-size: .93rem;
+      line-height: 1.68;
+      margin: 0 0 .95rem;
       break-inside: avoid;
       text-align: justify;
     }
@@ -104,15 +104,19 @@
     .doc-subtitle {
       font-family: 'Montserrat', sans-serif;
       font-weight: 800;
-      font-size: .68rem;
+      font-size: .78rem;
       letter-spacing: .1em;
       text-transform: uppercase;
       color: #0070C0;
-      margin: 0 0 .5rem;
+      margin: 0 0 .65rem;
       display: flex;
       align-items: center;
       gap: .5rem;
       break-inside: avoid;
+      break-before: column;
+      -webkit-column-break-before: column;
+      break-after: avoid;
+      -webkit-column-break-after: avoid;
     }
 
     .act-list {
@@ -125,9 +129,9 @@
     .act-list li {
       position: relative;
       padding-left: 1.3rem;
-      margin-bottom: .48rem;
-      font-size: .8rem;
-      line-height: 1.45;
+      margin-bottom: .62rem;
+      font-size: .92rem;
+      line-height: 1.54;
       color: #334155;
       text-align: justify;
     }
@@ -183,7 +187,7 @@
     <div class="top-accent-secondary"></div>
 
     <!-- Header Limpo e Badge customizado para o Capítulo 02 -->
-    <div class="flex items-center justify-between px-16 pt-10 pb-3 z-10">
+    <div class="flex items-start justify-between px-16 pt-10 pb-3 z-10">
       <div>
         <div class="flex items-center gap-3 mb-1">
           <div class="w-1 h-8 bg-brand-secondary"></div>
