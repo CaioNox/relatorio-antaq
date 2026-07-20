@@ -136,33 +136,40 @@
     /* Núcleo central (OUVIDORIA) */
     .mm-core {
       position: absolute;
-      left: 68px;
-      top: 308px;
-      width: 164px;
-      height: 164px;
+      left: 417px;
+      top: 222px;
+      width: 116px;
+      height: 116px;
       border-radius: 50%;
       background: radial-gradient(circle at 35% 30%, #16466E 0%, #103050 55%, #0a2036 100%);
-      border: 8px solid #eef2f7;
+      border: 7px solid #eef2f7;
       box-shadow: 0 18px 40px rgba(16, 48, 80, .40);
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
+      gap: 4px;
       z-index: 4;
     }
 
     .mm-core span {
       font-family: 'Montserrat', sans-serif;
       font-weight: 900;
-      font-size: 19px;
+      font-size: 16px;
       color: #fff;
-      letter-spacing: .03em;
+      letter-spacing: .02em;
+    }
+
+    .mm-core i {
+      color: #fff;
+      font-size: 19px;
     }
 
     /* Sub-hubs (SAC / STAI) */
     .mm-hub {
       position: absolute;
-      width: 66px;
-      height: 66px;
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -170,7 +177,7 @@
       color: #fff;
       font-family: 'Montserrat', sans-serif;
       font-weight: 800;
-      font-size: 16px;
+      font-size: 13px;
       letter-spacing: .02em;
       box-shadow: 0 6px 14px rgba(16, 48, 80, .28);
       z-index: 3;
@@ -179,9 +186,8 @@
     /* Cartões-folha (serviços) */
     .mm-card {
       position: absolute;
-      left: 470px;
-      width: 405px;
-      height: 64px;
+      width: 265px;
+      height: 44px;
       display: flex;
       align-items: center;
       background: #fff;
@@ -192,24 +198,46 @@
       z-index: 3;
     }
 
+    /* Variante à esquerda: ícone à direita, rótulo alinhado à direita */
+    .mm-card.left {
+      flex-direction: row-reverse;
+    }
+
     .mm-card-icon {
       flex-shrink: 0;
-      width: 56px;
+      width: 48px;
       height: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
       color: #fff;
-      font-size: 20px;
+      font-size: 17px;
     }
 
     .mm-card-label {
+      flex: 1;
       padding: 0 14px;
       font-family: 'Montserrat', sans-serif;
       font-weight: 700;
-      font-size: 15px;
+      font-size: 14px;
       color: #103050;
       line-height: 1.15;
+    }
+
+    .mm-card.left .mm-card-label {
+      text-align: right;
+    }
+
+    /* Rótulos de seção do mapa */
+    .mm-section {
+      position: absolute;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 12.5px;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      color: #64748B;
+      white-space: nowrap;
     }
 
     .bg-pattern {
@@ -292,72 +320,77 @@
           <div class="org-embed" id="orgEmbed">
 
             <!-- Conectores (mapa mental) -->
-            <svg class="mm-links" viewBox="0 0 900 780" xmlns="http://www.w3.org/2000/svg">
+            <svg class="mm-links" viewBox="0 0 980 560" xmlns="http://www.w3.org/2000/svg">
               <!-- Troncos grossos: núcleo → sub-hubs -->
               <g fill="none" stroke-linecap="round">
-                <path d="M222,352 C300,325 305,175 355,175" stroke="#103050" stroke-width="7" />
-                <path d="M222,428 C300,455 305,605 355,605" stroke="#0090C0" stroke-width="7" />
+                <path d="M516,248 C556,232 552,152 584,152" stroke="#103050" stroke-width="6" />
+                <path d="M516,312 C556,328 552,412 584,412" stroke="#0090C0" stroke-width="6" />
               </g>
-              <!-- Troncos laranja: núcleo → serviços diretos -->
-              <g fill="none" stroke="#F2A900" stroke-width="5" stroke-linecap="round">
-                <path d="M228,378 C345,360 360,318 470,318" />
-                <path d="M232,390 L470,390" />
-                <path d="M228,402 C345,420 360,462 470,462" />
+              <!-- Troncos: núcleo → serviços diretos (esquerda) -->
+              <g fill="none" stroke="#7D97B3" stroke-width="5" stroke-linecap="round">
+                <path d="M313,227 C362,230 372,258 417,262" />
+                <path d="M313,282 L417,281" />
+                <path d="M313,337 C362,334 372,302 417,298" />
               </g>
               <!-- Conectores finos: SAC → cartões -->
-              <g fill="none" stroke="#103050" stroke-width="3" stroke-linecap="round" opacity="0.85">
-                <path d="M421,166 C448,145 452,105 470,105" />
-                <path d="M421,184 C448,196 452,200 470,200" />
+              <g fill="none" stroke="#103050" stroke-width="3" stroke-linecap="round" opacity="0.9">
+                <path d="M632,148 C650,138 650,100 660,100" />
+                <path d="M632,156 C650,158 650,160 660,160" />
               </g>
               <!-- Conectores finos: STAI → cartões -->
-              <g fill="none" stroke="#0090C0" stroke-width="3" stroke-linecap="round" opacity="0.85">
-                <path d="M421,596 C448,572 452,548 470,548" />
-                <path d="M421,612 C448,622 452,632 470,632" />
-                <path d="M421,624 C448,665 452,716 470,716" />
+              <g fill="none" stroke="#0090C0" stroke-width="3" stroke-linecap="round" opacity="0.9">
+                <path d="M632,406 C650,392 650,362 660,362" />
+                <path d="M632,412 L660,417" />
+                <path d="M632,418 C650,432 650,472 660,472" />
               </g>
             </svg>
 
+            <!-- Rótulos de seção -->
+            <div class="mm-section" style="left:48px; top:172px;">Serviços diretos da Ouvidoria</div>
+            <div class="mm-section" style="left:735px; top:40px;">Serviços da SAC</div>
+            <div class="mm-section" style="left:735px; top:300px;">Serviços da STAI</div>
+
             <!-- Núcleo -->
-            <div class="mm-core"><span>OUVIDORIA</span></div>
+            <div class="mm-core"><span>OUVIDORIA</span><i class="fas fa-bullhorn"></i></div>
 
             <!-- Sub-hubs -->
-            <div class="mm-hub" style="left:355px; top:142px; background:#103050;">SAC</div>
-            <div class="mm-hub" style="left:355px; top:572px; background:#0090C0;">STAI</div>
+            <div class="mm-hub" style="left:584px; top:128px; background:#103050;">SAC</div>
+            <div class="mm-hub" style="left:584px; top:388px; background:#0090C0;">STAI</div>
 
-            <!-- Cartões: SAC -->
-            <div class="mm-card" style="top:73px;">
+            <!-- Cartões: serviços diretos (esquerda, ícone à direita) -->
+            <div class="mm-card left" style="left:48px; top:205px;">
+              <div class="mm-card-icon" style="background:#103050;"><i class="fas fa-file-lines"></i></div>
+              <div class="mm-card-label">Carta de Usuários</div>
+            </div>
+            <div class="mm-card left" style="left:48px; top:260px;">
+              <div class="mm-card-icon" style="background:#16466E;"><i class="fas fa-users"></i></div>
+              <div class="mm-card-label">Conselho de Usuários</div>
+            </div>
+            <div class="mm-card left" style="left:48px; top:315px;">
+              <div class="mm-card-icon" style="background:#103050;"><i class="fas fa-file-contract"></i></div>
+              <div class="mm-card-label">MMOuP</div>
+            </div>
+
+            <!-- Cartões: SAC (direita) -->
+            <div class="mm-card" style="left:660px; top:78px;">
               <div class="mm-card-icon" style="background:#103050;"><i class="fas fa-headset"></i></div>
               <div class="mm-card-label">Atendimento ao Cidadão</div>
             </div>
-            <div class="mm-card" style="top:168px;">
+            <div class="mm-card" style="left:660px; top:138px;">
               <div class="mm-card-icon" style="background:#16466E;"><i class="fas fa-clipboard-check"></i></div>
               <div class="mm-card-label">Registro e Gerenciamento de Demandas</div>
             </div>
 
-            <!-- Cartões: serviços diretos (laranja) -->
-            <div class="mm-card" style="top:286px;">
-              <div class="mm-card-icon" style="background:#F2A900;"><i class="fas fa-file-lines"></i></div>
-              <div class="mm-card-label">Carta de Usuários</div>
-            </div>
-            <div class="mm-card" style="top:358px;">
-              <div class="mm-card-icon" style="background:#F2A900;"><i class="fas fa-users"></i></div>
-              <div class="mm-card-label">Conselho de Usuários</div>
-            </div>
-            <div class="mm-card" style="top:430px;">
-              <div class="mm-card-icon" style="background:#F2A900;"><i class="fas fa-file-contract"></i></div>
-              <div class="mm-card-label">MMOuP</div>
-            </div>
-
-            <!-- Cartões: STAI -->
-            <div class="mm-card" style="top:516px;">
+            <!-- Cartões: STAI (direita) -->
+            <div class="mm-card" style="left:660px; top:340px;">
               <div class="mm-card-icon" style="background:#0090C0;"><i class="fas fa-lock-open"></i></div>
               <div class="mm-card-label">Transparência Ativa e Passiva</div>
             </div>
-            <div class="mm-card" style="top:600px;">
+            <div class="mm-card" style="left:660px; top:395px;">
               <div class="mm-card-icon" style="background:#0070C0;"><i class="fas fa-database"></i></div>
               <div class="mm-card-label">Dados Abertos</div>
             </div>
-            <div class="mm-card" style="top:684px;">
+            <div class="mm-card" style="left:660px; top:450px;">
               <div class="mm-card-icon" style="background:#0090C0;"><i class="fas fa-calendar-days"></i></div>
               <div class="mm-card-label">e-Agendas</div>
             </div>
@@ -368,8 +401,7 @@
     </div>
 
     <div class="px-16 pb-6 pt-1 flex justify-between items-center z-10">
-      <p class="text-gray-400 text-xs">Relatório Trimestral da Ouvidoria · 2026 — Agência Nacional de Transportes
-        Aquaviários</p>
+      <p class="text-gray-400 text-xs">Relatório 1º Trimestre de 2026 – Ouvidoria – Agência Nacional de Transportes Aquaviários - Antaq</p>
     </div>
     <div class="bg-pattern"><i class="fas fa-bullhorn text-9xl"></i></div>
   </div>
@@ -381,7 +413,7 @@
       var fig = document.getElementById('orgFig');
       var emb = document.getElementById('orgEmbed');
       if (!fig || !emb) return;
-      var cx = 471, cy = 410, cw = 840, ch = 730; // caixa de conteúdo (com pequena margem)
+      var cx = 486, cy = 280, cw = 930, ch = 540; // caixa de conteúdo (com pequena margem)
       var s = Math.min(fig.clientWidth / cw, fig.clientHeight / ch) * 0.97;
       var tx = fig.clientWidth / 2 - s * cx;
       var ty = fig.clientHeight / 2 - s * cy;
