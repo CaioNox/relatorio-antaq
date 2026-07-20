@@ -231,7 +231,7 @@
       letter-spacing: 0.13em;
       text-transform: uppercase;
       color: #7fd3f0;
-      font-size: 0.62rem;
+      font-size: 0.72rem;
       display: flex;
       align-items: center;
       gap: 0.55rem;
@@ -240,7 +240,7 @@
 
     .sec-label i {
       color: #F2A900;
-      font-size: 0.72rem;
+      font-size: .82rem;
     }
 
     .sec-label::after {
@@ -267,7 +267,7 @@
     }
 
     .exp-title {
-      font-size: 0.9rem;
+      font-size: 1rem;
       font-weight: 700;
       letter-spacing: 0.05em;
       text-transform: uppercase;
@@ -290,6 +290,28 @@
 
     .col-exp .exp-title {
       margin-bottom: 0.2rem;
+    }
+
+    /* ── Coluna Corregedoria · Ouvidoria · Superintendências — 3 subseções ── */
+    .col-org .exp-group {
+      margin-bottom: 0.22rem;
+    }
+
+    .col-org .exp-name {
+      font-size: 1.05rem;
+      line-height: 1.22;
+    }
+
+    .col-org .exp-title {
+      font-size: 0.8rem;
+    }
+
+    .col-org .sec-label {
+      margin-bottom: 0.5rem;
+    }
+
+    .col-org .sec-label.sub {
+      margin-top: 0.75rem;
     }
 
     /* ── Rodapé ── */
@@ -455,16 +477,20 @@
       </div>
 
       <!-- Coluna 2 — Corregedoria, Ouvidoria e Superintendências -->
-      <div class="col">
-        <p class="sec-label"><i class="fas fa-sitemap"></i> Corregedoria · Ouvidoria · Superintendências</p>
-        <div class="exp-group">
-          <p class="exp-title">Ouvidora</p>
-          <p class="exp-name">Renata Sousa Cordeiro</p>
-        </div>
+      <div class="col col-org">
+        <p class="sec-label"><i class="fas fa-user-shield"></i> Corregedoria</p>
         <div class="exp-group">
           <p class="exp-title">Corregedora</p>
           <p class="exp-name">Joelma Maria Costa Barbosa</p>
         </div>
+
+        <p class="sec-label sub"><i class="fas fa-bullhorn"></i> Ouvidoria</p>
+        <div class="exp-group">
+          <p class="exp-title">Ouvidora</p>
+          <p class="exp-name">Renata Sousa Cordeiro</p>
+        </div>
+
+        <p class="sec-label sub"><i class="fas fa-sitemap"></i> Superintendências</p>
         <div class="exp-group">
           <p class="exp-title">Superintendente de Outorgas</p>
           <p class="exp-name">Renildo Barros da Silva Júnior</p>
@@ -475,7 +501,7 @@
         </div>
         <div class="exp-group">
           <p class="exp-title">Superintendente de ESG e Inovação</p>
-          <p class="exp-name">Cristina Castro Lucas de Souza</p>
+          <p class="exp-name">Uira Cavalcante Oliveira</p>
         </div>
         <div class="exp-group">
           <p class="exp-title">Superintendente de Administração e Finanças</p>
