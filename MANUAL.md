@@ -78,7 +78,7 @@ const deck = [
   { block: 'Abertura', short: 'Abertura', tint: 0.35,
     files: ['slide-00.html', 'slide-34.html', 'slide-msg-ouvidora.html', 'slide-01.html'] },
 
-  { block: 'Bloco 1 · Visão Geral das Ouvidorias Públicas', short: 'Visão Geral', tint: 1,
+  { block: 'Bloco 1 · Visão Geral das ouvidorias públicas', short: 'Visão Geral', tint: 1,
     files: ['capa-bloco-1.html', 'slide-ctx-01.html', /* ... */] },
 
   // ... Blocos 2 a 6 ...
@@ -147,14 +147,14 @@ O GitHub Pages publica automaticamente em ~2 minutos.
 | `slide-msg-ouvidora.html` | Mensagem da Ouvidora | Texto da ouvidora *(hoje é placeholder)* |
 | `slide-01.html` | Sumário (clicável) | Só se mudar a estrutura de blocos |
 
-### Bloco 1 · Visão Geral das Ouvidorias Públicas
+### Bloco 1 · Visão Geral das ouvidorias públicas
 | Arquivo | Título | O que atualizar |
 |---------|--------|-----------------|
 | `capa-bloco-1.html` | Capa do bloco | Raramente muda |
-| `slide-ctx-01.html` | Apresentação das Ouvidorias | Texto institucional |
-| `slide-principios-01.html` | Princípios das Ouvidorias | Texto institucional |
-| `slide-diretrizes-01.html` | Diretrizes das Ouvidorias | Texto institucional |
-| `slide-atribuicoes-01.html` | Atribuições das Ouvidorias | Texto institucional |
+| `slide-ctx-01.html` | Apresentação das ouvidorias | Texto institucional |
+| `slide-principios-01.html` | Princípios das ouvidorias | Texto institucional |
+| `slide-diretrizes-01.html` | Diretrizes das ouvidorias | Texto institucional |
+| `slide-atribuicoes-01.html` | Atribuições das ouvidorias | Texto institucional |
 
 ### Bloco 2 · A Ouvidoria da ANTAQ
 | Arquivo | Título | O que atualizar |

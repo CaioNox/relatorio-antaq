@@ -84,8 +84,8 @@
             position: relative;
             background: #fff;
             border: 2px solid #E2E8F0;
-            border-radius: 15px;
-            padding: 1.1rem 1.2rem;
+            border-radius: 16px;
+            padding: 1.3rem 1.4rem;
             cursor: pointer;
             text-align: left;
             display: flex;
@@ -98,31 +98,31 @@
         }
 
         .tile:nth-child(2) {
-            animation-delay: .05s
+            animation-delay: 0.06s
         }
 
         .tile:nth-child(3) {
-            animation-delay: .10s
+            animation-delay: 0.12s
         }
 
         .tile:nth-child(4) {
-            animation-delay: .15s
+            animation-delay: 0.18s
         }
 
         .tile:nth-child(5) {
-            animation-delay: .20s
+            animation-delay: 0.24s
         }
 
         .tile:nth-child(6) {
-            animation-delay: .25s
+            animation-delay: 0.30s
         }
 
         .tile:nth-child(7) {
-            animation-delay: .30s
+            animation-delay: 0.36s
         }
 
         .tile:nth-child(8) {
-            animation-delay: .35s
+            animation-delay: 0.42s
         }
 
         .tile:hover {
@@ -139,9 +139,9 @@
         .doc-badge {
             align-self: flex-start;
             text-align: center;
-            border-radius: 11px;
+            border-radius: 13px;
             color: #fff;
-            padding: .45rem .85rem;
+            padding: .6rem 1.1rem;
             font-family: 'Montserrat', sans-serif;
             line-height: 1;
             transition: transform .3s ease;
@@ -155,12 +155,12 @@
             display: block;
             font-size: .58rem;
             font-weight: 800;
-            letter-spacing: .07em;
+            letter-spacing: .1em;
         }
 
         .doc-badge .db-num {
             display: block;
-            font-size: 1.05rem;
+            font-size: 1.4rem;
             font-weight: 900;
             margin-top: .12rem;
         }
@@ -181,13 +181,13 @@
             color: #103050;
             font-family: 'Montserrat', sans-serif;
             font-weight: 800;
-            font-size: .98rem;
+            font-size: 1.08rem;
             line-height: 1.16;
         }
 
         .tile-tag {
             color: #5b7185;
-            font-size: .74rem;
+            font-size: .8rem;
             line-height: 1.28;
         }
 
@@ -261,7 +261,7 @@
         .ov-badge {
             flex-shrink: 0;
             text-align: center;
-            border-radius: 14px;
+            border-radius: 15px;
             color: #fff;
             padding: .65rem 1.1rem;
             font-family: 'Montserrat', sans-serif;
@@ -272,12 +272,12 @@
             display: block;
             font-size: .58rem;
             font-weight: 800;
-            letter-spacing: .07em;
+            letter-spacing: .1em;
         }
 
         .ov-badge .db-num {
             display: block;
-            font-size: 1.2rem;
+            font-size: 1.45rem;
             font-weight: 900;
             margin-top: .12rem;
         }
@@ -396,7 +396,7 @@
         <!-- Header -->
         <div class="flex items-start justify-between px-16 pt-10 pb-3 z-10">
             <div>
-                <div class="flex items-center gap-3 mb-1">
+                <div class="flex items-center gap-3 mb-2">
                     <div class="w-1 h-8 bg-brand-secondary"></div>
                     <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Normativos
                     </p>
@@ -406,16 +406,16 @@
                     a Ouvidoria — <span class="hint"><i class="fas fa-hand-pointer"></i> clique para ler na
                         íntegra</span></p>
             </div>
-            <div class="flex items-center gap-3 opacity-80 text-brand-secondary">
+            <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
                 <i class="fas fa-book-open text-3xl" aria-hidden="true"></i>
                 <div class="flex flex-col justify-center pl-2" style="border-left:1px solid #CBD5E1;">
-                    <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1">CAPÍTULO 06</p>
-                    <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none">Apêndice</p>
+                    <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">CAPÍTULO 06</p>
+                    <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none whitespace-nowrap">Apêndice</p>
                 </div>
             </div>
         </div>
         <!-- Grade -->
-        <div class="flex-1 px-16 pb-8 pt-2 z-10">
+        <div class="flex-1 px-16 pb-10 pt-3 z-10">
             <div class="tile-grid h-full">
                 <!-- IN 05/2018 -->
                 <button class="tile" onclick="openCard(this)" data-title="Instrução Normativa OGU/CGU nº 05/2018"
@@ -559,7 +559,7 @@
         </div>
         <!-- Footer -->
         <div class="px-16 pb-8 flex justify-between items-center z-10">
-            <p class="text-gray-400 text-xs">Relatório 1º Trimestre de 2026 – Ouvidoria – Agência Nacional de Transportes Aquaviários - Antaq</p>
+            <p class="text-gray-400 text-xs">Relatório 1º Trimestre de 2026 – Ouvidoria – Agência Nacional de Transportes Aquaviários - ANTAQ</p>
         </div>
         <div class="bg-pattern"><i class="fas fa-stamp text-9xl"></i></div>
     </div>

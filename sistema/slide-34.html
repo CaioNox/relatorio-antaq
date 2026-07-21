@@ -333,6 +333,56 @@
       font-family: 'Montserrat', monospace;
     }
 
+    /* ── Nota de Copyright — faixa destacada ── */
+    .copyright {
+      position: relative;
+      z-index: 10;
+      margin: 0 5rem 0.9rem 5rem;
+      display: flex;
+      align-items: center;
+      gap: 1.1rem;
+      padding: 0.7rem 1.1rem;
+      background: rgba(0, 144, 192, 0.12);
+      border: 1px solid rgba(0, 144, 192, 0.4);
+      border-left: 4px solid #F2A900;
+      border-radius: 10px;
+    }
+
+    /* Selo circular (bolinha) — vetor com cara de carimbo */
+    .copyright .seal {
+      flex-shrink: 0;
+      width: 76px;
+      height: 76px;
+      filter: drop-shadow(0 2px 7px rgba(0, 0, 0, 0.4));
+    }
+
+    .copyright-text p {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.8rem;
+      line-height: 1.4;
+      color: rgba(255, 255, 255, 0.82);
+    }
+
+    .copyright-text p+p {
+      margin-top: 0.45rem;
+      padding-top: 0.45rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .copyright-text strong {
+      color: #fff;
+      font-weight: 700;
+    }
+
+    .copyright-text .data-ref {
+      color: rgba(255, 255, 255, 0.72);
+    }
+
+    .copyright-text .data-ref i {
+      color: #F2A900;
+      margin-right: 0.35rem;
+    }
+
     /* ── Ondas ── */
     .waves {
       position: absolute;
@@ -556,9 +606,40 @@
       </div>
     </div>
 
+    <!-- Nota de Copyright -->
+    <div class="copyright">
+      <!-- Selo circular (bolinha) — vetor estilo carimbo -->
+      <svg class="seal" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink" role="img" aria-label="Selo Ouvidoria da ANTAQ 2026">
+        <defs>
+          <linearGradient id="seal-ring" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#F2A900" />
+            <stop offset="100%" stop-color="#0090C0" />
+          </linearGradient>
+          <path id="seal-arc" d="M50,50 m-38,0 a38,38 0 1,1 76,0" fill="none" />
+        </defs>
+        <circle cx="50" cy="50" r="47" fill="rgba(6,26,45,0.55)" stroke="url(#seal-ring)" stroke-width="2.5" />
+        <circle cx="50" cy="50" r="40.5" fill="none" stroke="rgba(255,255,255,0.22)" stroke-width="1" />
+        <text font-family="Montserrat, sans-serif" font-size="8" font-weight="700" letter-spacing="1.6" fill="#eaf4fb">
+          <textPath href="#seal-arc" xlink:href="#seal-arc" startOffset="50%" text-anchor="middle">OUVIDORIA DA ANTAQ</textPath>
+        </text>
+        <text x="50" y="63" text-anchor="middle" font-family="Montserrat, sans-serif" font-size="36" font-weight="800"
+          fill="#F2A900">&#169;</text>
+        <text x="50" y="82" text-anchor="middle" font-family="Montserrat, sans-serif" font-size="9" font-weight="700"
+          letter-spacing="2" fill="rgba(255,255,255,0.75)">2026</text>
+      </svg>
+      <div class="copyright-text">
+        <p><strong>Copyright &copy; 2026.</strong> É permitida a reprodução parcial ou total desta obra, desde que citada
+          a fonte, e vedada a impressão, distribuição e reprodução desta obra para fins comerciais sem a prévia e expressa
+          anuência da ANTAQ.</p>
+        <p class="data-ref"><i class="fas fa-calendar-day"></i> Os dados presentes neste relatório referem-se à data de
+          <strong>21/07/2026</strong>. Informações posteriores a essa data não estão contempladas neste documento.</p>
+      </div>
+    </div>
+
     <!-- Rodapé -->
     <div class="footer">
-      <p>Relatório 1º Trimestre de 2026 – Ouvidoria – Agência Nacional de Transportes Aquaviários - Antaq</p>
+      <p>Relatório 1º Trimestre de 2026 – Ouvidoria – Agência Nacional de Transportes Aquaviários - ANTAQ</p>
       <p class="mono">Ficha Técnica</p>
     </div>
 

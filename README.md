@@ -34,7 +34,7 @@ Capa de abertura, ficha técnica, mensagem da Ouvidora, **sumário clicável** e
 
 | Seção | Tema |
 |-------|------|
-| 1 | **As Ouvidorias Públicas** — a Ouvidoria da ANTAQ, princípios, diretrizes, atribuições e papel institucional |
+| 1 | **As ouvidorias públicas** — a Ouvidoria da ANTAQ, princípios, diretrizes, atribuições e papel institucional |
 | 2 | **Canais de Atendimento** — tramitação e manifestações por canal |
 | 3 | **Tipos de Manifestações** — denúncia, elogio, reclamação (simples, solicitação, sugestão) |
 | 4 | **SAC — Seção de Apoio ao Cidadão** — apresentação, atividades e referências |
