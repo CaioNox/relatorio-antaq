@@ -153,7 +153,7 @@
     }
 
     .title {
-      font-size: 3.4rem;
+      font-size: 2.4rem;
       font-weight: 900;
       line-height: 1;
       letter-spacing: -0.02em;
@@ -231,7 +231,7 @@
       letter-spacing: 0.13em;
       text-transform: uppercase;
       color: #7fd3f0;
-      font-size: 0.72rem;
+      font-size: .92rem;
       display: flex;
       align-items: center;
       gap: 0.55rem;
@@ -253,7 +253,7 @@
     .exp-group {
       padding-left: 0.7rem;
       border-left: 2px solid rgba(0, 144, 192, 0.55);
-      margin-bottom: 0.38rem;
+      margin-bottom: 0.5rem;
       transition: transform .25s ease, border-color .25s ease;
     }
 
@@ -294,16 +294,11 @@
 
     /* ── Coluna Corregedoria · Ouvidoria · Superintendências — 3 subseções ── */
     .col-org .exp-group {
-      margin-bottom: 0.22rem;
+      margin-bottom: 0.5rem;
     }
 
     .col-org .exp-name {
-      font-size: 1.05rem;
       line-height: 1.22;
-    }
-
-    .col-org .exp-title {
-      font-size: 0.8rem;
     }
 
     .col-org .sec-label {
@@ -312,6 +307,10 @@
 
     .col-org .sec-label.sub {
       margin-top: 0.75rem;
+    }
+
+    .col-org .sec-label.sub:first-child {
+      margin-top: 0;
     }
 
     /* ── Rodapé ── */
@@ -478,17 +477,17 @@
 
       <!-- Coluna 2 — Corregedoria, Ouvidoria e Superintendências -->
       <div class="col col-org">
+        <p class="sec-label sub"><i class="fas fa-bullhorn"></i> Ouvidoria</p>
+        <div class="exp-group">
+          <p class="exp-title">Ouvidora</p>
+          <p class="exp-name">Renata Sousa Cordeiro</p>
+        </div>
         <p class="sec-label"><i class="fas fa-user-shield"></i> Corregedoria</p>
         <div class="exp-group">
           <p class="exp-title">Corregedora</p>
           <p class="exp-name">Joelma Maria Costa Barbosa</p>
         </div>
 
-        <p class="sec-label sub"><i class="fas fa-bullhorn"></i> Ouvidoria</p>
-        <div class="exp-group">
-          <p class="exp-title">Ouvidora</p>
-          <p class="exp-name">Renata Sousa Cordeiro</p>
-        </div>
 
         <p class="sec-label sub"><i class="fas fa-sitemap"></i> Superintendências</p>
         <div class="exp-group">
