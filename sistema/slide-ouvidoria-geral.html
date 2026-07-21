@@ -1,4 +1,69 @@
 <!DOCTYPE html>
+<!--
+  ╔══════════════════════════════════════════════════════════════════════════╗
+  ║  COMO MEXER NO DIAGRAMA (metade de baixo do slide)                        ║
+  ╠══════════════════════════════════════════════════════════════════════════╣
+  ║  1. CANVAS FIXO 1900 × 600                                                ║
+  ║     Tudo é desenhado num "papel" de 1900×550 px. O JS `fitOrg()` reduz    ║
+  ║     esse papel para caber no espaço disponível — então você NUNCA pensa   ║
+  ║     em tela/resolução, só nas coordenadas do papel.                       ║
+  ║     Origem (0,0) = canto superior esquerdo. x cresce p/ direita, y p/     ║
+  ║     baixo.                                                                ║
+  ║                                                                           ║
+  ║  2. AS PEÇAS SÃO <div> COM left/top                                       ║
+  ║     left/top é o CANTO da peça, não o centro.                             ║
+  ║        centro_x = left + largura/2     left = centro_x − largura/2        ║
+  ║     Peças e tamanhos atuais:                                              ║
+  ║        .mm-core   210×150   left 782  top 210   → centro (887, 285)       ║
+  ║        .mm-orb    124×124   (3 esferas, ver item 4)                       ║
+  ║        .mm-branch 190×66    top 415   SAC left 285 · STAI left 1299       ║
+  ║        .mm-card   310×66    top 505   left 55/395/899/1239/1579           ║
+  ║                                                                           ║
+  ║  3. AS LINHAS SÃO UM <svg> NO MESMO SISTEMA                               ║
+  ║     O svg tem viewBox="0 0 1900 550" e width/height 1900/550 no CSS.      ║
+  ║     ⚠ Os TRÊS números precisam bater. Se o viewBox e o height do CSS      ║
+  ║       divergirem, o SVG centraliza o desenho e as linhas saem deslocadas. ║
+  ║                                                                           ║
+  ║     Anatomia de um "cotovelo" (M=mover, L=linha reta, Q=canto redondo):   ║
+  ║        M 887,360   sai da base do núcleo                                  ║
+  ║        L 887,364   desce um tico                                          ║
+  ║        Q 887,369 882,369   vira à esquerda com canto arredondado          ║
+  ║        L 385,369   corre na horizontal até a coluna do galho              ║
+  ║        Q 380,369 380,374   vira para baixo                                ║
+  ║        L 380,375   encosta no topo do galho                               ║
+  ║     Regra prática: o "y" do corredor horizontal (369) fica entre a base   ║
+  ║     de quem sai (360) e o topo de quem chega (375).                       ║
+  ║                                                                           ║
+  ║  4. AS ESFERAS EM ÓRBITA (trigonometria)                                  ║
+  ║     Centro da órbita = centro do núcleo (887, 285). Raio R = 215.         ║
+  ║         x = 887 + R·cos(ângulo)      y = 285 − R·sin(ângulo)              ║
+  ║         left = x − 62                top = y − 62      (62 = raio da bola)║
+  ║     Ângulos usados: 168° (esq.) · 90° (topo) · 12° (dir.)                 ║
+  ║     Mais perto de 180°/0° = mais "ao lado" do núcleo.                     ║
+  ║     Mais perto de 90°     = mais "por cima".                              ║
+  ║     O arco tracejado no svg usa o mesmo R: A215,215 0 0 1 …               ║
+  ║                                                                           ║
+  ║  5. ZOOM E CENTRALIZAÇÃO — no fim do arquivo, em fitOrg():                ║
+  ║        cx, cy = centro do conteúdo real (não do papel)                    ║
+  ║        cw, ch = largura/altura do conteúdo real                           ║
+  ║     Diminuir cw/ch ⇒ o desenho aparece MAIOR. Mexer em cx/cy ⇒ desloca.   ║
+  ║                                                                           ║
+  ║  6. DIVISÃO TEXTO / DIAGRAMA                                              ║
+  ║     No <div class="flex-1 grid …">, `grid-template-rows: 42% 1fr`.        ║
+  ║     Aumentar os 42% ⇒ mais espaço p/ o texto e diagrama menor.            ║
+  ║     Já `.org-fig { margin-top: -2.9rem }` estica o DIAGRAMA para cima     ║
+  ║     sem tirar nada do texto (ele invade o vazio sob as colunas curtas).   ║
+  ║     Mais negativo ⇒ diagrama mais alto e maior.                           ║
+  ║                                                                           ║
+  ║  PALETA: núcleo/SAC #103050 · #16466E | STAI #0090C0 · #0070C0            ║
+  ║          esferas (âmbar) #F2A900 · texto #103050                          ║
+  ║                                                                           ║
+  ║  DEPOIS DE EDITAR, CONFIRA:                                               ║
+  ║   • a peça não invade outra (some as metades das larguras + o vão);       ║
+  ║   • a linha do svg foi movida junto com a peça;                           ║
+  ║   • nada passou de x=1900 ou y=600.                                       ║
+  ╚══════════════════════════════════════════════════════════════════════════╝
+-->
 <html lang="pt-BR">
 
 <head>
@@ -87,31 +152,25 @@
       font-weight: 700;
     }
 
-    /* ── Metade de baixo: painel do diagrama ── */
-    .org-panel {
+    /* ── Metade de baixo: diagrama solto no fundo do slide ── */
+    .org-fig {
       position: relative;
-      border-radius: 18px;
-      border: 1px solid #E2E8F0;
-      background:
-        radial-gradient(120% 90% at 50% 0%, #F7FBFF 0%, #ffffff 60%);
-      box-shadow: 0 14px 34px -22px rgba(16, 48, 80, .35);
-      overflow: hidden;
       min-height: 0;
+      /* Estica o diagrama ~15% para CIMA, invadindo o vazio que sobra sob as
+         colunas 2 e 3 do texto. A faixa do texto não muda de tamanho — quem
+         cresce é só este contêiner (margem negativa + stretch do grid). */
+      margin-top: -2.9rem;
+      z-index: 1;
       animation: fadeInUp .5s cubic-bezier(.2, .7, .3, 1) .1s both;
     }
 
-    .org-fig {
-      position: absolute;
-      inset: 0;
-    }
-
-    /* Canvas fixo 1900×550, escalado por JS para preencher o painel */
+    /* Canvas fixo 1900×600, escalado por JS para preencher o painel */
     .org-embed {
       position: absolute;
       top: 0;
       left: 0;
       width: 1900px;
-      height: 550px;
+      height: 600px;
       transform-origin: 0 0;
       font-family: 'Open Sans', 'Segoe UI', sans-serif;
     }
@@ -121,7 +180,7 @@
       top: 0;
       left: 0;
       width: 1900px;
-      height: 550px;
+      height: 600px;
       overflow: visible;
     }
 
@@ -226,7 +285,7 @@
     /* Ramos — SAC e STAI */
     .mm-branch {
       position: absolute;
-      top: 375px;
+      top: 415px;
       width: 190px;
       height: 66px;
       border-radius: 33px;
@@ -265,7 +324,7 @@
     /* Folhas — serviços de cada seção */
     .mm-card {
       position: absolute;
-      top: 465px;
+      top: 505px;
       width: 310px;
       height: 66px;
       display: flex;
@@ -429,7 +488,7 @@
     </div>
 
     <!-- Metade de cima: texto · Metade de baixo: diagrama -->
-    <div class="flex-1 grid px-16 pb-4 z-10" style="grid-template-rows: 43% 1fr; gap: .6rem; min-height:0;">
+    <div class="flex-1 grid px-16 pb-2 z-10" style="grid-template-rows: 42% 1fr; gap: .5rem; min-height:0;">
 
       <div class="inst-cols">
         <p class="inst-text">
@@ -455,100 +514,97 @@
         </p>
       </div>
 
-      <div class="org-panel">
-        <div class="org-fig" id="orgFig">
-          <div class="org-embed" id="orgEmbed">
+      <div class="org-fig" id="orgFig">
+        <div class="org-embed" id="orgEmbed">
 
-            <!-- Conectores -->
-            <svg class="mm-links" viewBox="0 0 1900 550" xmlns="http://www.w3.org/2000/svg">
-              <!-- Órbita de 180° em volta do núcleo -->
-              <path d="M672,278 A215,215 0 0 1 1102,278" fill="none" stroke="#E2C48A" stroke-width="2"
-                stroke-dasharray="7 8" opacity=".85" />
+          <!-- Conectores -->
+          <svg class="mm-links" viewBox="0 0 1900 600" xmlns="http://www.w3.org/2000/svg">
+            <!-- Órbita de 180° em volta do núcleo -->
+            <path d="M672,278 A215,215 0 0 1 1102,278" fill="none" stroke="#E2C48A" stroke-width="2"
+              stroke-dasharray="7 8" opacity=".85" />
 
-              <!-- Núcleo → esferas orbitais -->
-              <g fill="none" stroke="#F2A900" stroke-width="4" stroke-linecap="round">
-                <path d="M782,263 L738,253" />
-                <path d="M887,210 L887,132" />
-                <path d="M992,263 L1036,253" />
-              </g>
+            <!-- Núcleo → esferas orbitais -->
+            <g fill="none" stroke="#F2A900" stroke-width="4" stroke-linecap="round">
+              <path d="M782,263 L738,253" />
+              <path d="M887,210 L887,132" />
+              <path d="M992,263 L1036,253" />
+            </g>
 
-              <!-- Núcleo → SAC -->
-              <path class="draw" style="--len:700"
-                d="M887,360 L887,364 Q887,369 882,369 L385,369 Q380,369 380,374 L380,375" fill="none" stroke="#103050"
-                stroke-width="5" stroke-linecap="round" />
-              <!-- Núcleo → STAI -->
-              <path class="draw" style="--len:700"
-                d="M887,360 L887,364 Q887,369 892,369 L1389,369 Q1394,369 1394,374 L1394,375" fill="none"
-                stroke="#0090C0" stroke-width="5" stroke-linecap="round" />
+            <!-- Núcleo → SAC (tronco alongado: mais respiro entre o núcleo e os galhos) -->
+            <path class="draw" style="--len:760"
+              d="M887,360 L887,395 Q887,405 877,405 L390,405 Q380,405 380,412 L380,415" fill="none" stroke="#103050"
+              stroke-width="5" stroke-linecap="round" />
+            <!-- Núcleo → STAI -->
+            <path class="draw" style="--len:760"
+              d="M887,360 L887,395 Q887,405 897,405 L1384,405 Q1394,405 1394,412 L1394,415" fill="none" stroke="#0090C0"
+              stroke-width="5" stroke-linecap="round" />
 
-              <!-- SAC → serviços -->
-              <g fill="none" stroke="#103050" stroke-width="3.5" stroke-linecap="round">
-                <path d="M380,441 L380,445 Q380,453 370,453 L220,453 Q210,453 210,461 L210,465" />
-                <path d="M380,441 L380,445 Q380,453 390,453 L540,453 Q550,453 550,461 L550,465" />
-              </g>
+            <!-- SAC → serviços -->
+            <g fill="none" stroke="#103050" stroke-width="3.5" stroke-linecap="round">
+              <path d="M380,481 L380,485 Q380,493 370,493 L220,493 Q210,493 210,501 L210,505" />
+              <path d="M380,481 L380,485 Q380,493 390,493 L540,493 Q550,493 550,501 L550,505" />
+            </g>
 
-              <!-- STAI → serviços -->
-              <g fill="none" stroke="#0090C0" stroke-width="3.5" stroke-linecap="round">
-                <path d="M1394,441 L1394,445 Q1394,453 1384,453 L1064,453 Q1054,453 1054,461 L1054,465" />
-                <path d="M1394,441 L1394,465" />
-                <path d="M1394,441 L1394,445 Q1394,453 1404,453 L1724,453 Q1734,453 1734,461 L1734,465" />
-              </g>
+            <!-- STAI → serviços -->
+            <g fill="none" stroke="#0090C0" stroke-width="3.5" stroke-linecap="round">
+              <path d="M1394,481 L1394,485 Q1394,493 1384,493 L1064,493 Q1054,493 1054,501 L1054,505" />
+              <path d="M1394,481 L1394,505" />
+              <path d="M1394,481 L1394,485 Q1394,493 1404,493 L1724,493 Q1734,493 1734,501 L1734,505" />
+            </g>
 
-              <!-- Nós de junção -->
-              <g fill="#ffffff" stroke="#103050" stroke-width="3">
-                <circle cx="380" cy="369" r="5" />
-              </g>
-              <g fill="#ffffff" stroke="#0090C0" stroke-width="3">
-                <circle cx="1394" cy="369" r="5" />
-              </g>
-            </svg>
+            <!-- Nós de junção -->
+            <g fill="#ffffff" stroke="#103050" stroke-width="3">
+              <circle cx="380" cy="405" r="5" />
+            </g>
+            <g fill="#ffffff" stroke="#0090C0" stroke-width="3">
+              <circle cx="1394" cy="405" r="5" />
+            </g>
+          </svg>
 
-            <div class="mm-section" style="left:41px; top:40px;">Serviços diretos da Ouvidoria</div>
 
-            <!-- Halo + núcleo -->
-            <div class="mm-glow"></div>
-            <div class="mm-core"><i class="fas fa-bullhorn"></i><span>OUVIDORIA</span></div>
+          <!-- Halo + núcleo -->
+          <div class="mm-glow"></div>
+          <div class="mm-core"><i class="fas fa-bullhorn"></i><span>OUVIDORIA</span></div>
 
-            <!-- Esferas orbitais (arco de 180° sobre o núcleo) -->
-            <div class="mm-orb orb-1">
-              <i class="fas fa-file-lines"></i><span>Cartas de Serviços</span>
-            </div>
-            <div class="mm-orb orb-2">
-              <i class="fas fa-users"></i><span>Conselho de Usuários</span>
-            </div>
-            <div class="mm-orb orb-3">
-              <i class="fas fa-file-contract"></i><span>Modelo de Maturidade de Ouvidorias Públicas (MMOuP)</span>
-            </div>
-
-            <!-- Ramos -->
-            <div class="mm-branch br-sac"><i class="fas fa-headset"></i>SAC</div>
-            <div class="mm-branch br-stai"><i class="fas fa-lock-open"></i>STAI</div>
-
-            <!-- Folhas da SAC -->
-            <div class="mm-card" style="left:55px; animation-delay:.62s;">
-              <div class="mm-card-icon" style="background:#103050;"><i class="fas fa-headset"></i></div>
-              <div class="mm-card-label">Atendimento ao Cidadão</div>
-            </div>
-            <div class="mm-card" style="left:395px; animation-delay:.68s;">
-              <div class="mm-card-icon" style="background:#16466E;"><i class="fas fa-clipboard-check"></i></div>
-              <div class="mm-card-label">Registro e Gerenciamento de Demandas</div>
-            </div>
-
-            <!-- Folhas da STAI -->
-            <div class="mm-card" style="left:899px; animation-delay:.74s;">
-              <div class="mm-card-icon" style="background:#0090C0;"><i class="fas fa-lock-open"></i></div>
-              <div class="mm-card-label">Transparência Ativa e Passiva</div>
-            </div>
-            <div class="mm-card" style="left:1239px; animation-delay:.80s;">
-              <div class="mm-card-icon" style="background:#0070C0;"><i class="fas fa-database"></i></div>
-              <div class="mm-card-label">Dados Abertos</div>
-            </div>
-            <div class="mm-card" style="left:1579px; animation-delay:.86s;">
-              <div class="mm-card-icon" style="background:#0090C0;"><i class="fas fa-calendar-days"></i></div>
-              <div class="mm-card-label">e-Agendas</div>
-            </div>
-
+          <!-- Esferas orbitais (arco de 180° sobre o núcleo) -->
+          <div class="mm-orb orb-1">
+            <i class="fas fa-file-lines"></i><span>Cartas de Serviços</span>
           </div>
+          <div class="mm-orb orb-2">
+            <i class="fas fa-users"></i><span>Conselho de Usuários</span>
+          </div>
+          <div class="mm-orb orb-3">
+            <i class="fas fa-file-contract"></i><span>Modelo de Maturidade de Ouvidorias Públicas (MMOuP)</span>
+          </div>
+
+          <!-- Ramos -->
+          <div class="mm-branch br-sac"><i class="fas fa-headset"></i>SAC</div>
+          <div class="mm-branch br-stai"><i class="fas fa-lock-open"></i>STAI</div>
+
+          <!-- Folhas da SAC -->
+          <div class="mm-card" style="left:55px; animation-delay:.62s;">
+            <div class="mm-card-icon" style="background:#103050;"><i class="fas fa-headset"></i></div>
+            <div class="mm-card-label">Atendimento ao Cidadão</div>
+          </div>
+          <div class="mm-card" style="left:395px; animation-delay:.68s;">
+            <div class="mm-card-icon" style="background:#16466E;"><i class="fas fa-clipboard-check"></i></div>
+            <div class="mm-card-label">Registro e Gerenciamento de Demandas</div>
+          </div>
+
+          <!-- Folhas da STAI -->
+          <div class="mm-card" style="left:899px; animation-delay:.74s;">
+            <div class="mm-card-icon" style="background:#0090C0;"><i class="fas fa-lock-open"></i></div>
+            <div class="mm-card-label">Transparência Ativa e Passiva</div>
+          </div>
+          <div class="mm-card" style="left:1239px; animation-delay:.80s;">
+            <div class="mm-card-icon" style="background:#0070C0;"><i class="fas fa-database"></i></div>
+            <div class="mm-card-label">Dados Abertos</div>
+          </div>
+          <div class="mm-card" style="left:1579px; animation-delay:.86s;">
+            <div class="mm-card-icon" style="background:#0090C0;"><i class="fas fa-calendar-days"></i></div>
+            <div class="mm-card-label">e-Agendas</div>
+          </div>
+
         </div>
       </div>
     </div>
@@ -567,7 +623,7 @@
       var fig = document.getElementById('orgFig');
       var emb = document.getElementById('orgEmbed');
       if (!fig || !emb) return;
-      var cx = 950, cy = 272, cw = 1860, ch = 540; // caixa de conteúdo
+      var cx = 950, cy = 290, cw = 1880, ch = 572; // caixa de conteúdo
       var s = Math.min(fig.clientWidth / cw, fig.clientHeight / ch);
       var tx = fig.clientWidth / 2 - s * cx;
       var ty = fig.clientHeight / 2 - s * cy;

@@ -1,20 +1,28 @@
 <!DOCTYPE html>
 <!--
-  ╔══════════════════════════════════════════════════════════════╗
-  ║  sistema/relatorio.html — VERSÃO PARA IMPRESSÃO / PDF          ║
-  ╠══════════════════════════════════════════════════════════════╣
-  ║  Renderiza TODOS os slides do deck, um por página, em modo     ║
-  ║  PAISAGEM 16:9, sem margens/bordas brancas.                    ║
-  ║                                                                ║
-  ║  A ordem abaixo (const files) espelha o `const deck` do        ║
-  ║  index.html — mantenha os dois em sincronia.                   ║
-  ║                                                                ║
-  ║  Para gerar o PDF sem bordas:                                  ║
-  ║   • Ctrl+P  →  Destino: "Salvar como PDF"                      ║
-  ║   • Layout: Paisagem   • Margens: Nenhuma                      ║
-  ║   • Marque "Gráficos de segundo plano"                         ║
-  ║   • Desmarque "Cabeçalhos e rodapés"                           ║
-  ╚══════════════════════════════════════════════════════════════╝
+  ╔══════════════════════════════════════════════════════════════════════════╗
+  ║  sistema/relatorio.html — VERSÃO PARA IMPRESSÃO / PDF                     ║
+  ╠══════════════════════════════════════════════════════════════════════════╣
+  ║  NENHUM SLIDE É ALTERADO POR ESTE ARQUIVO. Ele apenas monta os slides     ║
+  ║  existentes em páginas 16:9 paisagem.                                     ║
+  ║                                                                           ║
+  ║  LEVEZA (o que mudou em relação à versão anterior):                       ║
+  ║   • Os 47 iframes não são mais criados de uma vez. Cada página só monta   ║
+  ║     o slide quando chega perto da tela (IntersectionObserver) e é         ║
+  ║     desmontada quando fica longe — navegar fica leve.                     ║
+  ║   • Para imprimir, use o botão "Preparar impressão": ele monta tudo em    ║
+  ║     lotes, espera carregar (com barra de progresso) e só então chama o    ║
+  ║     print. Isso evita páginas em branco por iframe não carregado.         ║
+  ║                                                                           ║
+  ║  ANEXOS: o conteúdo que no slide só aparece ao clicar (glossário,         ║
+  ║  decretos, leis, normativos, carta de serviços, bases de dados abertos)   ║
+  ║  é lido dos próprios arquivos e vira páginas de texto, logo após o slide  ║
+  ║  correspondente. São páginas leves (sem iframe).                          ║
+  ║                                                                           ║
+  ║  Para gerar o PDF sem bordas:                                             ║
+  ║   • Ctrl+P → Destino "Salvar como PDF" • Layout Paisagem                  ║
+  ║   • Margens: Nenhuma • marque "Gráficos de segundo plano"                 ║
+  ╚══════════════════════════════════════════════════════════════════════════╝
 -->
 <html lang="pt-BR">
 
@@ -24,14 +32,15 @@
   <title>Relatório para Impressão — Ouvidoria ANTAQ</title>
   <link rel="icon" type="image/png"
     href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Open+Sans:wght@400;600&display=swap"
+    rel="stylesheet" />
   <style>
     /* Página física = 16:9 landscape → o slide preenche 100% sem bordas */
     :root {
       --page-w: 297mm;
       --page-h: 167mm;
-      /* escala do canvas 1920×1080 para caber em 297mm de largura */
       --scale: 0.584646;
+      /* escala do canvas 1920×1080 para 297mm */
     }
 
     @page {
@@ -48,10 +57,10 @@
       margin: 0;
       padding: 0;
       background: #4b5563;
-      font-family: 'Roboto', 'Segoe UI', sans-serif;
+      font-family: 'Open Sans', 'Segoe UI', sans-serif;
     }
 
-    /* Barra de ações — só na tela, some na impressão */
+    /* ───────────────────────── Barra de ações (só na tela) ──────────────── */
     .toolbar {
       position: sticky;
       top: 0;
@@ -101,7 +110,33 @@
       background: #0070C0;
     }
 
-    /* Empilhamento das páginas na tela */
+    .btn-print[disabled] {
+      background: #475569;
+      cursor: progress;
+    }
+
+    .prog {
+      width: 190px;
+      height: 6px;
+      border-radius: 3px;
+      background: #1e293b;
+      overflow: hidden;
+      display: none;
+    }
+
+    .prog.on {
+      display: block;
+    }
+
+    .prog i {
+      display: block;
+      height: 100%;
+      width: 0;
+      background: #0090C0;
+      transition: width .2s;
+    }
+
+    /* ───────────────────────────── Folhas ───────────────────────────────── */
     .sheets {
       display: flex;
       flex-direction: column;
@@ -119,8 +154,8 @@
       box-shadow: 0 10px 30px rgba(0, 0, 0, .35);
     }
 
-    /* Cada slide é renderizado no seu tamanho de projeto (1920×1080) e
-       reduzido por transform para preencher exatamente a página. */
+    /* Cada slide roda no tamanho de projeto (1920×1080) e é reduzido por
+       transform para preencher exatamente a página. */
     .page iframe {
       width: 1920px;
       height: 1080px;
@@ -133,6 +168,143 @@
       background: #fff;
     }
 
+    /* Marcador exibido enquanto o slide não está montado (só na tela) */
+    .ph {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: #94a3b8;
+      font-size: 13px;
+      background: repeating-linear-gradient(45deg, #fafbfc, #fafbfc 12px, #f3f5f8 12px, #f3f5f8 24px);
+    }
+
+    .ph b {
+      color: #64748b;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 15px;
+    }
+
+    /* ──────────────────────────── Páginas de anexo ──────────────────────── */
+    .annex {
+      padding: 11mm 13mm 9mm;
+      display: flex;
+      flex-direction: column;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    .annex-head {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      border-bottom: 2px solid #103050;
+      padding-bottom: 5px;
+      margin-bottom: 7px;
+      flex-shrink: 0;
+    }
+
+    .annex-kicker {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 8pt;
+      letter-spacing: .18em;
+      color: #0090C0;
+      text-transform: uppercase;
+    }
+
+    .annex-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 13pt;
+      color: #103050;
+      margin: 0;
+    }
+
+    .annex-cont {
+      margin-left: auto;
+      font-size: 8pt;
+      color: #94a3b8;
+    }
+
+    .annex-grid {
+      display: flex;
+      gap: 8mm;
+      flex: 1;
+      min-height: 0;
+    }
+
+    .annex-col {
+      flex: 1 1 0;
+      min-width: 0;
+      overflow: hidden;
+    }
+
+    .annex-item {
+      margin-bottom: 3.4mm;
+    }
+
+    .ai-src {
+      font-size: 7pt;
+      color: #94a3b8;
+      margin: 1px 0 0;
+      word-break: break-all;
+    }
+
+    .ai-top {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+
+    .ai-num {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 7.5pt;
+      color: #fff;
+      background: #103050;
+      border-radius: 4px;
+      padding: 1px 5px;
+      flex-shrink: 0;
+    }
+
+    .ai-name {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 9.5pt;
+      color: #103050;
+      line-height: 1.18;
+    }
+
+    .ai-tag {
+      font-size: 7.5pt;
+      color: #0070C0;
+      font-weight: 600;
+      margin: 1px 0 0;
+    }
+
+    .ai-desc {
+      font-size: 8pt;
+      line-height: 1.36;
+      color: #37475a;
+      margin: 2px 0 0;
+      text-align: justify;
+    }
+
+    .annex-foot {
+      flex-shrink: 0;
+      border-top: 1px solid #e2e8f0;
+      padding-top: 4px;
+      margin-top: 5px;
+      font-size: 7pt;
+      color: #94a3b8;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* ───────────────────────────── Impressão ────────────────────────────── */
     @media print {
 
       html,
@@ -159,6 +331,10 @@
         break-after: auto;
         page-break-after: auto;
       }
+
+      .ph {
+        display: none;
+      }
     }
   </style>
 </head>
@@ -168,18 +344,20 @@
     <div>
       <h1>Relatório Trimestral · Ouvidoria ANTAQ — versão para impressão</h1>
       <p class="hint">
-        Ao imprimir: <b>Layout Paisagem</b> · <b>Margens: Nenhuma</b> · marque <b>Gráficos de segundo plano</b> ·
-        desmarque <b>Cabeçalhos e rodapés</b>. Para PDF sem bordas, escolha <b>Salvar como PDF</b>.
+        Clique em <b>Preparar impressão</b> (carrega todos os slides antes de imprimir). Depois:
+        <b>Layout Paisagem</b> · <b>Margens: Nenhuma</b> · marque <b>Gráficos de segundo plano</b>.
       </p>
     </div>
-    <button class="btn-print" onclick="window.print()">🖨️ Imprimir / Salvar PDF</button>
+    <div class="prog" id="prog"><i></i></div>
+    <button class="btn-print" id="btnPrint">🖨️ Preparar impressão</button>
   </div>
 
   <div class="sheets" id="sheets"></div>
 
   <script>
-    /* Ordem viva dos slides — espelha o `const deck` de index.html.
-       Se reordenar/adicionar slides lá, atualize esta lista. */
+    /* ════════════════════════════════════════════════════════════════════
+       1. ORDEM DOS SLIDES — espelha o `const deck` de index.html.
+       ════════════════════════════════════════════════════════════════════ */
     const files = [
       // Abertura
       'slide-00.html', 'slide-34.html', 'slide-msg-ouvidora.html', 'slide-01.html',
@@ -197,17 +375,219 @@
       'capa-bloco-6.html', 'slide-31.html', 'slide-29.html', 'slide-30.html', 'slide-32.html', 'slide-35.html',
     ];
 
+    /* ════════════════════════════════════════════════════════════════════
+       2. ANEXOS — slides cujo conteúdo só aparece ao clicar/passar o mouse.
+          O conteúdo é lido do próprio arquivo do slide (nada é alterado
+          lá) e vira páginas de texto logo depois do slide.
+       ════════════════════════════════════════════════════════════════════ */
+    const txt = (el, sel) => {
+      const n = sel ? el.querySelector(sel) : el;
+      return n ? n.textContent.replace(/\s+/g, ' ').trim() : '';
+    };
+
+    // Cartões dos apêndices: .tile → nome, etiqueta e o conteúdo do modal
+    const lerTile = (el) => ({
+      num: txt(el, '.lb-num') || txt(el, '.db-num') || '',
+      nome: txt(el, '.tile-name'),
+      tag: txt(el, '.tile-tag'),
+      desc: txt(el, '.tile-full')
+    });
+
+    const ANEXOS = {
+      'slide-cartas-servicos.html': {
+        titulo: 'Carta de Serviços da ANTAQ', sel: '.svc-bar',
+        ler: el => ({
+          num: el.dataset.num || '', nome: el.dataset.title || txt(el, '.sb-name'),
+          tag: el.dataset.kicker || '', desc: txt(el, '.sb-desc')
+        })
+      },
+      'slide-21.html': {
+        titulo: 'Dados Abertos — bases publicadas', sel: '.base-chip',
+        ler: el => ({
+          num: el.dataset.num || '', nome: el.dataset.title || txt(el, '.bt-name'),
+          tag: '', desc: txt(el, '.bt-desc'), src: el.dataset.link || ''
+        })
+      },
+      'slide-31.html': { titulo: 'Decretos', sel: '.tile', ler: lerTile },
+      'slide-29.html': { titulo: 'Glossário', sel: '.tile', ler: lerTile },
+      'slide-30.html': { titulo: 'Leis', sel: '.tile', ler: lerTile },
+      'slide-32.html': { titulo: 'Normativos e Portarias', sel: '.tile', ler: lerTile },
+    };
+
+    /* ════════════════════════════════════════════════════════════════════
+       3. MONTAGEM DAS PÁGINAS (sem iframe ainda — só o esqueleto)
+       ════════════════════════════════════════════════════════════════════ */
     const sheets = document.getElementById('sheets');
+    const paginas = [];
+
     files.forEach((file) => {
       const page = document.createElement('div');
       page.className = 'page';
-      const frame = document.createElement('iframe');
-      frame.loading = 'eager';
-      frame.setAttribute('scrolling', 'no');
-      frame.src = file;
-      page.appendChild(frame);
+      page.dataset.file = file;
+      const ph = document.createElement('div');
+      ph.className = 'ph';
+      ph.innerHTML = '<b>' + file.replace('.html', '') + '</b><span>slide carregado ao aproximar</span>';
+      page.appendChild(ph);
       sheets.appendChild(page);
+      paginas.push(page);
     });
+
+    function montar(page) {
+      if (page.dataset.montado === '1' || !page.dataset.file) return null;
+      page.dataset.montado = '1';
+      const frame = document.createElement('iframe');
+      frame.setAttribute('scrolling', 'no');
+      frame.setAttribute('tabindex', '-1');
+      frame.src = page.dataset.file;
+      page.appendChild(frame);
+      return frame;
+    }
+
+    function desmontar(page) {
+      if (page.dataset.montado !== '1' || page.dataset.fixo === '1') return;
+      const f = page.querySelector('iframe');
+      if (f) f.remove();
+      page.dataset.montado = '0';
+    }
+
+    /* Só o que está perto da tela fica montado → navegação leve */
+    const perto = new IntersectionObserver((entries) => {
+      entries.forEach(e => e.isIntersecting ? montar(e.target) : null);
+    }, { rootMargin: '150% 0px' });
+
+    const longe = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (!e.isIntersecting) desmontar(e.target); });
+    }, { rootMargin: '400% 0px' });
+
+    paginas.forEach(p => { perto.observe(p); longe.observe(p); });
+
+    /* ════════════════════════════════════════════════════════════════════
+       4. ANEXOS — lê os arquivos, quebra em páginas pela altura real
+       ════════════════════════════════════════════════════════════════════ */
+    function novaPaginaAnexo(titulo, parte) {
+      const page = document.createElement('div');
+      page.className = 'page annex';
+      page.innerHTML =
+        '<div class="annex-head">' +
+        '<span class="annex-kicker">Anexo</span>' +
+        '<p class="annex-title"></p>' +
+        '<span class="annex-cont"></span>' +
+        '</div><div class="annex-grid"><div class="annex-col"></div><div class="annex-col"></div></div>' +
+        '<div class="annex-foot"><span>Relatório 1º Trimestre de 2026 – Ouvidoria – ANTAQ</span>' +
+        '<span>conteúdo dos cartões interativos do slide</span></div>';
+      page.querySelector('.annex-title').textContent = titulo;
+      page.querySelector('.annex-cont').textContent = parte > 1 ? '(continuação ' + parte + ')' : '';
+      return page;
+    }
+
+    function itemHTML(it) {
+      const d = document.createElement('div');
+      d.className = 'annex-item';
+      let h = '<div class="ai-top">';
+      if (it.num) h += '<span class="ai-num">' + it.num + '</span>';
+      h += '<span class="ai-name"></span></div>';
+      if (it.tag) h += '<p class="ai-tag"></p>';
+      if (it.desc) h += '<p class="ai-desc"></p>';
+      if (it.src) h += '<p class="ai-src"></p>';
+      d.innerHTML = h;
+      d.querySelector('.ai-name').textContent = it.nome;
+      if (it.tag) d.querySelector('.ai-tag').textContent = it.tag;
+      if (it.desc) d.querySelector('.ai-desc').textContent = it.desc;
+      if (it.src) d.querySelector('.ai-src').textContent = 'fonte: ' + it.src;
+      return d;
+    }
+
+    async function gerarAnexos() {
+      for (const [file, cfg] of Object.entries(ANEXOS)) {
+        const base = paginas.find(p => p.dataset.file === file);
+        if (!base) continue;
+        let html;
+        try {
+          html = await (await fetch(file)).text();
+        } catch (e) { continue; }
+        const doc = new DOMParser().parseFromString(html, 'text/html');
+        const itens = [...doc.querySelectorAll(cfg.sel)].map(cfg.ler).filter(i => i.nome);
+        if (!itens.length) continue;
+
+        let parte = 1;
+        let page = novaPaginaAnexo(cfg.titulo, parte);
+        base.after(page);
+        let ancora = page;
+        let cols = [...page.querySelectorAll('.annex-col')];
+        let ic = 0;
+
+        for (const it of itens) {
+          let el = itemHTML(it);
+          cols[ic].appendChild(el);
+          // Coube? segue. Estourou? tenta a próxima coluna; se não houver,
+          // abre nova página. Um item nunca é descartado.
+          if (cols[ic].scrollHeight > cols[ic].clientHeight + 1) {
+            cols[ic].removeChild(el);
+            ic++;
+            if (ic >= cols.length) {
+              parte++;
+              page = novaPaginaAnexo(cfg.titulo, parte);
+              ancora.after(page);
+              ancora = page;
+              cols = [...page.querySelectorAll('.annex-col')];
+              ic = 0;
+            }
+            cols[ic].appendChild(el);
+            // item gigante que não cabe nem numa coluna vazia: deixa passar
+            // (a coluna tem overflow hidden só como segurança visual)
+          }
+        }
+      }
+    }
+
+    /* ════════════════════════════════════════════════════════════════════
+       5. PREPARAR IMPRESSÃO — monta tudo em lotes e espera carregar
+       ════════════════════════════════════════════════════════════════════ */
+    const btn = document.getElementById('btnPrint');
+    const prog = document.getElementById('prog');
+    const barra = prog.querySelector('i');
+
+    function esperar(frame) {
+      return new Promise(res => {
+        if (!frame) return res();
+        let pronto = false;
+        const ok = () => { if (!pronto) { pronto = true; res(); } };
+        frame.addEventListener('load', () => setTimeout(ok, 220));
+        setTimeout(ok, 6000); // rede lenta não trava a fila
+      });
+    }
+
+    async function prepararEImprimir() {
+      btn.disabled = true;
+      prog.classList.add('on');
+      const alvos = paginas.filter(p => p.dataset.file);
+      const LOTE = 4;
+      for (let i = 0; i < alvos.length; i += LOTE) {
+        const lote = alvos.slice(i, i + LOTE);
+        await Promise.all(lote.map(p => {
+          p.dataset.fixo = '1';               // não desmontar mais
+          const f = p.querySelector('iframe') || montar(p);
+          return p.dataset.montado === '1' && f && !f.dataset.pronto
+            ? esperar(f).then(() => { f.dataset.pronto = '1'; })
+            : Promise.resolve();
+        }));
+        barra.style.width = Math.round(((i + LOTE) / alvos.length) * 100) + '%';
+      }
+      barra.style.width = '100%';
+      btn.textContent = '🖨️ Imprimir / Salvar PDF';
+      btn.disabled = false;
+      btn.onclick = () => window.print();
+      setTimeout(() => { prog.classList.remove('on'); window.print(); }, 400);
+    }
+
+    btn.addEventListener('click', prepararEImprimir);
+
+    // Ctrl+P direto: pelo menos monta tudo (pode não dar tempo de carregar)
+    window.addEventListener('beforeprint', () => {
+      paginas.forEach(p => { p.dataset.fixo = '1'; montar(p); });
+    });
+
+    gerarAnexos();
   </script>
 </body>
 
