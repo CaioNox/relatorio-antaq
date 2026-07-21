@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
 <!--
   ╔══════════════════════════════════════════════════════════════════════════╗
   ║  COMO MEXER NO DIAGRAMA (metade de baixo do slide)                        ║
@@ -138,9 +139,16 @@
       animation: fadeInUp .5s cubic-bezier(.2, .7, .3, 1) both;
     }
 
+    /* coluna que empilha mais de um parágrafo */
+    .inst-col {
+      display: flex;
+      flex-direction: column;
+      gap: .5rem;
+    }
+
     .inst-text {
       color: #334155;
-      font-size: .74rem;
+      font-size: .84rem;
       line-height: 1.42;
       margin: 0;
       text-align: justify;
@@ -505,13 +513,22 @@
           de Denúncias, Reclamações, Solicitações, Sugestões e Elogios. Suas competências englobam a recepção de
           demandas por múltiplos canais — incluindo o atendimento digital, o suporte presencial e a plataforma
           Omnichannel —, promovendo a triagem, o monitoramento de prazos e o roteamento qualificado às áreas técnicas.
+
         </p>
-        <p class="inst-text">
-          A Seção de Transparência e Acesso à Informação (STAI) responde pela gestão centralizada dos pedidos de acesso
-          à informação (LAI) e pela garantia do cumprimento dos prazos legais de resposta. Além disso, a seção é
-          responsável por coordenar e conduzir as políticas de Dados Abertos da Agência, acompanhar a integridade do
-          sítio eletrônico institucional e atualizar continuamente o Sistema e-Agendas.
-        </p>
+        <div class="inst-col">
+          <p class="inst-text">
+            A Seção de Transparência e Acesso à Informação (STAI) responde pela gestão centralizada dos pedidos de
+            acesso à informação (LAI) e pela garantia do cumprimento dos prazos legais de resposta. Além disso, a seção
+            é responsável por coordenar e conduzir as políticas de Dados Abertos da Agência, acompanhar a integridade do
+            sítio eletrônico institucional e atualizar continuamente o Sistema e-Agendas.
+          </p>
+          <p class="inst-text">
+            A conformidade da Ouvidoria da ANTAQ com a Carta de Serviços, o Conselho de Usuários e o MMOuP é essencial
+            para garantir transparência, eficiência e foco no cidadão no setor aquaviário. Mais do que cumprir a Lei nº
+            13.460/2017, esses mecanismos fortalecem a governança e a participação social, transformando manifestações
+            do público em melhorias concretas na regulação e na prestação dos serviços públicos.
+          </p>
+        </div>
       </div>
 
       <div class="org-fig" id="orgFig">
