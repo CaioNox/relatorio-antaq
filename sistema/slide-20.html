@@ -124,50 +124,55 @@
     .hist-kpi .hk-year {
       font-family: 'Montserrat', sans-serif;
       font-weight: 600;
-      font-size: 0.78rem;
+      font-size: 0.88rem;
       text-transform: uppercase;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.1em;
       color: #5a7a99;
     }
 
     .hist-kpi .hk-val {
       font-family: 'Montserrat', sans-serif;
       font-weight: 900;
-      font-size: 1.55rem;
+      font-size: 2.3rem;
       color: #103050;
       line-height: 1;
-      margin: .08rem 0;
+      margin: .12rem 0;
+      display: flex;
+      align-items: baseline;
+      gap: .5rem;
     }
 
     .hist-kpi .hk-label {
       font-family: 'Open Sans', sans-serif;
       font-weight: 400;
-      font-size: 0.72rem;
+      font-size: 0.85rem;
       color: #6b7280;
     }
 
     /* ===== Tempo médio de resposta (sub-bloco dentro de cada caixinha) ===== */
     .hist-kpi .hk-resp {
       margin-top: .4rem;
-      padding-top: .38rem;
+      padding-top: .4rem;
       border-top: 1px solid rgba(90, 122, 153, .25);
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
+      align-items: baseline;
+      gap: .5rem;
     }
 
     .hist-kpi .hk-resp-val {
       font-family: 'Montserrat', sans-serif;
       font-weight: 800;
-      font-size: 0.98rem;
+      font-size: 1.35rem;
       color: #0070C0;
       line-height: 1;
+      white-space: nowrap;
     }
 
     .hist-kpi .hk-resp-lbl {
       font-family: 'Open Sans', sans-serif;
-      font-size: .66rem;
+      font-size: .8rem;
       color: #6b7280;
-      margin-top: .1rem;
     }
 
     .hist-kpi.hk-feat .hk-resp {
@@ -358,11 +363,10 @@
             aria-label="Como o tempo médio de resposta é calculado">?</span>
           <span class="hk-tip">Quantidade de dias – calculada em dias corridos – entre o recebimento do recurso e a data
             em que ele foi respondido. O gráfico mostra os dados da instância selecionada no painel lai.</span>
-          <p class="hk-year">1º Tri 2026</p>
-          <p class="hk-val">130</p>
-          <p class="hk-label">pedidos</p>
+          <p class="hk-year">1º Trimestre de 2026</p>
+          <p class="hk-val">130 <span class="hk-label">pedidos</span></p>
           <div class="hk-resp">
-            <span class="hk-resp-val">3.8 dias</span>
+            <span class="hk-resp-val">3,8 dias</span>
             <span class="hk-resp-lbl">tempo médio de resposta</span>
           </div>
         </div>
@@ -371,11 +375,10 @@
             aria-label="Como o tempo médio de resposta é calculado">?</span>
           <span class="hk-tip">Quantidade de dias – calculada em dias corridos – entre o recebimento do recurso e a data
             em que ele foi respondido. O gráfico mostra os dados da instância selecionada no painel.</span>
-          <p class="hk-year">1º Tri 2025</p>
-          <p class="hk-val">107</p>
-          <p class="hk-label">pedidos</p>
+          <p class="hk-year">1º Trimestre de 2025</p>
+          <p class="hk-val">107 <span class="hk-label">pedidos</span></p>
           <div class="hk-resp">
-            <span class="hk-resp-val">3.7 dias</span>
+            <span class="hk-resp-val">3,7 dias</span>
             <span class="hk-resp-lbl">tempo médio de resposta</span>
           </div>
         </div>
@@ -384,9 +387,8 @@
             aria-label="Como o tempo médio de resposta é calculado">?</span>
           <span class="hk-tip">Quantidade de dias – calculada em dias corridos – entre o recebimento do recurso e a data
             em que ele foi respondido. O gráfico mostra os dados da instância selecionada no painel.</span>
-          <p class="hk-year">1º Tri 2024</p>
-          <p class="hk-val">105</p>
-          <p class="hk-label">pedidos</p>
+          <p class="hk-year">1º Trimestre de 2024</p>
+          <p class="hk-val">105 <span class="hk-label">pedidos</span></p>
           <div class="hk-resp">
             <span class="hk-resp-val">6 dias</span>
             <span class="hk-resp-lbl">tempo médio de resposta</span>
@@ -397,9 +399,8 @@
             aria-label="Como o tempo médio de resposta é calculado">?</span>
           <span class="hk-tip">Quantidade de dias – calculada em dias corridos – entre o recebimento do recurso e a data
             em que ele foi respondido. O gráfico mostra os dados da instância selecionada no painel.</span>
-          <p class="hk-year">1º Tri 2023</p>
-          <p class="hk-val">62</p>
-          <p class="hk-label">pedidos</p>
+          <p class="hk-year">1º Trimestre de 2023</p>
+          <p class="hk-val">62 <span class="hk-label">pedidos</span></p>
           <div class="hk-resp">
             <span class="hk-resp-val">5 dias</span>
             <span class="hk-resp-lbl">tempo médio de resposta</span>
@@ -450,7 +451,7 @@
     new Chart(document.getElementById('chartLaiHist'), {
       type: 'bar',
       data: {
-        labels: ['1ºT 2023', '1ºT 2024', '1ºT 2025', '1ºT 2026'],
+        labels: ['1º Trimestre 2023', '1º Trimestre 2024', '1º Trimestre 2025', '1º Trimestre 2026'],
         datasets: [{
           data: [62, 105, 107, 130],
           backgroundColor: ['#C0E0F0', '#90C8E5', '#5AAFD8', '#0090C0'],

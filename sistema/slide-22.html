@@ -18,7 +18,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
   <style>
-    html { font-size: 26px; }
+    /* Escala proporcional à tela (26px no canvas 1920×1080): o conteúdo
+       encolhe junto com a janela — em qualquer proporção — e não estoura
+       o contêiner. Limitado pela dimensão mais apertada (largura ou altura). */
+    html { font-size: clamp(13px, min(1.354vw, 2.407vh), 26px); }
     body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
     .slide-container { width: 100vw; height: 100vh; position: relative; display: flex; flex-direction: column; background-color: #ffffff; overflow: hidden; font-family: 'Open Sans', sans-serif; }
     .font-montserrat { font-family: 'Montserrat', sans-serif; }
@@ -44,6 +47,8 @@
     .info-card {
       background: #ffffff; border: 2px solid #E2E8F0; border-left: 5px solid #0070C0;
       border-radius: 14px; padding: 1rem 1.3rem;
+      flex: 1; min-height: 0;
+      display: flex; flex-direction: column; justify-content: center;
       box-shadow: 0 6px 16px -8px rgba(16,48,80,.18);
       transition: transform .28s cubic-bezier(.2,.7,.3,1), box-shadow .28s ease, border-color .28s ease;
     }
@@ -84,12 +89,8 @@
         <p class="text-gray-500 font-medium ml-4 text-lg">Trimestre de 2026 · Painel LAI</p>
       </div>
       <div class="flex items-center gap-4">
-        <!-- TODO: link oficial do Painel LAI da ANTAQ
-             Buscar em: gov.br/antaq → Acesso à Informação
-             → Transparência Ativa → Painel LAI
-             Substituir href="Side text" pelo link real. -->
-        <a href="https://centralpaineis.cgu.gov.br/visualizar/lai" target="_blank" rel="noopener noreferrer" class="painel-badge">
-          <i class="fas fa-arrow-up-right-from-square"></i> Painel LAI — CGU
+        <a href="https://www.gov.br/antaq/pt-br/acesso-a-informacao" target="_blank" rel="noopener noreferrer" class="painel-badge">
+          <i class="fas fa-arrow-up-right-from-square"></i> Transparência Ativa — ANTAQ
         </a>
         <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
           <i class="fas fa-lock-open text-3xl" aria-hidden="true"></i>
