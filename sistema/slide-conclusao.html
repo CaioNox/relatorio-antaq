@@ -98,8 +98,14 @@
         .concl-cols {
             columns: 2;
             column-gap: 3rem;
-            text-align: justify;
-            hyphens: auto;
+            text-align: left;
+            hyphens: none;
+        }
+
+        /* Sem recuo no parágrafo com capitular: alinha a 1ª linha ("atuação")
+           com as linhas que contornam o "A" flutuante ("de Apoio...") */
+        .concl-cols p.first {
+            text-indent: 0;
         }
 
         .concl-cols p {
@@ -341,7 +347,7 @@
                     A atuação estruturou-se em duas frentes complementares: a <b>Seção de Apoio ao Cidadão (SAC)</b>,
                     responsável por acolher, triar e encaminhar as manifestações — denúncias, reclamações, solicitações,
                     sugestões e elogios — recebidas pelos canais oficiais; e a <b>Seção de Transparência e Acesso à
-                    Informação (STAI)</b>, incumbida da gestão dos pedidos de acesso à informação e da promoção da
+                    <span style="white-space:nowrap;">Informação (STAI)</span></b>, incumbida da gestão dos pedidos de acesso à informação e da promoção da
                     transparência ativa e passiva. O tratamento padronizado e rastreável no <b>Fala.BR</b>, com atenção à
                     <b>tempestividade</b> das respostas, assegurou que cada demanda fosse conduzida à área competente e
                     devolvida ao cidadão de forma clara e conclusiva.
@@ -355,8 +361,8 @@
                     sociedade e estimulando o controle social, a pesquisa e a inovação.
                 </p>
                 <p>
-                    Somam-se a esse conjunto a <b>Carta de Serviços</b> e o atendimento <b>omnichannel</b> — presencial,
-                    telefônico e digital, incluindo o assistente virtual —, que aproximam a Agência do cidadão e ampliam
+                    Somam-se a esse conjunto a <b>Carta de Serviços</b> e o atendimento <b>omnichannel</b>&nbsp;—&nbsp;presencial,
+                    telefônico e digital, incluindo o assistente virtual&nbsp;—, que aproximam a Agência do cidadão e ampliam
                     o alcance da Ouvidoria. Em conjunto, essas iniciativas revelam uma gestão <b>eficaz, íntegra e
                     orientada por dados</b>, alinhada aos interesses da sociedade brasileira.
                 </p>
@@ -372,7 +378,6 @@
         <div class="px-16 pb-6 pt-1 flex justify-between items-center z-10">
             <p class="text-gray-400 text-xs">Relatório 1º Trimestre de 2026 – Ouvidoria – Agência Nacional de Transportes Aquaviários - ANTAQ</p>
         </div>
-        <div class="bg-pattern"><i class="fas fa-flag-checkered text-9xl"></i></div>
     </div>
     <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
 </body>

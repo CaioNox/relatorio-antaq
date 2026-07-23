@@ -159,10 +159,10 @@
             bottom: 8.5rem;
             z-index: 30;
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             align-items: center;
-            gap: 0.5rem;
-            padding: 0.7rem 0.7rem 0.55rem;
+            gap: 0.9rem;
+            padding: 0.7rem 1rem 0.7rem 0.7rem;
             background: rgba(255, 255, 255, 0.97);
             border: 1px solid rgba(37, 211, 102, 0.55);
             border-radius: 14px;
@@ -182,13 +182,21 @@
             pointer-events: none;
         }
 
+        /* Texto fora e ao lado do QR Code, em coluna à direita */
+        .qr-wa-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+            max-width: 11rem;
+        }
+
         .qr-wa-head {
             display: flex;
             align-items: center;
             gap: 0.45rem;
             font-family: 'Montserrat', sans-serif;
             font-weight: 800;
-            font-size: 0.72rem;
+            font-size: 0.85rem;
             letter-spacing: 0.02em;
             color: #0d3358;
             text-transform: uppercase;
@@ -196,23 +204,23 @@
 
         .qr-wa-head i {
             color: #25D366;
-            font-size: 1rem;
+            font-size: 1.15rem;
         }
 
         .qr-wa img {
-            width: 104px;
-            height: 104px;
+            width: 110px;
+            height: 110px;
             display: block;
             border-radius: 6px;
         }
 
         .qr-wa-sub {
             font-family: 'Open Sans', sans-serif;
-            font-size: 0.64rem;
+            font-size: 0.8rem;
             font-weight: 600;
-            color: #4b5563;
-            text-align: center;
-            line-height: 1.15;
+            color: #334155;
+            text-align: left;
+            line-height: 1.3;
         }
 
         @keyframes qrPulse {
@@ -253,8 +261,6 @@
 <body>
     <div class="slide-container">
         <div class="shape-bg"></div>
-        <img src="Imagens/Logo Horizontal_Azul_S_N.png" alt="" class="absolute top-1/2"
-            style="left: 80%; width: 55vw; max-width: 850px; transform: translate(-50%, -50%); opacity: 0.10; z-index: 2; pointer-events: none; filter: brightness(0) invert(1);" />
         <div class="absolute left-0 top-0 h-full w-3 z-20" style="background-color: #0090C0;"></div>
         <div class="absolute left-3 top-0 h-full w-1 bg-brand-secondary z-20"></div>
         <!-- Main Content -->
@@ -347,9 +353,11 @@
 
             <!-- QR WhatsApp da Ouvidoria (IARA) -->
             <div class="qr-wa" title="WhatsApp da Ouvidoria — Assistente IARA">
-                <span class="qr-wa-head"><i class="fa-brands fa-whatsapp"></i> WhatsApp · IARA</span>
                 <img src="Imagens/QRCODE_IARA.jpeg" alt="QR Code do WhatsApp da Ouvidoria da ANTAQ (IARA)" />
-                <span class="qr-wa-sub">Aponte a câmera<br />para falar com a Ouvidoria</span>
+                <div class="qr-wa-info">
+                    <span class="qr-wa-head"><i class="fa-brands fa-whatsapp"></i> WhatsApp · IARA</span>
+                    <span class="qr-wa-sub">Aponte a câmera para falar com a Ouvidoria</span>
+                </div>
             </div>
 
             <!-- Footer -->
@@ -380,9 +388,6 @@
                     <div class="h-10 w-10 rounded-full flex items-center justify-center"
                         style="background-color: #0090C0; color: #103050;"><i class="fas fa-anchor"></i></div>
                 </div>
-            </div>
-            <div class="absolute bottom-0 right-0 text-white opacity-5 z-0"
-                style="font-size: 500px; line-height: 0; transform: translate(20%, 20%);"><i class="fas fa-link"></i>
             </div>
         </div>
         <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>

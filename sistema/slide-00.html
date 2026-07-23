@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
 <!--
@@ -38,6 +39,8 @@
     .slide {
       width: 100vw;
       height: 100vh;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
       position: relative;
       display: flex;
       flex-direction: column;
@@ -97,18 +100,6 @@
       background: rgba(0, 144, 192, 0.04);
       bottom: -6vw;
       left: 10vw;
-    }
-
-    .watermark {
-      position: absolute;
-      right: -4vw;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 48vw;
-      opacity: 0.055;
-      filter: brightness(0) invert(1);
-      pointer-events: none;
-      z-index: 1;
     }
 
     /* ── Conteúdo ── */
@@ -305,7 +296,6 @@
     <div class="deco-circle deco-circle-1"></div>
     <div class="deco-circle deco-circle-2"></div>
     <div class="deco-circle deco-circle-3"></div>
-    <img class="watermark" src="Imagens/Logo Horizontal_Azul_S_N.png" alt="" />
 
     <!-- Conteúdo central -->
     <div class="content">
