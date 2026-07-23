@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Transparência Ativa &amp; Passiva — ANTAQ</title>
+  <link rel="icon" type="image/png" href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png"/>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+  <style>
+    html,body{margin:0;padding:0;overflow:hidden;width:100%;height:100%;}
+    body{background:linear-gradient(135deg,#030e16 0%,#062a20 45%,#083348 100%);}
+    .slide{width:100vw;height:100vh;position:relative;display:flex;align-items:stretch;overflow:hidden;font-family:'Montserrat',sans-serif;color:#fff;}
+    /* dual accent bars: green + blue */
+    .av1{position:absolute;left:0;top:0;height:50%;width:12px;background:#16a34a;z-index:20;}
+    .av2{position:absolute;left:0;bottom:0;height:50%;width:12px;background:#0090C0;z-index:20;}
+    .av3{position:absolute;left:12px;top:0;height:50%;width:4px;background:#15803d;z-index:20;}
+    .av4{position:absolute;left:12px;bottom:0;height:50%;width:4px;background:#0070C0;z-index:20;}
+    .top-prog{position:absolute;top:0;left:16px;right:0;height:3px;background:rgba(255,255,255,0.06);z-index:25;}
+    .top-fill{height:100%;width:73%;background:linear-gradient(90deg,#F2A900,#16a34a,#0090C0);border-radius:0 2px 2px 0;}
+    .ring{position:absolute;border-radius:50%;border:1px solid rgba(0,160,128,0.1);}
+    .dots{position:absolute;opacity:0.05;background-image:radial-gradient(rgba(255,255,255,1) 1.5px,transparent 1.5px);background-size:30px 30px;}
+    /* horizontal split divider in left panel */
+    .hdiv{position:absolute;left:16px;right:0;top:50%;height:1px;background:linear-gradient(90deg,rgba(255,255,255,0.08) 0%,transparent 60%);z-index:15;}
+    .content{position:relative;z-index:10;padding:0 60px 0 100px;display:flex;flex-direction:column;justify-content:center;width:56%;flex-shrink:0;}
+    .kicker{font-size:0.97rem;font-weight:700;letter-spacing:0.4em;text-transform:uppercase;color:#F2A900;display:flex;align-items:center;gap:0.8rem;margin-bottom:1.4rem;}
+    .kicker::before{content:'';width:36px;height:2px;background:#F2A900;flex-shrink:0;}
+    .icon-duo{display:flex;align-items:center;gap:1.2rem;margin-bottom:1.2rem;}
+    .icon-duo .ic1{font-size:3rem;filter:drop-shadow(0 0 22px rgba(74,222,128,0.7));color:#4ade80;}
+    .icon-duo .sep{font-size:1.6rem;color:rgba(255,255,255,0.2);font-weight:300;}
+    .icon-duo .ic2{font-size:3rem;filter:drop-shadow(0 0 22px rgba(0,144,192,0.7));color:#38bdf8;}
+    .s-title{font-size:4.4rem;font-weight:900;line-height:0.9;letter-spacing:-0.02em;margin-bottom:1.2rem;}
+    .s-title .g{color:#4ade80;}
+    .s-title .b{color:#38bdf8;}
+    .div{width:80px;height:4px;border-radius:2px;background:linear-gradient(90deg,#4ade80,#0090C0,transparent);margin-bottom:1.4rem;}
+    .split-desc{display:flex;flex-direction:column;gap:0.7rem;margin-bottom:1.3rem;}
+    .half{display:flex;flex-direction:column;gap:0.25rem;}
+    .half-label{font-size:0.90rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;display:flex;align-items:center;gap:0.5rem;}
+    .half-label.g{color:#4ade80;}
+    .half-label.b{color:#38bdf8;}
+    .half-label::before{content:'';width:18px;height:1.5px;flex-shrink:0;}
+    .half-label.g::before{background:#4ade80;}
+    .half-label.b::before{background:#38bdf8;}
+    .half-text{font-family:'Open Sans',sans-serif;font-size:1.12rem;line-height:1.6;color:rgba(255,255,255,0.55);padding-left:24px;}
+    .topics{display:flex;flex-direction:column;gap:0.45rem;}
+    .topic{display:flex;align-items:center;gap:0.75rem;font-family:'Open Sans',sans-serif;font-size:1.09rem;color:rgba(255,255,255,0.45);}
+    .tdot-g{width:5px;height:5px;border-radius:50%;background:#4ade80;flex-shrink:0;}
+    .tdot-b{width:5px;height:5px;border-radius:50%;background:#38bdf8;flex-shrink:0;}
+    /* right panel */
+    .stat-pane{flex:1;position:relative;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px;gap:1rem;}
+    /* top half: Ativa */
+    .half-stat{width:100%;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:1.2rem 1.4rem;display:flex;flex-direction:column;gap:0.5rem;}
+    .hs-label{font-size:0.83rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;margin-bottom:0.2rem;}
+    .hs-label.g{color:rgba(74,222,128,0.6);}
+    .hs-label.b{color:rgba(56,189,248,0.6);}
+    .hs-row{display:flex;align-items:center;gap:1rem;}
+    .hs-big{font-size:3rem;font-weight:900;line-height:1;}
+    .hs-big.g{color:#4ade80;}
+    .hs-big.b{color:#38bdf8;}
+    .hs-sub{font-size:0.95rem;font-weight:700;color:rgba(255,255,255,0.35);letter-spacing:0.1em;text-transform:uppercase;}
+    .hs-metrics{display:flex;gap:0.7rem;flex-wrap:wrap;}
+    .hm{background:rgba(0,0,0,0.2);border-radius:8px;padding:0.35rem 0.7rem;text-align:center;}
+    .hm .v{font-size:1.18rem;font-weight:900;}
+    .hm .v.g{color:#4ade80;}
+    .hm .v.b{color:#38bdf8;}
+    .hm .l{font-size:0.77rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.3);}
+    .vdiv{position:absolute;left:56%;top:10%;bottom:10%;width:1px;background:linear-gradient(180deg,transparent,rgba(255,255,255,0.08) 30%,rgba(255,255,255,0.08) 70%,transparent);z-index:5;}
+    .hint{position:absolute;bottom:36px;right:72px;display:flex;align-items:center;gap:12px;color:rgba(255,255,255,0.28);font-size:0.97rem;letter-spacing:0.2em;text-transform:uppercase;}
+    .aline{width:40px;height:1px;background:rgba(255,255,255,0.22);position:relative;}
+    .aline::after{content:'';position:absolute;right:-2px;top:-4px;border-left:8px solid rgba(255,255,255,0.22);border-top:5px solid transparent;border-bottom:5px solid transparent;}
+    .wmark{position:absolute;right:-60px;bottom:-80px;font-size:440px;color:rgba(255,255,255,0.015);line-height:1;z-index:0;pointer-events:none;}
+    .logo-wm{position:absolute;top:36px;right:60px;height:44px;opacity:0.10;filter:brightness(0) invert(1);pointer-events:none;}
+    @keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+    @keyframes fadeInLeft{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:none}}
+    .a{animation:fadeInUp .55s ease both;}
+    .ar{animation:fadeInLeft .7s ease both;}
+    .d1{animation-delay:.06s}.d2{animation-delay:.14s}.d3{animation-delay:.22s}.d4{animation-delay:.30s}.d5{animation-delay:.40s}.d6{animation-delay:.50s}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;}}
+  </style>
+</head>
+<body>
+<div class="slide">
+  <div class="av1"></div><div class="av2"></div>
+  <div class="av3"></div><div class="av4"></div>
+  <div class="top-prog"><div class="top-fill"></div></div>
+  <div class="hdiv"></div>
+  <div class="ring" style="width:700px;height:700px;right:-200px;top:-200px;"></div>
+  <div class="ring" style="width:460px;height:460px;right:-80px;top:-80px;border-color:rgba(56,189,248,0.1);"></div>
+  <div class="dots" style="bottom:0;left:0;width:320px;height:320px;"></div>
+  <div class="content">
+    <div class="kicker a">Capítulo 08 · Transparência Ativa &amp; Passiva</div>
+    <div class="icon-duo a d1">
+      <span class="ic1"><i class="fas fa-lock-open"></i></span>
+      <span class="sep">&amp;</span>
+      <span class="ic2"><i class="fas fa-file-shield"></i></span>
+    </div>
+    <h1 class="s-title a d2">Transparência<br><span class="g">Ativa</span> <span style="color:rgba(255,255,255,0.25);font-weight:300;">&amp;</span> <span class="b">Passiva</span></h1>
+    <div class="div a d3"></div>
+    <div class="split-desc a d3">
+      <div class="half">
+        <div class="half-label g"><i class="fas fa-lock-open" style="font-size:0.95rem;"></i>Transparência Ativa</div>
+        <div class="half-text">Publicação proativa de informações no portal gov.br/antaq — 49/49 quesitos do Painel LAI atendidos com 100% de conformidade.</div>
+      </div>
+      <div class="half">
+        <div class="half-label b"><i class="fas fa-file-shield" style="font-size:0.95rem;"></i>Transparência Passiva</div>
+        <div class="half-text">Pedidos LAI via SIC — 130 pedidos respondidos no prazo, tempo médio de 9,1 dias (prazo legal: 20 dias).</div>
+      </div>
+    </div>
+    <div class="topics a d5">
+      <div class="topic"><div class="tdot-g"></div>49/49 quesitos do Painel LAI — 100% de conformidade</div>
+      <div class="topic"><div class="tdot-g"></div>Portal gov.br/antaq — atualizado e acessível</div>
+      <div class="topic"><div class="tdot-b"></div>130 pedidos LAI — 100% respondidos no prazo</div>
+      <div class="topic"><div class="tdot-b"></div>Tempo médio de resposta: 9,1 dias</div>
+    </div>
+  </div>
+  <div class="vdiv"></div>
+  <div class="stat-pane">
+    <div class="half-stat ar">
+      <div class="hs-label g"><i class="fas fa-lock-open" style="margin-right:5px;"></i>Transparência Ativa</div>
+      <div class="hs-row">
+        <div class="hs-big g">100%</div>
+        <div>
+          <div class="hs-sub">conformidade</div>
+          <div class="hs-sub">Painel LAI — CGU</div>
+        </div>
+      </div>
+      <div class="hs-metrics">
+        <div class="hm"><div class="v g">49</div><div class="l">quesitos</div></div>
+        <div class="hm"><div class="v g">49</div><div class="l">atendidos</div></div>
+      </div>
+    </div>
+    <div class="half-stat ar d2">
+      <div class="hs-label b"><i class="fas fa-file-shield" style="margin-right:5px;"></i>Transparência Passiva</div>
+      <div class="hs-row">
+        <div class="hs-big b">130</div>
+        <div>
+          <div class="hs-sub">pedidos LAI</div>
+          <div class="hs-sub">1º Trimestre 2026</div>
+        </div>
+      </div>
+      <div class="hs-metrics">
+        <div class="hm"><div class="v b">100%</div><div class="l">no prazo</div></div>
+        <div class="hm"><div class="v b">9,1d</div><div class="l">tempo médio</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+document.addEventListener("keydown",function(e){
+  if(["ArrowRight","ArrowLeft","PageDown","PageUp","Home","End"," ","f","F"].indexOf(e.key)!==-1){
+    e.preventDefault();window.parent.postMessage({type:"slide-nav",key:e.key},"*");
+  }
+});
+</script>
+</body>
+</html>

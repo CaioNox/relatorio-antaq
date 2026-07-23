@@ -1,24 +1,16 @@
 <!DOCTYPE html>
-<!--
-  ╔══════════════════════════════════════════════════════════════╗
-  ║  SLIDE 07 — Evolução histórica anual das manifestações
-  ╠══════════════════════════════════════════════════════════════╣
-  ║  O QUE ATUALIZAR A CADA TRIMESTRE:
-  ║  Atualizar: adicionar o novo ano/trimestre no início dos arrays labels[] e data[]
-  ╚══════════════════════════════════════════════════════════════╝
--->
-
+<!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
 <html lang="pt-BR">
 
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <title>Evolução Histórica das Manifestações - Relatório Trimestral Ouvidoria ANTAQ</title>
+  <title>Comparativos entre trimestres de anos anteriores - Relatório Trimestral Ouvidoria ANTAQ</title>
   <link rel="icon" type="image/png"
     href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
   <link
-    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&amp;family=Open+Sans:wght@400;600&amp;display=swap"
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap"
     rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -89,7 +81,7 @@
     }
 
     .chart-note {
-      font-size: .72rem;
+      font-size: .78rem;
       color: #6b7280;
       line-height: 1.45;
       border-top: 1px solid #eef2f7;
@@ -206,60 +198,66 @@
   <div class="slide-container">
     <div class="top-accent"></div>
     <div class="top-accent-secondary"></div>
-    <!-- Header -->
-    <div class="flex items-center justify-between px-16 pt-8 pb-2 z-10">
+
+    <!-- Header Ajustado com Barra Azul e Tag Capítulo 02 -->
+    <div class="flex items-start justify-between px-16 pt-10 pb-3 z-10">
       <div>
         <div class="flex items-center gap-3 mb-1">
           <div class="w-1 h-8 bg-brand-secondary"></div>
-          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Evolução Histórica
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Ouvidoria em Números
           </p>
         </div>
-        <p class="text-gray-500 font-medium ml-4 text-lg">Manifestações recebidas — 1º trimestre de 2023 a 2026</p>
+        <p class="text-gray-500 font-medium ml-4 text-lg">Comparativos entre trimestres de anos anteriores</p>
       </div>
-      <div class="flex items-center gap-2 opacity-80 text-brand-secondary">
-        <i class="fas fa-chart-line text-xl" aria-hidden="true"></i>
-        <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">SÉRIE HISTÓRICA</p>
+      <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
+        <i class="fas fa-landmark text-3xl align-middle" aria-hidden="true"></i>
+        <div class="flex flex-col justify-center border-left pl-2" style="border-left: 1px solid #CBD5E1;">
+          <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">CAPÍTULO 02</p>
+          <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none whitespace-nowrap">A
+            Ouvidoria da ANTAQ</p>
+        </div>
       </div>
     </div>
+
     <!-- Main Content -->
     <div class="flex-1 grid grid-cols-3 gap-6 px-16 pb-6 z-10" style="min-height:0;">
       <!-- Gráfico -->
       <div class="chart-card col-span-2 flex flex-col" style="min-height:0;">
         <p class="text-brand-primary font-montserrat font-bold text-xl mb-1 flex items-center gap-2"><i
-            class="fas fa-arrow-trend-up text-brand-secondary"></i> Evolução das manifestações recebidas</p>
+            class="fas fa-arrow-trend-up text-brand-secondary"></i> Trajetória das demandas no Fala.BR</p>
         <div class="flex-1 relative" style="min-height:0;"><canvas id="chartHist"></canvas></div>
-        <p class="chart-note"><i class="fas fa-circle-info"></i><span>A inclusão de séries históricas permite identificar
-            tendências, avaliar o comportamento das manifestações ao longo do tempo e fornecer subsídios mais robustos
+        <p class="chart-note"><i class="fas fa-circle-info"></i><span>A inclusão de séries históricas permite
+            identificar
+            tendências, avaliar o comportamento das demandas ao longo do tempo e fornecer subsídios mais robustos
             para a tomada de decisão institucional.</span></p>
       </div>
       <!-- KPIs por ano -->
       <div class="col-span-1 flex flex-col gap-3" style="min-height:0;">
-        <div class="hist-kpi">
-          <p class="hk-year">1º Tri 2023</p>
-          <p class="hk-val">205</p>
-          <p class="hk-label">manifestações</p>
-        </div>
-        <div class="hist-kpi">
-          <p class="hk-year">1º Tri 2024</p>
-          <p class="hk-val">201</p>
-          <p class="hk-label">manifestações</p>
+        <div class="hist-kpi hk-feat">
+          <p class="hk-year">1º Tri 2026</p>
+          <p class="hk-val">434</p>
+          <p class="hk-label">Demandas</p>
         </div>
         <div class="hist-kpi">
           <p class="hk-year">1º Tri 2025</p>
           <p class="hk-val">337</p>
-          <p class="hk-label">manifestações</p>
+          <p class="hk-label">Demandas</p>
         </div>
-        <div class="hist-kpi hk-feat">
-          <p class="hk-year">1º Tri 2026</p>
-          <p class="hk-val">304</p>
-          <p class="hk-label">manifestações</p>
+        <div class="hist-kpi">
+          <p class="hk-year">1º Tri 2024</p>
+          <p class="hk-val">201</p>
+          <p class="hk-label">Demandas</p>
+        </div>
+        <div class="hist-kpi">
+          <p class="hk-year">1º Tri 2023</p>
+          <p class="hk-val">205</p>
+          <p class="hk-label">Demandas</p>
         </div>
       </div>
     </div>
     <!-- Footer -->
     <div class="px-16 pb-6 pt-1 flex justify-between items-center z-10">
-      <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ</p>
-      <p class="text-gray-300 text-xs font-mono">7 / 33</p>
+      <p class="text-gray-400 text-xs">Relatório 1º Trimestre de 2026 – Ouvidoria – Agência Nacional de Transportes Aquaviários - ANTAQ</p>
     </div>
   </div>
   <script>
@@ -280,7 +278,6 @@
         ctx.restore();
       }
     };
-    // Halo âmbar no último ponto (2026)
     const lastHalo = {
       id: 'lastHalo',
       beforeDatasetsDraw(chart) {
@@ -301,7 +298,7 @@
       data: {
         labels: ['1ºT 2023', '1ºT 2024', '1ºT 2025', '1ºT 2026'],
         datasets: [{
-          data: [205, 201, 337, 304],
+          data: [205, 201, 337, 434],
           borderColor: '#0090C0',
           backgroundColor: 'rgba(0,144,192,0.12)',
           pointBackgroundColor: '#103050',

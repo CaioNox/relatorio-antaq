@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
 <!--
   ╔══════════════════════════════════════════════════════════════╗
   ║  SLIDE 08 — Destaques do trimestre — ranking de temas e subtemas
@@ -13,13 +14,14 @@
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <title>Destaques do Trimestre - Relatório Trimestral Ouvidoria ANTAQ</title>
+  <title>Demandas recorrentes - Relatório Trimestral Ouvidoria ANTAQ</title>
 
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
   <link
-    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&amp;family=Open+Sans:wght@400;600&amp;display=swap"
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&amp;family=Open+Sans:ital,wght@0,400;0,600;1,400&amp;display=swap"
     rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     html {
       font-size: 26px;
@@ -293,6 +295,42 @@
       transition: color 250ms ease;
     }
 
+    .charts-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 1rem;
+      height: 100%;
+      min-height: 0;
+    }
+
+    .chart-canvas-wrap {
+      flex: 1;
+      min-height: 300px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .pie-empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+      color: #94a3b8;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: .82rem;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    .pie-empty-state i {
+      font-size: 1.4rem;
+      color: #cbd5e1;
+    }
+
     /* ===================== BARRAS ===================== */
     .rows {
       flex: 1;
@@ -323,7 +361,7 @@
     }
 
     .bar-label {
-      width: 340px;
+      width: 470px;
       flex-shrink: 0;
       font-family: 'Open Sans', sans-serif;
       font-weight: 600;
@@ -331,13 +369,14 @@
       font-size: .8rem;
       line-height: 1.15;
       text-align: right;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      white-space: normal;
+      overflow: visible;
+      text-overflow: clip;
     }
 
     .bar-track {
       flex: 1;
+      max-width: 680px;
       height: 1.05rem;
       background: #eef2f7;
       border-radius: 999px;
@@ -428,40 +467,47 @@
     <div class="top-accent-secondary"></div>
 
     <!-- ===================== ZONA SUPERIOR — header interativo ===================== -->
-    <div class="flex items-center justify-between px-16 pt-12 pb-4 z-10">
+    <div class="flex items-start justify-between px-16 pt-10 pb-3 z-10">
       <div style="min-width:0;">
         <div class="flex items-center gap-3 mb-1">
           <div class="w-1 h-8 bg-brand-secondary"></div>
           <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Destaques do
             Trimestre</p>
         </div>
-        <p class="text-gray-500 font-medium ml-4 text-lg">Filtre os temas · múltipla seleção · 304 manifestações · 1º
-          trimestre de 2026</p>
         <!-- chips de filtro -->
         <div class="chips ml-4" id="chips"></div>
         <p class="hint-line ml-4"><i class="far fa-hand-pointer"></i> Um clique no tema exibe ou oculta suas demandas —
           combine vários temas ou use “Exibir todas as demandas” para o panorama completo</p>
       </div>
 
-      <!-- contador de porcentagem -->
-      <div class="counter">
-        <div class="odo" id="odo"></div>
-        <p class="cap">do total de manifestações</p>
+      <!-- contador de porcentagem / substituído por cabeçalho padrão de capítulo -->
+      <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
+        <i class="fas fa-headset text-3xl" aria-hidden="true"></i>
+        <div class="flex flex-col justify-center pl-2" style="border-left:1px solid #CBD5E1;">
+          <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">CAPÍTULO 03</p>
+          <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none whitespace-nowrap">Seção
+            de Apoio ao Cidadão — SAC</p>
+        </div>
       </div>
     </div>
 
-    <!-- ===================== ZONA INFERIOR — gráfico dinâmico ===================== -->
+    <!-- ===================== ZONA INFERIOR — gráficos dinâmicos ===================== -->
     <div class="flex-1 px-16 pb-3 z-10" style="min-height:0;">
-      <div class="chart-card">
-        <p class="chart-cap" id="chartCap"></p>
-        <div class="rows" id="rows" data-density="1"></div>
+      <div class="charts-grid" style="height:100%;">
+        <div class="chart-card">
+          <p class="chart-cap" id="chartCap"></p>
+          <div class="rows" id="rows" data-density="1"></div>
+        </div>
+        <div class="chart-card">
+          <p class="chart-cap" id="pieCap"><i class="fas fa-chart-pie"></i> Distribuição por tema</p>
+          <div class="chart-canvas-wrap" id="pieWrap"></div>
+        </div>
       </div>
     </div>
 
     <!-- Footer -->
     <div class="px-16 pb-8 flex justify-between items-center z-10">
-      <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ</p>
-      <p class="text-gray-300 text-xs font-mono">8 / 33</p>
+      <p class="text-gray-400 text-xs">Relatório 1º Trimestre de 2026 – Ouvidoria – Agência Nacional de Transportes Aquaviários - ANTAQ</p>
     </div>
   </div>
 
@@ -478,21 +524,21 @@
     const TOTAL = 304;
     const THEMES = [
       {
-        id: 'tarifa', name: 'Cobrança Portuária Abusiva', short: 'Cobrança Portuária',
+        id: 'tarifa', name: 'Cobranças Abusivas', short: 'Cobranças Abusivas',
         icon: 'fa-money-bill-trend-up', color: '#F2A900', total: 154,
         subs: [
           ['Detention/ Sobrestadia de Mercadorias', 56],
           ['Cobrança Portuária Abusiva', 43],
-          ['Cobrança Portuária Abusiva - falta de Bookings/janelas para os navios', 21],
+          ['Falta de Bookings/janelas para os navios', 21],
           ['Cobrança Portuária Abusiva com Denúncia com Pedido de Medida Cautelar', 20],
           ['Cobrança indevida de taxa', 7],
-          ['Demurrage - (Cobrança Portuária Abusiva)', 3],
-          ['Bloqueio de carga - (Cobrança Portuária Abusiva)', 3],
-          ['Desbloqueio de carga - Cobrança Portuária Abusiva', 1]
+          ['Demurrage', 3],
+          ['Bloqueio de carga', 3],
+          ['Desbloqueio de carga', 1]
         ]
       },
       {
-        id: 'diversos', name: 'Diversos — Solicitação', short: 'Diversos · Solicitação',
+        id: 'diversos', name: 'Diversos', short: 'Diversos',
         icon: 'fa-clipboard-list', color: '#10B981', total: 51,
         subs: [
           ['Solicitação de Informação', 8],
@@ -503,10 +549,10 @@
           ['Acesso à informação', 3],
           ['Denúncia envolvendo servidores ou serviços', 2],
           ['Elogio', 2],
-          ['Convite para participar de réu+3', 2],
+          ['Convite para participar de Reunião', 2],
           ['Solicitação Judicial', 1],
           ['NVOOC', 1],
-          ['Servidores da Antaq', 1],
+          ['Servidores da ANTAQ', 1],
           ['Ordem Judicial', 1],
           ['Concurso', 1],
           ['Audiência Pública', 1],
@@ -515,7 +561,7 @@
         ]
       },
       {
-        id: 'regport', name: 'Regulação Portuária', short: 'Reg. Portuária',
+        id: 'regport', name: 'Regulação Portuária', short: 'Regulação Portuária',
         icon: 'fa-anchor', color: '#0090C0', total: 41,
         subs: [
           ['Serviços Portuários/ Acesso /funcionamento', 15],
@@ -529,7 +575,7 @@
         ]
       },
       {
-        id: 'navint', name: 'Serviços na Navegação Interior', short: 'Nav. Interior',
+        id: 'navint', name: 'Serviços na Navegação Interior', short: 'Serviços na Navegação Interior',
         icon: 'fa-ship', color: '#6366F1', total: 37,
         subs: [
           ['Empresa irregular', 14],
@@ -541,7 +587,7 @@
         ]
       },
       {
-        id: 'navmar', name: 'Regulação na Navegação Marítima', short: 'Nav. Marítima',
+        id: 'navmar', name: 'Regulação na Navegação Marítima', short: 'Regulação na Navegação Marítima',
         icon: 'fa-compass', color: '#0EA5E9', total: 14,
         subs: [
           ['Direitos do Usuário na Navegação', 8],
@@ -552,7 +598,7 @@
         ]
       },
       {
-        id: 'fora', name: 'Jurisdição (Legislação) — Demandas fora do âmbito de atuação da Antaq', short: 'Fora do âmbito',
+        id: 'fora', name: 'Jurisdição (Legislação) — Demandas fora do âmbito de atuação da ANTAQ', short: 'Fora do âmbito de atuação',
         icon: 'fa-share-from-square', color: '#94A3B8', total: 4,
         subs: [
           ['Jurisdição - Questão de competência da ANTAQ', 3],
@@ -560,7 +606,7 @@
         ]
       },
       {
-        id: 'meioamb', name: 'Meio ambiente', short: 'Meio Ambiente',
+        id: 'meioamb', name: 'Meio Ambiente', short: 'Meio Ambiente',
         icon: 'fa-leaf', color: '#22C55E', total: 3,
         subs: [
           ['Meio ambiente', 3]
@@ -570,6 +616,7 @@
 
     const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const selected = new Set(THEMES.map(t => t.id)); // abre com tudo selecionado (panorama completo)
+    let pieChart = null;
 
     /* ===================== CHIPS ===================== */
     const chipsWrap = document.getElementById('chips');
@@ -697,6 +744,102 @@
       }
     }
 
+    function renderPieChart() {
+      const sel = THEMES.filter(t => selected.has(t.id));
+      const wrap = document.getElementById('pieWrap');
+      const cap = document.getElementById('pieCap');
+
+      if (!sel.length) {
+        if (pieChart) {
+          pieChart.destroy();
+          pieChart = null;
+        }
+        wrap.innerHTML = '<div class="pie-empty-state"><i class="far fa-chart-pie"></i><span>Selecione ao menos um tema para ver a distribuição</span></div>';
+        cap.style.color = '#94a3b8';
+        cap.innerHTML = '<i class="fas fa-chart-pie"></i> Distribuição por tema · 0 selecionados';
+        return;
+      }
+
+      wrap.innerHTML = '<canvas id="pieChart"></canvas>';
+      const canvas = document.getElementById('pieChart');
+      if (pieChart) pieChart.destroy();
+
+      const percentageLabelsPlugin = {
+        id: 'percentageLabels',
+        afterDraw(chart) {
+          const { ctx } = chart;
+          const meta = chart.getDatasetMeta(0);
+          const total = chart.data.datasets[0].data.reduce((s, v) => s + v, 0) || 1;
+
+          ctx.save();
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+
+          meta.data.forEach((arc, index) => {
+            const value = chart.data.datasets[0].data[index];
+            const pct = value / total * 100;
+            if (!value || pct < 1) return;
+
+            const angle = (arc.startAngle + arc.endAngle) / 2;
+            const radius = (arc.outerRadius + arc.innerRadius) / 2;
+            const x = arc.x + Math.cos(angle) * radius * 0.8;
+            const y = arc.y + Math.sin(angle) * radius * 0.8;
+            const fontSize = pct >= 10 ? 13 : pct >= 5 ? 11 : 9;
+
+            ctx.font = '700 ' + fontSize + 'px Montserrat, sans-serif';
+            ctx.fillStyle = '#ffffff';
+            ctx.strokeStyle = 'rgba(16, 48, 80, 0.35)';
+            ctx.lineWidth = 3;
+            ctx.strokeText(pct.toFixed(1) + '%', x, y);
+            ctx.fillText(pct.toFixed(1) + '%', x, y);
+          });
+
+          ctx.restore();
+        }
+      };
+
+      pieChart = new Chart(canvas, {
+        type: 'doughnut',
+        data: {
+          labels: sel.map(t => t.name),
+          datasets: [{
+            data: sel.map(t => t.total),
+            backgroundColor: sel.map(t => t.color),
+            borderColor: '#ffffff',
+            borderWidth: 2,
+            hoverOffset: 8
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          animation: { duration: REDUCED ? 0 : 650 },
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: {
+                color: '#103050',
+                boxWidth: 12,
+                boxHeight: 12,
+                padding: 12,
+                font: { family: 'Open Sans', size: 11, weight: '600' }
+              }
+            },
+            tooltip: {
+              callbacks: {
+                label: (context) => context.label + ': ' + context.parsed + ' manifestações'
+              }
+            }
+          }
+        },
+        plugins: [percentageLabelsPlugin]
+      });
+
+      cap.style.color = '#475569';
+      cap.innerHTML = '<i class="fas fa-chart-pie"></i> Distribuição por tema · ' + sel.length +
+        ' tema' + (sel.length > 1 ? 's' : '') + ' selecionado' + (sel.length > 1 ? 's' : '');
+    }
+
     /* ===================== CONTADOR ODÔMETRO ===================== */
     const odo = document.getElementById('odo');
     let currentPct = null; // valor numérico atual
@@ -812,6 +955,7 @@
       refreshChips();
       refreshCaption();
       renderBars();
+      renderPieChart();
       const sum = THEMES.filter(t => selected.has(t.id)).reduce((s, t) => s + t.total, 0);
       setCounter(sum / TOTAL * 100);
     }

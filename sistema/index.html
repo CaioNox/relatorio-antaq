@@ -1,11 +1,12 @@
 <!DOCTYPE html>
+<!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
 <!--
   ╔══════════════════════════════════════════════════════════════╗
   ║  sistema/index.html — VISUALIZADOR DE SLIDES (palco principal)
   ╠══════════════════════════════════════════════════════════════╣
   ║  Carrega cada slide em um iframe e controla a navegação.
   ║  O QUE ATUALIZAR:
-  ║    const total = 35  ← mude se adicionar/remover slides
+  ║    const deck = [...]  ← reordene/mova arquivos entre os blocos aqui
   ║  Teclas: ← → navegar, Espaço próximo, F tela cheia, Home início
   ║  Clique nas laterais escuras também navega.
   ╚══════════════════════════════════════════════════════════════╝
@@ -78,27 +79,113 @@
       transform-origin: top left;
     }
 
+    /* Wave acima do navbar */
+    /* Doca de navegação: só aparece no hover do rodapé */
+    .nav-dock {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 96px;
+      z-index: 1000;
+      pointer-events: none;
+    }
+
+    .nav-trigger {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 100%;
+      pointer-events: auto;
+    }
+
+    .nav-wave {
+      position: fixed;
+      bottom: 56px;
+      left: 50%;
+      transform: translateX(-50%) translateY(150%);
+      opacity: 0;
+      width: 320px;
+      height: 18px;
+      z-index: 999;
+      pointer-events: none;
+      overflow: hidden;
+      transition: transform .4s cubic-bezier(.2, .7, .3, 1), opacity .3s ease;
+    }
+
+    .nav-dock:hover .nav-wave {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    .nav-wave::before,
+    .nav-wave::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: -20%;
+      width: 140%;
+      height: 100%;
+      border-radius: 50% 50% 0 0 / 80% 80% 0 0;
+    }
+
+    .nav-wave::before {
+      background: rgba(0, 144, 192, 0.22);
+      animation: navWave 4s ease-in-out infinite;
+    }
+
+    .nav-wave::after {
+      background: rgba(0, 112, 192, 0.12);
+      animation: navWave 5.5s ease-in-out infinite reverse;
+      transform: scaleY(0.7);
+    }
+
+    @keyframes navWave {
+      0% {
+        transform: translateX(0) scaleY(1);
+      }
+
+      50% {
+        transform: translateX(5%) scaleY(1.1);
+      }
+
+      100% {
+        transform: translateX(0) scaleY(1);
+      }
+    }
+
     /* Navigation bar - same style as Kenia */
     .nav-bar {
       position: fixed;
       bottom: 24px;
       left: 50%;
-      transform: translateX(-50%);
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
       display: flex;
       align-items: center;
       gap: 8px;
-      background: rgba(12, 50, 111, 0.95);
-      backdrop-filter: blur(12px);
+      background: rgba(13, 40, 66, 0.38);
+      backdrop-filter: blur(20px) saturate(170%);
+      -webkit-backdrop-filter: blur(20px) saturate(170%);
       padding: 8px 16px;
       border-radius: 50px;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.22);
       z-index: 1000;
       font-family: 'Roboto', sans-serif;
+      pointer-events: auto;
+      transition: transform .4s cubic-bezier(.2, .7, .3, 1), opacity .3s ease;
+    }
+
+    .nav-dock:hover .nav-bar {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
     }
 
     .nav-bar button {
-      background: none;
-      border: none;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
       color: white;
       cursor: pointer;
       width: 38px;
@@ -108,11 +195,13 @@
       align-items: center;
       justify-content: center;
       font-size: 14px;
-      transition: background 0.2s;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.55);
+      transition: background 0.2s, border-color 0.2s;
     }
 
     .nav-bar button:hover {
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.28);
+      border-color: rgba(255, 255, 255, 0.35);
     }
 
     .nav-bar button:disabled {
@@ -130,6 +219,37 @@
       font-weight: 500;
       min-width: 80px;
       text-align: center;
+      cursor: pointer;
+      border-radius: 6px;
+      padding: 2px 4px;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.55);
+      transition: background 0.2s;
+    }
+
+    .nav-bar .page-info:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .nav-bar .page-input {
+      width: 52px;
+      min-width: 52px;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid #0090C0;
+      color: #fff;
+      border-radius: 6px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 600;
+      font-family: 'Roboto', sans-serif;
+      padding: 2px 4px;
+      outline: none;
+      -moz-appearance: textfield;
+    }
+
+    .nav-bar .page-input::-webkit-inner-spin-button,
+    .nav-bar .page-input::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
     }
 
     .nav-bar .home-btn {
@@ -139,30 +259,36 @@
     /* Slide dots */
     .nav-dots {
       display: flex;
-      gap: 4px;
+      gap: 2px;
       align-items: center;
-      margin: 0 8px;
+      margin: 0 6px;
     }
 
     .nav-dots button {
-      width: 8px;
-      height: 8px;
+      width: 5px;
+      height: 5px;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.3);
+      /* Tom sutil por bloco: variação de opacidade do azul institucional */
+      background: rgba(122, 178, 216, calc(0.20 + (var(--dot-tint, 0.6) * 0.28)));
       border: none;
       cursor: pointer;
       padding: 0;
       transition: all 0.2s;
     }
 
+    /* Separação visível entre os blocos (Abertura · Blocos 1–6 · Sobras) */
+    .nav-dots button.block-start {
+      margin-left: 9px;
+    }
+
     .nav-dots button.active {
       background: #0090C0;
-      width: 24px;
-      border-radius: 4px;
+      width: 16px;
+      border-radius: 3px;
     }
 
     .nav-dots button:hover:not(.active) {
-      background: rgba(255, 255, 255, 0.6);
+      background: rgba(255, 255, 255, 0.65);
     }
 
     /* Fullscreen button */
@@ -190,33 +316,30 @@
       background: rgba(12, 50, 111, 1);
     }
 
-    /* PDF button — with label */
+    /* Botão de impressão — mesmo formato do fechar/tela cheia */
     .pdf-btn {
       position: fixed;
       top: 16px;
       right: 120px;
-      background: rgba(180, 120, 0, 0.92);
+      background: rgba(162, 162, 162, 0.85);
       backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.15);
       color: white;
       cursor: pointer;
+      width: 40px;
       height: 40px;
-      padding: 0 16px;
       border-radius: 10px;
       display: flex;
       align-items: center;
-      gap: 8px;
-      font-size: 14px;
-      font-weight: 600;
-      font-family: 'Roboto', sans-serif;
+      justify-content: center;
+      font-size: 16px;
       z-index: 1000;
       transition: all 0.2s;
       text-decoration: none;
-      white-space: nowrap;
     }
 
     .pdf-btn:hover {
-      background: rgba(217, 119, 6, 1);
+      background: rgba(180, 120, 0, 1);
     }
 
     /* Help button in nav-bar */
@@ -409,19 +532,23 @@
     <div id="clickRight" class="click-zone" title="Próximo slide"></div>
   </div>
 
-  <div class="nav-bar">
-    <button onclick="goHome()" class="home-btn" title="Ir para o slide inicial"><i
-        class="fa-solid fa-house"></i></button>
-    <button onclick="prev()" id="btnPrev" title="Anterior"><i class="fa-solid fa-chevron-left"></i></button>
-    <div class="nav-dots" id="navDots"></div>
-    <button onclick="next()" id="btnNext" title="Próximo"><i class="fa-solid fa-chevron-right"></i></button>
-    <span class="page-info" id="pageInfo">1 / 35</span>
-    <button class="help-btn" id="helpBtn" onclick="toggleHints()"><i class="fa-solid fa-circle-question"></i>
-    </button>
+  <div class="nav-dock">
+    <div class="nav-trigger"></div>
+    <div class="nav-wave"></div>
+    <div class="nav-bar">
+      <button onclick="goHome()" class="home-btn" title="Ir para o slide inicial"><i
+          class="fa-solid fa-house"></i></button>
+      <button onclick="prev()" id="btnPrev" title="Anterior"><i class="fa-solid fa-chevron-left"></i></button>
+      <div class="nav-dots" id="navDots"></div>
+      <button onclick="next()" id="btnNext" title="Próximo"><i class="fa-solid fa-chevron-right"></i></button>
+      <span class="page-info" id="pageInfo"></span>
+      <button class="help-btn" id="helpBtn" onclick="toggleHints()"><i class="fa-solid fa-circle-question"></i>
+      </button>
+    </div>
   </div>
 
-  <a class="pdf-btn" href="relatorio.html" target="_blank" rel="noopener noreferrer"><i
-      class="fa-solid fa-file-pdf"></i> Baixar PDF</a>
+  <a class="pdf-btn" href="relatorio.html" target="_blank" rel="noopener noreferrer" title="Imprimir / Salvar PDF"
+    aria-label="Imprimir / Salvar PDF"><i class="fa-solid fa-print"></i></a>
   <button class="close-btn" onclick="closePresentation()" title="Fechar apresentação"><i
       class="fa-solid fa-xmark"></i></button>
   <button class="fs-btn" onclick="toggleFullscreen()" title="Tela Cheia (F)"><i class="fa-solid fa-expand"
@@ -429,7 +556,7 @@
 
   <div class="nav-hints-overlay" id="navHints">
     <div class="nav-hints-panel">
-      <h2><i class="fa-solid fa-circle-question" style="color:#0090C0;"></i> Como navegar a apresentação</h2>
+      <h2><i class="fa-solid fa-circle-question" style="color:#0090C0;"></i> Como navegar na apresentação</h2>
       <p class="subtitle">Use o teclado ou o mouse para avançar entre os slides.</p>
 
       <div class="hint-row">
@@ -469,10 +596,10 @@
       <div class="hint-row">
         <div class="hint-icon-box"
           style="background:rgba(242,169,0,0.2); border-color:rgba(242,169,0,0.4); color:#f2a900;"><i
-            class="fa-solid fa-file-pdf"></i></div>
+            class="fa-solid fa-print"></i></div>
         <div class="hint-text">
-          <strong>Baixar PDF</strong>
-          <span>Botão amarelo no canto superior direito — abre versão para impressão.</span>
+          <strong>Imprimir / Salvar PDF</strong>
+          <span>Ícone de impressora no canto superior direito — abre a versão para impressão.</span>
         </div>
       </div>
 
@@ -481,12 +608,68 @@
   </div>
 
   <script>
-    const total = 35;
+    // ╔══════════════════════════════════════════════════════════════╗
+    // ║  ESTRUTURA DA APRESENTAÇÃO — fonte única da ordem             ║
+    // ╠══════════════════════════════════════════════════════════════╣
+    // ║  Abertura + 6 blocos temáticos (estrutura definida pelo Caio):║
+    // ║   1 Visão Geral · 2 A Ouvidoria da ANTAQ · 3 SAC · 4 STAI ·   ║
+    // ║   5 Considerações Finais · 6 Apêndice.                       ║
+    // ║  (O antigo bloco "Sobras" foi arquivado fora do projeto.)    ║
+    // ║  Para reordenar: mova arquivos aqui. `slides`, o contador,    ║
+    // ║  os dots derivam disto.                                       ║
+    // ║  `tint` = variação de opacidade do azul (0..1) usada nos dots.║
+    // ╚══════════════════════════════════════════════════════════════╝
+    const deck = [
+      {
+        block: 'Abertura', short: 'Abertura', tint: 0.35, //4 slides
+        files: ['slide-00.html', 'slide-34.html', 'slide-msg-ouvidora.html', 'slide-01.html'],
+      },
+      {
+        block: 'Bloco 1 · Visão Geral das ouvidorias públicas', short: 'Visão Geral', tint: 1, //5 slides
+        files: ['capa-bloco-1.html', 'slide-ctx-01.html', 'slide-atribuicoes-01.html', 'slide-principios-01.html', 'slide-diretrizes-01.html'],
+      },
+      {
+        block: 'Bloco 2 · A Ouvidoria da ANTAQ', short: 'A Ouvidoria da ANTAQ', tint: 0.85, //9 slides
+        files: ['capa-bloco-2.html', 'slide-03c.html', 'slide-canais-atend.html',  'slide-falabr-faq.html', 'slide-ouvidoria-geral.html','slide-25.html', 'slide-cartas-servicos.html', 'slide-17b.html', 'slide-17e.html', 'slide-07.html'],
+      },
+      {
+        block: 'Bloco 3 · Seção de Apoio ao Cidadão — SAC', short: 'SAC', tint: 0.7, //12 slides
+        files: ['capa-bloco-3.html', 'slide-sac-apres.html', 'slide-sac-ativ.html', 'slide-14.html', 'slide-canal.html', 'slide-17d.html', 'slide-04.html', 'slide-05.html', 'slide-08.html', 'slide-ctx-03.html', 'slide-11.html', 'slide-12.html'],
+      },
+      {
+        block: 'Bloco 4 · Seção de Transparência e Acesso à Informação — STAI', short: 'STAI', tint: 0.55, //8 slides
+        files: ['capa-bloco-4.html', 'slide-4a.html', 'slide-22.html', 'slide-23.html', 'slide-18.html', 'slide-20.html', 'slide-pda.html', 'slide-21.html'],
+      },
+      {
+        block: 'Bloco 5 · Considerações Finais', short: 'Considerações Finais', tint: 0.4, //3 slides
+        files: ['capa-bloco-5.html', 'slide-09.html', 'slide-conclusao.html'],
+      },
+      {
+        block: 'Bloco 6 · Apêndice', short: 'Apêndice', tint: 0.3, //7 slides
+        files: ['capa-bloco-6.html', 'slide-31.html', 'slide-29.html', 'slide-29b.html', 'slide-30.html', 'slide-32.html', 'slide-35.html'],
+      },
+      // Bloco "Sobras" (capas desativadas / slides a revisar) foi ARQUIVADO fora do projeto
+      // em jul/2026 — os 21 arquivos foram movidos para a pasta "sobras-relatorio" na
+      // Área de Trabalho. Se precisar reativar algum, traga o arquivo de volta para
+      // sistema/ e re-adicione o nome aqui no deck.
+    ];
+
+    // Deriva `slides` (governa a navegação) + `meta` paralelo com o
+    // bloco de cada slide (usado pelos dots).
+    const slides = [];
+    const meta = [];
+    deck.forEach((b, bi) => {
+      b.files.forEach((file) => {
+        slides.push(file);
+        meta.push({ block: b.block, blockShort: b.short, blockIndex: bi, tint: b.tint });
+      });
+    });
+    const total = slides.length;
     const frame = document.getElementById('slideFrame');
     let current = 1;
 
     function fileFor(n) {
-      return `slide-${String(n).padStart(2, '0')}.html`;
+      return slides[n - 1];
     }
 
     function render() {
@@ -507,12 +690,17 @@
       });
     }
 
-    // Build dots
+    // Build dots — 1 por slide (navegação direta preservada), tingidos e
+    // separados por bloco para dar leitura visual dos 4 blocos.
     const dotsContainer = document.getElementById('navDots');
     for (let i = 0; i < total; i++) {
       const dot = document.createElement('button');
       dot.addEventListener('click', () => { current = i + 1; render(); });
-      dot.title = `Slide ${i + 1}`;
+      dot.title = `Slide ${i + 1} · ${meta[i].block}`;
+      dot.style.setProperty('--dot-tint', meta[i].tint);
+      if (i > 0 && meta[i].blockIndex !== meta[i - 1].blockIndex) {
+        dot.classList.add('block-start');
+      }
       dotsContainer.appendChild(dot);
     }
 
@@ -554,6 +742,11 @@
         current = e.data.slide;
         render();
       }
+      // Navegação por nome de arquivo (robusto a reordenação do array slides)
+      if (e.data && e.data.type === 'slide-goto-file' && e.data.file) {
+        const idx = slides.indexOf(e.data.file);
+        if (idx !== -1) { current = idx + 1; render(); }
+      }
     });
 
     // Click side zones to navigate
@@ -561,6 +754,46 @@
     document.getElementById('clickRight').addEventListener('click', () => next());
 
     render();
+
+    // ===== Contador de página editável — clicar permite digitar o nº do slide =====
+    const pageInfoEl = document.getElementById('pageInfo');
+    pageInfoEl.title = 'Clique para digitar o número do slide';
+    pageInfoEl.addEventListener('click', () => {
+      if (document.querySelector('.page-input')) return; // já aberto
+      const input = document.createElement('input');
+      input.type = 'number';
+      input.className = 'page-input';
+      input.min = 1;
+      input.max = total;
+      input.value = current;
+      pageInfoEl.style.display = 'none';
+      pageInfoEl.parentNode.insertBefore(input, pageInfoEl.nextSibling);
+      input.focus();
+      input.select();
+
+      let done = false;
+      function close() {
+        if (done) return;
+        done = true;
+        input.remove();
+        pageInfoEl.style.display = '';
+      }
+      function commit() {
+        let v = parseInt(input.value, 10);
+        if (!isNaN(v)) {
+          current = Math.max(1, Math.min(total, v));
+          render();
+        }
+        close();
+      }
+      // Impede que as teclas cheguem ao atalho global de navegação (setas/espaço)
+      input.addEventListener('keydown', (e) => {
+        e.stopPropagation();
+        if (e.key === 'Enter') commit();
+        else if (e.key === 'Escape') close();
+      });
+      input.addEventListener('blur', commit);
+    });
 
     // Nav hints modal
     const navHints = document.getElementById('navHints');

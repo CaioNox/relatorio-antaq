@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
 <!--
   ╔══════════════════════════════════════════════════════════════╗
   ║  SLIDE 06 — Série mensal de manifestações recebidas (gráfico por mês)
@@ -18,7 +19,7 @@
     href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
   <link
-    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&amp;family=Open+Sans:wght@400;600&amp;display=swap"
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&amp;family=Open+Sans:ital,wght@0,400;0,600;1,400&amp;display=swap"
     rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -203,15 +204,15 @@
     <div class="top-accent"></div>
     <div class="top-accent-secondary"></div>
     <!-- Header -->
-    <div class="flex items-center justify-between px-16 pt-12 pb-4 z-10">
+    <div class="flex items-start justify-between px-16 pt-10 pb-3 z-10">
       <div>
         <div class="flex items-center gap-3 mb-2">
           <div class="w-1 h-8 bg-brand-secondary"></div>
-          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Manifestações
-            Por Mês</p>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Manifestações do Fala.BR por Mês</p>
         </div>
         <p class="text-gray-500 font-medium ml-4 text-lg">Recebidas, arquivadas e encaminhadas — Jan / Fev / Mar de 2026
         </p>
+        <p class="text-gray-400 text-xs ml-4 mt-1">434 manifestações recebidas na Ouvidoria no 1º Trimestre de 2026 CADASTRADAS NO FALA.BR — 304 ESTÃO NO PAINEL RESOLVEU E 130 ACESSO À INFORMAÇÃO</p>
       </div>
       <div class="flex items-center gap-4 ml-6">
         <span class="flex items-center gap-2 text-sm text-gray-500"><span class="legend-dot"
@@ -227,7 +228,7 @@
       <div class="chart-card col-span-1 flex flex-col">
         <p class="text-brand-primary font-montserrat font-bold text-xl mb-1 flex items-center gap-2"><i
             class="fas fa-inbox text-brand-secondary"></i> Recebidas</p>
-        <p class="text-gray-400 text-sm mb-2">Total no trimestre: <strong class="text-brand-primary">304</strong></p>
+        <p class="text-gray-400 text-sm mb-2">Total no trimestre: <strong class="text-brand-primary">434</strong></p>
         <div class="flex-1 relative"><canvas id="chartRecebidas"></canvas></div>
       </div>
       <div class="chart-card col-span-1 flex flex-col">
@@ -245,8 +246,7 @@
     </div>
     <!-- Footer -->
     <div class="px-16 pb-8 flex justify-between items-center z-10">
-      <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ</p>
-      <p class="text-gray-300 text-xs font-mono">6 / 33</p>
+      <p class="text-gray-400 text-xs">Relatório 1º Trimestre de 2026 – Ouvidoria – Agência Nacional de Transportes Aquaviários - ANTAQ</p>
     </div>
   </div>
   <script>

@@ -1,12 +1,5 @@
 <!DOCTYPE html>
-<!--
-  ╔══════════════════════════════════════════════════════════════╗
-  ║  SLIDE 26 — Carta de Serviços — SOG (Superintendência de Operações e Gestão)
-  ╠══════════════════════════════════════════════════════════════╣
-  ║  O QUE ATUALIZAR A CADA TRIMESTRE:
-  ║  Atualizar: indicadores específicos da SOG
-  ╚══════════════════════════════════════════════════════════════╝
--->
+<!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
 <html lang="pt-BR">
 
 <head>
@@ -17,7 +10,7 @@
     href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
   <link
-    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&amp;family=Open+Sans:wght@400;600&amp;display=swap"
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&amp;family=Open+Sans:ital,wght@0,400;0,600;1,400&amp;display=swap"
     rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
   <style>
@@ -72,7 +65,6 @@
       width: 100%;
     }
 
-    /* ===== Stat mini ===== */
     .stat-mini {
       background: #ffffff;
       border: 2px solid #E2E8F0;
@@ -81,7 +73,6 @@
       box-shadow: 0 8px 20px -8px rgba(16, 48, 80, .18);
     }
 
-    /* ===== Insight flow banner ===== */
     .insight-banner {
       background: linear-gradient(135deg, #f4f9ff 0%, #eaf3fb 100%);
       border: 2px solid #C0E0F0;
@@ -197,7 +188,6 @@
       box-shadow: 0 10px 24px -10px rgba(16, 48, 80, .5);
     }
 
-    /* ===== TILE GRID ===== */
     .tile-grid {
       display: grid;
       grid-template-columns: repeat(6, 1fr);
@@ -220,80 +210,9 @@
       text-align: center;
       min-height: 110px;
       box-shadow: 0 4px 12px -4px rgba(16, 48, 80, .12);
-      transition: transform .3s cubic-bezier(.2, .7, .3, 1),
-        box-shadow .3s ease,
-        border-color .3s ease,
-        background-color .3s ease;
+      transition: transform .3s cubic-bezier(.2, .7, .3, 1), box-shadow .3s ease, border-color .3s ease, background-color .3s ease;
       z-index: 1;
       animation: tileIn .45s cubic-bezier(.2, .7, .3, 1) both;
-    }
-
-    .tile:nth-child(2) {
-      animation-delay: .04s;
-    }
-
-    .tile:nth-child(3) {
-      animation-delay: .08s;
-    }
-
-    .tile:nth-child(4) {
-      animation-delay: .12s;
-    }
-
-    .tile:nth-child(5) {
-      animation-delay: .16s;
-    }
-
-    .tile:nth-child(6) {
-      animation-delay: .20s;
-    }
-
-    .tile:nth-child(7) {
-      animation-delay: .24s;
-    }
-
-    .tile:nth-child(8) {
-      animation-delay: .28s;
-    }
-
-    .tile:nth-child(9) {
-      animation-delay: .32s;
-    }
-
-    .tile:nth-child(10) {
-      animation-delay: .36s;
-    }
-
-    .tile:nth-child(11) {
-      animation-delay: .40s;
-    }
-
-    .tile:nth-child(12) {
-      animation-delay: .44s;
-    }
-
-    .tile:nth-child(13) {
-      animation-delay: .48s;
-    }
-
-    .tile:nth-child(14) {
-      animation-delay: .52s;
-    }
-
-    .tile:nth-child(15) {
-      animation-delay: .56s;
-    }
-
-    .tile:nth-child(16) {
-      animation-delay: .60s;
-    }
-
-    .tile:nth-child(17) {
-      animation-delay: .64s;
-    }
-
-    .tile:nth-child(18) {
-      animation-delay: .68s;
     }
 
     @keyframes tileIn {
@@ -451,7 +370,6 @@
       gap: .6rem;
     }
 
-    /* ===== BACKDROP ===== */
     .tile-backdrop {
       display: none;
       position: fixed;
@@ -506,21 +424,26 @@
   <div class="slide-container">
     <div class="top-accent"></div>
     <div class="top-accent-secondary"></div>
-    <!-- Header -->
-    <div class="flex items-center justify-between px-16 pt-12 pb-3 z-10">
+
+    <div class="flex items-start justify-between px-16 pt-10 pb-3 z-10">
       <div>
-        <div class="flex items-center gap-3 mb-2">
+        <div class="flex items-center gap-3 mb-1">
           <div class="w-1 h-8 bg-brand-secondary"></div>
           <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Carta de Serviços da
             ANTAQ</p>
         </div>
+        <p class="text-gray-500 font-medium ml-4 text-lg">Serviços por superintendência</p>
       </div>
-      <div class="flex items-center gap-2 opacity-80 text-brand-secondary">
-        <i class="fas fa-file-contract text-xl" aria-hidden="true"></i>
-        <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest">SERVIÇOS · 1/2</p>
+      <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
+        <i class="fas fa-landmark text-3xl align-middle" aria-hidden="true"></i>
+        <div class="flex flex-col justify-center border-left pl-2" style="border-left: 1px solid #CBD5E1;">
+          <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">CAPÍTULO 02</p>
+          <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none whitespace-nowrap">A
+            Ouvidoria da ANTAQ</p>
+        </div>
       </div>
     </div>
-    <!-- Insight flow banner -->
+
     <div class="px-16 pt-1 pb-3 z-10">
       <div class="insight-banner">
         <div class="flow-row">
@@ -528,7 +451,7 @@
             <i class="fas fa-clipboard-list fs-icon"></i>
             <div>
               <p class="fs-num">32 serviços</p>
-              <p class="fs-label">da Carta de Serviços da ANTAQ</p>
+
             </div>
           </div>
           <div class="flow-connector">
@@ -539,7 +462,7 @@
             <i class="fas fa-users fs-icon"></i>
             <div>
               <p class="fs-num">192 conselheiros</p>
-              <p class="fs-label">rede de participação social</p>
+
             </div>
           </div>
           <div class="flow-connector">
@@ -549,31 +472,30 @@
             <i class="fas fa-arrows-rotate fs-icon"></i>
             <div>
               <p class="fs-num">2025–2028</p>
-              <p class="fs-label">ao longo de todo o quadriênio</p>
+
             </div>
           </div>
         </div>
         <p class="insight-tagline">
           <i class="fas fa-circle-info it-icon"></i>
           <span>Os <strong>32 serviços</strong> são submetidos à leitura e avaliação <strong>contínua dos 192
-              conselheiros</strong>,
-            de forma ininterrupta <strong>ao longo do quadriênio 2025–2028</strong> — assegurando o monitoramento
-            permanente da
-            Carta e a melhoria contínua do atendimento ao cidadão.</span>
+              conselheiros</strong>, de forma ininterrupta <strong>ao longo do quadriênio 2025–2028</strong> —
+            assegurando o monitoramento permanente da Carta e a melhoria contínua do atendimento ao cidadão.</span>
+          <span class="it-desc" style="color: orange; font-weight: bold;">Clique no servico para saber mais.</span>
         </p>
+
       </div>
     </div>
-    <!-- SOG badge -->
-    <div class="px-16 pb-3 z-10"><span class="svc-badge"><i class="fas fa-stamp"></i> SOG — Superintendência de Outorgas
+
+    <div class="px-16 pb-3 z-10"><span class="svc-badge"><i class="fas fa-stamp"></i>Superintendência de Outorgas - SOG
         · 18 serviços</span></div>
-    <!-- SOG tile grid -->
+
     <div class="flex-1 px-16 pb-6 z-10" style="position:relative;">
       <div class="tile-grid" id="tileGrid">
-
         <div class="tile" data-idx="1" onclick="toggleTile(this)">
           <i class="fas fa-plus tile-expand-icon"></i>
           <div class="tile-header-row"><span class="tile-num">01</span></div>
-          <span class="tile-label">Solicitar autorização e registro na Antaq para afretamento de embarcação
+          <span class="tile-label">Solicitar autorização e registro na ANTAQ para afretamento de embarcação
             estrangeira</span>
           <div class="tile-desc">Solicitação de autorização e/ou registro de afretamento de embarcação estrangeira para
             operar nas navegações de cabotagem, longo curso, apoio marítimo e apoio portuário. Solicitação de
@@ -584,7 +506,7 @@
         <div class="tile" data-idx="2" onclick="toggleTile(this)">
           <i class="fas fa-plus tile-expand-icon"></i>
           <div class="tile-header-row"><span class="tile-num">02</span></div>
-          <span class="tile-label">Registrar na Antaq afretamento de embarcação brasileira</span>
+          <span class="tile-label">Registrar na ANTAQ afretamento de embarcação brasileira</span>
           <div class="tile-desc">Solicitação de registro para afretamento de embarcação nacional para operar nas
             navegações de cabotagem, longo curso, apoio marítimo e apoio portuário. Solicitação de registro para
             afretamento de embarcação nacional para operar na navegação interior.</div>
@@ -593,7 +515,7 @@
         <div class="tile" data-idx="3" onclick="toggleTile(this)">
           <i class="fas fa-plus tile-expand-icon"></i>
           <div class="tile-header-row"><span class="tile-num">03</span></div>
-          <span class="tile-label">Registrar na Antaq comunicação sobre alteração de frota</span>
+          <span class="tile-label">Registrar na ANTAQ comunicação sobre alteração de frota</span>
           <div class="tile-desc">Através deste serviço o usuário poderá comunicar a inclusão, alteração ou exclusão de
             embarcação na frota da Empresa Brasileira de Navegação. O registro somente será efetivado se a comunicação
             vier acompanhada da documentação da(s) embarcação(ões) envolvidas.</div>
@@ -602,7 +524,7 @@
         <div class="tile" data-idx="4" onclick="toggleTile(this)">
           <i class="fas fa-plus tile-expand-icon"></i>
           <div class="tile-header-row"><span class="tile-num">04</span></div>
-          <span class="tile-label">Registrar na Antaq alteração de situação cadastral de empresa brasileira de
+          <span class="tile-label">Registrar na ANTAQ alteração de situação cadastral de empresa brasileira de
             navegação</span>
           <div class="tile-desc">Através deste serviço o usuário poderá comunicar alterações da pessoa jurídica, como
             tipo, porte, endereço da matriz, abertura de filial, composição societária etc.</div>
@@ -611,9 +533,9 @@
         <div class="tile" data-idx="5" onclick="toggleTile(this)">
           <i class="fas fa-plus tile-expand-icon"></i>
           <div class="tile-header-row"><span class="tile-num">05</span></div>
-          <span class="tile-label">Obter outorga de autorização da Antaq para construção e exploração de instalação
+          <span class="tile-label">Obter outorga de autorização da ANTAQ para construção e exploração de instalação
             portuária privada localizada fora da área do Porto Organizado</span>
-          <div class="tile-desc">Através deste serviço o usuário poderá obter autorização da Antaq para celebrar
+          <div class="tile-desc">Através deste serviço o usuário poderá obter autorização da ANTAQ para celebrar
             contrato de adesão com o poder concedente (MPOR) visando à construção e exploração de instalações portuárias
             localizadas fora da área do porto organizado, nas modalidades: TUP, ETC, IP4 e IPTur.</div>
         </div>
@@ -621,7 +543,7 @@
         <div class="tile" data-idx="6" onclick="toggleTile(this)">
           <i class="fas fa-plus tile-expand-icon"></i>
           <div class="tile-header-row"><span class="tile-num">06</span></div>
-          <span class="tile-label">Obter da Antaq autorização, aditamento ou renúncia para transporte aquaviário na
+          <span class="tile-label">Obter da ANTAQ autorização, aditamento ou renúncia para transporte aquaviário na
             navegação marítima e de apoio, cabotagem e longo curso</span>
           <div class="tile-desc">Obter autorização para que a pessoa jurídica, constituída nos termos da legislação
             brasileira e com sede e administração no país, que tenha por objeto operar nas navegações de apoio marítimo,
@@ -631,7 +553,7 @@
         <div class="tile" data-idx="7" onclick="toggleTile(this)">
           <i class="fas fa-plus tile-expand-icon"></i>
           <div class="tile-header-row"><span class="tile-num">07</span></div>
-          <span class="tile-label">Obter autorização da Antaq para transporte de cargas na navegação interior de
+          <span class="tile-label">Obter autorização da ANTAQ para transporte de cargas na navegação interior de
             percurso longitudinal interestadual e internacional</span>
           <div class="tile-desc">Obter autorização para que a pessoa jurídica, constituída nos termos da legislação
             brasileira e com sede e administração no país, que tenha por objeto a prestação de serviços de transporte
@@ -641,7 +563,7 @@
         <div class="tile" data-idx="8" onclick="toggleTile(this)">
           <i class="fas fa-plus tile-expand-icon"></i>
           <div class="tile-header-row"><span class="tile-num">08</span></div>
-          <span class="tile-label">Obter autorização da Antaq para transporte de passageiros, veículos e cargas na
+          <span class="tile-label">Obter autorização da ANTAQ para transporte de passageiros, veículos e cargas na
             navegação interior de travessia</span>
           <div class="tile-desc">Obter autorização para que a pessoa jurídica, constituída nos termos da legislação
             brasileira e com sede e administração no país, que tenha por objeto a prestação de serviços de transporte de
@@ -652,7 +574,7 @@
         <div class="tile" data-idx="9" onclick="toggleTile(this)">
           <i class="fas fa-plus tile-expand-icon"></i>
           <div class="tile-header-row"><span class="tile-num">09</span></div>
-          <span class="tile-label">Obter autorização da Antaq para transporte de passageiros e misto na navegação
+          <span class="tile-label">Obter autorização da ANTAQ para transporte de passageiros e misto na navegação
             interior de percurso longitudinal interestadual e internacional</span>
           <div class="tile-desc">Obter autorização para que a pessoa jurídica, constituída nos termos da legislação
             brasileira e com sede e administração no país, que tenha por objeto a prestação de serviços de transporte
@@ -663,17 +585,17 @@
         <div class="tile" data-idx="10" onclick="toggleTile(this)">
           <i class="fas fa-plus tile-expand-icon"></i>
           <div class="tile-header-row"><span class="tile-num">10</span></div>
-          <span class="tile-label">Obter autorização da Antaq para ampliação da área da instalação portuária privada
+          <span class="tile-label">Obter autorização da ANTAQ para ampliação da área da instalação portuária privada
             localizada fora da área de Porto Organizado</span>
           <div class="tile-desc">O usuário já detentor de autorização para exploração de instalação portuária privada
-            (TUP, ETC, IP4, IPTur) poderá solicitar autorização da Antaq para ampliação da área da instalação localizada
+            (TUP, ETC, IP4, IPTur) poderá solicitar autorização da ANTAQ para ampliação da área da instalação localizada
             fora dos limites dos portos organizados, conforme art. 35, II, do Decreto nº 8.033/2013.</div>
         </div>
 
         <div class="tile" data-idx="11" onclick="toggleTile(this)">
           <i class="fas fa-plus tile-expand-icon"></i>
           <div class="tile-header-row"><span class="tile-num">11</span></div>
-          <span class="tile-label">Registrar na Antaq instalação de apoio ao transporte aquaviário não passível de
+          <span class="tile-label">Registrar na ANTAQ instalação de apoio ao transporte aquaviário não passível de
             autorização</span>
           <div class="tile-desc">O registro de instalações de apoio ao transporte aquaviário consiste no cadastramento,
             de caráter discricionário, perante a ANTAQ, das instalações não passíveis de outorga de autorização de que
@@ -683,9 +605,9 @@
         <div class="tile" data-idx="12" onclick="toggleTile(this)">
           <i class="fas fa-plus tile-expand-icon"></i>
           <div class="tile-header-row"><span class="tile-num">12</span></div>
-          <span class="tile-label">Solicitar da Antaq análise de tonelagem para inscrição no Registro Especial
+          <span class="tile-label">Solicitar da ANTAQ análise de tonelagem para inscrição no Registro Especial
             Brasileiro (REB)</span>
-          <div class="tile-desc">Através deste serviço a Antaq poderá emitir o Atestado de Tonelagem e comunicar o
+          <div class="tile-desc">Através deste serviço a ANTAQ poderá emitir o Atestado de Tonelagem e comunicar o
             Tribunal Marítimo se o usuário preencheu os requisitos de tonelagem disponível para inscrição de embarcação
             estrangeira no Registro Especial Brasileiro — REB.</div>
         </div>
@@ -693,7 +615,7 @@
         <div class="tile" data-idx="13" onclick="toggleTile(this)">
           <i class="fas fa-plus tile-expand-icon"></i>
           <div class="tile-header-row"><span class="tile-num">13</span></div>
-          <span class="tile-label">Solicitar atualização de dados na Antaq para o Sistema Mercante — AFRMM</span>
+          <span class="tile-label">Solicitar atualização de dados na ANTAQ para o Sistema Mercante — AFRMM</span>
           <div class="tile-desc">Através deste serviço o usuário poderá ter seu pedido de cadastros de embarcações,
             portos, terminais portuários, armadores e NVOCCs analisado e homologado no Sistema Mercante da Receita
             Federal do Brasil.</div>
@@ -702,9 +624,9 @@
         <div class="tile" data-idx="14" onclick="toggleTile(this)">
           <i class="fas fa-plus tile-expand-icon"></i>
           <div class="tile-header-row"><span class="tile-num">14</span></div>
-          <span class="tile-label">Solicitar homologação da Antaq para Acordo Operacional na navegação marítima ou
+          <span class="tile-label">Solicitar homologação da ANTAQ para Acordo Operacional na navegação marítima ou
             interior</span>
-          <div class="tile-desc">Através deste serviço a Antaq poderá homologar os Acordos Operacionais entre os
+          <div class="tile-desc">Através deste serviço a ANTAQ poderá homologar os Acordos Operacionais entre os
             usuários, empresas brasileiras e estrangeiras de navegação, para troca de espaços no transporte marítimo
             internacional e entre empresas de navegação autorizadas a operar na prestação de serviço de transporte de
             carga na navegação interior.</div>
@@ -713,8 +635,8 @@
         <div class="tile" data-idx="15" onclick="toggleTile(this)">
           <i class="fas fa-plus tile-expand-icon"></i>
           <div class="tile-header-row"><span class="tile-num">15</span></div>
-          <span class="tile-label">Solicitar à Antaq autorização para operação em caráter emergencial e especial</span>
-          <div class="tile-desc">Através deste serviço a Antaq poderá autorizar que o usuário realize movimentação ou
+          <span class="tile-label">Solicitar à ANTAQ autorização para operação em caráter emergencial e especial</span>
+          <div class="tile-desc">Através deste serviço a ANTAQ poderá autorizar que o usuário realize movimentação ou
             armazenagem de cargas ou movimentação de passageiros, em caráter emergencial ou especial, pelo prazo máximo
             de 180 dias, atestadas as condições predispostas na legislação vigente.</div>
         </div>
@@ -732,9 +654,9 @@
         <div class="tile" data-idx="17" onclick="toggleTile(this)">
           <i class="fas fa-plus tile-expand-icon"></i>
           <div class="tile-header-row"><span class="tile-num">17</span></div>
-          <span class="tile-label">Solicitar da Antaq análise de Projetos Executivos apresentados no âmbito das
+          <span class="tile-label">Solicitar da ANTAQ análise de Projetos Executivos apresentados no âmbito das
             Concessões e dos Arrendamentos Portuários</span>
-          <div class="tile-desc">Através deste serviço o usuário poderá obter declaração da Antaq de que o Projeto
+          <div class="tile-desc">Através deste serviço o usuário poderá obter declaração da ANTAQ de que o Projeto
             Executivo apresentado no âmbito das concessões e dos arrendamentos portuários consta adequado com os estudos
             e instrumentos contratuais correspondentes.</div>
         </div>
@@ -742,19 +664,17 @@
         <div class="tile" data-idx="18" onclick="toggleTile(this)">
           <i class="fas fa-plus tile-expand-icon"></i>
           <div class="tile-header-row"><span class="tile-num">18</span></div>
-          <span class="tile-label">Propor à Antaq recomposição do equilíbrio econômico-financeiro de contratos de
+          <span class="tile-label">Propor à ANTAQ recomposição do equilíbrio econômico-financeiro de contratos de
             Arrendamentos Portuários ou de EVTEA</span>
           <div class="tile-desc">Analisar requerimentos de recomposição do equilíbrio econômico-financeiro contratual e
             Estudos de Viabilidade Técnica, Econômica e Ambiental — EVTEAs referentes a eventos que impliquem impacto no
             fluxo de caixa do empreendimento e cujo risco tenha sido assumido pela Administração Pública.</div>
         </div>
-
       </div>
     </div>
-    <!-- Footer -->
+
     <div class="px-16 pb-8 flex justify-between items-center z-10">
-      <p class="text-gray-400 text-xs">Relatório Trimestral 2026 · Ouvidoria da ANTAQ</p>
-      <p class="text-gray-300 text-xs font-mono">26 / 35</p>
+      <p class="text-gray-400 text-xs">Relatório 1º Trimestre de 2026 – Ouvidoria – Agência Nacional de Transportes Aquaviários - ANTAQ</p>
     </div>
   </div>
 
@@ -774,9 +694,8 @@
       document.getElementById('tileBackdrop').classList.remove('active');
     }
 
-    // Trocar todos onclick dos tiles
     document.querySelectorAll('.tile').forEach(tile => {
-      tile.onclick = function() { openTile(this); };
+      tile.onclick = function () { openTile(this); };
     });
 
     document.addEventListener("keydown", function (e) {
