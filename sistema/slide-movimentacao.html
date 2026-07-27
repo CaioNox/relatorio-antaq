@@ -10,8 +10,9 @@
   ║  série mensal à direita, que é a única leitura que um gráfico
   ║  acrescenta aqui. Cabe inteiro na tela, sem rolagem.
   ║
-  ║  ⚠ "TOTAL ENCAMINH" É DERIVADO: vale OUV ENCAMINH + ENCAMINH
-  ║  (9 + 0 = 9). Não é uma quarta categoria — por isso o cartão
+  ║  ⚠ "TOTAL DE ENCAMINHAMENTOS" É DERIVADO: vale ENCAMINHAMENTOS
+  ║  DA OUVIDORIA + ENCAMINHAMENTOS (9 + 0 = 9). Não é uma quarta
+  ║  categoria — por isso o cartão
   ║  dele tem estilo diferente e fica fora da série mensal, senão
   ║  a mesma demanda seria contada duas vezes.
   ║
@@ -107,7 +108,8 @@
     .kpi.derived {
       background: #ffffff; border: 2px dashed #cbd5e1; box-shadow: none;
     }
-    .kpi.derived .kpi-lab { color: #64748b; }
+    /* espaço reservado à direita para o selo "soma" não cobrir o rótulo */
+    .kpi.derived .kpi-lab { color: #64748b; padding-right: 3.4rem; }
     .kpi.derived .kpi-num, .kpi.derived .kpi-pct { color: #103050; }
     .kpi.derived .kpi-sub { color: #64748b; }
     .kpi.derived .kpi-wm { color: #e2e8f0; }
@@ -222,10 +224,10 @@
     const MESES = ['Janeiro', 'Fevereiro', 'Março'];
 
     const METRICAS = [
-      { id: 'ouvenc', lab: 'OUV Encaminh.', icon: 'fa-share-from-square', color: '#0070C0', m: [0, 4, 5], tipo: 'cat', sub: 'Encaminhamentos feitos pela Ouvidoria' },
-      { id: 'enc', lab: 'Encaminh.', icon: 'fa-share-nodes', color: '#94a3b8', m: [0, 0, 0], tipo: 'cat', sub: 'Sem registro no trimestre' },
-      { id: 'totenc', lab: 'Total Encaminh.', icon: 'fa-sigma', color: '#103050', m: [0, 4, 5], tipo: 'derivado', sub: 'Soma dos dois cartões anteriores' },
-      { id: 'ouvai', lab: 'OUV AI', icon: 'fa-unlock-keyhole', color: '#F2A900', m: [6, 15, 37], tipo: 'cat', sub: 'Acesso à informação tratado pela Ouvidoria' }
+      { id: 'ouvenc', lab: 'Encaminhamentos da Ouvidoria', icon: 'fa-share-from-square', color: '#0070C0', m: [0, 4, 5], tipo: 'cat', sub: 'Encaminhamentos feitos pela Ouvidoria' },
+      { id: 'enc', lab: 'Encaminhamentos', icon: 'fa-share-nodes', color: '#94a3b8', m: [0, 0, 0], tipo: 'cat', sub: 'Sem registro no trimestre' },
+      { id: 'totenc', lab: 'Total de Encaminhamentos', icon: 'fa-sigma', color: '#103050', m: [0, 4, 5], tipo: 'derivado', sub: 'Soma dos dois cartões anteriores' },
+      { id: 'ouvai', lab: 'Acesso à Informação', icon: 'fa-unlock-keyhole', color: '#F2A900', m: [6, 15, 37], tipo: 'cat', sub: 'Acesso à informação tratado pela Ouvidoria' }
     ];
 
     METRICAS.forEach(k => k.total = k.m.reduce((a, b) => a + b, 0));
@@ -367,11 +369,11 @@
       if (!ms.length) {
         cap.innerHTML = '<i class="fas fa-chart-column"></i> Nenhum mês selecionado';
       } else if (ms.length === MESES.length) {
-        cap.innerHTML = '<i class="fas fa-chart-column"></i> Evolução mensal · OUV AI passou de ' +
+        cap.innerHTML = '<i class="fas fa-chart-column"></i> Evolução mensal · Acesso à Informação passou de ' +
           cresc.m[0] + ' em janeiro para ' + cresc.m[2] + ' em março';
       } else {
         cap.innerHTML = '<i class="fas fa-chart-column"></i> ' + ms.map(i => MESES[i]).join(' + ') +
-          ' · OUV AI ' + ms.reduce((s, i) => s + cresc.m[i], 0);
+          ' · Acesso à Informação ' + ms.reduce((s, i) => s + cresc.m[i], 0);
       }
     }
 
@@ -381,7 +383,7 @@
         '<b>Base:</b> os percentuais são sobre as ' + BASE_A + ' demandas registradas no 1º trimestre de 2026 (A)' +
         (parcial ? ' — <b>o denominador continua sendo o trimestre inteiro</b>, mesmo com o filtro de mês, ' +
           'porque a planilha não informa quantas demandas foram registradas em cada mês. ' : '. ') +
-        '<b>Total Encaminh.</b> é a soma de OUV Encaminh. e Encaminh., por isso não aparece no gráfico — contaria a mesma demanda duas vezes.';
+        '<b>Total de Encaminhamentos</b> é a soma dos Encaminhamentos da Ouvidoria com os Encaminhamentos, por isso não aparece no gráfico — contaria a mesma demanda duas vezes.';
     }
 
     function update() {

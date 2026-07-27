@@ -2,31 +2,21 @@
 <!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
 <!--
   ╔══════════════════════════════════════════════════════════════╗
-  ║  SLIDE — Perguntas e Respostas do Capítulo 04 (STAI)
+  ║  SLIDE — Perguntas e Respostas · Dados Abertos (Capítulo 04)
   ╠══════════════════════════════════════════════════════════════╣
-  ║  Abre o bloco da Seção de Transparência e Acesso à Informação
-  ║  e resume, em nove perguntas, TODOS os slides do capítulo.
+  ║  Vem logo ANTES do slide-pda.html e prepara o público para o
+  ║  trecho final do capítulo: o Plano de Dados Abertos e as bases
+  ║  publicadas pela ANTAQ.
   ║
-  ║  LAYOUT — sanfona (acordeão) de barras retangulares:
-  ║    · clique na barra para abrir/fechar a resposta;
-  ║    · só uma resposta aberta por vez (nunca estoura a tela);
-  ║    · na impressão/PDF todas as respostas abrem automaticamente
-  ║      (@media print), para o relatório não sair com perguntas
-  ║      sem resposta;
-  ║    · as etiquetas de cada resposta levam ao slide de origem
-  ║      (postMessage 'slide-goto-file').
-  ║  O mesmo layout é usado em slide-qa-dados-abertos.html.
+  ║  LAYOUT — idêntico ao de slide-qa-geral.html: sanfona de barras
+  ║  retangulares clicáveis, uma resposta aberta por vez, tudo
+  ║  aberto na impressão (@media print). Ao alterar um dos dois,
+  ║  replique no outro para manter a padronização.
   ║
-  ║  O QUE ATUALIZAR A CADA TRIMESTRE (os números vêm de outros
-  ║  slides deste mesmo capítulo — mantenha em sincronia):
-  ║    130 pedidos · 100% no prazo · 9,1 dias .... slide-18 / slide-23
-  ║    6 recursos · 3,8 dias ..................... slide-18
-  ║    62/105/107/130 (série 2023–2026) .......... slide-20
-  ║    49/49 quesitos do Painel LAI .............. slide-22
-  ║    371 demandas · 58 OUV AI .................. slide-movimentacao
-  ║    544 tramitações · 30 UORGs ................ slide-tramit-uorg
-  ║    130 respostas · 34 unidades · STAI 20 ..... slide-resp-unidade
-  ║    18 bases abertas · +8 previstas ........... slide-21
+  ║  O QUE ATUALIZAR A CADA TRIMESTRE:
+  ║    18 bases abertas · 8 previstas ............ slide-21
+  ║    nomes das bases publicadas e previstas .... slide-21
+  ║    vigência e base legal do PDA .............. slide-pda
   ╚══════════════════════════════════════════════════════════════╝
 -->
 
@@ -35,7 +25,7 @@
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <title>Perguntas e Respostas — STAI — Relatório Trimestral Ouvidoria ANTAQ</title>
+  <title>Perguntas e Respostas · Dados Abertos — Relatório Trimestral Ouvidoria ANTAQ</title>
   <link rel="icon" type="image/png"
     href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
@@ -180,7 +170,7 @@
           <div class="w-1 h-8 bg-brand-secondary"></div>
           <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Perguntas e Respostas</p>
         </div>
-        <p class="text-gray-500 font-medium ml-4" style="font-size:.72rem;">O capítulo da STAI em nove perguntas — transparência, números e dados abertos</p>
+        <p class="text-gray-500 font-medium ml-4" style="font-size:.72rem;">Dados abertos em nove perguntas — antes do Plano de Dados Abertos</p>
       </div>
       <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
         <i class="fas fa-lock-open text-3xl" aria-hidden="true"></i>
@@ -194,21 +184,21 @@
     <!-- ───────── Sanfona de perguntas ───────── -->
     <div class="board">
 
-      <!-- ══ Trilha 1 — Conceitos e base legal ══ -->
+      <!-- ══ Trilha 1 — O que são e por que abrir ══ -->
       <div class="track t1">
-        <div class="track-head"><i class="fas fa-scale-balanced"></i><span>Conceitos e base legal</span></div>
+        <div class="track-head"><i class="fas fa-circle-info"></i><span>O que são e por que abrir</span></div>
 
         <div class="qa open">
           <button class="qa-bar" aria-expanded="true">
             <span class="qa-n">01</span>
-            <span class="qa-q">O que é a STAI?</span>
+            <span class="qa-q">O que são dados abertos?</span>
             <i class="fas fa-chevron-down qa-chev" aria-hidden="true"></i>
           </button>
           <div class="qa-panel">
             <div class="qa-panel-in">
-              <p class="qa-a"><b>Seção de Transparência e Acesso à Informação</b> — a unidade da Ouvidoria que responde pelos pedidos de acesso, pela transparência ativa e passiva e pelos dados abertos.</p>
+              <p class="qa-a">Informações públicas disponibilizadas em <b>formato aberto e processável por máquina</b>, de acesso público e livre reutilização — respeitados os sigilos legais e a proteção dos dados pessoais.</p>
               <div class="qa-refs">
-                <button class="qa-ref" data-file="slide-4a.html"><i class="fas fa-chevron-right"></i> Apresentação da STAI</button>
+                <button class="qa-ref" data-file="slide-pda.html"><i class="fas fa-chevron-right"></i> PDA 2026–2028</button>
               </div>
             </div>
           </div>
@@ -217,14 +207,14 @@
         <div class="qa">
           <button class="qa-bar" aria-expanded="false">
             <span class="qa-n">02</span>
-            <span class="qa-q">O que é transparência ativa?</span>
+            <span class="qa-q">Por que a ANTAQ abre seus dados?</span>
             <i class="fas fa-chevron-down qa-chev" aria-hidden="true"></i>
           </button>
           <div class="qa-panel">
             <div class="qa-panel-in">
-              <p class="qa-a">É a divulgação espontânea de informações, sem que ninguém precise pedir (<b>Art. 8º da LAI</b>). No Painel LAI, a ANTAQ cumpre <b>100% dos 49 quesitos</b> avaliados.</p>
+              <p class="qa-a">Em prol da <b>transparência</b>, da melhoria do serviço público, da inovação, do crescimento econômico e da eficiência no uso dos recursos públicos.</p>
               <div class="qa-refs">
-                <button class="qa-ref" data-file="slide-22.html"><i class="fas fa-chevron-right"></i> Transparência Ativa</button>
+                <button class="qa-ref" data-file="slide-pda.html"><i class="fas fa-chevron-right"></i> PDA 2026–2028</button>
               </div>
             </div>
           </div>
@@ -233,35 +223,36 @@
         <div class="qa">
           <button class="qa-bar" aria-expanded="false">
             <span class="qa-n">03</span>
-            <span class="qa-q">E transparência passiva?</span>
+            <span class="qa-q">A quem esses dados servem?</span>
             <i class="fas fa-chevron-down qa-chev" aria-hidden="true"></i>
           </button>
           <div class="qa-panel">
             <div class="qa-panel-in">
-              <p class="qa-a">É a resposta a pedidos feitos pelo cidadão. Qualquer pessoa registra o pedido no <b>Fala.BR</b> e o órgão tem <b>20 dias</b>, prorrogáveis por mais 10, para responder.</p>
+              <p class="qa-a">Ao <b>mercado regulado</b>, à <b>academia</b>, ao <b>Poder Público</b> e à <b>sociedade</b> — reduzindo a assimetria de informação e estimulando o controle social.</p>
               <div class="qa-refs">
-                <button class="qa-ref" data-file="slide-23.html"><i class="fas fa-chevron-right"></i> Transparência Passiva</button>
+                <button class="qa-ref" data-file="slide-pda.html"><i class="fas fa-chevron-right"></i> PDA 2026–2028</button>
+                <button class="qa-ref" data-file="slide-4a.html"><i class="fas fa-chevron-right"></i> Apresentação da STAI</button>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- ══ Trilha 2 — Números do trimestre ══ -->
+      <!-- ══ Trilha 2 — O Plano de Dados Abertos ══ -->
       <div class="track t2">
-        <div class="track-head"><i class="fas fa-gauge-high"></i><span>Números do trimestre</span></div>
+        <div class="track-head"><i class="fas fa-clipboard-list"></i><span>O Plano de Dados Abertos</span></div>
 
         <div class="qa">
           <button class="qa-bar" aria-expanded="false">
             <span class="qa-n">04</span>
-            <span class="qa-q">Quantos pedidos de acesso chegaram?</span>
+            <span class="qa-q">O que é o PDA?</span>
             <i class="fas fa-chevron-down qa-chev" aria-hidden="true"></i>
           </button>
           <div class="qa-panel">
             <div class="qa-panel-in">
-              <p class="qa-a"><b>130</b> no 1º trimestre de 2026 — média de 43 por mês. <b>100%</b> foram respondidos dentro do prazo legal, em <b>9,1 dias</b>, na média.</p>
+              <p class="qa-a">O <b>Plano de Dados Abertos 2026–2028</b>: documento orientador da política de dados abertos da ANTAQ e plano tático institucional para as ações de abertura.</p>
               <div class="qa-refs">
-                <button class="qa-ref" data-file="slide-18.html"><i class="fas fa-chevron-right"></i> LAI · Transparência Passiva</button>
+                <button class="qa-ref" data-file="slide-pda.html"><i class="fas fa-chevron-right"></i> PDA 2026–2028</button>
               </div>
             </div>
           </div>
@@ -270,14 +261,14 @@
         <div class="qa">
           <button class="qa-bar" aria-expanded="false">
             <span class="qa-n">05</span>
-            <span class="qa-q">Houve recursos contra as respostas?</span>
+            <span class="qa-q">Qual é o objetivo do Plano?</span>
             <i class="fas fa-chevron-down qa-chev" aria-hidden="true"></i>
           </button>
           <div class="qa-panel">
             <div class="qa-panel-in">
-              <p class="qa-a">Sim: <b>6 recursos</b> interpostos no período, respondidos em <b>3,8 dias</b>, na média. Nenhum pedido foi respondido fora do prazo.</p>
+              <p class="qa-a">Promover a <b>abertura, a ampliação e o aprimoramento contínuo</b> dos dados públicos sob responsabilidade da Agência, observados os princípios da publicidade, transparência e eficiência.</p>
               <div class="qa-refs">
-                <button class="qa-ref" data-file="slide-18.html"><i class="fas fa-chevron-right"></i> LAI · Transparência Passiva</button>
+                <button class="qa-ref" data-file="slide-pda.html"><i class="fas fa-chevron-right"></i> PDA 2026–2028</button>
               </div>
             </div>
           </div>
@@ -286,36 +277,35 @@
         <div class="qa">
           <button class="qa-bar" aria-expanded="false">
             <span class="qa-n">06</span>
-            <span class="qa-q">A demanda por informação está crescendo?</span>
+            <span class="qa-q">Qual é a base legal?</span>
             <i class="fas fa-chevron-down qa-chev" aria-hidden="true"></i>
           </button>
           <div class="qa-panel">
             <div class="qa-panel-in">
-              <p class="qa-a">Sim. No 1º trimestre foram <b>62</b> pedidos em 2023, <b>105</b> em 2024, <b>107</b> em 2025 e <b>130</b> em 2026 — mais que o dobro em quatro anos.</p>
+              <p class="qa-a"><b>Decreto nº 8.777/2016</b> (Política de Dados Abertos), Instrução Normativa nº 4/2012 (INDA), Resolução CGINDA nº 3/2017 e a <b>Lei nº 12.527/2011</b> (LAI).</p>
               <div class="qa-refs">
-                <button class="qa-ref" data-file="slide-20.html"><i class="fas fa-chevron-right"></i> Histórico LAI</button>
+                <button class="qa-ref" data-file="slide-pda.html"><i class="fas fa-chevron-right"></i> PDA 2026–2028</button>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- ══ Trilha 3 — Fluxo interno e dados abertos ══ -->
+      <!-- ══ Trilha 3 — O que já está publicado ══ -->
       <div class="track t3">
-        <div class="track-head"><i class="fas fa-diagram-project"></i><span>Fluxo interno e dados abertos</span></div>
+        <div class="track-head"><i class="fas fa-database"></i><span>O que já está publicado</span></div>
 
         <div class="qa">
           <button class="qa-bar" aria-expanded="false">
             <span class="qa-n">07</span>
-            <span class="qa-q">Como as demandas circulam dentro da Agência?</span>
+            <span class="qa-q">Quantas bases estão abertas hoje?</span>
             <i class="fas fa-chevron-down qa-chev" aria-hidden="true"></i>
           </button>
           <div class="qa-panel">
             <div class="qa-panel-in">
-              <p class="qa-a">Das <b>371</b> demandas registradas, <b>58</b> de acesso à informação foram tratadas pela Ouvidoria. No fluxo interno, <b>544 tramitações</b> passaram por <b>30 UORGs</b>.</p>
+              <p class="qa-a"><b>18 bases</b> publicadas no dados.gov.br e mais <b>8 previstas</b> no PDA 2026–2028.</p>
               <div class="qa-refs">
-                <button class="qa-ref" data-file="slide-movimentacao.html"><i class="fas fa-chevron-right"></i> Movimentação</button>
-                <button class="qa-ref" data-file="slide-tramit-uorg.html"><i class="fas fa-chevron-right"></i> Tramitadas por UORG</button>
+                <button class="qa-ref" data-file="slide-21.html"><i class="fas fa-chevron-right"></i> Dados Abertos</button>
               </div>
             </div>
           </div>
@@ -324,14 +314,14 @@
         <div class="qa">
           <button class="qa-bar" aria-expanded="false">
             <span class="qa-n">08</span>
-            <span class="qa-q">Quem de fato responde ao cidadão?</span>
+            <span class="qa-q">Que dados o cidadão encontra?</span>
             <i class="fas fa-chevron-down qa-chev" aria-hidden="true"></i>
           </button>
           <div class="qa-panel">
             <div class="qa-panel-in">
-              <p class="qa-a">As áreas técnicas. As <b>130 respostas</b> do trimestre vieram de <b>34 unidades</b> — a própria STAI respondeu <b>20</b>, seguida pela GOA (13) e pela DPDD (10).</p>
+              <p class="qa-a"><b>Estatístico Aquaviário</b>, Afretamento, Instalações Portuárias, Portos Organizados, Gestão de Multas, Gestão Orçamentária e Financeira e Situação dos Portos em Tempo Real, entre outras.</p>
               <div class="qa-refs">
-                <button class="qa-ref" data-file="slide-resp-unidade.html"><i class="fas fa-chevron-right"></i> Respostas por Unidade</button>
+                <button class="qa-ref" data-file="slide-21.html"><i class="fas fa-chevron-right"></i> Dados Abertos</button>
               </div>
             </div>
           </div>
@@ -340,14 +330,13 @@
         <div class="qa">
           <button class="qa-bar" aria-expanded="false">
             <span class="qa-n">09</span>
-            <span class="qa-q">O que a ANTAQ publica em dados abertos?</span>
+            <span class="qa-q">O que ainda será aberto?</span>
             <i class="fas fa-chevron-down qa-chev" aria-hidden="true"></i>
           </button>
           <div class="qa-panel">
             <div class="qa-panel-in">
-              <p class="qa-a">O <b>PDA 2026–2028</b> orienta a política de dados abertos da Agência (Decreto nº 8.777/2016). Hoje são <b>18 bases</b> publicadas no dados.gov.br e mais <b>8 previstas</b>.</p>
+              <p class="qa-a">As <b>8 bases previstas</b>: Painel de Portos Públicos, Plano Geral de Outorgas Hidroviárias, TKU, Tarifas Portuárias Homologadas, Inventário de Painéis BI, SEI, Contratos Vigentes e Compras e Contratações.</p>
               <div class="qa-refs">
-                <button class="qa-ref" data-file="slide-pda.html"><i class="fas fa-chevron-right"></i> PDA 2026–2028</button>
                 <button class="qa-ref" data-file="slide-21.html"><i class="fas fa-chevron-right"></i> Dados Abertos</button>
               </div>
             </div>
@@ -362,7 +351,7 @@
       <p class="text-gray-400" style="font-size:.46rem;">Relatório 1º Trimestre de 2026 – Ouvidoria – Agência Nacional de Transportes Aquaviários - ANTAQ</p>
       <p class="hint"><i class="far fa-hand-pointer"></i> Clique na pergunta para abrir a resposta · nas etiquetas, para ir ao slide que a detalha</p>
     </div>
-    <div class="bg-pattern"><i class="fas fa-circle-question text-9xl"></i></div>
+    <div class="bg-pattern"><i class="fas fa-database text-9xl"></i></div>
   </div>
 
   <script>
