@@ -23,7 +23,7 @@
 | 4 | `slide-01.html` | Sumário (TOC interativo retrátil) — ✅ atualizado para os 6 blocos |
 | 5 | `slide-03b.html` | Sumário Executivo |
 
-## Bloco 1 · Visão Geral das Ouvidorias Públicas
+## Bloco 1 · Visão Geral das ouvidorias públicas
 | # | Arquivo | Título |
 |---|---------|--------|
 | 6 | `slide-principios.html` | Princípios · Diretrizes · Atribuições — *nota Caio: repetitivo, colorir cada informação num slide próprio* |
@@ -46,7 +46,7 @@
 |---|---------|--------|
 | 16 | `slide-sac-apres.html` | Apresentação da SAC |
 | 17 | `slide-sac-ativ.html` | Principais Atividades da SAC *(placeholder)* |
-| 18 | `capa-05.html` | Canais de Atendimento — *placeholder p/ o "Criar" (Canais → demandas de Ouvidoria)* |
+| 18 | `capa-05.html` | Canais de Atendimento — *placeholder p/ o "Criar" (Canais → demandas de ouvidoria)* |
 | 19 | `slide-sac-refs.html` | Referências e Fontes de Dados *(placeholder)* |
 | 20 | `slide-14.html` | Tipos de Manifestações |
 | 21 | `slide-canal.html` | Manifestações por Canal — *refatorar* |
@@ -104,13 +104,13 @@
 | 57 | `slide-17b.html` | Sequência Lógica de Tramitação — não referenciado |
 | 58 | `capa-02.html` | Capa órfã (Manifestações Recebidas) — opção 34 não escolhida |
 | 59 | `slide-ctx-08.html` | Transparência Ativa & Passiva — **você pediu RETIRAR** (era slide 26) |
-| 60 | `slide-10.html` | Analytics de Ouvidoria — **você pediu RETIRAR** (era slide 44) |
+| 60 | `slide-10.html` | Analytics de ouvidoria — **você pediu RETIRAR** (era slide 44) |
 
 ---
 
 ## Pendências / follow-ups desta reorganização
 - ~~**Sumário (`slide-01.html`)**~~: ✅ feito — a árvore do TOC foi reescrita para os 6 blocos (retrátil, numeração 1 / 1.1 / 1.1.1 automática, navegação por nome de arquivo). Só lista os Blocos 1–6 (Abertura e Sobras ficam de fora).
-- **"Criar" — Canais de atendimento → demandas de Ouvidoria** (Bloco 3): usei `capa-05.html` como placeholder; falta o slide/conteúdo novo.
+- **"Criar" — Canais de atendimento → demandas de ouvidoria** (Bloco 3): usei `capa-05.html` como placeholder; falta o slide/conteúdo novo.
 - **Refatorar** (só reposicionado, conteúdo não mexido): `slide-canal`, `slide-04` (Painel Resolveu), `slide-16b`.
 - **Colorir por informação**: `slide-principios` — dividir em slides por informação.
 - **Cross-refs "Capítulo 6/LAI"** em `slide-16/16b/17/17b/17e`: a navegação continua OK (é por nome de arquivo), mas o *texto* "Capítulo 6" ficou desatualizado (Carta agora é Bloco 2, LAI é Bloco 4).

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
 <!--
   ╔══════════════════════════════════════════════════════════════╗
   ║  SLIDE 23 — Transparência Passiva — canais SIC, total de pedidos e taxa de deferimento
@@ -245,21 +246,17 @@
           onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
           <i class="fas fa-arrow-up-right-from-square"></i> Fala.BR
         </a>
-        <!-- TODO: link do SIC / portal da ANTAQ
-             Buscar em: gov.br/antaq → Acesso à Informação
-             → Serviço de Informação ao Cidadão
-             Substituir href="Side text" pelo link real. -->
-        <a href="https://www.gov.br/acessoainformacao/pt-br/lai-para-sic/transparencia-passiva" target="_blank"
+        <a href="https://centralpaineis.cgu.gov.br/visualizar/lai" target="_blank"
           rel="noopener noreferrer"
           style="display:inline-flex;align-items:center;gap:.5rem;background:#f1f5f9;color:#103050;border:1.5px solid #CBD5E1;border-radius:999px;padding:.4rem 1.1rem;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.7rem;text-decoration:none;transition:all .2s;"
           onmouseover="this.style.background='#e2e8f0'" onmouseout="this.style.background='#f1f5f9'">
           <i class="fas fa-building-columns"></i> Transparência Passiva
         </a>
-        <div class="flex items-center gap-3 opacity-80 text-brand-secondary">
+        <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
           <i class="fas fa-lock-open text-3xl" aria-hidden="true"></i>
           <div class="flex flex-col justify-center pl-2" style="border-left:1px solid #CBD5E1;">
-            <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1">CAPÍTULO 04</p>
-            <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none">Seção de Transparência e Acesso à Informação - STAI</p>
+            <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">CAPÍTULO 04</p>
+            <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none whitespace-nowrap">Seção de Transparência e Acesso à Informação - STAI</p>
           </div>
         </div>
       </div>
@@ -309,7 +306,7 @@
     </div>
     <!-- Footer -->
     <div class="px-16 pb-6 pt-1 flex justify-between items-center z-10">
-      <p class="text-gray-400 text-xs">Relatório 1º Trimestre de 2026 – Ouvidoria – Agência Nacional de Transportes Aquaviários - Antaq</p>
+      <p class="text-gray-400 text-xs">Relatório 1º Trimestre de 2026 – Ouvidoria – Agência Nacional de Transportes Aquaviários - ANTAQ</p>
     </div>
   </div>
   <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
