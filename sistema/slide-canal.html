@@ -267,30 +267,71 @@
     const canalData = [3, 7, 22, 57, 215];
     const canalColors = ['#1F97D4', '#4EAFE8', '#86C6EB', '#103050', '#0A75B7'];
 
+    /* Rótulos da rosca — TODOS por fora, nenhum por cima do azul.
+       Cada fatia ganha linha-guia na própria cor; os rótulos são empilhados
+       por lado (esquerdo/direito) com espaçamento mínimo e presos dentro do
+       canvas, então nem os finos somem nem os grandes se sobrepõem. */
     const pieLabelsPlugin = {
       id: 'pieLabels',
       afterDraw(chart) {
         const { ctx } = chart;
         const meta = chart.getDatasetMeta(0);
-        const total = chart.data.datasets[0].data.reduce((s, v) => s + v, 0) || 1;
-        ctx.save();
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
+        const ds = chart.data.datasets[0];
+        const total = ds.data.reduce((s, v) => s + v, 0) || 1;
+        const ESP = 20;                       // espaçamento vertical mínimo
+        const yMin = 12, yMax = chart.height - 12;
+
+        const itens = [];
         meta.data.forEach((arc, index) => {
-          const value = chart.data.datasets[0].data[index];
+          const value = ds.data[index];
+          if (!value) return;
           const pct = value / total * 100;
-          if (!value || pct < 2) return;
           const angle = (arc.startAngle + arc.endAngle) / 2;
-          const radius = (arc.outerRadius + arc.innerRadius) / 2;
-          const x = arc.x + Math.cos(angle) * radius * 0.82;
-          const y = arc.y + Math.sin(angle) * radius * 0.82;
-          const fontSize = pct >= 15 ? 15 : pct >= 8 ? 13 : 11;
-          ctx.font = '700 ' + fontSize + 'px Montserrat, sans-serif';
-          ctx.fillStyle = '#ffffff';
-          ctx.strokeStyle = 'rgba(16, 48, 80, 0.35)';
-          ctx.lineWidth = 3;
-          ctx.strokeText(pct.toFixed(1) + '%', x, y);
-          ctx.fillText(pct.toFixed(1) + '%', x, y);
+          itens.push({ arc, angle, pct, index, dir: Math.cos(angle) >= 0 ? 1 : -1 });
+        });
+
+        // empilha cada lado separadamente, de cima para baixo
+        [1, -1].forEach(lado => {
+          const doLado = itens.filter(o => o.dir === lado)
+            .map(o => {
+              o.yNatural = o.arc.y + Math.sin(o.angle) * (o.arc.outerRadius + 16);
+              return o;
+            })
+            .sort((a, b) => a.yNatural - b.yNatural);
+          let ultimoY = -Infinity;
+          doLado.forEach(o => {
+            let y = Math.max(yMin, Math.min(yMax, o.yNatural));
+            if (y - ultimoY < ESP) y = Math.min(yMax, ultimoY + ESP);
+            ultimoY = y;
+            o.y = y;
+          });
+        });
+
+        ctx.save();
+        ctx.textBaseline = 'middle';
+        itens.forEach(o => {
+          const { arc, angle, dir } = o;
+          const cor = ds.backgroundColor[o.index];
+          const x0 = arc.x + Math.cos(angle) * arc.outerRadius;
+          const y0 = arc.y + Math.sin(angle) * arc.outerRadius;
+          const xCotovelo = arc.x + Math.cos(angle) * (arc.outerRadius + 16);
+          // todos os rótulos de um lado saem na mesma coluna: em fatias quase
+          // verticais o cotovelo nasce perto do centro e, sem isso, os
+          // rótulos do topo se amontoariam sobre a própria rosca
+          const xColuna = arc.x + dir * (arc.outerRadius + 26);
+          ctx.strokeStyle = cor;
+          ctx.lineWidth = 1.5;
+          ctx.beginPath();
+          ctx.moveTo(x0, y0);
+          ctx.lineTo(xCotovelo, o.y);
+          ctx.lineTo(xColuna, o.y);
+          ctx.stroke();
+          // a hierarquia que antes vinha do tamanho dentro da fatia agora
+          // vem do corpo da fonte do rótulo externo
+          ctx.font = '700 ' + (o.pct >= 15 ? 14 : 12) + 'px Montserrat, sans-serif';
+          ctx.textAlign = dir > 0 ? 'left' : 'right';
+          ctx.fillStyle = cor;
+          ctx.fillText(o.pct.toFixed(1) + '%', xColuna + dir * 5, o.y);
         });
         ctx.restore();
       }
@@ -308,7 +349,9 @@
       },
       options: {
         responsive: true, maintainAspectRatio: false,
-        cutout: '62%',
+        cutout: '58%',
+        // com os cinco rótulos por fora, a rosca encolhe para abrir margem
+        layout: { padding: { left: 62, right: 62, top: 18, bottom: 18 } },
         plugins: {
           legend: { display: false },
           tooltip: { callbacks: { label: ctx => ` ${ctx.label}: ${ctx.parsed}` } }
@@ -328,7 +371,10 @@
           data: sorted.map(item => item.value),
           backgroundColor: sorted.map(item => item.color),
           borderRadius: 6,
-          maxBarThickness: 58
+          // espessura padronizada com o gráfico de barras do slide-17d
+          maxBarThickness: 120,
+          categoryPercentage: 0.85,
+          barPercentage: 0.92
         }]
       },
       options: {
