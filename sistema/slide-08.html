@@ -75,32 +75,48 @@
     }
 
     /* ===================== CHIPS DE FILTRO ===================== */
+    /* Grade retangular de 4 colunas × 2 linhas: ocupa a largura inteira
+       (inclusive o vazio à direita) e gasta menos altura que o antigo
+       flex-wrap, o que sobe os gráficos. */
     .chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: .45rem;
-      margin-top: .7rem;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: .45rem .6rem;
+      margin-top: .55rem;
+      align-items: stretch;
     }
 
     .chip {
-      display: inline-flex;
+      display: flex;
       align-items: center;
       gap: .45rem;
+      width: 100%;
+      text-align: left;
       border: 2px solid var(--c);
       color: var(--c);
       background: transparent;
-      border-radius: 999px;
-      padding: .4rem .85rem;
+      border-radius: 12px;
+      padding: .4rem .7rem;
       font-family: 'Montserrat', sans-serif;
       font-weight: 800;
-      font-size: .64rem;
-      letter-spacing: .015em;
+      font-size: .6rem;
+      letter-spacing: .01em;
       cursor: pointer;
       opacity: .5;
       transition: background-color 200ms ease, color 200ms ease, opacity 200ms ease,
         box-shadow 200ms ease, transform 200ms ease;
-      white-space: nowrap;
-      line-height: 1;
+      white-space: normal;
+      line-height: 1.15;
+    }
+
+    .chip span {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .chip b {
+      margin-left: auto;
+      flex-shrink: 0;
     }
 
     .chip i {
@@ -137,22 +153,25 @@
 
     /* botão de zerar filtros */
     .chip-reset {
-      display: inline-flex;
+      display: flex;
       align-items: center;
+      justify-content: center;
       gap: .42rem;
+      width: 100%;
       border: 2px dashed #cbd5e1;
       color: #64748b;
       background: transparent;
-      border-radius: 999px;
-      padding: .4rem .85rem;
+      border-radius: 12px;
+      padding: .45rem .8rem;
       font-family: 'Montserrat', sans-serif;
       font-weight: 800;
       font-size: .64rem;
       cursor: pointer;
       transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease,
         opacity 200ms ease, transform 200ms ease;
-      white-space: nowrap;
-      line-height: 1;
+      white-space: normal;
+      line-height: 1.15;
+      text-align: center;
     }
 
     .chip-reset:hover {
@@ -474,10 +493,6 @@
           <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Destaques do
             Trimestre</p>
         </div>
-        <!-- chips de filtro -->
-        <div class="chips ml-4" id="chips"></div>
-        <p class="hint-line ml-4"><i class="far fa-hand-pointer"></i> Um clique no tema exibe ou oculta suas demandas —
-          combine vários temas ou use “Exibir todas as demandas” para o panorama completo</p>
       </div>
 
       <!-- contador de porcentagem / substituído por cabeçalho padrão de capítulo -->
@@ -493,6 +508,13 @@
             de Apoio ao Cidadão — SAC</p>
         </div>
       </div>
+    </div>
+
+    <!-- chips de filtro: faixa de largura total, em grade retangular -->
+    <div class="px-16 pb-2 z-10">
+      <div class="chips" id="chips"></div>
+      <p class="hint-line"><i class="far fa-hand-pointer"></i> Um clique no tema exibe ou oculta suas demandas —
+        combine vários temas ou use “Exibir todas as demandas” para o panorama completo</p>
     </div>
 
     <!-- ===================== ZONA INFERIOR — gráficos dinâmicos ===================== -->

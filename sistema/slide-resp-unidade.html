@@ -131,6 +131,15 @@
       display: grid; grid-template-columns: 1.25fr 0.75fr; gap: .8rem;
     }
 
+    /* Lado a lado enquanto couber. Abaixo disso a rosca fica estreita demais
+       para ser lida, então os dois empilham e cada um usa a largura inteira. */
+    @media (max-width: 1400px) {
+      .charts-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1.35fr 1fr;
+      }
+    }
+
     .chart-canvas-wrap { flex: 1; min-height: 0; position: relative; display: flex; align-items: center; justify-content: center; }
 
     .pie-empty-state {
@@ -156,34 +165,35 @@
     .bar-label {
       flex: 0 0 47%; min-width: 0;
       font-family: 'Open Sans', sans-serif; font-weight: 600; color: #103050;
-      font-size: .56rem; line-height: 1.12; text-align: right;
+      font-size: .7rem; line-height: 1.12; text-align: right;
     }
     .bar-label .sg { font-weight: 800; color: #475569; }
 
     .bar-track { flex: 1; min-width: 0; height: .58rem; background: #eef2f7; border-radius: 999px; overflow: hidden; }
     .bar-fill { height: 100%; width: 0; border-radius: 999px; transition: width 600ms cubic-bezier(.2, .7, .3, 1); }
 
-    .bar-val { flex: 0 0 3rem; font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: .58rem; text-align: left; line-height: 1; }
-    .bar-val .pc { font-weight: 700; font-size: .46rem; color: #94a3b8; margin-left: .2rem; }
+    .bar-val { flex: 0 0 3rem; font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: .72rem; text-align: left; line-height: 1; }
+    .bar-val .pc { font-weight: 700; font-size: .56rem; color: #94a3b8; margin-left: .2rem; }
 
-    /* densidade — encolhe conforme o nº de barras, para nunca estourar o card */
+    /* densidade — encolhe conforme o nº de barras, para nunca estourar o card.
+       Escala elevada em relação à original, priorizando legibilidade. */
     .rows[data-density="2"] { gap: .2rem; }
-    .rows[data-density="2"] .bar-label { font-size: .5rem; }
+    .rows[data-density="2"] .bar-label { font-size: .64rem; }
     .rows[data-density="2"] .bar-track { height: .5rem; }
-    .rows[data-density="2"] .bar-val { font-size: .52rem; }
-    .rows[data-density="2"] .bar-val .pc { font-size: .42rem; }
+    .rows[data-density="2"] .bar-val { font-size: .66rem; }
+    .rows[data-density="2"] .bar-val .pc { font-size: .52rem; }
 
     .rows[data-density="3"] { gap: .15rem; }
-    .rows[data-density="3"] .bar-label { font-size: .45rem; }
+    .rows[data-density="3"] .bar-label { font-size: .58rem; }
     .rows[data-density="3"] .bar-track { height: .42rem; }
-    .rows[data-density="3"] .bar-val { font-size: .46rem; }
-    .rows[data-density="3"] .bar-val .pc { font-size: .38rem; }
+    .rows[data-density="3"] .bar-val { font-size: .6rem; }
+    .rows[data-density="3"] .bar-val .pc { font-size: .48rem; }
 
     .rows[data-density="4"] { gap: .11rem; }
-    .rows[data-density="4"] .bar-label { font-size: .4rem; }
-    .rows[data-density="4"] .bar-track { height: .34rem; }
-    .rows[data-density="4"] .bar-val { font-size: .41rem; }
-    .rows[data-density="4"] .bar-val .pc { font-size: .34rem; }
+    .rows[data-density="4"] .bar-label { font-size: .52rem; }
+    .rows[data-density="4"] .bar-track { height: .38rem; }
+    .rows[data-density="4"] .bar-val { font-size: .54rem; }
+    .rows[data-density="4"] .bar-val .pc { font-size: .44rem; }
 
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -204,9 +214,6 @@
           <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Respostas por Unidade</p>
         </div>
         <p class="text-gray-500 font-medium ml-4" style="font-size:.68rem;">1º trimestre de 2026 · 130 respostas · 34 unidades respondentes</p>
-        <div class="chips ml-4" id="chips"></div>
-        <div class="grp-legend ml-4" id="grpLegend"></div>
-        <p class="hint-line ml-4"><i class="far fa-hand-pointer"></i> Clique numa sigla para exibir ou ocultar a unidade · a cor indica o tipo de unidade</p>
       </div>
 
       <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
@@ -216,6 +223,13 @@
           <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none whitespace-nowrap">Seção de Transparência e Acesso à Informação - STAI</p>
         </div>
       </div>
+    </div>
+
+    <!-- filtros em faixa de largura total: libera altura para os gráficos -->
+    <div class="px-16 pb-1 z-10">
+      <div class="chips" id="chips"></div>
+      <div class="grp-legend" id="grpLegend"></div>
+      <p class="hint-line"><i class="far fa-hand-pointer"></i> Clique numa sigla para exibir ou ocultar a unidade · a cor indica o tipo de unidade</p>
     </div>
 
     <!-- ===================== GRÁFICOS ===================== -->
