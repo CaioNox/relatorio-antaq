@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
+<!--
+  ╔══════════════════════════════════════════════════════════════╗
+  ║  Serviços ofertados por superintendência                     ║
+  ║  ATUALIZAR: só se a estrutura das superintendências mudar.   ║
+  ╚══════════════════════════════════════════════════════════════╝
+-->
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Serviços por superintendência — Relatório Anual de Enquetes · Ouvidoria ANTAQ</title>
+  <link rel="icon" type="image/png"
+    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    html { font-size: 26px; }
+    body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
+    .slide-container { width: 100vw; height: 100vh; position: relative; display: flex; flex-direction: column; background-color: #fff; overflow: hidden; font-family: 'Open Sans', sans-serif; }
+    .font-montserrat { font-family: 'Montserrat', sans-serif; }
+    .text-brand-primary { color: #103050; }
+    .text-brand-secondary { color: #0070C0; }
+    .bg-brand-secondary { background-color: #0070C0; }
+    .top-accent { height: 8px; background-color: #103050; width: 100%; }
+    .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
+
+    .grid-sup {
+      flex: 1; min-height: 0;
+      display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr;
+      gap: .8rem; padding: .3rem 3rem 0;
+    }
+    .sup-card {
+      border: 2px solid #E2E8F0; border-radius: 14px; background: #fff;
+      box-shadow: 0 8px 20px -10px rgba(16,48,80,.18);
+      padding: .7rem 1rem .75rem; display: flex; flex-direction: column; min-height: 0;
+      border-top: 5px solid var(--c);
+      animation: fadeIn .45s ease both;
+    }
+    .sup-card:nth-child(2) { animation-delay: .07s; }
+    .sup-card:nth-child(3) { animation-delay: .14s; }
+    .sup-card:nth-child(4) { animation-delay: .21s; }
+
+    .sup-head { display: flex; align-items: center; gap: .55rem; margin-bottom: .3rem; }
+    .sup-ico {
+      width: 2rem; height: 2rem; border-radius: .5rem; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--c); color: #fff; font-size: .85rem;
+    }
+    .sup-name { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .82rem; color: #103050; line-height: 1.15; }
+    .sup-sigla { color: var(--c); }
+    .sup-count {
+      margin-left: auto; flex-shrink: 0; font-family: 'Montserrat', sans-serif; font-weight: 800;
+      font-size: .68rem; color: #fff; background: var(--c); border-radius: 999px; padding: .12rem .6rem;
+      letter-spacing: .04em;
+    }
+    .sup-lead { font-size: .73rem; line-height: 1.45; color: #103050; font-weight: 600; margin: 0 0 .3rem; }
+    .sup-desc { font-size: .67rem; line-height: 1.5; color: #475569; margin: 0 0 .35rem; text-align: justify; }
+    .sup-list { list-style: none; margin: 0; padding: 0; }
+    .sup-list li { position: relative; padding-left: .95rem; margin-bottom: .22rem; font-size: .66rem; line-height: 1.42; color: #334155; }
+    .sup-list li::before {
+      content: "\f105"; font-family: "Font Awesome 6 Free"; font-weight: 900;
+      position: absolute; left: 0; top: 0; color: var(--c);
+    }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+  </style>
+</head>
+
+<body>
+  <div class="slide-container">
+    <div class="top-accent"></div>
+    <div class="top-accent-secondary"></div>
+
+    <div class="flex items-start justify-between px-12 pt-6 pb-1 z-10">
+      <div>
+        <div class="flex items-center gap-3 mb-1">
+          <div class="w-1 h-8 bg-brand-secondary"></div>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Serviços ofertados
+            por superintendência</p>
+        </div>
+        <p class="text-gray-500 ml-4" style="font-size:.72rem;">Como as quatro superintendências da ANTAQ se dividem na
+          entrega dos 32 serviços da Carta de Serviços.</p>
+      </div>
+      <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
+        <i class="fas fa-file-lines align-middle" aria-hidden="true" style="font-size:44px;"></i>
+        <div class="flex flex-col justify-center pl-2" style="border-left: 1px solid #CBD5E1;">
+          <p class="font-montserrat font-bold text-gray-400 tracking-widest leading-none mb-1 whitespace-nowrap"
+            style="font-size:20px;">CAPÍTULO 03</p>
+          <p class="font-montserrat font-bold text-brand-secondary tracking-tight uppercase leading-none whitespace-nowrap"
+            style="font-size:17px;">Carta de Serviços da ANTAQ</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-sup">
+      <div class="sup-card" style="--c:#0070C0;">
+        <div class="sup-head">
+          <div class="sup-ico"><i class="fas fa-stamp"></i></div>
+          <div class="sup-name">Superintendência de Outorgas <span class="sup-sigla">· SOG</span></div>
+          <div class="sup-count">18 serviços</div>
+        </div>
+        <p class="sup-lead">É a porta de entrada — a área que concede a permissão para as empresas operarem.</p>
+        <p class="sup-desc">Para alguém operar um terminal portuário privado (TUP), administrar um porto público ou
+          rodar uma linha de navegação — seja de passageiros, carga pelo rio ou cabotagem —, é preciso autorização do
+          governo. A SOG é responsável por:</p>
+        <ul class="sup-list">
+          <li>Analisar os pedidos de autorização, arrendamento portuário e concessão.</li>
+          <li>Conduzir e organizar os leilões e licitações de áreas nos portos públicos.</li>
+          <li>Avaliar os documentos técnicos e operacionais de quem quer entrar no mercado aquaviário.</li>
+        </ul>
+      </div>
+
+      <div class="sup-card" style="--c:#0090C0;">
+        <div class="sup-head">
+          <div class="sup-ico"><i class="fas fa-scale-balanced"></i></div>
+          <div class="sup-name">Superintendência de Regulação <span class="sup-sigla">· SRG</span></div>
+          <div class="sup-count">8 serviços</div>
+        </div>
+        <p class="sup-lead">É a área da estratégia e das regras do jogo.</p>
+        <p class="sup-desc">Depois que o mercado está funcionando, é preciso haver regras claras para que haja
+          concorrência justa e boa prestação de serviço. A SRG cuida do arcabouço normativo:</p>
+        <ul class="sup-list">
+          <li>Cria e atualiza as normas e resoluções que as empresas e portos devem seguir.</li>
+          <li>Monitora e estabelece regras para tarifas e preços aplicados nos portos e na navegação, evitando abusos ou
+            monopólios.</li>
+          <li>Analisa o impacto regulatório — se uma nova regra vai ajudar ou prejudicar o setor.</li>
+          <li>Estuda a concorrência e o desempenho econômico do setor aquaviário.</li>
+        </ul>
+      </div>
+
+      <div class="sup-card" style="--c:#103050;">
+        <div class="sup-head">
+          <div class="sup-ico"><i class="fas fa-coins"></i></div>
+          <div class="sup-name">Superintendência de Administração e Finanças <span class="sup-sigla">· SAF</span></div>
+          <div class="sup-count">4 serviços</div>
+        </div>
+        <p class="sup-lead">É o motor interno que faz a própria Agência funcionar.</p>
+        <p class="sup-desc">Enquanto as outras três olham para fora — para o setor regulado —, a SAF olha para dentro da
+          ANTAQ para garantir que a casa esteja organizada:</p>
+        <ul class="sup-list">
+          <li>Gerencia o orçamento, as finanças e a contabilidade da Agência.</li>
+          <li>Cuida da gestão de pessoas (servidores, concursos, RH).</li>
+          <li>Administra as compras públicas, licitações internas, contratos de serviço, TI e infraestrutura dos prédios
+            da ANTAQ.</li>
+          <li>Arrecada e gere as receitas próprias da Agência, como taxas e multas aplicadas.</li>
+        </ul>
+      </div>
+
+      <div class="sup-card" style="--c:#F2A900;">
+        <div class="sup-head">
+          <div class="sup-ico"><i class="fas fa-magnifying-glass"></i></div>
+          <div class="sup-name">Superintendência de Fiscalização e Coordenação das Unidades Regionais <span
+              class="sup-sigla">· SFC</span></div>
+          <div class="sup-count">2 serviços</div>
+        </div>
+        <p class="sup-lead">É o braço operacional no campo — o fiscal que garante que as regras sejam cumpridas.</p>
+        <p class="sup-desc">De nada adiantaria criar regras (SRG) e dar autorizações (SOG) se ninguém checasse o dia a
+          dia. A SFC comanda a fiscalização do país inteiro:</p>
+        <ul class="sup-list">
+          <li>Coordena as Unidades Regionais (UREs) da ANTAQ espalhadas pelo Brasil, como nos portos e hidrovias.</li>
+          <li>Inspeciona instalações portuárias e embarcações para verificar se estão dentro das normas de segurança,
+            ambientais e operacionais.</li>
+          <li>Aplica multas, advertências e processos administrativos caso encontre irregularidades.</li>
+          <li>Recebe e apura denúncias de usuários e passageiros.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="px-12 pb-4 pt-2 flex justify-between items-center z-10">
+      <p class="text-gray-400 text-xs">Relatório Anual de Enquetes do Conselho de Usuários · 2026 – Ouvidoria – Agência
+        Nacional de Transportes Aquaviários - ANTAQ</p>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("keydown", function (e) {
+      if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) {
+        e.preventDefault();
+        window.parent.postMessage({ type: "slide-nav", key: e.key }, "*");
+      }
+    });
+  </script>
+</body>
+
+</html>

@@ -5,7 +5,7 @@
   ║  index.html — PÁGINA INICIAL (portal de entrada)
   ╠══════════════════════════════════════════════════════════════╣
   ║  Esta é a primeira página que o usuário vê ao acessar o site.
-  ║  Exibe cards de acesso à apresentação e ao PDF.
+  ║  Exibe um card por relatório publicado (trimestral e anual de enquetes).
   ║  O QUE ATUALIZAR: ano/trimestre nos textos dos cards;
   ║  adicionar novo card se houver nova seção no relatório.
   ╚══════════════════════════════════════════════════════════════╝
@@ -15,7 +15,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Relatório Trimestral - Ouvidoria da ANTAQ</title>
+  <title>Ouvidoria da ANTAQ — Relatórios</title>
   <link rel="icon" type="image/png"
     href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
   <link
@@ -447,6 +447,19 @@
         <div class="card-content">
           <h2>Relatório Trimestral 2026</h2>
           <p>Dados consolidados das manifestações do 1º trimestre (Jan–Mar).</p>
+          <span class="card-link">Abrir apresentação <i class="fa-solid fa-arrow-right"></i></span>
+        </div>
+      </a>
+
+      <a class="card card-portal" href="#"
+        onclick="event.preventDefault(); window.open('enquetes-2026/index.html', '_blank');">
+        <div class="card-icon">
+          <i class="fa-solid fa-users"></i>
+        </div>
+        <div class="card-content">
+          <h2>Relatório Anual de Enquetes do Conselho de Usuários de Serviços Públicos da ANTAQ 2026</h2>
+          <p>Resultados das enquetes dos 32 serviços da Carta de Serviços — 2ª rodada de avaliação (07/04 a
+            27/04/2026).</p>
           <span class="card-link">Abrir apresentação <i class="fa-solid fa-arrow-right"></i></span>
         </div>
       </a>
