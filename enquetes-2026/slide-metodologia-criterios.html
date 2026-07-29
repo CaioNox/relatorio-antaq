@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
+<!--
+  ╔══════════════════════════════════════════════════════════════╗
+  ║  Metodologia aplicada nas respostas — critérios de avaliação ║
+  ╚══════════════════════════════════════════════════════════════╝
+-->
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Critérios de avaliação — Relatório Anual de Enquetes · Ouvidoria ANTAQ</title>
+  <link rel="icon" type="image/png"
+    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    html { font-size: 26px; }
+    body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
+    .slide-container { width: 100vw; height: 100vh; position: relative; display: flex; flex-direction: column; background-color: #fff; overflow: hidden; font-family: 'Open Sans', sans-serif; }
+    .font-montserrat { font-family: 'Montserrat', sans-serif; }
+    .text-brand-primary { color: #103050; }
+    .text-brand-secondary { color: #0070C0; }
+    .bg-brand-secondary { background-color: #0070C0; }
+    .top-accent { height: 8px; background-color: #103050; width: 100%; }
+    .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
+
+    .lead {
+      margin: .4rem 3.4rem .8rem; font-size: .85rem; line-height: 1.55; color: #103050; font-weight: 600;
+      border-left: 4px solid #0090C0; padding-left: 1rem; animation: fadeInUp .45s ease both;
+    }
+
+    .crits { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; padding: 0 3.4rem; align-content: center; }
+    .crit {
+      border: 2px solid #E2E8F0; border-radius: 16px; background: #fff; padding: 1.1rem 1rem;
+      box-shadow: 0 12px 28px -16px rgba(16,48,80,.35); display: flex; flex-direction: column;
+      animation: fadeInUp .45s ease both;
+    }
+    .crit:nth-child(2) { animation-delay: .07s; }
+    .crit:nth-child(3) { animation-delay: .14s; }
+    .crit:nth-child(4) { animation-delay: .21s; }
+    .crit:nth-child(5) { animation-delay: .28s; }
+
+    .crit .ico {
+      width: 3rem; height: 3rem; border-radius: .9rem; margin-bottom: .7rem;
+      background: linear-gradient(150deg, #103050, #0070C0); color: #fff;
+      display: flex; align-items: center; justify-content: center; font-size: 1.15rem;
+      box-shadow: 0 10px 20px -10px rgba(16,48,80,.65);
+    }
+    .crit h3 { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .85rem; color: #103050; margin: 0 0 .1rem; line-height: 1.2; }
+    .crit .q { font-family: 'Montserrat', sans-serif; font-size: .6rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #0090C0; margin-bottom: .45rem; }
+    .crit p { margin: 0; font-size: .72rem; line-height: 1.5; color: #475569; }
+    .crit p + p { margin-top: .4rem; }
+    .crit .ex { font-size: .66rem; color: #64748B; font-style: italic; }
+
+    .bg-pattern { position: absolute; bottom: -60px; right: -50px; width: 400px; height: 400px; opacity: .03; z-index: 0; color: #103050; }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+  </style>
+</head>
+
+<body>
+  <div class="slide-container">
+    <div class="top-accent"></div>
+    <div class="top-accent-secondary"></div>
+
+    <div class="flex items-start justify-between px-12 pt-7 pb-1 z-10">
+      <div>
+        <div class="flex items-center gap-3 mb-1">
+          <div class="w-1 h-8 bg-brand-secondary"></div>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Metodologia aplicada
+            nas respostas</p>
+        </div>
+        <p class="text-gray-500 ml-4" style="font-size:.72rem;">Metodologia e critérios de avaliação adotados na
+          apuração das enquetes.</p>
+      </div>
+      <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
+        <i class="fas fa-list-check align-middle" aria-hidden="true" style="font-size:44px;"></i>
+        <div class="flex flex-col justify-center pl-2" style="border-left: 1px solid #CBD5E1;">
+          <p class="font-montserrat font-bold text-gray-400 tracking-widest leading-none mb-1 whitespace-nowrap"
+            style="font-size:20px;">CAPÍTULO 04</p>
+          <p class="font-montserrat font-bold text-brand-secondary tracking-tight uppercase leading-none whitespace-nowrap"
+            style="font-size:17px;">Conselho de Usuários da ANTAQ</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="lead">Para melhor visualização dos resultados, os dados levantados na consulta são demonstrados por meio
+      de gráficos. A leitura de cada enquete segue os cinco critérios abaixo.</p>
+
+    <div class="crits">
+      <div class="crit">
+        <div class="ico"><i class="fas fa-hashtag"></i></div>
+        <h3>Identificação</h3>
+        <div class="q">Nº da enquete</div>
+        <p>Numeração oficial gerada pela Plataforma do Conselho de Usuários de Serviços Públicos.</p>
+      </div>
+
+      <div class="crit">
+        <div class="ico"><i class="fas fa-filter"></i></div>
+        <h3>Filtro inicial</h3>
+        <div class="q">Questão 1</div>
+        <p>Pergunta se o usuário já utilizou o serviço. Se a resposta for <b>“NÃO”</b>, as demais questões são
+          ocultadas.</p>
+      </div>
+
+      <div class="crit">
+        <div class="ico"><i class="fas fa-universal-access"></i></div>
+        <h3>Acessibilidade</h3>
+        <div class="q">Questão 2</div>
+        <p>Mede o grau de facilidade para acessar o serviço, com resposta <b>“SIM”</b> ou <b>“NÃO”</b>.</p>
+      </div>
+
+      <div class="crit">
+        <div class="ico"><i class="fas fa-star-half-stroke"></i></div>
+        <h3>Aspectos qualitativos</h3>
+        <div class="q">Questões 3 e 4</div>
+        <p>Analisam a nota do atendimento e o tempo de entrega do pedido, em escala de 1 a 5.</p>
+      </div>
+
+      <div class="crit">
+        <div class="ico"><i class="fas fa-calculator"></i></div>
+        <h3>Arredondamento</h3>
+        <div class="q">Tratamento das médias</div>
+        <p>Médias com decimais menores que 5 são arredondadas para baixo; decimais iguais ou maiores que 5, para cima.
+        </p>
+        <p class="ex">Exemplo: 1,5 vira 2.</p>
+      </div>
+    </div>
+
+    <div class="px-12 pb-5 pt-4 flex justify-between items-center z-10">
+      <p class="text-gray-400 text-xs">Relatório Anual de Enquetes do Conselho de Usuários · 2026 – Ouvidoria – Agência
+        Nacional de Transportes Aquaviários - ANTAQ</p>
+    </div>
+    <div class="bg-pattern"><i class="fas fa-list-check text-9xl"></i></div>
+  </div>
+
+  <script>
+    document.addEventListener("keydown", function (e) {
+      if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) {
+        e.preventDefault();
+        window.parent.postMessage({ type: "slide-nav", key: e.key }, "*");
+      }
+    });
+  </script>
+</body>
+
+</html>

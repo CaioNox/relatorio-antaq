@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
+<!--
+  ╔══════════════════════════════════════════════════════════════╗
+  ║  Tabela 1 — enquetes publicadas no Portal Gov.br             ║
+  ╠══════════════════════════════════════════════════════════════╣
+  ║  Uso: slide-tabela-enquetes.html?p=1  (SOG)                  ║
+  ║       slide-tabela-enquetes.html?p=2  (SRG · SAF · SFC)      ║
+  ║  Linhas montadas a partir de dados-enquetes.js.              ║
+  ╚══════════════════════════════════════════════════════════════╝
+-->
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Tabela 1 · Enquetes publicadas — Relatório Anual de Enquetes · Ouvidoria ANTAQ</title>
+  <link rel="icon" type="image/png"
+    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    html { font-size: 26px; }
+    body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
+    .slide-container { width: 100vw; height: 100vh; position: relative; display: flex; flex-direction: column; background-color: #fff; overflow: hidden; font-family: 'Open Sans', sans-serif; }
+    .font-montserrat { font-family: 'Montserrat', sans-serif; }
+    .text-brand-primary { color: #103050; }
+    .text-brand-secondary { color: #0070C0; }
+    .bg-brand-secondary { background-color: #0070C0; }
+    .top-accent { height: 8px; background-color: #103050; width: 100%; }
+    .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
+
+    .periodo {
+      margin: .25rem 3rem .45rem; display: flex; align-items: center; gap: .8rem; flex-wrap: wrap;
+      animation: fadeInUp .4s ease both;
+    }
+    .periodo .faixa {
+      display: inline-flex; align-items: center; gap: .5rem; background: #103050; color: #fff;
+      font-family: 'Montserrat', sans-serif; font-size: .62rem; font-weight: 700; letter-spacing: .08em;
+      text-transform: uppercase; border-radius: 999px; padding: .25rem .85rem;
+    }
+    .periodo .faixa.alt { background: #0090C0; }
+    .periodo .obs { font-size: .62rem; color: #64748B; }
+
+    .tab-wrap { flex: 1; min-height: 0; padding: 0 3rem; overflow: hidden; animation: fadeInUp .45s ease both .06s; }
+    table.enq { width: 100%; border-collapse: collapse; table-layout: fixed; }
+    table.enq th {
+      font-family: 'Montserrat', sans-serif; font-size: .53rem; font-weight: 800; letter-spacing: .05em;
+      text-transform: uppercase; color: #fff; background: #103050; padding: .3rem .45rem; text-align: left;
+      line-height: 1.25; position: sticky; top: 0;
+    }
+    table.enq td { padding: .2rem .45rem; font-size: .625rem; line-height: 1.28; color: #334155; border-bottom: 1px solid #EDF2F7; }
+    table.enq tr:nth-child(even) td { background: #F8FAFC; }
+    table.enq td.n, table.enq th.n { width: 2rem; text-align: center; font-family: 'Montserrat', sans-serif; font-weight: 800; color: #64748B; }
+    table.enq td.sup, table.enq th.sup { width: 3.5rem; text-align: center; }
+    table.enq td.enq, table.enq th.enq { width: 3.9rem; text-align: center; }
+    table.enq td.num, table.enq th.num { width: 4.6rem; text-align: center; }
+    table.enq td.link, table.enq th.link { width: 2.6rem; text-align: center; }
+    table.enq td.enq b { font-family: 'Montserrat', sans-serif; font-weight: 800; color: #0070C0; }
+    table.enq td.num b { font-family: 'Montserrat', sans-serif; font-weight: 800; color: #103050; font-size: .72rem; }
+
+    .sup-pill {
+      display: inline-block; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .55rem;
+      color: #fff; border-radius: 999px; padding: .08rem .45rem; letter-spacing: .05em;
+    }
+    .plataforma-link { color: #0070C0; font-size: .7rem; }
+    .plataforma-link:hover { color: #0090C0; }
+
+    .sem-enquete td { background: #FFF7E6 !important; color: #7A5200; }
+    .badge-pend {
+      display: inline-block; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .5rem;
+      letter-spacing: .08em; text-transform: uppercase; background: #F2A900; color: #103050;
+      border-radius: 999px; padding: .05rem .4rem;
+    }
+
+    .rodape-obs {
+      margin: .35rem 3rem 0; font-size: .58rem; color: #94A3B8; display: flex; align-items: flex-start; gap: .4rem;
+    }
+    .rodape-obs i { color: #F2A900; margin-top: .08rem; }
+
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+  </style>
+</head>
+
+<body>
+  <div class="slide-container">
+    <div class="top-accent"></div>
+    <div class="top-accent-secondary"></div>
+
+    <div class="flex items-start justify-between px-12 pt-5 pb-1 z-10">
+      <div>
+        <div class="flex items-center gap-3 mb-1">
+          <div class="w-1 h-8 bg-brand-secondary"></div>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight" id="titulo">Tabela 1
+            · Enquetes publicadas</p>
+        </div>
+        <p class="text-gray-500 ml-4" style="font-size:.68rem;" id="subtitulo"></p>
+      </div>
+      <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
+        <i class="fas fa-table-list align-middle" aria-hidden="true" style="font-size:40px;"></i>
+        <div class="flex flex-col justify-center pl-2" style="border-left: 1px solid #CBD5E1;">
+          <p class="font-montserrat font-bold text-gray-400 tracking-widest leading-none mb-1 whitespace-nowrap"
+            style="font-size:18px;">CAPÍTULO 04</p>
+          <p class="font-montserrat font-bold text-brand-secondary tracking-tight uppercase leading-none whitespace-nowrap"
+            style="font-size:16px;">Conselho de Usuários da ANTAQ</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="periodo">
+      <span class="faixa"><i class="fas fa-globe"></i> Enquetes publicadas no Portal Gov.br</span>
+      <span class="faixa alt"><i class="fas fa-calendar-days"></i> Respostas de 07/04 a 27/04/2026 · 21 dias</span>
+      <span class="obs">Quantidade de conselheiros aptos a avaliar cada serviço e quantidade que de fato avaliou.</span>
+    </div>
+
+    <div class="tab-wrap">
+      <table class="enq">
+        <thead>
+          <tr>
+            <th class="n">Nº</th>
+            <th>Serviço</th>
+            <th class="sup">Sup.</th>
+            <th class="enq">Enquete</th>
+            <th class="link">Link</th>
+            <th class="num">Conselheiros</th>
+            <th class="num">Respostas</th>
+          </tr>
+        </thead>
+        <tbody id="corpo"></tbody>
+      </table>
+    </div>
+
+    <div class="rodape-obs">
+      <i class="fas fa-triangle-exclamation"></i>
+      <span>A coluna “Link” não traz as URLs individuais de cada enquete porque elas não constam do documento-fonte; o
+        ícone remete à Plataforma do Conselho de Usuários da CGU. “Nº de conselheiros” é o total de inscritos informado
+        pela Plataforma na data de cada consulta — por isso varia entre as enquetes.</span>
+    </div>
+
+    <div class="px-12 pb-3 pt-2 flex justify-between items-center z-10">
+      <p class="text-gray-400 text-xs">Relatório Anual de Enquetes do Conselho de Usuários · 2026 – Ouvidoria – Agência
+        Nacional de Transportes Aquaviários - ANTAQ</p>
+    </div>
+  </div>
+
+  <script src="dados-enquetes.js"></script>
+  <script>
+    (function () {
+      var parte = new URLSearchParams(location.search).get('p') || '1';
+      var sups = parte === '2' ? ['SRG', 'SAF', 'SFC'] : ['SOG'];
+
+      document.getElementById('titulo').textContent =
+        'Tabela 1 · Enquetes publicadas' + (parte === '2' ? ' (parte 2)' : ' (parte 1)');
+      document.getElementById('subtitulo').textContent = parte === '2'
+        ? 'Serviços das Superintendências de Regulação, de Administração e Finanças e de Fiscalização e Coordenação das Unidades Regionais.'
+        : 'Serviços da Superintendência de Outorgas — a maior parte da Carta de Serviços da ANTAQ.';
+
+      var corpo = document.getElementById('corpo');
+      var linha = 0;
+
+      sups.forEach(function (sigla) {
+        var meta = SUPERINTENDENCIAS[sigla];
+
+        ENQUETES.filter(function (e) { return e.sup === sigla; })
+          .sort(function (a, b) { return a.num - b.num; })
+          .forEach(function (e) {
+            linha++;
+            var tr = document.createElement('tr');
+            tr.innerHTML =
+              '<td class="n">' + linha + '</td>' +
+              '<td>' + e.servico + '</td>' +
+              '<td class="sup"><span class="sup-pill" style="background:' + meta.cor + '">' + sigla + '</span></td>' +
+              '<td class="enq"><b>' + e.id + '</b></td>' +
+              '<td class="link"><a class="plataforma-link" href="https://conselhodeusuarios.cgu.gov.br/auth/enquetes/voluntario" ' +
+              'target="_blank" rel="noopener noreferrer" title="Plataforma do Conselho de Usuários — CGU">' +
+              '<i class="fas fa-arrow-up-right-from-square"></i></a></td>' +
+              '<td class="num">' + (e.base ? e.base : '<span class="badge-pend">a confirmar</span>') + '</td>' +
+              '<td class="num"><b>' + e.respondentes + '</b></td>';
+            corpo.appendChild(tr);
+          });
+
+        SERVICOS_SEM_ENQUETE.filter(function (s) { return s.sup === sigla; }).forEach(function (s) {
+          linha++;
+          var tr = document.createElement('tr');
+          tr.className = 'sem-enquete';
+          tr.innerHTML =
+            '<td class="n">' + linha + '</td>' +
+            '<td>' + s.servico + '</td>' +
+            '<td class="sup"><span class="sup-pill" style="background:' + meta.cor + '">' + sigla + '</span></td>' +
+            '<td class="enq" colspan="4" style="text-align:center"><span class="badge-pend">sem enquete publicada</span></td>';
+          corpo.appendChild(tr);
+        });
+      });
+    })();
+  </script>
+  <script>
+    document.addEventListener("keydown", function (e) {
+      if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) {
+        e.preventDefault();
+        window.parent.postMessage({ type: "slide-nav", key: e.key }, "*");
+      }
+    });
+  </script>
+</body>
+
+</html>

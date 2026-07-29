@@ -1,7 +1,24 @@
-# Relatório Trimestral — Ouvidoria da ANTAQ
+# Relatórios da Ouvidoria da ANTAQ
 
-Apresentação/painel **interativo em HTML** do Relatório Trimestral da Ouvidoria da
-**ANTAQ** (Agência Nacional de Transportes Aquaviários) — **1º Trimestre de 2026 (Jan–Mar)**.
+Hub de apresentações/painéis **interativos em HTML** da Ouvidoria da **ANTAQ**
+(Agência Nacional de Transportes Aquaviários). A página inicial (`index.html`) traz um
+card por relatório publicado:
+
+| Pasta | Relatório | Manual |
+|-------|-----------|--------|
+| `sistema/` | **Relatório Trimestral 2026** — 1º Trimestre (Jan–Mar) | [`MANUAL.md`](MANUAL.md) |
+| `enquetes-2026/` | **Relatório Anual de Enquetes do Conselho de Usuários de Serviços Públicos da ANTAQ 2026** — 2ª rodada de avaliação (07/04 a 27/04/2026) | [`enquetes-2026/MANUAL.md`](enquetes-2026/MANUAL.md) |
+
+As duas pastas são **independentes**: têm o próprio visualizador, os próprios slides e a
+própria versão para impressão. Mexer em uma não afeta a outra.
+
+> O restante deste README descreve o **Relatório Trimestral** (`sistema/`). Para o
+> Relatório Anual de Enquetes, veja [`enquetes-2026/MANUAL.md`](enquetes-2026/MANUAL.md) —
+> lá os dados das enquetes moram todos em um único arquivo, `dados-enquetes.js`.
+
+---
+
+## Relatório Trimestral — 1º Trimestre de 2026 (Jan–Mar)
 
 ## Para que serve
 
@@ -60,15 +77,27 @@ Basta escolher **Salvar como PDF** no destino de impressão do navegador.
 
 ```
 .
-├── index.html              # Página inicial (abre a apresentação)
+├── index.html              # Página inicial (um card por relatório)
 ├── img_porto.jpeg          # Imagem de fundo da home
 ├── README.md
+├── MANUAL.md               # Manual do Relatório Trimestral
 ├── .nojekyll               # Desliga o Jekyll no GitHub Pages
-└── sistema/
-    ├── index.html          # Visualizador dos slides (array `deck`/`slides` = ordem)
-    ├── slide-*.html / capa-*.html   # Telas individuais (uma por arquivo)
-    ├── relatorio.html      # Versão A4 imprimível / "Salvar como PDF"
-    └── Imagens/            # Logos da ANTAQ
+│
+├── sistema/                # ── Relatório Trimestral ──
+│   ├── index.html          # Visualizador dos slides (array `deck`/`slides` = ordem)
+│   ├── slide-*.html / capa-*.html   # Telas individuais (uma por arquivo)
+│   ├── relatorio.html      # Versão A4 imprimível / "Salvar como PDF"
+│   └── Imagens/            # Logos da ANTAQ
+│
+└── enquetes-2026/          # ── Relatório Anual de Enquetes do Conselho de Usuários ──
+    ├── index.html          # Visualizador (o `deck` inclui as telas geradas do .js)
+    ├── dados-enquetes.js   # FONTE ÚNICA dos dados das enquetes
+    ├── slide-enquete.html            # Template das telas de resultado (?e=8270)
+    ├── slide-enquete-sugestoes.html  # Template das telas de questão 5
+    ├── slide-*.html / capa-*.html    # Demais telas
+    ├── relatorio.html      # Versão imprimível
+    ├── MANUAL.md           # Como atualizar a próxima rodada
+    └── Imagens/            # Logos + fluxograma (Figura 5)
 ```
 
 Bibliotecas via CDN (HTTPS): **Tailwind CSS**, **Chart.js**, **Font Awesome** e **Google Fonts**.
@@ -90,7 +119,7 @@ O site usa **somente caminhos relativos**, então funciona tanto em site de usu�
 1. Envie os arquivos para a branch `main` (mantendo o `index.html` na raiz).
 2. Em **Settings → Pages**, selecione **Source: branch `main`**, pasta **`/ (root)`** e salve.
 3. Aguarde ~1–2 min. Como este repositório se chama `CaioNox.github.io`, o site fica em
-   **https://caionox.github.io** (a apresentação abre em `/sistema/`).
+   **https://caionox.github.io** — o Relatório Trimestral abre em `/sistema/` e o Relatório Anual de Enquetes em `/enquetes-2026/`.
 
 > O campo **"Custom domain"** não aceita endereços `*.github.io` — esse endereço vem
 > automaticamente do nome do repositório. Use "Custom domain" apenas para domínios

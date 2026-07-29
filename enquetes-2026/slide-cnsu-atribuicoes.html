@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
+<!--
+  ╔══════════════════════════════════════════════════════════════╗
+  ║  Atribuições do Conselho — Lei nº 13.460/2017, arts. 18 a 22 ║
+  ║  ATUALIZAR: só se houver alteração legislativa.              ║
+  ╚══════════════════════════════════════════════════════════════╝
+-->
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Atribuições do Conselho — Relatório Anual de Enquetes · Ouvidoria ANTAQ</title>
+  <link rel="icon" type="image/png"
+    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    html { font-size: 26px; }
+    body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
+    .slide-container { width: 100vw; height: 100vh; position: relative; display: flex; flex-direction: column; background-color: #fff; overflow: hidden; font-family: 'Open Sans', sans-serif; }
+    .font-montserrat { font-family: 'Montserrat', sans-serif; }
+    .text-brand-primary { color: #103050; }
+    .text-brand-secondary { color: #0070C0; }
+    .bg-brand-secondary { background-color: #0070C0; }
+    .top-accent { height: 8px; background-color: #103050; width: 100%; }
+    .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
+
+    .lei-badge {
+      display: inline-flex; align-items: center; gap: .5rem; background: #103050; color: #fff;
+      font-family: 'Montserrat', sans-serif; font-size: .66rem; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; padding: .25rem .8rem; border-radius: 999px; margin-left: 1rem;
+    }
+
+    .body-wrap { flex: 1; min-height: 0; display: grid; grid-template-columns: 1.15fr 1fr; gap: 1.6rem; padding: .5rem 3.4rem 0; }
+    .col { display: flex; flex-direction: column; gap: .7rem; min-height: 0; justify-content: center; }
+
+    .art { animation: fadeInUp .45s ease both; }
+    .art:nth-child(2) { animation-delay: .06s; }
+    .art:nth-child(3) { animation-delay: .12s; }
+    .art:nth-child(4) { animation-delay: .18s; }
+    .art-h {
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .74rem; color: #0070C0;
+      letter-spacing: .06em; text-transform: uppercase; margin: 0 0 .25rem;
+      display: flex; align-items: center; gap: .45rem;
+    }
+    .art-h i { font-size: .68rem; }
+    .art p { margin: 0 0 .35rem; font-size: .77rem; line-height: 1.55; color: #334155; text-align: justify; }
+    .art p:last-child { margin-bottom: 0; }
+    .art p .par { color: #64748B; font-style: italic; }
+
+    .incisos { list-style: none; margin: .35rem 0 0; padding: 0; }
+    .incisos li {
+      display: flex; gap: .6rem; align-items: flex-start; margin-bottom: .32rem;
+      font-size: .77rem; line-height: 1.45; color: #334155;
+    }
+    .incisos li:last-child { margin-bottom: 0; }
+    .incisos .num {
+      flex-shrink: 0; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .62rem;
+      background: #E8F1F8; color: #0070C0; border-radius: .35rem; padding: .1rem .42rem; margin-top: .1rem;
+      min-width: 1.5rem; text-align: center;
+    }
+
+    .destaque {
+      background: #EFF6FC; border: 1px solid #BBD9EE; border-left: 5px solid #0090C0;
+      border-radius: 0 14px 14px 0; padding: .8rem 1.1rem; animation: fadeInUp .45s ease both .1s;
+    }
+    .destaque h3 { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .8rem; color: #103050; margin: 0 0 .4rem; display: flex; align-items: center; gap: .5rem; }
+    .destaque h3 i { color: #0070C0; }
+
+    .bg-pattern { position: absolute; bottom: -60px; right: -50px; width: 400px; height: 400px; opacity: .03; z-index: 0; color: #103050; }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+  </style>
+</head>
+
+<body>
+  <div class="slide-container">
+    <div class="top-accent"></div>
+    <div class="top-accent-secondary"></div>
+
+    <div class="flex items-start justify-between px-12 pt-7 pb-1 z-10">
+      <div>
+        <div class="flex items-center gap-3 mb-1">
+          <div class="w-1 h-8 bg-brand-secondary"></div>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Atribuições do
+            Conselho</p>
+        </div>
+        <div class="ml-4 flex items-center gap-3 flex-wrap">
+          <span class="lei-badge" style="margin-left:0;"><i class="fas fa-scale-balanced"></i> Código de Defesa do
+            Usuário dos Serviços Públicos</span>
+          <span class="text-gray-500" style="font-size:.72rem;">Lei nº 13.460, de 26 de junho de 2017 — artigos 18 a
+            22.</span>
+        </div>
+      </div>
+      <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
+        <i class="fas fa-users align-middle" aria-hidden="true" style="font-size:44px;"></i>
+        <div class="flex flex-col justify-center pl-2" style="border-left: 1px solid #CBD5E1;">
+          <p class="font-montserrat font-bold text-gray-400 tracking-widest leading-none mb-1 whitespace-nowrap"
+            style="font-size:20px;">CAPÍTULO 04</p>
+          <p class="font-montserrat font-bold text-brand-secondary tracking-tight uppercase leading-none whitespace-nowrap"
+            style="font-size:17px;">Conselho de Usuários da ANTAQ</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="body-wrap">
+      <div class="col">
+        <div class="art">
+          <p class="art-h"><i class="fas fa-gavel"></i> Art. 18</p>
+          <p>Sem prejuízo de outras formas previstas na legislação, a participação dos usuários no acompanhamento da
+            prestação e na avaliação dos serviços públicos será feita por meio de conselhos de usuários.</p>
+          <p class="par">Parágrafo único. Os conselhos de usuários são órgãos consultivos dotados das seguintes
+            atribuições:</p>
+          <ul class="incisos">
+            <li><span class="num">I</span>Acompanhar a prestação dos serviços;</li>
+            <li><span class="num">II</span>Participar na avaliação dos serviços;</li>
+            <li><span class="num">III</span>Propor melhorias na prestação dos serviços;</li>
+            <li><span class="num">IV</span>Contribuir na definição de diretrizes para o adequado atendimento ao usuário;
+              e</li>
+            <li><span class="num">V</span>Acompanhar e avaliar a atuação do ouvidor.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="art">
+          <p class="art-h"><i class="fas fa-gavel"></i> Art. 19</p>
+          <p>A composição dos conselhos deve observar os critérios de representatividade e pluralidade das partes
+            interessadas, com vistas ao equilíbrio em sua representação.</p>
+          <p class="par">Parágrafo único. A escolha dos representantes será feita em processo aberto ao público e
+            diferenciado por tipo de usuário a ser representado.</p>
+        </div>
+
+        <div class="art">
+          <p class="art-h"><i class="fas fa-gavel"></i> Art. 20</p>
+          <p>O conselho de usuários poderá ser consultado quanto à indicação do ouvidor.</p>
+        </div>
+
+        <div class="art">
+          <p class="art-h"><i class="fas fa-gavel"></i> Art. 21</p>
+          <p>A participação do usuário no conselho será considerada serviço relevante e sem remuneração.</p>
+        </div>
+
+        <div class="art">
+          <p class="art-h"><i class="fas fa-gavel"></i> Art. 22</p>
+          <p>Regulamento específico de cada Poder e esfera de Governo disporá sobre a organização e funcionamento dos
+            conselhos de usuários.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="px-12 pb-4 pt-2 flex justify-between items-center z-10">
+      <p class="text-gray-400 text-xs">Relatório Anual de Enquetes do Conselho de Usuários · 2026 – Ouvidoria – Agência
+        Nacional de Transportes Aquaviários - ANTAQ</p>
+    </div>
+    <div class="bg-pattern"><i class="fas fa-scale-balanced text-9xl"></i></div>
+  </div>
+
+  <script>
+    document.addEventListener("keydown", function (e) {
+      if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) {
+        e.preventDefault();
+        window.parent.postMessage({ type: "slide-nav", key: e.key }, "*");
+      }
+    });
+  </script>
+</body>
+
+</html>

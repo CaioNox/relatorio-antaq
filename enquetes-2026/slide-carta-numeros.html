@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
+<!--
+  ╔══════════════════════════════════════════════════════════════╗
+  ║  Carta de Serviços em números                                ║
+  ║  ATUALIZAR: contagem de serviços por superintendência em     ║
+  ║  dados-enquetes.js (SUPERINTENDENCIAS[...].servicos).        ║
+  ╚══════════════════════════════════════════════════════════════╝
+-->
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Carta de Serviços em números — Relatório Anual de Enquetes · Ouvidoria ANTAQ</title>
+  <link rel="icon" type="image/png"
+    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    html { font-size: 26px; }
+    body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
+    .slide-container { width: 100vw; height: 100vh; position: relative; display: flex; flex-direction: column; background-color: #fff; overflow: hidden; font-family: 'Open Sans', sans-serif; }
+    .font-montserrat { font-family: 'Montserrat', sans-serif; }
+    .text-brand-primary { color: #103050; }
+    .text-brand-secondary { color: #0070C0; }
+    .bg-brand-secondary { background-color: #0070C0; }
+    .top-accent { height: 8px; background-color: #103050; width: 100%; }
+    .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
+
+    .body-wrap { flex: 1; min-height: 0; display: grid; grid-template-columns: 1.05fr 1fr; gap: 2rem; padding: .8rem 3.4rem 0; }
+    .left { display: flex; flex-direction: column; justify-content: center; gap: 1rem; min-height: 0; }
+
+    .kpi {
+      background: linear-gradient(150deg, #103050 0%, #0070C0 100%);
+      border-radius: 18px; color: #fff; padding: 1.1rem 1.5rem;
+      display: flex; align-items: center; gap: 1.3rem;
+      box-shadow: 0 16px 34px -16px rgba(16,48,80,.65);
+      animation: fadeIn .5s ease both;
+    }
+    .kpi-num { font-family: 'Montserrat', sans-serif; font-size: 4.2rem; font-weight: 900; line-height: .9; }
+    .kpi-label { font-size: .82rem; line-height: 1.4; opacity: .92; }
+    .kpi-label strong { display: block; font-family: 'Montserrat', sans-serif; font-size: .95rem; letter-spacing: .04em; text-transform: uppercase; margin-bottom: .2rem; }
+
+    table.tab { width: 100%; border-collapse: collapse; animation: fadeIn .5s ease both .1s; }
+    table.tab th {
+      font-family: 'Montserrat', sans-serif; font-size: .66rem; font-weight: 800; letter-spacing: .1em;
+      text-transform: uppercase; color: #fff; background: #103050; padding: .45rem .7rem; text-align: left;
+    }
+    table.tab th:last-child, table.tab td:last-child { text-align: right; }
+    table.tab td { padding: .42rem .7rem; font-size: .8rem; color: #334155; border-bottom: 1px solid #E2E8F0; }
+    table.tab tr:nth-child(even) td { background: #F8FAFC; }
+    table.tab td.sig { font-family: 'Montserrat', sans-serif; font-weight: 800; }
+    table.tab td.qtd { font-family: 'Montserrat', sans-serif; font-weight: 800; color: #103050; }
+    table.tab tr.total td { background: #E8F1F8; border-top: 2px solid #0070C0; border-bottom: none; font-weight: 700; color: #103050; }
+    .dot { display: inline-block; width: .5rem; height: .5rem; border-radius: 50%; margin-right: .45rem; vertical-align: middle; }
+
+    .right { display: flex; flex-direction: column; min-height: 0; }
+    .chart-card {
+      flex: 1; min-height: 0; border: 2px solid #E2E8F0; border-radius: 16px; background: #fff;
+      box-shadow: 0 8px 20px -8px rgba(16,48,80,.18); padding: .8rem 1.1rem 1rem;
+      display: flex; flex-direction: column; animation: fadeIn .5s ease both .16s;
+    }
+    .chart-title { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: .8rem; color: #103050; margin-bottom: .3rem; }
+    .chart-box { flex: 1; min-height: 0; position: relative; }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+  </style>
+</head>
+
+<body>
+  <div class="slide-container">
+    <div class="top-accent"></div>
+    <div class="top-accent-secondary"></div>
+
+    <div class="flex items-start justify-between px-12 pt-7 pb-1 z-10">
+      <div>
+        <div class="flex items-center gap-3 mb-1">
+          <div class="w-1 h-8 bg-brand-secondary"></div>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Carta de Serviço em
+            números</p>
+        </div>
+        <p class="text-gray-500 ml-4" style="font-size:.74rem;">Distribuição dos serviços da ANTAQ oferecidos à
+          sociedade, por superintendência responsável.</p>
+      </div>
+      <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
+        <i class="fas fa-chart-pie align-middle" aria-hidden="true" style="font-size:44px;"></i>
+        <div class="flex flex-col justify-center pl-2" style="border-left: 1px solid #CBD5E1;">
+          <p class="font-montserrat font-bold text-gray-400 tracking-widest leading-none mb-1 whitespace-nowrap"
+            style="font-size:20px;">CAPÍTULO 03</p>
+          <p class="font-montserrat font-bold text-brand-secondary tracking-tight uppercase leading-none whitespace-nowrap"
+            style="font-size:17px;">Carta de Serviços da ANTAQ</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="body-wrap">
+      <div class="left">
+        <div class="kpi">
+          <div class="kpi-num" id="kpiTotal">32</div>
+          <div class="kpi-label"><strong>Serviços da ANTAQ</strong>Quantidade de serviços oferecidos para a sociedade,
+            publicados na Carta de Serviços ao Usuário.</div>
+        </div>
+        <table class="tab">
+          <thead>
+            <tr>
+              <th>Superintendência</th>
+              <th>Quantidade de serviços</th>
+            </tr>
+          </thead>
+          <tbody id="tabBody"></tbody>
+        </table>
+      </div>
+
+      <div class="right">
+        <div class="chart-card">
+          <div class="chart-title">Distribuição percentual de serviços por superintendência</div>
+          <div class="chart-box"><canvas id="chartSup"></canvas></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="px-12 pb-4 pt-2 flex justify-between items-center z-10">
+      <p class="text-gray-400 text-xs">Relatório Anual de Enquetes do Conselho de Usuários · 2026 – Ouvidoria – Agência
+        Nacional de Transportes Aquaviários - ANTAQ</p>
+    </div>
+  </div>
+
+  <script src="dados-enquetes.js"></script>
+  <script>
+    (function () {
+      var ordem = ['SOG', 'SRG', 'SAF', 'SFC'];
+      var total = ordem.reduce(function (a, s) { return a + SUPERINTENDENCIAS[s].servicos; }, 0);
+      document.getElementById('kpiTotal').textContent = total;
+
+      var tb = document.getElementById('tabBody');
+      ordem.forEach(function (s) {
+        var d = SUPERINTENDENCIAS[s];
+        var tr = document.createElement('tr');
+        tr.innerHTML = '<td><span class="dot" style="background:' + d.cor + '"></span>' +
+          '<span class="sig" style="color:' + d.cor + '">' + d.sigla + '</span> · ' + d.nome + '</td>' +
+          '<td class="qtd">' + d.servicos + ' <span style="color:#94A3B8;font-weight:600">(' +
+          pct(d.servicos, total) + ')</span></td>';
+        tb.appendChild(tr);
+      });
+      var tot = document.createElement('tr');
+      tot.className = 'total';
+      tot.innerHTML = '<td>Total</td><td class="qtd">' + total + ' (100%)</td>';
+      tb.appendChild(tot);
+
+      new Chart(document.getElementById('chartSup'), {
+        type: 'doughnut',
+        data: {
+          labels: ordem.map(function (s) { return SUPERINTENDENCIAS[s].sigla; }),
+          datasets: [{
+            data: ordem.map(function (s) { return SUPERINTENDENCIAS[s].servicos; }),
+            backgroundColor: ordem.map(function (s) { return SUPERINTENDENCIAS[s].cor; }),
+            borderColor: '#fff', borderWidth: 4
+          }]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false, cutout: '44%',
+          layout: { padding: 10 },
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: { font: { family: 'Montserrat', size: 13, weight: '700' }, color: '#334155', boxWidth: 14, padding: 14 }
+            },
+            tooltip: {
+              callbacks: {
+                label: function (c) { return ' ' + c.label + ': ' + c.parsed + ' serviços (' + pct(c.parsed, 32) + ')'; }
+              }
+            }
+          }
+        },
+        plugins: [{
+          id: 'rotulos',
+          afterDatasetsDraw: function (chart) {
+            var ctx = chart.ctx;
+            var dados = chart.data.datasets[0].data;
+            var soma = dados.reduce(function (a, b) { return a + b; }, 0);
+            ctx.save();
+            ctx.font = '800 17px Montserrat, sans-serif';
+            ctx.fillStyle = '#fff';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            chart.getDatasetMeta(0).data.forEach(function (arc, i) {
+              var p = arc.tooltipPosition();
+              ctx.fillText(pct(dados[i], soma), p.x, p.y);
+            });
+            ctx.restore();
+          }
+        }]
+      });
+    })();
+  </script>
+  <script>
+    document.addEventListener("keydown", function (e) {
+      if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) {
+        e.preventDefault();
+        window.parent.postMessage({ type: "slide-nav", key: e.key }, "*");
+      }
+    });
+  </script>
+</body>
+
+</html>
