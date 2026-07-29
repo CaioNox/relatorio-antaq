@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
+<!--
+  ╔══════════════════════════════════════════════════════════════╗
+  ║  slide-enquete.html — TEMPLATE ÚNICO DAS TELAS DE ENQUETE     ║
+  ╠══════════════════════════════════════════════════════════════╣
+  ║  Renderiza UMA enquete inteira — as 5 questões na mesma tela, ║
+  ║  como no documento-fonte. Escolhida pela query string:        ║
+  ║      slide-enquete.html?e=8270                                ║
+  ║  Os dados vêm de dados-enquetes.js — NÃO edite números aqui.  ║
+  ║                                                              ║
+  ║  Layout (espelha o documento-fonte):                         ║
+  ║    título da superintendência · nº e data da enquete         ║
+  ║    enunciado publicado + quantos conselheiros responderam    ║
+  ║    4 gráficos, cada um com a sua caixa de análise ao lado    ║
+  ║    questão 5 (sugestões) na faixa inferior                   ║
+  ╚══════════════════════════════════════════════════════════════╝
+-->
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Resultado da enquete — Relatório Anual de Enquetes · Ouvidoria ANTAQ</title>
+  <link rel="icon" type="image/png"
+    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    body {
+      background: #f3f4f6;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    .slide {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: #fff;
+      overflow: hidden;
+    }
+
+    .top-accent {
+      height: 8px;
+      background: #103050;
+    }
+
+    .top-accent-secondary {
+      height: 4px;
+      background: #0070C0;
+    }
+
+    /* ── Cabeçalho ── */
+    .head {
+      flex-shrink: 0;
+      padding: 20px 56px 0;
+    }
+
+    .sup-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 30px;
+      font-weight: 800;
+      color: #103050;
+      text-transform: uppercase;
+      text-align: center;
+      letter-spacing: -.01em;
+      line-height: 1.15;
+      margin: 0;
+    }
+
+    .id-row {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 30px;
+      margin-top: 12px;
+    }
+
+    .enq-id {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 19px;
+      font-weight: 800;
+      color: #103050;
+      line-height: 1.25;
+    }
+
+    .enq-id small {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: #475569;
+      letter-spacing: .02em;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    .servico-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      background: #103050;
+      color: #fff;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 5px 15px;
+      border-radius: 999px;
+      flex-shrink: 0;
+    }
+
+    .pergunta {
+      margin-top: 11px;
+      background: #EDF0F3;
+      border-radius: 6px;
+      padding: 9px 16px;
+      font-size: 18px;
+      font-weight: 600;
+      color: #1E293B;
+      line-height: 1.32;
+    }
+
+    .respondentes {
+      margin-top: 5px;
+      background: #EAF4FC;
+      border-left: 4px solid #0070C0;
+      border-radius: 0 6px 6px 0;
+      padding: 7px 16px;
+      font-size: 15px;
+      color: #334155;
+    }
+
+    .respondentes b {
+      color: #103050;
+    }
+
+    /* ── Grade dos 4 gráficos ── */
+    .grid {
+      flex: 1;
+      min-height: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 10px 22px;
+      padding: 10px 56px 6px;
+    }
+
+    .grid.solo {
+      grid-template-columns: 1.1fr 1fr;
+      grid-template-rows: 1fr;
+      align-items: start;
+      padding-top: 16px;
+    }
+
+    /* Enquete sem uso do serviço: só a questão 1 aparece — segura o tamanho
+       do gráfico para ele não esticar até ocupar a tela toda. */
+    .grid.solo .card-body {
+      height: 560px;
+    }
+
+    .grid.solo .aviso {
+      height: 560px;
+      margin-top: 24px;
+    }
+
+    .card {
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      animation: fadeIn .45s ease both;
+    }
+
+    .card:nth-child(2) {
+      animation-delay: .07s;
+    }
+
+    .card:nth-child(3) {
+      animation-delay: .14s;
+    }
+
+    .card:nth-child(4) {
+      animation-delay: .21s;
+    }
+
+    .card-head {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 3px;
+      flex-shrink: 0;
+    }
+
+    .q-tag {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 800;
+      color: #0070C0;
+      background: #DDEAF6;
+      border-radius: 5px;
+      padding: 2px 7px;
+      letter-spacing: .05em;
+    }
+
+    .q-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: #103050;
+    }
+
+    /* gráfico à esquerda, caixa de análise à direita — como no documento */
+    .card-body {
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      align-items: stretch;
+      gap: 14px;
+    }
+
+    .chart-box {
+      flex: 1.28;
+      min-width: 0;
+      position: relative;
+      border: 1px solid #E5E9EF;
+      border-radius: 10px;
+      background: #fff;
+      padding: 6px 8px;
+    }
+
+    .analise {
+      flex: 1;
+      min-width: 0;
+      align-self: center;
+      background: #fff;
+      border: 1px solid #94A3B8;
+      border-radius: 8px;
+      padding: 9px 12px;
+      font-size: 13.5px;
+      line-height: 1.42;
+      color: #1E293B;
+      max-height: 100%;
+      overflow: hidden;
+    }
+
+    .analise b {
+      color: #103050;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+    }
+
+    /* ── Painel de "não utilizado" ── */
+    .aviso {
+      border: 2px dashed #CBD5E1;
+      border-radius: 14px;
+      background: #F8FAFC;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 34px;
+      gap: 12px;
+      animation: fadeIn .45s ease both .07s;
+    }
+
+    .aviso i {
+      font-size: 48px;
+      color: #94A3B8;
+    }
+
+    .aviso h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 21px;
+      font-weight: 800;
+      color: #103050;
+      margin: 0;
+    }
+
+    .aviso p {
+      font-size: 15px;
+      color: #64748B;
+      max-width: 560px;
+      line-height: 1.55;
+      margin: 0;
+    }
+
+    /* ── Questão 5 — sugestões ── */
+    .sug {
+      flex-shrink: 0;
+      margin: 0 56px 6px;
+      border-top: 2px solid #E2E8F0;
+      padding-top: 8px;
+    }
+
+    .sug-head {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 5px;
+    }
+
+    .sug-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .sug-list li {
+      position: relative;
+      padding-left: 17px;
+      font-size: var(--sug-fs, 15px);
+      line-height: 1.4;
+      color: #1E293B;
+      text-align: justify;
+    }
+
+    .sug-list li::before {
+      content: "";
+      position: absolute;
+      left: 3px;
+      top: .5em;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #0070C0;
+    }
+
+    .sug-vazio {
+      font-size: 14px;
+      color: #94A3B8;
+      font-style: italic;
+    }
+
+    /* ── Rodapé ── */
+    .foot {
+      flex-shrink: 0;
+      padding: 0 56px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .foot p {
+      margin: 0;
+      font-size: 11px;
+      color: #94A3B8;
+    }
+
+    .nota {
+      display: flex;
+      align-items: flex-start;
+      gap: 7px;
+      background: #FFF7E6;
+      border: 1px solid #F2A900;
+      border-radius: 7px;
+      padding: 4px 10px;
+      font-size: 11px;
+      line-height: 1.35;
+      color: #7A5200;
+      max-width: 1060px;
+    }
+
+    .nota i {
+      color: #F2A900;
+      margin-top: 1px;
+    }
+
+    .nota b {
+      font-family: 'Montserrat', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      font-size: 10px;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="slide">
+    <div class="top-accent"></div>
+    <div class="top-accent-secondary"></div>
+
+    <div class="head">
+      <h1 class="sup-title" id="supTitle"></h1>
+      <div class="id-row">
+        <div class="enq-id" id="enqId"></div>
+        <div class="servico-tag" id="servicoTag"></div>
+      </div>
+      <div class="pergunta" id="pergunta"></div>
+      <div class="respondentes" id="respondentes"></div>
+    </div>
+
+    <div class="grid" id="grid"></div>
+
+    <div class="sug" id="sug"></div>
+
+    <div class="foot">
+      <div id="notaBox"></div>
+      <p>Relatório Anual de Enquetes do Conselho de Usuários · 2026 – Ouvidoria – Agência Nacional de Transportes
+        Aquaviários - ANTAQ</p>
+    </div>
+  </div>
+
+  <script src="dados-enquetes.js"></script>
+  <script>
+    (function () {
+      var COR_SIM = '#0070C0', COR_NAO = '#103050', COR_NOTA = '#0090C0';
+
+      var id = new URLSearchParams(location.search).get('e');
+      var e = acharEnquete(id);
+      if (!e) {
+        document.getElementById('supTitle').textContent = 'Enquete não encontrada (' + id + ')';
+        return;
+      }
+
+      var sup = SUPERINTENDENCIAS[e.sup];
+      var pad = function (n) { return n < 10 ? '0' + n : String(n); };
+
+      document.getElementById('supTitle').textContent =
+        'Serviços prestados pela ' + sup.nome + ' — ' + sup.sigla;
+      document.getElementById('enqId').innerHTML =
+        'Enquete nº ' + e.id + '<small>Data de publicação ' + e.publicacao + '</small>';
+      document.getElementById('servicoTag').innerHTML =
+        '<i class="fa-solid fa-file-lines"></i>' + sup.sigla + ' · Serviço ' + pad(e.num);
+      document.getElementById('pergunta').textContent = e.pergunta;
+      document.getElementById('respondentes').innerHTML =
+        'Essa consulta foi respondida por <b>' + e.respondentes + '</b> ' +
+        (e.respondentes === 1 ? 'conselheiro' : 'conselheiros') +
+        (e.base ? ' de um total de <b>' + e.base + '</b>' : '') + '.';
+
+      if (e.nota) {
+        document.getElementById('notaBox').innerHTML =
+          '<div class="nota"><i class="fa-solid fa-triangle-exclamation"></i><span><b>Ressalva de fonte</b> ' +
+          e.nota + '</span></div>';
+      }
+
+      /* ── Questão 5 ───────────────────────────────────────────────────── */
+      var sugEl = document.getElementById('sug');
+      var sugs = e.sugestoes || [];
+      sugEl.innerHTML =
+        '<div class="sug-head"><span class="q-tag">05</span>' +
+        '<span class="q-title">Deixe aqui sua sugestão para melhoria do serviço.</span></div>' +
+        (sugs.length
+          ? '<ul class="sug-list">' + sugs.map(function (s) { return '<li>' + s + '</li>'; }).join('') + '</ul>'
+          : '<p class="sug-vazio">Não houve sugestões registradas para este serviço.</p>');
+
+      // A faixa da questão 5 usa a MAIOR fonte que ainda a mantém dentro do
+      // teto de altura — assim os gráficos não são espremidos por uma enquete
+      // com muitas sugestões, nem a letra encolhe quando há pouco texto.
+      (function ajustarFonteSugestoes() {
+        var TETO = 250;
+        var escala = [15, 14, 13, 12, 11];
+        for (var i = 0; i < escala.length; i++) {
+          sugEl.style.setProperty('--sug-fs', escala[i] + 'px');
+          if (sugEl.offsetHeight <= TETO) break;
+        }
+      })();
+
+      /* ── Gráficos ────────────────────────────────────────────────────── */
+      var grid = document.getElementById('grid');
+      var semUso = !e.q2;
+      if (semUso) grid.classList.add('solo');
+
+      function card(tag, titulo, canvasId, analise) {
+        var d = document.createElement('div');
+        d.className = 'card';
+        d.innerHTML =
+          '<div class="card-head"><span class="q-tag">' + tag + '</span>' +
+          '<span class="q-title">' + titulo + '</span></div>' +
+          '<div class="card-body">' +
+          '<div class="chart-box"><canvas id="' + canvasId + '"></canvas></div>' +
+          (analise ? '<div class="analise"><b>Análise:</b> ' + analise + '</div>' : '') +
+          '</div>';
+        grid.appendChild(d);
+        return d;
+      }
+
+      function pizzaCard(tag, titulo, dados, canvasId, analise) {
+        var total = dados.sim + dados.nao;
+        var itens = [];
+        if (dados.sim > 0) itens.push({ rot: 'SIM', v: dados.sim, cor: COR_SIM });
+        if (dados.nao > 0) itens.push({ rot: 'NÃO', v: dados.nao, cor: COR_NAO });
+        card(tag, titulo, canvasId, analise);
+        new Chart(document.getElementById(canvasId), {
+          type: 'doughnut',
+          data: {
+            labels: itens.map(function (i) { return i.rot; }),
+            datasets: [{
+              data: itens.map(function (i) { return i.v; }),
+              backgroundColor: itens.map(function (i) { return i.cor; }),
+              borderColor: '#fff', borderWidth: 3
+            }]
+          },
+          options: {
+            responsive: true, maintainAspectRatio: false, cutout: '42%',
+            layout: { padding: 4 },
+            plugins: {
+              legend: {
+                position: 'right',
+                labels: { font: { family: 'Open Sans', size: 13, weight: '600' }, color: '#334155', boxWidth: 12, padding: 10 }
+              },
+              tooltip: { callbacks: { label: function (c) { return ' ' + c.label + ': ' + c.parsed + ' (' + pct(c.parsed, total) + ')'; } } }
+            }
+          },
+          plugins: [{
+            id: 'rotulos',
+            afterDatasetsDraw: function (chart) {
+              var ctx = chart.ctx;
+              ctx.save();
+              ctx.font = '700 14px Montserrat, sans-serif';
+              ctx.fillStyle = '#fff';
+              ctx.textAlign = 'center';
+              ctx.textBaseline = 'middle';
+              chart.getDatasetMeta(0).data.forEach(function (arc, i) {
+                var p = arc.tooltipPosition();
+                ctx.fillText(pct(itens[i].v, total), p.x, p.y);
+              });
+              ctx.restore();
+            }
+          }]
+        });
+      }
+
+      function barrasCard(tag, titulo, notas, canvasId, analise) {
+        card(tag, titulo, canvasId, analise);
+        var max = Math.max.apply(null, notas);
+        new Chart(document.getElementById(canvasId), {
+          type: 'bar',
+          data: {
+            labels: ESCALA_NOTAS.map(function (r, i) { return (i + 1) + ' · ' + r; }),
+            datasets: [{ data: notas, backgroundColor: COR_NOTA, borderRadius: 4, maxBarThickness: 52 }]
+          },
+          options: {
+            responsive: true, maintainAspectRatio: false,
+            layout: { padding: { top: 14 } },
+            plugins: { legend: { display: false }, tooltip: { enabled: false } },
+            scales: {
+              x: { grid: { display: false }, ticks: { color: '#374151', font: { size: 11, weight: '600' } } },
+              y: {
+                beginAtZero: true, suggestedMax: max + 1,
+                grid: { color: '#eef2f7' },
+                ticks: { stepSize: 1, precision: 0, color: '#9ca3af', font: { size: 11 } }
+              }
+            }
+          },
+          plugins: [{
+            id: 'valores',
+            afterDatasetsDraw: function (chart) {
+              var ctx = chart.ctx;
+              ctx.save();
+              ctx.font = '700 14px Montserrat, sans-serif';
+              ctx.fillStyle = '#103050';
+              ctx.textAlign = 'center';
+              chart.getDatasetMeta(0).data.forEach(function (bar, i) {
+                if (notas[i] > 0) ctx.fillText(notas[i], bar.x, bar.y - 6);
+              });
+              ctx.restore();
+            }
+          }]
+        });
+      }
+
+      pizzaCard('01', 'Você já utilizou esse serviço?', e.q1, 'cQ1', textoAnalise(e, 1));
+
+      if (semUso) {
+        var av = document.createElement('div');
+        av.className = 'aviso';
+        av.innerHTML =
+          '<i class="fa-regular fa-circle-question"></i>' +
+          '<h3>Demais questões não apresentadas</h3>' +
+          '<p>Nenhum dos ' + e.respondentes + ' conselheiros que responderam a esta enquete havia utilizado o serviço. ' +
+          'Pela regra de fluxo do formulário, a resposta “NÃO” à questão 1 encerra a pesquisa — por isso as questões 2 a 5 ' +
+          'não foram exibidas.</p>';
+        grid.appendChild(av);
+        sugEl.style.display = 'none';
+      } else {
+        pizzaCard('02', 'Você teve facilidade para acessar o serviço?', e.q2, 'cQ2', textoAnalise(e, 2));
+        barrasCard('03', 'Como foi o atendimento desse serviço?', e.q3, 'cQ3', textoAnalise(e, 3));
+        barrasCard('04', 'Avaliação do tempo para conclusão do pedido', e.q4, 'cQ4', textoAnalise(e, 4));
+      }
+    })();
+  </script>
+  <script>
+    document.addEventListener("keydown", function (e) {
+      if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) {
+        e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*");
+      }
+    });
+  </script>
+</body>
+
+</html>

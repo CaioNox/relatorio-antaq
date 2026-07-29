@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
+<!--
+  ╔══════════════════════════════════════════════════════════════╗
+  ║  Metodologia — fluxograma da consulta aos conselheiros       ║
+  ║  Imagem: Imagens/fluxograma-consulta-conselheiros.jpg        ║
+  ╚══════════════════════════════════════════════════════════════╝
+-->
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Fluxograma da consulta — Relatório Anual de Enquetes · Ouvidoria ANTAQ</title>
+  <link rel="icon" type="image/png"
+    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    html { font-size: 26px; }
+    body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
+    .slide-container { width: 100vw; height: 100vh; position: relative; display: flex; flex-direction: column; background-color: #fff; overflow: hidden; font-family: 'Open Sans', sans-serif; }
+    .font-montserrat { font-family: 'Montserrat', sans-serif; }
+    .text-brand-primary { color: #103050; }
+    .text-brand-secondary { color: #0070C0; }
+    .bg-brand-secondary { background-color: #0070C0; }
+    .top-accent { height: 8px; background-color: #103050; width: 100%; }
+    .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
+
+    .body-wrap { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1.25fr; gap: 2rem; padding: .8rem 3.4rem 0; align-items: center; }
+
+    .txt-col { display: flex; flex-direction: column; gap: .9rem; animation: fadeInUp .5s ease both; }
+    .lead { font-size: .92rem; line-height: 1.6; color: #103050; font-weight: 600; border-left: 4px solid #0090C0; padding-left: 1rem; margin: 0; }
+    .etapas-fluxo { list-style: none; margin: 0; padding: 0; }
+    .etapas-fluxo li {
+      display: flex; gap: .7rem; align-items: flex-start; margin-bottom: .6rem;
+      font-size: .78rem; line-height: 1.5; color: #475569;
+    }
+    .etapas-fluxo li:last-child { margin-bottom: 0; }
+    .etapas-fluxo .ico {
+      flex-shrink: 0; width: 1.7rem; height: 1.7rem; border-radius: .5rem;
+      background: #E8F1F8; color: #0070C0; display: flex; align-items: center; justify-content: center; font-size: .72rem;
+    }
+    .etapas-fluxo b { display: block; font-family: 'Montserrat', sans-serif; color: #103050; font-size: .8rem; }
+
+    .fig {
+      height: 100%; min-height: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      animation: fadeInUp .5s ease both .1s;
+    }
+    .fig-frame {
+      flex: 1; min-height: 0; width: 100%; position: relative; text-decoration: none;
+      border: 2px solid #E2E8F0; border-radius: 16px; background: #fff;
+      box-shadow: 0 12px 30px -16px rgba(16,48,80,.35);
+      padding: .6rem; display: flex; align-items: center; justify-content: center; overflow: hidden;
+      transition: border-color .2s ease, box-shadow .2s ease;
+    }
+    .fig-frame:hover { border-color: #0070C0; box-shadow: 0 16px 34px -14px rgba(16,48,80,.45); }
+    .fig-frame img { max-width: 100%; max-height: 100%; object-fit: contain; }
+    .fig-zoom {
+      position: absolute; right: .7rem; bottom: .7rem;
+      display: inline-flex; align-items: center; gap: .35rem;
+      background: #103050; color: #fff; border-radius: 999px; padding: .18rem .7rem;
+      font-family: 'Montserrat', sans-serif; font-size: .6rem; font-weight: 700;
+      letter-spacing: .06em; text-transform: uppercase; opacity: .85;
+    }
+    .fig-frame:hover .fig-zoom { opacity: 1; background: #0070C0; }
+    .fig-cap { font-size: .68rem; color: #64748B; font-style: italic; margin-top: .5rem; text-align: center; }
+    .fig-cap b { font-style: normal; font-family: 'Montserrat', sans-serif; color: #103050; }
+
+    .bg-pattern { position: absolute; bottom: -60px; left: -50px; width: 400px; height: 400px; opacity: .03; z-index: 0; color: #103050; }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+  </style>
+</head>
+
+<body>
+  <div class="slide-container">
+    <div class="top-accent"></div>
+    <div class="top-accent-secondary"></div>
+
+    <div class="flex items-start justify-between px-12 pt-7 pb-1 z-10">
+      <div>
+        <div class="flex items-center gap-3 mb-1">
+          <div class="w-1 h-8 bg-brand-secondary"></div>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Metodologia · Fluxo
+            da consulta</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
+        <i class="fas fa-diagram-project align-middle" aria-hidden="true" style="font-size:44px;"></i>
+        <div class="flex flex-col justify-center pl-2" style="border-left: 1px solid #CBD5E1;">
+          <p class="font-montserrat font-bold text-gray-400 tracking-widest leading-none mb-1 whitespace-nowrap"
+            style="font-size:20px;">CAPÍTULO 04</p>
+          <p class="font-montserrat font-bold text-brand-secondary tracking-tight uppercase leading-none whitespace-nowrap"
+            style="font-size:17px;">Conselho de Usuários da ANTAQ</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="body-wrap">
+      <div class="txt-col">
+        <p class="lead">Além das cinco etapas metodológicas, a Ouvidoria elaborou um fluxograma que descreve, de ponta a
+          ponta, a consulta aos conselheiros sobre a prestação de serviços da ANTAQ.</p>
+        <ul class="etapas-fluxo">
+          <li>
+            <div class="ico"><i class="fas fa-file-pen"></i></div>
+            <div><b>Preparação</b>A Ouvidoria elabora a enquete a partir dos serviços da Carta e a submete à validação
+              das superintendências responsáveis.</div>
+          </li>
+          <li>
+            <div class="ico"><i class="fas fa-cloud-arrow-up"></i></div>
+            <div><b>Publicação</b>A consulta é publicada na Plataforma do Conselho de Usuários da CGU e divulgada aos
+              conselheiros cadastrados.</div>
+          </li>
+          <li>
+            <div class="ico"><i class="fas fa-inbox"></i></div>
+            <div><b>Coleta</b>As respostas são recebidas durante o período definido — nesta rodada, 21 dias, de
+              07/04 a 27/04/2026.</div>
+          </li>
+          <li>
+            <div class="ico"><i class="fas fa-chart-column"></i></div>
+            <div><b>Apuração</b>Os dados são consolidados, tratados e transformados em gráficos e indicadores por
+              serviço.</div>
+          </li>
+          <li>
+            <div class="ico"><i class="fas fa-share-nodes"></i></div>
+            <div><b>Devolutiva</b>Os resultados são encaminhados aos gestores dos serviços e apresentados à sociedade
+              neste relatório.</div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="fig">
+        <a class="fig-frame" href="Imagens/fluxograma-consulta-conselheiros.jpg" target="_blank"
+          rel="noopener noreferrer" title="Abrir o fluxograma em tamanho original">
+          <img src="Imagens/fluxograma-consulta-conselheiros.jpg"
+            alt="Fluxograma referente à consulta aos conselheiros sobre a prestação de serviços prestados pela ANTAQ" />
+          <span class="fig-zoom"><i class="fas fa-magnifying-glass-plus"></i> Ampliar</span>
+        </a>
+        <p class="fig-cap"><b>Figura 5</b> — Fluxograma referente à consulta aos conselheiros sobre a prestação de
+          serviços prestados pela ANTAQ.</p>
+      </div>
+    </div>
+
+    <div class="px-12 pb-4 pt-2 flex justify-between items-center z-10">
+      <p class="text-gray-400 text-xs">Relatório Anual de Enquetes do Conselho de Usuários · 2026 – Ouvidoria – Agência
+        Nacional de Transportes Aquaviários - ANTAQ</p>
+    </div>
+    <div class="bg-pattern"><i class="fas fa-sitemap text-9xl"></i></div>
+  </div>
+
+  <script>
+    document.addEventListener("keydown", function (e) {
+      if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) {
+        e.preventDefault();
+        window.parent.postMessage({ type: "slide-nav", key: e.key }, "*");
+      }
+    });
+  </script>
+</body>
+
+</html>
