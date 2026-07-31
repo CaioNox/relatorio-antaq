@@ -256,7 +256,7 @@
       font-size: 12px;
     }
 
-    /* Slide dots — este relatório tem ~85 telas, então a régua rola
+    /* Slide dots — este relatório tem ~95 telas, então a régua rola
        horizontalmente em telas estreitas em vez de esticar a doca. */
     .nav-dots {
       display: flex;
@@ -636,14 +636,18 @@
     // ╚══════════════════════════════════════════════════════════════╝
     // As telas de enquete não são listadas uma a uma: elas saem de
     // dados-enquetes.js, na ordem SOG → SRG → SAF → SFC. Cada enquete ocupa
-    // UMA tela, com as 5 questões juntas (as sugestões entram na faixa
-    // inferior). Publicar/retirar uma enquete = mexer só no .js.
+    // DUAS telas — `&p=1` com as questões 1 e 2 (rosca) e `&p=2` com as
+    // questões 3 e 4 (barras) mais as sugestões. As enquetes em que ninguém
+    // usou o serviço (`q2` nulo) não têm questões 2 a 5, então ficam em uma
+    // tela só. Publicar/retirar uma enquete = mexer só no .js.
     const telasEnquetes = [];
     ['SOG', 'SRG', 'SAF', 'SFC'].forEach((sigla) => {
       ENQUETES.filter((e) => e.sup === sigla)
         .sort((a, b) => a.num - b.num)
         .forEach((e) => {
-          telasEnquetes.push('slide-enquete.html?e=' + e.id);
+          const base = 'slide-enquete.html?e=' + e.id;
+          telasEnquetes.push(base + '&p=1');
+          if (e.q2) telasEnquetes.push(base + '&p=2');
         });
     });
 

@@ -242,9 +242,49 @@
             transition: opacity .3s ease;
         }
 
+        /* No hover o fundo não captura o mouse: os quadros de trás continuam
+           alcançáveis. Só quando o clique FIXA o cartão ele vira modal. */
         .overlay.open {
             opacity: 1;
+            pointer-events: none;
+        }
+
+        .overlay.open.fixado {
             pointer-events: auto;
+        }
+
+        .overlay-card {
+            pointer-events: auto;
+        }
+
+        /* Painel do hover: ancorado no quadro, sem fundo escuro e sem capturar
+           o ponteiro — por isso nunca fica embaixo do cursor. O modal cheio
+           (com rolagem e links) continua vindo do clique, via .fixado. */
+        .overlay.modo-hover {
+            display: block;
+            padding: 0;
+            background: transparent;
+            backdrop-filter: none;
+            pointer-events: none;
+        }
+
+        .overlay.modo-hover .overlay-card {
+            position: absolute;
+            width: 44rem;
+            max-width: calc(100vw - 3rem);
+            max-height: 32rem;
+            transform: none;
+            pointer-events: none;
+            box-shadow: 0 26px 60px -18px rgba(0, 0, 0, .5);
+        }
+
+        .overlay.modo-hover .overlay-card.estreito {
+            width: 33rem;
+            max-height: 40rem;
+        }
+
+        .overlay.modo-hover .overlay-close {
+            display: none;
         }
 
         .overlay-card {
@@ -454,7 +494,7 @@
                 </div>
                 <p class="text-gray-500 font-medium ml-4 text-lg">Tipos de manifestação, instrumentos e conceitos-chave
                     da Ouvidoria · parte 1 de 2 —
-                    <span class="hint"><i class="fas fa-hand-pointer"></i> clique em um quadro para ampliar</span>
+                    <span class="hint"><i class="fas fa-arrow-pointer"></i> passe o mouse em um quadro para ampliar</span>
                 </p>
             </div>
             <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
@@ -647,10 +687,91 @@
             overlay.querySelector('.overlay-body').scrollTop = 0;
             overlay.classList.add('open');
         }
-        function closeCard(e) { if (e) e.stopPropagation(); overlay.classList.remove('open'); }
+        function closeCard(e) { if (e) e.stopPropagation(); fechar(); }
+
+        /* ── Abrir passando o mouse ───────────────────────────────────
+           No hover o detalhamento aparece num painel ANCORADO ao quadro
+           apontado — logo abaixo dele, ou acima quando não cabe — e totalmente
+           transparente ao ponteiro. Assim o painel nunca cai embaixo do cursor:
+           não existe zona morta, não pisca ao varrer a grade e o quadro
+           apontado continua visível.
+           O CLIQUE abre o MESMO conteúdo no cartão central de sempre, aí sim
+           com rolagem, links clicáveis e botão de fechar. */
+        var overlayCard = overlay.querySelector('.overlay-card');
+        var fixado = false, tFechar = null;
+
+        // Abaixo do quadro; se não couber, acima; se também não couber (ficha
+        // comprida), ao lado — nunca por cima do quadro apontado.
+        function posicionar(tile) {
+            var r = tile.getBoundingClientRect();
+            var vw = document.documentElement.clientWidth;
+            var vh = document.documentElement.clientHeight;
+            overlayCard.classList.remove('estreito');
+            var w = overlayCard.offsetWidth, h = overlayCard.offsetHeight;
+            var esq, topo;
+            if (r.bottom + 14 + h <= vh - 24) {
+                topo = r.bottom + 14; esq = r.left;
+            } else if (r.top - 14 - h >= 24) {
+                topo = r.top - 14 - h; esq = r.left;
+            } else {
+                // Ao lado: na largura cheia o painel não caberia na coluna do
+                // meio, então ele estreita e é remedido antes de posicionar.
+                overlayCard.classList.add('estreito');
+                w = overlayCard.offsetWidth; h = overlayCard.offsetHeight;
+                topo = r.top;
+                esq = (r.right + 14 + w <= vw - 24) ? r.right + 14 : r.left - 14 - w;
+            }
+            esq = Math.max(24, Math.min(esq, vw - w - 24));
+            topo = Math.max(24, Math.min(topo, vh - h - 24));
+            overlayCard.style.left = Math.round(esq) + 'px';
+            overlayCard.style.top = Math.round(topo) + 'px';
+        }
+
+        function abrirHover(tile) {
+            if (fixado) return;
+            clearTimeout(tFechar);
+            overlay.classList.add('modo-hover');
+            openCard(tile);
+            posicionar(tile);
+        }
+
+        function fixar(tile) {
+            clearTimeout(tFechar);
+            fixado = true;
+            overlay.classList.remove('modo-hover');
+            overlayCard.style.left = '';
+            overlayCard.style.top = '';
+            overlayCard.classList.remove('estreito');
+            overlay.classList.add('fixado');
+            openCard(tile);
+        }
+
+        function fechar() {
+            clearTimeout(tFechar);
+            fixado = false;
+            overlay.classList.remove('open', 'fixado', 'modo-hover');
+            overlayCard.style.left = '';
+            overlayCard.style.top = '';
+            overlayCard.classList.remove('estreito');
+        }
+
+        [].forEach.call(document.querySelectorAll('.tile'), function (t) {
+            t.addEventListener('mouseenter', function () { abrirHover(t); });
+            t.addEventListener('mouseleave', function () {
+                if (fixado) return;
+                // respiro curto só para não apagar no vão entre um quadro e o vizinho
+                clearTimeout(tFechar);
+                tFechar = setTimeout(fechar, 90);
+            });
+            t.addEventListener('focus', function () { abrirHover(t); });   // teclado
+            t.addEventListener('blur', function () { if (!fixado) fechar(); });
+            t.addEventListener('click', function () { fixar(t); });
+        });
         document.addEventListener("keydown", function (e) {
             if (e.key === 'Escape') { if (overlay.classList.contains('open')) { e.preventDefault(); closeCard(); } return; }
-            if (overlay.classList.contains('open')) return;
+            // Só o cartão FIXADO (por clique) engole as teclas de navegação — o
+            // cartão aberto por hover não pode atrapalhar quem usa as setas.
+            if (overlay.classList.contains('fixado')) return;
             if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) {
                 e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*");
             }

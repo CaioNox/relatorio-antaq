@@ -4,16 +4,25 @@
   ╔══════════════════════════════════════════════════════════════╗
   ║  slide-enquete.html — TEMPLATE ÚNICO DAS TELAS DE ENQUETE     ║
   ╠══════════════════════════════════════════════════════════════╣
-  ║  Renderiza UMA enquete inteira — as 5 questões na mesma tela, ║
-  ║  como no documento-fonte. Escolhida pela query string:        ║
-  ║      slide-enquete.html?e=8270                                ║
-  ║  Os dados vêm de dados-enquetes.js — NÃO edite números aqui.  ║
+  ║  Cada enquete ocupa DUAS telas, escolhidas pela query string: ║
+  ║      slide-enquete.html?e=8298&p=1  → questões 1 e 2 (rosca)  ║
+  ║      slide-enquete.html?e=8298&p=2  → questões 3 e 4 (barras) ║
+  ║                                       + questão 5 embaixo    ║
+  ║  O cabeçalho se repete nas duas, com o selo 1/2 · 2/2, para   ║
+  ║  que cada tela se leia sozinha.                              ║
   ║                                                              ║
-  ║  Layout (espelha o documento-fonte):                         ║
-  ║    título da superintendência · nº e data da enquete         ║
-  ║    enunciado publicado + quantos conselheiros responderam    ║
-  ║    4 gráficos, cada um com a sua caixa de análise ao lado    ║
-  ║    questão 5 (sugestões) na faixa inferior                   ║
+  ║  Enquete em que ninguém usou o serviço (q2 nulo): tela ÚNICA, ║
+  ║  selo 1/1 — o formulário encerra na questão 1 e não há 2 a 5. ║
+  ║                                                              ║
+  ║  Os dados vêm de dados-enquetes.js — NÃO edite números aqui.  ║
+  ║  Os textos de análise também: textoAnalise()/segmentosAnalise ║
+  ║                                                              ║
+  ║  Interatividade dos gráficos (não altera nenhum número):      ║
+  ║    · passar o mouse realça a fatia/barra e acende a oração    ║
+  ║      correspondente na caixa de análise (e vice-versa);       ║
+  ║    · clicar na legenda foca uma resposta (escurece a outra);  ║
+  ║    · "Ver números" troca o gráfico por uma tabela com os      ║
+  ║      mesmos valores.                                          ║
   ╚══════════════════════════════════════════════════════════════╝
 -->
 <html lang="pt-BR">
@@ -55,6 +64,10 @@
       flex-direction: column;
       background: #fff;
       overflow: hidden;
+      /* Respiro no pé: sem ele o rodapé, a faixa de sugestões e as caixas de
+         análise ficam coladas na borda de baixo. 10% da altura do slide
+         (108px em 1080) — os gráficos, que são elásticos, cedem o espaço. */
+      padding-bottom: 10vh;
     }
 
     .top-accent {
@@ -70,18 +83,18 @@
     /* ── Cabeçalho ── */
     .head {
       flex-shrink: 0;
-      padding: 20px 56px 0;
+      padding: 16px 56px 0;
     }
 
     .sup-title {
       font-family: 'Montserrat', sans-serif;
-      font-size: 30px;
+      font-size: 32px;
       font-weight: 800;
       color: #103050;
       text-transform: uppercase;
       text-align: center;
       letter-spacing: -.01em;
-      line-height: 1.15;
+      line-height: 1.12;
       margin: 0;
     }
 
@@ -90,12 +103,12 @@
       align-items: flex-end;
       justify-content: space-between;
       gap: 30px;
-      margin-top: 12px;
+      margin-top: 10px;
     }
 
     .enq-id {
       font-family: 'Montserrat', sans-serif;
-      font-size: 19px;
+      font-size: 23px;
       font-weight: 800;
       color: #103050;
       line-height: 1.25;
@@ -103,12 +116,38 @@
 
     .enq-id small {
       display: block;
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 600;
       color: #475569;
       letter-spacing: .02em;
       text-transform: uppercase;
       margin-top: 2px;
+    }
+
+    /* Selo "Parte 1/2" · "Parte 2/2" — diz em que metade da enquete o leitor
+       está. Pílula sólida, para se ler de longe na projeção. */
+    .parte-tag {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 8px;
+      vertical-align: 3px;
+      margin-left: 14px;
+      background: #0070C0;
+      color: #fff;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      padding: 4px 16px;
+      border-radius: 999px;
+      box-shadow: 0 2px 7px rgba(0, 112, 192, .3);
+    }
+
+    .parte-tag b {
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: .01em;
     }
 
     .servico-tag {
@@ -118,33 +157,33 @@
       background: #103050;
       color: #fff;
       font-family: 'Montserrat', sans-serif;
-      font-size: 13px;
+      font-size: 15px;
       font-weight: 700;
       letter-spacing: .1em;
       text-transform: uppercase;
-      padding: 5px 15px;
+      padding: 6px 17px;
       border-radius: 999px;
       flex-shrink: 0;
     }
 
     .pergunta {
-      margin-top: 11px;
+      margin-top: 10px;
       background: #EDF0F3;
       border-radius: 6px;
-      padding: 9px 16px;
-      font-size: 18px;
+      padding: 8px 18px;
+      font-size: 22px;
       font-weight: 600;
       color: #1E293B;
-      line-height: 1.32;
+      line-height: 1.3;
     }
 
     .respondentes {
-      margin-top: 5px;
+      margin-top: 6px;
       background: #EAF4FC;
-      border-left: 4px solid #0070C0;
+      border-left: 5px solid #0070C0;
       border-radius: 0 6px 6px 0;
-      padding: 7px 16px;
-      font-size: 15px;
+      padding: 7px 18px;
+      font-size: 18px;
       color: #334155;
     }
 
@@ -152,33 +191,20 @@
       color: #103050;
     }
 
-    /* ── Grade dos 4 gráficos ── */
+    /* ── Grade dos gráficos — 2 por tela ── */
     .grid {
       flex: 1;
       min-height: 0;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      grid-template-rows: 1fr 1fr;
-      gap: 10px 22px;
-      padding: 10px 56px 6px;
+      grid-template-rows: 1fr;
+      gap: 0 30px;
+      padding: 12px 56px 6px;
     }
 
     .grid.solo {
-      grid-template-columns: 1.1fr 1fr;
-      grid-template-rows: 1fr;
-      align-items: start;
-      padding-top: 16px;
-    }
-
-    /* Enquete sem uso do serviço: só a questão 1 aparece — segura o tamanho
-       do gráfico para ele não esticar até ocupar a tela toda. */
-    .grid.solo .card-body {
-      height: 560px;
-    }
-
-    .grid.solo .aviso {
-      height: 560px;
-      margin-top: 24px;
+      grid-template-columns: 1.15fr 1fr;
+      align-items: stretch;
     }
 
     .card {
@@ -189,75 +215,172 @@
     }
 
     .card:nth-child(2) {
-      animation-delay: .07s;
-    }
-
-    .card:nth-child(3) {
-      animation-delay: .14s;
-    }
-
-    .card:nth-child(4) {
-      animation-delay: .21s;
+      animation-delay: .09s;
     }
 
     .card-head {
       display: flex;
       align-items: center;
-      gap: 9px;
-      margin-bottom: 3px;
+      gap: 11px;
+      margin-bottom: 6px;
       flex-shrink: 0;
     }
 
     .q-tag {
       font-family: 'Montserrat', sans-serif;
-      font-size: 11px;
+      font-size: 15px;
       font-weight: 800;
       color: #0070C0;
       background: #DDEAF6;
-      border-radius: 5px;
-      padding: 2px 7px;
+      border-radius: 6px;
+      padding: 3px 10px;
       letter-spacing: .05em;
+      flex-shrink: 0;
     }
 
     .q-title {
       font-family: 'Montserrat', sans-serif;
-      font-size: 15px;
+      font-size: 24px;
       font-weight: 700;
       color: #103050;
+      line-height: 1.2;
     }
 
-    /* gráfico à esquerda, caixa de análise à direita — como no documento */
+    /* Alternar gráfico ↔ tabela de números */
+    .btn-modo {
+      margin-left: auto;
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: #fff;
+      border: 1px solid #CBD5E1;
+      border-radius: 999px;
+      color: #475569;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      padding: 5px 13px;
+      cursor: pointer;
+      transition: background .18s, border-color .18s, color .18s;
+    }
+
+    .btn-modo:hover,
+    .btn-modo:focus-visible {
+      background: #EAF4FC;
+      border-color: #0070C0;
+      color: #0070C0;
+      outline: none;
+    }
+
     .card-body {
       flex: 1;
       min-height: 0;
       display: flex;
-      align-items: stretch;
-      gap: 14px;
+      flex-direction: column;
+      gap: 10px;
     }
 
     .chart-box {
-      flex: 1.28;
-      min-width: 0;
+      flex: 1;
+      min-height: 0;
       position: relative;
       border: 1px solid #E5E9EF;
-      border-radius: 10px;
+      border-radius: 12px;
       background: #fff;
-      padding: 6px 8px;
+      padding: 10px 12px;
     }
 
+    .chart-box canvas {
+      transition: opacity .2s ease;
+    }
+
+    /* ── Tabela de números (mesmos valores do gráfico) ── */
+    .tabela-wrap {
+      position: absolute;
+      inset: 10px 12px;
+      overflow: hidden;
+      display: none;
+    }
+
+    .card.modo-tabela .tabela-wrap {
+      display: flex;
+      align-items: center;
+      animation: fadeIn .3s ease both;
+    }
+
+    .card.modo-tabela canvas {
+      visibility: hidden;
+    }
+
+    table.numeros {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 21px;
+    }
+
+    table.numeros th {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      color: #64748B;
+      text-align: left;
+      padding: 0 12px 8px;
+      border-bottom: 2px solid #E2E8F0;
+    }
+
+    table.numeros td {
+      padding: 11px 12px;
+      border-bottom: 1px solid #EEF2F7;
+      color: #1E293B;
+    }
+
+    table.numeros tr:last-child td {
+      border-bottom: none;
+    }
+
+    table.numeros .n {
+      text-align: right;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      color: #103050;
+      white-space: nowrap;
+    }
+
+    table.numeros .chip {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border-radius: 4px;
+      margin-right: 10px;
+      vertical-align: -2px;
+    }
+
+    table.numeros tr.zero td {
+      color: #94A3B8;
+    }
+
+    /* linha da tabela em realce, espelhando o gráfico */
+    table.numeros tr.on td {
+      background: #EAF4FC;
+    }
+
+    /* ── Caixa de análise ── */
     .analise {
-      flex: 1;
-      min-width: 0;
-      align-self: center;
+      flex-shrink: 0;
+      max-height: 158px;
+      overflow: hidden;
       background: #fff;
       border: 1px solid #94A3B8;
-      border-radius: 8px;
-      padding: 9px 12px;
-      font-size: 13.5px;
-      line-height: 1.42;
+      border-radius: 10px;
+      padding: 11px 16px;
+      font-size: 19px;
+      line-height: 1.4;
       color: #1E293B;
-      max-height: 100%;
-      overflow: hidden;
     }
 
     .analise b {
@@ -266,55 +389,71 @@
       font-weight: 700;
     }
 
+    /* Oração ligada a uma fatia/barra do gráfico */
+    .seg {
+      border-radius: 4px;
+      padding: 0 2px;
+      margin: 0 -2px;
+      cursor: default;
+      transition: background .16s ease, color .16s ease;
+    }
+
+    .seg.on {
+      background: #DDEAF6;
+      color: #0A2540;
+    }
+
     /* ── Painel de "não utilizado" ── */
     .aviso {
       border: 2px dashed #CBD5E1;
-      border-radius: 14px;
+      border-radius: 16px;
       background: #F8FAFC;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 34px;
-      gap: 12px;
-      animation: fadeIn .45s ease both .07s;
+      padding: 40px;
+      gap: 16px;
+      animation: fadeIn .45s ease both .09s;
     }
 
     .aviso i {
-      font-size: 48px;
+      font-size: 62px;
       color: #94A3B8;
     }
 
     .aviso h3 {
       font-family: 'Montserrat', sans-serif;
-      font-size: 21px;
+      font-size: 27px;
       font-weight: 800;
       color: #103050;
       margin: 0;
     }
 
     .aviso p {
-      font-size: 15px;
+      font-size: 19px;
       color: #64748B;
-      max-width: 560px;
-      line-height: 1.55;
+      max-width: 620px;
+      line-height: 1.5;
       margin: 0;
     }
 
-    /* ── Questão 5 — sugestões ── */
+    /* ── Questão 5 — sugestões (só na tela 2/2) ── */
     .sug {
       flex-shrink: 0;
       margin: 0 56px 6px;
       border-top: 2px solid #E2E8F0;
-      padding-top: 8px;
+      padding-top: 10px;
+      max-height: 292px;
+      overflow: hidden;
     }
 
     .sug-head {
       display: flex;
       align-items: center;
-      gap: 9px;
-      margin-bottom: 5px;
+      gap: 11px;
+      margin-bottom: 7px;
     }
 
     .sug-list {
@@ -323,14 +462,14 @@
       padding: 0;
       display: flex;
       flex-direction: column;
-      gap: 3px;
+      gap: 5px;
     }
 
     .sug-list li {
       position: relative;
-      padding-left: 17px;
-      font-size: var(--sug-fs, 15px);
-      line-height: 1.4;
+      padding-left: 22px;
+      font-size: var(--sug-fs, 21px);
+      line-height: 1.38;
       color: #1E293B;
       text-align: justify;
     }
@@ -338,18 +477,19 @@
     .sug-list li::before {
       content: "";
       position: absolute;
-      left: 3px;
+      left: 4px;
       top: .5em;
-      width: 6px;
-      height: 6px;
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
       background: #0070C0;
     }
 
     .sug-vazio {
-      font-size: 14px;
+      font-size: 19px;
       color: #94A3B8;
       font-style: italic;
+      margin: 0;
     }
 
     /* ── Rodapé ── */
@@ -364,22 +504,22 @@
 
     .foot p {
       margin: 0;
-      font-size: 11px;
+      font-size: 12px;
       color: #94A3B8;
     }
 
     .nota {
       display: flex;
       align-items: flex-start;
-      gap: 7px;
+      gap: 8px;
       background: #FFF7E6;
       border: 1px solid #F2A900;
       border-radius: 7px;
-      padding: 4px 10px;
-      font-size: 11px;
+      padding: 5px 11px;
+      font-size: 12.5px;
       line-height: 1.35;
       color: #7A5200;
-      max-width: 1060px;
+      max-width: 1180px;
     }
 
     .nota i {
@@ -391,7 +531,7 @@
       font-family: 'Montserrat', sans-serif;
       text-transform: uppercase;
       letter-spacing: .08em;
-      font-size: 10px;
+      font-size: 11px;
     }
 
     @keyframes fadeIn {
@@ -448,21 +588,32 @@
   <script>
     (function () {
       var COR_SIM = '#0070C0', COR_NAO = '#103050', COR_NOTA = '#0090C0';
+      var SEM_MOVIMENTO = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-      var id = new URLSearchParams(location.search).get('e');
+      var params = new URLSearchParams(location.search);
+      var id = params.get('e');
       var e = acharEnquete(id);
       if (!e) {
         document.getElementById('supTitle').textContent = 'Enquete não encontrada (' + id + ')';
         return;
       }
 
+      // Sem uso do serviço: o formulário encerra na questão 1, então não há
+      // segunda tela — fica uma só, marcada como 1/1.
+      var semUso = !e.q2;
+      var partes = semUso ? 1 : 2;
+      var parte = Number(params.get('p')) === 2 && !semUso ? 2 : 1;
+
       var sup = SUPERINTENDENCIAS[e.sup];
       var pad = function (n) { return n < 10 ? '0' + n : String(n); };
 
+      /* ── Cabeçalho — repetido nas duas telas ─────────────────────────── */
       document.getElementById('supTitle').textContent =
         'Serviços prestados pela ' + sup.nome + ' — ' + sup.sigla;
       document.getElementById('enqId').innerHTML =
-        'Enquete nº ' + e.id + '<small>Data de publicação ' + e.publicacao + '</small>';
+        'Enquete nº ' + e.id +
+        '<span class="parte-tag">Parte <b>' + parte + '/' + partes + '</b></span>' +
+        '<small>Data de publicação ' + e.publicacao + '</small>';
       document.getElementById('servicoTag').innerHTML =
         '<i class="fa-solid fa-file-lines"></i>' + sup.sigla + ' · Serviço ' + pad(e.num);
       document.getElementById('pergunta').textContent = e.pergunta;
@@ -477,72 +628,223 @@
           e.nota + '</span></div>';
       }
 
-      /* ── Questão 5 ───────────────────────────────────────────────────── */
+      /* ── Utilidades ──────────────────────────────────────────────────── */
+      // Versão translúcida de uma cor #rrggbb — usada para apagar o que não
+      // está em foco, sem trocar a cor institucional.
+      function rgba(hex, a) {
+        return 'rgba(' + parseInt(hex.substr(1, 2), 16) + ',' +
+          parseInt(hex.substr(3, 2), 16) + ',' + parseInt(hex.substr(5, 2), 16) + ',' + a + ')';
+      }
+
+      // Reduz a fonte por degraus até o conteúdo caber na caixa. Fica
+      // registrado para rodar de novo quando as fontes web terminarem de
+      // carregar — antes disso a medição sai pela métrica da fonte de
+      // sistema e erraria a quebra de linha.
+      var reajustes = [];
+      function caberNaCaixa(el, escala, aplicar) {
+        var rodar = function () {
+          for (var i = 0; i < escala.length; i++) {
+            aplicar(escala[i]);
+            if (el.scrollHeight <= el.clientHeight + 1) return;
+          }
+        };
+        reajustes.push(rodar);
+        rodar();
+      }
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(function () {
+          reajustes.forEach(function (r) { r(); });
+        });
+      }
+
+      /* ── Questão 5 — só na tela 2/2 ──────────────────────────────────── */
       var sugEl = document.getElementById('sug');
-      var sugs = e.sugestoes || [];
-      sugEl.innerHTML =
-        '<div class="sug-head"><span class="q-tag">05</span>' +
-        '<span class="q-title">Deixe aqui sua sugestão para melhoria do serviço.</span></div>' +
-        (sugs.length
-          ? '<ul class="sug-list">' + sugs.map(function (s) { return '<li>' + s + '</li>'; }).join('') + '</ul>'
-          : '<p class="sug-vazio">Não houve sugestões registradas para este serviço.</p>');
+      if (parte === 2) {
+        var sugs = e.sugestoes || [];
+        sugEl.innerHTML =
+          '<div class="sug-head"><span class="q-tag">05</span>' +
+          '<span class="q-title">Deixe aqui sua sugestão para melhoria do serviço.</span></div>' +
+          (sugs.length
+            ? '<ul class="sug-list">' + sugs.map(function (s) { return '<li>' + s + '</li>'; }).join('') + '</ul>'
+            : '<p class="sug-vazio">Não houve sugestões registradas para este serviço.</p>');
 
-      // A faixa da questão 5 usa a MAIOR fonte que ainda a mantém dentro do
-      // teto de altura — assim os gráficos não são espremidos por uma enquete
-      // com muitas sugestões, nem a letra encolhe quando há pouco texto.
-      (function ajustarFonteSugestoes() {
-        var TETO = 250;
-        var escala = [15, 14, 13, 12, 11];
-        for (var i = 0; i < escala.length; i++) {
-          sugEl.style.setProperty('--sug-fs', escala[i] + 'px');
-          if (sugEl.offsetHeight <= TETO) break;
-        }
-      })();
+        // Usa a MAIOR fonte que ainda mantém a faixa dentro do teto de altura:
+        // os gráficos não são espremidos por uma enquete com muitas sugestões,
+        // nem a letra encolhe quando há pouco texto.
+        caberNaCaixa(sugEl, [21, 20, 19, 18, 17, 16, 15], function (px) {
+          sugEl.style.setProperty('--sug-fs', px + 'px');
+        });
+      } else {
+        sugEl.style.display = 'none';
+      }
 
-      /* ── Gráficos ────────────────────────────────────────────────────── */
+      /* ── Cartões ─────────────────────────────────────────────────────── */
       var grid = document.getElementById('grid');
-      var semUso = !e.q2;
       if (semUso) grid.classList.add('solo');
 
-      function card(tag, titulo, canvasId, analise) {
+      function card(tag, titulo, canvasId, rotuloAria) {
         var d = document.createElement('div');
         d.className = 'card';
         d.innerHTML =
           '<div class="card-head"><span class="q-tag">' + tag + '</span>' +
-          '<span class="q-title">' + titulo + '</span></div>' +
+          '<span class="q-title">' + titulo + '</span>' +
+          '<button type="button" class="btn-modo"><i class="fa-solid fa-table-list"></i>' +
+          '<span class="btn-modo-txt">Ver números</span></button></div>' +
           '<div class="card-body">' +
-          '<div class="chart-box"><canvas id="' + canvasId + '"></canvas></div>' +
-          (analise ? '<div class="analise"><b>Análise:</b> ' + analise + '</div>' : '') +
+          '<div class="chart-box">' +
+          '<canvas id="' + canvasId + '" role="img" aria-label="' + rotuloAria + '"></canvas>' +
+          '<div class="tabela-wrap"></div>' +
+          '</div>' +
+          '<div class="analise"><b>Análise:</b> </div>' +
           '</div>';
         grid.appendChild(d);
+
+        var btn = d.querySelector('.btn-modo');
+        btn.addEventListener('click', function () {
+          var tabela = d.classList.toggle('modo-tabela');
+          d.querySelector('.btn-modo-txt').textContent = tabela ? 'Ver gráfico' : 'Ver números';
+          btn.querySelector('i').className = tabela ? 'fa-solid fa-chart-simple' : 'fa-solid fa-table-list';
+        });
         return d;
       }
 
-      function pizzaCard(tag, titulo, dados, canvasId, analise) {
+      /* Liga gráfico ↔ análise ↔ tabela: o realce de um acende os outros.
+         `chaves` mapeia o índice do gráfico na chave usada pelos segmentos
+         de texto ('sim', 'nao', 'n1'…'n5'). */
+      function ligarRealce(cartao, chart, chaves, pintar, podeRealcar) {
+        var st = { foco: null, realce: null };
+        var segs = cartao.querySelectorAll('.seg');
+        var linhas = cartao.querySelectorAll('table.numeros tbody tr');
+
+        function ativo() { return st.foco !== null ? st.foco : st.realce; }
+
+        function sincronizar() {
+          var i = ativo();
+          var chave = i === null ? null : chaves[i];
+          segs.forEach(function (s) { s.classList.toggle('on', chave !== null && s.dataset.seg === chave); });
+          linhas.forEach(function (tr, k) { tr.classList.toggle('on', i !== null && k === i); });
+          chart.update('none');
+        }
+
+        function realcar(i) {
+          if (i !== null && podeRealcar && !podeRealcar(i)) i = null;
+          if (i === st.realce) return;
+          st.realce = i;
+          sincronizar();
+        }
+
+        pintar.ativo = ativo;
+        chart.options.onHover = function (evt, els) {
+          realcar(els.length ? els[0].index : null);
+        };
+        chart.canvas.addEventListener('mouseleave', function () { realcar(null); });
+        // Rede de segurança: sair do cartão sempre apaga o realce, mesmo que
+        // o ponteiro pule direto do gráfico para um botão.
+        cartao.addEventListener('mouseleave', function () { realcar(null); });
+
+        // Da análise (e da tabela) de volta para o gráfico
+        segs.forEach(function (s) {
+          s.addEventListener('mouseenter', function () { realcar(chaves.indexOf(s.dataset.seg)); });
+          s.addEventListener('mouseleave', function () { realcar(null); });
+        });
+        linhas.forEach(function (tr, k) {
+          tr.addEventListener('mouseenter', function () { realcar(k); });
+          tr.addEventListener('mouseleave', function () { realcar(null); });
+        });
+
+        return {
+          focar: function (i) { st.foco = st.foco === i ? null : i; sincronizar(); },
+          sincronizar: sincronizar
+        };
+      }
+
+      /* Escreve a caixa de análise já dividida nas orações de cada fatia. */
+      function escreverAnalise(cartao, questao) {
+        var caixa = cartao.querySelector('.analise');
+        var html = '<b>Análise:</b> ';
+        segmentosAnalise(e, questao).forEach(function (s) {
+          var t = s.texto.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+          html += s.chave ? '<span class="seg" data-seg="' + s.chave + '">' + t + '</span>' : t;
+        });
+        caixa.innerHTML = html;
+        caberNaCaixa(caixa, [19, 18, 17, 16, 15, 14], function (px) { caixa.style.fontSize = px + 'px'; });
+      }
+
+      /* ── Rosca (questões 1 e 2) ──────────────────────────────────────── */
+      function pizzaCard(tag, titulo, dados, canvasId, questao) {
         var total = dados.sim + dados.nao;
         var itens = [];
-        if (dados.sim > 0) itens.push({ rot: 'SIM', v: dados.sim, cor: COR_SIM });
-        if (dados.nao > 0) itens.push({ rot: 'NÃO', v: dados.nao, cor: COR_NAO });
-        card(tag, titulo, canvasId, analise);
-        new Chart(document.getElementById(canvasId), {
+        if (dados.sim > 0) itens.push({ rot: 'SIM', v: dados.sim, cor: COR_SIM, chave: 'sim' });
+        if (dados.nao > 0) itens.push({ rot: 'NÃO', v: dados.nao, cor: COR_NAO, chave: 'nao' });
+
+        var aria = itens.map(function (i) {
+          return i.rot + ': ' + i.v + ' de ' + total + ' (' + pct(i.v, total) + ')';
+        }).join('; ');
+
+        var cartao = card(tag, titulo, canvasId, aria);
+        escreverAnalise(cartao, questao);
+
+        // Tabela com os MESMOS números do gráfico
+        cartao.querySelector('.tabela-wrap').innerHTML =
+          '<table class="numeros"><thead><tr><th>Resposta</th><th style="text-align:right">Respostas</th>' +
+          '<th style="text-align:right">Percentual</th></tr></thead><tbody>' +
+          itens.map(function (i) {
+            return '<tr><td><span class="chip" style="background:' + i.cor + '"></span>' + i.rot + '</td>' +
+              '<td class="n">' + i.v + '</td><td class="n">' + pct(i.v, total) + '</td></tr>';
+          }).join('') + '</tbody></table>';
+
+        var pintar = {};
+        var chart = new Chart(document.getElementById(canvasId), {
           type: 'doughnut',
           data: {
             labels: itens.map(function (i) { return i.rot; }),
             datasets: [{
               data: itens.map(function (i) { return i.v; }),
-              backgroundColor: itens.map(function (i) { return i.cor; }),
-              borderColor: '#fff', borderWidth: 3
+              backgroundColor: function (c) {
+                var a = pintar.ativo ? pintar.ativo() : null;
+                return a === null || a === c.dataIndex
+                  ? itens[c.dataIndex].cor
+                  : rgba(itens[c.dataIndex].cor, .2);
+              },
+              borderColor: '#fff', borderWidth: 4, hoverOffset: 14
             }]
           },
           options: {
             responsive: true, maintainAspectRatio: false, cutout: '42%',
-            layout: { padding: 4 },
+            animation: SEM_MOVIMENTO ? false : undefined,
+            layout: { padding: 8 },
             plugins: {
               legend: {
                 position: 'right',
-                labels: { font: { family: 'Open Sans', size: 13, weight: '600' }, color: '#334155', boxWidth: 12, padding: 10 }
+                onClick: function (evt, item) { realce.focar(item.index); },
+                labels: {
+                  font: { family: 'Open Sans', size: 18, weight: '600' },
+                  color: '#334155', boxWidth: 18, padding: 16,
+                  generateLabels: function () {
+                    var a = pintar.ativo ? pintar.ativo() : null;
+                    return itens.map(function (i, k) {
+                      return {
+                        text: i.rot, index: k,
+                        fillStyle: a === null || a === k ? i.cor : rgba(i.cor, .2),
+                        strokeStyle: '#fff', lineWidth: 2,
+                        fontColor: a === null || a === k ? '#334155' : '#A3AFBF'
+                      };
+                    });
+                  }
+                }
               },
-              tooltip: { callbacks: { label: function (c) { return ' ' + c.label + ': ' + c.parsed + ' (' + pct(c.parsed, total) + ')'; } } }
+              tooltip: {
+                titleFont: { family: 'Montserrat', size: 16, weight: '700' },
+                bodyFont: { family: 'Open Sans', size: 16 },
+                padding: 12, displayColors: false,
+                callbacks: {
+                  title: function (c) { return c[0].label; },
+                  label: function (c) {
+                    return c.parsed + ' ' + plural(c.parsed, 'conselheiro', 'conselheiros') +
+                      ' (' + pct(c.parsed, total) + ')';
+                  }
+                }
+              }
             }
           },
           plugins: [{
@@ -550,39 +852,108 @@
             afterDatasetsDraw: function (chart) {
               var ctx = chart.ctx;
               ctx.save();
-              ctx.font = '700 14px Montserrat, sans-serif';
-              ctx.fillStyle = '#fff';
+              ctx.font = '700 26px Montserrat, sans-serif';
               ctx.textAlign = 'center';
               ctx.textBaseline = 'middle';
               chart.getDatasetMeta(0).data.forEach(function (arc, i) {
+                var txt = pct(itens[i].v, total);
                 var p = arc.tooltipPosition();
-                ctx.fillText(pct(itens[i].v, total), p.x, p.y);
+                // Fatia apagada (fora de foco) fica clara demais para texto
+                // branco — o percentual passa a cinza-ardósia.
+                var apagada = String(arc.options.backgroundColor).indexOf('rgba') === 0;
+                // Fatia estreita: o rótulo sai para fora do anel, na cor da
+                // fatia, em vez de vazar por cima da borda.
+                var angulo = Math.abs(arc.endAngle - arc.startAngle);
+                var corda = 2 * ((arc.outerRadius + arc.innerRadius) / 2) * Math.sin(Math.min(angulo, Math.PI) / 2);
+                if (ctx.measureText(txt).width + 12 <= corda) {
+                  ctx.fillStyle = apagada ? '#64748B' : '#fff';
+                  ctx.fillText(txt, p.x, p.y);
+                } else {
+                  var m = (arc.startAngle + arc.endAngle) / 2;
+                  ctx.fillStyle = apagada ? '#94A3B8' : itens[i].cor;
+                  ctx.fillText(txt,
+                    arc.x + Math.cos(m) * (arc.outerRadius + 26),
+                    arc.y + Math.sin(m) * (arc.outerRadius + 26));
+                }
               });
               ctx.restore();
             }
           }]
         });
+
+        var realce = ligarRealce(cartao, chart, itens.map(function (i) { return i.chave; }), pintar);
+        return chart;
       }
 
-      function barrasCard(tag, titulo, notas, canvasId, analise) {
-        card(tag, titulo, canvasId, analise);
+      /* ── Barras (questões 3 e 4) ─────────────────────────────────────── */
+      function barrasCard(tag, titulo, notas, canvasId, questao) {
         var max = Math.max.apply(null, notas);
-        new Chart(document.getElementById(canvasId), {
+        var totalNotas = notas.reduce(function (a, b) { return a + b; }, 0);
+
+        var aria = ESCALA_NOTAS.map(function (r, i) {
+          return 'nota ' + (i + 1) + ' (' + r + '): ' + notas[i];
+        }).join('; ');
+
+        var cartao = card(tag, titulo, canvasId, aria);
+        escreverAnalise(cartao, questao);
+
+        cartao.querySelector('.tabela-wrap').innerHTML =
+          '<table class="numeros"><thead><tr><th>Nota</th><th>Classificação</th>' +
+          '<th style="text-align:right">Respostas</th></tr></thead><tbody>' +
+          ESCALA_NOTAS.map(function (r, i) {
+            return '<tr' + (notas[i] ? '' : ' class="zero"') + '>' +
+              '<td><span class="chip" style="background:' + (notas[i] ? COR_NOTA : '#CBD5E1') + '"></span>' +
+              (i + 1) + '</td><td>' + r + '</td><td class="n">' + notas[i] + '</td></tr>';
+          }).join('') + '</tbody></table>';
+
+        var pintar = {};
+        var chart = new Chart(document.getElementById(canvasId), {
           type: 'bar',
           data: {
             labels: ESCALA_NOTAS.map(function (r, i) { return (i + 1) + ' · ' + r; }),
-            datasets: [{ data: notas, backgroundColor: COR_NOTA, borderRadius: 4, maxBarThickness: 52 }]
+            datasets: [{
+              data: notas, borderRadius: 6, maxBarThickness: 96,
+              backgroundColor: function (c) {
+                var a = pintar.ativo ? pintar.ativo() : null;
+                return a === null || a === c.dataIndex ? COR_NOTA : rgba(COR_NOTA, .28);
+              }
+            }]
           },
           options: {
             responsive: true, maintainAspectRatio: false,
-            layout: { padding: { top: 14 } },
-            plugins: { legend: { display: false }, tooltip: { enabled: false } },
+            animation: SEM_MOVIMENTO ? false : undefined,
+            layout: { padding: { top: 26 } },
+            interaction: { mode: 'index', intersect: false },
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                filter: function (item) { return item.parsed.y > 0; },
+                titleFont: { family: 'Montserrat', size: 16, weight: '700' },
+                bodyFont: { family: 'Open Sans', size: 16 },
+                padding: 12, displayColors: false,
+                callbacks: {
+                  label: function (c) {
+                    return c.parsed.y + ' ' + plural(c.parsed.y, 'conselheiro', 'conselheiros') +
+                      (totalNotas ? ' (' + pct(c.parsed.y, totalNotas) + ')' : '');
+                  }
+                }
+              }
+            },
             scales: {
-              x: { grid: { display: false }, ticks: { color: '#374151', font: { size: 11, weight: '600' } } },
+              x: { grid: { display: false }, ticks: { color: '#374151', font: { size: 16, weight: '600' } } },
               y: {
-                beginAtZero: true, suggestedMax: max + 1,
+                // Folga pequena acima da barra mais alta: o suficiente para o
+                // número não encostar no topo, sem deixar meio gráfico vazio.
+                // É `max` (e não `suggestedMax`) porque o passo inteiro do
+                // eixo arredondaria a folga para uma linha inteira a mais.
+                beginAtZero: true, max: (max || 1) + Math.max(0.4, max * 0.2),
                 grid: { color: '#eef2f7' },
-                ticks: { stepSize: 1, precision: 0, color: '#9ca3af', font: { size: 11 } }
+                ticks: {
+                  stepSize: 1, precision: 0, color: '#9ca3af', font: { size: 15 },
+                  // O topo do eixo cai entre dois inteiros (a folga acima da
+                  // barra) — esse tick não ganha rótulo: contagem é inteira.
+                  callback: function (v) { return v % 1 === 0 ? v : ''; }
+                }
               }
             }
           },
@@ -591,40 +962,51 @@
             afterDatasetsDraw: function (chart) {
               var ctx = chart.ctx;
               ctx.save();
-              ctx.font = '700 14px Montserrat, sans-serif';
+              ctx.font = '700 24px Montserrat, sans-serif';
               ctx.fillStyle = '#103050';
               ctx.textAlign = 'center';
               chart.getDatasetMeta(0).data.forEach(function (bar, i) {
-                if (notas[i] > 0) ctx.fillText(notas[i], bar.x, bar.y - 6);
+                if (notas[i] > 0) ctx.fillText(notas[i], bar.x, bar.y - 10);
               });
               ctx.restore();
             }
           }]
         });
+
+        // Coluna vazia não acende nada — não há oração correspondente.
+        ligarRealce(cartao, chart, notas.map(function (v, i) { return 'n' + (i + 1); }), pintar,
+          function (i) { return notas[i] > 0; });
+        return chart;
       }
 
-      pizzaCard('01', 'Você já utilizou esse serviço?', e.q1, 'cQ1', textoAnalise(e, 1));
+      /* ── Montagem da tela ────────────────────────────────────────────── */
+      if (parte === 1) {
+        pizzaCard('01', 'Você já utilizou esse serviço?', e.q1, 'cQ1', 1);
 
-      if (semUso) {
-        var av = document.createElement('div');
-        av.className = 'aviso';
-        av.innerHTML =
-          '<i class="fa-regular fa-circle-question"></i>' +
-          '<h3>Demais questões não apresentadas</h3>' +
-          '<p>Nenhum dos ' + e.respondentes + ' conselheiros que responderam a esta enquete havia utilizado o serviço. ' +
-          'Pela regra de fluxo do formulário, a resposta “NÃO” à questão 1 encerra a pesquisa — por isso as questões 2 a 5 ' +
-          'não foram exibidas.</p>';
-        grid.appendChild(av);
-        sugEl.style.display = 'none';
+        if (semUso) {
+          var av = document.createElement('div');
+          av.className = 'aviso';
+          av.innerHTML =
+            '<i class="fa-regular fa-circle-question"></i>' +
+            '<h3>Demais questões não apresentadas</h3>' +
+            '<p>Nenhum dos ' + e.respondentes + ' conselheiros que responderam a esta enquete havia utilizado o serviço. ' +
+            'Pela regra de fluxo do formulário, a resposta “NÃO” à questão 1 encerra a pesquisa — por isso as questões 2 a 5 ' +
+            'não foram exibidas.</p>';
+          grid.appendChild(av);
+        } else {
+          pizzaCard('02', 'Você teve facilidade para acessar o serviço?', e.q2, 'cQ2', 2);
+        }
       } else {
-        pizzaCard('02', 'Você teve facilidade para acessar o serviço?', e.q2, 'cQ2', textoAnalise(e, 2));
-        barrasCard('03', 'Como foi o atendimento desse serviço?', e.q3, 'cQ3', textoAnalise(e, 3));
-        barrasCard('04', 'Avaliação do tempo para conclusão do pedido', e.q4, 'cQ4', textoAnalise(e, 4));
+        barrasCard('03', 'Como foi o atendimento desse serviço?', e.q3, 'cQ3', 3);
+        barrasCard('04', 'Avaliação do tempo para conclusão do pedido', e.q4, 'cQ4', 4);
       }
     })();
   </script>
   <script>
     document.addEventListener("keydown", function (e) {
+      // Espaço com um botão do slide em foco aciona o botão — não navega.
+      var emBotao = document.activeElement && document.activeElement.tagName === 'BUTTON';
+      if (e.key === ' ' && emBotao) return;
       if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) {
         e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*");
       }

@@ -92,8 +92,9 @@ Basta escolher **Salvar como PDF** no destino de impressão do navegador.
 └── enquetes-2026/          # ── Relatório Anual de Enquetes do Conselho de Usuários ──
     ├── index.html          # Visualizador (o `deck` inclui as telas geradas do .js)
     ├── dados-enquetes.js   # FONTE ÚNICA dos dados das enquetes
-    ├── slide-enquete.html            # Template das telas de resultado (?e=8270)
-    ├── slide-enquete-sugestoes.html  # Template das telas de questão 5
+    ├── slide-enquete.html            # Template das telas de resultado
+    │                                 #   ?e=8270&p=1 → questões 1 e 2 (rosca)
+    │                                 #   ?e=8270&p=2 → questões 3 e 4 (barras) + sugestões
     ├── slide-*.html / capa-*.html    # Demais telas
     ├── relatorio.html      # Versão imprimível
     ├── MANUAL.md           # Como atualizar a próxima rodada
@@ -109,7 +110,8 @@ Bibliotecas via CDN (HTTPS): **Tailwind CSS**, **Chart.js**, **Font Awesome** e 
 - Miniaturas (dots) na barra inferior para ir direto a um slide;
 - No slide de capa, **clique nos itens do sumário** para saltar direto à seção;
 - Em vários slides (Carta de Serviços, Dados Abertos, Definições), **clique nos cartões**
-  para expandir o detalhamento.
+  para expandir o detalhamento. Nos apêndices do Relatório Anual de Enquetes (Glossário,
+  Leis, Decretos, Normativos) basta **passar o mouse**; o clique fixa o cartão aberto.
 
 ## Publicar no GitHub Pages
 

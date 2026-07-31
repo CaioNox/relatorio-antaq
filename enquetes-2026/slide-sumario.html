@@ -608,13 +608,15 @@
             // de index.html; a numeração 1 / 1.1 / 1.1.1 é gerada sozinha.
             // Os 31 resultados de enquete viram um nó retrátil por
             // superintendência, montado a partir de dados-enquetes.js.
+            // Cada enquete ocupa duas telas; o índice leva à primeira
+            // (`&p=1`) e a seta avança para a segunda.
             const nosEnquetes = ['SOG', 'SRG', 'SAF', 'SFC'].map((sigla) => ({
                 t: SUPERINTENDENCIAS[sigla].nome + ' · ' + sigla,
                 children: ENQUETES.filter((e) => e.sup === sigla)
                     .sort((a, b) => a.num - b.num)
                     .map((e) => ({
                         t: 'Enquete ' + e.id + ' — ' + e.servico,
-                        f: 'slide-enquete.html?e=' + e.id,
+                        f: 'slide-enquete.html?e=' + e.id + '&p=1',
                     })),
             }));
 

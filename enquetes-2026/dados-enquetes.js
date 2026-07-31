@@ -400,64 +400,100 @@ function plural(n, singular, pluralForma) {
 }
 
 /* Texto de análise gerado a partir dos números — garante que gráfico e
-   narrativa nunca fiquem divergentes. */
-function textoAnalise(e, questao) {
+   narrativa nunca fiquem divergentes.
+
+   O texto é montado em SEGMENTOS: cada oração que fala de uma fatia do
+   gráfico carrega a sua `chave` ('sim', 'nao', 'n1'…'n5'); as ligações
+   (' e ', ', ', ponto final, frase de encaminhamento) vêm com chave null.
+   É isso que permite ao slide acender a oração certa quando o mouse passa
+   pela fatia/barra correspondente — sem procurar pedaço de texto na mão.
+
+   REGRA DE OURO: segmentosAnalise(e, q).map(s => s.texto).join('') tem de
+   ser exatamente o texto que textoAnalise(e, q) devolve. */
+function segmentosAnalise(e, questao) {
   var q1 = e.q1, q2 = e.q2;
+  var segs = [];
+  var seg = function (texto, chave) { segs.push({ texto: texto, chave: chave || null }); };
 
   if (questao === 1) {
     var totalQ1 = q1.sim + q1.nao;
     if (q1.sim === 0) {
-      return totalQ1 + ' ' + plural(totalQ1, 'Conselheiro respondeu', 'Conselheiros responderam') +
-        ' ao questionário, mas nenhum deles havia utilizado o serviço; sendo assim, as demais questões não foram apresentadas.';
+      seg(totalQ1 + ' ' + plural(totalQ1, 'Conselheiro respondeu', 'Conselheiros responderam') +
+        ' ao questionário, mas nenhum deles havia utilizado o serviço; sendo assim, as demais questões não foram apresentadas.', 'nao');
+      return segs;
     }
-    var partes = [];
     if (q1.nao > 0) {
-      partes.push(q1.nao + ' ' + plural(q1.nao, 'Conselheiro respondeu', 'Conselheiros responderam') +
-        ' que não ' + plural(q1.nao, 'utilizou', 'utilizaram') + ' o serviço (' + pct(q1.nao, totalQ1) + ')');
+      seg(q1.nao + ' ' + plural(q1.nao, 'Conselheiro respondeu', 'Conselheiros responderam') +
+        ' que não ' + plural(q1.nao, 'utilizou', 'utilizaram') + ' o serviço (' + pct(q1.nao, totalQ1) + ')', 'nao');
+      seg(' e ');
     }
-    partes.push(q1.sim + ' ' + plural(q1.sim, 'Conselheiro respondeu', 'Conselheiros responderam') +
-      ' que ' + plural(q1.sim, 'utilizou', 'utilizaram') + ' o serviço (' + pct(q1.sim, totalQ1) + ')');
-    return partes.join(' e ') + '. ' +
-      plural(q1.sim, 'O Conselheiro que afirmou ter utilizado o serviço foi encaminhado',
-        'Os Conselheiros que afirmaram ter utilizado o serviço foram encaminhados') + ' para as próximas perguntas.';
+    seg(q1.sim + ' ' + plural(q1.sim, 'Conselheiro respondeu', 'Conselheiros responderam') +
+      ' que ' + plural(q1.sim, 'utilizou', 'utilizaram') + ' o serviço (' + pct(q1.sim, totalQ1) + ')', 'sim');
+    seg('. ' + plural(q1.sim, 'O Conselheiro que afirmou ter utilizado o serviço foi encaminhado',
+      'Os Conselheiros que afirmaram ter utilizado o serviço foram encaminhados') + ' para as próximas perguntas.');
+    return segs;
   }
 
   if (questao === 2) {
-    if (!q2) return '';
+    if (!q2) return segs;
     var totalQ2 = q2.sim + q2.nao;
-    var p = [];
+    var houve = false;
     if (q2.nao > 0) {
-      p.push(q2.nao + ' ' + plural(q2.nao, 'Conselheiro respondeu', 'Conselheiros responderam') +
-        ' que não ' + plural(q2.nao, 'teve', 'tiveram') + ' facilidade para acessar o serviço (' + pct(q2.nao, totalQ2) + ')');
+      seg(q2.nao + ' ' + plural(q2.nao, 'Conselheiro respondeu', 'Conselheiros responderam') +
+        ' que não ' + plural(q2.nao, 'teve', 'tiveram') + ' facilidade para acessar o serviço (' + pct(q2.nao, totalQ2) + ')', 'nao');
+      houve = true;
     }
     if (q2.sim > 0) {
-      p.push(q2.sim + ' ' + plural(q2.sim, 'Conselheiro respondeu', 'Conselheiros responderam') +
-        ' que ' + plural(q2.sim, 'teve', 'tiveram') + ' facilidade para acessar o serviço (' + pct(q2.sim, totalQ2) + ')');
+      if (houve) seg(' e ');
+      seg(q2.sim + ' ' + plural(q2.sim, 'Conselheiro respondeu', 'Conselheiros responderam') +
+        ' que ' + plural(q2.sim, 'teve', 'tiveram') + ' facilidade para acessar o serviço (' + pct(q2.sim, totalQ2) + ')', 'sim');
     }
-    var frase = p.join(' e ') + '.';
+    var fecho = '.';
     if (q2.sim > 0 && q2.nao > 0) {
-      frase += ' ' + plural(q2.sim, 'O Conselheiro que afirmou ter facilidade foi encaminhado',
+      fecho += ' ' + plural(q2.sim, 'O Conselheiro que afirmou ter facilidade foi encaminhado',
         'Os Conselheiros que afirmaram ter facilidade foram encaminhados') + ' para as próximas perguntas.';
     }
-    return frase;
+    seg(fecho);
+    return segs;
   }
 
   var notas = questao === 3 ? e.q3 : e.q4;
-  if (!notas) return '';
+  if (!notas) return segs;
   var alvo = questao === 3 ? 'o atendimento do serviço' : 'o tempo para a conclusão do pedido';
   var itens = [];
   for (var i = 0; i < 5; i++) {
     if (notas[i] > 0) {
-      itens.push(notas[i] + ' ' + plural(notas[i], 'Conselheiro classificou', 'Conselheiros classificaram') +
-        ' com nota ' + (i + 1) + ' (' + ESCALA_NOTAS[i] + ')');
+      itens.push({
+        chave: 'n' + (i + 1),
+        texto: notas[i] + ' ' + plural(notas[i], 'Conselheiro classificou', 'Conselheiros classificaram') +
+          ' com nota ' + (i + 1) + ' (' + ESCALA_NOTAS[i] + ')'
+      });
     }
   }
-  if (!itens.length) return '';
-  var texto = itens.length === 1
-    ? itens[0]
-    : itens.slice(0, -1).join(', ') + ' e ' + itens[itens.length - 1];
-  return texto.replace('classificou com', 'classificou ' + alvo + ' com')
-    .replace('classificaram com', 'classificaram ' + alvo + ' com') + '.';
+  if (!itens.length) return segs;
+
+  // O alvo ("o atendimento do serviço" / "o tempo…") entra UMA vez por forma
+  // verbal — como o texto é montado em ordem, trocar no primeiro item que
+  // contém cada forma equivale a trocar a 1ª ocorrência do texto inteiro.
+  ['classificou com', 'classificaram com'].forEach(function (marca) {
+    for (var k = 0; k < itens.length; k++) {
+      if (itens[k].texto.indexOf(marca) !== -1) {
+        itens[k].texto = itens[k].texto.replace(marca, marca.replace(' com', ' ' + alvo + ' com'));
+        return;
+      }
+    }
+  });
+
+  itens.forEach(function (it, k) {
+    if (k > 0) seg(k === itens.length - 1 ? ' e ' : ', ');
+    seg(it.texto, it.chave);
+  });
+  seg('.');
+  return segs;
+}
+
+function textoAnalise(e, questao) {
+  return segmentosAnalise(e, questao).map(function (s) { return s.texto; }).join('');
 }
 
 /* Média das notas (arredondamento definido na metodologia: < ,5 para baixo;

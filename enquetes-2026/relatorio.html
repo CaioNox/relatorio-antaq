@@ -8,7 +8,7 @@
   ║  existentes em páginas 16:9 paisagem.                                     ║
   ║                                                                           ║
   ║  LEVEZA (o que mudou em relação à versão anterior):                       ║
-  ║   • Os ~85 iframes não são criados de uma vez. Cada página só monta       ║
+  ║   • Os ~95 iframes não são criados de uma vez. Cada página só monta       ║
   ║     o slide quando chega perto da tela (IntersectionObserver) e é         ║
   ║     desmontada quando fica longe — navegar fica leve.                     ║
   ║   • Para imprimir, use o botão "Preparar impressão": ele monta tudo em    ║
@@ -361,13 +361,16 @@
        1. ORDEM DOS SLIDES — espelha o `const deck` de index.html.
        ════════════════════════════════════════════════════════════════════ */
     // As telas de enquete saem de dados-enquetes.js, exatamente como no
-    // `deck` de index.html — uma tela por enquete, as 5 questões juntas.
+    // `deck` de index.html — duas telas por enquete (`&p=1` rosca, `&p=2`
+    // barras + sugestões); uma só quando ninguém usou o serviço.
     const telasEnquetes = [];
     ['SOG', 'SRG', 'SAF', 'SFC'].forEach((sigla) => {
       ENQUETES.filter((e) => e.sup === sigla)
         .sort((a, b) => a.num - b.num)
         .forEach((e) => {
-          telasEnquetes.push('slide-enquete.html?e=' + e.id);
+          const base = 'slide-enquete.html?e=' + e.id;
+          telasEnquetes.push(base + '&p=1');
+          if (e.q2) telasEnquetes.push(base + '&p=2');
         });
     });
 

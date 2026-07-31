@@ -44,7 +44,7 @@ Quem lê esse arquivo:
 | Quem | Para quê |
 |------|----------|
 | `index.html` | Monta a lista de telas de enquete dentro do `deck` |
-| `slide-enquete.html` | Desenha os 4 gráficos e escreve os textos de análise |
+| `slide-enquete.html` | Desenha os gráficos e escreve os textos de análise (2 telas por enquete) |
 | `slide-tabela-enquetes.html` | Monta a Tabela 1 |
 | `slide-cnsu-numeros.html` | Total de conselheiros, enquetes e respostas |
 | `slide-carta-numeros.html` | Distribuição de serviços por superintendência |
@@ -54,6 +54,11 @@ Quem lê esse arquivo:
 > ⚠️ **Os textos de análise NÃO são digitados** — são gerados a partir dos números pela função
 > `textoAnalise()`, no fim do `dados-enquetes.js`. Isso garante que gráfico e texto nunca fiquem
 > divergentes. Se um número mudar, a frase muda junto, sozinha.
+>
+> A frase é montada em pedaços por `segmentosAnalise()`, logo acima: cada oração que fala de uma
+> fatia do gráfico carrega a sua chave (`sim`, `nao`, `n1`…`n5`). É o que permite ao slide acender
+> a oração certa quando o mouse passa pela fatia. `textoAnalise()` é só a junção desses pedaços —
+> mexer em um mexe no outro.
 
 ### Anatomia de uma enquete
 
@@ -141,7 +146,7 @@ enquetes-2026/
 ├── MANUAL.md                         ← este arquivo
 ├── Imagens/                          ← logos + fluxograma (Figura 5)
 │
-├── slide-enquete.html                ← template das 31 telas de resultado
+├── slide-enquete.html                ← template das 56 telas de resultado
 ├── slide-tabela-enquetes.html        ← Tabela 1 (?p=1 e ?p=2)
 │
 ├── capa-bloco-1..6.html              ← capas dos 6 capítulos
@@ -150,9 +155,21 @@ enquetes-2026/
 
 ### Por que os templates usam `?e=` na URL
 
-`slide-enquete.html?e=8270` é **uma tela só** que se monta a partir do registro `8270` — as cinco
-questões juntas, como no documento-fonte. São 31 telas com **um arquivo**. Publicar ou retirar uma
-enquete = editar o `.js`. O visualizador aceita a query string normalmente.
+`slide-enquete.html?e=8270&p=1` se monta a partir do registro `8270`. Cada enquete ocupa **duas
+telas**, para o texto caber grande e legível:
+
+| URL | O que mostra |
+|-----|--------------|
+| `?e=NNNN&p=1` | questões 1 e 2 — os dois gráficos de rosca |
+| `?e=NNNN&p=2` | questões 3 e 4 — os dois gráficos de barras — e a questão 5 (sugestões) |
+
+O cabeçalho (superintendência, nº da enquete, enunciado, respondentes) se repete nas duas, com o
+selo `1/2` · `2/2` ao lado do número, para cada tela se ler sozinha.
+
+**Exceção:** quando nenhum conselheiro usou o serviço (`q2: null`), o formulário encerra na questão
+1 — não existem questões 2 a 5 e a enquete fica em **uma tela só**, com o selo `1/1`. Nesta rodada
+são 6 casos, então as 31 enquetes dão **56 telas** — todas com **um arquivo**. Publicar ou retirar
+uma enquete = editar o `.js`.
 
 ---
 
@@ -202,7 +219,7 @@ enquete = editar o `.js`. O visualizador aceita a query string normalmente.
 | `slide-metodologia-criterios.html` | Critérios de avaliação |
 | `slide-metodologia-estrutura.html` | As 5 questões e a escala 1–5 |
 | `slide-tabela-enquetes.html?p=1/2` | ⭐ Tabela 1 |
-| `slide-enquete.html?e=NNNN` | ⭐ Resultado de cada enquete (as 5 questões numa tela só) |
+| `slide-enquete.html?e=NNNN&p=1/2` | ⭐ Resultado de cada enquete (rosca na 1/2, barras + sugestões na 2/2) |
 
 ### Bloco 5 · Considerações Finais
 `capa-bloco-5.html`, `slide-resultados-orgao.html`, `slide-resultados-ambos.html`.
@@ -210,6 +227,16 @@ enquete = editar o `.js`. O visualizador aceita a query string normalmente.
 ### Bloco 6 · Apêndice
 `capa-bloco-6.html`, `slide-decretos.html`, `slide-glossario.html`, `slide-leis.html`,
 `slide-normativos.html`, `slide-links.html`.
+
+> Nos quatro slides de quadros (Decretos, Glossário, Leis, Normativos) o detalhamento abre ao
+> **passar o mouse**, num painel **ancorado ao quadro apontado** — abaixo dele, ou acima quando não
+> cabe, ou ao lado (mais estreito) quando não cabe nem acima nem abaixo. O painel é transparente ao
+> ponteiro (`pointer-events: none`), então nunca fica embaixo do cursor: não há zona morta nem
+> pisca-pisca, e dá para varrer a grade inteira sem clicar. O **clique** abre o mesmo conteúdo no
+> cartão central de sempre (`.fixado`), aí com fundo escurecido, rolagem, links clicáveis e X.
+>
+> O conteúdo continua no `.tile-full` de cada quadro, que é de onde o `relatorio.html` monta as
+> páginas de anexo — mexer no gatilho não mexe na impressão.
 
 ---
 
@@ -305,10 +332,16 @@ A: A tabela tem altura fixa (a tela é 1920×1080). Se a rodada tiver mais servi
 `font-size`/`padding` de `table.enq td` em `slide-tabela-enquetes.html`, ou quebre em 3 partes
 (`?p=3`) acrescentando o arquivo ao `deck`.
 
-**Q: As sugestões (questão 5) ficaram com a letra muito pequena numa enquete.**
-A: A faixa inferior encolhe a fonte automaticamente conforme o volume de texto
-(`.sug[data-dens]`, em `slide-enquete.html`): até 260 caracteres usa o tamanho cheio,
-acima disso reduz em dois níveis para caber sem cortar nada.
+**Q: As sugestões (questão 5) ficaram com a letra menor numa enquete.**
+A: A faixa inferior mede a própria altura e usa a **maior** fonte que ainda cabe — a escala vai de
+21 px a 15 px (`caberNaCaixa()`, em `slide-enquete.html`). A caixa de análise faz o mesmo, de 19 px
+a 14 px. Só encolhe quem tem texto demais; as demais telas ficam no tamanho cheio.
+
+**Q: Dá para ver os números exatos de um gráfico?**
+A: Sim — o botão **Ver números** no canto do cartão troca o gráfico por uma tabela com os mesmos
+valores, e volta no clique seguinte. Passar o mouse numa fatia/barra também acende a oração
+correspondente na caixa de análise (e vice-versa), e clicar na legenda `SIM`/`NÃO` põe uma das
+respostas em foco. Nada disso altera número nenhum, e a versão de impressão sai sempre em gráfico.
 
 **Q: Quantos slides tem a apresentação?**
 A: Não há número fixo — é calculado do `deck` (`const total = slides.length`).
