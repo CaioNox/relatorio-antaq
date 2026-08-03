@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
+<!--
+  ╔══════════════════════════════════════════════════════════════╗
+  ║  Evolução da Carta de Serviços · 2021 · 2023 · 2025 · 2026   ║
+  ║  ATUALIZAR: a série vive em CARTA_HISTORICO,                 ║
+  ║  em dados-enquetes.js — não há número solto aqui.            ║
+  ║                                                              ║
+  ║  ATENÇÃO: 2026 aparece com 32 serviços de propósito (posição ║
+  ║  publicada no exercício, sem o ProTeu). Os demais slides do  ║
+  ║  capítulo contam 33 porque já incluem o ProTeu. Divergência  ║
+  ║  decidida na revisão — não "corrigir".                       ║
+  ╚══════════════════════════════════════════════════════════════╝
+-->
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Evolução da Carta de Serviços — Relatório Anual de Enquetes · Ouvidoria ANTAQ</title>
+  <link rel="icon" type="image/png"
+    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    html { font-size: 26px; }
+    body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
+    .slide-container { width: 100vw; height: 100vh; position: relative; display: flex; flex-direction: column; background-color: #fff; overflow: hidden; font-family: 'Open Sans', sans-serif; }
+    .font-montserrat { font-family: 'Montserrat', sans-serif; }
+    .text-brand-primary { color: #103050; }
+    .text-brand-secondary { color: #0070C0; }
+    .bg-brand-secondary { background-color: #0070C0; }
+    .top-accent { height: 8px; background-color: #103050; width: 100%; }
+    .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
+
+    /* ── Filtro: pílulas de ano ─────────────────────────────────────────
+       São <button> de verdade para funcionar por Tab+Enter. O estado vive
+       em aria-pressed, e o CSS lê de lá — não há classe "ativo" paralela
+       que possa divergir do estado real.                                */
+    .filtro { display: flex; align-items: center; gap: .55rem; padding: .1rem 3.4rem .45rem; }
+    .filtro-rotulo {
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .62rem;
+      letter-spacing: .12em; text-transform: uppercase; color: #94A3B8; margin-right: .3rem;
+    }
+    .yr-pill {
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .82rem;
+      color: #64748B; background: #fff; border: 2px solid #E2E8F0; border-radius: 999px;
+      padding: .3rem 1.15rem; cursor: pointer; letter-spacing: .02em;
+      transition: background-color .2s ease, color .2s ease, border-color .2s ease, box-shadow .2s ease;
+    }
+    .yr-pill:hover { border-color: #0070C0; color: #0070C0; }
+    .yr-pill[aria-pressed="true"] {
+      background: linear-gradient(135deg, #103050, #0070C0); color: #fff; border-color: transparent;
+      box-shadow: 0 8px 18px -8px rgba(16, 48, 80, .6);
+    }
+    .yr-pill:focus-visible { outline: 3px solid #0090C0; outline-offset: 2px; }
+    .yr-all {
+      margin-left: auto; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: .7rem;
+      color: #0070C0; background: rgba(0, 112, 192, .07); border: 1px solid rgba(0, 112, 192, .3);
+      border-radius: 999px; padding: .3rem 1rem; cursor: pointer; display: inline-flex; align-items: center; gap: .4rem;
+      transition: all .2s ease;
+    }
+    .yr-all:hover { background: #0070C0; color: #fff; border-color: #0070C0; }
+    .yr-all:focus-visible { outline: 3px solid #0090C0; outline-offset: 2px; }
+
+    /* ── Corpo ── */
+    .body-wrap { flex: 1; min-height: 0; display: grid; grid-template-columns: 1.02fr 1fr; gap: 1.6rem; padding: 0 3.4rem; }
+    .left { display: flex; flex-direction: column; justify-content: center; gap: .7rem; min-height: 0; }
+
+    .kpi {
+      background: linear-gradient(150deg, #103050 0%, #0070C0 100%);
+      border-radius: 18px; color: #fff; padding: .8rem 1.3rem;
+      display: flex; align-items: center; gap: 1.1rem;
+      box-shadow: 0 16px 34px -16px rgba(16, 48, 80, .65);
+    }
+    .kpi-num { font-family: 'Montserrat', sans-serif; font-size: 3.5rem; font-weight: 900; line-height: .9; }
+    .kpi-label { font-size: .76rem; line-height: 1.35; opacity: .92; }
+    .kpi-label strong { display: block; font-family: 'Montserrat', sans-serif; font-size: .88rem; letter-spacing: .04em; text-transform: uppercase; margin-bottom: .15rem; }
+    .kpi-delta {
+      margin-left: auto; flex-shrink: 0; text-align: center;
+      background: rgba(255, 255, 255, .14); border-radius: 12px; padding: .4rem .8rem;
+    }
+    .kpi-delta .v { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.5rem; line-height: 1; }
+    .kpi-delta .k { font-size: .55rem; letter-spacing: .06em; text-transform: uppercase; opacity: .85; margin-top: .2rem; }
+
+    /* ── Tabela: é também a "table view" que dá identidade sem depender
+         da cor. Cada linha tem barra proporcional na cor da UORG.      */
+    table.tab { width: 100%; border-collapse: collapse; }
+    table.tab th {
+      font-family: 'Montserrat', sans-serif; font-size: .58rem; font-weight: 800; letter-spacing: .09em;
+      text-transform: uppercase; color: #fff; background: #103050; padding: .35rem .6rem; text-align: left;
+    }
+    table.tab th.n, table.tab td.n { text-align: right; }
+    table.tab td { padding: .3rem .6rem; font-size: .72rem; color: #334155; border-bottom: 1px solid #E2E8F0; }
+    table.tab tr.hl td { background: #EAF3FB; }
+    table.tab td.sig { font-family: 'Montserrat', sans-serif; font-weight: 800; white-space: nowrap; }
+    table.tab td.n { font-family: 'Montserrat', sans-serif; font-weight: 800; color: #103050; }
+    table.tab td.dl { color: #64748B; font-family: 'Montserrat', sans-serif; font-weight: 700; }
+    table.tab td.dl.up { color: #0070C0; }
+    table.tab tr.total td { background: #E8F1F8; border-top: 2px solid #0070C0; border-bottom: none; font-weight: 800; color: #103050; }
+    .dot { display: inline-block; width: .5rem; height: .5rem; border-radius: 50%; margin-right: .4rem; vertical-align: middle; }
+    .barra { height: .42rem; border-radius: 999px; background: #E2E8F0; overflow: hidden; min-width: 3rem; }
+    .barra > i { display: block; height: 100%; border-radius: 999px; }
+
+    /* ── Gráfico ── */
+    .right { display: flex; flex-direction: column; min-height: 0; }
+    .chart-card {
+      flex: 1; min-height: 0; border: 2px solid #E2E8F0; border-radius: 16px; background: #fff;
+      box-shadow: 0 8px 20px -8px rgba(16, 48, 80, .18); padding: .6rem 1rem .8rem;
+      display: flex; flex-direction: column;
+    }
+    .chart-title { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: .74rem; color: #103050; margin-bottom: .2rem; }
+    .chart-box { flex: 1; min-height: 0; position: relative; }
+
+    /* ── Linha do tempo ─────────────────────────────────────────────────
+         Série única (o total por ano), então dispensa legenda: cada nó já
+         carrega o rótulo direto. Também serve de atalho para o filtro.  */
+    .timeline { padding: .5rem 3.4rem .2rem; }
+    .tl-trilho { position: relative; display: flex; justify-content: space-between; align-items: flex-end; }
+    .tl-trilho::before {
+      content: ''; position: absolute; left: 6%; right: 6%; bottom: 1.05rem; height: 3px;
+      background: linear-gradient(90deg, #CBD5E1, #0070C0); border-radius: 999px;
+    }
+    .tl-no {
+      position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center;
+      gap: .18rem; background: none; border: 0; padding: 0 .5rem; cursor: pointer; font-family: inherit;
+    }
+    .tl-no:focus-visible { outline: 3px solid #0090C0; outline-offset: 3px; border-radius: 10px; }
+    .tl-total { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.15rem; color: #94A3B8; line-height: 1; transition: color .2s ease, transform .2s ease; }
+    .tl-ponto {
+      width: .85rem; height: .85rem; border-radius: 50%; background: #fff;
+      border: 3px solid #CBD5E1; transition: all .2s ease;
+    }
+    .tl-ano { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: .64rem; color: #94A3B8; letter-spacing: .04em; transition: color .2s ease; }
+    .tl-no[aria-pressed="true"] .tl-total { color: #103050; transform: scale(1.12); }
+    .tl-no[aria-pressed="true"] .tl-ponto { border-color: #0070C0; background: #0070C0; box-shadow: 0 0 0 5px rgba(0, 112, 192, .16); }
+    .tl-no[aria-pressed="true"] .tl-ano { color: #0070C0; }
+    .tl-var { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .55rem; color: #0070C0; }
+
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+  </style>
+</head>
+
+<body>
+  <div class="slide-container">
+    <div class="top-accent"></div>
+    <div class="top-accent-secondary"></div>
+
+    <div class="flex items-start justify-between px-12 pt-6 pb-1 z-10">
+      <div>
+        <div class="flex items-center gap-3 mb-1">
+          <div class="w-1 h-8 bg-brand-secondary"></div>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Evolução da Carta de
+            Serviços</p>
+        </div>
+        <p class="text-gray-500 ml-4" style="font-size:.72rem;">Como a Carta cresceu entre 2021 e 2026. Selecione os
+          anos para comparar.</p>
+      </div>
+      <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
+        <i class="fas fa-chart-line align-middle" aria-hidden="true" style="font-size:44px;"></i>
+        <div class="flex flex-col justify-center pl-2" style="border-left: 1px solid #CBD5E1;">
+          <p class="font-montserrat font-bold text-gray-400 tracking-widest leading-none mb-1 whitespace-nowrap"
+            style="font-size:20px;">CAPÍTULO 03</p>
+          <p class="font-montserrat font-bold text-brand-secondary tracking-tight uppercase leading-none whitespace-nowrap"
+            style="font-size:17px;">Carta de Serviços da ANTAQ</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="filtro" id="filtro">
+      <span class="filtro-rotulo">Anos</span>
+      <!-- pílulas injetadas por JS a partir de CARTA_HISTORICO -->
+      <button class="yr-all" id="btnTodos" type="button"><i class="fas fa-layer-group"></i> Comparar todos</button>
+    </div>
+
+    <div class="body-wrap">
+      <div class="left">
+        <div class="kpi">
+          <div class="kpi-num" id="kpiTotal">32</div>
+          <div class="kpi-label"><strong id="kpiAno">Serviços em 2026</strong>Total publicado na Carta de Serviços ao
+            Usuário no exercício.</div>
+          <div class="kpi-delta" id="kpiDelta">
+            <div class="v">+1</div>
+            <div class="k">vs 2025</div>
+          </div>
+        </div>
+        <table class="tab">
+          <thead id="tabHead"></thead>
+          <tbody id="tabBody"></tbody>
+        </table>
+      </div>
+
+      <div class="right">
+        <div class="chart-card">
+          <div class="chart-title" id="chartTitle">Distribuição por superintendência</div>
+          <div class="chart-box"><canvas id="grafico"></canvas></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-trilho" id="timeline"></div>
+    </div>
+
+    <div class="px-12 pb-4 pt-1 flex justify-between items-center z-10">
+      <p class="text-gray-400 text-xs">Relatório Anual de Enquetes do Conselho de Usuários · 2026 – Ouvidoria – Agência
+        Nacional de Transportes Aquaviários - ANTAQ</p>
+      <p class="text-gray-400 text-xs">Fonte: Carta de Serviços publicada em cada exercício.</p>
+    </div>
+  </div>
+
+  <script src="dados-enquetes.js"></script>
+  <script>
+    (function () {
+      var SIGLAS = ['SOG', 'SRG', 'SAF', 'SFC'];
+      var COR = {};
+      SIGLAS.forEach(function (s) { COR[s] = SUPERINTENDENCIAS[s].cor; });
+
+      var ANOS = CARTA_HISTORICO.map(function (h) { return h.ano; });
+      var porAno = {};
+      CARTA_HISTORICO.forEach(function (h) { porAno[h.ano] = h; });
+
+      function total(ano) {
+        return SIGLAS.reduce(function (a, s) { return a + porAno[ano][s]; }, 0);
+      }
+      /* Variação contra o ano anterior DA SÉRIE (não o civil): 2023 compara
+         com 2021, 2025 com 2023 e assim por diante. */
+      function anoAnterior(ano) {
+        var i = ANOS.indexOf(ano);
+        return i > 0 ? ANOS[i - 1] : null;
+      }
+
+      /* Seleção: começa só com o ano mais recente. Nunca fica vazia — é o
+         que garante que o slide sempre tenha algo para mostrar. */
+      var sel = new Set([ANOS[ANOS.length - 1]]);
+      var grafico = null;
+
+      /* ── Filtro ── */
+      var filtro = document.getElementById('filtro');
+      var btnTodos = document.getElementById('btnTodos');
+      ANOS.forEach(function (ano) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'yr-pill';
+        b.dataset.ano = ano;
+        b.textContent = ano;
+        b.addEventListener('click', function () { alterna(ano); });
+        filtro.insertBefore(b, btnTodos);
+      });
+
+      function alterna(ano) {
+        if (sel.has(ano)) {
+          if (sel.size === 1) return;   // nunca esvazia
+          sel.delete(ano);
+        } else {
+          sel.add(ano);
+        }
+        render();
+      }
+
+      btnTodos.addEventListener('click', function () {
+        if (sel.size === ANOS.length) sel = new Set([ANOS[ANOS.length - 1]]);
+        else sel = new Set(ANOS);
+        render();
+      });
+
+      /* ── Linha do tempo ── */
+      var tl = document.getElementById('timeline');
+      ANOS.forEach(function (ano) {
+        var ant = anoAnterior(ano);
+        var d = ant === null ? '' : '+' + (total(ano) - total(ant));
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'tl-no';
+        b.dataset.ano = ano;
+        b.innerHTML = '<span class="tl-var">' + d + '</span>' +
+          '<span class="tl-total">' + total(ano) + '</span>' +
+          '<span class="tl-ponto"></span>' +
+          '<span class="tl-ano">' + ano + '</span>';
+        b.addEventListener('click', function () { alterna(ano); });
+        tl.appendChild(b);
+      });
+
+      /* ── Tabela ── */
+      function montaTabela(anos) {
+        var head = document.getElementById('tabHead');
+        var body = document.getElementById('tabBody');
+        var comparando = anos.length > 1;
+        var maior = Math.max.apply(null, SIGLAS.map(function (s) {
+          return Math.max.apply(null, anos.map(function (a) { return porAno[a][s]; }));
+        }));
+
+        var th = '<tr><th>Superintendência</th>';
+        anos.forEach(function (a) { th += '<th class="n">' + a + '</th>'; });
+        th += comparando
+          ? '<th class="n">Var.</th></tr>'
+          : '<th class="n">%</th><th style="width:34%"></th></tr>';
+        head.innerHTML = th;
+
+        var linhas = '';
+        SIGLAS.forEach(function (s) {
+          var tds = '<td class="sig"><span class="dot" style="background:' + COR[s] + '"></span>' + s + '</td>';
+          anos.forEach(function (a) {
+            var v = porAno[a][s];
+            tds += '<td class="n">' + (v === 0 ? '—' : v) + '</td>';
+          });
+          if (comparando) {
+            var dif = porAno[anos[anos.length - 1]][s] - porAno[anos[0]][s];
+            tds += '<td class="n dl' + (dif > 0 ? ' up' : '') + '">' + (dif > 0 ? '+' + dif : dif === 0 ? '=' : dif) + '</td>';
+          } else {
+            var v1 = porAno[anos[0]][s];
+            tds += '<td class="n">' + pct(v1, total(anos[0])) + '</td>' +
+              '<td><span class="barra"><i style="width:' + (v1 / maior * 100) + '%;background:' + COR[s] + '"></i></span></td>';
+          }
+          linhas += '<tr data-sig="' + s + '">' + tds + '</tr>';
+        });
+
+        var tot = '<tr class="total"><td>Total</td>';
+        anos.forEach(function (a) { tot += '<td class="n">' + total(a) + '</td>'; });
+        tot += comparando
+          ? '<td class="n">+' + (total(anos[anos.length - 1]) - total(anos[0])) + '</td></tr>'
+          : '<td class="n">100%</td><td></td></tr>';
+        body.innerHTML = linhas + tot;
+      }
+
+      function realca(sigla) {
+        document.querySelectorAll('#tabBody tr[data-sig]').forEach(function (tr) {
+          tr.classList.toggle('hl', tr.dataset.sig === sigla);
+        });
+      }
+
+      /* ── Rótulo direto dentro/junto de cada fatia da rosca ──────────────
+         SOG e SRG são dois azuis próximos; o rótulo é o que garante a
+         identidade sem depender da cor. Fatia estreita recebe o rótulo do
+         lado de fora, em tinta escura, para não ficar ilegível. */
+      var rotulosRosca = {
+        id: 'rotulosRosca',
+        afterDatasetsDraw: function (chart) {
+          var ctx = chart.ctx;
+          var dados = chart.data.datasets[0].data;
+          ctx.save();
+          ctx.font = '800 15px Montserrat, sans-serif';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          chart.getDatasetMeta(0).data.forEach(function (arc, i) {
+            if (!dados[i]) return;
+            var txt = chart.data.labels[i] + ' ' + dados[i];
+            var angulo = Math.abs(arc.endAngle - arc.startAngle);
+            var p = arc.tooltipPosition();
+            if (angulo > 0.55) {
+              ctx.fillStyle = '#fff';
+              ctx.fillText(txt, p.x, p.y);
+            } else {
+              /* Fatia estreita: rótulo do lado de fora, alinhado para o lado
+                 em que ele cresce, senão estoura a área de desenho. */
+              var meio = (arc.startAngle + arc.endAngle) / 2;
+              var r = arc.outerRadius + 14;
+              var x = arc.x + Math.cos(meio) * r;
+              var y = arc.y + Math.sin(meio) * r;
+              ctx.fillStyle = '#103050';
+              ctx.textAlign = Math.cos(meio) < -0.2 ? 'right' : Math.cos(meio) > 0.2 ? 'left' : 'center';
+              ctx.fillText(txt, x, y);
+              ctx.textAlign = 'center';
+            }
+          });
+          ctx.restore();
+        }
+      };
+
+      /* Valor no topo de cada barra — mesma função do rótulo da rosca. */
+      var rotulosBarra = {
+        id: 'rotulosBarra',
+        afterDatasetsDraw: function (chart) {
+          var ctx = chart.ctx;
+          ctx.save();
+          ctx.font = '800 13px Montserrat, sans-serif';
+          ctx.fillStyle = '#103050';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'bottom';
+          chart.data.datasets.forEach(function (ds, di) {
+            chart.getDatasetMeta(di).data.forEach(function (bar, i) {
+              if (!ds.data[i]) return;
+              ctx.fillText(ds.data[i], bar.x, bar.y - 4);
+            });
+          });
+          ctx.restore();
+        }
+      };
+
+      function desenha(anos) {
+        if (grafico) grafico.destroy();
+        var ctx = document.getElementById('grafico');
+        var titulo = document.getElementById('chartTitle');
+
+        if (anos.length === 1) {
+          var ano = anos[0];
+          titulo.textContent = 'Distribuição por superintendência · ' + ano;
+          grafico = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+              labels: SIGLAS,
+              datasets: [{
+                data: SIGLAS.map(function (s) { return porAno[ano][s]; }),
+                backgroundColor: SIGLAS.map(function (s) { return COR[s]; }),
+                borderColor: '#fff', borderWidth: 2
+              }]
+            },
+            options: {
+              responsive: true, maintainAspectRatio: false, cutout: '46%',
+              layout: { padding: { top: 26, bottom: 14, left: 46, right: 46 } },
+              onHover: function (e, els) { realca(els.length ? SIGLAS[els[0].index] : null); },
+              plugins: {
+                legend: {
+                  position: 'bottom',
+                  labels: { font: { family: 'Montserrat', size: 12, weight: '700' }, color: '#334155', boxWidth: 13, padding: 12 }
+                },
+                tooltip: {
+                  callbacks: {
+                    label: function (c) {
+                      return ' ' + SUPERINTENDENCIAS[c.label].nome + ': ' + c.parsed +
+                        ' (' + pct(c.parsed, total(ano)) + ')';
+                    }
+                  }
+                }
+              }
+            },
+            plugins: [rotulosRosca]
+          });
+        } else {
+          titulo.textContent = 'Comparativo por superintendência · ' + anos.join(' · ');
+          grafico = new Chart(ctx, {
+            type: 'bar',
+            data: {
+              labels: anos,
+              datasets: SIGLAS.map(function (s) {
+                return {
+                  label: s,
+                  data: anos.map(function (a) { return porAno[a][s]; }),
+                  backgroundColor: COR[s],
+                  borderColor: '#fff', borderWidth: 2,
+                  borderRadius: 4, borderSkipped: false,
+                  maxBarThickness: 34
+                };
+              })
+            },
+            options: {
+              responsive: true, maintainAspectRatio: false,
+              layout: { padding: { top: 18 } },
+              onHover: function (e, els) { realca(els.length ? SIGLAS[els[0].datasetIndex] : null); },
+              scales: {
+                x: { grid: { display: false }, ticks: { font: { family: 'Montserrat', size: 13, weight: '800' }, color: '#103050' } },
+                y: {
+                  beginAtZero: true, grace: '12%',
+                  grid: { color: '#EEF2F6' }, border: { display: false },
+                  ticks: { font: { family: 'Open Sans', size: 11 }, color: '#94A3B8', precision: 0 }
+                }
+              },
+              plugins: {
+                legend: {
+                  position: 'bottom',
+                  labels: { font: { family: 'Montserrat', size: 12, weight: '700' }, color: '#334155', boxWidth: 13, padding: 12 }
+                },
+                tooltip: {
+                  callbacks: {
+                    label: function (c) {
+                      return ' ' + SUPERINTENDENCIAS[c.dataset.label].nome + ': ' + c.parsed.y;
+                    }
+                  }
+                }
+              }
+            },
+            plugins: [rotulosBarra]
+          });
+        }
+      }
+
+      function render() {
+        var anos = ANOS.filter(function (a) { return sel.has(a); });
+
+        document.querySelectorAll('.yr-pill').forEach(function (b) {
+          b.setAttribute('aria-pressed', sel.has(Number(b.dataset.ano)));
+        });
+        document.querySelectorAll('.tl-no').forEach(function (b) {
+          b.setAttribute('aria-pressed', sel.has(Number(b.dataset.ano)));
+        });
+        btnTodos.innerHTML = sel.size === ANOS.length
+          ? '<i class="fas fa-rotate-left"></i> Voltar a ' + ANOS[ANOS.length - 1]
+          : '<i class="fas fa-layer-group"></i> Comparar todos';
+
+        /* O KPI fala sempre do ano mais recente selecionado. */
+        var foco = anos[anos.length - 1];
+        var ant = anoAnterior(foco);
+        document.getElementById('kpiTotal').textContent = total(foco);
+        document.getElementById('kpiAno').textContent = 'Serviços em ' + foco;
+        var delta = document.getElementById('kpiDelta');
+        if (ant === null) {
+          delta.style.display = 'none';
+        } else {
+          delta.style.display = '';
+          delta.querySelector('.v').textContent = '+' + (total(foco) - total(ant));
+          delta.querySelector('.k').textContent = 'vs ' + ant;
+        }
+
+        montaTabela(anos);
+        desenha(anos);
+      }
+
+      render();
+    })();
+  </script>
+  <script>
+    document.addEventListener("keydown", function (e) {
+      /* Espaço e Enter pertencem ao botão que estiver com o foco — só o que
+         sobra é repassado ao index.html para navegar o deck. */
+      if (e.target.closest && e.target.closest('button') && (e.key === ' ' || e.key === 'Enter')) return;
+      if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) {
+        e.preventDefault();
+        window.parent.postMessage({ type: "slide-nav", key: e.key }, "*");
+      }
+    });
+  </script>
+</body>
+
+</html>

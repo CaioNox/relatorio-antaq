@@ -67,6 +67,11 @@
       content: "\f105"; font-family: "Font Awesome 6 Free"; font-weight: 900;
       position: absolute; left: 0; top: 0; color: var(--c);
     }
+    /* O cartão da SAF (3º) tem o texto mais longo dos quatro e o último item
+       vazava o padding. Aperta o entrelinhas só dele — os outros três ficam
+       com a densidade original. */
+    .sup-card:nth-child(3) .sup-list li { line-height: 1.36; margin-bottom: .12rem; }
+
     @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
   </style>
@@ -85,7 +90,7 @@
             por superintendência</p>
         </div>
         <p class="text-gray-500 ml-4" style="font-size:.72rem;">Como as quatro superintendências da ANTAQ se dividem na
-          entrega dos 32 serviços da Carta de Serviços.</p>
+          entrega dos 33 serviços da Carta de Serviços.</p>
       </div>
       <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
         <i class="fas fa-file-lines align-middle" aria-hidden="true" style="font-size:44px;"></i>
@@ -141,14 +146,16 @@
           <div class="sup-count">4 serviços</div>
         </div>
         <p class="sup-lead">É o motor interno que faz a própria Agência funcionar.</p>
-        <p class="sup-desc">Enquanto as outras três olham para fora — para o setor regulado —, a SAF olha para dentro da
-          ANTAQ para garantir que a casa esteja organizada:</p>
+        <p class="sup-desc">Enquanto as outras três atuam na fiscalização e regulação, a SAF garante que a casa esteja
+          organizada:</p>
         <ul class="sup-list">
-          <li>Gerencia o orçamento, as finanças e a contabilidade da Agência.</li>
-          <li>Cuida da gestão de pessoas (servidores, concursos, RH).</li>
-          <li>Administra as compras públicas, licitações internas, contratos de serviço, TI e infraestrutura dos prédios
-            da ANTAQ.</li>
-          <li>Arrecada e gere as receitas próprias da Agência, como taxas e multas aplicadas.</li>
+          <li>Gerencia o orçamento, as finanças e a contabilidade da Agência, além de arrecadação de taxas e multas
+            aplicadas;</li>
+          <li>Cuida da Gestão de pessoas como capacitação e desenvolvimento de servidores, avaliação de desempenho,
+            concursos e qualidade de vida;</li>
+          <li>Administra as compras públicas e licitações internas;</li>
+          <li>Supervisiona contratos de serviços de apoio logístico, patrimônio, almoxarifado, de transporte de pessoas
+            e de cargas, segurança patrimonial e de pessoas, infraestrutura predial e prevenção de acidente.</li>
         </ul>
       </div>
 
@@ -157,7 +164,7 @@
           <div class="sup-ico"><i class="fas fa-magnifying-glass"></i></div>
           <div class="sup-name">Superintendência de Fiscalização e Coordenação das Unidades Regionais <span
               class="sup-sigla">· SFC</span></div>
-          <div class="sup-count">2 serviços</div>
+          <div class="sup-count">3 serviços</div>
         </div>
         <p class="sup-lead">É o braço operacional no campo — o fiscal que garante que as regras sejam cumpridas.</p>
         <p class="sup-desc">De nada adiantaria criar regras (SRG) e dar autorizações (SOG) se ninguém checasse o dia a

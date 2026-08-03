@@ -30,32 +30,46 @@
     .top-accent { height: 8px; background-color: #103050; width: 100%; }
     .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
 
-    .body-wrap { flex: 1; min-height: 0; display: grid; grid-template-columns: 1.25fr .95fr; gap: 2.2rem; padding: 1rem 3.4rem 0; align-items: center; }
+    .body-wrap { flex: 1; min-height: 0; display: grid; grid-template-columns: 1.3fr .92fr; gap: 2rem; padding: .7rem 3.4rem .3rem; align-items: stretch; }
+    .esq { display: flex; flex-direction: column; gap: 1rem; min-height: 0; }
 
-    .steps { display: flex; flex-direction: column; gap: 1rem; }
-    .step {
-      display: flex; gap: 1.1rem; align-items: flex-start;
-      border: 2px solid #E2E8F0; border-left: 6px solid #0070C0; border-radius: 0 16px 16px 0;
-      background: #fff; box-shadow: 0 10px 26px -14px rgba(16,48,80,.30); padding: 1rem 1.3rem;
+    /* Bloco de texto corrido, no mesmo padrão de prosa do slide de
+       apresentação da Carta (.inst-text). */
+    .prosa {
+      font-size: 1.05rem; line-height: 1.72; color: #334155; margin: 0;
+      border-left: 5px solid #0070C0; padding-left: 1.1rem;
       animation: fadeInLeft .5s cubic-bezier(.2,.7,.3,1) both;
     }
-    .step:nth-child(2) { animation-delay: .1s; }
-    .step:nth-child(3) { animation-delay: .2s; }
-    .step-n {
-      flex-shrink: 0; width: 2.6rem; height: 2.6rem; border-radius: .8rem;
-      background: linear-gradient(150deg, #103050, #0070C0); color: #fff;
-      font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.2rem;
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 8px 18px -8px rgba(16,48,80,.6);
+    .prosa strong { color: #103050; font-weight: 700; }
+
+    /* ── Os três passos, em faixa compacta sob o texto ──────────────────
+         O parágrafo diz o "quem pode"; os passos dizem o "como se faz" —
+         é o que preenche a coluna sem repetir a mesma informação.      */
+    .passos { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: .8rem; }
+    .passo {
+      display: flex; flex-direction: column; justify-content: center; min-height: 0;
+      border: 2px solid #E2E8F0; border-top: 5px solid #0070C0; border-radius: 12px;
+      background: #fff; box-shadow: 0 10px 24px -16px rgba(16, 48, 80, .34);
+      padding: .9rem 1rem;
+      animation: fadeInUp .5s cubic-bezier(.2,.7,.3,1) both .12s;
     }
-    .step h3 { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1rem; color: #103050; margin: 0 0 .3rem; }
-    .step p { margin: 0; font-size: .82rem; line-height: 1.55; color: #475569; }
+    .passo:nth-child(2) { animation-delay: .2s; }
+    .passo:nth-child(3) { animation-delay: .28s; }
+    .passo-n {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 1.55rem; height: 1.55rem; border-radius: .5rem; margin-bottom: .4rem;
+      background: linear-gradient(150deg, #103050, #0070C0); color: #fff;
+      font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: .8rem;
+    }
+    .passo h3 { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .84rem; color: #103050; margin: 0 0 .3rem; }
+    .passo p { margin: 0; font-size: .75rem; line-height: 1.5; color: #64748B; }
 
     .cta {
       border-radius: 18px; padding: 1.5rem 1.6rem; color: #fff;
       background: linear-gradient(150deg, #103050 0%, #0070C0 100%);
       box-shadow: 0 18px 40px -18px rgba(16,48,80,.7);
       animation: fadeInUp .5s ease both .22s; text-align: center;
+      display: flex; flex-direction: column; justify-content: center; min-height: 0;
     }
     .cta i.big { font-size: 3rem; opacity: .9; }
     .cta h3 { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.35rem; margin: .7rem 0 .4rem; line-height: 1.15; }
@@ -102,26 +116,27 @@
     </div>
 
     <div class="body-wrap">
-      <div class="steps">
-        <div class="step">
-          <div class="step-n">1</div>
-          <div>
+      <div class="esq">
+        <p class="prosa">Para se tornar um conselheiro do <strong>Conselho de Usuários da ANTAQ</strong> de forma
+          simples e direta, qualquer cidadão pode se voluntariar. Não há exigência de concurso público ou processo
+          eletivo: basta acessar a plataforma oficial com sua conta do sistema unificado <strong>gov.br</strong> e
+          realizar a inscrição para participar da avaliação dos serviços regulados pela agência.</p>
+
+        <div class="passos">
+          <div class="passo">
+            <div class="passo-n">1</div>
             <h3>Inscrição voluntária</h3>
-            <p>Acesse a Plataforma Virtual do Conselho de Usuários via Gov.br e inscreva-se voluntariamente.</p>
+            <p>Acesse a Plataforma Virtual do Conselho de Usuários com a conta gov.br e inscreva-se.</p>
           </div>
-        </div>
-        <div class="step">
-          <div class="step-n">2</div>
-          <div>
+          <div class="passo">
+            <div class="passo-n">2</div>
             <h3>Seleção de serviços</h3>
-            <p>Escolha os serviços públicos e órgãos dos quais deseja acompanhar a qualidade e opinar.</p>
+            <p>Escolha os serviços e órgãos cuja qualidade deseja acompanhar e sobre os quais quer opinar.</p>
           </div>
-        </div>
-        <div class="step">
-          <div class="step-n">3</div>
-          <div>
+          <div class="passo">
+            <div class="passo-n">3</div>
             <h3>Contribuição remota</h3>
-            <p>Responda às enquetes enviadas e envie contribuições diretamente pelas plataformas oficiais.</p>
+            <p>Responda às enquetes e envie contribuições pelas plataformas oficiais, de onde estiver.</p>
           </div>
         </div>
       </div>
