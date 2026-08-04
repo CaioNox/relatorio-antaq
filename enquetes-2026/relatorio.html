@@ -8,7 +8,7 @@
   ║  existentes em páginas 16:9 paisagem.                                     ║
   ║                                                                           ║
   ║  LEVEZA (o que mudou em relação à versão anterior):                       ║
-  ║   • Os ~95 iframes não são criados de uma vez. Cada página só monta       ║
+  ║   • Os ~94 iframes não são criados de uma vez. Cada página só monta       ║
   ║     o slide quando chega perto da tela (IntersectionObserver) e é         ║
   ║     desmontada quando fica longe — navegar fica leve.                     ║
   ║   • Para imprimir, use o botão "Preparar impressão": ele monta tudo em    ║
@@ -35,6 +35,10 @@
     href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Open+Sans:wght@400;600&display=swap"
     rel="stylesheet" />
+  <!-- Usadas só pelo botão "Baixar PowerPoint": tiram um print de cada slide
+       e montam um .pptx no navegador, sem servidor. -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
   <style>
     /* Página física = 16:9 landscape → o slide preenche 100% sem bordas */
     :root {
@@ -94,11 +98,16 @@
       color: #cbd5e1;
     }
 
-    .btn-print {
+    .toolbar-actions {
       margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+    }
+
+    .btn-print, .btn-pptx {
       border: 0;
       cursor: pointer;
-      background: #0090C0;
       color: #fff;
       font-weight: 700;
       font-size: 13px;
@@ -107,14 +116,13 @@
       transition: background .2s;
     }
 
-    .btn-print:hover {
-      background: #0070C0;
-    }
+    .btn-print { background: #0090C0; }
+    .btn-print:hover { background: #0070C0; }
+    .btn-print[disabled] { background: #475569; cursor: progress; }
 
-    .btn-print[disabled] {
-      background: #475569;
-      cursor: progress;
-    }
+    .btn-pptx { background: #F2A900; color: #103050; }
+    .btn-pptx:hover { background: #d99400; }
+    .btn-pptx[disabled] { background: #475569; color: #fff; cursor: progress; }
 
     .prog {
       width: 190px;
@@ -350,7 +358,11 @@
       </p>
     </div>
     <div class="prog" id="prog"><i></i></div>
-    <button class="btn-print" id="btnPrint">🖨️ Preparar impressão</button>
+    <div class="toolbar-actions">
+      <button class="btn-pptx" id="btnPptx"
+        title="Cada slide vira uma imagem dentro de um arquivo .pptx — não é editável">📊 Baixar PowerPoint</button>
+      <button class="btn-print" id="btnPrint">🖨️ Preparar impressão</button>
+    </div>
   </div>
 
   <div class="sheets" id="sheets"></div>
@@ -391,7 +403,7 @@
       'slide-tabela-enquetes.html?p=1', 'slide-tabela-enquetes.html?p=2',
       ...telasEnquetes,
       // Bloco 5 · Considerações Finais
-      'capa-bloco-5.html', 'slide-21.html', 'slide-22.html',
+      'capa-bloco-5.html', 'slide-21.html', 'slide-resultados-orgao.html', 'slide-22.html',
       // Bloco 6 · Apêndice
       'capa-bloco-6.html', 'slide-23.html', 'slide-24.html', 'slide-25.html', 'slide-26.html', 'slide-27.html',
     ];
@@ -602,6 +614,100 @@
     });
 
     gerarAnexos();
+
+    /* ════════════════════════════════════════════════════════════════════
+       6. BAIXAR POWERPOINT (cru) — cada slide vira uma imagem dentro do
+          .pptx. Usa uma iframe escondida (1280×720) só pra essa captura;
+          não mexe nos iframes de `.sheets` usados pela impressão.
+       ════════════════════════════════════════════════════════════════════ */
+    const btnPptx = document.getElementById('btnPptx');
+
+    function imagemParaDataUrl(src) {
+      return fetch(src)
+        .then((res) => res.blob())
+        .then((blob) => new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(reader.result);
+          reader.onerror = reject;
+          reader.readAsDataURL(blob);
+        }));
+    }
+
+    // O html2canvas com foreignObjectRendering (necessário pro CSS do
+    // Tailwind vindo de CDN renderizar certo) não embute direito <img> de
+    // documentos dentro de iframe — troca o `src` por um data: URI antes
+    // da captura, senão a logomarca das capas sai quebrada no .pptx.
+    async function inlinarImagens(doc) {
+      const imgs = Array.from(doc.querySelectorAll('img'));
+      await Promise.all(imgs.map(async (img) => {
+        const src = img.getAttribute('src');
+        if (!src || src.startsWith('data:')) return;
+        try {
+          img.src = await imagemParaDataUrl(new URL(src, doc.baseURI).href);
+        } catch (e) { /* mantém como está se falhar */ }
+      }));
+    }
+
+    function prepararIframePptx(iframe, src) {
+      return new Promise((resolve) => {
+        iframe.addEventListener('load', async function onLoad() {
+          iframe.removeEventListener('load', onLoad);
+          try {
+            const doc = iframe.contentDocument;
+            const kill = doc.createElement('style');
+            kill.textContent = '*{animation:none!important;transition:none!important;opacity:1!important;transform:none!important;}';
+            doc.head.appendChild(kill);
+            await inlinarImagens(doc);
+          } catch (e) { /* segue mesmo assim */ }
+          requestAnimationFrame(() => requestAnimationFrame(resolve));
+        });
+        iframe.src = src;
+      });
+    }
+
+    async function gerarPPTX() {
+      const original = btnPptx.textContent;
+      btnPptx.disabled = true;
+
+      // 1920×1080: os slides usam `html{font-size:26px}` fixo (não relativo
+      // ao viewport) — capturar numa largura menor faz título/cards
+      // quebrarem linha de um jeito que o CSS não previu, sobrepondo
+      // conteúdo. 1920×1080 é a resolução em que o deck foi desenhado.
+      const stage = document.createElement('iframe');
+      stage.style.cssText = 'position:fixed; left:-99999px; top:0; width:1920px; height:1080px; border:0;';
+      document.body.appendChild(stage);
+
+      try {
+        const pptx = new PptxGenJS();
+        pptx.layout = 'LAYOUT_WIDE';
+
+        for (let i = 0; i < files.length; i++) {
+          btnPptx.textContent = 'Gerando ' + (i + 1) + '/' + files.length + '…';
+          await prepararIframePptx(stage, files[i]);
+          const canvas = await html2canvas(stage.contentDocument.body, {
+            foreignObjectRendering: true,
+            useCORS: true,
+            width: 1920,
+            height: 1080,
+            scale: 1,
+            backgroundColor: '#ffffff'
+          });
+          pptx.addSlide().addImage({ data: canvas.toDataURL('image/jpeg', 0.85), x: 0, y: 0, w: 13.333, h: 7.5 });
+        }
+
+        btnPptx.textContent = 'Salvando…';
+        await pptx.writeFile({ fileName: 'Relatorio-Conselho-Usuarios-2026.pptx' });
+      } catch (err) {
+        console.error('Falha ao gerar o PowerPoint:', err);
+        alert('Não foi possível gerar o PowerPoint. Veja o console para detalhes.');
+      } finally {
+        document.body.removeChild(stage);
+        btnPptx.textContent = original;
+        btnPptx.disabled = false;
+      }
+    }
+
+    btnPptx.addEventListener('click', gerarPPTX);
   </script>
 </body>
 

@@ -408,6 +408,7 @@
               }]
             },
             options: {
+              animation: false,
               responsive: true, maintainAspectRatio: false, cutout: '46%',
               layout: { padding: { top: 26, bottom: 14, left: 46, right: 46 } },
               onHover: function (e, els) { realca(els.length ? SIGLAS[els[0].index] : null); },
@@ -446,6 +447,7 @@
               })
             },
             options: {
+              animation: false,
               responsive: true, maintainAspectRatio: false,
               layout: { padding: { top: 18 } },
               onHover: function (e, els) { realca(els.length ? SIGLAS[els[0].datasetIndex] : null); },
@@ -495,7 +497,8 @@
         document.getElementById('kpiTotal').textContent = total(foco);
         document.getElementById('kpiAno').textContent = 'Serviços em ' + foco;
         var delta = document.getElementById('kpiDelta');
-        if (ant === null) {
+        var comparandoTodos = sel.size === ANOS.length;
+        if (ant === null || comparandoTodos) {
           delta.style.display = 'none';
         } else {
           delta.style.display = '';

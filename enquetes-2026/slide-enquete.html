@@ -588,7 +588,6 @@
   <script>
     (function () {
       var COR_SIM = '#0070C0', COR_NAO = '#103050', COR_NOTA = '#0090C0';
-      var SEM_MOVIMENTO = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
       var params = new URLSearchParams(location.search);
       var id = params.get('e');
@@ -811,7 +810,7 @@
           },
           options: {
             responsive: true, maintainAspectRatio: false, cutout: '42%',
-            animation: SEM_MOVIMENTO ? false : undefined,
+            animation: false,
             layout: { padding: 8 },
             plugins: {
               legend: {
@@ -921,7 +920,7 @@
           },
           options: {
             responsive: true, maintainAspectRatio: false,
-            animation: SEM_MOVIMENTO ? false : undefined,
+            animation: false,
             layout: { padding: { top: 26 } },
             interaction: { mode: 'index', intersect: false },
             plugins: {
