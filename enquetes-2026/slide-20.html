@@ -2,9 +2,7 @@
 <!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
 <!--
   ╔══════════════════════════════════════════════════════════════╗
-  ║  Fluxo da Consulta — as 5 etapas em fluxo horizontal          ║
-  ║  Figura 5 original: Imagens/fluxograma-consulta-conselheiros ║
-  ║  .jpg, acessível via link discreto abaixo do fluxo.           ║
+  ║  Estrutura das Enquetes — as 5 questões e a escala 1–5       ║
   ╚══════════════════════════════════════════════════════════════╝
 -->
 <html lang="pt-BR">
@@ -12,7 +10,7 @@
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <title>Fluxo da Consulta — Relatório Anual de Enquetes · Ouvidoria ANTAQ</title>
+  <title>Estrutura das Enquetes — Relatório Anual de Enquetes · Ouvidoria ANTAQ</title>
   <link rel="icon" type="image/png"
     href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
@@ -31,53 +29,72 @@
     .top-accent { height: 8px; background-color: #103050; width: 100%; }
     .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
 
-    .body-wrap { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 2.6rem; padding: .8rem 3.4rem 0; justify-content: center; }
+    .body-wrap { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.2rem; padding: .5rem 3.4rem 0; align-content: center; }
 
-    .lead {
-      font-size: .92rem; line-height: 1.6; color: #103050; font-weight: 600;
-      border-left: 4px solid #0090C0; padding-left: 1rem; margin: 0;
-      animation: fadeInUp .45s ease both;
+    /* Aviso de que o questionário é reprodução, não formulário ativo */
+    .aviso-demo {
+      display: flex; align-items: flex-start; gap: .55rem;
+      margin: .55rem 0 0 1rem; max-width: 62rem;
+      background: #FFF7E6; border: 1px solid #F2A900; border-left: 5px solid #F2A900;
+      border-radius: 0 10px 10px 0; padding: .45rem .8rem;
+      font-size: .68rem; line-height: 1.4; color: #7A5200;
+    }
+    .aviso-demo i { color: #F2A900; font-size: .8rem; margin-top: .08rem; flex-shrink: 0; }
+    .aviso-demo b { font-family: 'Montserrat', sans-serif; text-transform: uppercase; letter-spacing: .06em; font-size: .64rem; }
+
+    .etapa-col { display: flex; flex-direction: column; gap: .7rem; animation: fadeInUp .45s ease both; }
+    .etapa-col:nth-child(2) { animation-delay: .08s; }
+    .etapa-col:nth-child(3) { animation-delay: .16s; }
+
+    .etapa-h {
+      display: flex; align-items: center; gap: .55rem;
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .74rem;
+      letter-spacing: .1em; text-transform: uppercase; color: #0070C0;
+    }
+    .etapa-h .n {
+      width: 1.5rem; height: 1.5rem; border-radius: .4rem; background: #0070C0; color: #fff;
+      display: flex; align-items: center; justify-content: center; font-size: .68rem; flex-shrink: 0;
     }
 
-    /* ── Crachá do processo SEI: fecha o parágrafo ── */
-    .sei-badge {
-      display: inline-flex; align-items: center; gap: .4rem; margin-left: .5rem; vertical-align: baseline;
-      background: #103050; color: #fff; font-family: 'Montserrat', sans-serif; font-size: .6rem; font-weight: 700;
-      letter-spacing: .08em; text-transform: uppercase; padding: .22rem .75rem; border-radius: 999px;
+    .quest {
+      border: 2px solid #E2E8F0; border-radius: 14px; background: #fff; padding: .8rem .95rem;
+      box-shadow: 0 10px 22px -14px rgba(16,48,80,.3);
     }
+    .quest .qn { font-family: 'Montserrat', sans-serif; font-size: .6rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: #0090C0; margin-bottom: .2rem; }
+    .quest .qt { font-size: .8rem; line-height: 1.35; color: #103050; font-weight: 600; margin-bottom: .5rem; }
+    .opts { display: flex; gap: .5rem; flex-wrap: wrap; }
+    .opt {
+      display: inline-flex; align-items: center; gap: .35rem; border: 1.5px solid #CBD5E1;
+      border-radius: 999px; padding: .18rem .7rem; font-size: .68rem; font-weight: 600; color: #475569;
+    }
+    .opt i { font-size: .6rem; color: #94A3B8; }
 
-    /* ── Fluxo horizontal: 5 etapas ligadas por uma linha ── */
-    .flow { position: relative; display: grid; grid-template-columns: repeat(5, 1fr); gap: .8rem; padding: .2rem 1.5rem 0; }
-    .flow::before {
-      content: ''; position: absolute; top: 2.15rem; left: 4.6rem; right: 4.6rem; height: 3px;
-      background: linear-gradient(90deg, #103050, #0090C0); z-index: 0;
+    .escala { display: flex; gap: .35rem; }
+    .nota-chip {
+      flex: 1; text-align: center; border-radius: .5rem; padding: .32rem .1rem;
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .62rem; color: #fff; line-height: 1.15;
     }
-    .flow-step {
-      display: flex; flex-direction: column; align-items: center; text-align: center; gap: .75rem;
-      position: relative; z-index: 1; animation: fadeInUp .5s ease both;
-    }
-    .flow-step:nth-child(2) { animation-delay: .07s; }
-    .flow-step:nth-child(3) { animation-delay: .14s; }
-    .flow-step:nth-child(4) { animation-delay: .21s; }
-    .flow-step:nth-child(5) { animation-delay: .28s; }
-    .flow-ic {
-      flex-shrink: 0; width: 4rem; height: 4rem; border-radius: 50%;
-      background: linear-gradient(150deg, #103050, #0070C0); color: #fff;
-      display: flex; align-items: center; justify-content: center; font-size: 1.4rem;
-      box-shadow: 0 10px 22px -10px rgba(16,48,80,.65); border: 4px solid #fff;
-    }
-    .flow-step b { font-family: 'Montserrat', sans-serif; color: #103050; font-size: .92rem; }
-    .flow-step p { font-size: .72rem; line-height: 1.55; color: #475569; margin: 0; padding: 0 .4rem; }
+    .nota-chip small { display: block; font-weight: 600; font-size: .52rem; opacity: .92; }
 
-    .fig-link {
-      align-self: center; display: inline-flex; align-items: center; gap: .45rem; text-decoration: none;
-      color: #0070C0; font-size: .68rem; font-weight: 700; font-family: 'Montserrat', sans-serif;
-      border: 1px solid #C0E0F0; border-radius: 999px; padding: .35rem 1rem; background: #F4F9FF;
-      transition: background-color .2s ease, border-color .2s ease;
+    .regra {
+      background: #FFF7E6; border: 1px solid #F2A900; border-left: 5px solid #F2A900;
+      border-radius: 0 12px 12px 0; padding: .7rem .95rem;
     }
-    .fig-link:hover { background: #eaf3fb; border-color: #0070C0; }
+    .regra h4 { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .7rem; color: #7A5200; margin: 0 0 .35rem; display: flex; align-items: center; gap: .4rem; text-transform: uppercase; letter-spacing: .06em; }
+    .regra ul { list-style: none; margin: 0; padding: 0; }
+    .regra li { position: relative; padding-left: .95rem; margin-bottom: .28rem; font-size: .7rem; line-height: 1.42; color: #6B4A00; }
+    .regra li:last-child { margin-bottom: 0; }
+    .regra li::before { content: "\f105"; font-family: "Font Awesome 6 Free"; font-weight: 900; position: absolute; left: 0; top: 0; color: #F2A900; }
 
-    .bg-pattern { position: absolute; bottom: -60px; left: -50px; width: 400px; height: 400px; opacity: .03; z-index: 0; color: #103050; }
+    .obj { font-size: .68rem; line-height: 1.45; color: #64748B; margin: .45rem 0 0; }
+    .obj b { color: #103050; font-family: 'Montserrat', sans-serif; }
+
+    .rodape-nota {
+      margin: .8rem 3.4rem 0; font-size: .7rem; color: #64748B; display: flex; align-items: center; gap: .5rem;
+    }
+    .rodape-nota i { color: #0090C0; }
+
+    .bg-pattern { position: absolute; bottom: -60px; right: -50px; width: 400px; height: 400px; opacity: .03; z-index: 0; color: #103050; }
     @keyframes fadeInUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
   </style>
@@ -92,11 +109,19 @@
       <div>
         <div class="flex items-center gap-3 mb-1">
           <div class="w-1 h-8 bg-brand-secondary"></div>
-          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Fluxo da Consulta</p>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Estrutura das
+            Enquetes</p>
+        </div>
+        <p class="text-gray-500 ml-4" style="font-size:.72rem;">A pesquisa de satisfação é composta por 5 questões-chave,
+          desenhadas para mensurar a experiência de acesso, atendimento e eficiência na prestação do serviço.</p>
+        <div class="aviso-demo">
+          <i class="fas fa-circle-info"></i>
+          <span><b>Apenas demonstrativo</b> — as questões abaixo reproduzem o formato do questionário aplicado na
+            Plataforma do Conselho de Usuários da CGU. Não é um formulário para preenchimento nesta apresentação.</span>
         </div>
       </div>
       <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
-        <i class="fas fa-diagram-project align-middle" aria-hidden="true" style="font-size:44px;"></i>
+        <i class="fas fa-clipboard-question align-middle" aria-hidden="true" style="font-size:44px;"></i>
         <div class="flex flex-col justify-center pl-2" style="border-left: 1px solid #CBD5E1;">
           <p class="font-montserrat font-bold text-gray-400 tracking-widest leading-none mb-1 whitespace-nowrap"
             style="font-size:20px;">CAPÍTULO 04</p>
@@ -107,51 +132,96 @@
     </div>
 
     <div class="body-wrap">
-      <p class="lead">Além das cinco etapas metodológicas, a Ouvidoria elaborou um fluxo que descreve, de ponta a
-        ponta, a consulta aos conselheiros sobre a prestação de serviços da ANTAQ.<span class="sei-badge"><i
-            class="fas fa-folder-open"></i> Processo SEI 50300.006969/2025-44</span></p>
-
-      <div class="flow">
-        <div class="flow-step">
-          <div class="flow-ic"><i class="fas fa-file-pen"></i></div>
-          <b>Preparação</b>
-          <p>A Ouvidoria elabora a enquete a partir dos serviços da Carta e a submete à validação das
-            superintendências responsáveis.</p>
+      <div class="etapa-col">
+        <div class="etapa-h"><span class="n">1</span> Triagem e acesso inicial</div>
+        <div class="quest">
+          <div class="qn">Questão 1</div>
+          <div class="qt">Você já utilizou esse serviço?</div>
+          <div class="opts">
+            <span class="opt"><i class="far fa-square"></i> SIM</span>
+            <span class="opt"><i class="far fa-square"></i> NÃO</span>
+          </div>
         </div>
-        <div class="flow-step">
-          <div class="flow-ic"><i class="fas fa-cloud-arrow-up"></i></div>
-          <b>Publicação</b>
-          <p>A consulta é publicada na Plataforma do Conselho de Usuários da CGU e divulgada aos conselheiros
-            cadastrados.</p>
+        <div class="quest">
+          <div class="qn">Questão 2</div>
+          <div class="qt">Você teve facilidade para acessar o serviço?</div>
+          <div class="opts">
+            <span class="opt"><i class="far fa-square"></i> SIM</span>
+            <span class="opt"><i class="far fa-square"></i> NÃO</span>
+          </div>
         </div>
-        <div class="flow-step">
-          <div class="flow-ic"><i class="fas fa-inbox"></i></div>
-          <b>Coleta</b>
-          <p>As respostas são recebidas durante o período definido — nesta rodada, 21 dias, de 07/04 a 27/04/2026.</p>
-        </div>
-        <div class="flow-step">
-          <div class="flow-ic"><i class="fas fa-chart-column"></i></div>
-          <b>Apuração</b>
-          <p>Os dados são consolidados, tratados e transformados em gráficos e indicadores por serviço.</p>
-        </div>
-        <div class="flow-step">
-          <div class="flow-ic"><i class="fas fa-share-nodes"></i></div>
-          <b>Devolutiva</b>
-          <p>Os resultados são encaminhados aos gestores dos serviços e apresentados à sociedade neste relatório.</p>
+        <div class="regra">
+          <h4><i class="fas fa-code-branch"></i> Regra de fluxo</h4>
+          <ul>
+            <li>Se houver resposta “NÃO” em qualquer uma das questões acima, a pesquisa é finalizada.</li>
+            <li>Se responder “SIM” a ambas, o conselheiro avança para a avaliação detalhada.</li>
+          </ul>
         </div>
       </div>
 
-      <a class="fig-link" href="Imagens/fluxograma-consulta-conselheiros.jpg" target="_blank"
-        rel="noopener noreferrer" title="Abrir a Figura 5 original em tamanho maior">
-        <i class="fas fa-image"></i> Ver Figura 5 original — fluxograma publicado no documento-fonte
-      </a>
+      <div class="etapa-col">
+        <div class="etapa-h"><span class="n">2</span> Avaliação qualitativa</div>
+        <div class="quest">
+          <div class="qn">Escala de pontuação · 1 a 5</div>
+          <div class="escala">
+            <div class="nota-chip" style="background:#8C2B2B;">1<small>Péssimo</small></div>
+            <div class="nota-chip" style="background:#B4652B;">2<small>Ruim</small></div>
+            <div class="nota-chip" style="background:#103050;">3<small>Bom</small></div>
+            <div class="nota-chip" style="background:#0070C0;">4<small>Muito bom</small></div>
+            <div class="nota-chip" style="background:#0090C0;">5<small>Excelente</small></div>
+          </div>
+        </div>
+        <div class="quest">
+          <div class="qn">Questão 3</div>
+          <div class="qt">Como foi o atendimento desse serviço?</div>
+          <div class="opts">
+            <span class="opt"><i class="far fa-circle"></i> 1</span>
+            <span class="opt"><i class="far fa-circle"></i> 2</span>
+            <span class="opt"><i class="far fa-circle"></i> 3</span>
+            <span class="opt"><i class="far fa-circle"></i> 4</span>
+            <span class="opt"><i class="far fa-circle"></i> 5</span>
+          </div>
+        </div>
+        <div class="quest">
+          <div class="qn">Questão 4</div>
+          <div class="qt">Qual é sua avaliação em relação ao tempo para a conclusão (realização) do seu pedido?</div>
+          <div class="opts">
+            <span class="opt"><i class="far fa-circle"></i> 1</span>
+            <span class="opt"><i class="far fa-circle"></i> 2</span>
+            <span class="opt"><i class="far fa-circle"></i> 3</span>
+            <span class="opt"><i class="far fa-circle"></i> 4</span>
+            <span class="opt"><i class="far fa-circle"></i> 5</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="etapa-col">
+        <div class="etapa-h"><span class="n">3</span> Sugestões e melhorias</div>
+        <div class="quest">
+          <div class="qn">Questão 5</div>
+          <div class="qt">Deixe aqui sua sugestão para a melhoria do serviço.</div>
+          <div style="border:1.5px dashed #CBD5E1;border-radius:10px;padding:1.1rem .8rem;color:#94A3B8;font-size:.7rem;font-style:italic;">
+            Campo aberto de resposta livre…
+          </div>
+          <p class="obj"><b>Objetivo do campo:</b> capturar impressões qualitativas, críticas construtivas e propostas
+            de aprimoramento diretamente da visão do conselheiro.</p>
+        </div>
+        <div class="regra" style="background:#EFF6FC;border-color:#BBD9EE;border-left-color:#0090C0;">
+          <h4 style="color:#103050;"><i class="fas fa-chart-simple" style="color:#0070C0;"></i> Apresentação dos
+            resultados</h4>
+          <ul>
+            <li style="color:#334155;">Para melhor visualização, os dados levantados na consulta são demonstrados por
+              meio de gráficos, um conjunto por serviço avaliado.</li>
+          </ul>
+        </div>
+      </div>
     </div>
 
-    <div class="px-12 pb-4 pt-2 flex justify-between items-center z-10">
+    <div class="px-12 pb-5 pt-4 flex justify-between items-center z-10">
       <p class="text-gray-400 text-xs">Relatório Anual de Enquetes do Conselho de Usuários · 2026 – Ouvidoria – Agência
         Nacional de Transportes Aquaviários - ANTAQ</p>
     </div>
-    <div class="bg-pattern"><i class="fas fa-sitemap text-9xl"></i></div>
+    <div class="bg-pattern"><i class="fas fa-clipboard-question text-9xl"></i></div>
   </div>
 
   <script>

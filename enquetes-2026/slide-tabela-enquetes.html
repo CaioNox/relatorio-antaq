@@ -55,6 +55,7 @@
     table.enq td { padding: .2rem .45rem; font-size: .625rem; line-height: 1.28; color: #334155; border-bottom: 1px solid #EDF2F7; }
     table.enq tr:nth-child(even) td { background: #F8FAFC; }
     table.enq td.n, table.enq th.n { width: 2rem; text-align: center; font-family: 'Montserrat', sans-serif; font-weight: 800; color: #64748B; }
+    table.enq td.pag, table.enq th.pag { width: 2.5rem; text-align: center; color: #94A3B8; font-style: italic; white-space: nowrap; }
     table.enq td.sup, table.enq th.sup { width: 3.5rem; text-align: center; }
     table.enq td.enq, table.enq th.enq { width: 3.9rem; text-align: center; }
     table.enq td.num, table.enq th.num { width: 4.6rem; text-align: center; }
@@ -95,8 +96,8 @@
       <div>
         <div class="flex items-center gap-3 mb-1">
           <div class="w-1 h-8 bg-brand-secondary"></div>
-          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight" id="titulo">Enquetes
-            Publicadas no Portal Gov.br</p>
+          <p class="font-montserrat font-bold text-brand-primary uppercase tracking-tight" id="titulo"
+            style="font-size:1.6rem; white-space:nowrap;">Enquetes Publicadas no Portal Gov.br</p>
         </div>
         <p class="text-gray-500 ml-4" style="font-size:.68rem;" id="subtitulo"></p>
       </div>
@@ -122,6 +123,7 @@
           <tr>
             <th class="n">Nº</th>
             <th>Serviço</th>
+            <th class="pag">Pág.</th>
             <th class="sup">Sup.</th>
             <th class="enq">Enquete</th>
             <th class="link">Link</th>
@@ -137,7 +139,9 @@
       <i class="fas fa-triangle-exclamation"></i>
       <span>A coluna “Link” não traz as URLs individuais de cada enquete porque elas não constam do documento-fonte; o
         ícone remete à Plataforma do Conselho de Usuários da CGU. “Nº de conselheiros” é o total de inscritos informado
-        pela Plataforma na data de cada consulta — por isso varia entre as enquetes.</span>
+        pela Plataforma na data de cada consulta — por isso varia entre as enquetes. A coluna “Pág.” indica a página do
+        documento-fonte (Carta de Serviços) em que o serviço aparece — para mais informações, consulte a página
+        indicada.</span>
     </div>
 
     <div class="px-12 pb-3 pt-2 flex justify-between items-center z-10">
@@ -174,6 +178,7 @@
             tr.innerHTML =
               '<td class="n">' + e.num + '</td>' +
               '<td>' + e.servico + '</td>' +
+              '<td class="pag">' + (e.pagina ? e.pagina : '—') + '</td>' +
               '<td class="sup"><span class="sup-pill" style="background:' + meta.cor + '">' + sigla + '</span></td>' +
               '<td class="enq"><b>' + e.id + '</b></td>' +
               '<td class="link"><a class="plataforma-link" href="https://conselhodeusuarios.cgu.gov.br/auth/enquetes/voluntario" ' +
@@ -192,6 +197,7 @@
             tr.innerHTML =
               '<td class="n">' + s.num + '</td>' +
               '<td>' + s.servico + '</td>' +
+              '<td class="pag">' + (s.pagina ? s.pagina : '—') + '</td>' +
               '<td class="sup"><span class="sup-pill" style="background:' + meta.cor + '">' + sigla + '</span></td>' +
               '<td class="enq" colspan="4" style="text-align:center"><span class="badge-pend">sem enquete publicada</span></td>';
             corpo.appendChild(tr);

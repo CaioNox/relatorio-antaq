@@ -2,10 +2,10 @@
 <!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
 <!--
   ╔══════════════════════════════════════════════════════════════╗
-  ║  SLIDE 32 — Legislação — Normativas e Portarias
+  ║  SLIDE 35 — Links Úteis e Contatos — encerramento da apresentação
   ╠══════════════════════════════════════════════════════════════╣
   ║  O QUE ATUALIZAR A CADA TRIMESTRE:
-  ║  Atualizar se nova normativa ou portaria for publicada
+  ║  Verificar se os links ainda estão ativos; atualizar telefone/endereço se necessário
   ╚══════════════════════════════════════════════════════════════╝
 -->
 
@@ -14,7 +14,7 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Normativos e Portarias — Relatório Anual de Enquetes · Ouvidoria ANTAQ</title>
+    <title>Links Úteis — Relatório Anual de Enquetes · Ouvidoria ANTAQ</title>
     <link rel="icon" type="image/png"
         href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
@@ -24,14 +24,14 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
     <style>
         html {
-            font-size: 20px;
+            font-size: 16px;
         }
 
         body {
             margin: 0;
             padding: 0;
-            background-color: #f3f4f6;
             overflow: hidden;
+            background-color: #f3f4f6;
         }
 
         .slide-container {
@@ -40,412 +40,210 @@
             position: relative;
             display: flex;
             flex-direction: column;
-            background-color: #ffffff;
+            background: linear-gradient(135deg, #0A2236 0%, #103050 50%, #16466E 100%);
             overflow: hidden;
-            font-family: 'Open Sans', sans-serif;
+            color: white;
         }
 
         .font-montserrat {
             font-family: 'Montserrat', sans-serif;
         }
 
-        .text-brand-primary {
-            color: #103050;
-        }
-
-        .text-brand-secondary {
-            color: #0070C0;
-        }
-
         .bg-brand-secondary {
             background-color: #0070C0;
         }
 
-        .top-accent {
-            height: 8px;
-            background-color: #103050;
-            width: 100%;
+        .shape-bg {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 45%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.03);
+            clip-path: polygon(25% 0, 100% 0, 100% 100%, 0% 100%);
+            z-index: 1;
         }
 
-        .top-accent-secondary {
-            height: 4px;
-            background-color: #0070C0;
-            width: 100%;
-        }
-
-        /* ===== Grade de quadros ===== */
-        .tile-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            grid-auto-rows: 1fr;
-            gap: 1rem;
-        }
-
-        .tile {
-            position: relative;
-            overflow: hidden;
-            background: #fff;
-            border: 2px solid #E2E8F0;
+        .link-card {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
             border-radius: 16px;
-            padding: 1.3rem 1.4rem;
-            cursor: pointer;
-            text-align: left;
+            padding: 1.9rem 2.1rem;
             display: flex;
-            flex-direction: column;
-            gap: .55rem;
-            box-shadow: 0 6px 16px -8px rgba(16, 48, 80, .18);
-            transition: transform .25s cubic-bezier(.2, .7, .3, 1), box-shadow .25s ease,
-                        border-color .25s ease, background-color .25s ease;
-            animation: fadeIn .5s ease both;
-            font-family: 'Open Sans', sans-serif;
+            align-items: center;
+            gap: 1.4rem;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            cursor: pointer;
         }
 
-        .tile:nth-child(2) {
-            animation-delay: 0.06s
+        .link-card:hover {
+            background: rgba(255, 255, 255, 0.1);
         }
 
-        .tile:nth-child(3) {
-            animation-delay: 0.12s
-        }
-
-        .tile:nth-child(4) {
-            animation-delay: 0.18s
-        }
-
-        .tile:nth-child(5) {
-            animation-delay: 0.24s
-        }
-
-        .tile:nth-child(6) {
-            animation-delay: 0.30s
-        }
-
-        .tile:nth-child(7) {
-            animation-delay: 0.36s
-        }
-
-        .tile:nth-child(8) {
-            animation-delay: 0.42s
-        }
-
-        .tile:hover {
-            transform: translateY(-6px);
-            border-color: #0070C0;
-            background: #fbfdff;
-            box-shadow: 0 24px 42px -18px rgba(16, 48, 80, .34);
-        }
-
-        .tile:focus-visible {
-            outline: 3px solid #0090C0;
-            outline-offset: 3px;
-        }
-
-        /* filete que corre no topo do card ao passar o mouse */
-        .tile::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
-            background: linear-gradient(90deg, #103050, #0070C0 55%, #0090C0);
-            transform: scaleX(0); transform-origin: left;
-            transition: transform .35s cubic-bezier(.2, .7, .3, 1);
-        }
-        .tile:hover::before, .tile:focus-visible::before { transform: scaleX(1); }
-
-        /* marca d'água: preenche o vazio do card sem competir com o texto */
-        .tile::after {
-            content: '\f15c'; font-family: 'Font Awesome 6 Free'; font-weight: 900;
-            position: absolute; right: -14px; bottom: -26px; font-size: 7rem;
-            color: #103050; opacity: .045; pointer-events: none;
-            transition: transform .35s ease, opacity .35s ease;
-        }
-        .tile:hover::after { transform: scale(1.14) rotate(-8deg); opacity: .09; }
-
-        .doc-badge {
-            align-self: flex-start;
-            text-align: center;
-            border-radius: 13px;
-            color: #fff;
-            padding: .6rem 1.1rem;
-            font-family: 'Montserrat', sans-serif;
-            line-height: 1;
+        .link-icon {
+            flex-shrink: 0;
+            width: 3.6rem;
+            height: 3.6rem;
+            border-radius: 12px;
+            background-color: #0090C0;
+            color: #103050;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.65rem;
             transition: transform .3s ease;
         }
 
-        .tile:hover .doc-badge {
-            transform: scale(1.05);
+        /* ===== Interatividade ===== */
+        .link-card {
+            transition: transform .28s cubic-bezier(.2, .7, .3, 1), background-color .25s ease, border-color .25s ease, box-shadow .28s ease;
         }
 
-        .doc-badge .db-type {
-            display: block;
-            font-size: .66rem;
-            font-weight: 800;
-            letter-spacing: .1em;
+        .link-card:hover {
+            transform: translateY(-5px) translateX(5px);
+            border-color: rgba(0, 144, 192, 0.5);
+            box-shadow: 0 20px 38px -14px rgba(0, 0, 0, 0.5);
         }
 
-        .doc-badge .db-num {
-            display: block;
-            font-size: 1.5rem;
-            font-weight: 900;
-            margin-top: .12rem;
+        .link-card:hover .link-icon {
+            transform: scale(1.12) rotate(-6deg);
         }
 
-        .db-in {
-            background: linear-gradient(160deg, #0e3a66, #11598f);
+        /* Variante compacta para caber todos os links úteis */
+        .link-card.lc-sm {
+            padding: 0.8rem 1rem;
+            gap: 0.85rem;
+            border-radius: 12px;
         }
 
-        .db-port {
-            background: linear-gradient(160deg, #103050, #0070C0);
+        .link-card.lc-sm .link-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            font-size: 1.1rem;
+            border-radius: 10px;
         }
 
-        .db-res {
-            background: linear-gradient(160deg, #0b5e7a, #0090C0);
+        .lc-title {
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 0.98rem;
+            line-height: 1.15;
         }
 
-        .tile-name {
-            position: relative;
-            z-index: 1;
-            color: #103050;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 800;
-            font-size: 1.3rem;
-            line-height: 1.18;
-        }
-
-        .tile-tag {
-            position: relative;
-            z-index: 1;
-            color: #5b7185;
-            font-size: .95rem;
-            line-height: 1.4;
-            padding-top: .6rem;
-            border-top: 1px solid #eef2f7;
-        }
-
-        .tile-more {
-            position: relative;
-            z-index: 1;
-            margin-top: auto;
-            align-self: flex-start;
-            color: #0070C0;
-            font-family: 'Montserrat', sans-serif;
-            font-size: .76rem;
-            font-weight: 800;
-            display: inline-flex;
-            align-items: center;
-            gap: .5rem;
-            border: 1.5px solid rgba(0, 112, 192, .35);
-            border-radius: 999px;
-            padding: .4rem .95rem;
-            transition: background-color .25s ease, color .25s ease, border-color .25s ease;
-        }
-
-        .tile-more i { transition: transform .25s ease; }
-
-        .tile:hover .tile-more {
-            background: #0070C0;
-            border-color: #0070C0;
-            color: #fff;
-        }
-
-        .tile:hover .tile-more i { transform: scale(1.15) rotate(-8deg); }
-
-        .tile-full {
-            display: none;
-        }
-
-        /* ===== Overlay ===== */
-        .overlay {
-            position: fixed;
-            inset: 0;
-            z-index: 50;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 5vh 8vw;
-            background: rgba(16, 48, 80, .5);
-            backdrop-filter: blur(3px);
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity .3s ease;
-        }
-
-        /* No hover o fundo não captura o mouse: os quadros de trás continuam
-           alcançáveis. Só quando o clique FIXA o cartão ele vira modal. */
-        .overlay.open {
-            opacity: 1;
-            pointer-events: none;
-        }
-
-        .overlay.open.fixado {
-            pointer-events: auto;
-        }
-
-        .overlay-card {
-            pointer-events: auto;
-        }
-
-        /* Painel do hover: ancorado no quadro, sem fundo escuro e sem capturar
-           o ponteiro — por isso nunca fica embaixo do cursor. O modal cheio
-           (com rolagem e links) continua vindo do clique, via .fixado. */
-        .overlay.modo-hover {
-            display: block;
-            padding: 0;
-            background: transparent;
-            backdrop-filter: none;
-            pointer-events: none;
-        }
-
-        .overlay.modo-hover .overlay-card {
-            position: absolute;
-            width: 44rem;
-            max-width: calc(100vw - 3rem);
-            max-height: 32rem;
-            transform: none;
-            pointer-events: none;
-            box-shadow: 0 26px 60px -18px rgba(0, 0, 0, .5);
-        }
-
-        .overlay.modo-hover .overlay-card.estreito {
-            width: 33rem;
-            max-height: 40rem;
-        }
-
-        .overlay.modo-hover .overlay-close {
-            display: none;
-        }
-
-        .overlay-card {
-            position: relative;
-            background: #fff;
-            border-radius: 22px;
-            max-width: 60rem;
-            width: 100%;
-            max-height: 82vh;
-            overflow: hidden;
-            box-shadow: 0 40px 90px -30px rgba(0, 0, 0, .6);
-            border-top: 7px solid #0070C0;
-            transform: scale(.88) translateY(12px);
-            transition: transform .34s cubic-bezier(.2, .7, .3, 1);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .overlay.open .overlay-card {
-            transform: scale(1) translateY(0);
-        }
-
-        .overlay-head {
-            display: flex;
-            align-items: center;
-            gap: 1.2rem;
-            padding: 1.8rem 2.2rem 1.2rem 2.2rem;
-            border-bottom: 1px solid #eef2f7;
-        }
-
-        .ov-badge {
-            flex-shrink: 0;
-            text-align: center;
-            border-radius: 15px;
-            color: #fff;
-            padding: .65rem 1.1rem;
-            font-family: 'Montserrat', sans-serif;
-            line-height: 1;
-        }
-
-        .ov-badge .db-type {
-            display: block;
-            font-size: .58rem;
-            font-weight: 800;
-            letter-spacing: .1em;
-        }
-
-        .ov-badge .db-num {
-            display: block;
-            font-size: 1.45rem;
-            font-weight: 900;
-            margin-top: .12rem;
-        }
-
-        .ov-titles {
-            min-width: 0;
-        }
-
-        .ov-title {
-            color: #103050;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 900;
-            font-size: 1.32rem;
-            line-height: 1.14;
-        }
-
-        .ov-sub {
-            color: #0070C0;
-            font-size: .9rem;
-            font-weight: 600;
-            margin-top: .25rem;
-        }
-
-        .overlay-body {
-            padding: 1.5rem 2.2rem 2rem 2.2rem;
-            overflow-y: auto;
-        }
-
-        .ov-body p {
-            color: #37475a;
-            font-size: 1.02rem;
-            line-height: 1.62;
-        }
-
-        .ov-body p+p {
-            margin-top: .9rem;
-        }
-
-        .ov-body strong {
-            color: #103050;
-        }
-
-        .overlay-close {
-            position: absolute;
-            top: 1.1rem;
-            right: 1.2rem;
-            width: 2.7rem;
-            height: 2.7rem;
-            border-radius: 999px;
-            border: none;
-            background: #f0f4f8;
-            color: #103050;
-            font-size: 1.2rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background .2s ease, transform .25s ease;
-            z-index: 2;
-        }
-
-        .overlay-close:hover {
-            background: #0070C0;
-            color: #fff;
-            transform: rotate(90deg);
-        }
-
-        .hint {
-            display: inline-flex;
-            align-items: center;
-            gap: .5rem;
-            color: #0070C0;
-            font-size: .8rem;
-            font-weight: 600;
+        .lc-sub {
+            color: #9db9e6;
+            font-size: 0.76rem;
+            line-height: 1.2;
+            word-break: break-word;
         }
 
         @keyframes fadeIn {
             from {
                 opacity: 0;
-                transform: translateY(10px);
             }
 
             to {
                 opacity: 1;
-                transform: translateY(0);
             }
+        }
+
+        .link-card {
+            animation: fadeIn .5s ease both;
+        }
+
+        /* ===== QR WhatsApp da Ouvidoria (IARA) — compacto, canto inferior direito ===== */
+        .qr-wa {
+            position: absolute;
+            right: 3.2rem;
+            bottom: 8.5rem;
+            z-index: 30;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 0.9rem;
+            padding: 0.7rem 1rem 0.7rem 0.7rem;
+            background: rgba(255, 255, 255, 0.97);
+            border: 1px solid rgba(37, 211, 102, 0.55);
+            border-radius: 14px;
+            box-shadow: 0 14px 30px -10px rgba(0, 0, 0, 0.55);
+            text-decoration: none;
+            animation: fadeIn .6s ease .4s both, qrPulse 2.4s ease-in-out infinite;
+        }
+
+        .qr-wa::before {
+            content: "";
+            position: absolute;
+            inset: -5px;
+            border-radius: 18px;
+            border: 2px solid rgba(37, 211, 102, 0.6);
+            opacity: 0;
+            animation: qrRing 2.4s ease-out infinite;
+            pointer-events: none;
+        }
+
+        /* Texto fora e ao lado do QR Code, em coluna à direita */
+        .qr-wa-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+            max-width: 11rem;
+        }
+
+        .qr-wa-head {
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 0.85rem;
+            letter-spacing: 0.02em;
+            color: #0d3358;
+            text-transform: uppercase;
+        }
+
+        .qr-wa-head i {
+            color: #25D366;
+            font-size: 1.15rem;
+        }
+
+        .qr-wa img {
+            width: 110px;
+            height: 110px;
+            display: block;
+            border-radius: 6px;
+        }
+
+        .qr-wa-sub {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #334155;
+            text-align: left;
+            line-height: 1.3;
+        }
+
+        @keyframes qrPulse {
+            0%, 100% { box-shadow: 0 14px 30px -10px rgba(0, 0, 0, 0.55), 0 0 0 0 rgba(37, 211, 102, 0.0); }
+            50% { box-shadow: 0 14px 30px -10px rgba(0, 0, 0, 0.55), 0 0 22px 2px rgba(37, 211, 102, 0.45); }
+        }
+
+        @keyframes qrRing {
+            0% { opacity: 0.7; transform: scale(1); }
+            70% { opacity: 0; transform: scale(1.12); }
+            100% { opacity: 0; transform: scale(1.12); }
+        }
+
+        .link-card:nth-child(2) {
+            animation-delay: .1s;
+        }
+
+        .link-card:nth-child(3) {
+            animation-delay: .2s;
+        }
+
+        .link-card:nth-child(4) {
+            animation-delay: .3s;
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -457,315 +255,142 @@
                 transition: none !important;
             }
         }
-
-        .bg-pattern {
-            position: absolute;
-            bottom: -50px;
-            right: -50px;
-            width: 400px;
-            height: 400px;
-            opacity: 0.03;
-            z-index: 0;
-            color: #103050;
-        }
     </style>
 </head>
 
 <body>
     <div class="slide-container">
-        <div class="top-accent"></div>
-        <div class="top-accent-secondary"></div>
-        <!-- Header -->
-        <div class="flex items-start justify-between px-16 pt-10 pb-3 z-10">
-            <div>
-                <div class="flex items-center gap-3 mb-2">
-                    <div class="w-1 h-8 bg-brand-secondary"></div>
-                    <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Normativos
-                    </p>
-                </div>
-                <p class="text-gray-500 font-medium ml-4 text-lg">Instruções Normativas, Portarias e Resoluções que
-                    regem
-                    a Ouvidoria — <span class="hint"><i class="fas fa-arrow-pointer"></i> passe o mouse para ler na
-                        íntegra</span></p>
-            </div>
-            <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
-                <i class="fas fa-book-open text-3xl" aria-hidden="true"></i>
-                <div class="flex flex-col justify-center pl-2" style="border-left:1px solid #CBD5E1;">
-                    <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">CAPÍTULO 06</p>
-                    <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none whitespace-nowrap">Apêndice</p>
+        <div class="shape-bg"></div>
+        <div class="absolute left-0 top-0 h-full w-3 z-20" style="background-color: #0090C0;"></div>
+        <div class="absolute left-3 top-0 h-full w-1 bg-brand-secondary z-20"></div>
+        <!-- Main Content -->
+        <div class="relative z-10 flex flex-col justify-center h-full w-full pl-24 pr-16 font-montserrat">
+            <!-- Header (logo ANTAQ fica só na abertura e no sumário) -->
+            <div class="absolute top-16 right-24 flex items-center gap-3 z-20 text-white">
+                <i class="fas fa-book-open text-3xl" aria-hidden="true" style="color: #ffffff;"></i>
+                <div class="flex flex-col justify-center pl-2" style="border-left:1px solid rgba(255,255,255,0.12);">
+                    <p class="font-montserrat font-bold text-white text-sm tracking-widest leading-none mb-1 whitespace-nowrap">CAPÍTULO 06</p>
+                    <p class="font-montserrat font-bold text-blue-200 text-xs tracking-tight uppercase leading-none whitespace-nowrap">Apêndice</p>
                 </div>
             </div>
-        </div>
-        <!-- Grade -->
-        <div class="flex-1 px-16 pb-10 pt-3 z-10">
-            <div class="tile-grid h-full">
-                <!-- IN 05/2018 -->
-                <button class="tile" onclick="openCard(this)" data-title="Instrução Normativa OGU/CGU nº 05/2018"
-                    data-sub="Atividades das Ouvidorias federais"
-                    data-badge='<span class="db-type">IN OGU/CGU</span><span class="db-num">05/2018</span>'
-                    data-bclass="db-in">
-                    <span class="doc-badge db-in"><span class="db-type">IN OGU/CGU</span><span
-                            class="db-num">05/2018</span></span>
-                    <span class="tile-name">IN OGU/CGU nº 05/2018</span>
-                    <span class="tile-tag">Sigilo da identidade do denunciante</span>
-                    <span class="tile-more"><i class="fas fa-up-right-and-down-left-from-center"></i> ampliar</span>
-                    <div class="tile-full">
-                        <p>Instrução Normativa OGU/CGU nº 05/2018 - Norma básica a respeito das atividades desenvolvidas
-                            no âmbito das Ouvidorias federais; estabelece diretrizes para assegurar o sigilo da
-                            identidade
-                            do denunciante, bem como o recebimento de denúncias anônimas no âmbito da Administração
-                            Pública Federal.</p>
+
+            <div class="mt-4">
+                <div class="flex items-center gap-3 mb-1">
+                    <div class="w-10 h-0.5" style="background-color: #0090C0;"></div>
+                    <p class="text-blue-200 text-base font-semibold tracking-[0.3em] uppercase">Encerramento</p>
+                </div>
+                <h1 class="font-black tracking-tight" style="font-size: 3.6rem; color:#0090C0;">Links Úteis &amp;
+                    Contatos</h1>
+                <p class="text-blue-100 text-lg mt-1">Participe do Conselho de Usuários e fale com a Ouvidoria da ANTAQ
+                    — sua avaliação orienta a melhoria dos serviços.</p>
+
+                <!-- Botão de download do relatório -->
+                <a class="link-card lc-sm" href="relatorio.html" target="_blank" rel="noopener noreferrer"
+                    style="margin-top: 1.2rem; max-width: 72rem; background: rgba(0,144,192,0.18); border-color: rgba(0,144,192,0.55);">
+                    <div class="link-icon" style="background-color:#f2a900;"><i class="fas fa-file-pdf"></i></div>
+                    <div>
+                        <p class="lc-title text-xl">Baixar Relatório em PDF</p>
+                        <p class="lc-sub">Versão completa em documento — abre e salva como PDF na sua máquina</p>
                     </div>
-                </button>
-                <!-- IN 19/2018 -->
-                <button class="tile" onclick="openCard(this)" data-title="Instrução Normativa CGU nº 19/2018"
-                    data-sub="Recebimento exclusivo via Sistema de Ouvidoria"
-                    data-badge='<span class="db-type">IN CGU</span><span class="db-num">19/2018</span>'
-                    data-bclass="db-in">
-                    <span class="doc-badge db-in"><span class="db-type">IN CGU</span><span
-                            class="db-num">19/2018</span></span>
-                    <span class="tile-name">IN CGU nº 19/2018</span>
-                    <span class="tile-tag">Recebimento exclusivo de manifestações</span>
-                    <span class="tile-more"><i class="fas fa-up-right-and-down-left-from-center"></i> ampliar</span>
-                    <div class="tile-full">
-                        <p>Instrução Normativa CGU nº 19/2018 - Estabelece regra para recebimento exclusivo de
-                            manifestações de ouvidoria por meio das unidades do Sistema de Ouvidoria do Poder Executivo
-                            federal.</p>
+                </a>
+
+                <!-- Links úteis — recortados para ESTE relatório: primeiro o
+                     Conselho de Usuários, depois os serviços avaliados, depois
+                     a base legal do Conselho e, por fim, os contatos. -->
+                <div class="grid grid-cols-3 gap-3 mt-4 max-w-6xl">
+                    <a class="link-card lc-sm" href="https://conselhodeusuarios.cgu.gov.br/auth/enquetes/voluntario" target="_blank" rel="noopener noreferrer">
+                        <div class="link-icon" style="background-color:#f2a900;"><i class="fas fa-hand-holding-heart"></i></div>
+                        <div><p class="lc-title">Seja um Conselheiro</p><p class="lc-sub">Inscrição de voluntários · conselhodeusuarios.cgu.gov.br</p></div>
+                    </a>
+                    <a class="link-card lc-sm" href="https://conselhodeusuarios.cgu.gov.br" target="_blank" rel="noopener noreferrer">
+                        <div class="link-icon"><i class="fas fa-users"></i></div>
+                        <div><p class="lc-title">Conselho de Usuários</p><p class="lc-sub">Plataforma das enquetes — CGU</p></div>
+                    </a>
+                    <a class="link-card lc-sm" href="https://falabr.cgu.gov.br" target="_blank" rel="noopener noreferrer">
+                        <div class="link-icon"><img src="Imagens/Logo_Fala_BR.png" alt="Fala.BR" style="height: 26px; width: auto;"></div>
+                        <div><p class="lc-title">Plataforma Fala.BR</p><p class="lc-sub">Manifestações à Ouvidoria · falabr.cgu.gov.br</p></div>
+                    </a>
+                    <a class="link-card lc-sm" href="https://www.gov.br/pt-br/orgaos/agencia-nacional-de-transportes-aquaviarios/@@download.pdf" target="_blank" rel="noopener noreferrer">
+                        <div class="link-icon"><i class="fas fa-file-contract"></i></div>
+                        <div><p class="lc-title">Carta de Serviços ao Usuário</p><p class="lc-sub">Os serviços avaliados nas enquetes (PDF)</p></div>
+                    </a>
+                    <a class="link-card lc-sm" href="https://www.gov.br/antaq/pt-br" target="_blank" rel="noopener noreferrer">
+                        <div class="link-icon"><i class="fas fa-globe"></i></div>
+                        <div><p class="lc-title">Portal ANTAQ</p><p class="lc-sub">gov.br/antaq</p></div>
+                    </a>
+                    <a class="link-card lc-sm" href="https://www.gov.br/antaq/pt-br/acesso-a-informacao" target="_blank" rel="noopener noreferrer">
+                        <div class="link-icon"><i class="fas fa-circle-info"></i></div>
+                        <div><p class="lc-title">Acesso à Informação</p><p class="lc-sub">gov.br/antaq · Acesso à Informação</p></div>
+                    </a>
+                    <a class="link-card lc-sm" href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2017/lei/l13460.htm" target="_blank" rel="noopener noreferrer">
+                        <div class="link-icon"><i class="fas fa-scale-balanced"></i></div>
+                        <div><p class="lc-title">Lei nº 13.460/2017</p><p class="lc-sub">Código de Defesa do Usuário — institui os conselhos</p></div>
+                    </a>
+                    <a class="link-card lc-sm" href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/decreto/d9492.htm" target="_blank" rel="noopener noreferrer">
+                        <div class="link-icon"><i class="fas fa-scroll"></i></div>
+                        <div><p class="lc-title">Decreto nº 9.492/2018</p><p class="lc-sub">Sistema de Ouvidoria do Poder Executivo federal</p></div>
+                    </a>
+                    <a class="link-card lc-sm" href="https://www.planalto.gov.br/ccivil_03/leis/leis_2001/l10233.htm" target="_blank" rel="noopener noreferrer">
+                        <div class="link-icon"><i class="fas fa-anchor"></i></div>
+                        <div><p class="lc-title">Lei nº 10.233/2001</p><p class="lc-sub">Lei de criação da ANTAQ</p></div>
+                    </a>
+                    <a class="link-card lc-sm" href="tel:08006445001">
+                        <div class="link-icon"><i class="fas fa-phone-volume"></i></div>
+                        <div><p class="lc-title">Disque Ouvidoria</p><p class="lc-sub">0800 644 5001 · +55 61 2029-6576</p></div>
+                    </a>
+                    <a class="link-card lc-sm" href="mailto:ouvidoria@antaq.gov.br">
+                        <div class="link-icon"><i class="fas fa-envelope"></i></div>
+                        <div><p class="lc-title">E-mail da Ouvidoria</p><p class="lc-sub">ouvidoria@antaq.gov.br</p></div>
+                    </a>
+                    <a class="link-card lc-sm"
+                        href="https://www.google.com/maps/search/?api=1&query=SEPN+Quadra+514+Conjunto+E+Edif%C3%ADcio+ANTAQ+Bras%C3%ADlia+DF"
+                        target="_blank" rel="noopener noreferrer">
+                        <div class="link-icon"><i class="fas fa-location-dot"></i></div>
+                        <div><p class="lc-title">Endereço</p><p class="lc-sub">SEPN Q. 514, Ed. ANTAQ — Brasília/DF</p></div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- QR WhatsApp da Ouvidoria (IARA) -->
+            <div class="qr-wa" title="WhatsApp da Ouvidoria — Assistente IARA">
+                <img src="Imagens/QRCODE_IARA.jpeg" alt="QR Code do WhatsApp da Ouvidoria da ANTAQ (IARA)" />
+                <div class="qr-wa-info">
+                    <span class="qr-wa-head"><i class="fa-brands fa-whatsapp"></i> WhatsApp · IARA</span>
+                    <span class="qr-wa-sub">Aponte a câmera para falar com a Ouvidoria</span>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="absolute bottom-12 left-24 right-16 flex justify-between items-end pt-6"
+                style="border-top: 1px solid rgba(255,255,255,0.15);">
+                <div class="flex flex-col gap-1 text-xs text-blue-200">
+                    <span class="font-semibold uppercase tracking-wider text-blue-100">Canais oficiais ANTAQ</span>
+                    <div class="flex flex-wrap items-center gap-3 mt-1">
+                        <a href="https://www.facebook.com/ANTAQ.oficial" target="_blank" rel="noopener noreferrer"
+                            class="flex items-center gap-1 hover:text-white transition-colors"><i
+                                class="fa-brands fa-facebook"></i><span>Facebook</span></a>
+                        <a href="https://www.instagram.com/antaq_oficial/" target="_blank" rel="noopener noreferrer"
+                            class="flex items-center gap-1 hover:text-white transition-colors"><i
+                                class="fa-brands fa-instagram"></i><span>Instagram</span></a>
+                        <a href="https://www.youtube.com/c/CanalANTAQ/" target="_blank" rel="noopener noreferrer"
+                            class="flex items-center gap-1 hover:text-white transition-colors"><i
+                                class="fa-brands fa-youtube"></i><span>YouTube</span></a>
+                        <a href="https://www.linkedin.com/company/antaq" target="_blank" rel="noopener noreferrer"
+                            class="flex items-center gap-1 hover:text-white transition-colors"><i
+                                class="fa-brands fa-linkedin"></i><span>LinkedIn</span></a>
+                        <a href="https://x.com/ANTAQ_oficial" target="_blank" rel="noopener noreferrer"
+                            class="flex items-center gap-1 hover:text-white transition-colors"><i
+                                class="fa-brands fa-twitter"></i><span>Twitter</span></a>
                     </div>
-                </button>
-                <!-- Portaria 235-DG-ANTAQ -->
-                <button class="tile" onclick="openCard(this)" data-title="Portaria nº 235-DG-ANTAQ, de 02/07/2019"
-                    data-sub="Ouvidoria da ANTAQ como canal único"
-                    data-badge='<span class="db-type">PORT. ANTAQ</span><span class="db-num">235/2019</span>'
-                    data-bclass="db-port">
-                    <span class="doc-badge db-port"><span class="db-type">PORT. ANTAQ</span><span
-                            class="db-num">235/2019</span></span>
-                    <span class="tile-name">Portaria nº 235-DG-ANTAQ</span>
-                    <span class="tile-tag">Canal único de recebimento</span>
-                    <span class="tile-more"><i class="fas fa-up-right-and-down-left-from-center"></i> ampliar</span>
-                    <div class="tile-full">
-                        <p>Portaria nº 235-DG-ANTAQ, de 02/07/2019 - Institui a Ouvidoria da ANTAQ como canal único de
-                            recebimento de todas as manifestações de que trata o art. 10 da Lei nº 13.460, de 2017.</p>
-                    </div>
-                </button>
-                <!-- Portaria 581-CGU -->
-                <button class="tile" onclick="openCard(this)" data-title="Portaria nº 581-CGU, de 9/03/2021"
-                    data-sub="Competências das unidades de ouvidoria"
-                    data-badge='<span class="db-type">PORT. CGU</span><span class="db-num">581/2021</span>'
-                    data-bclass="db-port">
-                    <span class="doc-badge db-port"><span class="db-type">PORT. CGU</span><span
-                            class="db-num">581/2021</span></span>
-                    <span class="tile-name">Portaria nº 581-CGU</span>
-                    <span class="tile-tag">Alterada pela Portaria 3.126-CGU</span>
-                    <span class="tile-more"><i class="fas fa-up-right-and-down-left-from-center"></i> ampliar</span>
-                    <div class="tile-full">
-                        <p>Portaria nº 581-CGU, de 9/03/2021 (Alterada pela Portaria nº 3.126-CGU, de 30/12/2021) -
-                            Estabelece orientações para o exercício das competências das unidades do Sistema de
-                            Ouvidoria
-                            do Poder Executivo federal, instituído pelo Decreto nº 9.492, de 5 de setembro de 2018,
-                            dispõe sobre o recebimento do relato de irregularidades de que trata o caput do art. 4º-A da
-                            Lei nº 13.608, de 10 de janeiro de 2018, no âmbito do Poder Executivo federal, e dá outras
-                            providências.</p>
-                    </div>
-                </button>
-                <!-- Resolução 7-CGU -->
-                <button class="tile" onclick="openCard(this)" data-title="Resolução nº 7-CGU, de 30/11/2021"
-                    data-sub="Normas modelo para unidades de ouvidoria"
-                    data-badge='<span class="db-type">RESOLUÇÃO</span><span class="db-num">07/2021</span>'
-                    data-bclass="db-res">
-                    <span class="doc-badge db-res"><span class="db-type">RESOLUÇÃO</span><span
-                            class="db-num">07/2021</span></span>
-                    <span class="tile-name">Resolução nº 7-CGU</span>
-                    <span class="tile-tag">Normas modelo de ouvidoria</span>
-                    <span class="tile-more"><i class="fas fa-up-right-and-down-left-from-center"></i> ampliar</span>
-                    <div class="tile-full">
-                        <p>Resolução nº 7-CGU, de 30/11/2021 - Aprova a Norma Modelo para Criação de Unidades de
-                            Ouvidoria
-                            e a Norma Modelo para Regulamentação da Atividade de Ouvidoria em Órgãos Públicos.</p>
-                    </div>
-                </button>
-                <!-- Portaria 3.126-CGU -->
-                <button class="tile" onclick="openCard(this)" data-title="Portaria nº 3.126-CGU, de 30/12/2021"
-                    data-sub="Altera a Portaria nº 581/2021"
-                    data-badge='<span class="db-type">PORT. CGU</span><span class="db-num">3.126/2021</span>'
-                    data-bclass="db-port">
-                    <span class="doc-badge db-port"><span class="db-type">PORT. CGU</span><span
-                            class="db-num">3.126/2021</span></span>
-                    <span class="tile-name">Portaria nº 3.126-CGU</span>
-                    <span class="tile-tag">Altera a Portaria nº 581/2021</span>
-                    <span class="tile-more"><i class="fas fa-up-right-and-down-left-from-center"></i> ampliar</span>
-                    <div class="tile-full">
-                        <p>Portaria nº 3.126-CGU, de 30/12/2021 - Altera a Portaria nº 581, de 9 de março de 2021, em
-                            razão das alterações promovidas pelo Decreto nº 10.890, de 9 de dezembro de 2021, no Decreto
-                            nº 9.492, de 5 de setembro de 2018, e no Decreto nº 10.153, de 3 de novembro de 2019.</p>
-                    </div>
-                </button>
-                <!-- Portaria 11/2023/OUV -->
-                <button class="tile" onclick="openCard(this)" data-title="Portaria nº 11/2023/OUV/ANTAQ"
-                    data-sub="Boletim de Pessoal e Serviços — Fevereiro/2023, 3ª Ed. Extraordinária"
-                    data-badge='<span class="db-type">PORT. OUV</span><span class="db-num">11/2023</span>'
-                    data-bclass="db-port">
-                    <span class="doc-badge db-port"><span class="db-type">PORT. OUV</span><span
-                            class="db-num">11/2023</span></span>
-                    <span class="tile-name">Portaria nº 11/2023/OUV/ANTAQ</span>
-                    <span class="tile-tag">Relatórios gerenciais e estratégicos</span>
-                    <span class="tile-more"><i class="fas fa-up-right-and-down-left-from-center"></i> ampliar</span>
-                    <div class="tile-full">
-                        <p>Portaria nº 11/2023/OUV/ANTAQ (Boletim de Pessoal e Serviços - Fevereiro/2023 - 3ª Edição
-                            Extraordinária) - Institui, no âmbito da Ouvidoria, os relatórios gerenciais e estratégicos
-                            como instrumentos de análise de informações e apresentação de propostas de aprimoramento dos
-                            serviços prestados pela Agência Nacional de Transportes Aquaviários - ANTAQ</p>
-                    </div>
-                </button>
-                <!-- Portaria 3/2025/OUV -->
-                <button class="tile" onclick="openCard(this)" data-title="Portaria nº 3/2025/OUV/ANTAQ"
-                    data-sub="Boletim de Pessoal e Serviços — Junho/2025, 5ª Ed. Extraordinária"
-                    data-badge='<span class="db-type">PORT. OUV</span><span class="db-num">03/2025</span>'
-                    data-bclass="db-port">
-                    <span class="doc-badge db-port"><span class="db-type">PORT. OUV</span><span
-                            class="db-num">03/2025</span></span>
-                    <span class="tile-name">Portaria nº 3/2025/OUV/ANTAQ</span>
-                    <span class="tile-tag">Organização e funcionamento da Ouvidoria</span>
-                    <span class="tile-more"><i class="fas fa-up-right-and-down-left-from-center"></i> ampliar</span>
-                    <div class="tile-full">
-                        <p>Portaria nº 3/2025/OUV/ANTAQ (Boletim de Pessoal e Serviços - Junho/2025 - 5ª Edição
-                            Extraordinária) - Regulamenta e estabelece as diretrizes para a organização e funcionamento
-                            dos serviços da Ouvidoria da Agência Nacional de Transportes Aquaviários – ANTAQ, como
-                            instância pública de controle e participação social, responsável pelo tratamento das
-                            reclamações, solicitações, denúncias, sugestões e elogios relativos às políticas e aos
-                            serviços públicos prestados e regulados pela ANTAQ, com vistas ao aprimoramento da gestão
-                            pública e à garantia da transparência em suas ações</p>
-                    </div>
-                </button>
+                </div>
+                <div class="flex items-center gap-3">
+                    <p class="text-blue-200 text-xs text-right"><br /><span class="text-white font-semibold"></span></p>
+                    <div class="h-10 w-10 rounded-full flex items-center justify-center"
+                        style="background-color: #0090C0; color: #103050;"><i class="fas fa-anchor"></i></div>
+                </div>
             </div>
         </div>
-        <!-- Footer -->
-        <div class="px-16 pb-8 flex justify-between items-center z-10">
-            <p class="text-gray-400 text-xs">Relatório Anual de Enquetes do Conselho de Usuários · 2026 – Ouvidoria – Agência Nacional de Transportes Aquaviários - ANTAQ</p>
-        </div>
-        <div class="bg-pattern"><i class="fas fa-stamp text-9xl"></i></div>
-    </div>
-
-    <!-- Overlay -->
-    <div class="overlay" id="overlay" onclick="closeCard(event)">
-        <div class="overlay-card" role="dialog" aria-modal="true" onclick="event.stopPropagation()">
-            <button class="overlay-close" onclick="closeCard(event)" aria-label="Fechar"><i
-                    class="fas fa-xmark"></i></button>
-            <div class="overlay-head">
-                <span class="ov-badge"></span>
-                <span class="ov-titles">
-                    <span class="ov-title block"></span>
-                    <span class="ov-sub block"></span>
-                </span>
-            </div>
-            <div class="overlay-body">
-                <div class="ov-body"></div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        var overlay = document.getElementById('overlay');
-        function openCard(tile) {
-            var ovb = overlay.querySelector('.ov-badge');
-            ovb.className = 'ov-badge ' + (tile.dataset.bclass || 'db-port');
-            ovb.innerHTML = tile.dataset.badge || '';
-            overlay.querySelector('.ov-title').textContent = tile.dataset.title || '';
-            overlay.querySelector('.ov-sub').textContent = tile.dataset.sub || '';
-            overlay.querySelector('.ov-body').innerHTML = tile.querySelector('.tile-full').innerHTML;
-            overlay.querySelector('.overlay-body').scrollTop = 0;
-            overlay.classList.add('open');
-        }
-        function closeCard(e) { if (e) e.stopPropagation(); fechar(); }
-
-        /* ── Abrir passando o mouse ───────────────────────────────────
-           No hover o detalhamento aparece num painel ANCORADO ao quadro
-           apontado — logo abaixo dele, ou acima quando não cabe — e totalmente
-           transparente ao ponteiro. Assim o painel nunca cai embaixo do cursor:
-           não existe zona morta, não pisca ao varrer a grade e o quadro
-           apontado continua visível.
-           O CLIQUE abre o MESMO conteúdo no cartão central de sempre, aí sim
-           com rolagem, links clicáveis e botão de fechar. */
-        var overlayCard = overlay.querySelector('.overlay-card');
-        var fixado = false, tFechar = null;
-
-        // Abaixo do quadro; se não couber, acima; se também não couber (ficha
-        // comprida), ao lado — nunca por cima do quadro apontado.
-        function posicionar(tile) {
-            var r = tile.getBoundingClientRect();
-            var vw = document.documentElement.clientWidth;
-            var vh = document.documentElement.clientHeight;
-            overlayCard.classList.remove('estreito');
-            var w = overlayCard.offsetWidth, h = overlayCard.offsetHeight;
-            var esq, topo;
-            if (r.bottom + 14 + h <= vh - 24) {
-                topo = r.bottom + 14; esq = r.left;
-            } else if (r.top - 14 - h >= 24) {
-                topo = r.top - 14 - h; esq = r.left;
-            } else {
-                // Ao lado: na largura cheia o painel não caberia na coluna do
-                // meio, então ele estreita e é remedido antes de posicionar.
-                overlayCard.classList.add('estreito');
-                w = overlayCard.offsetWidth; h = overlayCard.offsetHeight;
-                topo = r.top;
-                esq = (r.right + 14 + w <= vw - 24) ? r.right + 14 : r.left - 14 - w;
-            }
-            esq = Math.max(24, Math.min(esq, vw - w - 24));
-            topo = Math.max(24, Math.min(topo, vh - h - 24));
-            overlayCard.style.left = Math.round(esq) + 'px';
-            overlayCard.style.top = Math.round(topo) + 'px';
-        }
-
-        function abrirHover(tile) {
-            if (fixado) return;
-            clearTimeout(tFechar);
-            overlay.classList.add('modo-hover');
-            openCard(tile);
-            posicionar(tile);
-        }
-
-        function fixar(tile) {
-            clearTimeout(tFechar);
-            fixado = true;
-            overlay.classList.remove('modo-hover');
-            overlayCard.style.left = '';
-            overlayCard.style.top = '';
-            overlayCard.classList.remove('estreito');
-            overlay.classList.add('fixado');
-            openCard(tile);
-        }
-
-        function fechar() {
-            clearTimeout(tFechar);
-            fixado = false;
-            overlay.classList.remove('open', 'fixado', 'modo-hover');
-            overlayCard.style.left = '';
-            overlayCard.style.top = '';
-            overlayCard.classList.remove('estreito');
-        }
-
-        [].forEach.call(document.querySelectorAll('.tile'), function (t) {
-            t.addEventListener('mouseenter', function () { abrirHover(t); });
-            t.addEventListener('mouseleave', function () {
-                if (fixado) return;
-                // respiro curto só para não apagar no vão entre um quadro e o vizinho
-                clearTimeout(tFechar);
-                tFechar = setTimeout(fechar, 90);
-            });
-            t.addEventListener('focus', function () { abrirHover(t); });   // teclado
-            t.addEventListener('blur', function () { if (!fixado) fechar(); });
-            t.addEventListener('click', function () { fixar(t); });
-        });
-        document.addEventListener("keydown", function (e) {
-            if (e.key === 'Escape') { if (overlay.classList.contains('open')) { e.preventDefault(); closeCard(); } return; }
-            // Só o cartão FIXADO (por clique) engole as teclas de navegação — o
-            // cartão aberto por hover não pode atrapalhar quem usa as setas.
-            if (overlay.classList.contains('fixado')) return;
-            if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) {
-                e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*");
-            }
-        });
-    </script>
+        <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
 </body>
 
 </html>

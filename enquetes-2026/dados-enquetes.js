@@ -10,6 +10,8 @@
   ║  Campos de cada enquete:                                     ║
   ║    id ............ nº da enquete na Plataforma da CGU        ║
   ║    sup / num ..... superintendência e nº do serviço na Carta ║
+  ║    pagina ........ página do documento-fonte com o texto     ║
+  ║                    completo do serviço (Tabela 1 remete lá)  ║
   ║    servico ....... nome do serviço (Carta de Serviços)       ║
   ║    pergunta ...... enunciado publicado na Plataforma         ║
   ║    publicacao .... data de publicação da enquete             ║
@@ -65,7 +67,7 @@ const CARTA_HISTORICO = [
 const ENQUETES = [
   /* ─────────────────── SOG · Superintendência de Outorgas ─────────────────── */
   {
-    id: 8270, sup: 'SOG', num: 15,
+    id: 8270, sup: 'SOG', num: 15, pagina: 139,
     servico: 'Solicitar autorização e registro na ANTAQ para afretamento de embarcação estrangeira',
     pergunta: 'Qual é a sua opinião a respeito do serviço prestado pela Antaq no registro de afretamento de embarcação estrangeira?',
     publicacao: '07/04/2026', respondentes: 7, base: 147,
@@ -74,7 +76,7 @@ const ENQUETES = [
     sugestoes: ['Acesso a poucas empresas']
   },
   {
-    id: 8271, sup: 'SOG', num: 9,
+    id: 8271, sup: 'SOG', num: 9, pagina: 109,
     servico: 'Registrar na ANTAQ afretamento de embarcação brasileira',
     pergunta: 'Qual é a sua opinião a respeito do serviço prestado pela Antaq no registro de afretamento de embarcação brasileira?',
     publicacao: '07/04/2026', respondentes: 6, base: 146,
@@ -83,7 +85,7 @@ const ENQUETES = [
     sugestoes: ['Abrir a informação para que seja uma prática comum entre os usuários; fiz comentários com clientes nos quais não tinham informação que poderiam utilizar o órgão como suporte para seu atual problema com a linha de navegação; acredito que praticar e divulgar os canais seria algo muito válido para alertar sobre os deveres das cias em nosso país.']
   },
   {
-    id: 8272, sup: 'SOG', num: 11,
+    id: 8272, sup: 'SOG', num: 11, pagina: 116,
     servico: 'Registrar na ANTAQ comunicação sobre alteração de frota',
     pergunta: 'Qual é a sua opinião a respeito do serviço prestado pela Antaq no registro de comunicação sobre a alteração de frota?',
     publicacao: '07/04/2026', respondentes: 6, base: 145,
@@ -92,7 +94,7 @@ const ENQUETES = [
     sugestoes: []
   },
   {
-    id: 8273, sup: 'SOG', num: 10,
+    id: 8273, sup: 'SOG', num: 10, pagina: 113,
     servico: 'Registrar na ANTAQ alteração de situação cadastral de empresa brasileira de navegação',
     pergunta: 'Qual é a sua opinião a respeito do serviço prestado pela Antaq no registro de alteração de situação cadastral de empresa brasileira de navegação?',
     publicacao: '07/04/2026', respondentes: 6, base: 145,
@@ -101,7 +103,7 @@ const ENQUETES = [
     sugestoes: []
   },
   {
-    id: 8274, sup: 'SOG', num: 7,
+    id: 8274, sup: 'SOG', num: 7, pagina: 84,
     servico: 'Obter outorga de autorização da ANTAQ para construção e exploração de instalação portuária privada localizada fora da área do Porto Organizado',
     pergunta: 'Qual é a sua opinião a respeito do serviço prestado pela Antaq na obtenção de outorga de autorização para construção e exploração de instalação portuária privada localizada fora da área do Porto Organizado?',
     publicacao: '07/04/2026', respondentes: 5, base: 149,
@@ -111,7 +113,7 @@ const ENQUETES = [
     nota: 'O texto de análise do documento-fonte registrava 83,3%/16,7% para a questão 1; os percentuais foram corrigidos para 80%/20%, conforme o gráfico da Plataforma e o total de 5 respondentes.'
   },
   {
-    id: 8275, sup: 'SOG', num: 6,
+    id: 8275, sup: 'SOG', num: 6, pagina: 78,
     servico: 'Obter da ANTAQ autorização, aditamento ou renúncia para transporte aquaviário na navegação marítima e de apoio, cabotagem e longo curso',
     pergunta: 'Qual é a sua opinião a respeito do serviço prestado pela Antaq na obtenção de autorização, aditamento ou renúncia para transporte aquaviário na navegação marítima e de apoio, cabotagem e longo curso?',
     publicacao: '07/04/2026', respondentes: 4, base: 148,
@@ -120,7 +122,7 @@ const ENQUETES = [
     sugestoes: []
   },
   {
-    id: 8276, sup: 'SOG', num: 4,
+    id: 8276, sup: 'SOG', num: 4, pagina: 44,
     servico: 'Obter autorização da ANTAQ para transporte de cargas na navegação interior de percurso longitudinal interestadual e internacional',
     pergunta: 'Qual é a sua opinião a respeito do serviço prestado pela Antaq na obtenção de autorização para transporte de cargas na navegação interior de percurso longitudinal interestadual e internacional?',
     publicacao: '07/04/2026', respondentes: 8, base: 147,
@@ -133,7 +135,7 @@ const ENQUETES = [
     nota: 'O texto de análise do documento-fonte invertia as respostas da questão 1 (indicava 6 usos e 2 não usos); os valores foram ajustados ao gráfico da Plataforma — 2 utilizaram (25%) e 6 não utilizaram (75%) —, o que também é coerente com os 2 respondentes da questão 2.'
   },
   {
-    id: 8277, sup: 'SOG', num: 2,
+    id: 8277, sup: 'SOG', num: 2, pagina: 38,
     servico: 'Obter autorização da ANTAQ para transporte de passageiros, veículos e cargas na navegação interior de travessia',
     pergunta: 'Qual é a sua opinião a respeito do serviço prestado pela Antaq na obtenção de autorização para transporte de passageiros, veículos e cargas na navegação interior de travessia?',
     publicacao: '07/04/2026', respondentes: 7, base: 148,
@@ -146,7 +148,7 @@ const ENQUETES = [
     nota: 'O texto de análise do documento-fonte indicava 3 respostas "sim" na questão 2; o valor foi ajustado para 2, conforme o gráfico da Plataforma (66,7% de 3 respondentes).'
   },
   {
-    id: 8278, sup: 'SOG', num: 3,
+    id: 8278, sup: 'SOG', num: 3, pagina: 41,
     servico: 'Obter autorização da ANTAQ para transporte de passageiros e misto na navegação interior de percurso longitudinal interestadual e internacional',
     pergunta: 'Qual é a sua opinião a respeito do serviço prestado pela Antaq na obtenção de autorização para transporte misto e de passageiros na navegação interior de percurso longitudinal interestadual e internacional?',
     publicacao: '07/04/2026', respondentes: 5, base: 147,
@@ -155,7 +157,7 @@ const ENQUETES = [
     sugestoes: []
   },
   {
-    id: 8279, sup: 'SOG', num: 5,
+    id: 8279, sup: 'SOG', num: 5, pagina: 54,
     servico: 'Obter autorização da ANTAQ para ampliação da área da instalação portuária privada localizada fora da área de Porto Organizado',
     pergunta: 'Qual é a sua opinião a respeito do serviço prestado pela Antaq na obtenção de autorização para ampliação da área da instalação portuária privada localizada fora da área de Porto Organizado?',
     publicacao: '07/04/2026', respondentes: 6, base: 145,
@@ -164,7 +166,7 @@ const ENQUETES = [
     sugestoes: ['Aconselhamos maior clareza no check-list de documentos e procedimentos para outorga junto à Agência.']
   },
   {
-    id: 8280, sup: 'SOG', num: 12,
+    id: 8280, sup: 'SOG', num: 12, pagina: 120,
     servico: 'Registrar na ANTAQ instalação de apoio ao transporte aquaviário não passível de autorização',
     pergunta: 'Qual é a sua opinião a respeito do serviço prestado pela Antaq no registro de instalação de apoio ao transporte aquaviário não passível de autorização?',
     publicacao: '07/04/2026', respondentes: 7, base: 146,
@@ -173,7 +175,7 @@ const ENQUETES = [
     sugestoes: ['Melhorar o tempo de retorno.']
   },
   {
-    id: 8281, sup: 'SOG', num: 16,
+    id: 8281, sup: 'SOG', num: 16, pagina: 142,
     servico: 'Solicitar da ANTAQ análise de tonelagem para inscrição no Registro Especial Brasileiro (REB)',
     pergunta: 'Qual é a sua opinião a respeito do serviço prestado pela Antaq na solicitação de análise de tonelagem para inscrição no Registro Especial Brasileiro (REB)?',
     publicacao: '07/04/2026', respondentes: 5, base: 145,
@@ -182,7 +184,7 @@ const ENQUETES = [
     sugestoes: []
   },
   {
-    id: 8282, sup: 'SOG', num: 14,
+    id: 8282, sup: 'SOG', num: 14, pagina: 136,
     servico: 'Solicitar atualização de dados na ANTAQ para o Sistema Mercante — AFRMM',
     pergunta: 'Qual é a sua opinião a respeito do serviço prestado pela Antaq na solicitação da atualização de dados para o Sistema Mercante - AFRMM?',
     publicacao: '07/04/2026', respondentes: 5, base: 149,
@@ -194,7 +196,7 @@ const ENQUETES = [
     ]
   },
   {
-    id: 8283, sup: 'SOG', num: 18,
+    id: 8283, sup: 'SOG', num: 18, pagina: 146,
     servico: 'Solicitar homologação da ANTAQ para Acordo Operacional na navegação marítima ou interior',
     pergunta: 'Qual é a sua opinião a respeito do serviço prestado pela Antaq na solicitação de homologação para Acordo Operacional na navegação marítima ou interior?',
     publicacao: '07/04/2026', respondentes: 5, base: 145,
@@ -203,7 +205,7 @@ const ENQUETES = [
     sugestoes: []
   },
   {
-    id: 8284, sup: 'SOG', num: 13,
+    id: 8284, sup: 'SOG', num: 13, pagina: 133,
     servico: 'Solicitar à ANTAQ autorização para operação em caráter emergencial e especial',
     pergunta: 'Qual é a sua opinião a respeito do serviço prestado pela Antaq na solicitação de autorização para operação em caráter emergencial e especial?',
     publicacao: '07/04/2026', respondentes: 5, base: 145,
@@ -212,7 +214,7 @@ const ENQUETES = [
     sugestoes: []
   },
   {
-    id: 8285, sup: 'SOG', num: 1,
+    id: 8285, sup: 'SOG', num: 1, pagina: 34,
     servico: 'Obter autorização da ANTAQ para celebração de contrato de transição',
     pergunta: 'Qual é a sua opinião a respeito do serviço prestado pela Antaq na solicitação de autorização para celebrar Contrato de Transição ou Contrato de Uso Temporário?',
     publicacao: '07/04/2026', respondentes: 5, base: 147,
@@ -221,7 +223,7 @@ const ENQUETES = [
     sugestoes: []
   },
   {
-    id: 8286, sup: 'SOG', num: 17,
+    id: 8286, sup: 'SOG', num: 17, pagina: 144,
     servico: 'Solicitar da ANTAQ análise de Projetos Executivos apresentados no âmbito das Concessões e dos Arrendamentos Portuários',
     pergunta: 'Qual é a sua opinião a respeito do serviço prestado pela Antaq na solicitação de análise de Projetos Executivos apresentados no âmbito das Concessões e dos Arrendamentos Portuários?',
     publicacao: '07/04/2026', respondentes: 6, base: 145,
@@ -230,7 +232,7 @@ const ENQUETES = [
     sugestoes: ['Antaq acertou e foi corajosa no caso do STS 10.']
   },
   {
-    id: 8287, sup: 'SOG', num: 8,
+    id: 8287, sup: 'SOG', num: 8, pagina: 100,
     servico: 'Propor à ANTAQ recomposição do equilíbrio econômico-financeiro de contratos de Arrendamentos Portuários ou de EVTEA',
     pergunta: 'Qual é a sua opinião a respeito do serviço prestado pela Antaq na análise da proposta de recomposição do equilíbrio econômico-financeiro de contratos de Arrendamentos Portuários ou de EVTEA?',
     publicacao: '07/04/2026', respondentes: 7, base: 145,
@@ -244,7 +246,7 @@ const ENQUETES = [
 
   /* ─────────────────── SRG · Superintendência de Regulação ─────────────────── */
   {
-    id: 8288, sup: 'SRG', num: 4,
+    id: 8288, sup: 'SRG', num: 4, pagina: 47,
     servico: 'Obter autorização da ANTAQ para incorporação/desincorporação de bens da União ao/do acervo patrimonial dos portos organizados',
     pergunta: 'Qual é a sua opinião a respeito do serviço prestado pela Antaq na obtenção de autorização para incorporação/desincorporação de bens da União ao/do acervo patrimonial dos portos organizados?',
     publicacao: '07/04/2026', respondentes: 6, base: 152,
@@ -253,7 +255,7 @@ const ENQUETES = [
     sugestoes: ['Reduzir a burocracia. Analisar a possibilidade de acabar com a reversão e transformar em indenização ao final do contrato, com base na depreciação, até porque, ao final, muitos bens já não têm utilidade tendo em vista a modernização — caem em desuso. Desta forma, além de entrarem mais recursos aos cofres públicos, os entes de posse dos bens devem dar a destinação, caso não sejam aceitos ao final do contrato de arrendamento/reversão.']
   },
   {
-    id: 8289, sup: 'SRG', num: 6,
+    id: 8289, sup: 'SRG', num: 6, pagina: 64,
     servico: 'Obter autorização da ANTAQ para revisão/reajuste das tarifas portuárias',
     pergunta: 'Qual é a sua opinião a respeito do serviço prestado pela Antaq na obtenção de autorização para revisão/reajuste das tarifas portuárias?',
     publicacao: '07/04/2026', respondentes: 6, base: 151,
@@ -267,7 +269,7 @@ const ENQUETES = [
     ]
   },
   {
-    id: 8290, sup: 'SRG', num: 5,
+    id: 8290, sup: 'SRG', num: 5, pagina: 59,
     servico: 'Obter autorização da ANTAQ para antecipação de receitas de autoridades portuárias',
     pergunta: 'Qual é a sua opinião a respeito do serviço prestado pela Antaq na obtenção de autorização para antecipação de receitas de autoridades portuárias?',
     publicacao: '07/04/2026', respondentes: 7, base: 149,
@@ -276,7 +278,7 @@ const ENQUETES = [
     sugestoes: []
   },
   {
-    id: 8291, sup: 'SRG', num: 1,
+    id: 8291, sup: 'SRG', num: 1, pagina: 13,
     servico: 'Obter análise da ANTAQ para transferência de titularidade de instalação portuária',
     pergunta: 'Qual é a sua opinião a respeito do serviço prestado pela Antaq na obtenção da análise para transferência de titularidade de instalação portuária?',
     publicacao: '07/04/2026', respondentes: 6, base: 145,
@@ -285,7 +287,7 @@ const ENQUETES = [
     sugestoes: []
   },
   {
-    id: 8292, sup: 'SRG', num: 7,
+    id: 8292, sup: 'SRG', num: 7, pagina: 71,
     servico: 'Obter autorização da ANTAQ para transferência de controle societário de instalação portuária',
     pergunta: 'Qual é a sua opinião a respeito do serviço prestado pela Antaq na obtenção de autorização para transferência de controle societário de instalação portuária?',
     publicacao: '07/04/2026', respondentes: 6, base: 147,
@@ -294,7 +296,7 @@ const ENQUETES = [
     sugestoes: []
   },
   {
-    id: 8293, sup: 'SRG', num: 2,
+    id: 8293, sup: 'SRG', num: 2, pagina: 21,
     servico: 'Obter análise da ANTAQ quanto à alteração da tabela de preços de instalações portuárias arrendadas ou autorizadas',
     pergunta: 'Qual é a sua opinião a respeito do serviço prestado pela Antaq na obtenção da análise quanto à alteração da tabela de preços de instalações portuárias arrendadas ou autorizadas?',
     publicacao: '07/04/2026', respondentes: 7, base: 145,
@@ -306,7 +308,7 @@ const ENQUETES = [
     ]
   },
   {
-    id: 8294, sup: 'SRG', num: 3,
+    id: 8294, sup: 'SRG', num: 3, pagina: 27,
     servico: 'Obter autorização da ANTAQ para alteração de tabela de preços dos serviços de transporte aquaviário na navegação interior',
     pergunta: 'Qual é a sua opinião a respeito do serviço prestado pela Antaq na obtenção de autorização para alteração de tabela de preços dos serviços de transporte aquaviário na navegação interior?',
     publicacao: '07/04/2026', respondentes: 6, base: 145,
@@ -315,7 +317,7 @@ const ENQUETES = [
     sugestoes: []
   },
   {
-    id: 8295, sup: 'SRG', num: 8,
+    id: 8295, sup: 'SRG', num: 8, pagina: 126,
     servico: 'Solicitar à ANTAQ a harmonização de conflito de interesses nos portos e na navegação',
     pergunta: 'Qual é a sua opinião a respeito do serviço prestado pela Antaq na solicitação de harmonização de conflito de interesses nos portos e na navegação?',
     publicacao: '07/04/2026', respondentes: 8, base: 146,
@@ -329,7 +331,7 @@ const ENQUETES = [
 
   /* ──────────── SAF · Superintendência de Administração e Finanças ──────────── */
   {
-    id: 8296, sup: 'SAF', num: 1,
+    id: 8296, sup: 'SAF', num: 1, pagina: 81,
     servico: 'Obter declaração da ANTAQ para fins de credenciamento, validação ou outros atestados',
     pergunta: 'Qual é a sua opinião a respeito do serviço prestado pela Antaq na solicitação de declaração para fins de credenciamento, validação ou outros atestados?',
     publicacao: '07/04/2026', respondentes: 6, base: 145,
@@ -338,7 +340,7 @@ const ENQUETES = [
     sugestoes: []
   },
   {
-    id: 8297, sup: 'SAF', num: 3,
+    id: 8297, sup: 'SAF', num: 3, pagina: 96,
     servico: 'Obter parcelamento de multas emitidas pela ANTAQ',
     pergunta: 'Qual é a sua opinião a respeito do serviço prestado pela Antaq na obtenção de parcelamento de multas emitidas pela Agência?',
     publicacao: '07/04/2026', respondentes: 7, base: null,
@@ -348,7 +350,7 @@ const ENQUETES = [
     nota: 'No documento-fonte, o cabeçalho desta enquete repete o da enquete anterior. O enunciado acima foi reconstituído a partir da Carta de Serviços e o total de 7 respondentes, a partir do gráfico da questão 1 (14,3% / 85,7%). O total de conselheiros inscritos na data não consta.'
   },
   {
-    id: 8298, sup: 'SAF', num: 4,
+    id: 8298, sup: 'SAF', num: 4, pagina: 102,
     servico: 'Realizar pagamento de multa e outros débitos junto à ANTAQ',
     pergunta: 'Qual é a sua opinião a respeito do serviço prestado pela Antaq na realização de pagamento de multa aplicada pela Agência?',
     publicacao: '07/04/2026', respondentes: 6, base: 145,
@@ -360,7 +362,7 @@ const ENQUETES = [
     ]
   },
   {
-    id: 8299, sup: 'SAF', num: 2,
+    id: 8299, sup: 'SAF', num: 2, pagina: 93,
     servico: 'Obter parcela de Contrato de Concessão/Arrendamento em que a ANTAQ seja interveniente',
     pergunta: 'Qual é a sua opinião a respeito do serviço prestado pela Antaq na obtenção de parcela de Contrato de Concessão/Arrendamento em que a Agência seja interveniente?',
     publicacao: '07/04/2026', respondentes: 6, base: null,
@@ -372,7 +374,7 @@ const ENQUETES = [
 
   /* ── SFC · Superintendência de Fiscalização e Coordenação das Unidades Regionais ── */
   {
-    id: 8300, sup: 'SFC', num: 1,
+    id: 8300, sup: 'SFC', num: 1, pagina: 5,
     servico: 'Consultar empresas e embarcações para o transporte aquaviário federal de passageiros na navegação interior (Navegue Seguro)',
     pergunta: 'Qual é a sua opinião a respeito do serviço prestado pela Antaq na consulta a empresas e embarcações para o transporte aquaviário federal de passageiros na navegação interior (Navegue Seguro)?',
     publicacao: '07/04/2026', respondentes: 8, base: 145,

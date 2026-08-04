@@ -48,7 +48,7 @@ Quem lê esse arquivo:
 | `slide-tabela-enquetes.html` | Monta a Tabela 1 |
 | `slide-18.html` (cnsu-numeros) | Total de conselheiros, enquetes e respostas |
 | `slide-13.html` (carta-numeros) | Distribuição de serviços por superintendência |
-| `slide-23.html` (resultados-ambos) | Números do bloco de considerações finais |
+| `slide-22.html` (resultados-ambos) | Números do bloco de considerações finais |
 | `relatorio.html` | Monta as páginas da versão para impressão |
 
 > ⚠️ **Os textos de análise NÃO são digitados** — são gerados a partir dos números pela função
@@ -144,13 +144,13 @@ enquetes-2026/
 ├── relatorio.html                    ← versão para impressão / PDF
 ├── dados-enquetes.js                 ← FONTE ÚNICA DOS DADOS
 ├── MANUAL.md                         ← este arquivo
-├── Imagens/                          ← logos + fluxograma (Figura 5)
+├── Imagens/                          ← logos (fluxograma/Figura 5 não é mais usado no deck)
 │
 ├── slide-enquete.html                ← template das 56 telas de resultado
 ├── slide-tabela-enquetes.html        ← Tabela 1 (?p=1 e ?p=2)
 │
 ├── capa-bloco-1..6.html              ← capas dos 6 capítulos
-└── slide-01.html..slide-28.html      ← demais telas de conteúdo, na ordem do deck
+└── slide-01.html..slide-27.html      ← demais telas de conteúdo, na ordem do deck
 ```
 
 ### Por que os templates usam `?e=` na URL
@@ -214,8 +214,8 @@ uma enquete = editar o `.js`.
 
 ### Bloco 4 · Conselho de Usuários da ANTAQ
 Ordem escolhida na revisão — não segue mais o documento-fonte (que trazia a
-metodologia antes do "Conselho em números"). O slide de critérios de
-avaliação foi removido nesta rodada.
+metodologia antes do "Conselho em números"). Os slides de critérios de
+avaliação e de fluxo da consulta (Figura 5) foram removidos do deck.
 
 | Arquivo | Título |
 |---------|--------|
@@ -225,17 +225,16 @@ avaliação foi removido nesta rodada.
 | `slide-17.html` | Como se tornar conselheiro |
 | `slide-18.html` | ⭐ Conselheiros e rodadas |
 | `slide-19.html` | Metodologia utilizada na consulta aos conselheiros |
-| `slide-20.html` | Fluxo da Consulta (fluxo horizontal + Figura 5) |
-| `slide-21.html` | Estrutura das Enquetes |
+| `slide-20.html` | Estrutura das Enquetes |
 | `slide-tabela-enquetes.html?p=1/2` | ⭐ Enquetes Publicadas no Portal Gov.br |
 | `slide-enquete.html?e=NNNN&p=1/2` | ⭐ Resultado de cada enquete (rosca na 1/2, barras + sugestões na 2/2) |
 
 ### Bloco 5 · Considerações Finais
-`capa-bloco-5.html`, `slide-22.html`, `slide-23.html`.
+`capa-bloco-5.html`, `slide-21.html`, `slide-22.html`.
 
 ### Bloco 6 · Apêndice
-`capa-bloco-6.html`, `slide-24.html`, `slide-25.html`, `slide-26.html`,
-`slide-27.html`, `slide-28.html`.
+`capa-bloco-6.html`, `slide-23.html`, `slide-24.html`, `slide-25.html`,
+`slide-26.html`, `slide-27.html`.
 
 > Nos quatro slides de quadros (Decretos, Glossário, Leis, Normativos) o detalhamento abre ao
 > **passar o mouse**, num painel **ancorado ao quadro apontado** — abaixo dele, ou acima quando não
