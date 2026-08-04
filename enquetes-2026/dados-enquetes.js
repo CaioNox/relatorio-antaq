@@ -44,22 +44,22 @@ const SUPERINTENDENCIAS = {
   SOG: { nome: 'Superintendência de Outorgas', sigla: 'SOG', servicos: 18, cor: '#0070C0' },
   SRG: { nome: 'Superintendência de Regulação', sigla: 'SRG', servicos: 8, cor: '#0090C0' },
   SAF: { nome: 'Superintendência de Administração e Finanças', sigla: 'SAF', servicos: 4, cor: '#103050' },
-  SFC: { nome: 'Superintendência de Fiscalização e Coordenação das Unidades Regionais', sigla: 'SFC', servicos: 3, cor: '#F2A900' }
+  SFC: { nome: 'Superintendência de Fiscalização e Coordenação das Unidades Regionais', sigla: 'SFC', servicos: 1, cor: '#F2A900' }
 };
 
 /* ═══════════════ Série histórica da Carta de Serviços ═══════════════
    Fonte: documento da Carta publicado em cada exercício. Alimenta o
-   slide-carta-evolucao.html (filtro de anos + comparativo).
+   slide-14.html (carta-evolucao — filtro de anos + comparativo).
 
-   ATENÇÃO — 2026 está em 32 (SFC 2) DE PROPÓSITO: é a posição publicada
-   no exercício, sem o serviço ProTeu. Os demais slides do capítulo
-   contam 33 porque já incluem o ProTeu. Divergência decidida na revisão;
-   não "corrigir" para 33.                                              */
+   Critério a partir desta rodada: só entram serviços com enquete
+   publicada. SisPAT e ProTeu (SFC) ficaram de fora em 2026 — nenhum
+   dos dois teve enquete publicada nesta rodada — por isso SFC = 1 e
+   o total do exercício é 31, batendo com o resto do sistema.        */
 const CARTA_HISTORICO = [
   { ano: 2021, SOG: 18, SRG: 8, SAF: 2, SFC: 0 },
   { ano: 2023, SOG: 18, SRG: 8, SAF: 3, SFC: 1 },
   { ano: 2025, SOG: 18, SRG: 8, SAF: 4, SFC: 1 },
-  { ano: 2026, SOG: 18, SRG: 8, SAF: 4, SFC: 2 }
+  { ano: 2026, SOG: 18, SRG: 8, SAF: 4, SFC: 1 }
 ];
 
 const ENQUETES = [
@@ -387,18 +387,7 @@ const ENQUETES = [
 ];
 
 /* Serviço da Carta que não teve enquete publicada nesta rodada. */
-const SERVICOS_SEM_ENQUETE = [
-  {
-    sup: 'SFC', num: 2,
-    servico: 'Enviar à ANTAQ o inventário patrimonial e a Lista de Bens Reversíveis dos portos organizados (SisPAT)',
-    motivo: 'Sem enquete publicada no documento-fonte desta rodada.'
-  },
-  {
-    sup: 'SFC', num: 3,
-    servico: 'Registrar denúncia sobre cobranças de serviços que envolvem o transporte aquaviário de carga em contêineres (ProTeu)',
-    motivo: 'Sem enquete publicada no documento-fonte desta rodada.'
-  }
-];
+const SERVICOS_SEM_ENQUETE = [];
 
 /* ═══════════════════════ Helpers de apresentação ═══════════════════════ */
 

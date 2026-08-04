@@ -3,7 +3,8 @@
 <!--
   ╔══════════════════════════════════════════════════════════════╗
   ║  SLIDE — Carta de Serviços da ANTAQ (SOG + SRG + SAF + SFC)   ║
-  ║  Fusão dos antigos slides 26 e 27 — 33 serviços              ║
+  ║  Fusão dos antigos slides 26 e 27 — hoje 31 serviços (só os   ║
+  ║  que têm enquete publicada nesta rodada; ver ENQUETES no .js)║
   ║  Template/lógica de hover copiados do slide-21 (PDA)         ║
   ╚══════════════════════════════════════════════════════════════╝
 -->
@@ -301,19 +302,11 @@
       </div>
 
       <!-- SFC -->
-      <div class="pb-1" data-parte="2"><span class="svc-badge"><i class="fas fa-magnifying-glass-chart"></i>Superintendência de Fiscalização e Coordenação das Unidades Regionais - SFC · 3 serviços</span></div>
+      <div class="pb-1" data-parte="2"><span class="svc-badge"><i class="fas fa-magnifying-glass-chart"></i>Superintendência de Fiscalização e Coordenação das Unidades Regionais - SFC · 1 serviço</span></div>
       <div class="svc-grid" data-parte="2">
         <div class="svc-bar" data-num="01" data-kicker="Superintendência de Fiscalização e Coordenação · SFC" data-title="Consultar empresas e embarcações para o transporte aquaviário federal de passageiros na navegação interior (Navegue Seguro)">
           <span class="sb-num">01</span><span class="sb-name">Consultar empresas e embarcações para o transporte aquaviário federal de passageiros na navegação interior (Navegue Seguro)</span><i class="fas fa-plus sb-plus"></i>
           <span class="sb-desc">O aplicativo Navegue Seguro é uma ferramenta que permite ao usuário consultar a regularidade das empresas e embarcações autorizadas pela ANTAQ para o transporte aquaviário federal de passageiros na navegação interior, em travessias internacionais, interestaduais ou intermunicipais em diretriz de rodovia federal, e embarcações de percurso longitudinal interestadual e internacional.</span>
-        </div>
-        <div class="svc-bar" data-num="02" data-kicker="Superintendência de Fiscalização e Coordenação · SFC" data-title="Enviar à ANTAQ o inventário patrimonial e a Lista de Bens Reversíveis dos portos organizados (SisPAT)">
-          <span class="sb-num">02</span><span class="sb-name">Enviar à ANTAQ o inventário patrimonial e a Lista de Bens Reversíveis dos portos organizados (SisPAT)</span><i class="fas fa-plus sb-plus"></i>
-          <span class="sb-desc">O envio anual do inventário patrimonial e da Lista de Bens Reversíveis é uma obrigação periódica das autoridades portuárias e dos arrendatários dos portos organizados, conforme a Resolução ANTAQ nº 43/2021. O prazo final é 30 de abril de cada ano. O serviço é operacionalizado pelo Sistema de Controle Patrimonial dos Portos Organizados (SisPAT). Novo serviço inserido na Carta de Serviços em 2026.</span>
-        </div>
-        <div class="svc-bar" data-num="03" data-kicker="Superintendência de Fiscalização e Coordenação · SFC" data-title="Registrar denúncia sobre cobranças de serviços que envolvem o transporte aquaviário de carga em contêineres (ProTeu)">
-          <span class="sb-num">03</span><span class="sb-name">Registrar denúncia sobre cobranças de serviços que envolvem o transporte aquaviário de carga em contêineres (ProTeu)</span><i class="fas fa-plus sb-plus"></i>
-          <span class="sb-desc">Canal para que o usuário registre denúncia sobre cobranças consideradas indevidas, excessivas ou sem respaldo contratual no transporte aquaviário de carga em contêineres — como sobrestadia de contêiner (detention), demurrage, taxas de liberação documental e demais cobranças acessórias. A denúncia é encaminhada à Superintendência de Fiscalização e Coordenação das Unidades Regionais (SFC) para apuração regulatória, podendo resultar em processo administrativo sancionador contra o agente infrator. Novo serviço inserido na Carta de Serviços em 2026.</span>
         </div>
       </div>
 
@@ -341,10 +334,11 @@
   <script>
     /* ── Divisão em duas telas ──────────────────────────────────────────
        ?p=1 → Superintendência de Outorgas (18 serviços)
-       ?p=2 → Regulação, Administração e Finanças, Fiscalização (15)
-       O arquivo continua sendo um só: guarda os 33 serviços e esconde os
-       que não pertencem à parte pedida. Assim o anexo do relatorio.html,
-       que lê todos os `.svc-bar` do arquivo, segue completo.            */
+       ?p=2 → Regulação, Administração e Finanças, Fiscalização (13)
+       O arquivo continua sendo um só: guarda os 31 serviços com enquete
+       publicada e esconde os que não pertencem à parte pedida. Assim o
+       anexo do relatorio.html, que lê todos os `.svc-bar` do arquivo,
+       segue completo.                                                   */
     (function () {
       const parte = new URLSearchParams(location.search).get('p') === '2' ? '2' : '1';
       document.body.classList.add('parte-' + parte);
@@ -354,8 +348,8 @@
       document.getElementById('tituloCarta').textContent =
         'Carta de Serviços da ANTAQ · Parte ' + parte;
       document.getElementById('subCarta').textContent = parte === '2'
-        ? 'Regulação, Administração e Finanças e Fiscalização — 15 dos 33 serviços. Passe o mouse para ver o detalhamento.'
-        : 'Superintendência de Outorgas (SOG) — 18 dos 33 serviços. Passe o mouse para ver o detalhamento.';
+        ? 'Regulação, Administração e Finanças e Fiscalização — 13 dos 31 serviços. Passe o mouse para ver o detalhamento.'
+        : 'Superintendência de Outorgas (SOG) — 18 dos 31 serviços. Passe o mouse para ver o detalhamento.';
     })();
 
     const pop = document.getElementById('svcPop');

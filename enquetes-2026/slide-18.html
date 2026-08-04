@@ -30,7 +30,9 @@
     .top-accent { height: 8px; background-color: #103050; width: 100%; }
     .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
 
-    .body-wrap { flex: 1; min-height: 0; display: grid; grid-template-columns: .85fr 1.15fr; gap: 2.2rem; padding: 1rem 3.4rem 0; align-items: center; }
+    .body-wrap { flex: 1; min-height: 0; display: grid; grid-template-columns: .85fr 1.15fr; gap: 2.2rem; padding: 1rem 3.4rem 0; align-items: stretch; }
+
+    .col-left { height: 100%; display: flex; flex-direction: column; justify-content: center; gap: 1.15rem; }
 
     .kpi-big {
       border-radius: 20px; padding: 1.8rem 1.6rem; color: #fff; text-align: center;
@@ -43,22 +45,24 @@
     .kpi-big .lab { font-family: 'Montserrat', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; opacity: .95; }
     .kpi-big .sub { font-size: .74rem; opacity: .8; margin-top: .7rem; }
 
-    .side-kpis { display: flex; gap: .8rem; margin-top: .9rem; }
+    .side-kpis { display: flex; gap: .8rem; }
     .mini {
-      flex: 1; border: 2px solid #E2E8F0; border-radius: 14px; background: #fff; padding: .7rem .8rem;
+      flex: 1; border: 2px solid #E2E8F0; border-radius: 14px; background: #fff; padding: .8rem .8rem .75rem;
       text-align: center; box-shadow: 0 8px 20px -12px rgba(16,48,80,.2);
       animation: fadeInUp .5s ease both .08s;
     }
-    .mini .n { font-family: 'Montserrat', sans-serif; font-size: 1.7rem; font-weight: 900; color: #0070C0; line-height: 1; }
+    .mini i { font-size: .82rem; color: #0070C0; opacity: .55; }
+    .mini .n { font-family: 'Montserrat', sans-serif; font-size: 1.7rem; font-weight: 900; color: #0070C0; line-height: 1; margin-top: .3rem; }
     .mini .l { font-size: .64rem; color: #64748B; margin-top: .25rem; line-height: 1.35; }
 
-    .rodadas { display: flex; flex-direction: column; gap: 1rem; }
+    .rodadas { height: 100%; display: flex; flex-direction: column; justify-content: center; gap: 1.9rem; }
+    .rodadas-group { display: flex; flex-direction: column; gap: 1rem; }
     .rodadas h2 {
       font-family: 'Montserrat', sans-serif; font-size: .78rem; font-weight: 800; letter-spacing: .14em;
       text-transform: uppercase; color: #0070C0; margin: 0 0 -.2rem; display: flex; align-items: center; gap: .5rem;
     }
     .rodada {
-      display: flex; align-items: center; gap: 1.2rem;
+      display: flex; align-items: center; gap: 1.2rem; position: relative;
       border-radius: 16px; padding: 1.1rem 1.4rem; color: #fff;
       background: linear-gradient(100deg, #103050 0%, #0070C0 65%, #0090C0 100%);
       box-shadow: 0 14px 30px -16px rgba(16,48,80,.65);
@@ -78,11 +82,35 @@
     .rodada .datas { display: flex; gap: 1.6rem; flex-shrink: 0; }
     .rodada .dt .k { font-size: .58rem; letter-spacing: .14em; text-transform: uppercase; opacity: .75; font-family: 'Montserrat', sans-serif; font-weight: 700; }
     .rodada .dt .v { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .92rem; }
-    .tag-atual {
+    .ribbon-atual {
+      position: absolute; top: 0; right: 1.4rem; transform: translateY(-50%);
       background: #F2A900; color: #103050; font-family: 'Montserrat', sans-serif; font-weight: 800;
-      font-size: .56rem; letter-spacing: .1em; text-transform: uppercase; border-radius: 999px;
-      padding: .12rem .6rem; margin-left: .5rem; vertical-align: middle;
+      font-size: .58rem; letter-spacing: .08em; text-transform: uppercase; border-radius: 999px;
+      padding: .3rem .8rem; white-space: nowrap; box-shadow: 0 6px 14px -6px rgba(16,48,80,.5);
     }
+
+    .quadrienio {
+      border: 2px solid #E2E8F0; border-radius: 16px; background: #fff; padding: 1rem 1.3rem 1.1rem;
+      box-shadow: 0 8px 20px -14px rgba(16,48,80,.2);
+      animation: fadeInUp .5s ease both .3s;
+    }
+    .timeline { display: flex; position: relative; padding-top: .65rem; margin-top: .55rem; }
+    .timeline::before {
+      content: ''; position: absolute; top: 1.55rem; left: 1.15rem; right: 1.15rem; height: 3px; background: #E2E8F0; z-index: 0;
+    }
+    .tl-item { flex: 1; display: flex; flex-direction: column; align-items: center; text-align: center; gap: .3rem; position: relative; z-index: 1; }
+    .tl-dot {
+      width: 2.3rem; height: 2.3rem; border-radius: 50%; background: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: .82rem;
+    }
+    .tl-item.done .tl-dot { background: #0070C0; color: #fff; }
+    .tl-item.current .tl-dot { background: #F2A900; color: #103050; box-shadow: 0 0 0 5px rgba(242,169,0,.18); }
+    .tl-item.pending .tl-dot { background: #fff; color: #94A3B8; border: 2px solid #E2E8F0; }
+    .tl-y { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .8rem; color: #103050; }
+    .tl-item.pending .tl-y { color: #94A3B8; }
+    .tl-s { font-size: .6rem; color: #64748B; }
+    .tl-item.current .tl-s { color: #B7791F; font-weight: 700; }
 
     .bg-pattern { position: absolute; bottom: -60px; right: -50px; width: 400px; height: 400px; opacity: .03; z-index: 0; color: #103050; }
     @keyframes fadeInUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
@@ -118,7 +146,7 @@
     </div>
 
     <div class="body-wrap">
-      <div>
+      <div class="col-left">
         <div class="kpi-big">
           <i class="fas fa-user-group"></i>
           <div class="num" id="totalConselheiros">145</div>
@@ -128,14 +156,17 @@
         </div>
         <div class="side-kpis">
           <div class="mini">
+            <i class="fas fa-list-check"></i>
             <div class="n" id="qtdEnquetes">31</div>
             <div class="l">enquetes publicadas nesta rodada</div>
           </div>
           <div class="mini">
+            <i class="fas fa-comment-dots"></i>
             <div class="n" id="qtdRespostas">—</div>
             <div class="l">respostas recebidas no total</div>
           </div>
           <div class="mini">
+            <i class="fas fa-calendar-days"></i>
             <div class="n">21</div>
             <div class="l">dias de coleta</div>
           </div>
@@ -143,40 +174,69 @@
       </div>
 
       <div class="rodadas">
-        <h2><i class="fas fa-clock-rotate-left"></i> Rodadas de avaliação realizadas</h2>
+        <div class="rodadas-group">
+          <h2><i class="fas fa-clock-rotate-left"></i> Rodadas de avaliação realizadas</h2>
 
-        <div class="rodada">
-          <div class="ord">1ª</div>
-          <div class="info">
-            <div class="tit">1ª rodada de avaliação</div>
-            <div class="ano">Quadriênio 2025–2028 · exercício de 2025</div>
-          </div>
-          <div class="datas">
-            <div class="dt">
-              <div class="k">Início</div>
-              <div class="v">24/03/2025</div>
+          <div class="rodada">
+            <div class="ord">1ª</div>
+            <div class="info">
+              <div class="tit">1ª rodada de avaliação</div>
+              <div class="ano">Quadriênio 2025–2028 · exercício de 2025</div>
             </div>
-            <div class="dt">
-              <div class="k">Encerramento</div>
-              <div class="v">13/04/2025</div>
+            <div class="datas">
+              <div class="dt">
+                <div class="k">Início</div>
+                <div class="v">24/03/2025</div>
+              </div>
+              <div class="dt">
+                <div class="k">Encerramento</div>
+                <div class="v">13/04/2025</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="rodada atual">
+            <div class="ribbon-atual">Este relatório</div>
+            <div class="ord">2ª</div>
+            <div class="info">
+              <div class="tit">2ª rodada de avaliação</div>
+              <div class="ano">Quadriênio 2025–2028 · exercício de 2026</div>
+            </div>
+            <div class="datas">
+              <div class="dt">
+                <div class="k">Início</div>
+                <div class="v">07/04/2026</div>
+              </div>
+              <div class="dt">
+                <div class="k">Encerramento</div>
+                <div class="v">27/04/2026</div>
+              </div>
             </div>
           </div>
         </div>
 
-        <div class="rodada atual">
-          <div class="ord">2ª</div>
-          <div class="info">
-            <div class="tit">2ª rodada de avaliação <span class="tag-atual">Este relatório</span></div>
-            <div class="ano">Quadriênio 2025–2028 · exercício de 2026</div>
-          </div>
-          <div class="datas">
-            <div class="dt">
-              <div class="k">Início</div>
-              <div class="v">07/04/2026</div>
+        <div class="quadrienio">
+          <h2><i class="fas fa-route"></i> Linha do tempo do quadriênio 2025–2028</h2>
+          <div class="timeline">
+            <div class="tl-item done">
+              <div class="tl-dot"><i class="fas fa-check"></i></div>
+              <div class="tl-y">2025</div>
+              <div class="tl-s">1ª rodada concluída</div>
             </div>
-            <div class="dt">
-              <div class="k">Encerramento</div>
-              <div class="v">27/04/2026</div>
+            <div class="tl-item current">
+              <div class="tl-dot">2</div>
+              <div class="tl-y">2026</div>
+              <div class="tl-s">2ª rodada · em curso</div>
+            </div>
+            <div class="tl-item pending">
+              <div class="tl-dot">3</div>
+              <div class="tl-y">2027</div>
+              <div class="tl-s">Prevista</div>
+            </div>
+            <div class="tl-item pending">
+              <div class="tl-dot">4</div>
+              <div class="tl-y">2028</div>
+              <div class="tl-s">Prevista</div>
             </div>
           </div>
         </div>

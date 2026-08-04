@@ -46,9 +46,9 @@ Quem lê esse arquivo:
 | `index.html` | Monta a lista de telas de enquete dentro do `deck` |
 | `slide-enquete.html` | Desenha os gráficos e escreve os textos de análise (2 telas por enquete) |
 | `slide-tabela-enquetes.html` | Monta a Tabela 1 |
-| `slide-cnsu-numeros.html` | Total de conselheiros, enquetes e respostas |
-| `slide-carta-numeros.html` | Distribuição de serviços por superintendência |
-| `slide-resultados-ambos.html` | Números do bloco de considerações finais |
+| `slide-18.html` (cnsu-numeros) | Total de conselheiros, enquetes e respostas |
+| `slide-13.html` (carta-numeros) | Distribuição de serviços por superintendência |
+| `slide-23.html` (resultados-ambos) | Números do bloco de considerações finais |
 | `relatorio.html` | Monta as páginas da versão para impressão |
 
 > ⚠️ **Os textos de análise NÃO são digitados** — são gerados a partir dos números pela função
@@ -116,10 +116,10 @@ Tabela 1 com o selo `sem enquete publicada` em vez de sumir do documento.
 | Arquivo | O que revisar |
 |---------|---------------|
 | `slide-00.html` | Ano e período na capa e no badge do rodapé |
-| `slide-ficha-tecnica.html` | Nomes e cargos |
-| `slide-apresentacao.html` | Texto de apresentação (datas e nº de enquetes) |
-| `slide-cnsu-numeros.html` | Datas das rodadas de avaliação realizadas |
-| `slide-carta-numeros.html` | Só se a Carta mudar de tamanho — edite `SUPERINTENDENCIAS` no `.js` |
+| `slide-01.html` (ficha-tecnica) | Nomes e cargos |
+| `slide-02.html` (apresentacao) | Texto de apresentação (datas e nº de enquetes) |
+| `slide-18.html` (cnsu-numeros) | Datas das rodadas de avaliação realizadas |
+| `slide-13.html` (carta-numeros) | Só se a Carta mudar de tamanho — edite `SUPERINTENDENCIAS` no `.js` |
 
 ### Passo 5 — Conferir
 Rode o servidor local (seção 9), abra a apresentação e percorra tudo. Confira principalmente:
@@ -150,7 +150,7 @@ enquetes-2026/
 ├── slide-tabela-enquetes.html        ← Tabela 1 (?p=1 e ?p=2)
 │
 ├── capa-bloco-1..6.html              ← capas dos 6 capítulos
-└── slide-*.html                      ← demais telas de conteúdo
+└── slide-01.html..slide-28.html      ← demais telas de conteúdo, na ordem do deck
 ```
 
 ### Por que os templates usam `?e=` na URL
@@ -179,54 +179,63 @@ uma enquete = editar o `.js`.
 | Arquivo | Título |
 |---------|--------|
 | `slide-00.html` | Capa |
-| `slide-ficha-tecnica.html` | Ficha Técnica |
-| `slide-apresentacao.html` | Apresentação |
-| `slide-sumario.html` | Sumário clicável |
+| `slide-01.html` | Ficha Técnica |
+| `slide-02.html` | Apresentação |
+| `slide-03.html` | Sumário clicável |
 
 ### Bloco 1 · Visão Geral das Ouvidorias Públicas
-`capa-bloco-1.html`, `slide-ctx-01.html`, `slide-atribuicoes-01.html`, `slide-principios-01.html`,
-`slide-diretrizes-01.html`, `slide-diretrizes-02.html` — texto institucional, raramente muda.
+`capa-bloco-1.html`, `slide-04.html`, `slide-05.html`, `slide-06.html`,
+`slide-07.html`, `slide-08.html` — texto institucional, raramente muda.
 
 ### Bloco 2 · A Ouvidoria da ANTAQ
-`capa-bloco-2.html`, `slide-ouv-apresentacao.html`, `slide-ouv-estrutura.html`.
+`capa-bloco-2.html`, `slide-09.html`, `slide-10.html`.
 
 ### Bloco 3 · Carta de Serviços da ANTAQ
 | Arquivo | Título |
 |---------|--------|
 | `capa-bloco-3.html` | Capa do bloco |
-| `slide-carta-apres.html` | Apresentação da Carta (+ processo SEI) |
-| `slide-carta-32servicos.html?p=1` | Os 32 serviços — parte 1: SOG (18) |
-| `slide-carta-32servicos.html?p=2` | Os 32 serviços — parte 2: SRG · SAF · SFC (14) |
-| `slide-carta-superintendencias.html` | O que faz cada superintendência |
-| `slide-carta-numeros.html` | ⭐ Distribuição de serviços (lê o `.js`) |
+| `slide-11.html` | Apresentação da Carta (+ processo SEI) |
+| `slide-carta-32servicos.html?p=1` | Os 31 serviços — parte 1: SOG (18) |
+| `slide-carta-32servicos.html?p=2` | Os 31 serviços — parte 2: SRG · SAF · SFC (13) |
+| `slide-12.html` | O que faz cada superintendência |
+| `slide-13.html` | ⭐ Distribuição de serviços (lê o `.js`) |
 
-> **Por que os 32 serviços ocupam duas telas?** Em uma tela só, os 32 cartões
-> ficavam pequenos demais para ler. O arquivo continua sendo **um só** (com os 32
+> **Por que só 31 e não os 33 da Carta oficial?** A partir desta rodada, só entram
+> aqui os serviços com enquete publicada — SisPAT e ProTeu (SFC) ficaram de fora
+> porque não tiveram enquete nesta rodada (ver `ENQUETES` em `dados-enquetes.js`).
+> O arquivo do nome continua sendo o histórico (`slide-carta-32servicos.html`), mas
+> hoje guarda 31 cartões.
+>
+> **Por que os 31 serviços ocupam duas telas?** Em uma tela só, os 31 cartões
+> ficavam pequenos demais para ler. O arquivo continua sendo **um só** (com os 31
 > serviços dentro): ele lê `?p=` da URL e esconde os blocos da outra parte,
 > aumentando os cartões. Assim o anexo do `relatorio.html`, que lê todos os
-> `.svc-bar` do arquivo, continua listando os 32 na íntegra.
+> `.svc-bar` do arquivo, continua listando os 31 na íntegra.
 
 ### Bloco 4 · Conselho de Usuários da ANTAQ
+Ordem escolhida na revisão — não segue mais o documento-fonte (que trazia a
+metodologia antes do "Conselho em números"). O slide de critérios de
+avaliação foi removido nesta rodada.
+
 | Arquivo | Título |
 |---------|--------|
 | `capa-bloco-4.html` | Capa do bloco |
-| `slide-cnsu-apres.html` | Apresentação do Conselho |
-| `slide-cnsu-atribuicoes.html` | Lei nº 13.460/2017, arts. 18 a 22 |
-| `slide-cnsu-participar.html` | Como se tornar conselheiro |
-| `slide-metodologia.html` | As cinco etapas |
-| `slide-cnsu-numeros.html` | ⭐ Conselheiros e rodadas |
-| `slide-metodologia-fluxo.html` | Figura 5 — fluxograma |
-| `slide-metodologia-criterios.html` | Critérios de avaliação |
-| `slide-metodologia-estrutura.html` | As 5 questões e a escala 1–5 |
-| `slide-tabela-enquetes.html?p=1/2` | ⭐ Tabela 1 |
+| `slide-15.html` | Apresentação do Conselho |
+| `slide-16.html` | Lei nº 13.460/2017, arts. 18 a 22 |
+| `slide-17.html` | Como se tornar conselheiro |
+| `slide-18.html` | ⭐ Conselheiros e rodadas |
+| `slide-19.html` | Metodologia utilizada na consulta aos conselheiros |
+| `slide-20.html` | Fluxo da Consulta (fluxo horizontal + Figura 5) |
+| `slide-21.html` | Estrutura das Enquetes |
+| `slide-tabela-enquetes.html?p=1/2` | ⭐ Enquetes Publicadas no Portal Gov.br |
 | `slide-enquete.html?e=NNNN&p=1/2` | ⭐ Resultado de cada enquete (rosca na 1/2, barras + sugestões na 2/2) |
 
 ### Bloco 5 · Considerações Finais
-`capa-bloco-5.html`, `slide-resultados-orgao.html`, `slide-resultados-ambos.html`.
+`capa-bloco-5.html`, `slide-22.html`, `slide-23.html`.
 
 ### Bloco 6 · Apêndice
-`capa-bloco-6.html`, `slide-decretos.html`, `slide-glossario.html`, `slide-leis.html`,
-`slide-normativos.html`, `slide-links.html`.
+`capa-bloco-6.html`, `slide-24.html`, `slide-25.html`, `slide-26.html`,
+`slide-27.html`, `slide-28.html`.
 
 > Nos quatro slides de quadros (Decretos, Glossário, Leis, Normativos) o detalhamento abre ao
 > **passar o mouse**, num painel **ancorado ao quadro apontado** — abaixo dele, ou acima quando não
@@ -247,13 +256,14 @@ Tudo se resolve editando o `deck` em `index.html`:
 ```javascript
 {
   block: 'Bloco 3 · Carta de Serviços da ANTAQ', short: 'Carta de Serviços', tint: 0.7,
-  files: ['capa-bloco-3.html', 'slide-carta-apres.html', /* ... */],
+  files: ['capa-bloco-3.html', 'slide-11.html', /* ... */],
 }
 ```
 
-- **Reordenar / mover:** recorte o nome do arquivo e cole na posição desejada.
+- **Reordenar / mover:** recorte o nome do arquivo e cole na posição desejada. Se a posição no deck
+  mudar, considere renomear o arquivo para manter o número alinhado (não é obrigatório).
 - **Adicionar:** copie um slide parecido, edite o conteúdo e acrescente o nome ao `files`.
-  Se ele deve aparecer no sumário, edite também a árvore `tree` em `slide-sumario.html`.
+  Se ele deve aparecer no sumário, edite também a árvore `tree` em `slide-03.html`.
 - **Remover:** apague o nome da lista `files` (o arquivo continua no disco).
 - **Replique** a mudança no array `files` de `relatorio.html`.
 
@@ -274,7 +284,7 @@ slide mostra um selo amarelo:
 | `slide-enquete.html?e=8297` | Enunciado reconstituído; total de inscritos não consta |
 | `slide-enquete.html?e=8299` | Enunciado reconstituído; total de inscritos não consta |
 | `slide-enquete.html?e=8300` | Numeração corrigida (constava 8299, duplicada) |
-| `slide-tabela-enquetes.html` | Coluna "Link" sem URLs individuais; serviço SFC 02 sem enquete |
+| `slide-tabela-enquetes.html` | Coluna "Link" sem URLs individuais |
 
 Para retirar uma ressalva depois de confirmar o dado com a fonte: apague o campo `nota` daquela
 enquete em `dados-enquetes.js` (ou preencha `base` quando for o caso).

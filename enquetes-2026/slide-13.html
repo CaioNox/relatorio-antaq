@@ -102,7 +102,7 @@
     <div class="body-wrap">
       <div class="left">
         <div class="kpi">
-          <div class="kpi-num" id="kpiTotal">32</div>
+          <div class="kpi-num" id="kpiTotal">31</div>
           <div class="kpi-label"><strong>Serviços da ANTAQ</strong>Quantidade de serviços oferecidos para a sociedade,
             publicados na Carta de Serviços ao Usuário.</div>
         </div>
@@ -173,7 +173,7 @@
             },
             tooltip: {
               callbacks: {
-                label: function (c) { return ' ' + c.label + ': ' + c.parsed + ' serviços (' + pct(c.parsed, 32) + ')'; }
+                label: function (c) { return ' ' + c.label + ': ' + c.parsed + ' serviços (' + pct(c.parsed, total) + ')'; }
               }
             }
           }
