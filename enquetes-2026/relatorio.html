@@ -773,6 +773,20 @@
           if (document.fonts && document.fonts.ready) await document.fonts.ready;
         }
 
+        // Monta todos os slides em lotes, do mesmo jeito que a impressão faz.
+        const alvos = paginas.filter(p => p.dataset.file);
+        const LOTE = 4;
+        for (let i = 0; i < alvos.length; i += LOTE) {
+          const lote = alvos.slice(i, i + LOTE);
+          await Promise.all(lote.map(p => {
+            p.dataset.fixo = '1';
+            const f = p.querySelector('iframe') || montar(p);
+            return p.dataset.montado === '1' && f && !f.dataset.pptxPronto
+              ? esperar(f).then(() => { f.dataset.pptxPronto = '1'; })
+              : Promise.resolve();
+          }));
+        }
+
         // Ordem do documento: cada anexo já está logo depois do slide de
         // origem, então percorrer as páginas dá a sequência final do .pptx.
         const paginasPptx = [...document.querySelectorAll('#sheets .page')];
