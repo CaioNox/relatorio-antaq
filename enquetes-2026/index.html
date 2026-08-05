@@ -650,19 +650,17 @@
           if (e.q2) telasEnquetes.push(base + '&p=2');
         });
     });
+    // Mantém apenas as duas últimas telas de enquete (SFC) do slide 84 ao 87.
+    const telasEnquetesMantidas = telasEnquetes.slice(-2);
 
     const deck = [
       {
-        block: 'Abertura', short: 'Abertura', tint: 0.35, //4 slides
-        files: ['slide-00.html', 'slide-01.html', 'slide-02.html', 'slide-03.html'],
+        block: 'Abertura', short: 'Abertura', tint: 0.35, //1 slide
+        files: ['slide-00.html'],
       },
       {
-        block: 'Bloco 1 · Visão Geral das Ouvidorias públicas', short: 'Visão Geral', tint: 1, //6 slides
-        files: ['capa-bloco-1.html', 'slide-04.html', 'slide-05.html', 'slide-06.html', 'slide-07.html', 'slide-08.html'],
-      },
-      {
-        block: 'Bloco 2 · A Ouvidoria da ANTAQ', short: 'A Ouvidoria da ANTAQ', tint: 0.85, //3 slides
-        files: ['capa-bloco-2.html', 'slide-09.html', 'slide-10.html'],
+        block: 'Bloco 2 · A Ouvidoria da ANTAQ', short: 'A Ouvidoria da ANTAQ', tint: 0.85, //2 slides
+        files: ['slide-09.html', 'slide-10.html'],
       },
       {
         // Ordem do documento-fonte: apresentação (p.16) → 33 serviços (p.17) →
@@ -683,7 +681,7 @@
           'slide-18.html', 'slide-19.html',
           'slide-20.html',
           'slide-tabela-enquetes.html?p=1', 'slide-tabela-enquetes.html?p=2',
-          ...telasEnquetes,
+          ...telasEnquetesMantidas,
         ],
       },
       {
@@ -692,8 +690,8 @@
         // perspectivas, no mesmo formato do slide-19; o convite para novos
         // conselheiros que fechava o bloco virou o overlay (tecla C) daquele
         // slide. slide-resultados-orgao.html e slide-22.html saíram do deck.
-        block: 'Bloco 5 · Considerações Finais', short: 'Considerações Finais', tint: 0.4, //3 slides
-        files: ['capa-bloco-5.html', 'slide-21.html', 'slide-resultados-perspectivas.html'],
+        block: 'Bloco 5 · Considerações Finais', short: 'Considerações Finais', tint: 0.4, //2 slides
+        files: ['capa-bloco-5.html', 'slide-resultados-perspectivas.html'],
       },
       {
         block: 'Bloco 6 · Apêndice', short: 'Apêndice', tint: 0.3, //6 slides
