@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
+<!--
+  ╔══════════════════════════════════════════════════════════════╗
+  ║  Resultados gerados a partir das avaliações — 3 perspectivas ║
+  ╠══════════════════════════════════════════════════════════════╣
+  ║  Unifica os dois slides antigos (slide-resultados-orgao.html ║
+  ║  "Para o órgão / Para o cidadão" + slide-22.html "Para        ║
+  ║  ambos") numa única tela, no MESMO formato do slide-19        ║
+  ║  (metodologia): stepper com uma perspectiva em foco por vez.  ║
+  ║  Motivo: as listas em colunas simultâneas obrigavam corpo de  ║
+  ║  texto .715rem — ilegível em projeção. Agora o corpo fica em  ║
+  ║  1.2rem.                                                     ║
+  ║                                                              ║
+  ║  Interação:                                                  ║
+  ║   · clique nos nós da trilha ou teclas 1–3 → vai à           ║
+  ║     perspectiva                                              ║
+  ║   · → ← (e espaço/PageDown/PageUp) → percorrem as três e só  ║
+  ║     então passam o comando de slide adiante ao index         ║
+  ║   · G → visão geral (as três listas lado a lado)             ║
+  ║   · C → convite para ser conselheiro (CTA do slide-22) em    ║
+  ║     overlay, com os números da rodada                        ║
+  ║                                                              ║
+  ║  ATUALIZAR: os números do convite vêm de dados-enquetes.js.  ║
+  ║  `ajustarFonte()` reduz o corpo do texto só se ele exceder    ║
+  ║  o painel (rede de segurança contra overflow em 1920x1080).  ║
+  ╚══════════════════════════════════════════════════════════════╝
+-->
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Resultados gerados a partir das avaliações — Relatório Anual de Enquetes · Ouvidoria ANTAQ</title>
+  <link rel="icon" type="image/png"
+    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    html { font-size: 26px; }
+    body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
+    .slide-container { width: 100vw; height: 100vh; position: relative; display: flex; flex-direction: column; background-color: #fff; overflow: hidden; font-family: 'Open Sans', sans-serif; }
+    .font-montserrat { font-family: 'Montserrat', sans-serif; }
+    .text-brand-primary { color: #103050; }
+    .text-brand-secondary { color: #0070C0; }
+    .bg-brand-secondary { background-color: #0070C0; }
+    .top-accent { height: 8px; background-color: #103050; width: 100%; }
+    .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
+
+    /* ───────── Barra de contexto (convite integral vai no overlay) ───────── */
+    .ctx-bar {
+      margin: .35rem 3.4rem .2rem; display: flex; align-items: center; gap: .7rem;
+      border-left: 4px solid #0090C0; padding: .15rem 0 .15rem 1rem;
+      animation: fadeInUp .45s ease both;
+    }
+    .ctx-bar p { margin: 0; font-size: .8rem; line-height: 1.4; color: #103050; }
+    .ctx-bar strong { font-family: 'Montserrat', sans-serif; font-weight: 800; }
+    .ctx-btn {
+      flex-shrink: 0; border: 1px solid #BFDCEB; background: #F1F8FC; color: #0070C0;
+      font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: .68rem;
+      padding: .3rem .8rem; border-radius: 999px; cursor: pointer; white-space: nowrap;
+      display: flex; align-items: center; gap: .4rem; transition: background .2s, color .2s;
+    }
+    .ctx-btn:hover { background: #0070C0; color: #fff; border-color: #0070C0; }
+
+    /* ───────── Palco: trilha das perspectivas + painel em foco ───────── */
+    .palco { flex: 1; min-height: 0; display: flex; flex-direction: column; padding: 0 3.4rem; }
+
+    .trilha {
+      position: relative; display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: .6rem; padding: .5rem 0 .9rem; flex-shrink: 0;
+    }
+    /* Linha-base e barra de progresso ligando os 3 nós */
+    .trilha::before, .trilha-fill {
+      content: ''; position: absolute; top: calc(.5rem + 1.15rem); height: 4px; border-radius: 2px;
+      left: 16.66%; right: 16.66%;
+    }
+    .trilha::before { background: #E2E8F0; }
+    .trilha-fill {
+      right: auto; width: 0; background: linear-gradient(90deg, #103050, #0090C0);
+      transition: width .45s cubic-bezier(.4, 0, .2, 1);
+    }
+
+    .no {
+      position: relative; z-index: 1; background: none; border: 0; padding: 0; cursor: pointer;
+      display: flex; flex-direction: column; align-items: center; gap: .4rem;
+      font-family: 'Montserrat', sans-serif; text-align: center;
+      animation: fadeInUp .45s ease both;
+    }
+    .no:nth-child(3) { animation-delay: .06s; }
+    .no:nth-child(4) { animation-delay: .12s; }
+
+    .no-bolha {
+      width: 2.3rem; height: 2.3rem; border-radius: 50%; background: #fff;
+      border: 3px solid #CBD5E1; color: #94A3B8;
+      font-weight: 900; font-size: 1.05rem; display: flex; align-items: center; justify-content: center;
+      transition: transform .3s, background .3s, border-color .3s, color .3s, box-shadow .3s;
+    }
+    .no-rot { font-weight: 700; font-size: .78rem; line-height: 1.25; color: #94A3B8; transition: color .3s; max-width: 92%; }
+    .no-cnt { font-weight: 700; font-size: .6rem; color: #94A3B8; letter-spacing: .04em; transition: color .3s; }
+
+    .no:hover .no-bolha { border-color: #0090C0; color: #0070C0; }
+    .no:hover .no-rot { color: #475569; }
+
+    /* Perspectivas já percorridas */
+    .no.feita .no-bolha { background: #103050; border-color: #103050; color: #fff; }
+    .no.feita .no-rot { color: #64748B; }
+
+    /* Perspectiva em foco */
+    .no.ativa .no-bolha {
+      background: linear-gradient(150deg, #103050, #0070C0); border-color: #0090C0; color: #fff;
+      transform: scale(1.22); box-shadow: 0 10px 22px -8px rgba(16, 48, 80, .65);
+    }
+    .no.ativa .no-rot { color: #103050; font-weight: 800; }
+    .no.ativa .no-cnt { color: #0070C0; }
+
+    /* ───────── Painel da perspectiva em foco ───────── */
+    .painel {
+      flex: 1; min-height: 0; position: relative;
+      border: 2px solid #E2E8F0; border-radius: 18px; background: #fff;
+      box-shadow: 0 14px 34px -20px rgba(16, 48, 80, .45); overflow: hidden;
+    }
+    .painel::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 6px;
+      background: linear-gradient(90deg, #103050, #0090C0); z-index: 2;
+    }
+
+    .etapa-foco {
+      --fit: 1;
+      position: absolute; inset: 6px 0 0; padding: 1.15rem 2rem 1.1rem;
+      display: none; grid-template-columns: 8.4rem 1fr; gap: 1.6rem; align-items: center;
+    }
+    .etapa-foco.ativa { display: grid; animation: entra .38s cubic-bezier(.4, 0, .2, 1) both; }
+    @keyframes entra { from { opacity: 0; transform: translateX(22px); } to { opacity: 1; transform: none; } }
+
+    /* Coluna-marcador: número grande + ícone da perspectiva */
+    .marcador { display: flex; flex-direction: column; align-items: center; gap: .5rem; padding-top: .2rem; }
+    .marcador-n {
+      font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 4.6rem; line-height: .85;
+      background: linear-gradient(150deg, #103050, #0090C0); -webkit-background-clip: text;
+      background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .marcador-i { font-size: 1.9rem; color: #0090C0; opacity: .55; }
+    .marcador-p { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: .62rem; letter-spacing: .12em; color: #94A3B8; text-transform: uppercase; }
+
+    .foco-txt { min-width: 0; max-width: 46rem; }
+    /* A lista de 12 resultados (órgão) usa a largura toda em duas colunas,
+       para o corpo de texto não precisar encolher. */
+    .etapa-foco.ampla .foco-txt { max-width: none; }
+    .foco-t {
+      font-family: 'Montserrat', sans-serif; font-weight: 800; color: #103050;
+      font-size: calc(1.7rem * var(--fit)); line-height: 1.2; margin: 0 0 .75rem;
+      display: flex; align-items: center; gap: .7rem;
+    }
+    .foco-t .cnt {
+      font-weight: 800; font-size: calc(.72rem * var(--fit)); color: #0070C0;
+      background: #F1F8FC; border: 1px solid #BFDCEB; border-radius: 999px;
+      padding: .12rem .7rem; letter-spacing: .06em; white-space: nowrap;
+    }
+    .foco-lista { list-style: none; margin: 0; padding: 0; }
+    .etapa-foco.ampla .foco-lista { columns: 2; column-gap: 2.2rem; }
+    .foco-lista li {
+      display: flex; gap: .7rem; align-items: flex-start; break-inside: avoid;
+      font-size: calc(1.2rem * var(--fit)); line-height: 1.45; color: #334155;
+      padding: .3rem .6rem; border-radius: 9px;
+    }
+    .foco-lista li:nth-child(odd) { background: #F8FAFC; }
+    .foco-lista li i { color: #0090C0; font-size: calc(.5rem * var(--fit)); margin-top: .55em; flex-shrink: 0; }
+
+    /* ───────── Modo visão geral: as três listas lado a lado ─────────
+       A coluna do órgão tem 12 dos 25 resultados, quase o dobro das outras
+       duas: por isso ela é mais larga (1.3fr) e o corpo da lista é menor que
+       no painel em foco — assim as três listas cabem inteiras na altura do
+       slide, que é o que vai para o PDF e para o .pptx.                    */
+    .grade { --fit-g: 1; display: none; flex: 1; min-height: 0; grid-template-columns: 1fr 1.3fr 1fr; gap: .95rem; padding: .4rem 0 0; }
+    body.modo-grade .trilha, body.modo-grade .painel { display: none; }
+    body.modo-grade .grade { display: grid; }
+
+    .etapa {
+      border: 2px solid #E2E8F0; border-radius: 14px; background: #fff; overflow: hidden;
+      box-shadow: 0 10px 24px -14px rgba(16, 48, 80, .28); display: flex; flex-direction: column;
+      min-height: 0; position: relative; cursor: pointer;
+      animation: fadeInUp .45s ease both; transition: transform .2s, border-color .2s;
+    }
+    .etapa:hover { transform: translateY(-4px); border-color: #0090C0; }
+    .etapa:nth-child(2) { animation-delay: .07s; }
+    .etapa:nth-child(3) { animation-delay: .14s; }
+
+    .et-h {
+      display: flex; align-items: center; gap: .7rem; padding: .7rem 1.1rem; color: #fff;
+      background: linear-gradient(100deg, #103050 0%, #0070C0 100%);
+    }
+    .etapa:nth-child(2) .et-h { background: linear-gradient(100deg, #103050 0%, #0070C0 60%, #0090C0 100%); }
+    .etapa:nth-child(3) .et-h { background: linear-gradient(100deg, #0070C0 0%, #0090C0 100%); }
+    .et-h i { font-size: 1.15rem; opacity: .9; }
+    .et-h h3 { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .95rem; margin: 0; letter-spacing: .02em; }
+    .et-h .cnt {
+      margin-left: auto; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .6rem;
+      background: rgba(255, 255, 255, .2); border: 1px solid rgba(255, 255, 255, .3);
+      border-radius: 999px; padding: .1rem .6rem; letter-spacing: .06em;
+    }
+    .etapa ul { list-style: none; margin: 0; padding: .5rem .5rem .6rem; }
+    .etapa li {
+      display: flex; gap: .6rem; align-items: flex-start;
+      padding: .26rem .6rem; font-size: calc(.66rem * var(--fit-g)); line-height: 1.42;
+      color: #334155; border-radius: 8px;
+    }
+    .etapa li:nth-child(odd) { background: #F8FAFC; }
+    .etapa li i { color: #0090C0; font-size: .5em; margin-top: .55em; flex-shrink: 0; }
+
+    /* ───────── Rodapé + dicas de teclado ───────── */
+    .dicas { display: flex; align-items: center; gap: .45rem; flex-shrink: 0; }
+    .dica {
+      display: inline-flex; align-items: center; gap: .22rem; font-size: .52rem; white-space: nowrap;
+      font-family: 'Montserrat', sans-serif; font-weight: 700; color: #94A3B8;
+    }
+    .tecla {
+      border: 1px solid #CBD5E1; border-bottom-width: 2px; border-radius: 5px;
+      padding: .05rem .3rem; color: #64748B; background: #F8FAFC; min-width: 1rem; text-align: center;
+    }
+    .dica-btn { background: none; border: 0; padding: 0; cursor: pointer; }
+    .dica-btn:hover .tecla { border-color: #0090C0; color: #0070C0; }
+    .dica-btn.on .tecla { background: #0070C0; border-color: #0070C0; color: #fff; }
+
+    /* ───────── Overlay do convite (CTA do slide-22) ───────── */
+    .ctx-overlay {
+      position: absolute; inset: 0; z-index: 30; background: rgba(16, 48, 80, .55);
+      display: flex; align-items: center; justify-content: center; padding: 3rem;
+      opacity: 0; pointer-events: none; transition: opacity .25s;
+    }
+    .ctx-overlay.aberto { opacity: 1; pointer-events: auto; }
+    .ctx-card {
+      max-width: 40rem; border-radius: 20px; padding: 1.9rem 2.2rem; color: #fff; text-align: center;
+      background: linear-gradient(150deg, #103050 0%, #0070C0 100%);
+      box-shadow: 0 30px 60px -24px rgba(0, 0, 0, .5);
+      transform: translateY(16px); transition: transform .25s;
+    }
+    .ctx-overlay.aberto .ctx-card { transform: none; }
+    .ctx-card .quote {
+      font-size: .92rem; line-height: 1.5; font-style: italic; opacity: .95; margin: 0 0 1.1rem;
+      border-left: 3px solid rgba(255, 255, 255, .4); padding-left: .9rem; text-align: left;
+    }
+    .ctx-card .nums { display: flex; gap: .7rem; margin-bottom: 1.1rem; }
+    .ctx-card .num {
+      flex: 1; background: rgba(255, 255, 255, .12); border: 1px solid rgba(255, 255, 255, .25);
+      border-radius: 12px; padding: .6rem .3rem;
+    }
+    .ctx-card .num .v { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.75rem; line-height: 1; }
+    .ctx-card .num .k { font-size: .58rem; letter-spacing: .08em; text-transform: uppercase; opacity: .8; margin-top: .25rem; font-family: 'Montserrat', sans-serif; font-weight: 700; }
+    .ctx-card h3 { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.25rem; margin: 0 0 .5rem; }
+    .ctx-card p { font-size: .78rem; line-height: 1.5; opacity: .9; margin: 0 0 1rem; }
+    .ctx-card .link {
+      display: inline-flex; align-items: center; gap: .5rem; text-decoration: none; color: #103050;
+      background: #F2A900; border-radius: 999px; padding: .5rem 1.2rem;
+      font-size: .74rem; font-weight: 800; font-family: 'Montserrat', sans-serif;
+      box-shadow: 0 10px 22px -10px rgba(242, 169, 0, .8);
+    }
+    .ctx-fechar {
+      display: block; margin: 1.1rem auto 0; border: 1px solid rgba(255, 255, 255, .35);
+      background: rgba(255, 255, 255, .12); color: #fff; border-radius: 999px;
+      font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: .68rem;
+      padding: .35rem 1.2rem; cursor: pointer;
+    }
+    .ctx-fechar:hover { background: rgba(255, 255, 255, .25); }
+
+    .bg-pattern { position: absolute; bottom: -60px; right: -50px; width: 400px; height: 400px; opacity: .03; z-index: 0; color: #103050; }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+
+    /* Impressão (relatorio.html): no papel não há como percorrer a trilha, e
+       sair só a perspectiva 1 perderia 19 dos 25 resultados. Então o PDF sai
+       sempre na visão geral, com as três listas, sem os controles de teclado. */
+    @media print {
+      .trilha, .painel { display: none !important; }
+      .grade { display: grid !important; }
+      .dicas, .ctx-bar .ctx-btn, .ctx-overlay { display: none !important; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="slide-container">
+    <div class="top-accent"></div>
+    <div class="top-accent-secondary"></div>
+
+    <div class="flex items-start justify-between px-12 pt-6 pb-1 z-10">
+      <div>
+        <div class="flex items-center gap-3 mb-1">
+          <div class="w-1 h-8 bg-brand-secondary"></div>
+          <p class="font-montserrat font-bold text-brand-primary uppercase tracking-tight"
+            style="font-size:1.55rem; line-height:1.15;">Resultados gerados a partir das avaliações</p>
+        </div>
+        <p class="text-gray-500 ml-4" style="font-size:.72rem;">O que a consulta ao Conselho de Usuários entrega — em
+          comum, ao órgão e ao cidadão.</p>
+      </div>
+      <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
+        <i class="fas fa-lightbulb align-middle" aria-hidden="true" style="font-size:44px;"></i>
+        <div class="flex flex-col justify-center pl-2" style="border-left: 1px solid #CBD5E1;">
+          <p class="font-montserrat font-bold text-gray-400 tracking-widest leading-none mb-1 whitespace-nowrap"
+            style="font-size:20px;">CAPÍTULO 05</p>
+          <p class="font-montserrat font-bold text-brand-secondary tracking-tight uppercase leading-none whitespace-nowrap"
+            style="font-size:17px;">Considerações Finais</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="ctx-bar">
+      <p><strong>25 resultados</strong> apontados na consulta, agrupados em três perspectivas: o que se espera em comum,
+        o que a avaliação entrega ao órgão e o que ela entrega ao cidadão.</p>
+      <button class="ctx-btn" id="ctxBtn" type="button" aria-haspopup="dialog" aria-expanded="false">
+        <i class="fas fa-hand-holding-heart" aria-hidden="true"></i> Seja conselheiro
+      </button>
+    </div>
+
+    <div class="palco">
+      <!-- Trilha das 3 perspectivas — clicável e sincronizada com o painel -->
+      <div class="trilha" role="tablist" aria-label="Perspectivas dos resultados">
+        <div class="trilha-fill" id="trilhaFill" aria-hidden="true"></div>
+
+        <button class="no" type="button" role="tab" data-n="1" aria-controls="etapa-1">
+          <span class="no-bolha">1</span>
+          <span class="no-rot">Para ambos</span>
+          <span class="no-cnt">6 resultados</span>
+        </button>
+        <button class="no" type="button" role="tab" data-n="2" aria-controls="etapa-2">
+          <span class="no-bolha">2</span>
+          <span class="no-rot">Para o órgão</span>
+          <span class="no-cnt">12 resultados</span>
+        </button>
+        <button class="no" type="button" role="tab" data-n="3" aria-controls="etapa-3">
+          <span class="no-bolha">3</span>
+          <span class="no-rot">Para o cidadão</span>
+          <span class="no-cnt">7 resultados</span>
+        </button>
+      </div>
+
+      <!-- Painel em foco: mesmas listas dos cards, com o corpo de texto ampliado -->
+      <div class="painel">
+        <section class="etapa-foco" id="etapa-1" role="tabpanel" data-n="1">
+          <div class="marcador">
+            <span class="marcador-n">1</span>
+            <i class="fas fa-handshake marcador-i" aria-hidden="true"></i>
+            <span class="marcador-p">Perspectiva 1 de 3</span>
+          </div>
+          <div class="foco-txt">
+            <h2 class="foco-t">Para ambos <span class="cnt">6 resultados</span></h2>
+            <ul class="foco-lista">
+              <li><i class="fas fa-circle"></i>Espera-se um retorno e a melhoria dos serviços prestados.</li>
+              <li><i class="fas fa-circle"></i>Possível melhoria dos serviços.</li>
+              <li><i class="fas fa-circle"></i>Construir ferramentas para ampliação da participação dos conselheiros.
+              </li>
+              <li><i class="fas fa-circle"></i>Espera-se melhorias nos processos.</li>
+              <li><i class="fas fa-circle"></i>Produção de relatórios e indicativos da qualidade dos serviços pela visão
+                do cidadão.</li>
+              <li><i class="fas fa-circle"></i>Participação no aprimoramento dos serviços e insumos para este
+                aprimoramento.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="etapa-foco ampla" id="etapa-2" role="tabpanel" data-n="2">
+          <div class="marcador">
+            <span class="marcador-n">2</span>
+            <i class="fas fa-building-columns marcador-i" aria-hidden="true"></i>
+            <span class="marcador-p">Perspectiva 2 de 3</span>
+          </div>
+          <div class="foco-txt">
+            <h2 class="foco-t">Para o órgão <span class="cnt">12 resultados</span></h2>
+            <ul class="foco-lista">
+              <li><i class="fas fa-circle"></i>Obtém respostas mensuráveis para mitigar os possíveis erros.</li>
+              <li><i class="fas fa-circle"></i>Conhecer a opinião do usuário dos serviços prestados.</li>
+              <li><i class="fas fa-circle"></i>Possibilidades de os gestores melhorarem os serviços prestados.</li>
+              <li><i class="fas fa-circle"></i>Saber se a expectativa do usuário foi ou não atendida.</li>
+              <li><i class="fas fa-circle"></i>Oportunidade de melhoria após a percepção dos conselheiros.</li>
+              <li><i class="fas fa-circle"></i>Incentivo ao engajamento dos conselheiros.</li>
+              <li><i class="fas fa-circle"></i>Resultados encaminhados para os gestores.</li>
+              <li><i class="fas fa-circle"></i>A produção de relatório com os resultados obtidos pela consulta.</li>
+              <li><i class="fas fa-circle"></i>Pré-requisito modificado para dar mais celeridade ao processo.</li>
+              <li><i class="fas fa-circle"></i>Proposição de recomendações de ouvidoria e subsídio ao planejamento de
+                políticas e serviços.</li>
+              <li><i class="fas fa-circle"></i>Insumos para aprimorar a qualidade das informações disponibilizadas e
+                ampliar a divulgação de dados.</li>
+              <li><i class="fas fa-circle"></i>Observações repassadas ao setor responsável pelo serviço para buscarem
+                melhorias.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="etapa-foco" id="etapa-3" role="tabpanel" data-n="3">
+          <div class="marcador">
+            <span class="marcador-n">3</span>
+            <i class="fas fa-user marcador-i" aria-hidden="true"></i>
+            <span class="marcador-p">Perspectiva 3 de 3</span>
+          </div>
+          <div class="foco-txt">
+            <h2 class="foco-t">Para o cidadão <span class="cnt">7 resultados</span></h2>
+            <ul class="foco-lista">
+              <li><i class="fas fa-circle"></i>Colaboração contínua para melhoria dos serviços prestados.</li>
+              <li><i class="fas fa-circle"></i>Contribuição para receber um bom atendimento.</li>
+              <li><i class="fas fa-circle"></i>Participação social efetiva e contribuição para a melhoria dos serviços.
+              </li>
+              <li><i class="fas fa-circle"></i>Sistematização e publicização dos dados.</li>
+              <li><i class="fas fa-circle"></i>Ser ouvido pelo órgão.</li>
+              <li><i class="fas fa-circle"></i>Avaliação da efetividade de serviços e políticas públicas sob a
+                perspectiva do usuário.</li>
+              <li><i class="fas fa-circle"></i>Participar do aprimoramento dos serviços e ter a opinião considerada para
+                possíveis melhorias.</li>
+            </ul>
+          </div>
+        </section>
+      </div>
+
+      <!-- Visão geral: as três listas lado a lado, no formato compacto (tecla G) -->
+      <div class="grade" id="grade" aria-label="Visão geral das três perspectivas">
+        <div class="etapa" data-n="1">
+          <div class="et-h">
+            <i class="fas fa-handshake"></i>
+            <h3>Para ambos</h3>
+            <span class="cnt">6 resultados</span>
+          </div>
+          <ul>
+            <li><i class="fas fa-circle"></i>Espera-se um retorno e a melhoria dos serviços prestados.</li>
+            <li><i class="fas fa-circle"></i>Possível melhoria dos serviços.</li>
+            <li><i class="fas fa-circle"></i>Construir ferramentas para ampliação da participação dos conselheiros.</li>
+            <li><i class="fas fa-circle"></i>Espera-se melhorias nos processos.</li>
+            <li><i class="fas fa-circle"></i>Produção de relatórios e indicativos da qualidade dos serviços pela visão
+              do cidadão.</li>
+            <li><i class="fas fa-circle"></i>Participação no aprimoramento dos serviços e insumos para este
+              aprimoramento.</li>
+          </ul>
+        </div>
+
+        <div class="etapa" data-n="2">
+          <div class="et-h">
+            <i class="fas fa-building-columns"></i>
+            <h3>Para o órgão</h3>
+            <span class="cnt">12 resultados</span>
+          </div>
+          <ul>
+            <li><i class="fas fa-circle"></i>Obtém respostas mensuráveis para mitigar os possíveis erros.</li>
+            <li><i class="fas fa-circle"></i>Conhecer a opinião do usuário dos serviços prestados.</li>
+            <li><i class="fas fa-circle"></i>Possibilidades de os gestores melhorarem os serviços prestados.</li>
+            <li><i class="fas fa-circle"></i>Saber se a expectativa do usuário foi ou não atendida.</li>
+            <li><i class="fas fa-circle"></i>Oportunidade de melhoria após a percepção dos conselheiros.</li>
+            <li><i class="fas fa-circle"></i>Incentivo ao engajamento dos conselheiros.</li>
+            <li><i class="fas fa-circle"></i>Resultados encaminhados para os gestores.</li>
+            <li><i class="fas fa-circle"></i>A produção de relatório com os resultados obtidos pela consulta.</li>
+            <li><i class="fas fa-circle"></i>Pré-requisito modificado para dar mais celeridade ao processo.</li>
+            <li><i class="fas fa-circle"></i>Proposição de recomendações de ouvidoria e subsídio ao planejamento de
+              políticas e serviços.</li>
+            <li><i class="fas fa-circle"></i>Insumos para aprimorar a qualidade das informações disponibilizadas e
+              ampliar a divulgação de dados.</li>
+            <li><i class="fas fa-circle"></i>Observações repassadas ao setor responsável pelo serviço para buscarem
+              melhorias.</li>
+          </ul>
+        </div>
+
+        <div class="etapa" data-n="3">
+          <div class="et-h">
+            <i class="fas fa-user"></i>
+            <h3>Para o cidadão</h3>
+            <span class="cnt">7 resultados</span>
+          </div>
+          <ul>
+            <li><i class="fas fa-circle"></i>Colaboração contínua para melhoria dos serviços prestados.</li>
+            <li><i class="fas fa-circle"></i>Contribuição para receber um bom atendimento.</li>
+            <li><i class="fas fa-circle"></i>Participação social efetiva e contribuição para a melhoria dos serviços.
+            </li>
+            <li><i class="fas fa-circle"></i>Sistematização e publicização dos dados.</li>
+            <li><i class="fas fa-circle"></i>Ser ouvido pelo órgão.</li>
+            <li><i class="fas fa-circle"></i>Avaliação da efetividade de serviços e políticas públicas sob a perspectiva
+              do usuário.</li>
+            <li><i class="fas fa-circle"></i>Participar do aprimoramento dos serviços e ter a opinião considerada para
+              possíveis melhorias.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="px-12 pb-4 pt-3 flex justify-between items-center gap-6 z-10">
+      <p class="text-gray-400 text-xs whitespace-nowrap">Relatório Anual de Enquetes do Conselho de Usuários · 2026 –
+        Ouvidoria – Agência Nacional de Transportes Aquaviários - ANTAQ</p>
+      <div class="dicas">
+        <span class="dica"><span class="tecla">1</span>–<span class="tecla">3</span> perspectiva</span>
+        <span class="dica"><span class="tecla">←</span><span class="tecla">→</span> percorrer</span>
+        <button class="dica dica-btn" id="gradeBtn" type="button" aria-pressed="false"><span class="tecla">G</span>
+          visão geral</button>
+        <button class="dica dica-btn" id="ctxBtn2" type="button"><span class="tecla">C</span> convite</button>
+      </div>
+    </div>
+
+    <div class="bg-pattern"><i class="fas fa-lightbulb text-9xl"></i></div>
+
+    <!-- Convite para novos conselheiros, preservado do slide-22 -->
+    <div class="ctx-overlay" id="ctxOverlay" role="dialog" aria-modal="true" aria-labelledby="ctxTitulo">
+      <div class="ctx-card">
+        <p class="quote">“Você ainda não é voluntário de nenhum conselho. Seja voluntário e nos ajude a melhorar o
+          Brasil.”</p>
+        <div class="nums">
+          <div class="num">
+            <div class="v" id="nEnquetes">31</div>
+            <div class="k">Enquetes</div>
+          </div>
+          <div class="num">
+            <div class="v" id="nRespostas">—</div>
+            <div class="k">Respostas</div>
+          </div>
+          <div class="num">
+            <div class="v" id="nConselheiros">145</div>
+            <div class="k">Conselheiros</div>
+          </div>
+        </div>
+        <h3 id="ctxTitulo">Faça parte da próxima rodada</h3>
+        <p>A inscrição é aberta, gratuita e permanente. Quanto maior a base de conselheiros, mais representativa fica a
+          avaliação dos serviços da ANTAQ.</p>
+        <a class="link" href="https://conselhodeusuarios.cgu.gov.br/auth/enquetes/voluntario" target="_blank"
+          rel="noopener noreferrer">
+          <i class="fas fa-arrow-up-right-from-square"></i>Seja voluntário
+        </a>
+        <button class="ctx-fechar" id="ctxFechar" type="button">Fechar</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="dados-enquetes.js"></script>
+  <script>
+    // Números do convite — sempre de dados-enquetes.js, nunca fixos no HTML.
+    (function () {
+      document.getElementById('nEnquetes').textContent = ENQUETES.length;
+      document.getElementById('nRespostas').textContent =
+        ENQUETES.reduce(function (a, e) { return a + e.respondentes; }, 0);
+      document.getElementById('nConselheiros').textContent = PERIODO_ENQUETES.conselheiros;
+    })();
+  </script>
+  <script>
+    // ── Estado: perspectiva em foco (1–3), modo grade e overlay do convite ────
+    const TOTAL_ETAPAS = 3;
+    const nos = Array.from(document.querySelectorAll('.no'));
+    const focos = Array.from(document.querySelectorAll('.etapa-foco'));
+    const fill = document.getElementById('trilhaFill');
+    const painel = document.querySelector('.painel');
+    let etapa = 1;
+    let modoGrade = false;
+    let ctxAberto = false;
+
+    function irPara(n) {
+      etapa = Math.max(1, Math.min(TOTAL_ETAPAS, n));
+      nos.forEach((no) => {
+        const i = +no.dataset.n;
+        no.classList.toggle('ativa', i === etapa);
+        no.classList.toggle('feita', i < etapa);
+        no.setAttribute('aria-selected', i === etapa ? 'true' : 'false');
+      });
+      focos.forEach((f) => f.classList.toggle('ativa', +f.dataset.n === etapa));
+      // Progresso: a barra vai do centro do nó 1 (16,66%) ao do nó 3 (83,33%) —
+      // logo, 100% de avanço corresponde a 66,66% da largura da trilha.
+      fill.style.width = ((etapa - 1) / (TOTAL_ETAPAS - 1) * 66.66) + '%';
+      ajustarFonte();
+    }
+
+    // Rede de segurança: se a lista ampliada estourar a altura do painel
+    // (fonte de fallback, zoom do navegador), reduz em passos de 4%.
+    function ajustarFonte() {
+      const alvo = focos.find((f) => f.classList.contains('ativa'));
+      if (!alvo) return;
+      let escala = 1;
+      alvo.style.setProperty('--fit', escala);
+      const limite = painel.clientHeight - 12;
+      while (alvo.scrollHeight > limite && escala > 0.6) {
+        escala = Math.round((escala - 0.04) * 100) / 100;
+        alvo.style.setProperty('--fit', escala);
+      }
+    }
+
+    nos.forEach((no) => no.addEventListener('click', () => irPara(+no.dataset.n)));
+
+    // Na visão geral, clicar num card abre aquela perspectiva em foco
+    document.querySelectorAll('.grade .etapa').forEach((card) => {
+      card.addEventListener('click', () => { alternarGrade(false); irPara(+card.dataset.n); });
+    });
+
+    // ── Visão geral (as três listas lado a lado) ──────────────────────────────
+    const gradeBtn = document.getElementById('gradeBtn');
+    const grade = document.getElementById('grade');
+
+    // Mesma rede de segurança do painel, para os cards: só mede com a grade
+    // visível (escondida, clientHeight é 0 e a conta não faria sentido).
+    function ajustarGrade() {
+      if (!grade.clientHeight) return;
+      let escala = 1;
+      grade.style.setProperty('--fit-g', escala);
+      const estoura = () => Array.from(grade.querySelectorAll('.etapa'))
+        .some((c) => c.scrollHeight > c.clientHeight + 1);
+      while (estoura() && escala > 0.6) {
+        escala = Math.round((escala - 0.04) * 100) / 100;
+        grade.style.setProperty('--fit-g', escala);
+      }
+    }
+
+    function alternarGrade(estado) {
+      modoGrade = typeof estado === 'boolean' ? estado : !modoGrade;
+      document.body.classList.toggle('modo-grade', modoGrade);
+      gradeBtn.classList.toggle('on', modoGrade);
+      gradeBtn.setAttribute('aria-pressed', modoGrade ? 'true' : 'false');
+      if (modoGrade) ajustarGrade(); else ajustarFonte();
+    }
+    gradeBtn.addEventListener('click', () => alternarGrade());
+
+    // ── Overlay do convite ────────────────────────────────────────────────────
+    const overlay = document.getElementById('ctxOverlay');
+    const ctxBtn = document.getElementById('ctxBtn');
+    function alternarCtx(estado) {
+      ctxAberto = typeof estado === 'boolean' ? estado : !ctxAberto;
+      overlay.classList.toggle('aberto', ctxAberto);
+      ctxBtn.setAttribute('aria-expanded', ctxAberto ? 'true' : 'false');
+    }
+    ctxBtn.addEventListener('click', () => alternarCtx());
+    document.getElementById('ctxBtn2').addEventListener('click', () => alternarCtx());
+    document.getElementById('ctxFechar').addEventListener('click', () => alternarCtx(false));
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) alternarCtx(false); });
+
+    // ── Teclado ───────────────────────────────────────────────────────────────
+    // As setas primeiro percorrem as 3 perspectivas; esgotadas, o comando segue
+    // para o index.html e a apresentação avança/volta de slide normalmente.
+    const TECLAS_NAV = ['ArrowRight', 'ArrowLeft', 'PageDown', 'PageUp', 'Home', 'End', ' ', 'f', 'F'];
+    document.addEventListener('keydown', function (e) {
+      const k = e.key;
+
+      if (k >= '1' && k <= '3') { e.preventDefault(); alternarGrade(false); irPara(+k); return; }
+      if (k === 'g' || k === 'G') { e.preventDefault(); alternarGrade(); return; }
+      if (k === 'c' || k === 'C') { e.preventDefault(); alternarCtx(); return; }
+      if (k === 'Escape') { alternarCtx(false); alternarGrade(false); return; }
+
+      if (TECLAS_NAV.indexOf(k) === -1) return;
+      e.preventDefault();
+
+      // Overlay aberto: a primeira seta apenas fecha o convite.
+      if (ctxAberto && k !== 'f' && k !== 'F') { alternarCtx(false); return; }
+
+      if (!modoGrade) {
+        const avanca = (k === 'ArrowRight' || k === ' ' || k === 'PageDown');
+        const volta = (k === 'ArrowLeft' || k === 'PageUp');
+        if (avanca && etapa < TOTAL_ETAPAS) { irPara(etapa + 1); return; }
+        if (volta && etapa > 1) { irPara(etapa - 1); return; }
+      }
+
+      window.parent.postMessage({ type: 'slide-nav', key: k }, '*');
+    });
+
+    irPara(1);
+    function ajustar() { ajustarFonte(); ajustarGrade(); }
+    window.addEventListener('resize', ajustar);
+    if (document.fonts && document.fonts.ready) { document.fonts.ready.then(ajustar); }
+
+    // O index.html não dá foco ao iframe: sem isto as setas seriam capturadas
+    // pelo documento-pai e as perspectivas nunca seriam percorridas. O pai
+    // continua recebendo tudo o que não é tratado aqui, via postMessage.
+    function pegarFoco() { try { window.focus(); } catch (e) { } }
+    pegarFoco();
+    window.addEventListener('load', pegarFoco);
+  </script>
+</body>
+
+</html>

@@ -42,6 +42,22 @@ const PERIODO_ENQUETES = {
   conselheirosData: '06/05/2026'
 };
 
+/* ═══════════════ Rodadas de avaliação e quadriênio ═══════════════
+   Alimenta o slide-18.html: os cartões das rodadas realizadas e a
+   linha do tempo do quadriênio saem daqui, então acrescentar a
+   próxima rodada é editar só este bloco.
+
+   As datas da rodada corrente vêm de PERIODO_ENQUETES para não
+   existirem em dois lugares. Os anos ainda não realizados aparecem
+   como "prevista" por diferença entre `quadrienio` e `realizadas`. */
+const RODADAS = {
+  quadrienio: { inicio: 2025, fim: 2028 },
+  realizadas: [
+    { ord: 1, ano: 2025, inicio: '24/03/2025', fim: '13/04/2025' },
+    { ord: 2, ano: 2026, inicio: PERIODO_ENQUETES.inicio, fim: PERIODO_ENQUETES.fim, atual: true },
+  ]
+};
+
 const SUPERINTENDENCIAS = {
   SOG: { nome: 'Superintendência de Outorgas', sigla: 'SOG', servicos: 18, cor: '#0070C0' },
   SRG: { nome: 'Superintendência de Regulação', sigla: 'SRG', servicos: 8, cor: '#0090C0' },

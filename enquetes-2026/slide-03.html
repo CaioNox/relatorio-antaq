@@ -133,7 +133,13 @@
         }
 
         /* ===== Sumário ===== */
+        /* --sum-scale multiplica TODAS as fontes do índice (número do bloco,
+           títulos, seções, subseções e a dica). 1.2 = 20% maior que o tamanho
+           original. Se o texto ampliado não couber na área útil do slide, a
+           função ajusteSumario() reduz este valor até encaixar — então
+           mexer aqui é o único lugar para redimensionar o sumário.          */
         .sumario {
+            --sum-scale: 1.2;
             margin-top: 0.4rem;
             max-width: none;
             width: 100%;
@@ -175,7 +181,7 @@
         .sum-num {
             font-family: 'Montserrat', sans-serif;
             font-weight: 900;
-            font-size: 3rem;
+            font-size: calc(3rem * var(--sum-scale));
             line-height: 1;
             background: linear-gradient(135deg, #00AEEF 0%, #5AB4DC 55%, #0090C0 100%);
             -webkit-background-clip: text;
@@ -189,7 +195,7 @@
             display: block;
             font-family: 'Montserrat', sans-serif;
             font-weight: 800;
-            font-size: 0.9rem;
+            font-size: calc(0.9rem * var(--sum-scale));
             letter-spacing: 0.03em;
             text-transform: uppercase;
             color: #ffffff;
@@ -210,7 +216,7 @@
             position: relative;
             display: block;
             font-family: 'Open Sans', sans-serif;
-            font-size: 0.82rem;
+            font-size: calc(0.82rem * var(--sum-scale));
             line-height: 1.28;
             color: #e3eefc;
             margin-bottom: 0.5rem;
@@ -227,7 +233,7 @@
             position: absolute;
             left: 0;
             top: 0.1rem;
-            font-size: 0.72rem;
+            font-size: calc(0.72rem * var(--sum-scale));
             color: #0090C0;
             transition: transform .18s ease;
         }
@@ -244,7 +250,7 @@
             position: relative;
             font-family: 'Montserrat', sans-serif;
             font-weight: 700;
-            font-size: 0.78rem;
+            font-size: calc(0.78rem * var(--sum-scale));
             letter-spacing: 0.04em;
             text-transform: uppercase;
             color: #0090C0;
@@ -266,7 +272,7 @@
         .sum-subitem {
             display: block;
             font-family: 'Open Sans', sans-serif;
-            font-size: 0.77rem;
+            font-size: calc(0.77rem * var(--sum-scale));
             line-height: 1.26;
             color: #cfe0f7;
             margin-bottom: 0.4rem;
@@ -284,7 +290,7 @@
 
         .sum-hint {
             font-family: 'Open Sans', sans-serif;
-            font-size: 0.72rem;
+            font-size: calc(0.72rem * var(--sum-scale));
             color: #9db9e6;
             margin: 0.15rem 0 0.5rem;
             display: flex;
@@ -491,7 +497,8 @@
         <div class="absolute left-0 top-0 h-full w-3 z-20" style="background-color: #0090C0;"></div>
         <div class="absolute left-3 top-0 h-full w-1 bg-brand-secondary z-20"></div>
         <!-- Main Content Area -->
-        <div class="relative z-10 flex flex-col justify-start h-full w-full pl-24 pr-16 pt-44 pb-40 font-montserrat">
+        <div id="conteudo"
+            class="relative z-10 flex flex-col justify-start h-full w-full pl-24 pr-16 pt-44 pb-40 font-montserrat">
             <!-- Top Header / Organization -->
             <div class="absolute top-16 left-24 flex items-center gap-6">
                 <div>
@@ -516,7 +523,7 @@
                  (robusto à ordem do array `slides` do index.html).
              ================================================== -->
                 <!-- Sumário -->
-                <div class="sumario">
+                <div class="sumario" id="sumario">
                     <p class="sum-hint"><i class="fas fa-hand-pointer"></i> Clique em um capítulo ou seção para ir
                         direto ao slide</p>
                     <div class="sum-grid" id="sumGrid"></div>
@@ -675,8 +682,7 @@
                     t: 'Considerações Finais', icon: 'fa-lightbulb', children: [
                         { t: 'Capa do bloco', f: 'capa-bloco-5.html' },
                         { t: 'Resultados gerados a partir das avaliações', f: 'slide-21.html' },
-                        { t: 'Resultados por órgão e cidadão', f: 'slide-resultados-orgao.html' },
-                        { t: 'Expectativas compartilhadas', f: 'slide-22.html' },
+                        { t: 'Resultados para ambos, para o órgão e para o cidadão', f: 'slide-resultados-perspectivas.html' },
                     ]
                 },
                 {
@@ -798,9 +804,32 @@
                     titles.forEach(function (t) { max = Math.max(max, t.offsetHeight); });
                     titles.forEach(function (t) { t.style.minHeight = max + 'px'; });
                 }
-                requestAnimationFrame(alignTitles);
-                if (document.fonts && document.fonts.ready) document.fonts.ready.then(alignTitles);
-                window.addEventListener('resize', alignTitles);
+
+                // Guarda de encaixe: o slide é um quadro fixo (1920×1080, overflow
+                // hidden). A fonte do sumário sai de --sum-scale (1.2 = +20%); se a
+                // coluna mais alta passar da área útil (fim do padding inferior do
+                // #conteudo), a escala cai de 2% em 2% até caber, no piso de 1.0 =
+                // tamanho original. Assim ampliar a fonte nunca corta texto.
+                const sumario = document.getElementById('sumario');
+                const conteudo = document.getElementById('conteudo');
+                const ESCALA_ALVO = 1.2;
+
+                function ajusteSumario() {
+                    if (!sumario || !conteudo) { alignTitles(); return; }
+                    const limite = conteudo.getBoundingClientRect().bottom
+                        - parseFloat(getComputedStyle(conteudo).paddingBottom);
+                    let escala = ESCALA_ALVO;
+                    for (;;) {
+                        sumario.style.setProperty('--sum-scale', escala.toFixed(2));
+                        alignTitles();
+                        if (escala <= 1 || root.getBoundingClientRect().bottom <= limite) break;
+                        escala -= 0.02;
+                        if (escala < 1) escala = 1;
+                    }
+                }
+                requestAnimationFrame(ajusteSumario);
+                if (document.fonts && document.fonts.ready) document.fonts.ready.then(ajusteSumario);
+                window.addEventListener('resize', ajusteSumario);
             })();
 
             document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });

@@ -64,6 +64,16 @@
       width: 100%;
     }
 
+    /* ── Escala tipográfica do miolo ──────────────────────────────────────
+       Todo o corpo do slide (parágrafos, caixa azul e botão) sai de --fs.
+       O ajustarCorpo(), no script, procura o MAIOR valor até 1.3 em que o
+       texto ainda cabe entre o cabeçalho e o rodapé — é o que preenche a
+       folga que antes sobrava em branco. O que restar de folga fica
+       distribuído em cima e embaixo (o miolo é centrado na área).        */
+    #corpo {
+      --fs: 1;
+    }
+
     /* Metade Superior: Texto Direto */
     .inst-clean-column {
       padding: 0;
@@ -75,11 +85,26 @@
 
     .inst-text {
       color: #334155;
-      font-size: 1rem;
+      font-size: calc(1rem * var(--fs));
       line-height: 1.6;
       margin: 0 0 .65rem;
       text-align: justify;
       text-indent: 1.8em;
+    }
+
+    /* Caixa azul: título, corpo e ícone acompanham a mesma escala */
+    .lead-t {
+      font-size: calc(1.25rem * var(--fs));
+      line-height: 1.25;
+    }
+
+    .lead-t .lead-i {
+      font-size: 1.2em;
+    }
+
+    .lead-d {
+      font-size: calc(1rem * var(--fs));
+      line-height: 1.625;
     }
 
     /* Metade Inferior: Caixa Reposicionada */
@@ -103,7 +128,7 @@
       background: #103050;
       color: #fff;
       font-family: 'Montserrat', sans-serif;
-      font-size: .6rem;
+      font-size: calc(.6rem * var(--fs));
       font-weight: 700;
       letter-spacing: .08em;
       text-transform: uppercase;
@@ -120,7 +145,7 @@
       border-radius: 999px;
       font-family: 'Montserrat', sans-serif;
       font-weight: 600;
-      font-size: .8rem;
+      font-size: calc(.8rem * var(--fs));
       letter-spacing: .01em;
       color: #0070C0;
       background: rgba(0, 112, 192, .06);
@@ -204,8 +229,10 @@
 
 
     <!-- Corpo do Slide dividido entre as duas metades -->
-    <div class="flex-1 flex flex-col justify-between px-16 pb-8 z-10" style="min-height:0;">
-      <div class="w-full max-w-6xl mx-auto flex flex-col justify-start height-full h-full gap-1">
+    <!-- justify-center: a folga que sobra depois do ajuste de fonte fica
+         dividida entre o cabeçalho e o rodapé, em vez de toda embaixo. -->
+    <div class="flex-1 flex flex-col justify-center px-16 pb-8 z-10" id="area" style="min-height:0;">
+      <div class="w-full max-w-6xl mx-auto flex flex-col gap-1" id="corpo">
 
         <!-- Metade Superior: Explicação Direta -->
         <div class="inst-clean-column">
@@ -225,11 +252,11 @@
 
         <!-- Metade Inferior: Caixa Azul Mantida Conforme Original (Sem os marcadores de negrito avulsos) -->
         <div class="lead-frame w-full">
-          <p class="text-brand-primary font-montserrat font-bold text-xl mb-3 flex items-center gap-3">
-            <i class="fas fa-shield-halved text-brand-secondary text-2xl"></i>
+          <p class="lead-t text-brand-primary font-montserrat font-bold mb-3 flex items-center gap-3">
+            <i class="fas fa-shield-halved text-brand-secondary lead-i"></i>
             A Ouvidoria como guardiã da Carta de Serviços
           </p>
-          <p class="text-gray-700 text-base leading-relaxed text-justify">
+          <p class="lead-d text-gray-700 text-justify">
             A Ouvidoria atua diretamente como guardiã da Carta de Serviços da ANTAQ — documento fundamental que,
             respaldado pela Lei nº 13.460/2017, informa os cidadãos sobre os serviços prestados pela Agência, seus
             requisitos, prazos e padrões de atendimento. É a partir dessa Carta que são formuladas as enquetes
@@ -261,6 +288,34 @@
   </div>
 
   <script>
+    // ── Aproveitar o espaço em branco ────────────────────────────────────────
+    // O slide é um quadro fixo de 1920x1080: não dá para "chutar" o tamanho da
+    // fonte, porque o texto de uma linha a mais estoura a área e some atrás do
+    // rodapé. Então o corpo cresce até 1.3× e recua de 2% em 2% até caber na
+    // altura entre o cabeçalho e o rodapé — sempre no maior tamanho possível.
+    (function () {
+      const corpo = document.getElementById('corpo');
+      const area = document.getElementById('area');
+      const ESCALA_ALVO = 1.3;
+
+      function ajustarCorpo() {
+        const st = getComputedStyle(area);
+        const limite = area.clientHeight
+          - parseFloat(st.paddingTop) - parseFloat(st.paddingBottom);
+        let fs = ESCALA_ALVO;
+        for (;;) {
+          corpo.style.setProperty('--fs', fs.toFixed(2));
+          if (fs <= 1 || corpo.getBoundingClientRect().height <= limite) break;
+          fs = Math.max(1, Math.round((fs - 0.02) * 100) / 100);
+        }
+      }
+
+      ajustarCorpo();
+      window.addEventListener('resize', ajustarCorpo);
+      // A métrica muda quando Montserrat/Open Sans terminam de carregar.
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(ajustarCorpo);
+    })();
+
     document.addEventListener("keydown", function (e) {
       if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) {
         e.preventDefault();

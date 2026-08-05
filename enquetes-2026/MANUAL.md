@@ -46,9 +46,9 @@ Quem lê esse arquivo:
 | `index.html` | Monta a lista de telas de enquete dentro do `deck` |
 | `slide-enquete.html` | Desenha os gráficos e escreve os textos de análise (2 telas por enquete) |
 | `slide-tabela-enquetes.html` | Monta a Tabela 1 |
-| `slide-18.html` (cnsu-numeros) | Total de conselheiros, enquetes e respostas |
+| `slide-18.html` (cnsu-numeros) | Conselheiros, enquetes, respostas, dias de coleta e as rodadas (`RODADAS`) |
 | `slide-13.html` (carta-numeros) | Distribuição de serviços por superintendência |
-| `slide-22.html` (resultados-ambos) | Números do bloco de considerações finais |
+| `slide-resultados-perspectivas.html` | Números do convite (overlay “Seja conselheiro”, tecla C) |
 | `relatorio.html` | Monta as páginas da versão para impressão |
 
 > ⚠️ **Os textos de análise NÃO são digitados** — são gerados a partir dos números pela função
@@ -112,22 +112,33 @@ sozinhos.
 Se algum serviço da Carta não recebeu enquete, registre-o em `SERVICOS_SEM_ENQUETE` — ele aparece na
 Tabela 1 com o selo `sem enquete publicada` em vez de sumir do documento.
 
-### Passo 4 — Atualizar as telas que não vêm dos dados
+### Passo 4 — Registrar a rodada em `RODADAS`
+Acrescente a nova rodada ao array `RODADAS.realizadas`, em `dados-enquetes.js`, e mova o `atual: true`
+para ela:
+
+```javascript
+{ ord: 3, ano: 2027, inicio: PERIODO_ENQUETES.inicio, fim: PERIODO_ENQUETES.fim, atual: true },
+```
+
+O `slide-18.html` se remonta sozinho a partir daí — cartões das rodadas e linha do tempo do
+quadriênio. Os anos ainda não realizados aparecem como “prevista” por diferença; quando o quadriênio
+virar, atualize também `RODADAS.quadrienio`.
+
+### Passo 5 — Atualizar as telas que não vêm dos dados
 | Arquivo | O que revisar |
 |---------|---------------|
 | `slide-00.html` | Ano e período na capa e no badge do rodapé |
 | `slide-01.html` (ficha-tecnica) | Nomes e cargos |
 | `slide-02.html` (apresentacao) | Texto de apresentação (datas e nº de enquetes) |
-| `slide-18.html` (cnsu-numeros) | Datas das rodadas de avaliação realizadas |
 | `slide-13.html` (carta-numeros) | Só se a Carta mudar de tamanho — edite `SUPERINTENDENCIAS` no `.js` |
 
-### Passo 5 — Conferir
+### Passo 6 — Conferir
 Rode o servidor local (seção 9), abra a apresentação e percorra tudo. Confira principalmente:
 - a Tabela 1 (partes 1 e 2) — todas as linhas cabem na tela?
 - 2 ou 3 enquetes de amostra — gráfico e texto batem?
 - `relatorio.html` → **Preparar impressão** → Ctrl+P.
 
-### Passo 6 — Publicar
+### Passo 7 — Publicar
 ```bash
 git add .
 git commit -m "Atualiza enquetes do Conselho de Usuários — rodada de AAAA"
@@ -230,7 +241,14 @@ avaliação e de fluxo da consulta (Figura 5) foram removidos do deck.
 | `slide-enquete.html?e=NNNN&p=1/2` | ⭐ Resultado de cada enquete (rosca na 1/2, barras + sugestões na 2/2) |
 
 ### Bloco 5 · Considerações Finais
-`capa-bloco-5.html`, `slide-21.html`, `slide-22.html`.
+`capa-bloco-5.html`, `slide-21.html`, `slide-resultados-perspectivas.html`.
+
+> `slide-resultados-perspectivas.html` unificou os dois slides antigos de resultados
+> (`slide-resultados-orgao.html` — “Para o órgão / Para o cidadão” — e `slide-22.html` —
+> “Para ambos”) numa tela só, no mesmo formato do `slide-19.html`: teclas **1–3** ou clique na
+> trilha escolhem a perspectiva, **G** mostra as três listas lado a lado e **C** abre o convite
+> para novos conselheiros (que era o cartão à direita do `slide-22.html`). Os dois arquivos
+> antigos continuam no repositório, mas fora do `deck` e da versão de impressão.
 
 ### Bloco 6 · Apêndice
 `capa-bloco-6.html`, `slide-23.html`, `slide-24.html`, `slide-25.html`,

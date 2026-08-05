@@ -41,11 +41,17 @@
       text-transform: uppercase; padding: .25rem .8rem; border-radius: 999px;
     }
 
-    .body-wrap { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: .55rem; padding: .5rem 3rem 0; }
+    /* --fs escala TODO o texto do miolo (caput, incisos e arts. 19–22). O
+       ajustarCorpo(), no script, procura o maior valor até 1.35 em que nada
+       transborda: os cartões já ocupavam a altura inteira, mas com texto
+       pequeno e muito branco dentro deles. Os algarismos grandes (.inc-num e
+       a marca d'água) NÃO escalam — o ganho de espaço vai para o texto que se
+       lê, não para o número que já era grande.                            */
+    .body-wrap { --fs: 1; flex: 1; min-height: 0; display: flex; flex-direction: column; gap: .55rem; padding: .5rem 3rem 0; }
 
     /* ── Caput do artigo — mesmo componente dos slides do Bloco 1 ── */
     .ref-caput {
-      font-size: .76rem; line-height: 1.45; color: #334155; margin: 0;
+      font-size: calc(.76rem * var(--fs)); line-height: 1.45; color: #334155; margin: 0;
       background: #F1F5F9; border-left: 4px solid #0070C0; border-radius: 0 8px 8px 0;
       padding: .5rem .95rem; animation: fadeInUp .45s ease both;
     }
@@ -78,7 +84,7 @@
       color: var(--c); line-height: .88; letter-spacing: -.02em; margin-bottom: .4rem;
     }
     .inc-tit {
-      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .8rem;
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: calc(.8rem * var(--fs));
       letter-spacing: .07em; text-transform: uppercase; color: var(--c);
       margin: 0 0 .5rem; padding-bottom: .45rem; border-bottom: 1px solid #E2E8F0;
     }
@@ -86,7 +92,7 @@
        inciso curto deixa um buraco embaixo. */
     .inc-txt {
       flex: 1; min-height: 0; margin: 0; display: flex; align-items: center;
-      font-size: .82rem; line-height: 1.55; color: #475569;
+      font-size: calc(.82rem * var(--fs)); line-height: 1.55; color: #475569;
     }
 
     /* Marca d'água do algarismo, bem discreta, para dar peso ao cartão */
@@ -98,7 +104,7 @@
 
     /* ── Arts. 19 a 22: o que a lei ainda define, em faixa compacta ── */
     .mais-rot {
-      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .6rem;
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: calc(.6rem * var(--fs));
       letter-spacing: .12em; text-transform: uppercase; color: #94A3B8;
       display: flex; align-items: center; gap: .6rem; margin: 0;
     }
@@ -112,15 +118,15 @@
       animation: fadeInUp .45s ease both .3s;
     }
     .artigo-n {
-      flex-shrink: 0; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .6rem;
+      flex-shrink: 0; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: calc(.6rem * var(--fs));
       background: #103050; color: #fff; border-radius: .3rem; padding: .12rem .45rem; margin-top: .1rem;
       letter-spacing: .04em; white-space: nowrap;
     }
     .artigo h3 {
-      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .74rem; color: #103050;
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: calc(.74rem * var(--fs)); color: #103050;
       margin: 0 0 .2rem; letter-spacing: .02em;
     }
-    .artigo p { margin: 0; font-size: .71rem; line-height: 1.45; color: #64748B; }
+    .artigo p { margin: 0; font-size: calc(.71rem * var(--fs)); line-height: 1.45; color: #64748B; }
 
     .bg-pattern { position: absolute; bottom: -60px; right: -50px; width: 400px; height: 400px; opacity: .03; z-index: 0; color: #103050; }
     @keyframes fadeInUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
@@ -239,6 +245,36 @@
   </div>
 
   <script>
+    // ── Aproveitar o branco dentro dos cartões ───────────────────────────────
+    // O slide é um quadro fixo de 1920x1080: não dá para "chutar" o tamanho da
+    // fonte, porque uma linha a mais em qualquer cartão some atrás da borda.
+    // Então o texto cresce até 1.35× e recua de 2% em 2% enquanto algum bloco
+    // estiver transbordando — parando sempre no maior tamanho que caiba.
+    (function () {
+      const corpo = document.querySelector('.body-wrap');
+      const blocos = Array.from(document.querySelectorAll('.ref-caput, .inc, .artigo'));
+      const ESCALA_ALVO = 1.35;
+
+      function estoura() {
+        return corpo.scrollHeight > corpo.clientHeight + 1
+          || blocos.some((b) => b.scrollHeight > b.clientHeight + 1);
+      }
+
+      function ajustarCorpo() {
+        let fs = ESCALA_ALVO;
+        for (;;) {
+          corpo.style.setProperty('--fs', fs.toFixed(2));
+          if (fs <= 1 || !estoura()) break;
+          fs = Math.max(1, Math.round((fs - 0.02) * 100) / 100);
+        }
+      }
+
+      ajustarCorpo();
+      window.addEventListener('resize', ajustarCorpo);
+      // A métrica muda quando Montserrat/Open Sans terminam de carregar.
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(ajustarCorpo);
+    })();
+
     document.addEventListener("keydown", function (e) {
       if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) {
         e.preventDefault();

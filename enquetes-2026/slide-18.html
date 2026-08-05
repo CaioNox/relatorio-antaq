@@ -3,7 +3,21 @@
 <!--
   ╔══════════════════════════════════════════════════════════════╗
   ║  O Conselho em números — base de conselheiros e rodadas      ║
-  ║  ATUALIZAR: total de conselheiros e datas das rodadas.       ║
+  ║                                                              ║
+  ║  ATUALIZAR: nada aqui. Os números saem de dados-enquetes.js  ║
+  ║  (PERIODO_ENQUETES e RODADAS) — acrescentar a próxima        ║
+  ║  rodada é editar só o `.js`.                                 ║
+  ║                                                              ║
+  ║  NÃO SOBREPÕE TEXTO: cada coluna tem uma variável `--fit`    ║
+  ║  que escala as alturas. `ajustar()` mede a altura real do    ║
+  ║  conteúdo e reduz `--fit` em passos de 4% até caber. Roda    ║
+  ║  na carga, no resize e no fonts.ready — este último cobre    ║
+  ║  o caso da fonte cair para fallback (é o que acontece na     ║
+  ║  captura do PowerPoint, onde o texto fica mais largo).       ║
+  ║                                                              ║
+  ║  SEM TAILWIND: usava 32 utilitários triviais e puxava o      ║
+  ║  framework inteiro do CDN. Agora o CSS é todo local — o      ║
+  ║  slide fica leve e renderiza certo mesmo sem rede.           ║
   ╚══════════════════════════════════════════════════════════════╝
 -->
 <html lang="pt-BR">
@@ -14,108 +28,522 @@
   <title>O Conselho em números — Relatório Anual de Enquetes · Ouvidoria ANTAQ</title>
   <link rel="icon" type="image/png"
     href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
   <link
     href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap"
     rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
   <style>
-    html { font-size: 26px; }
-    body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
-    .slide-container { width: 100vw; height: 100vh; position: relative; display: flex; flex-direction: column; background-color: #fff; overflow: hidden; font-family: 'Open Sans', sans-serif; }
-    .font-montserrat { font-family: 'Montserrat', sans-serif; }
-    .text-brand-primary { color: #103050; }
-    .text-brand-secondary { color: #0070C0; }
-    .bg-brand-secondary { background-color: #0070C0; }
-    .top-accent { height: 8px; background-color: #103050; width: 100%; }
-    .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
+    html {
+      font-size: 26px;
+    }
 
-    .body-wrap { flex: 1; min-height: 0; display: grid; grid-template-columns: .85fr 1.15fr; gap: 2.2rem; padding: 1rem 3.4rem 0; align-items: stretch; }
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f3f4f6;
+      overflow: hidden;
+    }
 
-    .col-left { height: 100%; display: flex; flex-direction: column; justify-content: center; gap: 1.15rem; }
+    .slide-container {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background-color: #fff;
+      overflow: hidden;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    .top-accent {
+      height: 8px;
+      background-color: #103050;
+      width: 100%;
+    }
+
+    .top-accent-secondary {
+      height: 4px;
+      background-color: #0070C0;
+      width: 100%;
+    }
+
+    /* ── Cabeçalho e rodapé ─────────────────────────────────────────────
+         Antes vinham de utilitários do Tailwind. Os valores abaixo são a
+         conversão exata (a escala do Tailwind 2 é em rem, e aqui o root
+         está fixo em 26px) — mexer neles muda o orçamento de altura que
+         sobra para o corpo.                                            */
+    .cabecalho {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      padding: 1.75rem 3rem .25rem;
+      position: relative;
+      z-index: 10;
+    }
+
+    .cab-titulo-linha {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      margin-bottom: .25rem;
+    }
+
+    .cab-barra {
+      width: .25rem;
+      height: 2rem;
+      background-color: #0070C0;
+      flex-shrink: 0;
+    }
+
+    .cab-titulo {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.875rem;
+      line-height: 2.25rem;
+      font-weight: 700;
+      color: #103050;
+      text-transform: uppercase;
+      letter-spacing: -.025em;
+      margin: 0;
+    }
+
+    .cab-sub {
+      color: #6b7280;
+      font-size: .74rem;
+      margin: 0 0 0 1rem;
+    }
+
+    .cab-cap {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      opacity: .8;
+      color: #0070C0;
+      flex-shrink: 0;
+    }
+
+    .cab-cap>i {
+      font-size: 44px;
+      vertical-align: middle;
+    }
+
+    .cab-cap-txt {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-left: .5rem;
+      border-left: 1px solid #CBD5E1;
+    }
+
+    .cab-cap-num,
+    .cab-cap-nome {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      line-height: 1;
+      margin: 0;
+      white-space: nowrap;
+    }
+
+    .cab-cap-num {
+      color: #9ca3af;
+      letter-spacing: .1em;
+      margin-bottom: .25rem;
+      font-size: 20px;
+    }
+
+    .cab-cap-nome {
+      color: #0070C0;
+      letter-spacing: -.025em;
+      text-transform: uppercase;
+      font-size: 17px;
+    }
+
+    .rodape {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: .5rem 3rem 1rem;
+      position: relative;
+      z-index: 10;
+    }
+
+    .rodape p {
+      color: #9ca3af;
+      font-size: .75rem;
+      line-height: 1rem;
+      margin: 0;
+    }
+
+    /* ── Corpo ───────────────────────────────────────────────────────────
+         Cada coluna carrega `--fit`. Tudo que define altura é
+         `calc(X * var(--fit))`, e o `.col-inner` existe para a medição:
+         a coluna centraliza, então o `scrollHeight` dela não enxergaria
+         o que vaza para cima. Medir o wrapper resolve.                 */
+    .body-wrap {
+      flex: 1;
+      min-height: 0;
+      display: grid;
+      grid-template-columns: .85fr 1.15fr;
+      gap: 2.2rem;
+      padding: 1rem 3.4rem 0;
+      align-items: stretch;
+    }
+
+    .col-left,
+    .rodadas {
+      --fit: 1;
+      height: 100%;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .col-inner {
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+    }
+
+    .col-left .col-inner {
+      gap: calc(1.15rem * var(--fit));
+    }
+
+    .rodadas .col-inner {
+      gap: calc(1.9rem * var(--fit));
+    }
 
     .kpi-big {
-      border-radius: 20px; padding: 1.8rem 1.6rem; color: #fff; text-align: center;
+      border-radius: 20px;
+      padding: calc(1.8rem * var(--fit)) 1.6rem;
+      color: #fff;
+      text-align: center;
       background: linear-gradient(150deg, #103050 0%, #0070C0 100%);
-      box-shadow: 0 20px 44px -20px rgba(16,48,80,.75);
+      box-shadow: 0 20px 44px -20px rgba(16, 48, 80, .75);
       animation: fadeInUp .5s ease both;
     }
-    .kpi-big i { font-size: 2.4rem; opacity: .85; }
-    .kpi-big .num { font-family: 'Montserrat', sans-serif; font-size: 5.6rem; font-weight: 900; line-height: .92; margin: .4rem 0 .1rem; }
-    .kpi-big .lab { font-family: 'Montserrat', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; opacity: .95; }
-    .kpi-big .sub { font-size: .74rem; opacity: .8; margin-top: .7rem; }
 
-    .side-kpis { display: flex; gap: .8rem; }
+    .kpi-big i {
+      font-size: calc(2.4rem * var(--fit));
+      opacity: .85;
+    }
+
+    .kpi-big .num {
+      font-family: 'Montserrat', sans-serif;
+      font-size: calc(5.6rem * var(--fit));
+      font-weight: 900;
+      line-height: .92;
+      margin: calc(.4rem * var(--fit)) 0 calc(.1rem * var(--fit));
+    }
+
+    .kpi-big .lab {
+      font-family: 'Montserrat', sans-serif;
+      font-size: calc(1rem * var(--fit));
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      opacity: .95;
+    }
+
+    .kpi-big .sub {
+      font-size: calc(.74rem * var(--fit));
+      opacity: .8;
+      margin-top: calc(.7rem * var(--fit));
+    }
+
+    .side-kpis {
+      display: flex;
+      gap: .8rem;
+    }
+
     .mini {
-      flex: 1; border: 2px solid #E2E8F0; border-radius: 14px; background: #fff; padding: .8rem .8rem .75rem;
-      text-align: center; box-shadow: 0 8px 20px -12px rgba(16,48,80,.2);
+      flex: 1;
+      min-width: 0;
+      border: 2px solid #E2E8F0;
+      border-radius: 14px;
+      background: #fff;
+      padding: calc(.8rem * var(--fit)) .8rem calc(.75rem * var(--fit));
+      text-align: center;
+      box-shadow: 0 8px 20px -12px rgba(16, 48, 80, .2);
       animation: fadeInUp .5s ease both .08s;
     }
-    .mini i { font-size: .82rem; color: #0070C0; opacity: .55; }
-    .mini .n { font-family: 'Montserrat', sans-serif; font-size: 1.7rem; font-weight: 900; color: #0070C0; line-height: 1; margin-top: .3rem; }
-    .mini .l { font-size: .64rem; color: #64748B; margin-top: .25rem; line-height: 1.35; }
 
-    .rodadas { height: 100%; display: flex; flex-direction: column; justify-content: center; gap: 1.9rem; }
-    .rodadas-group { display: flex; flex-direction: column; gap: 1rem; }
+    .mini i {
+      font-size: calc(.82rem * var(--fit));
+      color: #0070C0;
+      opacity: .55;
+    }
+
+    .mini .n {
+      font-family: 'Montserrat', sans-serif;
+      font-size: calc(1.7rem * var(--fit));
+      font-weight: 900;
+      color: #0070C0;
+      line-height: 1;
+      margin-top: calc(.3rem * var(--fit));
+    }
+
+    .mini .l {
+      font-size: calc(.64rem * var(--fit));
+      color: #64748B;
+      margin-top: calc(.25rem * var(--fit));
+      line-height: 1.35;
+      overflow-wrap: anywhere;
+    }
+
+    /* ── Rodadas ── */
+    .rodadas-group {
+      display: flex;
+      flex-direction: column;
+      gap: calc(1rem * var(--fit));
+    }
+
     .rodadas h2 {
-      font-family: 'Montserrat', sans-serif; font-size: .78rem; font-weight: 800; letter-spacing: .14em;
-      text-transform: uppercase; color: #0070C0; margin: 0 0 -.2rem; display: flex; align-items: center; gap: .5rem;
-    }
-    .rodada {
-      display: flex; align-items: center; gap: 1.2rem; position: relative;
-      border-radius: 16px; padding: 1.1rem 1.4rem; color: #fff;
-      background: linear-gradient(100deg, #103050 0%, #0070C0 65%, #0090C0 100%);
-      box-shadow: 0 14px 30px -16px rgba(16,48,80,.65);
-      animation: fadeInLeft .5s cubic-bezier(.2,.7,.3,1) both .12s;
-    }
-    .rodada.atual { background: linear-gradient(100deg, #0070C0 0%, #0090C0 60%, #F2A900 140%); }
-    .rodada:nth-child(3) { animation-delay: .22s; }
-    .rodada .ord {
-      flex-shrink: 0; width: 3rem; height: 3rem; border-radius: .9rem; background: rgba(255,255,255,.18);
-      border: 1px solid rgba(255,255,255,.3);
-      display: flex; align-items: center; justify-content: center;
-      font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.15rem;
-    }
-    .rodada .info { flex: 1; min-width: 0; }
-    .rodada .tit { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .92rem; line-height: 1.2; }
-    .rodada .ano { font-size: .7rem; opacity: .82; margin-top: .15rem; }
-    .rodada .datas { display: flex; gap: 1.6rem; flex-shrink: 0; }
-    .rodada .dt .k { font-size: .58rem; letter-spacing: .14em; text-transform: uppercase; opacity: .75; font-family: 'Montserrat', sans-serif; font-weight: 700; }
-    .rodada .dt .v { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .92rem; }
-    .ribbon-atual {
-      position: absolute; top: 0; right: 1.4rem; transform: translateY(-50%);
-      background: #F2A900; color: #103050; font-family: 'Montserrat', sans-serif; font-weight: 800;
-      font-size: .58rem; letter-spacing: .08em; text-transform: uppercase; border-radius: 999px;
-      padding: .3rem .8rem; white-space: nowrap; box-shadow: 0 6px 14px -6px rgba(16,48,80,.5);
+      font-family: 'Montserrat', sans-serif;
+      font-size: calc(.78rem * var(--fit));
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: #0070C0;
+      margin: 0 0 calc(-.2rem * var(--fit));
+      display: flex;
+      align-items: center;
+      gap: .5rem;
     }
 
+    .rodada {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      position: relative;
+      border-radius: 16px;
+      padding: calc(1.1rem * var(--fit)) 1.4rem;
+      color: #fff;
+      background: linear-gradient(100deg, #103050 0%, #0070C0 65%, #0090C0 100%);
+      box-shadow: 0 14px 30px -16px rgba(16, 48, 80, .65);
+      animation: fadeInLeft .5s cubic-bezier(.2, .7, .3, 1) both;
+    }
+
+    .rodada.atual {
+      background: linear-gradient(100deg, #0070C0 0%, #0090C0 60%, #F2A900 140%);
+    }
+
+    .rodada .ord {
+      flex-shrink: 0;
+      width: calc(3rem * var(--fit));
+      height: calc(3rem * var(--fit));
+      border-radius: .9rem;
+      background: rgba(255, 255, 255, .18);
+      border: 1px solid rgba(255, 255, 255, .3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: calc(1.15rem * var(--fit));
+    }
+
+    .rodada .info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .rodada .tit {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: calc(.92rem * var(--fit));
+      line-height: 1.2;
+      overflow-wrap: anywhere;
+    }
+
+    .rodada .ano {
+      font-size: calc(.7rem * var(--fit));
+      opacity: .82;
+      margin-top: calc(.15rem * var(--fit));
+      overflow-wrap: anywhere;
+    }
+
+    .rodada .datas {
+      display: flex;
+      gap: 1.6rem;
+      flex-shrink: 0;
+    }
+
+    .rodada .dt .k {
+      font-size: calc(.58rem * var(--fit));
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      opacity: .75;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+    }
+
+    .rodada .dt .v {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: calc(.92rem * var(--fit));
+      white-space: nowrap;
+    }
+
+    .ribbon-atual {
+      position: absolute;
+      top: 0;
+      right: 1.4rem;
+      transform: translateY(-50%);
+      background: #F2A900;
+      color: #103050;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: calc(.58rem * var(--fit));
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      border-radius: 999px;
+      padding: .3rem .8rem;
+      white-space: nowrap;
+      box-shadow: 0 6px 14px -6px rgba(16, 48, 80, .5);
+    }
+
+    /* ── Linha do tempo do quadriênio ── */
     .quadrienio {
-      border: 2px solid #E2E8F0; border-radius: 16px; background: #fff; padding: 1rem 1.3rem 1.1rem;
-      box-shadow: 0 8px 20px -14px rgba(16,48,80,.2);
+      border: 2px solid #E2E8F0;
+      border-radius: 16px;
+      background: #fff;
+      padding: calc(1rem * var(--fit)) 1.3rem calc(1.1rem * var(--fit));
+      box-shadow: 0 8px 20px -14px rgba(16, 48, 80, .2);
       animation: fadeInUp .5s ease both .3s;
     }
-    .timeline { display: flex; position: relative; padding-top: .65rem; margin-top: .55rem; }
-    .timeline::before {
-      content: ''; position: absolute; top: 1.55rem; left: 1.15rem; right: 1.15rem; height: 3px; background: #E2E8F0; z-index: 0;
-    }
-    .tl-item { flex: 1; display: flex; flex-direction: column; align-items: center; text-align: center; gap: .3rem; position: relative; z-index: 1; }
-    .tl-dot {
-      width: 2.3rem; height: 2.3rem; border-radius: 50%; background: #fff;
-      display: flex; align-items: center; justify-content: center;
-      font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: .82rem;
-    }
-    .tl-item.done .tl-dot { background: #0070C0; color: #fff; }
-    .tl-item.current .tl-dot { background: #F2A900; color: #103050; box-shadow: 0 0 0 5px rgba(242,169,0,.18); }
-    .tl-item.pending .tl-dot { background: #fff; color: #94A3B8; border: 2px solid #E2E8F0; }
-    .tl-y { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .8rem; color: #103050; }
-    .tl-item.pending .tl-y { color: #94A3B8; }
-    .tl-s { font-size: .6rem; color: #64748B; }
-    .tl-item.current .tl-s { color: #B7791F; font-weight: 700; }
 
-    .bg-pattern { position: absolute; bottom: -60px; right: -50px; width: 400px; height: 400px; opacity: .03; z-index: 0; color: #103050; }
-    @keyframes fadeInUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
-    @keyframes fadeInLeft { from { opacity: 0; transform: translateX(-18px); } to { opacity: 1; transform: none; } }
-    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+    .timeline {
+      display: flex;
+      position: relative;
+      padding-top: calc(.65rem * var(--fit));
+      margin-top: calc(.55rem * var(--fit));
+    }
+
+    /* O trilho acompanha `--fit` junto com os pontos, senão descola deles. */
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: calc(1.55rem * var(--fit));
+      left: calc(1.15rem * var(--fit));
+      right: calc(1.15rem * var(--fit));
+      height: 3px;
+      background: #E2E8F0;
+      z-index: 0;
+    }
+
+    .tl-item {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: calc(.3rem * var(--fit));
+      position: relative;
+      z-index: 1;
+    }
+
+    .tl-dot {
+      width: calc(2.3rem * var(--fit));
+      height: calc(2.3rem * var(--fit));
+      border-radius: 50%;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: calc(.82rem * var(--fit));
+      flex-shrink: 0;
+    }
+
+    .tl-item.done .tl-dot {
+      background: #0070C0;
+      color: #fff;
+    }
+
+    .tl-item.current .tl-dot {
+      background: #F2A900;
+      color: #103050;
+      box-shadow: 0 0 0 5px rgba(242, 169, 0, .18);
+    }
+
+    .tl-item.pending .tl-dot {
+      background: #fff;
+      color: #94A3B8;
+      border: 2px solid #E2E8F0;
+    }
+
+    .tl-y {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: calc(.8rem * var(--fit));
+      color: #103050;
+    }
+
+    .tl-item.pending .tl-y {
+      color: #94A3B8;
+    }
+
+    .tl-s {
+      font-size: calc(.6rem * var(--fit));
+      color: #64748B;
+      overflow-wrap: anywhere;
+    }
+
+    .tl-item.current .tl-s {
+      color: #B7791F;
+      font-weight: 700;
+    }
+
+    /* Decorativo: z-index negativo para ficar atrás do conteúdo — com
+       z-index 0 ele é um elemento posicionado e pintaria por cima. */
+    .bg-pattern {
+      position: absolute;
+      bottom: -60px;
+      right: -50px;
+      width: 400px;
+      height: 400px;
+      opacity: .03;
+      z-index: -1;
+      color: #103050;
+      font-size: 8rem;
+      line-height: 1;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    @keyframes fadeInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-18px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
   </style>
 </head>
 
@@ -124,140 +552,165 @@
     <div class="top-accent"></div>
     <div class="top-accent-secondary"></div>
 
-    <div class="flex items-start justify-between px-12 pt-7 pb-1 z-10">
+    <div class="cabecalho">
       <div>
-        <div class="flex items-center gap-3 mb-1">
-          <div class="w-1 h-8 bg-brand-secondary"></div>
-          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">O Conselho de
-            Usuários em números</p>
+        <div class="cab-titulo-linha">
+          <div class="cab-barra"></div>
+          <p class="cab-titulo">O Conselho de Usuários em números</p>
         </div>
-        <p class="text-gray-500 ml-4" style="font-size:.74rem;">Base de conselheiros da ANTAQ e rodadas de avaliação
-          realizadas no quadriênio 2025–2028.</p>
+        <p class="cab-sub">Base de conselheiros da ANTAQ e rodadas de avaliação realizadas no
+          quadriênio <span id="quadrienioSub">—</span>.</p>
       </div>
-      <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
-        <i class="fas fa-users align-middle" aria-hidden="true" style="font-size:44px;"></i>
-        <div class="flex flex-col justify-center pl-2" style="border-left: 1px solid #CBD5E1;">
-          <p class="font-montserrat font-bold text-gray-400 tracking-widest leading-none mb-1 whitespace-nowrap"
-            style="font-size:20px;">CAPÍTULO 04</p>
-          <p class="font-montserrat font-bold text-brand-secondary tracking-tight uppercase leading-none whitespace-nowrap"
-            style="font-size:17px;">Conselho de Usuários da ANTAQ</p>
+      <div class="cab-cap">
+        <i class="fas fa-users" aria-hidden="true"></i>
+        <div class="cab-cap-txt">
+          <p class="cab-cap-num">CAPÍTULO 04</p>
+          <p class="cab-cap-nome">Conselho de Usuários da ANTAQ</p>
         </div>
       </div>
     </div>
 
     <div class="body-wrap">
-      <div class="col-left">
-        <div class="kpi-big">
-          <i class="fas fa-user-group"></i>
-          <div class="num" id="totalConselheiros">145</div>
-          <div class="lab">Conselheiros</div>
-          <div class="sub">Total de conselheiros inscritos para os serviços da ANTAQ até <strong
-              id="dataBase">06/05/2026</strong>.</div>
-        </div>
-        <div class="side-kpis">
-          <div class="mini">
-            <i class="fas fa-list-check"></i>
-            <div class="n" id="qtdEnquetes">31</div>
-            <div class="l">enquetes publicadas nesta rodada</div>
+      <div class="col-left" data-fit>
+        <div class="col-inner">
+          <div class="kpi-big">
+            <i class="fas fa-user-group" aria-hidden="true"></i>
+            <div class="num" id="totalConselheiros">—</div>
+            <div class="lab">Conselheiros</div>
+            <div class="sub">Total de conselheiros inscritos para os serviços da ANTAQ até <strong
+                id="dataBase">—</strong>.</div>
           </div>
-          <div class="mini">
-            <i class="fas fa-comment-dots"></i>
-            <div class="n" id="qtdRespostas">—</div>
-            <div class="l">respostas recebidas no total</div>
-          </div>
-          <div class="mini">
-            <i class="fas fa-calendar-days"></i>
-            <div class="n">21</div>
-            <div class="l">dias de coleta</div>
+          <div class="side-kpis">
+            <div class="mini">
+              <i class="fas fa-list-check" aria-hidden="true"></i>
+              <div class="n" id="qtdEnquetes">—</div>
+              <div class="l">enquetes publicadas nesta rodada</div>
+            </div>
+            <div class="mini">
+              <i class="fas fa-comment-dots" aria-hidden="true"></i>
+              <div class="n" id="qtdRespostas">—</div>
+              <div class="l">respostas recebidas no total</div>
+            </div>
+            <div class="mini">
+              <i class="fas fa-calendar-days" aria-hidden="true"></i>
+              <div class="n" id="diasColeta">—</div>
+              <div class="l">dias de coleta</div>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="rodadas">
-        <div class="rodadas-group">
-          <h2><i class="fas fa-clock-rotate-left"></i> Rodadas de avaliação realizadas</h2>
-
-          <div class="rodada">
-            <div class="ord">1ª</div>
-            <div class="info">
-              <div class="tit">1ª rodada de avaliação</div>
-              <div class="ano">Quadriênio 2025–2028 · exercício de 2025</div>
-            </div>
-            <div class="datas">
-              <div class="dt">
-                <div class="k">Início</div>
-                <div class="v">24/03/2025</div>
-              </div>
-              <div class="dt">
-                <div class="k">Encerramento</div>
-                <div class="v">13/04/2025</div>
-              </div>
-            </div>
+      <div class="rodadas" data-fit>
+        <div class="col-inner">
+          <div class="rodadas-group">
+            <h2><i class="fas fa-clock-rotate-left" aria-hidden="true"></i> Rodadas de enquetes realizadas</h2>
+            <!-- cartões injetados a partir de RODADAS.realizadas -->
           </div>
 
-          <div class="rodada atual">
-            <div class="ribbon-atual">Este relatório</div>
-            <div class="ord">2ª</div>
-            <div class="info">
-              <div class="tit">2ª rodada de avaliação</div>
-              <div class="ano">Quadriênio 2025–2028 · exercício de 2026</div>
-            </div>
-            <div class="datas">
-              <div class="dt">
-                <div class="k">Início</div>
-                <div class="v">07/04/2026</div>
-              </div>
-              <div class="dt">
-                <div class="k">Encerramento</div>
-                <div class="v">27/04/2026</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="quadrienio">
-          <h2><i class="fas fa-route"></i> Linha do tempo do quadriênio 2025–2028</h2>
-          <div class="timeline">
-            <div class="tl-item done">
-              <div class="tl-dot"><i class="fas fa-check"></i></div>
-              <div class="tl-y">2025</div>
-              <div class="tl-s">1ª rodada concluída</div>
-            </div>
-            <div class="tl-item current">
-              <div class="tl-dot">2</div>
-              <div class="tl-y">2026</div>
-              <div class="tl-s">2ª rodada · em curso</div>
-            </div>
-            <div class="tl-item pending">
-              <div class="tl-dot">3</div>
-              <div class="tl-y">2027</div>
-              <div class="tl-s">Prevista</div>
-            </div>
-            <div class="tl-item pending">
-              <div class="tl-dot">4</div>
-              <div class="tl-y">2028</div>
-              <div class="tl-s">Prevista</div>
-            </div>
+          <div class="quadrienio">
+            <h2><i class="fas fa-route" aria-hidden="true"></i> Linha do tempo do quadriênio <span
+                id="quadrienioTit">—</span></h2>
+            <div class="timeline" id="timeline"><!-- injetada a partir de RODADAS --></div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="px-12 pb-4 pt-2 flex justify-between items-center z-10">
-      <p class="text-gray-400 text-xs">Relatório Anual de Enquetes do Conselho de Usuários · 2026 – Ouvidoria – Agência
+    <div class="rodape">
+      <p>Relatório Anual de Enquetes do Conselho de Usuários · 2026 – Ouvidoria – Agência
         Nacional de Transportes Aquaviários - ANTAQ</p>
     </div>
-    <div class="bg-pattern"><i class="fas fa-users text-9xl"></i></div>
+    <div class="bg-pattern" aria-hidden="true"><i class="fas fa-users"></i></div>
   </div>
 
   <script src="dados-enquetes.js"></script>
   <script>
     (function () {
-      document.getElementById('totalConselheiros').textContent = PERIODO_ENQUETES.conselheiros;
-      document.getElementById('dataBase').textContent = PERIODO_ENQUETES.conselheirosData;
-      document.getElementById('qtdEnquetes').textContent = ENQUETES.length;
-      document.getElementById('qtdRespostas').textContent =
-        ENQUETES.reduce(function (a, e) { return a + e.respondentes; }, 0);
+      const vazio = (v) => v === undefined || v === null || v === '';
+      const txt = (id, v) => { document.getElementById(id).textContent = vazio(v) ? '—' : v; };
+
+      /* ── Números do topo ── */
+      txt('totalConselheiros', PERIODO_ENQUETES.conselheiros);
+      txt('dataBase', PERIODO_ENQUETES.conselheirosData);
+      txt('qtdEnquetes', ENQUETES.length);
+      txt('qtdRespostas', ENQUETES.reduce((a, e) => a + e.respondentes, 0));
+      txt('diasColeta', PERIODO_ENQUETES.dias);
+
+      const q = RODADAS.quadrienio;
+      const periodo = q.inicio + '–' + q.fim;
+      txt('quadrienioSub', periodo);
+      txt('quadrienioTit', periodo);
+
+      /* ── Cartões das rodadas realizadas ── */
+      const grupo = document.querySelector('.rodadas-group');
+      RODADAS.realizadas.forEach((r, i) => {
+        const el = document.createElement('div');
+        el.className = 'rodada' + (r.atual ? ' atual' : '');
+        el.style.animationDelay = (0.12 + i * 0.1).toFixed(2) + 's';
+        el.innerHTML =
+          (r.atual ? '<div class="ribbon-atual">Este relatório</div>' : '') +
+          '<div class="ord">' + r.ord + 'ª</div>' +
+          '<div class="info">' +
+          '<div class="tit">' + r.ord + 'ª rodada de avaliação</div>' +
+          '<div class="ano">Quadriênio ' + periodo + ' · exercício de ' + r.ano + '</div>' +
+          '</div>' +
+          '<div class="datas">' +
+          '<div class="dt"><div class="k">Início</div><div class="v">' + (vazio(r.inicio) ? '—' : r.inicio) + '</div></div>' +
+          '<div class="dt"><div class="k">Encerramento</div><div class="v">' + (vazio(r.fim) ? '—' : r.fim) + '</div></div>' +
+          '</div>';
+        grupo.appendChild(el);
+      });
+
+      /* ── Linha do tempo: um nó por ano do quadriênio. O ano que tem
+            rodada aparece como concluído (ou em destaque, se for o desta
+            edição); os demais entram como previstos. ── */
+      const tl = document.getElementById('timeline');
+      const porAno = {};
+      RODADAS.realizadas.forEach((r) => { porAno[r.ano] = r; });
+
+      for (let ano = q.inicio; ano <= q.fim; ano++) {
+        const r = porAno[ano];
+        const item = document.createElement('div');
+        item.className = 'tl-item ' + (r ? (r.atual ? 'current' : 'done') : 'pending');
+        const marca = r && !r.atual
+          ? '<i class="fas fa-check" aria-hidden="true"></i>'
+          : (r ? r.ord : ano - q.inicio + 1);
+        const legenda = r
+          ? (r.atual ? 'Rodada deste relatório' : r.ord + 'ª rodada concluída')
+          : 'Prevista';
+        item.innerHTML =
+          '<div class="tl-dot">' + marca + '</div>' +
+          '<div class="tl-y">' + ano + '</div>' +
+          '<div class="tl-s">' + legenda + '</div>';
+        tl.appendChild(item);
+      }
+
+      /* ── Rede de segurança contra sobreposição ────────────────────────
+            Mede a altura real do conteúdo de cada coluna e reduz `--fit`
+            até caber. Não depende de prever o tamanho do texto nem de a
+            fonte certa ter carregado: lê o que foi de fato renderizado.
+            Por isso roda também no fonts.ready — quando a fonte cai para
+            fallback (captura do PowerPoint, rede fora), o texto fica mais
+            largo, quebra mais linhas e a coluna precisa encolher.      */
+      const colunas = Array.from(document.querySelectorAll('.body-wrap [data-fit]'));
+
+      function ajustar() {
+        colunas.forEach((col) => {
+          const inner = col.querySelector('.col-inner');
+          const limite = col.clientHeight;
+          if (!inner || !limite) return;
+          let escala = 1;
+          col.style.setProperty('--fit', escala);
+          while (inner.offsetHeight > limite && escala > 0.72) {
+            escala = Math.round((escala - 0.04) * 100) / 100;
+            col.style.setProperty('--fit', escala);
+          }
+        });
+      }
+
+      ajustar();
+      window.addEventListener('resize', ajustar);
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(ajustar);
     })();
   </script>
   <script>
