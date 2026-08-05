@@ -3,6 +3,21 @@
 <!--
   ╔══════════════════════════════════════════════════════════════╗
   ║  Metodologia — as 5 etapas sistematizadas pela Ouvidoria     ║
+  ╠══════════════════════════════════════════════════════════════╣
+  ║  Slide interativo (stepper). Motivo: as 5 etapas em colunas  ║
+  ║  simultâneas obrigavam corpo de texto .69rem — ilegível em   ║
+  ║  projeção. Agora uma etapa fica em foco por vez, com o corpo ║
+  ║  em 1.38rem (o dobro) e o título em 1.7rem (o dobro).        ║
+  ║                                                              ║
+  ║  Interação:                                                  ║
+  ║   · clique nos nós da trilha ou teclas 1–5 → vai à etapa     ║
+  ║   · → ← (e espaço/PageDown/PageUp) → percorrem as etapas e   ║
+  ║     só então passam o comando de slide adiante ao index      ║
+  ║   · G → visão geral (grade original das 5 etapas)            ║
+  ║   · C → contexto normativo (Lei 13.460/2017) em overlay      ║
+  ║                                                              ║
+  ║  `ajustarFonte()` reduz o corpo do texto só se ele exceder   ║
+  ║  o painel (rede de segurança contra overflow em 1920x1080).  ║
   ╚══════════════════════════════════════════════════════════════╝
 -->
 <html lang="pt-BR">
@@ -29,22 +44,130 @@
     .top-accent { height: 8px; background-color: #103050; width: 100%; }
     .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
 
-    .lead {
-      margin: .3rem 3.4rem .6rem; font-size: .78rem; line-height: 1.55; color: #103050;
-      border-left: 4px solid #0090C0; padding-left: 1rem; text-align: justify;
+    /* ───────── Barra de contexto normativo (texto integral vai no overlay) ───────── */
+    .ctx-bar {
+      margin: .35rem 3.4rem .2rem; display: flex; align-items: center; gap: .7rem;
+      border-left: 4px solid #0090C0; padding: .15rem 0 .15rem 1rem;
       animation: fadeInUp .45s ease both;
+    }
+    .ctx-bar p { margin: 0; font-size: .8rem; line-height: 1.4; color: #103050; }
+    .ctx-bar strong { font-family: 'Montserrat', sans-serif; font-weight: 800; }
+    .ctx-btn {
+      flex-shrink: 0; border: 1px solid #BFDCEB; background: #F1F8FC; color: #0070C0;
+      font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: .68rem;
+      padding: .3rem .8rem; border-radius: 999px; cursor: pointer; white-space: nowrap;
+      display: flex; align-items: center; gap: .4rem; transition: background .2s, color .2s;
+    }
+    .ctx-btn:hover { background: #0070C0; color: #fff; border-color: #0070C0; }
+
+    /* ───────── Palco: trilha das etapas + painel em foco ───────── */
+    .palco { flex: 1; min-height: 0; display: flex; flex-direction: column; padding: 0 3.4rem; }
+
+    .trilha {
+      position: relative; display: grid; grid-template-columns: repeat(5, 1fr);
+      gap: .6rem; padding: .5rem 0 .9rem; flex-shrink: 0;
+    }
+    /* Linha-base e barra de progresso ligando os 5 nós */
+    .trilha::before, .trilha-fill {
+      content: ''; position: absolute; top: calc(.5rem + 1.15rem); height: 4px; border-radius: 2px;
+      left: 10%; right: 10%;
+    }
+    .trilha::before { background: #E2E8F0; }
+    .trilha-fill {
+      right: auto; width: 0; background: linear-gradient(90deg, #103050, #0090C0);
+      transition: width .45s cubic-bezier(.4, 0, .2, 1);
     }
 
-    .etapas {
-      flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(5, 1fr);
-      gap: .95rem; padding: 0 3.4rem;
-    }
-    .etapa {
-      border: 2px solid #E2E8F0; border-radius: 14px; background: #fff; padding: 1rem 1rem;
-      box-shadow: 0 10px 24px -14px rgba(16,48,80,.28); display: flex; flex-direction: column;
-      min-height: 0; position: relative; overflow: hidden;
+    .no {
+      position: relative; z-index: 1; background: none; border: 0; padding: 0; cursor: pointer;
+      display: flex; flex-direction: column; align-items: center; gap: .4rem;
+      font-family: 'Montserrat', sans-serif; text-align: center;
       animation: fadeInUp .45s ease both;
     }
+    .no:nth-child(3) { animation-delay: .06s; }
+    .no:nth-child(4) { animation-delay: .12s; }
+    .no:nth-child(5) { animation-delay: .18s; }
+    .no:nth-child(6) { animation-delay: .24s; }
+
+    .no-bolha {
+      width: 2.3rem; height: 2.3rem; border-radius: 50%; background: #fff;
+      border: 3px solid #CBD5E1; color: #94A3B8;
+      font-weight: 900; font-size: 1.05rem; display: flex; align-items: center; justify-content: center;
+      transition: transform .3s, background .3s, border-color .3s, color .3s, box-shadow .3s;
+    }
+    .no-rot { font-weight: 700; font-size: .72rem; line-height: 1.25; color: #94A3B8; transition: color .3s; max-width: 92%; }
+
+    .no:hover .no-bolha { border-color: #0090C0; color: #0070C0; }
+    .no:hover .no-rot { color: #475569; }
+
+    /* Etapas já percorridas */
+    .no.feita .no-bolha { background: #103050; border-color: #103050; color: #fff; }
+    .no.feita .no-rot { color: #64748B; }
+
+    /* Etapa em foco */
+    .no.ativa .no-bolha {
+      background: linear-gradient(150deg, #103050, #0070C0); border-color: #0090C0; color: #fff;
+      transform: scale(1.22); box-shadow: 0 10px 22px -8px rgba(16, 48, 80, .65);
+    }
+    .no.ativa .no-rot { color: #103050; font-weight: 800; }
+
+    /* ───────── Painel da etapa em foco ───────── */
+    .painel {
+      flex: 1; min-height: 0; position: relative;
+      border: 2px solid #E2E8F0; border-radius: 18px; background: #fff;
+      box-shadow: 0 14px 34px -20px rgba(16, 48, 80, .45); overflow: hidden;
+    }
+    .painel::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 6px;
+      background: linear-gradient(90deg, #103050, #0090C0); z-index: 2;
+    }
+
+    .etapa-foco {
+      --fit: 1;
+      position: absolute; inset: 6px 0 0; padding: 1.15rem 2rem 1.1rem;
+      display: none; grid-template-columns: 8.4rem 1fr; gap: 1.6rem; align-items: center;
+    }
+    .etapa-foco.ativa { display: grid; animation: entra .38s cubic-bezier(.4, 0, .2, 1) both; }
+    @keyframes entra { from { opacity: 0; transform: translateX(22px); } to { opacity: 1; transform: none; } }
+
+    /* Coluna-marcador: número grande + ícone da etapa */
+    .marcador { display: flex; flex-direction: column; align-items: center; gap: .5rem; padding-top: .2rem; }
+    .marcador-n {
+      font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 4.6rem; line-height: .85;
+      background: linear-gradient(150deg, #103050, #0090C0); -webkit-background-clip: text;
+      background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .marcador-i { font-size: 1.9rem; color: #0090C0; opacity: .55; }
+    .marcador-p { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: .62rem; letter-spacing: .12em; color: #94A3B8; text-transform: uppercase; }
+
+    .foco-txt { min-width: 0; max-width: 46rem; }
+    .foco-t {
+      font-family: 'Montserrat', sans-serif; font-weight: 800; color: #103050;
+      font-size: calc(1.7rem * var(--fit)); line-height: 1.2; margin: 0 0 .85rem;
+    }
+    .foco-d {
+      font-size: calc(1.38rem * var(--fit)); line-height: 1.55; color: #334155; margin: 0; text-align: justify;
+    }
+    .foco-d + .foco-d { margin-top: .7rem; }
+    .foco-cta {
+      display: inline-flex; align-items: center; gap: .5rem; margin-top: .9rem;
+      background: #F1F8FC; border: 1px solid #BFDCEB; border-radius: 999px; padding: .4rem 1rem;
+      font-family: 'Montserrat', sans-serif; font-weight: 700; color: #0070C0;
+      font-size: calc(1.15rem * var(--fit));
+    }
+
+    /* ───────── Modo visão geral: a grade original das 5 etapas ───────── */
+    .grade { display: none; flex: 1; min-height: 0; grid-template-columns: repeat(5, 1fr); gap: .95rem; padding: .4rem 0 0; }
+    body.modo-grade .trilha, body.modo-grade .painel { display: none; }
+    body.modo-grade .grade { display: grid; }
+
+    .etapa {
+      border: 2px solid #E2E8F0; border-radius: 14px; background: #fff; padding: 1rem;
+      box-shadow: 0 10px 24px -14px rgba(16, 48, 80, .28); display: flex; flex-direction: column;
+      min-height: 0; position: relative; overflow: hidden; cursor: pointer;
+      animation: fadeInUp .45s ease both; transition: transform .2s, border-color .2s;
+    }
+    .etapa:hover { transform: translateY(-4px); border-color: #0090C0; }
     .etapa::before {
       content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px;
       background: linear-gradient(90deg, #103050, #0090C0);
@@ -59,7 +182,7 @@
       background: linear-gradient(150deg, #103050, #0070C0); color: #fff;
       font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1rem;
       display: flex; align-items: center; justify-content: center; margin-bottom: .55rem;
-      box-shadow: 0 8px 16px -8px rgba(16,48,80,.6);
+      box-shadow: 0 8px 16px -8px rgba(16, 48, 80, .6);
     }
     .et-t { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .84rem; color: #103050; line-height: 1.25; margin: 0 0 .5rem; }
     .et-d { font-size: .69rem; line-height: 1.55; color: #475569; margin: 0; text-align: justify; }
@@ -68,6 +191,45 @@
       margin-top: auto; padding-top: .6rem; font-size: .66rem; font-weight: 700; color: #0070C0;
       font-family: 'Montserrat', sans-serif; display: flex; align-items: center; gap: .35rem;
     }
+
+    /* ───────── Rodapé + dicas de teclado ───────── */
+    .dicas { display: flex; align-items: center; gap: .45rem; flex-shrink: 0; }
+    .dica {
+      display: inline-flex; align-items: center; gap: .22rem; font-size: .52rem; white-space: nowrap;
+      font-family: 'Montserrat', sans-serif; font-weight: 700; color: #94A3B8;
+    }
+    .tecla {
+      border: 1px solid #CBD5E1; border-bottom-width: 2px; border-radius: 5px;
+      padding: .05rem .3rem; color: #64748B; background: #F8FAFC; min-width: 1rem; text-align: center;
+    }
+    .dica-btn { background: none; border: 0; padding: 0; cursor: pointer; }
+    .dica-btn:hover .tecla { border-color: #0090C0; color: #0070C0; }
+    .dica-btn.on .tecla { background: #0070C0; border-color: #0070C0; color: #fff; }
+
+    /* ───────── Overlay do contexto normativo ───────── */
+    .ctx-overlay {
+      position: absolute; inset: 0; z-index: 30; background: rgba(16, 48, 80, .55);
+      display: flex; align-items: center; justify-content: center; padding: 3rem;
+      opacity: 0; pointer-events: none; transition: opacity .25s;
+    }
+    .ctx-overlay.aberto { opacity: 1; pointer-events: auto; }
+    .ctx-card {
+      background: #fff; border-radius: 18px; max-width: 46rem; padding: 1.9rem 2.2rem;
+      box-shadow: 0 30px 60px -24px rgba(0, 0, 0, .5); border-top: 6px solid #0090C0;
+      transform: translateY(16px); transition: transform .25s;
+    }
+    .ctx-overlay.aberto .ctx-card { transform: none; }
+    .ctx-card h3 {
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.35rem; color: #103050;
+      margin: 0 0 .8rem; display: flex; align-items: center; gap: .6rem;
+    }
+    .ctx-card p { font-size: 1.05rem; line-height: 1.6; color: #334155; margin: 0; text-align: justify; }
+    .ctx-fechar {
+      margin-top: 1.2rem; border: 0; background: #103050; color: #fff; border-radius: 999px;
+      font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: .8rem;
+      padding: .45rem 1.4rem; cursor: pointer;
+    }
+    .ctx-fechar:hover { background: #0070C0; }
 
     .bg-pattern { position: absolute; bottom: -60px; right: -50px; width: 400px; height: 400px; opacity: .03; z-index: 0; color: #103050; }
     @keyframes fadeInUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
@@ -100,82 +262,318 @@
       </div>
     </div>
 
-    <p class="lead">
-      A Carta de Serviços é um instrumento disciplinado pela Lei nº 13.460/2017 e regulamentado pelo Decreto nº
-      9.094/2017. Seu objetivo principal é informar, de maneira clara e precisa, quais são os serviços prestados pela
-      ANTAQ, as formas de acesso disponíveis, os compromissos e os padrões de qualidade estabelecidos para o atendimento
-      ao público, bem como as opções disponibilizadas por meio do Portal Gov.br. Por intermédio da Ouvidoria da ANTAQ,
-      as superintendências passaram a dispor de ferramentas operacionais para mensurar a percepção de qualidade dos
-      serviços prestados pela Agência — consolidando a Ouvidoria como engrenagem fundamental do Modelo de Avaliação da
-      Qualidade dos Serviços Públicos.
-    </p>
+    <div class="ctx-bar">
+      <p><strong>Base normativa:</strong> Lei nº 13.460/2017 e Decreto nº 9.094/2017 — a Carta de Serviços deu às
+        superintendências as ferramentas para mensurar a percepção de qualidade dos serviços da Agência.</p>
+      <button class="ctx-btn" id="ctxBtn" type="button" aria-haspopup="dialog" aria-expanded="false">
+        <i class="fas fa-circle-info" aria-hidden="true"></i> Contexto completo
+      </button>
+    </div>
 
-    <div class="etapas">
-      <div class="etapa">
-        <div class="et-n">1</div>
-        <p class="et-t">Monitoramento e revisão da Carta de Serviços</p>
-        <p class="et-d">A Carta de Serviços ao Usuário é o documento oficial no qual a Agência detalha ao cidadão e às
-          empresas os serviços oferecidos, os prazos, os custos e os canais de atendimento.</p>
-        <p class="et-d">Esta etapa consiste no acompanhamento contínuo da atualização das informações. Quando um
-          processo é alterado ou otimizado, a Carta é tempestivamente revisada para assegurar a transparência e alinhar
-          as expectativas do público.</p>
+    <div class="palco">
+      <!-- Trilha das 5 etapas — clicável e sincronizada com o painel -->
+      <div class="trilha" role="tablist" aria-label="Etapas da metodologia">
+        <div class="trilha-fill" id="trilhaFill" aria-hidden="true"></div>
+
+        <button class="no" type="button" role="tab" data-n="1" aria-controls="etapa-1">
+          <span class="no-bolha">1</span>
+          <span class="no-rot">Monitoramento da Carta de Serviços</span>
+        </button>
+        <button class="no" type="button" role="tab" data-n="2" aria-controls="etapa-2">
+          <span class="no-bolha">2</span>
+          <span class="no-rot">Engajamento dos conselheiros</span>
+        </button>
+        <button class="no" type="button" role="tab" data-n="3" aria-controls="etapa-3">
+          <span class="no-bolha">3</span>
+          <span class="no-rot">Satisfação e processo decisório</span>
+        </button>
+        <button class="no" type="button" role="tab" data-n="4" aria-controls="etapa-4">
+          <span class="no-bolha">4</span>
+          <span class="no-rot">Enquete de avaliação</span>
+        </button>
+        <button class="no" type="button" role="tab" data-n="5" aria-controls="etapa-5">
+          <span class="no-bolha">5</span>
+          <span class="no-rot">Resultados e prestação de contas</span>
+        </button>
       </div>
 
-      <div class="etapa">
-        <div class="et-n">2</div>
-        <p class="et-t">Engajamento dos conselheiros</p>
-        <p class="et-d">O engajamento garante que os conselheiros acompanhem as demandas e participem ativamente da
-          gestão da qualidade.</p>
-        <p class="et-d">São promovidas ações de divulgação nas redes sociais e no portal institucional da ANTAQ, com
-          apoio da Assessoria de Comunicação e Cerimonial (ASCOM), visando à captação de novos conselheiros e ao convite
-          aos já cadastrados para a resposta às enquetes de avaliação.</p>
-        <div class="et-cta"><i class="fas fa-bullhorn"></i> Seja um conselheiro!</div>
+      <!-- Painel em foco: mesmo conteúdo dos cards, com o dobro do corpo de texto -->
+      <div class="painel">
+        <section class="etapa-foco" id="etapa-1" role="tabpanel" data-n="1">
+          <div class="marcador">
+            <span class="marcador-n">1</span>
+            <i class="fas fa-file-lines marcador-i" aria-hidden="true"></i>
+            <span class="marcador-p">Etapa 1 de 5</span>
+          </div>
+          <div class="foco-txt">
+            <h2 class="foco-t">Monitoramento e revisão da Carta de Serviços</h2>
+            <p class="foco-d">A Carta de Serviços ao Usuário é o documento oficial no qual a Agência detalha ao cidadão e
+              às empresas os serviços oferecidos, os prazos, os custos e os canais de atendimento.</p>
+            <p class="foco-d">Esta etapa consiste no acompanhamento contínuo da atualização das informações. Quando um
+              processo é alterado ou otimizado, a Carta é tempestivamente revisada para assegurar a transparência e
+              alinhar as expectativas do público.</p>
+          </div>
+        </section>
+
+        <section class="etapa-foco" id="etapa-2" role="tabpanel" data-n="2">
+          <div class="marcador">
+            <span class="marcador-n">2</span>
+            <i class="fas fa-bullhorn marcador-i" aria-hidden="true"></i>
+            <span class="marcador-p">Etapa 2 de 5</span>
+          </div>
+          <div class="foco-txt">
+            <h2 class="foco-t">Engajamento dos conselheiros</h2>
+            <p class="foco-d">O engajamento garante que os conselheiros acompanhem as demandas e participem ativamente da
+              gestão da qualidade.</p>
+            <p class="foco-d">São promovidas ações de divulgação nas redes sociais e no portal institucional da ANTAQ,
+              com apoio da Assessoria de Comunicação e Cerimonial (ASCOM), visando à captação de novos conselheiros e ao
+              convite aos já cadastrados para a resposta às enquetes de avaliação.</p>
+            <div class="foco-cta"><i class="fas fa-bullhorn" aria-hidden="true"></i> Seja um conselheiro!</div>
+          </div>
+        </section>
+
+        <section class="etapa-foco" id="etapa-3" role="tabpanel" data-n="3">
+          <div class="marcador">
+            <span class="marcador-n">3</span>
+            <i class="fas fa-magnifying-glass-chart marcador-i" aria-hidden="true"></i>
+            <span class="marcador-p">Etapa 3 de 5</span>
+          </div>
+          <div class="foco-txt">
+            <h2 class="foco-t">Compreensão da satisfação, da qualidade percebida e do processo decisório</h2>
+            <p class="foco-d">Fase dedicada à análise aprofundada dos dados, buscando compreender o <em>gap</em> entre a
+              expectativa do cidadão e a entrega efetiva da Agência.</p>
+            <p class="foco-d">Identifica os fatores que influenciam a tomada de decisão do gestor na priorização de
+              melhorias em processos deficientes, fundamentando-se na experiência do usuário, na sua percepção direta e
+              na atuação do responsável pelo serviço.</p>
+          </div>
+        </section>
+
+        <section class="etapa-foco" id="etapa-4" role="tabpanel" data-n="4">
+          <div class="marcador">
+            <span class="marcador-n">4</span>
+            <i class="fas fa-square-poll-vertical marcador-i" aria-hidden="true"></i>
+            <span class="marcador-p">Etapa 4 de 5</span>
+          </div>
+          <div class="foco-txt">
+            <h2 class="foco-t">Elaboração e aplicação da enquete de avaliação</h2>
+            <p class="foco-d">Etapa na qual a Agência consulta formalmente a sociedade.</p>
+            <p class="foco-d">São estruturadas perguntas estratégicas sobre a presteza no atendimento, o cumprimento de
+              prazos, a clareza das normas e a facilidade de acesso aos sistemas — gerando dados quantitativos e
+              qualitativos essenciais para a promoção de melhorias contínuas.</p>
+          </div>
+        </section>
+
+        <section class="etapa-foco" id="etapa-5" role="tabpanel" data-n="5">
+          <div class="marcador">
+            <span class="marcador-n">5</span>
+            <i class="fas fa-chart-pie marcador-i" aria-hidden="true"></i>
+            <span class="marcador-p">Etapa 5 de 5</span>
+          </div>
+          <div class="foco-txt">
+            <h2 class="foco-t">Apresentação dos resultados e prestação de contas</h2>
+            <p class="foco-d">Visando à transparência e à prestação de contas, os dados apurados na enquete são
+              consolidados em relatório gerencial.</p>
+            <p class="foco-d">O documento apresenta indicadores direcionados aos gestores internos, à Diretoria Colegiada
+              e à sociedade, evidenciando os pontos fortes da atuação institucional e identificando os gargalos que
+              demandam planos de ação imediatos.</p>
+          </div>
+        </section>
       </div>
 
-      <div class="etapa">
-        <div class="et-n">3</div>
-        <p class="et-t">Compreensão da satisfação, da qualidade percebida e do processo decisório</p>
-        <p class="et-d">Fase dedicada à análise aprofundada dos dados, buscando compreender o <em>gap</em> entre a
-          expectativa do cidadão e a entrega efetiva da Agência.</p>
-        <p class="et-d">Identifica os fatores que influenciam a tomada de decisão do gestor na priorização de melhorias
-          em processos deficientes, fundamentando-se na experiência do usuário, na sua percepção direta e na atuação do
-          responsável pelo serviço.</p>
-      </div>
+      <!-- Visão geral: a grade original das 5 etapas (tecla G) -->
+      <div class="grade" id="grade" aria-label="Visão geral das cinco etapas">
+        <div class="etapa" data-n="1">
+          <div class="et-n">1</div>
+          <p class="et-t">Monitoramento e revisão da Carta de Serviços</p>
+          <p class="et-d">A Carta de Serviços ao Usuário é o documento oficial no qual a Agência detalha ao cidadão e às
+            empresas os serviços oferecidos, os prazos, os custos e os canais de atendimento.</p>
+          <p class="et-d">Esta etapa consiste no acompanhamento contínuo da atualização das informações. Quando um
+            processo é alterado ou otimizado, a Carta é tempestivamente revisada para assegurar a transparência e alinhar
+            as expectativas do público.</p>
+        </div>
 
-      <div class="etapa">
-        <div class="et-n">4</div>
-        <p class="et-t">Elaboração e aplicação da enquete de avaliação</p>
-        <p class="et-d">Etapa na qual a Agência consulta formalmente a sociedade.</p>
-        <p class="et-d">São estruturadas perguntas estratégicas sobre a presteza no atendimento, o cumprimento de
-          prazos, a clareza das normas e a facilidade de acesso aos sistemas — gerando dados quantitativos e
-          qualitativos essenciais para a promoção de melhorias contínuas.</p>
-      </div>
+        <div class="etapa" data-n="2">
+          <div class="et-n">2</div>
+          <p class="et-t">Engajamento dos conselheiros</p>
+          <p class="et-d">O engajamento garante que os conselheiros acompanhem as demandas e participem ativamente da
+            gestão da qualidade.</p>
+          <p class="et-d">São promovidas ações de divulgação nas redes sociais e no portal institucional da ANTAQ, com
+            apoio da Assessoria de Comunicação e Cerimonial (ASCOM), visando à captação de novos conselheiros e ao convite
+            aos já cadastrados para a resposta às enquetes de avaliação.</p>
+          <div class="et-cta"><i class="fas fa-bullhorn"></i> Seja um conselheiro!</div>
+        </div>
 
-      <div class="etapa">
-        <div class="et-n">5</div>
-        <p class="et-t">Apresentação dos resultados e prestação de contas</p>
-        <p class="et-d">Visando à transparência e à prestação de contas, os dados apurados na enquete são consolidados
-          em relatório gerencial.</p>
-        <p class="et-d">O documento apresenta indicadores direcionados aos gestores internos, à Diretoria Colegiada e à
-          sociedade, evidenciando os pontos fortes da atuação institucional e identificando os gargalos que demandam
-          planos de ação imediatos.</p>
+        <div class="etapa" data-n="3">
+          <div class="et-n">3</div>
+          <p class="et-t">Compreensão da satisfação, da qualidade percebida e do processo decisório</p>
+          <p class="et-d">Fase dedicada à análise aprofundada dos dados, buscando compreender o <em>gap</em> entre a
+            expectativa do cidadão e a entrega efetiva da Agência.</p>
+          <p class="et-d">Identifica os fatores que influenciam a tomada de decisão do gestor na priorização de melhorias
+            em processos deficientes, fundamentando-se na experiência do usuário, na sua percepção direta e na atuação do
+            responsável pelo serviço.</p>
+        </div>
+
+        <div class="etapa" data-n="4">
+          <div class="et-n">4</div>
+          <p class="et-t">Elaboração e aplicação da enquete de avaliação</p>
+          <p class="et-d">Etapa na qual a Agência consulta formalmente a sociedade.</p>
+          <p class="et-d">São estruturadas perguntas estratégicas sobre a presteza no atendimento, o cumprimento de
+            prazos, a clareza das normas e a facilidade de acesso aos sistemas — gerando dados quantitativos e
+            qualitativos essenciais para a promoção de melhorias contínuas.</p>
+        </div>
+
+        <div class="etapa" data-n="5">
+          <div class="et-n">5</div>
+          <p class="et-t">Apresentação dos resultados e prestação de contas</p>
+          <p class="et-d">Visando à transparência e à prestação de contas, os dados apurados na enquete são consolidados
+            em relatório gerencial.</p>
+          <p class="et-d">O documento apresenta indicadores direcionados aos gestores internos, à Diretoria Colegiada e à
+            sociedade, evidenciando os pontos fortes da atuação institucional e identificando os gargalos que demandam
+            planos de ação imediatos.</p>
+        </div>
       </div>
     </div>
 
-    <div class="px-12 pb-4 pt-3 flex justify-between items-center z-10">
-      <p class="text-gray-400 text-xs">Relatório Anual de Enquetes do Conselho de Usuários · 2026 – Ouvidoria – Agência
-        Nacional de Transportes Aquaviários - ANTAQ</p>
+    <div class="px-12 pb-4 pt-3 flex justify-between items-center gap-6 z-10">
+      <p class="text-gray-400 text-xs whitespace-nowrap">Relatório Anual de Enquetes do Conselho de Usuários · 2026 –
+        Ouvidoria – Agência Nacional de Transportes Aquaviários - ANTAQ</p>
+      <div class="dicas">
+        <span class="dica"><span class="tecla">1</span>–<span class="tecla">5</span> etapa</span>
+        <span class="dica"><span class="tecla">←</span><span class="tecla">→</span> percorrer</span>
+        <button class="dica dica-btn" id="gradeBtn" type="button" aria-pressed="false"><span class="tecla">G</span>
+          visão geral</button>
+        <button class="dica dica-btn" id="ctxBtn2" type="button"><span class="tecla">C</span> contexto</button>
+      </div>
     </div>
+
     <div class="bg-pattern"><i class="fas fa-diagram-project text-9xl"></i></div>
+
+    <!-- Texto normativo integral, preservado do slide original -->
+    <div class="ctx-overlay" id="ctxOverlay" role="dialog" aria-modal="true" aria-labelledby="ctxTitulo">
+      <div class="ctx-card">
+        <h3 id="ctxTitulo"><i class="fas fa-scale-balanced text-brand-secondary" aria-hidden="true"></i> Contexto
+          normativo</h3>
+        <p>A Carta de Serviços é um instrumento disciplinado pela Lei nº 13.460/2017 e regulamentado pelo Decreto nº
+          9.094/2017. Seu objetivo principal é informar, de maneira clara e precisa, quais são os serviços prestados pela
+          ANTAQ, as formas de acesso disponíveis, os compromissos e os padrões de qualidade estabelecidos para o
+          atendimento ao público, bem como as opções disponibilizadas por meio do Portal Gov.br. Por intermédio da
+          Ouvidoria da ANTAQ, as superintendências passaram a dispor de ferramentas operacionais para mensurar a
+          percepção de qualidade dos serviços prestados pela Agência — consolidando a Ouvidoria como engrenagem
+          fundamental do Modelo de Avaliação da Qualidade dos Serviços Públicos.</p>
+        <button class="ctx-fechar" id="ctxFechar" type="button">Fechar</button>
+      </div>
+    </div>
   </div>
 
   <script>
-    document.addEventListener("keydown", function (e) {
-      if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) {
-        e.preventDefault();
-        window.parent.postMessage({ type: "slide-nav", key: e.key }, "*");
+    // ── Estado: etapa em foco (1–5), modo grade e overlay de contexto ──────────
+    const TOTAL_ETAPAS = 5;
+    const nos = Array.from(document.querySelectorAll('.no'));
+    const focos = Array.from(document.querySelectorAll('.etapa-foco'));
+    const fill = document.getElementById('trilhaFill');
+    const painel = document.querySelector('.painel');
+    let etapa = 1;
+    let modoGrade = false;
+    let ctxAberto = false;
+
+    function irPara(n) {
+      etapa = Math.max(1, Math.min(TOTAL_ETAPAS, n));
+      nos.forEach((no) => {
+        const i = +no.dataset.n;
+        no.classList.toggle('ativa', i === etapa);
+        no.classList.toggle('feita', i < etapa);
+        no.setAttribute('aria-selected', i === etapa ? 'true' : 'false');
+      });
+      focos.forEach((f) => f.classList.toggle('ativa', +f.dataset.n === etapa));
+      // Progresso: a barra vai do centro do nó 1 (10%) ao do nó 5 (90%) — logo,
+      // 100% de avanço corresponde a 80% da largura da trilha.
+      fill.style.width = ((etapa - 1) / (TOTAL_ETAPAS - 1) * 80) + '%';
+      ajustarFonte();
+    }
+
+    // Rede de segurança: se o texto no dobro do tamanho estourar a altura do
+    // painel (fonte de fallback, zoom do navegador), reduz em passos de 4%.
+    function ajustarFonte() {
+      const alvo = focos.find((f) => f.classList.contains('ativa'));
+      if (!alvo) return;
+      let escala = 1;
+      alvo.style.setProperty('--fit', escala);
+      const limite = painel.clientHeight - 12;
+      while (alvo.scrollHeight > limite && escala > 0.72) {
+        escala = Math.round((escala - 0.04) * 100) / 100;
+        alvo.style.setProperty('--fit', escala);
       }
+    }
+
+    nos.forEach((no) => no.addEventListener('click', () => irPara(+no.dataset.n)));
+
+    // Na visão geral, clicar num card abre aquela etapa em foco
+    document.querySelectorAll('.grade .etapa').forEach((card) => {
+      card.addEventListener('click', () => { alternarGrade(false); irPara(+card.dataset.n); });
     });
+
+    // ── Visão geral (grade original) ──────────────────────────────────────────
+    const gradeBtn = document.getElementById('gradeBtn');
+    function alternarGrade(estado) {
+      modoGrade = typeof estado === 'boolean' ? estado : !modoGrade;
+      document.body.classList.toggle('modo-grade', modoGrade);
+      gradeBtn.classList.toggle('on', modoGrade);
+      gradeBtn.setAttribute('aria-pressed', modoGrade ? 'true' : 'false');
+      if (!modoGrade) ajustarFonte();
+    }
+    gradeBtn.addEventListener('click', () => alternarGrade());
+
+    // ── Overlay do contexto normativo ─────────────────────────────────────────
+    const overlay = document.getElementById('ctxOverlay');
+    const ctxBtn = document.getElementById('ctxBtn');
+    function alternarCtx(estado) {
+      ctxAberto = typeof estado === 'boolean' ? estado : !ctxAberto;
+      overlay.classList.toggle('aberto', ctxAberto);
+      ctxBtn.setAttribute('aria-expanded', ctxAberto ? 'true' : 'false');
+    }
+    ctxBtn.addEventListener('click', () => alternarCtx());
+    document.getElementById('ctxBtn2').addEventListener('click', () => alternarCtx());
+    document.getElementById('ctxFechar').addEventListener('click', () => alternarCtx(false));
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) alternarCtx(false); });
+
+    // ── Teclado ───────────────────────────────────────────────────────────────
+    // As setas primeiro percorrem as 5 etapas; esgotadas, o comando segue para o
+    // index.html e a apresentação avança/volta de slide normalmente.
+    const TECLAS_NAV = ['ArrowRight', 'ArrowLeft', 'PageDown', 'PageUp', 'Home', 'End', ' ', 'f', 'F'];
+    document.addEventListener('keydown', function (e) {
+      const k = e.key;
+
+      if (k >= '1' && k <= '5') { e.preventDefault(); alternarGrade(false); irPara(+k); return; }
+      if (k === 'g' || k === 'G') { e.preventDefault(); alternarGrade(); return; }
+      if (k === 'c' || k === 'C') { e.preventDefault(); alternarCtx(); return; }
+      if (k === 'Escape') { alternarCtx(false); alternarGrade(false); return; }
+
+      if (TECLAS_NAV.indexOf(k) === -1) return;
+      e.preventDefault();
+
+      // Overlay aberto: a primeira seta apenas fecha o contexto.
+      if (ctxAberto && k !== 'f' && k !== 'F') { alternarCtx(false); return; }
+
+      if (!modoGrade) {
+        const avanca = (k === 'ArrowRight' || k === ' ' || k === 'PageDown');
+        const volta = (k === 'ArrowLeft' || k === 'PageUp');
+        if (avanca && etapa < TOTAL_ETAPAS) { irPara(etapa + 1); return; }
+        if (volta && etapa > 1) { irPara(etapa - 1); return; }
+      }
+
+      window.parent.postMessage({ type: 'slide-nav', key: k }, '*');
+    });
+
+    irPara(1);
+    window.addEventListener('resize', ajustarFonte);
+    if (document.fonts && document.fonts.ready) { document.fonts.ready.then(ajustarFonte); }
+
+    // O index.html não dá foco ao iframe: sem isto as setas seriam capturadas
+    // pelo documento-pai e as etapas nunca seriam percorridas. O pai continua
+    // recebendo tudo o que não é tratado aqui, via postMessage.
+    function pegarFoco() { try { window.focus(); } catch (e) { } }
+    pegarFoco();
+    window.addEventListener('load', pegarFoco);
   </script>
 </body>
 
