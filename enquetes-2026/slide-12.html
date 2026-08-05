@@ -20,60 +20,206 @@
     rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
   <style>
-    html { font-size: 26px; }
-    body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
-    .slide-container { width: 100vw; height: 100vh; position: relative; display: flex; flex-direction: column; background-color: #fff; overflow: hidden; font-family: 'Open Sans', sans-serif; }
-    .font-montserrat { font-family: 'Montserrat', sans-serif; }
-    .text-brand-primary { color: #103050; }
-    .text-brand-secondary { color: #0070C0; }
-    .bg-brand-secondary { background-color: #0070C0; }
-    .top-accent { height: 8px; background-color: #103050; width: 100%; }
-    .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
+    html {
+      font-size: 26px;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f3f4f6;
+      overflow: hidden;
+    }
+
+    .slide-container {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background-color: #fff;
+      overflow: hidden;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    .font-montserrat {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .text-brand-primary {
+      color: #103050;
+    }
+
+    .text-brand-secondary {
+      color: #0070C0;
+    }
+
+    .bg-brand-secondary {
+      background-color: #0070C0;
+    }
+
+    .top-accent {
+      height: 8px;
+      background-color: #103050;
+      width: 100%;
+    }
+
+    .top-accent-secondary {
+      height: 4px;
+      background-color: #0070C0;
+      width: 100%;
+    }
 
     .grid-sup {
-      flex: 1; min-height: 0;
-      display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr;
-      gap: .8rem; padding: .3rem 3rem 0;
+      flex: 1;
+      min-height: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: .8rem;
+      padding: .3rem 3rem 0;
     }
+
     .sup-card {
-      border: 2px solid #E2E8F0; border-radius: 14px; background: #fff;
-      box-shadow: 0 8px 20px -10px rgba(16,48,80,.18);
-      padding: .7rem 1rem .75rem; display: flex; flex-direction: column; min-height: 0;
+      border: 2px solid #E2E8F0;
+      border-radius: 14px;
+      background: #fff;
+      box-shadow: 0 8px 20px -10px rgba(16, 48, 80, .18);
+      padding: .7rem 1rem .75rem;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
       border-top: 5px solid var(--c);
       animation: fadeIn .45s ease both;
     }
-    .sup-card:nth-child(2) { animation-delay: .07s; }
-    .sup-card:nth-child(3) { animation-delay: .14s; }
-    .sup-card:nth-child(4) { animation-delay: .21s; }
 
-    .sup-head { display: flex; align-items: center; gap: .55rem; margin-bottom: .3rem; }
-    .sup-ico {
-      width: 2rem; height: 2rem; border-radius: .5rem; flex-shrink: 0;
-      display: flex; align-items: center; justify-content: center;
-      background: var(--c); color: #fff; font-size: .85rem;
+    .sup-card:nth-child(2) {
+      animation-delay: .07s;
     }
-    .sup-name { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .82rem; color: #103050; line-height: 1.15; }
-    .sup-sigla { color: var(--c); }
+
+    .sup-card:nth-child(3) {
+      animation-delay: .14s;
+    }
+
+    .sup-card:nth-child(4) {
+      animation-delay: .21s;
+    }
+
+    .sup-head {
+      display: flex;
+      align-items: center;
+      gap: .55rem;
+      margin-bottom: .3rem;
+    }
+
+    .sup-ico {
+      width: 2rem;
+      height: 2rem;
+      border-radius: .5rem;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--c);
+      color: #fff;
+      font-size: .85rem;
+    }
+
+    .sup-name {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: .82rem;
+      color: #103050;
+      line-height: 1.15;
+    }
+
+    .sup-sigla {
+      color: var(--c);
+    }
+
     .sup-count {
-      margin-left: auto; flex-shrink: 0; font-family: 'Montserrat', sans-serif; font-weight: 800;
-      font-size: .68rem; color: #fff; background: var(--c); border-radius: 999px; padding: .12rem .6rem;
+      margin-left: auto;
+      flex-shrink: 0;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: .68rem;
+      color: #fff;
+      background: var(--c);
+      border-radius: 999px;
+      padding: .12rem .6rem;
       letter-spacing: .04em;
     }
-    .sup-lead { font-size: .73rem; line-height: 1.45; color: #103050; font-weight: 600; margin: 0 0 .3rem; }
-    .sup-desc { font-size: .67rem; line-height: 1.5; color: #475569; margin: 0 0 .35rem; text-align: justify; }
-    .sup-list { list-style: none; margin: 0; padding: 0; }
-    .sup-list li { position: relative; padding-left: .95rem; margin-bottom: .22rem; font-size: .66rem; line-height: 1.42; color: #334155; }
-    .sup-list li::before {
-      content: "\f105"; font-family: "Font Awesome 6 Free"; font-weight: 900;
-      position: absolute; left: 0; top: 0; color: var(--c);
+
+    .sup-lead {
+      font-size: .73rem;
+      line-height: 1.45;
+      color: #103050;
+      font-weight: 600;
+      margin: 0 0 .3rem;
     }
+
+    .sup-desc {
+      font-size: .67rem;
+      line-height: 1.5;
+      color: #475569;
+      margin: 0 0 .35rem;
+      text-align: justify;
+    }
+
+    .sup-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .sup-list li {
+      position: relative;
+      padding-left: .95rem;
+      margin-bottom: .22rem;
+      font-size: .66rem;
+      line-height: 1.42;
+      color: #334155;
+    }
+
+    .sup-list li::before {
+      content: "\f105";
+      font-family: "Font Awesome 6 Free";
+      font-weight: 900;
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--c);
+    }
+
     /* O cartão da SAF (3º) tem o texto mais longo dos quatro e o último item
        vazava o padding. Aperta o entrelinhas só dele — os outros três ficam
        com a densidade original. */
-    .sup-card:nth-child(3) .sup-list li { line-height: 1.36; margin-bottom: .12rem; }
+    .sup-card:nth-child(3) .sup-list li {
+      line-height: 1.36;
+      margin-bottom: .12rem;
+    }
 
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
-    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
   </style>
 </head>
 
@@ -164,7 +310,7 @@
           <div class="sup-ico"><i class="fas fa-magnifying-glass"></i></div>
           <div class="sup-name">Superintendência de Fiscalização e Coordenação das Unidades Regionais <span
               class="sup-sigla">· SFC</span></div>
-          <div class="sup-count">3 serviços</div>
+          <div class="sup-count">1 serviços</div>
         </div>
         <p class="sup-lead">É o braço operacional no campo — o fiscal que garante que as regras sejam cumpridas.</p>
         <p class="sup-desc">De nada adiantaria criar regras (SRG) e dar autorizações (SOG) se ninguém checasse o dia a
