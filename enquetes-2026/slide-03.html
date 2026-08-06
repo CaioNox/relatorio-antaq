@@ -134,12 +134,13 @@
 
         /* ===== Sumário ===== */
         /* --sum-scale multiplica TODAS as fontes do índice (número do bloco,
-           títulos, seções, subseções e a dica). 1.2 = 20% maior que o tamanho
-           original. Se o texto ampliado não couber na área útil do slide, a
-           função ajusteSumario() reduz este valor até encaixar — então
-           mexer aqui é o único lugar para redimensionar o sumário.          */
+           títulos, seções, subseções e a dica). 1.0 = mesmo tamanho do
+           sumário de /sistema. Como este sumário tem mais itens (bloco
+           "Conselho de Usuários"), a função ajusteSumario() reduz este valor
+           abaixo de 1.0 quando necessário para caber sem cortar o texto —
+           então mexer aqui é o único lugar para redimensionar o sumário.    */
         .sumario {
-            --sum-scale: 1.2;
+            --sum-scale: 1;
             margin-top: 0.4rem;
             max-width: none;
             width: 100%;
@@ -806,13 +807,17 @@
                 }
 
                 // Guarda de encaixe: o slide é um quadro fixo (1920×1080, overflow
-                // hidden). A fonte do sumário sai de --sum-scale (1.2 = +20%); se a
-                // coluna mais alta passar da área útil (fim do padding inferior do
-                // #conteudo), a escala cai de 2% em 2% até caber, no piso de 1.0 =
-                // tamanho original. Assim ampliar a fonte nunca corta texto.
+                // hidden). A fonte do sumário sai de --sum-scale (1.0 = mesmo
+                // tamanho do sumário de /sistema); se a coluna mais alta passar da
+                // área útil (fim do padding inferior do #conteudo) — o que acontece
+                // aqui por ter mais itens que /sistema —, a escala cai de 2% em 2%
+                // até caber, com piso de 0.8 para nunca ficar ilegível. Assim o
+                // sumário sai do mesmo tamanho de /sistema e só encolhe o mínimo
+                // necessário para não cortar texto.
                 const sumario = document.getElementById('sumario');
                 const conteudo = document.getElementById('conteudo');
-                const ESCALA_ALVO = 1.2;
+                const ESCALA_ALVO = 1;
+                const ESCALA_MIN = 0.8;
 
                 function ajusteSumario() {
                     if (!sumario || !conteudo) { alignTitles(); return; }
@@ -822,9 +827,9 @@
                     for (;;) {
                         sumario.style.setProperty('--sum-scale', escala.toFixed(2));
                         alignTitles();
-                        if (escala <= 1 || root.getBoundingClientRect().bottom <= limite) break;
+                        if (escala <= ESCALA_MIN || root.getBoundingClientRect().bottom <= limite) break;
                         escala -= 0.02;
-                        if (escala < 1) escala = 1;
+                        if (escala < ESCALA_MIN) escala = ESCALA_MIN;
                     }
                 }
                 requestAnimationFrame(ajusteSumario);
