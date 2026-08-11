@@ -182,7 +182,7 @@
         .sum-num {
             font-family: 'Montserrat', sans-serif;
             font-weight: 900;
-            font-size: calc(3rem * var(--sum-scale));
+            font-size: calc(3.6rem * var(--sum-scale));
             line-height: 1;
             background: linear-gradient(135deg, #00AEEF 0%, #5AB4DC 55%, #0090C0 100%);
             -webkit-background-clip: text;
@@ -196,7 +196,7 @@
             display: block;
             font-family: 'Montserrat', sans-serif;
             font-weight: 800;
-            font-size: calc(0.9rem * var(--sum-scale));
+            font-size: calc(1.08rem * var(--sum-scale));
             letter-spacing: 0.03em;
             text-transform: uppercase;
             color: #ffffff;
@@ -217,7 +217,7 @@
             position: relative;
             display: block;
             font-family: 'Open Sans', sans-serif;
-            font-size: calc(0.82rem * var(--sum-scale));
+            font-size: calc(1.14rem * var(--sum-scale));
             line-height: 1.28;
             color: #e3eefc;
             margin-bottom: 0.5rem;
@@ -234,7 +234,7 @@
             position: absolute;
             left: 0;
             top: 0.1rem;
-            font-size: calc(0.72rem * var(--sum-scale));
+            font-size: calc(0.864rem * var(--sum-scale));
             color: #0090C0;
             transition: transform .18s ease;
         }
@@ -251,7 +251,7 @@
             position: relative;
             font-family: 'Montserrat', sans-serif;
             font-weight: 700;
-            font-size: calc(0.78rem * var(--sum-scale));
+            font-size: calc(0.936rem * var(--sum-scale));
             letter-spacing: 0.04em;
             text-transform: uppercase;
             color: #0090C0;
@@ -273,7 +273,7 @@
         .sum-subitem {
             display: block;
             font-family: 'Open Sans', sans-serif;
-            font-size: calc(0.77rem * var(--sum-scale));
+            font-size: calc(0.924rem * var(--sum-scale));
             line-height: 1.26;
             color: #cfe0f7;
             margin-bottom: 0.4rem;
@@ -291,7 +291,7 @@
 
         .sum-hint {
             font-family: 'Open Sans', sans-serif;
-            font-size: calc(0.72rem * var(--sum-scale));
+            font-size: calc(0.864rem * var(--sum-scale));
             color: #9db9e6;
             margin: 0.15rem 0 0.5rem;
             display: flex;
@@ -595,7 +595,8 @@
                 style="font-size: 10px; line-height: 1.35; opacity: 0.85; max-width: 78%;">
                 <i class="fas fa-copyright" style="font-size: 14px; color: #0090C0; margin-top: 1px;"></i>
                 <span>Copyright &copy; 2026 — É permitida a reprodução parcial ou total desta obra, desde que citada a
-                    fonte, e vedada a impressão, distribuição e reprodução desta obra para fins comerciais sem a prévia e
+                    fonte, e vedada a impressão, distribuição e reprodução desta obra para fins comerciais sem a prévia
+                    e
                     expressa anuência da ANTAQ.</span>
             </div>
 
@@ -824,7 +825,7 @@
                     const limite = conteudo.getBoundingClientRect().bottom
                         - parseFloat(getComputedStyle(conteudo).paddingBottom);
                     let escala = ESCALA_ALVO;
-                    for (;;) {
+                    for (; ;) {
                         sumario.style.setProperty('--sum-scale', escala.toFixed(2));
                         alignTitles();
                         if (escala <= ESCALA_MIN || root.getBoundingClientRect().bottom <= limite) break;
