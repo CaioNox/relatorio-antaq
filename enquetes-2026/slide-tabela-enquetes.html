@@ -23,79 +23,283 @@
     rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
   <style>
-    html { font-size: 26px; }
-    body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
-    .slide-container { width: 100vw; height: 100vh; position: relative; display: flex; flex-direction: column; background-color: #fff; overflow: hidden; font-family: 'Open Sans', sans-serif; }
-    .font-montserrat { font-family: 'Montserrat', sans-serif; }
-    .text-brand-primary { color: #103050; }
-    .text-brand-secondary { color: #0070C0; }
-    .bg-brand-secondary { background-color: #0070C0; }
-    .top-accent { height: 8px; background-color: #103050; width: 100%; }
-    .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
+    html {
+      font-size: 26px;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f3f4f6;
+      overflow: hidden;
+    }
+
+    .slide-container {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background-color: #fff;
+      overflow: hidden;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    .font-montserrat {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .text-brand-primary {
+      color: #103050;
+    }
+
+    .text-brand-secondary {
+      color: #0070C0;
+    }
+
+    .bg-brand-secondary {
+      background-color: #0070C0;
+    }
+
+    .top-accent {
+      height: 8px;
+      background-color: #103050;
+      width: 100%;
+    }
+
+    .top-accent-secondary {
+      height: 4px;
+      background-color: #0070C0;
+      width: 100%;
+    }
 
     .periodo {
-      margin: .25rem 3rem .45rem; display: flex; align-items: center; gap: .8rem; flex-wrap: wrap;
+      margin: .25rem 3rem .45rem;
+      display: flex;
+      align-items: center;
+      gap: .8rem;
+      flex-wrap: wrap;
       animation: fadeInUp .4s ease both;
     }
-    .periodo .faixa {
-      display: inline-flex; align-items: center; gap: .5rem; background: #103050; color: #fff;
-      font-family: 'Montserrat', sans-serif; font-size: .62rem; font-weight: 700; letter-spacing: .08em;
-      text-transform: uppercase; border-radius: 999px; padding: .25rem .85rem;
-    }
-    .periodo .faixa.alt { background: #0090C0; }
-    .periodo .obs { font-size: .62rem; color: #64748B; }
 
-    .tab-wrap { flex: 1; min-height: 0; padding: 0 3rem; overflow: hidden; animation: fadeInUp .45s ease both .06s; }
-    table.enq { width: 100%; border-collapse: collapse; table-layout: fixed; }
-    table.enq th {
-      font-family: 'Montserrat', sans-serif; font-size: .53rem; font-weight: 800; letter-spacing: .05em;
-      text-transform: uppercase; color: #fff; background: #103050; padding: .3rem .45rem; text-align: left;
-      line-height: 1.25; position: sticky; top: 0;
+    .periodo .faixa {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: #103050;
+      color: #fff;
+      font-family: 'Montserrat', sans-serif;
+      font-size: .62rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      border-radius: 999px;
+      padding: .25rem .85rem;
     }
-    table.enq td { padding: .2rem .45rem; font-size: .625rem; line-height: 1.28; color: #334155; border-bottom: 1px solid #EDF2F7; }
-    table.enq tr:nth-child(even) td { background: #F8FAFC; }
-    table.enq td.n, table.enq th.n { width: 2rem; text-align: center; font-family: 'Montserrat', sans-serif; font-weight: 800; color: #64748B; }
-    table.enq td.pag, table.enq th.pag { width: 2.5rem; text-align: center; color: #94A3B8; font-style: italic; white-space: nowrap; }
-    table.enq td.sup, table.enq th.sup { width: 3.5rem; text-align: center; }
-    table.enq td.enq, table.enq th.enq { width: 3.9rem; text-align: center; }
-    table.enq td.num, table.enq th.num { width: 4.6rem; text-align: center; }
-    table.enq td.link, table.enq th.link { width: 2.6rem; text-align: center; }
-    table.enq td.enq b { font-family: 'Montserrat', sans-serif; font-weight: 800; color: #0070C0; }
+
+    .periodo .faixa.alt {
+      background: #0090C0;
+    }
+
+    .periodo .obs {
+      font-size: .62rem;
+      color: #64748B;
+    }
+
+    .tab-wrap {
+      flex: 1;
+      min-height: 0;
+      padding: 0 3rem;
+      overflow: hidden;
+      animation: fadeInUp .45s ease both .06s;
+    }
+
+    table.enq {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+
+    table.enq th {
+      font-family: 'Montserrat', sans-serif;
+      font-size: .53rem;
+      font-weight: 800;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      color: #fff;
+      background: #103050;
+      padding: .3rem .45rem;
+      text-align: left;
+      line-height: 1.25;
+      position: sticky;
+      top: 0;
+    }
+
+    table.enq td {
+      padding: .2rem .45rem;
+      font-size: .625rem;
+      line-height: 1.28;
+      color: #334155;
+      border-bottom: 1px solid #EDF2F7;
+    }
+
+    table.enq tr:nth-child(even) td {
+      background: #F8FAFC;
+    }
+
+    table.enq td.n,
+    table.enq th.n {
+      width: 2rem;
+      text-align: center;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      color: #64748B;
+    }
+
+    table.enq td.pag,
+    table.enq th.pag {
+      width: 2.5rem;
+      text-align: center;
+      color: #94A3B8;
+      font-style: italic;
+      white-space: nowrap;
+    }
+
+    table.enq td.sup,
+    table.enq th.sup {
+      width: 3.5rem;
+      text-align: center;
+    }
+
+    table.enq td.enq,
+    table.enq th.enq {
+      width: 3.9rem;
+      text-align: center;
+    }
+
+    table.enq td.num,
+    table.enq th.num {
+      width: 4.6rem;
+      text-align: center;
+    }
+
+    table.enq td.link,
+    table.enq th.link {
+      width: 2.6rem;
+      text-align: center;
+    }
+
+    table.enq td.enq b {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      color: #0070C0;
+    }
 
     /* Nº da enquete é clicável: leva ao slide de resultados dela */
     .enq-link {
-      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .625rem; color: #0070C0;
-      background: rgba(0, 112, 192, .08); border: 1px solid rgba(0, 112, 192, .28);
-      border-radius: 999px; padding: .05rem .45rem; cursor: pointer; line-height: 1.28;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: .625rem;
+      color: #0070C0;
+      background: rgba(0, 112, 192, .08);
+      border: 1px solid rgba(0, 112, 192, .28);
+      border-radius: 999px;
+      padding: .05rem .45rem;
+      cursor: pointer;
+      line-height: 1.28;
       transition: background .15s, color .15s, border-color .15s;
     }
-    .enq-link:hover, .enq-link:focus-visible {
-      background: #0070C0; border-color: #0070C0; color: #fff; outline: none;
+
+    .enq-link:hover,
+    .enq-link:focus-visible {
+      background: #0070C0;
+      border-color: #0070C0;
+      color: #fff;
+      outline: none;
     }
-    table.enq td.num b { font-family: 'Montserrat', sans-serif; font-weight: 800; color: #103050; font-size: .72rem; }
+
+    table.enq td.num b {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      color: #103050;
+      font-size: .72rem;
+    }
 
     .sup-pill {
-      display: inline-block; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .55rem;
-      color: #fff; border-radius: 999px; padding: .08rem .45rem; letter-spacing: .05em;
+      display: inline-block;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: .55rem;
+      color: #fff;
+      border-radius: 999px;
+      padding: .08rem .45rem;
+      letter-spacing: .05em;
     }
-    .plataforma-link { color: #0070C0; font-size: .7rem; }
-    .plataforma-link:hover { color: #0090C0; }
 
-    .sem-enquete td { background: #FFF7E6 !important; color: #7A5200; }
+    .plataforma-link {
+      color: #0070C0;
+      font-size: .7rem;
+    }
+
+    .plataforma-link:hover {
+      color: #0090C0;
+    }
+
+    .sem-enquete td {
+      background: #FFF7E6 !important;
+      color: #7A5200;
+    }
+
     .badge-pend {
-      display: inline-block; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .5rem;
-      letter-spacing: .08em; text-transform: uppercase; background: #F2A900; color: #103050;
-      border-radius: 999px; padding: .05rem .4rem;
+      display: inline-block;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: .5rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      background: #F2A900;
+      color: #103050;
+      border-radius: 999px;
+      padding: .05rem .4rem;
     }
 
     .rodape-obs {
-      margin: .35rem 3rem 0; font-size: .58rem; color: #94A3B8; display: flex; align-items: flex-start; gap: .4rem;
+      margin: .35rem 3rem 0;
+      font-size: .58rem;
+      color: #94A3B8;
+      display: flex;
+      align-items: flex-start;
+      gap: .4rem;
     }
-    .rodape-obs i { color: #F2A900; margin-top: .08rem; }
 
-    @keyframes fadeInUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
-    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+    .rodape-obs i {
+      color: #F2A900;
+      margin-top: .08rem;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
   </style>
+  <link rel="stylesheet" href="a11y.css">
 </head>
 
 <body>
@@ -133,14 +337,14 @@
       <table class="enq">
         <thead>
           <tr>
-            <th class="n">Nº</th>
-            <th>Serviço</th>
-            <th class="pag">Pág.</th>
-            <th class="sup">Sup.</th>
-            <th class="enq">Enquete</th>
-            <th class="link">Link</th>
-            <th class="num">Conselheiros</th>
-            <th class="num">Respostas</th>
+            <th class="n" scope="col">Nº</th>
+            <th scope="col">Serviço</th>
+            <th class="pag" scope="col">Pág.</th>
+            <th class="sup" scope="col">Sup.</th>
+            <th class="enq" scope="col">Enquete</th>
+            <th class="link" scope="col">Link</th>
+            <th class="num" scope="col">Conselheiros</th>
+            <th class="num" scope="col">Respostas</th>
           </tr>
         </thead>
         <tbody id="corpo"></tbody>
@@ -241,6 +445,7 @@
       }
     });
   </script>
+  <script src="a11y.js" defer></script>
 </body>
 
 </html>

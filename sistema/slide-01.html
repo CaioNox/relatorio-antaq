@@ -481,6 +481,7 @@
             }
         }
     </style>
+  <link rel="stylesheet" href="a11y.css">
 </head>
 
 <body>
@@ -799,6 +800,7 @@
 
             document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });
         </script>
+  <script src="a11y.js" defer></script>
 </body>
 
 </html>

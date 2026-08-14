@@ -39,6 +39,7 @@
        e montam um .pptx no navegador, sem servidor. -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+  <link rel="stylesheet" href="a11y.css" />
   <style>
     /* Página física = 16:9 landscape → o slide preenche 100% sem bordas */
     :root {
@@ -464,6 +465,7 @@
       const frame = document.createElement('iframe');
       frame.setAttribute('scrolling', 'no');
       frame.setAttribute('tabindex', '-1');
+      frame.title = 'Slide: ' + page.dataset.file.replace('.html', '').replace(/[-_]/g, ' ');
       frame.src = page.dataset.file;
       page.appendChild(frame);
       return frame;
@@ -834,6 +836,7 @@
 
     btnPptx.addEventListener('click', gerarPPTX);
   </script>
+  <script src="a11y.js" defer></script>
 </body>
 
 </html>

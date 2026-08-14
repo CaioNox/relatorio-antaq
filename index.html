@@ -416,6 +416,25 @@
         transition: none !important;
       }
     }
+
+    /* Foco visível só em navegação por teclado — não altera o estado padrão. */
+    a.card:focus-visible {
+      outline: 3px solid #F2A900;
+      outline-offset: 3px;
+    }
+
+    /* Texto só para leitor de tela — não afeta o layout visual. */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
   </style>
 </head>
 
@@ -447,7 +466,7 @@
         <div class="card-content">
           <h2>Relatório Trimestral 2026</h2>
           <p>Dados consolidados das manifestações do 1º trimestre (Jan–Mar).</p>
-          <span class="card-link">Abrir apresentação <i class="fa-solid fa-arrow-right"></i></span>
+          <span class="card-link">Abrir apresentação <i class="fa-solid fa-arrow-right" aria-hidden="true"></i><span class="sr-only"> (abre em nova aba)</span></span>
         </div>
       </a>
 
@@ -460,7 +479,7 @@
           <h2>Relatório Anual de Enquetes do Conselho de Usuários de Serviços Públicos da ANTAQ 2026</h2>
           <p>Resultados das enquetes dos 31 serviços da Carta de Serviços — 2ª rodada de avaliação (07/04 a
             27/04/2026).</p>
-          <span class="card-link">Abrir apresentação <i class="fa-solid fa-arrow-right"></i></span>
+          <span class="card-link">Abrir apresentação <i class="fa-solid fa-arrow-right" aria-hidden="true"></i><span class="sr-only"> (abre em nova aba)</span></span>
         </div>
       </a>
     </div>

@@ -197,6 +197,7 @@
       display: inline-block;
     }
   </style>
+  <link rel="stylesheet" href="a11y.css">
 </head>
 
 <body>
@@ -229,19 +230,19 @@
         <p class="text-brand-primary font-montserrat font-bold text-xl mb-1 flex items-center gap-2"><i
             class="fas fa-inbox text-brand-secondary"></i> Recebidas</p>
         <p class="text-gray-400 text-sm mb-2">Total no trimestre: <strong class="text-brand-primary">434</strong></p>
-        <div class="flex-1 relative"><canvas id="chartRecebidas"></canvas></div>
+        <div class="flex-1 relative"><canvas id="chartRecebidas" role="img" aria-label="Gráfico de barras: manifestações recebidas por mês — Janeiro 90, Fevereiro 129, Março 85"></canvas></div>
       </div>
       <div class="chart-card col-span-1 flex flex-col">
         <p class="text-brand-primary font-montserrat font-bold text-xl mb-1 flex items-center gap-2"><i
             class="fas fa-box-archive text-brand-secondary"></i> Arquivadas</p>
         <p class="text-gray-400 text-sm mb-2">Total no trimestre: <strong class="text-brand-primary">46</strong></p>
-        <div class="flex-1 relative"><canvas id="chartArquivadas"></canvas></div>
+        <div class="flex-1 relative"><canvas id="chartArquivadas" role="img" aria-label="Gráfico de barras: manifestações arquivadas por mês — Janeiro 17, Fevereiro 16, Março 13"></canvas></div>
       </div>
       <div class="chart-card col-span-1 flex flex-col">
         <p class="text-brand-primary font-montserrat font-bold text-xl mb-1 flex items-center gap-2"><i
             class="fas fa-share-from-square text-brand-secondary"></i> Encaminhadas</p>
         <p class="text-gray-400 text-sm mb-2">Total no trimestre: <strong class="text-brand-primary">12</strong></p>
-        <div class="flex-1 relative"><canvas id="chartEncaminhadas"></canvas></div>
+        <div class="flex-1 relative"><canvas id="chartEncaminhadas" role="img" aria-label="Gráfico de barras: manifestações encaminhadas por mês — Janeiro 3, Fevereiro 3, Março 6"></canvas></div>
       </div>
     </div>
     <!-- Footer -->
@@ -267,10 +268,11 @@
         ctx.restore();
       }
     };
-    function makeBar(id, data) {
+    const monthLabels = ['Jan', 'Fev', 'Mar'];
+    function makeBar(id, data, caption) {
       new Chart(document.getElementById(id), {
         type: 'bar',
-        data: { labels: ['Jan', 'Fev', 'Mar'], datasets: [{ data, backgroundColor: monthColors, borderRadius: 6, maxBarThickness: 80 }] },
+        data: { labels: monthLabels, datasets: [{ data, backgroundColor: monthColors, borderRadius: 6, maxBarThickness: 80 }] },
         options: {
           responsive: true, maintainAspectRatio: false,
           layout: { padding: { top: 22 } },
@@ -282,12 +284,27 @@
         },
         plugins: [valueLabels]
       });
+      function renderTable() {
+        if (!window.A11y) return;
+        A11y.renderChartFallbackTable(
+          document.getElementById(id),
+          caption,
+          ['Mês', 'Quantidade'],
+          monthLabels.map((l, i) => [l, String(data[i])])
+        );
+      }
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', renderTable);
+      } else {
+        renderTable();
+      }
     }
-    makeBar('chartRecebidas', [90, 129, 85]);
-    makeBar('chartArquivadas', [17, 16, 13]);
-    makeBar('chartEncaminhadas', [3, 3, 6]);
+    makeBar('chartRecebidas', [90, 129, 85], 'Manifestações recebidas por mês');
+    makeBar('chartArquivadas', [17, 16, 13], 'Manifestações arquivadas por mês');
+    makeBar('chartEncaminhadas', [3, 3, 6], 'Manifestações encaminhadas por mês');
   </script>
   <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
+  <script src="a11y.js" defer></script>
 </body>
 
 </html>
