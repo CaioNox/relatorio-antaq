@@ -213,6 +213,7 @@
       *, *::before, *::after { animation: none !important; transition: none !important; }
     }
   </style>
+  <link rel="stylesheet" href="a11y.css">
 </head>
 
 <body>
@@ -516,7 +517,9 @@
         return;
       }
 
-      wrap.innerHTML = '<canvas id="mesChart"></canvas>';
+      wrap.innerHTML = '<canvas id="mesChart" role="img"></canvas>';
+      document.getElementById('mesChart').setAttribute('aria-label', 'Gráfico de rosca: distribuição das tramitações por superintendência — ' +
+        porPai.map(x => x.p.name + ' ' + x.v).join(', '));
 
       const percentageLabelsPlugin = {
         id: 'percentageLabels',
@@ -575,6 +578,15 @@
         plugins: [percentageLabelsPlugin]
       });
 
+      if (window.A11y) {
+        A11y.renderChartFallbackTable(
+          document.getElementById('mesChart'),
+          'Distribuição das tramitações por superintendência',
+          ['Superintendência', 'Tramitações'],
+          porPai.map(x => [x.p.name, String(x.v)])
+        );
+      }
+
       const parcial = selMeses.size < MESES.length;
       cap.style.color = '#475569';
       cap.innerHTML = '<i class="fas fa-chart-pie"></i> Distribuição por superintendência · ' +
@@ -603,8 +615,15 @@
     }
 
     update();
+    // Garante a tabela de acessibilidade do gráfico também no carregamento
+    // inicial, caso a11y.js (script deferred) ainda não tivesse carregado
+    // no momento da primeira renderização.
+    document.addEventListener('DOMContentLoaded', function () {
+      if (window.A11y) renderMes();
+    });
   </script>
   <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
+  <script src="a11y.js" defer></script>
 </body>
 
 </html>

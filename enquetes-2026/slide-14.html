@@ -455,6 +455,7 @@
       }
     }
   </style>
+  <link rel="stylesheet" href="a11y.css">
 </head>
 
 <body>
@@ -507,7 +508,7 @@
       <div class="right">
         <div class="chart-card">
           <div class="chart-title" id="chartTitle">Distribuição por superintendência</div>
-          <div class="chart-box"><canvas id="grafico"></canvas></div>
+          <div class="chart-box"><canvas id="grafico" role="img"></canvas></div>
         </div>
       </div>
     </div>
@@ -605,11 +606,11 @@
           return Math.max.apply(null, anos.map(function (a) { return porAno[a][s]; }));
         }));
 
-        var th = '<tr><th>Superintendência</th>';
-        anos.forEach(function (a) { th += '<th class="n">' + a + '</th>'; });
+        var th = '<tr><th scope="col">Superintendência</th>';
+        anos.forEach(function (a) { th += '<th class="n" scope="col">' + a + '</th>'; });
         th += comparando
-          ? '<th class="n">Var.</th></tr>'
-          : '<th class="n">%</th><th style="width:34%"></th></tr>';
+          ? '<th class="n" scope="col">Var.</th></tr>'
+          : '<th class="n" scope="col">%</th><th scope="col" style="width:34%"></th></tr>';
         head.innerHTML = th;
 
         var linhas = '';
@@ -710,6 +711,7 @@
         if (anos.length === 1) {
           var ano = anos[0];
           titulo.textContent = 'Distribuição por superintendência · ' + ano;
+          ctx.setAttribute('aria-label', 'Gráfico de rosca: distribuição de serviços por superintendência em ' + ano + ' (dados detalhados na tabela ao lado)');
           grafico = new Chart(ctx, {
             type: 'doughnut',
             data: {
@@ -744,6 +746,7 @@
           });
         } else {
           titulo.textContent = 'Comparativo por superintendência · ' + anos.join(' · ');
+          ctx.setAttribute('aria-label', 'Gráfico de barras: comparativo de serviços por superintendência entre ' + anos.join(', ') + ' (dados detalhados na tabela ao lado)');
           grafico = new Chart(ctx, {
             type: 'bar',
             data: {
@@ -827,6 +830,7 @@
       }
     });
   </script>
+  <script src="a11y.js" defer></script>
 </body>
 
 </html>

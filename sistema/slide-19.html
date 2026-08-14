@@ -374,6 +374,7 @@
       color: #103050;
     }
   </style>
+  <link rel="stylesheet" href="a11y.css">
 </head>
 
 <body>
@@ -407,14 +408,14 @@
         <p class="text-brand-primary font-montserrat font-bold text-xl mb-1 flex items-center gap-2"><i
             class="fas fa-file-circle-plus text-brand-secondary"></i> Pedidos recebidos</p>
         <p class="text-gray-400 text-sm mb-2">Total no trimestre: <strong class="text-brand-primary">130</strong></p>
-        <div class="flex-1 relative"><canvas id="chartRecebidos"></canvas></div>
+        <div class="flex-1 relative"><canvas id="chartRecebidos" role="img" aria-label="Gráfico de barras: pedidos LAI recebidos por mês — Janeiro 34, Fevereiro 35, Março 61"></canvas></div>
       </div>
       <div class="chart-card flex flex-col">
         <p class="text-brand-primary font-montserrat font-bold text-xl mb-1 flex items-center gap-2"><i
             class="fas fa-file-circle-check text-brand-secondary"></i> Pedidos respondidos</p>
         <p class="text-gray-400 text-sm mb-2">Total no trimestre: <strong class="text-brand-primary">130</strong> · 100%
           no prazo</p>
-        <div class="flex-1 relative"><canvas id="chartRespondidos"></canvas></div>
+        <div class="flex-1 relative"><canvas id="chartRespondidos" role="img" aria-label="Gráfico de barras: pedidos LAI respondidos por mês — Janeiro 34, Fevereiro 35, Março 61"></canvas></div>
       </div>
     </div>
     <!-- Footer -->
@@ -435,10 +436,11 @@
         ctx.restore();
       }
     };
-    function makeBar(id, data) {
+    const monthLabels = ['Jan', 'Fev', 'Mar'];
+    function makeBar(id, data, caption) {
       new Chart(document.getElementById(id), {
         type: 'bar',
-        data: { labels: ['Jan', 'Fev', 'Mar'], datasets: [{ data, backgroundColor: monthColors, borderRadius: 6, maxBarThickness: 90 }] },
+        data: { labels: monthLabels, datasets: [{ data, backgroundColor: monthColors, borderRadius: 6, maxBarThickness: 90 }] },
         options: {
           responsive: true, maintainAspectRatio: false, layout: { padding: { top: 22 } },
           plugins: { legend: { display: false }, tooltip: { enabled: false } },
@@ -449,11 +451,26 @@
         },
         plugins: [valueLabels]
       });
+      function renderTable() {
+        if (!window.A11y) return;
+        A11y.renderChartFallbackTable(
+          document.getElementById(id),
+          caption,
+          ['Mês', 'Quantidade'],
+          monthLabels.map((l, i) => [l, String(data[i])])
+        );
+      }
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', renderTable);
+      } else {
+        renderTable();
+      }
     }
-    makeBar('chartRecebidos', [34, 35, 61]);
-    makeBar('chartRespondidos', [34, 35, 61]);
+    makeBar('chartRecebidos', [34, 35, 61], 'Pedidos LAI recebidos por mês');
+    makeBar('chartRespondidos', [34, 35, 61], 'Pedidos LAI respondidos por mês');
   </script>
   <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
+  <script src="a11y.js" defer></script>
 </body>
 
 </html>

@@ -46,6 +46,7 @@
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
   </style>
+  <link rel="stylesheet" href="a11y.css">
 </head>
 <body>
   <div class="slide-container">
@@ -73,7 +74,7 @@
       <!-- Coluna esquerda: gráfico trimestre + destaque -->
       <div class="flex flex-col gap-3">
         <div class="chart-card flex-1 flex flex-col" style="min-height:0;">
-          <div class="flex-1 relative" style="min-height:0;"><canvas id="chartTipos"></canvas></div>
+          <div class="flex-1 relative" style="min-height:0;"><canvas id="chartTipos" role="img" aria-label="Gráfico de barras: total de manifestações por tipo no trimestre — Denúncia 194, Solicitação 60, Reclamação 44, Sugestão 3, Elogio 2, Simplifique 1"></canvas></div>
         </div>
         <div class="highlight-mini">
           <p class="text-blue-100 font-montserrat font-bold uppercase tracking-widest mb-0" style="font-size:.55rem;">Tipo mais frequente</p>
@@ -97,7 +98,7 @@
       <!-- Coluna direita: gráfico por mês -->
       <div class="flex flex-col gap-3">
         <div class="chart-card flex-1 flex flex-col" style="min-height:0;">
-          <div class="flex-1 relative" style="min-height:0;"><canvas id="chartTiposMes"></canvas></div>
+          <div class="flex-1 relative" style="min-height:0;"><canvas id="chartTiposMes" role="img" aria-label="Gráfico de barras: quantidade de manifestações por tipo em cada mês do trimestre (Janeiro, Fevereiro, Março)"></canvas></div>
         </div>
         <div class="chart-card">
           <div class="flex gap-4 justify-center" style="font-size:.62rem;">
@@ -165,15 +166,16 @@
         ctx.restore();
       }
     };
+    const datasetsMes = [
+      { label: 'Janeiro', data: [19, 23, 47, 0, 0, 1], backgroundColor: '#0070C0', borderRadius: 4, maxBarThickness: 58, categoryPercentage: 0.85, barPercentage: 0.98, skipNull: true },
+      { label: 'Fevereiro', data: [14, 33, 81, 1, 0, 0], backgroundColor: '#0090C0', borderRadius: 4, maxBarThickness: 58, categoryPercentage: 0.85, barPercentage: 0.98, skipNull: true },
+      { label: 'Março', data: [11, 4, 66, 2, 2, 0], backgroundColor: '#103050', borderRadius: 4, maxBarThickness: 58, categoryPercentage: 0.85, barPercentage: 0.98, skipNull: true }
+    ];
     new Chart(document.getElementById('chartTiposMes'), {
       type: 'bar',
       data: {
         labels,
-        datasets: [
-          { label: 'Janeiro', data: [19, 23, 47, 0, 0, 1], backgroundColor: '#0070C0', borderRadius: 4, maxBarThickness: 58, categoryPercentage: 0.85, barPercentage: 0.98, skipNull: true },
-          { label: 'Fevereiro', data: [14, 33, 81, 1, 0, 0], backgroundColor: '#0090C0', borderRadius: 4, maxBarThickness: 58, categoryPercentage: 0.85, barPercentage: 0.98, skipNull: true },
-          { label: 'Março', data: [11, 4, 66, 2, 2, 0], backgroundColor: '#103050', borderRadius: 4, maxBarThickness: 58, categoryPercentage: 0.85, barPercentage: 0.98, skipNull: true }
-        ]
+        datasets: datasetsMes
       },
       options: {
         responsive: true, maintainAspectRatio: false,
@@ -191,7 +193,25 @@
       },
       plugins: [valueLabels2]
     });
+
+    // Tabelas de dados para leitores de tela (fallback acessível dos gráficos)
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!window.A11y) return;
+      A11y.renderChartFallbackTable(
+        document.getElementById('chartTipos'),
+        'Total de manifestações por tipo no trimestre',
+        ['Tipo', 'Quantidade'],
+        labels.map((l, i) => [l, String(data[i])])
+      );
+      A11y.renderChartFallbackTable(
+        document.getElementById('chartTiposMes'),
+        'Quantidade de manifestações por tipo em cada mês do trimestre',
+        ['Tipo', ...datasetsMes.map(ds => ds.label)],
+        labels.map((l, i) => [l, ...datasetsMes.map(ds => String(ds.data[i]))])
+      );
+    });
   </script>
   <script>document.addEventListener("keydown", function (e) { if (["ArrowRight","ArrowLeft","PageDown","PageUp","Home","End"," ","f","F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
+  <script src="a11y.js" defer></script>
 </body>
 </html>

@@ -21,6 +21,7 @@
     href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="a11y.css" />
   <style>
     * {
       box-sizing: border-box;
@@ -538,35 +539,41 @@
 </head>
 
 <body>
-  <div class="app">
-    <div id="clickLeft" class="click-zone" title="Slide anterior"></div>
+  <a class="skip-link" href="#slideFrame">Pular para o conteúdo do slide</a>
+  <div id="a11yLiveRegion" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+
+  <div class="app" role="region" aria-label="Apresentação de slides">
+    <div id="clickLeft" class="click-zone" aria-hidden="true" tabindex="-1"></div>
     <div class="stage">
-      <iframe id="slideFrame" title="Slide"></iframe>
+      <iframe id="slideFrame" title="Slide" tabindex="-1"></iframe>
     </div>
-    <div id="clickRight" class="click-zone" title="Próximo slide"></div>
+    <div id="clickRight" class="click-zone" aria-hidden="true" tabindex="-1"></div>
   </div>
 
-  <div class="nav-dock">
+  <div class="nav-dock" role="navigation" aria-label="Navegação de slides">
     <div class="nav-trigger"></div>
     <div class="nav-wave"></div>
     <div class="nav-bar">
-      <button onclick="goHome()" class="home-btn" title="Ir para o slide inicial"><i
-          class="fa-solid fa-house"></i></button>
-      <button onclick="prev()" id="btnPrev" title="Anterior"><i class="fa-solid fa-chevron-left"></i></button>
+      <button onclick="goHome()" class="home-btn" title="Ir para o slide inicial"
+        aria-label="Ir para o slide inicial"><i class="fa-solid fa-house" aria-hidden="true"></i></button>
+      <button onclick="prev()" id="btnPrev" title="Anterior" aria-label="Slide anterior"><i
+          class="fa-solid fa-chevron-left" aria-hidden="true"></i></button>
       <div class="nav-dots" id="navDots"></div>
-      <button onclick="next()" id="btnNext" title="Próximo"><i class="fa-solid fa-chevron-right"></i></button>
+      <button onclick="next()" id="btnNext" title="Próximo" aria-label="Próximo slide"><i
+          class="fa-solid fa-chevron-right" aria-hidden="true"></i></button>
       <span class="page-info" id="pageInfo"></span>
-      <button class="help-btn" id="helpBtn" onclick="toggleHints()"><i class="fa-solid fa-circle-question"></i>
+      <button class="help-btn" id="helpBtn" onclick="toggleHints()" aria-label="Ajuda de navegação"><i
+          class="fa-solid fa-circle-question" aria-hidden="true"></i>
       </button>
     </div>
   </div>
 
   <a class="pdf-btn" href="relatorio.html" target="_blank" rel="noopener noreferrer" title="Imprimir / Salvar PDF"
-    aria-label="Imprimir / Salvar PDF"><i class="fa-solid fa-print"></i></a>
-  <button class="close-btn" onclick="closePresentation()" title="Fechar apresentação"><i
-      class="fa-solid fa-xmark"></i></button>
-  <button class="fs-btn" onclick="toggleFullscreen()" title="Tela Cheia (F)"><i class="fa-solid fa-expand"
-      id="fsIcon"></i></button>
+    aria-label="Imprimir / Salvar PDF"><i class="fa-solid fa-print" aria-hidden="true"></i></a>
+  <button class="close-btn" onclick="closePresentation()" title="Fechar apresentação" aria-label="Fechar apresentação"><i
+      class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+  <button class="fs-btn" onclick="toggleFullscreen()" title="Tela Cheia (F)" aria-label="Alternar tela cheia"><i
+      class="fa-solid fa-expand" id="fsIcon" aria-hidden="true"></i></button>
 
   <div class="nav-hints-overlay" id="navHints">
     <div class="nav-hints-panel">
@@ -721,10 +728,13 @@
 
     function render() {
       frame.src = fileFor(current);
+      const label = `Slide ${current} de ${total}: ${meta[current - 1].block}`;
+      frame.title = label;
       document.getElementById('pageInfo').textContent = `${current} / ${total}`;
       document.getElementById('btnPrev').disabled = current === 1;
       document.getElementById('btnNext').disabled = current === total;
       updateDots();
+      if (window.A11y) window.A11y.announce(label);
     }
 
     function next() { if (current < total) { current++; render(); } }
@@ -735,6 +745,7 @@
       document.querySelectorAll('.nav-dots button').forEach((dot, i) => {
         const on = i === current - 1;
         dot.classList.toggle('active', on);
+        dot.setAttribute('aria-current', on ? 'true' : 'false');
         // Mantém o slide atual visível quando a régua de dots está rolando
         if (on && dot.scrollIntoView) {
           dot.scrollIntoView({ block: 'nearest', inline: 'nearest' });
@@ -749,6 +760,7 @@
       const dot = document.createElement('button');
       dot.addEventListener('click', () => { current = i + 1; render(); });
       dot.title = `Slide ${i + 1} · ${meta[i].block}`;
+      dot.setAttribute('aria-label', `Ir para o slide ${i + 1} de ${total}: ${meta[i].block}`);
       dot.style.setProperty('--dot-tint', meta[i].tint);
       if (i > 0 && meta[i].blockIndex !== meta[i - 1].blockIndex) {
         dot.classList.add('block-start');
@@ -875,6 +887,7 @@
     window.addEventListener('resize', scaleFrame);
     new ResizeObserver(scaleFrame).observe(stage);
   </script>
+  <script src="a11y.js" defer></script>
 </body>
 
 </html>

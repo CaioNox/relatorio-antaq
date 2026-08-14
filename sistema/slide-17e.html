@@ -167,6 +167,7 @@
       }
     }
   </style>
+  <link rel="stylesheet" href="a11y.css">
 </head>
 
 <body>
@@ -201,7 +202,7 @@
         <p class="text-brand-primary font-montserrat font-bold text-xl mb-1 flex items-center gap-6"><i
             class="fas fa-circle-pie slice text-brand-secondary"></i> Composição das Demandas no Fala.BR</p>
         </p>
-        <div class="flex-1 relative"><canvas id="chartFalaPerfil"></canvas></div>
+        <div class="flex-1 relative"><canvas id="chartFalaPerfil" role="img" aria-label="Gráfico de rosca: composição das demandas do Fala.BR — Manifestações (Painel Resolveu) 304, LAI (Acesso à Informação) 130, total 434"></canvas></div>
       </div>
 
       <!-- Indicadores -->
@@ -262,12 +263,14 @@
     </div>
   </div>
   <script>
+    const falaPerfilLabels = ['Manifestações — Painel Resolveu', 'LAI — Acesso à Informação'];
+    const falaPerfilData = [304, 130];
     new Chart(document.getElementById('chartFalaPerfil'), {
       type: 'doughnut',
       data: {
-        labels: ['Manifestações — Painel Resolveu', 'LAI — Acesso à Informação'],
+        labels: falaPerfilLabels,
         datasets: [{
-          data: [304, 130],
+          data: falaPerfilData,
           backgroundColor: ['#103050', '#0070C0'],
           borderColor: ['#ffffff', '#ffffff'],
           borderWidth: 3,
@@ -310,10 +313,21 @@
         }
       }]
     });
+
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!window.A11y) return;
+      A11y.renderChartFallbackTable(
+        document.getElementById('chartFalaPerfil'),
+        'Composição das demandas do Fala.BR',
+        ['Categoria', 'Quantidade'],
+        falaPerfilLabels.map((l, i) => [l, String(falaPerfilData[i])])
+      );
+    });
   </script>
   <script>
     document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });
   </script>
+  <script src="a11y.js" defer></script>
 </body>
 
 </html>

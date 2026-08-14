@@ -35,6 +35,7 @@
     href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Open+Sans:wght@400;600&display=swap"
     rel="stylesheet" />
+  <link rel="stylesheet" href="a11y.css" />
   <style>
     /* Página física = 16:9 landscape → o slide preenche 100% sem bordas */
     :root {
@@ -440,6 +441,7 @@
       const frame = document.createElement('iframe');
       frame.setAttribute('scrolling', 'no');
       frame.setAttribute('tabindex', '-1');
+      frame.title = 'Slide: ' + page.dataset.file.replace('.html', '').replace(/[-_]/g, ' ');
       frame.src = page.dataset.file;
       page.appendChild(frame);
       return frame;
@@ -591,6 +593,7 @@
 
     gerarAnexos();
   </script>
+  <script src="a11y.js" defer></script>
 </body>
 
 </html>

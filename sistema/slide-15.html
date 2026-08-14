@@ -124,6 +124,7 @@
       display: inline-block;
     }
   </style>
+  <link rel="stylesheet" href="a11y.css">
 </head>
 
 <body>
@@ -153,7 +154,7 @@
     <!-- Main Content -->
     <div class="flex-1 px-16 pb-10 z-10 flex">
       <div class="chart-card w-full flex flex-col">
-        <div class="flex-1 relative"><canvas id="chartTiposMes"></canvas></div>
+        <div class="flex-1 relative"><canvas id="chartTiposMes" role="img" aria-label="Gráfico de barras: distribuição dos tipos de manifestação por mês (Janeiro, Fevereiro, Março) — Reclamação, Solicitação, Denúncia, Sugestão, Elogio, Simplifique"></canvas></div>
       </div>
     </div>
     <!-- Footer -->
@@ -179,15 +180,16 @@
         ctx.restore();
       }
     };
+    const datasetsMes = [
+      { label: 'Janeiro', data: [15, 15, 42, null, null, 1], backgroundColor: '#0070C0', borderRadius: 5, maxBarThickness: 48, skipNull: true },
+      { label: 'Fevereiro', data: [9, 28, 75, 1, null, null], backgroundColor: '#0090C0', borderRadius: 5, maxBarThickness: 48, skipNull: true },
+      { label: 'Março', data: [10, 2, 56, 2, 2, null], backgroundColor: '#103050', borderRadius: 5, maxBarThickness: 48, skipNull: true }
+    ];
     new Chart(document.getElementById('chartTiposMes'), {
       type: 'bar',
       data: {
         labels,
-        datasets: [
-          { label: 'Janeiro', data: [15, 15, 42, null, null, 1], backgroundColor: '#0070C0', borderRadius: 5, maxBarThickness: 48, skipNull: true },
-          { label: 'Fevereiro', data: [9, 28, 75, 1, null, null], backgroundColor: '#0090C0', borderRadius: 5, maxBarThickness: 48, skipNull: true },
-          { label: 'Março', data: [10, 2, 56, 2, 2, null], backgroundColor: '#103050', borderRadius: 5, maxBarThickness: 48, skipNull: true }
-        ]
+        datasets: datasetsMes
       },
       options: {
         responsive: true, maintainAspectRatio: false,
@@ -200,8 +202,19 @@
       },
       plugins: [valueLabels]
     });
+
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!window.A11y) return;
+      A11y.renderChartFallbackTable(
+        document.getElementById('chartTiposMes'),
+        'Distribuição dos tipos de manifestação por mês',
+        ['Tipo', ...datasetsMes.map(ds => ds.label)],
+        labels.map((l, i) => [l, ...datasetsMes.map(ds => ds.data[i] == null ? '—' : String(ds.data[i]))])
+      );
+    });
   </script>
   <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
+  <script src="a11y.js" defer></script>
 </body>
 
 </html>

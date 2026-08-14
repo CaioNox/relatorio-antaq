@@ -317,6 +317,7 @@
       }
     }
   </style>
+  <link rel="stylesheet" href="a11y.css">
 </head>
 
 <body>
@@ -347,7 +348,7 @@
       <div class="chart-card flex flex-col" style="min-height:0;">
         <p class="text-brand-primary font-montserrat font-bold text-xl mb-1 flex items-center gap-2"><i
             class="fas fa-file-circle-plus text-brand-secondary"></i> Pedidos de acesso à informação</p>
-        <div class="flex-1 relative" style="min-height:0;"><canvas id="chartLaiHist"></canvas></div>
+        <div class="flex-1 relative" style="min-height:0;"><canvas id="chartLaiHist" role="img" aria-label="Gráfico de barras: histórico de pedidos LAI no 1º trimestre de cada ano — 2023: 62, 2024: 105, 2025: 107, 2026: 130"></canvas></div>
         <p class="chart-note"><i class="fas fa-circle-info"></i><span>O comparativo histórico demonstra a evolução da
             demanda por transparência pública e permite avaliar tendências de acesso à informação.</span></p>
       </div>
@@ -448,12 +449,14 @@
         ctx.restore();
       }
     };
+    const laiHistLabels = ['1º Trimestre 2023', '1º Trimestre 2024', '1º Trimestre 2025', '1º Trimestre 2026'];
+    const laiHistData = [62, 105, 107, 130];
     new Chart(document.getElementById('chartLaiHist'), {
       type: 'bar',
       data: {
-        labels: ['1º Trimestre 2023', '1º Trimestre 2024', '1º Trimestre 2025', '1º Trimestre 2026'],
+        labels: laiHistLabels,
         datasets: [{
-          data: [62, 105, 107, 130],
+          data: laiHistData,
           backgroundColor: ['#C0E0F0', '#90C8E5', '#5AAFD8', '#0090C0'],
           borderRadius: 8,
           maxBarThickness: 80
@@ -472,8 +475,19 @@
       },
       plugins: [barLabels, lastBarTop]
     });
+
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!window.A11y) return;
+      A11y.renderChartFallbackTable(
+        document.getElementById('chartLaiHist'),
+        'Histórico de pedidos LAI no 1º trimestre de cada ano',
+        ['Período', 'Pedidos'],
+        laiHistLabels.map((l, i) => [l, String(laiHistData[i])])
+      );
+    });
   </script>
   <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
+  <script src="a11y.js" defer></script>
 </body>
 
 </html>

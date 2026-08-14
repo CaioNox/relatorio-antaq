@@ -478,6 +478,7 @@
       }
     }
   </style>
+  <link rel="stylesheet" href="a11y.css">
 </head>
 
 <body>
@@ -787,8 +788,10 @@
         return;
       }
 
-      wrap.innerHTML = '<canvas id="pieChart"></canvas>';
+      wrap.innerHTML = '<canvas id="pieChart" role="img"></canvas>';
       const canvas = document.getElementById('pieChart');
+      canvas.setAttribute('aria-label', 'Gráfico de rosca: distribuição das manifestações por tema — ' +
+        sel.map(t => t.name + ' ' + t.total).join(', '));
       if (pieChart) pieChart.destroy();
 
       const percentageLabelsPlugin = {
@@ -861,6 +864,15 @@
         },
         plugins: [percentageLabelsPlugin]
       });
+
+      if (window.A11y) {
+        A11y.renderChartFallbackTable(
+          canvas,
+          'Distribuição das manifestações por tema',
+          ['Tema', 'Manifestações'],
+          sel.map(t => [t.name, String(t.total)])
+        );
+      }
 
       cap.style.color = '#475569';
       cap.innerHTML = '<i class="fas fa-chart-pie"></i> Distribuição por tema · ' + sel.length +
@@ -988,8 +1000,15 @@
     }
 
     update();
+    // Garante a tabela de acessibilidade do gráfico também no carregamento
+    // inicial, caso a11y.js (script deferred) ainda não tivesse carregado
+    // no momento da primeira renderização.
+    document.addEventListener('DOMContentLoaded', function () {
+      if (window.A11y) renderPieChart();
+    });
   </script>
   <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
+  <script src="a11y.js" defer></script>
 </body>
 
 </html>

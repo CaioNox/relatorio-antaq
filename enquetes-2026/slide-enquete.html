@@ -556,6 +556,7 @@
       }
     }
   </style>
+  <link rel="stylesheet" href="a11y.css">
 </head>
 
 <body>
@@ -785,8 +786,8 @@
 
         // Tabela com os MESMOS números do gráfico
         cartao.querySelector('.tabela-wrap').innerHTML =
-          '<table class="numeros"><thead><tr><th>Resposta</th><th style="text-align:right">Respostas</th>' +
-          '<th style="text-align:right">Percentual</th></tr></thead><tbody>' +
+          '<table class="numeros"><thead><tr><th scope="col">Resposta</th><th scope="col" style="text-align:right">Respostas</th>' +
+          '<th scope="col" style="text-align:right">Percentual</th></tr></thead><tbody>' +
           itens.map(function (i) {
             return '<tr><td><span class="chip" style="background:' + i.cor + '"></span>' + i.rot + '</td>' +
               '<td class="n">' + i.v + '</td><td class="n">' + pct(i.v, total) + '</td></tr>';
@@ -897,8 +898,8 @@
         escreverAnalise(cartao, questao);
 
         cartao.querySelector('.tabela-wrap').innerHTML =
-          '<table class="numeros"><thead><tr><th>Nota</th><th>Classificação</th>' +
-          '<th style="text-align:right">Respostas</th></tr></thead><tbody>' +
+          '<table class="numeros"><thead><tr><th scope="col">Nota</th><th scope="col">Classificação</th>' +
+          '<th scope="col" style="text-align:right">Respostas</th></tr></thead><tbody>' +
           ESCALA_NOTAS.map(function (r, i) {
             return '<tr' + (notas[i] ? '' : ' class="zero"') + '>' +
               '<td><span class="chip" style="background:' + (notas[i] ? COR_NOTA : '#CBD5E1') + '"></span>' +
@@ -1011,6 +1012,7 @@
       }
     });
   </script>
+  <script src="a11y.js" defer></script>
 </body>
 
 </html>

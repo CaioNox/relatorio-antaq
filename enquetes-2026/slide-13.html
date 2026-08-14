@@ -71,6 +71,7 @@
     @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
   </style>
+  <link rel="stylesheet" href="a11y.css">
 </head>
 
 <body>
@@ -109,8 +110,8 @@
         <table class="tab">
           <thead>
             <tr>
-              <th>Superintendência</th>
-              <th>Quantidade de serviços</th>
+              <th scope="col">Superintendência</th>
+              <th scope="col">Quantidade de serviços</th>
             </tr>
           </thead>
           <tbody id="tabBody"></tbody>
@@ -120,7 +121,7 @@
       <div class="right">
         <div class="chart-card">
           <div class="chart-title">Distribuição percentual de serviços por superintendência</div>
-          <div class="chart-box"><canvas id="chartSup"></canvas></div>
+          <div class="chart-box"><canvas id="chartSup" role="img" aria-label="Gráfico de rosca: distribuição percentual de serviços da Carta de Serviços por superintendência"></canvas></div>
         </div>
       </div>
     </div>
@@ -198,6 +199,21 @@
           }
         }]
       });
+
+      function renderA11yTable() {
+        if (!window.A11y) return;
+        A11y.renderChartFallbackTable(
+          document.getElementById('chartSup'),
+          'Distribuição percentual de serviços por superintendência',
+          ['Superintendência', 'Serviços'],
+          ordem.map(function (s) { return [SUPERINTENDENCIAS[s].sigla + ' · ' + SUPERINTENDENCIAS[s].nome, String(SUPERINTENDENCIAS[s].servicos)]; })
+        );
+      }
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', renderA11yTable);
+      } else {
+        renderA11yTable();
+      }
     })();
   </script>
   <script>
@@ -208,6 +224,7 @@
       }
     });
   </script>
+  <script src="a11y.js" defer></script>
 </body>
 
 </html>
