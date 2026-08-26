@@ -1,0 +1,600 @@
+/* Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. */
+/* ══════════════════════════════════════════════════════════════════════════
+   crie-seu-slide.css — ESTILO COMPARTILHADO do montador de apresentação
+   ──────────────────────────────────────────────────────────────────────────
+   Usado pelas duas ferramentas (crie-seu-slide-trimestral.html e
+   crie-seu-slide-conselho.html) — mesma fonte única, para as duas não
+   divergirem visualmente. Nada aqui é específico de um relatório.
+   ══════════════════════════════════════════════════════════════════════════ */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at top, #1f2937 0%, #0f172a 55%);
+  color: #e5e7eb;
+  font-family: 'Open Sans', 'Segoe UI', sans-serif;
+  overflow: hidden;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+button:focus-visible,
+input:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid #F2A900;
+  outline-offset: 2px;
+}
+
+/* ───────────────────────────── Layout geral ──────────────────────────── */
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* ───────────────────────────── Barra superior ────────────────────────── */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 14px 22px;
+  background: #0f172a;
+  border-bottom: 1px solid #1e293b;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, .3);
+  flex-shrink: 0;
+}
+
+.tb-title h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  margin: 0 0 3px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.tb-title h1 i {
+  color: var(--accent, #0090C0);
+}
+
+.tb-title .tb-hint {
+  font-size: 12.5px;
+  color: #94a3b8;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.tb-title .tb-hint b {
+  color: #cbd5e1;
+}
+
+.tb-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.pptx-name {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid #334155;
+  color: #e5e7eb;
+  border-radius: 8px;
+  padding: 9px 12px;
+  font-size: 12.5px;
+  font-family: 'Open Sans', sans-serif;
+  width: 250px;
+  max-width: 40vw;
+}
+
+.btn-ghost,
+.btn-pptx {
+  border: 0;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 13px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  transition: background .2s, color .2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.btn-ghost {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #e5e7eb;
+}
+
+.btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.btn-ghost.active {
+  background: rgba(0, 144, 192, 0.35);
+  border-color: #0090C0;
+  color: #fff;
+}
+
+.btn-pptx {
+  background: var(--accent, #F2A900);
+  color: #103050;
+}
+
+.btn-pptx:hover {
+  background: var(--accent-hover, #d99400);
+}
+
+.btn-pptx[disabled] {
+  background: #475569;
+  color: #fff;
+  cursor: progress;
+}
+
+/* ───────────────────────────── Área de trabalho ──────────────────────── */
+.workspace {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+  position: relative;
+}
+
+.stage-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 20px;
+  min-width: 0;
+}
+
+.stage {
+  width: min(94%, calc((100vh - 140px) * 16 / 9));
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border-radius: 10px;
+  border: 1px solid #334155;
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.stage iframe {
+  width: 1920px;
+  height: 1080px;
+  border: 0;
+  background: #fff;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: top left;
+}
+
+.stage-empty {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 30px;
+  color: #64748b;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.stage-caption {
+  font-size: 12.5px;
+  color: #94a3b8;
+  letter-spacing: .3px;
+  min-height: 16px;
+}
+
+/* ───────────────────────────── Biblioteca (gaveta lateral) ───────────── */
+.library {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 340px;
+  max-width: 88vw;
+  background: #0f172a;
+  border-left: 1px solid #1e293b;
+  box-shadow: -12px 0 30px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform .25s ease;
+  z-index: 200;
+}
+
+.library.open {
+  transform: translateX(0);
+}
+
+.library-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 18px;
+  border-bottom: 1px solid #1e293b;
+  flex-shrink: 0;
+}
+
+.library-head h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  margin: 0;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.library-head h2 i {
+  color: var(--accent, #0090C0);
+}
+
+.lib-close {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #e5e7eb;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.lib-close:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.library-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px 14px 20px;
+}
+
+.library-body details {
+  margin-bottom: 6px;
+  border: 1px solid #1e293b;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.library-body summary {
+  cursor: pointer;
+  padding: 9px 12px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: .3px;
+  text-transform: uppercase;
+  color: #cbd5e1;
+  background: rgba(255, 255, 255, 0.04);
+  list-style: none;
+}
+
+.library-body summary::-webkit-details-marker {
+  display: none;
+}
+
+.library-body summary::before {
+  content: '▸';
+  display: inline-block;
+  margin-right: 6px;
+  transition: transform .15s;
+}
+
+.library-body details[open] summary::before {
+  transform: rotate(90deg);
+}
+
+.lib-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 12px;
+  border-top: 1px solid #1e293b;
+  font-size: 12.5px;
+  border-left: 3px solid rgba(122, 178, 216, calc(0.25 + (var(--tint, 0.6) * 0.5)));
+}
+
+.lib-item.lib-item-outro {
+  background: rgba(242, 169, 0, 0.06);
+}
+
+.lib-file {
+  text-transform: capitalize;
+  color: #e5e7eb;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lib-add {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: rgba(0, 144, 192, 0.25);
+  border: 1px solid #0090C0;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+}
+
+.lib-add:hover {
+  background: #0090C0;
+}
+
+.lib-vazio {
+  color: #64748b;
+  font-size: 13px;
+  padding: 20px 6px;
+  text-align: center;
+}
+
+/* ───────────────────────────── Rolo de slides (vertical) ──────────────────
+   Um "rolo de filme" na vertical: cada slide selecionado é um quadro
+   empilhado em cima do outro, na ordem em que vai aparecer no PowerPoint.
+   Arrastar um quadro pra cima/baixo reordena; as perfurações nas bordas
+   (pseudo-elementos) só reforçam a leitura de "rolo de filme".
+   ─────────────────────────────────────────────────────────────────────── */
+.filmstrip-wrap {
+  flex-shrink: 0;
+  width: 300px;
+  max-width: 42vw;
+  background: #0b1220;
+  border-right: 1px solid #1e293b;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.filmstrip-head {
+  flex-shrink: 0;
+  padding: 14px 16px 10px;
+  border-bottom: 1px solid #1e293b;
+}
+
+.filmstrip-head h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  margin: 0 0 2px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.filmstrip-head h2 i {
+  color: var(--accent, #0090C0);
+}
+
+.filmstrip-count {
+  font-size: 11.5px;
+  color: #94a3b8;
+}
+
+.filmstrip-rail {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 12px 10px 12px 26px;
+  scrollbar-width: thin;
+  background-image:
+    radial-gradient(circle, rgba(255, 255, 255, 0.16) 2px, transparent 2.6px);
+  background-position: 10px 6px;
+  background-repeat: repeat-y;
+  background-size: 16px 24px;
+}
+
+.filmstrip {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.filmstrip-vazio {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 30px 10px;
+  color: #64748b;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.fs-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  border-radius: 8px;
+  background: rgba(122, 178, 216, calc(0.12 + (var(--tint, 0.6) * 0.14)));
+  border: 2px solid transparent;
+  padding: 8px 10px;
+  cursor: grab;
+  position: relative;
+  transition: border-color .15s, transform .15s, margin .15s;
+}
+
+.fs-card:hover {
+  border-color: rgba(255, 255, 255, 0.35);
+  transform: translateX(2px);
+}
+
+.fs-card.active {
+  border-color: var(--accent, #0090C0);
+  background: rgba(0, 144, 192, 0.28);
+}
+
+.fs-card.dragging {
+  opacity: .35;
+}
+
+.fs-card.fs-card-outro {
+  box-shadow: inset 0 0 0 1px rgba(242, 169, 0, 0.5);
+}
+
+.fs-num {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10.5px;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.fs-text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.fs-remove {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(155, 28, 28, 0.7);
+  border: none;
+  color: #fff;
+  font-size: 13px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity .15s, background .15s;
+}
+
+.fs-card:hover .fs-remove,
+.fs-card:focus-within .fs-remove {
+  opacity: 1;
+}
+
+.fs-remove:hover {
+  background: #b91c1c;
+}
+
+.fs-origem {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: .4px;
+  text-transform: uppercase;
+  color: #4dcfff;
+}
+
+.fs-block {
+  font-size: 10px;
+  color: #cbd5e1;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fs-file {
+  font-size: 11.5px;
+  color: #fff;
+  font-weight: 700;
+  text-transform: capitalize;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Linha conectando um quadro ao próximo — reforça a leitura de "rolo" */
+.fs-card:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 26px;
+  bottom: -9px;
+  width: 1px;
+  height: 8px;
+  background: #1e293b;
+}
+
+/* ───────────────────────────── Overlay de carregamento ────────────────── */
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 15, 25, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 500;
+  transition: opacity .25s ease;
+}
+
+.loading-overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.loading-box {
+  text-align: center;
+  color: #cbd5e1;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.loading-box i {
+  font-size: 34px;
+  color: var(--accent, #0090C0);
+  margin-bottom: 12px;
+  display: block;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

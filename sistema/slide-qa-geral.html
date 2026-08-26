@@ -10,9 +10,9 @@
   ║  LAYOUT — sanfona (acordeão) de barras retangulares:
   ║    · clique na barra para abrir/fechar a resposta;
   ║    · só uma resposta aberta por vez (nunca estoura a tela);
-  ║    · na impressão/PDF todas as respostas abrem automaticamente
-  ║      (@media print), para o relatório não sair com perguntas
-  ║      sem resposta;
+  ║    · na impressão/PDF o slide sai igual à tela (só a pergunta 01
+  ║      aberta) — as 9 respostas completas saem à parte, num anexo
+  ║      textual gerado por relatorio.html (deck.js → RELATORIO.anexos);
   ║    · as etiquetas de cada resposta levam ao slide de origem
   ║      (postMessage 'slide-goto-file').
   ║  O mesmo layout é usado em slide-qa-dados-abertos.html.
@@ -162,8 +162,12 @@
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
 
     /* Impressão/PDF: abre tudo, para o relatório não sair só com perguntas. */
+    /* As 9 respostas completas saem no anexo textual do relatório (deck.js
+       → RELATORIO.anexos['slide-qa-geral.html']), não aqui: abrir todos os
+       .qa-panel em @media print fazia o conteúdo passar de 1080px de altura
+       (até 1576px medidos) e cortava as perguntas finais. O slide sai no PDF
+       igual à tela — só a pergunta 01 aberta. */
     @media print {
-      .qa-panel { max-height: none !important; opacity: 1 !important; }
       .qa-chev { display: none; }
       .hint { display: none; }
     }

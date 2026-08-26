@@ -167,6 +167,17 @@
       font-family: 'Open Sans', sans-serif;
       font-size: 1.15rem;
       color: rgba(255, 255, 255, 0.52);
+      cursor: pointer;
+      transition: color 150ms ease;
+      width: fit-content;
+    }
+
+    .topic:hover {
+      color: rgba(255, 255, 255, 0.92);
+    }
+
+    .topic:hover .tdot {
+      background: #4dcfff;
     }
 
     .tdot {
@@ -409,31 +420,34 @@
       <h1 class="s-title a d2">A Ouvidoria<span class="acc">da ANTAQ</span></h1>
       <div class="div a d3"></div>
       <div class="topics a d4">
-        <div class="topic">
+        <div class="topic" data-file="slide-03c.html">
           <div class="tdot"></div>Apresentação da Ouvidoria da ANTAQ
         </div>
-        <div class="topic">
-          <div class="tdot"></div>Estrutura Organizacional da Ouvidoria
-        </div>
-        <div class="topic">
-          <div class="tdot"></div>Carta de Serviços da ANTAQ
-        </div>
-        <div class="topic">
-          <div class="tdot"></div>Carta de Serviços da ANTAQ (31 serviços)
-        </div>
-        <div class="topic">
+        <div class="topic" data-file="slide-canais-atend.html">
           <div class="tdot"></div>Canais de Atendimento
         </div>
-        <div class="topic">
-          <div class="tdot"></div>Fala.BR — Perguntas e Respostas
+        <div class="topic" data-file="slide-falabr-faq.html">
+          <div class="tdot"></div>Canais de Atendimento (FALA.BR)
         </div>
-        <div class="topic">
+        <div class="topic" data-file="slide-ouvidoria-geral.html">
+          <div class="tdot"></div>Estrutura Organizacional da Ouvidoria
+        </div>
+        <div class="topic" data-file="slide-25.html">
+          <div class="tdot"></div>Carta de Serviços da ANTAQ
+        </div>
+        <div class="topic" data-file="slide-CnsU.html">
+          <div class="tdot"></div>Conselho de Usuários
+        </div>
+        <div class="topic" data-file="slide-CnsU2.html">
+          <div class="tdot"></div>Modelo de Maturidade em Ouvidoria Pública
+        </div>
+        <div class="topic" data-file="slide-17b.html">
           <div class="tdot"></div>Ouvidoria em Números (Omnichannel)
         </div>
-        <div class="topic">
+        <div class="topic" data-file="slide-17e.html">
           <div class="tdot"></div>Ouvidoria em Números (Distribuição das Demandas)
         </div>
-        <div class="topic">
+        <div class="topic" data-file="slide-07.html">
           <div class="tdot"></div>Ouvidoria em Números (Evolução Histórica)
         </div>
       </div>
@@ -459,6 +473,14 @@
       if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) {
         e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*");
       }
+    });
+
+    /* Minissumário do bloco: cada tópico leva direto ao slide correspondente
+       — mesma ordem do Bloco 2 em deck.js. */
+    document.querySelectorAll('.topic[data-file]').forEach(function (topic) {
+      topic.addEventListener('click', function () {
+        window.parent.postMessage({ type: "slide-goto-file", file: topic.dataset.file }, "*");
+      });
     });
   </script>
   <script src="a11y.js" defer></script>

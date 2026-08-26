@@ -239,6 +239,23 @@
       border-left-color: #0090C0;
     }
 
+    .card-semestral {
+      border-left-color: #103050;
+    }
+
+    .card-semestral .card-icon {
+      background-color: #E0E7FF;
+      color: #103050;
+    }
+
+    .card-semestral:hover {
+      border-color: #103050;
+    }
+
+    .card-semestral .card-link {
+      color: #103050;
+    }
+
     .card:hover {
       transform: translateY(-8px);
       background-color: rgba(255, 255, 255, 0.78);
@@ -482,6 +499,19 @@
           <span class="card-link">Abrir apresentação <i class="fa-solid fa-arrow-right" aria-hidden="true"></i><span class="sr-only"> (abre em nova aba)</span></span>
         </div>
       </a>
+
+      <a class="card card-semestral" href="#"
+        onclick="event.preventDefault(); window.open('semestral/index.html', '_blank');">
+        <div class="card-icon">
+          <i class="fa-solid fa-chart-line"></i>
+        </div>
+        <div class="card-content">
+          <h2>Relatório Semestral 2026</h2>
+          <p>Dados consolidados das manifestações do 1º semestre (Jan–Jun).</p>
+          <span class="card-link">Abrir apresentação <i class="fa-solid fa-arrow-right" aria-hidden="true"></i><span class="sr-only"> (abre em nova aba)</span></span>
+        </div>
+      </a>
+
     </div>
 
   </div>

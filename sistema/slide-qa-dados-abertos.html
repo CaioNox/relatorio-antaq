@@ -9,9 +9,10 @@
   ║  publicadas pela ANTAQ.
   ║
   ║  LAYOUT — idêntico ao de slide-qa-geral.html: sanfona de barras
-  ║  retangulares clicáveis, uma resposta aberta por vez, tudo
-  ║  aberto na impressão (@media print). Ao alterar um dos dois,
-  ║  replique no outro para manter a padronização.
+  ║  retangulares clicáveis, uma resposta aberta por vez; no PDF sai
+  ║  igual à tela, e as respostas completas vão para um anexo textual
+  ║  (deck.js → RELATORIO.anexos). Ao alterar um dos dois, replique no
+  ║  outro para manter a padronização.
   ║
   ║  O QUE ATUALIZAR A CADA TRIMESTRE:
   ║    18 bases abertas · 8 previstas ............ slide-21
@@ -150,8 +151,12 @@
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
 
     /* Impressão/PDF: abre tudo, para o relatório não sair só com perguntas. */
+    /* As respostas completas saem no anexo textual do relatório (deck.js →
+       RELATORIO.anexos['slide-qa-dados-abertos.html']), não aqui: abrir
+       todos os .qa-panel em @media print fazia o conteúdo passar de 1080px
+       de altura (até 1653px medidos) e cortava as perguntas finais. O slide
+       sai no PDF igual à tela — só a pergunta 01 aberta. */
     @media print {
-      .qa-panel { max-height: none !important; opacity: 1 !important; }
       .qa-chev { display: none; }
       .hint { display: none; }
     }

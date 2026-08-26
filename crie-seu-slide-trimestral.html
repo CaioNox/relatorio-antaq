@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
+<!--
+  ╔══════════════════════════════════════════════════════════════════════════╗
+  ║  crie-seu-slide-trimestral.html — MONTADOR (foco: Relatório Trimestral)   ║
+  ╠══════════════════════════════════════════════════════════════════════════╣
+  ║  Já abre com os slides do Relatório Trimestral (sistema/) na filmstrip.   ║
+  ║  A Biblioteca também oferece os slides do Relatório do Conselho de        ║
+  ║  Usuários (enquetes-2026/) — dá pra puxar slides de um relatório pro      ║
+  ║  outro à vontade. Lógica/estilo compartilhados com a irmã desta página    ║
+  ║  (crie-seu-slide-conselho.html) via crie-seu-slide.js / .css — não        ║
+  ║  duplicar essa lógica aqui.                                               ║
+  ╚══════════════════════════════════════════════════════════════════════════╝
+-->
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Crie seu Slide — Trimestral · Ouvidoria da ANTAQ</title>
+  <link rel="icon" type="image/png"
+    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Open+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="crie-seu-slide.css" />
+  <style>
+    :root {
+      --accent: #0090C0;
+      --accent-hover: #0070C0;
+    }
+  </style>
+  <!-- Usadas só pelo botão "Baixar PowerPoint": tiram um print de cada slide
+       e montam um .pptx no navegador, sem servidor. -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+</head>
+
+<body>
+  <div class="app-shell">
+    <div class="topbar">
+      <div class="tb-title">
+        <h1><i class="fa-solid fa-clapperboard" aria-hidden="true"></i> Crie seu Slide — Trimestral</h1>
+        <p class="tb-hint">Já vem com os slides do <b>Relatório Trimestral</b>. Arraste para <b>reordenar</b>,
+          clique no <b>×</b> para <b>remover</b>, e use a <b>Biblioteca</b> para puxar também slides do
+          Relatório do Conselho de Usuários. Depois, baixe o PowerPoint.</p>
+      </div>
+      <div class="tb-actions">
+        <input type="text" id="pptxName" class="pptx-name" value="Apresentacao-Trimestral-Personalizada-ANTAQ.pptx"
+          aria-label="Nome do arquivo PowerPoint a ser gerado" />
+        <button id="btnReset" class="btn-ghost" title="Repor os slides padrão do Relatório Trimestral">
+          <i class="fa-solid fa-rotate-left" aria-hidden="true"></i> Restaurar padrão
+        </button>
+        <button id="btnLib" class="btn-ghost" title="Mostrar/ocultar biblioteca de slides" aria-expanded="false">
+          <i class="fa-solid fa-layer-group" aria-hidden="true"></i> Biblioteca
+        </button>
+        <button id="btnPptx" class="btn-pptx" title="Cada slide vira uma imagem dentro de um arquivo .pptx — não é editável">
+          <i class="fa-solid fa-file-powerpoint" aria-hidden="true"></i> Baixar PowerPoint
+        </button>
+      </div>
+    </div>
+
+    <div class="workspace">
+      <div class="filmstrip-wrap">
+        <div class="filmstrip-head">
+          <h2><i class="fa-solid fa-film" aria-hidden="true"></i> Sua sequência</h2>
+          <span class="filmstrip-count" id="filmstripCount"></span>
+        </div>
+        <div class="filmstrip-rail">
+          <div class="filmstrip" id="filmstrip" aria-label="Sequência de slides selecionados, um em cima do outro"></div>
+        </div>
+      </div>
+
+      <div class="stage-area">
+        <div class="stage" id="stage">
+          <iframe id="previewFrame" title="Pré-visualização do slide selecionado" tabindex="-1"></iframe>
+          <div class="stage-empty" id="stageEmpty">Nenhum slide selecionado — adicione pela Biblioteca.</div>
+        </div>
+        <p class="stage-caption" id="stageCaption"></p>
+      </div>
+
+      <aside class="library" id="library" aria-label="Biblioteca de slides disponíveis">
+        <div class="library-head">
+          <h2><i class="fa-solid fa-layer-group" aria-hidden="true"></i> Biblioteca</h2>
+          <button class="lib-close" id="btnLibClose" aria-label="Fechar biblioteca">
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+        </div>
+        <div class="library-body" id="libraryBody"></div>
+      </aside>
+    </div>
+  </div>
+
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="loading-box">
+      <i class="fa-solid fa-clapperboard" aria-hidden="true"></i>
+      <p>Carregando os slides…</p>
+    </div>
+  </div>
+
+  <script>
+    window.CRIE_SEU_SLIDE_CONFIG = {
+      focoOrigem: 'sistema',
+      tituloFoco: 'Relatório Trimestral',
+      storageKey: 'crieSeuSlide.trimestral.v1',
+    };
+  </script>
+  <script src="crie-seu-slide.js"></script>
+</body>
+
+</html>
