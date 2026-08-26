@@ -2,7 +2,7 @@
 <!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
 <!--
   ╔══════════════════════════════════════════════════════════════════════════╗
-  ║  sistema/relatorio.html — VERSÃO PARA IMPRESSÃO / PDF                     ║
+  ║  semestral/relatorio.html — VERSÃO PARA IMPRESSÃO / PDF                   ║
   ╠══════════════════════════════════════════════════════════════════════════╣
   ║  NENHUM SLIDE É ALTERADO POR ESTE ARQUIVO. Ele apenas monta os slides     ║
   ║  existentes em páginas 16:9 paisagem.                                     ║
@@ -30,7 +30,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Relatório para Impressão — Ouvidoria ANTAQ</title>
+  <title>Relatório Semestral para Impressão — Ouvidoria ANTAQ</title>
   <link rel="icon" type="image/png"
     href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Open+Sans:wght@400;600&display=swap"
@@ -352,7 +352,7 @@
 <body>
   <div class="toolbar">
     <div>
-      <h1>Relatório Trimestral · Ouvidoria ANTAQ — versão para impressão</h1>
+      <h1>Relatório Semestral · Ouvidoria ANTAQ — versão para impressão</h1>
       <p class="hint">
         Clique em <b>Preparar impressão</b> (carrega todos os slides antes de imprimir). Depois:
         <b>Layout Paisagem</b> · <b>Margens: Nenhuma</b> · marque <b>Gráficos de segundo plano</b>.
@@ -821,7 +821,7 @@
         }
 
         btnPptx.textContent = 'Salvando…';
-        await pptx.writeFile({ fileName: RELATORIO.meta.arquivoPptx || 'Relatorio-Trimestral.pptx' });
+        await pptx.writeFile({ fileName: RELATORIO.meta.arquivoPptx || 'Relatorio-Semestral.pptx' });
       } catch (err) {
         console.error('Falha ao gerar o PowerPoint:', err);
         alert('Não foi possível gerar o PowerPoint. Veja o console para detalhes.');

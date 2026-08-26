@@ -6,7 +6,8 @@
   ╠══════════════════════════════════════════════════════════════╣
   ║  Carrega cada slide em um iframe e controla a navegação.
   ║  O QUE ATUALIZAR:
-  ║    const deck = [...]  ← reordene/mova arquivos entre os blocos aqui
+  ║    enquetes-2026/deck.js  ← reordene/inclua/exclua arquivos aqui, não
+  ║    neste arquivo (é a mesma ordem usada por relatorio.html).
   ║  Teclas: ← → navegar, Espaço próximo, F tela cheia, Home início
   ║  Clique nas laterais escuras também navega.
   ╚══════════════════════════════════════════════════════════════╝
@@ -570,8 +571,8 @@
 
   <a class="pdf-btn" href="relatorio.html" target="_blank" rel="noopener noreferrer" title="Imprimir / Salvar PDF"
     aria-label="Imprimir / Salvar PDF"><i class="fa-solid fa-print" aria-hidden="true"></i></a>
-  <button class="close-btn" onclick="closePresentation()" title="Fechar apresentação" aria-label="Fechar apresentação"><i
-      class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+  <button class="close-btn" onclick="closePresentation()" title="Fechar apresentação"
+    aria-label="Fechar apresentação"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
   <button class="fs-btn" onclick="toggleFullscreen()" title="Tela Cheia (F)" aria-label="Alternar tela cheia"><i
       class="fa-solid fa-expand" id="fsIcon" aria-hidden="true"></i></button>
 
@@ -629,96 +630,16 @@
   </div>
 
   <script src="dados-enquetes.js"></script>
+  <script src="deck.js"></script>
   <script>
-    // ╔══════════════════════════════════════════════════════════════╗
-    // ║  ESTRUTURA DA APRESENTAÇÃO — fonte única da ordem             ║
-    // ╠══════════════════════════════════════════════════════════════╣
-    // ║  Abertura + 6 blocos temáticos:                              ║
-    // ║   1 Visão Geral das Ouvidorias · 2 A Ouvidoria da ANTAQ ·    ║
-    // ║   3 Carta de Serviços · 4 Conselho de Usuários ·             ║
-    // ║   5 Considerações Finais · 6 Apêndice.                       ║
-    // ║  Para reordenar: mova arquivos aqui. `slides`, o contador e   ║
-    // ║  os dots derivam disto.                                       ║
-    // ║  `tint` = variação de opacidade do azul (0..1) usada nos dots.║
-    // ╚══════════════════════════════════════════════════════════════╝
-    // As telas de enquete não são listadas uma a uma: elas saem de
-    // dados-enquetes.js, na ordem SOG → SRG → SAF → SFC. Cada enquete ocupa
-    // DUAS telas — `&p=1` com as questões 1 e 2 (rosca) e `&p=2` com as
-    // questões 3 e 4 (barras) mais as sugestões. As enquetes em que ninguém
-    // usou o serviço (`q2` nulo) não têm questões 2 a 5, então ficam em uma
-    // tela só. Publicar/retirar uma enquete = mexer só no .js.
-    const telasEnquetes = [];
-    ['SOG', 'SRG', 'SAF', 'SFC'].forEach((sigla) => {
-      ENQUETES.filter((e) => e.sup === sigla)
-        .sort((a, b) => a.num - b.num)
-        .forEach((e) => {
-          const base = 'slide-enquete.html?e=' + e.id;
-          telasEnquetes.push(base + '&p=1');
-          if (e.q2) telasEnquetes.push(base + '&p=2');
-        });
-    });
-
-    const deck = [
-      {
-        block: 'Abertura', short: 'Abertura', tint: 0.35, //4 slides
-        files: ['slide-00.html', 'slide-01.html', 'slide-02.html', 'slide-03.html'],
-      },
-      {
-        block: 'Bloco 1 · Visão Geral das Ouvidorias públicas', short: 'Visão Geral', tint: 1, //6 slides
-        files: ['capa-bloco-1.html', 'slide-04.html', 'slide-05.html', 'slide-06.html', 'slide-07.html', 'slide-08.html'],
-      },
-      {
-        block: 'Bloco 2 · A Ouvidoria da ANTAQ', short: 'A Ouvidoria da ANTAQ', tint: 0.85, //3 slides
-        files: ['capa-bloco-2.html', 'slide-09.html', 'slide-10.html'],
-      },
-      {
-        // Ordem do documento-fonte: apresentação (p.16) → 33 serviços (p.17) →
-        // serviços por superintendência (p.18–20) → números (p.21) →
-        // evolução histórica 2021–2026 (fecha o bloco).
-        block: 'Bloco 3 · Carta de Serviços da ANTAQ', short: 'Carta de Serviços', tint: 0.7, //7 slides
-        files: ['capa-bloco-3.html', 'slide-11.html', 'slide-carta-32servicos.html?p=1', 'slide-carta-32servicos.html?p=2', 'slide-12.html', 'slide-13.html', 'slide-14.html'],
-      },
-      {
-        // Ordem escolhida na revisão (não segue mais o documento-fonte):
-        // "Como se tornar conselheiro" → "Conselho em números" → Metodologia
-        // (5 etapas) → Estrutura das enquetes. O slide de fluxo da consulta
-        // foi removido do deck.
-        block: 'Bloco 4 · Conselho de Usuários da ANTAQ', short: 'Conselho de Usuários', tint: 0.55,
-        files: [
-          'capa-bloco-4.html',
-          'slide-15.html', 'slide-16.html', 'slide-17.html',
-          'slide-18.html', 'slide-19.html',
-          'slide-20.html',
-          'slide-tabela-enquetes.html?p=1', 'slide-tabela-enquetes.html?p=2',
-          ...telasEnquetes,
-        ],
-      },
-      {
-        // slide-resultados-perspectivas.html unificou os dois slides antigos de
-        // resultados (órgão/cidadão + "para ambos") num stepper de 3
-        // perspectivas, no mesmo formato do slide-19; o convite para novos
-        // conselheiros que fechava o bloco virou o overlay (tecla C) daquele
-        // slide. slide-resultados-orgao.html e slide-22.html saíram do deck.
-        block: 'Bloco 5 · Considerações Finais', short: 'Considerações Finais', tint: 0.4, //3 slides
-        files: ['capa-bloco-5.html', 'slide-21.html', 'slide-resultados-perspectivas.html'],
-      },
-      {
-        block: 'Bloco 6 · Apêndice', short: 'Apêndice', tint: 0.3, //6 slides
-        files: ['capa-bloco-6.html', 'slide-23.html', 'slide-24.html', 'slide-25.html', 'slide-26.html', 'slide-27.html'],
-      },
-    ];
-
-    // Deriva `slides` (governa a navegação) + `meta` paralelo com o
-    // bloco de cada slide (usado pelos dots).
-    const slides = [];
-    const meta = [];
-    deck.forEach((b, bi) => {
-      b.files.forEach((file) => {
-        slides.push(file);
-        meta.push({ block: b.block, blockShort: b.short, blockIndex: bi, tint: b.tint });
-      });
-    });
+    // ESTRUTURA DA APRESENTAÇÃO — a ordem vem de deck.js (fonte única,
+    // compartilhada com relatorio.html). Para reordenar/incluir/excluir um
+    // slide, mexa em `enquetes-2026/deck.js`, não aqui.
+    const paginas = RELATORIO.paraApresentacao();
+    const slides = paginas.map((p) => p.file);
+    const meta = paginas.map((p) => ({ block: p.block, blockShort: p.blockShort, blockIndex: p.blockIndex, tint: p.tint }));
     const total = slides.length;
+    if (window.location.search.includes('auditoria=1') && RELATORIO.checarSanidade) RELATORIO.checarSanidade();
     const frame = document.getElementById('slideFrame');
     let current = 1;
 

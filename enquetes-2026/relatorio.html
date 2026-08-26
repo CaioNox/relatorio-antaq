@@ -369,50 +369,22 @@
   <div class="sheets" id="sheets"></div>
 
   <script src="dados-enquetes.js"></script>
+  <script src="deck.js"></script>
   <script>
     /* ════════════════════════════════════════════════════════════════════
-       1. ORDEM DOS SLIDES — espelha o `const deck` de index.html.
+       1. ORDEM DOS SLIDES — vem de deck.js (fonte única, compartilhada com
+          index.html). Para reordenar/incluir/excluir um slide, mexa em
+          `enquetes-2026/deck.js`, não aqui.
        ════════════════════════════════════════════════════════════════════ */
-    // As telas de enquete saem de dados-enquetes.js, exatamente como no
-    // `deck` de index.html — duas telas por enquete (`&p=1` rosca, `&p=2`
-    // barras + sugestões); uma só quando ninguém usou o serviço.
-    const telasEnquetes = [];
-    ['SOG', 'SRG', 'SAF', 'SFC'].forEach((sigla) => {
-      ENQUETES.filter((e) => e.sup === sigla)
-        .sort((a, b) => a.num - b.num)
-        .forEach((e) => {
-          const base = 'slide-enquete.html?e=' + e.id;
-          telasEnquetes.push(base + '&p=1');
-          if (e.q2) telasEnquetes.push(base + '&p=2');
-        });
-    });
-
-    const files = [
-      // Abertura
-      'slide-00.html', 'slide-01.html', 'slide-02.html', 'slide-03.html',
-      // Bloco 1 · Visão Geral das Ouvidorias públicas
-      'capa-bloco-1.html', 'slide-04.html', 'slide-05.html', 'slide-06.html', 'slide-07.html', 'slide-08.html',
-      // Bloco 2 · A Ouvidoria da ANTAQ
-      'capa-bloco-2.html', 'slide-09.html', 'slide-10.html',
-      // Bloco 3 · Carta de Serviços da ANTAQ
-      'capa-bloco-3.html', 'slide-11.html', 'slide-carta-32servicos.html?p=1', 'slide-carta-32servicos.html?p=2', 'slide-12.html', 'slide-13.html', 'slide-14.html',
-      // Bloco 4 · Conselho de Usuários da ANTAQ
-      'capa-bloco-4.html',
-      'slide-15.html', 'slide-16.html', 'slide-17.html',
-      'slide-18.html', 'slide-19.html',
-      'slide-20.html',
-      'slide-tabela-enquetes.html?p=1', 'slide-tabela-enquetes.html?p=2',
-      ...telasEnquetes,
-      // Bloco 5 · Considerações Finais
-      'capa-bloco-5.html', 'slide-21.html', 'slide-resultados-perspectivas.html',
-      // Bloco 6 · Apêndice
-      'capa-bloco-6.html', 'slide-23.html', 'slide-24.html', 'slide-25.html', 'slide-26.html', 'slide-27.html',
-    ];
+    const files = RELATORIO.paraRelatorio();
+    if (window.location.search.includes('auditoria=1') && RELATORIO.checarSanidade) RELATORIO.checarSanidade();
 
     /* ════════════════════════════════════════════════════════════════════
        2. ANEXOS — slides cujo conteúdo só aparece ao clicar/passar o mouse.
           O conteúdo é lido do próprio arquivo do slide (nada é alterado
-          lá) e vira páginas de texto logo depois do slide.
+          lá) e vira páginas de texto logo depois do slide. A configuração
+          vem de deck.js (RELATORIO.anexos); aqui só interpretamos o atalho
+          `ler:'tile'` usado pelos cartões de apêndice.
        ════════════════════════════════════════════════════════════════════ */
     const txt = (el, sel) => {
       const n = sel ? el.querySelector(sel) : el;
@@ -427,19 +399,14 @@
       desc: txt(el, '.tile-full')
     });
 
-    const ANEXOS = {
-      'slide-carta-32servicos.html?p=2': {
-        titulo: 'Carta de Serviços da ANTAQ', sel: '.svc-bar',
-        ler: el => ({
-          num: el.dataset.num || '', nome: el.dataset.title || txt(el, '.sb-name'),
-          tag: el.dataset.kicker || '', desc: txt(el, '.sb-desc')
-        })
-      },
-      'slide-23.html': { titulo: 'Decretos', sel: '.tile', ler: lerTile },
-      'slide-24.html': { titulo: 'Glossário', sel: '.tile', ler: lerTile },
-      'slide-25.html': { titulo: 'Leis', sel: '.tile', ler: lerTile },
-      'slide-26.html': { titulo: 'Normativos e Portarias', sel: '.tile', ler: lerTile },
-    };
+    const ANEXOS = {};
+    Object.entries(RELATORIO.anexos || {}).forEach(([file, cfg]) => {
+      ANEXOS[file] = {
+        titulo: cfg.titulo,
+        sel: cfg.sel,
+        ler: cfg.ler === 'tile' ? lerTile : (el) => cfg.ler(el, txt),
+      };
+    });
 
     /* ════════════════════════════════════════════════════════════════════
        3. MONTAGEM DAS PÁGINAS (sem iframe ainda — só o esqueleto)
@@ -501,10 +468,11 @@
         '<p class="annex-title"></p>' +
         '<span class="annex-cont"></span>' +
         '</div><div class="annex-grid"><div class="annex-col"></div><div class="annex-col"></div></div>' +
-        '<div class="annex-foot"><span>Relatório Anual de Enquetes do Conselho de Usuários · 2026 – Ouvidoria – ANTAQ</span>' +
+        '<div class="annex-foot"><span></span>' +
         '<span>conteúdo dos cartões interativos do slide</span></div>';
       page.querySelector('.annex-title').textContent = titulo;
       page.querySelector('.annex-cont').textContent = parte > 1 ? '(continuação ' + parte + ')' : '';
+      page.querySelector('.annex-foot span').textContent = RELATORIO.meta.rodapeAnexo;
       return page;
     }
 
@@ -627,10 +595,13 @@
        ════════════════════════════════════════════════════════════════════ */
     const btnPptx = document.getElementById('btnPptx');
 
-    /* Cada imagem sai em 3840×2160 (o dobro do canvas do deck): o texto
-       aguenta zoom e projeção sem serrilhar. */
-    const PPTX_LARGURA = 3840;
-    const PPTX_JPEG = 0.9;
+    /* Resolução nativa do deck (1920×1080, scale=1): o slide já É desenhado
+       nessa resolução, então capturar em 3840×2160 (scale=2) só multiplicava
+       por 4 a quantidade de pixels a rasterizar e a codificar em JPEG — sem
+       ganho real de nitidez, só lentidão e um .pptx ~4x maior. Se precisar
+       de mais zoom (projeção muito grande), suba para 2880 ou 3840. */
+    const PPTX_LARGURA = 1920;
+    const PPTX_JPEG = 0.88;
 
     /* CSS que vale só durante a captura.
        Animação e transição morrem para o print não pegar um quadro do meio
@@ -643,29 +614,28 @@
       '*{animation:none!important;transition:none!important}' +
       '.overlay,.ctx-overlay,.svc-pop{display:none!important}';
 
-    /* Ajustes por slide — a chave é o arquivo sem a query string, porque as
-       telas de enquete chegam como `slide-enquete.html?e=8270&p=1`. */
-    const AJUSTES_CAPTURA = {
-      // O slide já tem o modo de visão geral pronto (`body.modo-grade`):
-      // captura as 5 etapas em vez da etapa 1 sozinha, que é o estado
-      // inicial e o que vinha saindo no PowerPoint.
-      'slide-19.html': { classeBody: 'modo-grade', esconder: '.dicas, .ctx-bar .ctx-btn' },
-      // Mesmo caso: as 3 perspectivas (25 resultados) em vez da 1ª sozinha.
-      'slide-resultados-perspectivas.html': { classeBody: 'modo-grade', esconder: '.dicas, .ctx-bar .ctx-btn' },
-      // Controles que só servem com mouse — numa imagem estática são ruído.
-      'slide-14.html': { esconder: '.filtro' },
-      'slide-enquete.html': { esconder: '.btn-modo' },
-    };
+    // Ajustes por slide — vêm de deck.js (RELATORIO.capturaPptx), mesma fonte
+    // única que governa a ordem. A chave é o arquivo sem a query string,
+    // porque as telas de enquete chegam como `slide-enquete.html?e=8270&p=1`.
+    const AJUSTES_CAPTURA = RELATORIO.capturaPptx || {};
 
+    // Memoizado: a logomarca institucional e outros ícones se repetem em
+    // dezenas de slides — sem cache, cada um era baixado e recodificado em
+    // base64 de novo a cada slide.
+    const cacheDataUrl = new Map();
     function imagemParaDataUrl(src) {
-      return fetch(src)
+      if (cacheDataUrl.has(src)) return cacheDataUrl.get(src);
+      const p = fetch(src)
         .then((res) => res.blob())
         .then((blob) => new Promise((resolve, reject) => {
           const reader = new FileReader();
           reader.onload = () => resolve(reader.result);
           reader.onerror = reject;
           reader.readAsDataURL(blob);
-        }));
+        }))
+        .catch((e) => { cacheDataUrl.delete(src); throw e; });
+      cacheDataUrl.set(src, p);
+      return p;
     }
 
     function injetarStyle(doc, css) {
@@ -757,9 +727,18 @@
       // ao viewport) — capturar numa largura menor faz título/cards
       // quebrarem linha de um jeito que o CSS não previu, sobrepondo
       // conteúdo. 1920×1080 é a resolução em que o deck foi desenhado.
-      const stage = document.createElement('iframe');
-      stage.style.cssText = 'position:fixed; left:-99999px; top:0; width:1920px; height:1080px; border:0;';
-      document.body.appendChild(stage);
+      //
+      // DUAS iframes-palco, não uma: enquanto o slide N está sendo
+      // fotografado (html2canvas), o slide N+1 já pode começar a carregar
+      // (rede) na outra iframe — carregamento é I/O, roda em paralelo com o
+      // resto do JS. Isso sobrepõe boa parte do tempo de rede com o tempo
+      // de captura, em vez de somar os dois em série a cada slide.
+      const stageA = document.createElement('iframe');
+      stageA.style.cssText = 'position:fixed; left:-99999px; top:0; width:1920px; height:1080px; border:0;';
+      const stageB = stageA.cloneNode();
+      document.body.appendChild(stageA);
+      document.body.appendChild(stageB);
+      const stages = [stageA, stageB];
 
       try {
         btnPptx.textContent = 'Preparando…';
@@ -775,32 +754,45 @@
           if (document.fonts && document.fonts.ready) await document.fonts.ready;
         }
 
-        // Monta todos os slides em lotes, do mesmo jeito que a impressão faz.
-        const alvos = paginas.filter(p => p.dataset.file);
-        const LOTE = 4;
-        for (let i = 0; i < alvos.length; i += LOTE) {
-          const lote = alvos.slice(i, i + LOTE);
-          await Promise.all(lote.map(p => {
-            p.dataset.fixo = '1';
-            const f = p.querySelector('iframe') || montar(p);
-            return p.dataset.montado === '1' && f && !f.dataset.pptxPronto
-              ? esperar(f).then(() => { f.dataset.pptxPronto = '1'; })
-              : Promise.resolve();
-          }));
-        }
-
         // Ordem do documento: cada anexo já está logo depois do slide de
         // origem, então percorrer as páginas dá a sequência final do .pptx.
+        // NOTA: diferente da impressão, o PowerPoint NÃO usa os iframes de
+        // `.sheets` — ele fotografa cada slide na sua própria iframe-palco
+        // (acima) e cada anexo direto do DOM. Montar os iframes de `.sheets`
+        // aqui seria carregar cada slide DUAS vezes à toa.
         const paginasPptx = [...document.querySelectorAll('#sheets .page')];
         const pptx = new PptxGenJS();
         pptx.layout = 'LAYOUT_WIDE';
+
+        // Índices das páginas com arquivo, pré-computados uma vez (em vez de
+        // rescanear `paginasPptx` do zero a cada slide) — um ponteiro simples
+        // avança por esse array conforme os arquivos vão sendo agendados.
+        const idxArquivos = [];
+        for (let i = 0; i < paginasPptx.length; i++) {
+          if (paginasPptx[i].dataset.file) idxArquivos.push(i);
+        }
+        let ptrArquivo = 0;
+
+        // idx da página → Promise da iframe-palco já pronta para ela
+        const preparos = new Map();
+        let proximaStage = 0;
+        function agendarProximo() {
+          if (ptrArquivo >= idxArquivos.length) return;
+          const idx = idxArquivos[ptrArquivo++];
+          const stage = stages[proximaStage % 2];
+          proximaStage++;
+          preparos.set(idx, prepararIframePptx(stage, paginasPptx[idx].dataset.file).then(() => stage));
+        }
+        // pré-carrega os dois primeiros arquivos antes mesmo do loop começar
+        agendarProximo();
+        agendarProximo();
 
         for (let i = 0; i < paginasPptx.length; i++) {
           const page = paginasPptx[i];
           btnPptx.textContent = 'Gerando ' + (i + 1) + '/' + paginasPptx.length + '…';
           let canvas;
           if (page.dataset.file) {
-            await prepararIframePptx(stage, page.dataset.file);
+            const stage = await preparos.get(i);
             canvas = await html2canvas(stage.contentDocument.body, {
               foreignObjectRendering: true,
               useCORS: true,
@@ -809,6 +801,11 @@
               scale: PPTX_LARGURA / 1920,
               backgroundColor: '#ffffff'
             });
+            // SÓ AGORA, com o conteúdo desta iframe-palco já lido para o
+            // canvas, é seguro reaproveitá-la para o PRÓXIMO arquivo ainda
+            // não agendado — agendar antes de ler sobrescreveria o `src`
+            // (e portanto o conteúdo) que o html2canvas ainda ia capturar.
+            agendarProximo();
           } else {
             // Página de anexo: DOM comum, CSS local, sem Tailwind de CDN —
             // o renderizador padrão do html2canvas dá conta e sai mais fiel
@@ -828,7 +825,8 @@
         console.error('Falha ao gerar o PowerPoint:', err);
         alert('Não foi possível gerar o PowerPoint. Veja o console para detalhes.');
       } finally {
-        document.body.removeChild(stage);
+        document.body.removeChild(stageA);
+        document.body.removeChild(stageB);
         btnPptx.textContent = original;
         btnPptx.disabled = false;
       }

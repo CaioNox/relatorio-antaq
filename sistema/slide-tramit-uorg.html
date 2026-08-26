@@ -153,6 +153,10 @@
       box-shadow: 0 8px 20px -8px rgba(16, 48, 80, 0.18);
       padding: .8rem 1.1rem .9rem; display: flex; flex-direction: column;
       min-height: 0; min-width: 0;
+      /* Sem isso, quando a nota .zeradas (lista de UORGs sem tramitação) mais
+         as barras não cabem no espaço do card, o conteúdo vaza por baixo do
+         card e sobrepõe o rodapé institucional em vez de ser contido. */
+      overflow: hidden;
     }
 
     .chart-cap {
@@ -162,14 +166,25 @@
       border-bottom: 1px solid #eef2f7; flex-shrink: 0; transition: color 250ms ease;
     }
 
-    /* lado a lado: barras à esquerda, série mensal à direita */
+    /* lado a lado: barras à esquerda, série mensal à direita.
+       grid-template-rows precisa ser minmax(0,1fr): sem isso, a única linha
+       do grid usa sizing "auto" (tamanho do conteúdo mais alto), ignorando a
+       altura que `flex:1;min-height:0` reserva aqui — e o .chart-card com
+       30 UORGs cresce livremente, vazando por cima do rodapé. */
     .charts-grid {
-      flex: 1; min-height: 0;
-      display: grid; grid-template-columns: 1.15fr 0.85fr; gap: .8rem;
+      /* O pai (.flex-1 acima) é `display:block`, então `flex:1;min-height:0`
+         aqui não pega — precisa de height:100% para herdar a altura que o
+         pai já reserva corretamente (resto da tela menos cabeçalho/rodapé). */
+      flex: 1; min-height: 0; height: 100%;
+      display: grid; grid-template-columns: 1.15fr 0.85fr; grid-template-rows: minmax(0, 1fr); gap: .8rem;
     }
     .chart-canvas-wrap { flex: 1; min-height: 0; position: relative; }
 
-    .rows { flex: 1; min-height: 0; display: flex; flex-direction: column; justify-content: center; gap: .22rem; }
+    /* overflow:hidden é o que faltava: sem ele, quando as 30 barras (mais o
+       gap) somam mais altura do que o flex:1 reserva, o conteúdo vaza por
+       baixo da própria caixa em vez de ser contido — e é esse vazamento,
+       não a nota .zeradas em si, que sobrepõe o rodapé institucional. */
+    .rows { flex: 1; min-height: 0; overflow: hidden; display: flex; flex-direction: column; justify-content: center; gap: .22rem; }
     .bar-row { display: flex; align-items: center; gap: .5rem; animation: fadeInRow .45s cubic-bezier(.2, .7, .3, 1) both; }
 
     @keyframes fadeInRow {
@@ -190,7 +205,14 @@
     .bar-val { flex: 0 0 3.6rem; font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: .55rem; text-align: left; line-height: 1; }
     .bar-val .pc { font-weight: 700; font-size: .44rem; color: #94a3b8; margin-left: .22rem; }
 
-    /* densidade — encolhe conforme o nº de barras */
+    /* densidade — encolhe conforme o nº de barras.
+       density=3 (>22 UORGs) é o caso em que a lista pode não caber mesmo no
+       tamanho mínimo: com justify-content:center (herdado de .rows), o corte
+       por overflow:hidden tirava a barra do TOPO — coincidência grave, pois
+       é sempre a maior (a lista já vem ordenada da maior para a menor). Com
+       flex-start o que eventualmente falta é o fim da lista (as UORGs com
+       menos tramitações, já as menos relevantes). */
+    .rows[data-density="3"] { justify-content: flex-start; }
     .rows[data-density="2"] { gap: .17rem; }
     .rows[data-density="2"] .bar-label { font-size: .5rem; }
     .rows[data-density="2"] .bar-track { height: .44rem; }
