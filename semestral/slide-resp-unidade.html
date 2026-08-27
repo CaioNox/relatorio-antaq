@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
+<!--
+  ╔══════════════════════════════════════════════════════════════╗
+  ║  SLIDE — Respostas por unidade (responsavel_resposta)
+  ╠══════════════════════════════════════════════════════════════╣
+  ║  Mesma lógica interativa do slide-08.html (chips → barras → rosca)
+  ║  e o mesmo layout LADO A LADO: barras à esquerda, rosca à direita.
+  ║  Cabe inteiro na tela (height:100vh, sem rolagem) — quem dá a folga
+  ║  é a densidade das barras + o agrupamento em "Outras N unidades".
+  ║
+  ║  COMO A COR FUNCIONA (não mude sem ler):
+  ║  São 34 unidades — cor por unidade seria ilegível e viola a regra de
+  ║  paleta categórica (máx. ~8 matizes, nunca cicladas). Por isso:
+  ║    • a COR codifica o TIPO de unidade (7 grupos);
+  ║    • a IDENTIDADE vem da sigla (chip) e do nome completo (barra).
+  ║  A rosca agrega por grupo — por isso ela tem 7 fatias, não 34.
+  ║  As 7 cores são exatamente as do slide-08.html, na mesma ordem —
+  ║  padrão do projeto. Não trocar por outra paleta.
+  ║
+  ║  O QUE ATUALIZAR A CADA SEMESTRE:
+  ║  const TOTAL (nº de respostas) e as contagens em GRUPOS[].subs.
+  ║  Cada sub é: ['Nome completo - SIGLA', quantidade, 'SIGLA']
+  ╚══════════════════════════════════════════════════════════════╝
+-->
+
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Respostas por unidade - Relatório Semestral Ouvidoria ANTAQ</title>
+  <link rel="icon" type="image/png"
+    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&amp;family=Open+Sans:ital,wght@0,400;0,600;1,400&amp;display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    html { font-size: clamp(13px, min(1.354vw, 2.407vh), 26px); }
+    body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
+
+    /* Tudo cabe na tela: altura travada e sem rolagem. O que dá folga é a
+       densidade das barras (data-density) + o agrupamento em "Outras". */
+    .slide-container {
+      width: 100vw; height: 100vh; position: relative;
+      display: flex; flex-direction: column;
+      background-color: #ffffff; overflow: hidden;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    .font-montserrat { font-family: 'Montserrat', sans-serif; }
+    .text-brand-primary { color: #103050; }
+    .text-brand-secondary { color: #0070C0; }
+    .bg-brand-secondary { background-color: #0070C0; }
+    .top-accent { height: 8px; background-color: #103050; width: 100%; }
+    .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
+
+    /* ===================== CHIPS DE FILTRO (só a sigla) ===================== */
+    .chips { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .6rem; }
+
+    .chip {
+      display: inline-flex; align-items: center; gap: .35rem;
+      border: 2px solid var(--c); color: var(--c); background: transparent;
+      border-radius: 999px; padding: .3rem .6rem;
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .58rem;
+      letter-spacing: .02em; cursor: pointer; opacity: .5;
+      transition: background-color 200ms ease, color 200ms ease, opacity 200ms ease,
+        box-shadow 200ms ease, transform 200ms ease;
+      white-space: nowrap; line-height: 1;
+    }
+
+    .chip b {
+      font-weight: 900; font-size: .5rem;
+      background: color-mix(in srgb, var(--c) 14%, #ffffff);
+      color: var(--c); border-radius: 999px; padding: .12rem .34rem; line-height: 1;
+      transition: background-color 200ms ease, color 200ms ease;
+    }
+
+    .chip:hover { opacity: .85; transform: translateY(-2px); }
+    .chip.active { background: var(--c); color: #ffffff; opacity: 1; box-shadow: 0 8px 18px -8px color-mix(in srgb, var(--c) 70%, transparent); }
+    .chip.active b { background: rgba(255, 255, 255, .25); color: #ffffff; }
+
+    /* legenda dos grupos — explica o que a cor significa */
+    .grp-legend { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: .55rem; }
+    .grp-item { display: inline-flex; align-items: center; gap: .32rem; font-size: .54rem; font-weight: 700; color: #475569; font-family: 'Montserrat', sans-serif; }
+    .grp-dot { width: .5rem; height: .5rem; border-radius: 3px; flex-shrink: 0; }
+
+    .chip-reset {
+      display: inline-flex; align-items: center; gap: .38rem;
+      border: 2px dashed #cbd5e1; color: #64748b; background: transparent;
+      border-radius: 999px; padding: .3rem .6rem;
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .58rem;
+      cursor: pointer; white-space: nowrap; line-height: 1;
+      transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease, transform 200ms ease;
+    }
+    .chip-reset:hover { color: #103050; border-color: #103050; background: #f1f5f9; transform: translateY(-2px); }
+
+    .hint-line { margin-top: .45rem; font-size: .54rem; color: #94a3b8; font-weight: 600; display: flex; align-items: center; gap: .4rem; }
+    .hint-line i { color: #0090C0; font-size: .6rem; }
+
+    .empty-state {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: .6rem; color: #94a3b8; font-family: 'Montserrat', sans-serif; font-weight: 700;
+      font-size: .8rem; padding: 2.5rem 0;
+      animation: fadeInRow .45s cubic-bezier(.2, .7, .3, 1) both;
+    }
+    .empty-state i { font-size: 1.6rem; color: #cbd5e1; }
+
+    /* ===================== CARDS ===================== */
+    .chart-card {
+      background-color: #ffffff; border: 2px solid #E2E8F0; border-radius: 16px;
+      box-shadow: 0 8px 20px -8px rgba(16, 48, 80, 0.18);
+      padding: .8rem 1.1rem .9rem; display: flex; flex-direction: column;
+      min-height: 0; min-width: 0;
+    }
+
+    .chart-cap {
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .72rem;
+      display: flex; align-items: center; gap: .45rem;
+      padding-bottom: .4rem; margin-bottom: .4rem;
+      border-bottom: 1px solid #eef2f7; flex-shrink: 0;
+      transition: color 250ms ease;
+    }
+
+    /* Lado a lado, como no slide-08: barras à esquerda, rosca à direita. */
+    .charts-grid {
+      flex: 1; min-height: 0;
+      display: grid; grid-template-columns: 1.25fr 0.75fr; gap: .8rem;
+    }
+
+    /* Lado a lado enquanto couber. Abaixo disso a rosca fica estreita demais
+       para ser lida, então os dois empilham e cada um usa a largura inteira. */
+    @media (max-width: 1400px) {
+      .charts-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1.35fr 1fr;
+      }
+    }
+
+    .chart-canvas-wrap { flex: 1; min-height: 0; position: relative; display: flex; align-items: center; justify-content: center; }
+
+    .pie-empty-state {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: .5rem; color: #94a3b8; font-family: 'Montserrat', sans-serif; font-weight: 700;
+      font-size: .82rem; text-align: center; padding: 1rem;
+    }
+    .pie-empty-state i { font-size: 1.4rem; color: #cbd5e1; }
+
+    /* ===================== BARRAS HORIZONTAIS ===================== */
+    .rows {
+      flex: 1; min-height: 0;
+      display: flex; flex-direction: column; justify-content: center; gap: .26rem;
+    }
+
+    .bar-row { display: flex; align-items: center; gap: .5rem; animation: fadeInRow .45s cubic-bezier(.2, .7, .3, 1) both; }
+
+    @keyframes fadeInRow {
+      from { opacity: 0; transform: translateX(-12px); }
+      to { opacity: 1; transform: none; }
+    }
+
+    .bar-label {
+      flex: 0 0 47%; min-width: 0;
+      font-family: 'Open Sans', sans-serif; font-weight: 600; color: #103050;
+      font-size: .7rem; line-height: 1.12; text-align: right;
+    }
+    .bar-label .sg { font-weight: 800; color: #475569; }
+
+    .bar-track { flex: 1; min-width: 0; height: .58rem; background: #eef2f7; border-radius: 999px; overflow: hidden; }
+    .bar-fill { height: 100%; width: 0; border-radius: 999px; transition: width 600ms cubic-bezier(.2, .7, .3, 1); }
+
+    .bar-val { flex: 0 0 3rem; font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: .72rem; text-align: left; line-height: 1; }
+    .bar-val .pc { font-weight: 700; font-size: .56rem; color: #94a3b8; margin-left: .2rem; }
+
+    /* densidade — encolhe conforme o nº de barras, para nunca estourar o card.
+       Escala elevada em relação à original, priorizando legibilidade. */
+    .rows[data-density="2"] { gap: .2rem; }
+    .rows[data-density="2"] .bar-label { font-size: .64rem; }
+    .rows[data-density="2"] .bar-track { height: .5rem; }
+    .rows[data-density="2"] .bar-val { font-size: .66rem; }
+    .rows[data-density="2"] .bar-val .pc { font-size: .52rem; }
+
+    .rows[data-density="3"] { gap: .15rem; }
+    .rows[data-density="3"] .bar-label { font-size: .58rem; }
+    .rows[data-density="3"] .bar-track { height: .42rem; }
+    .rows[data-density="3"] .bar-val { font-size: .6rem; }
+    .rows[data-density="3"] .bar-val .pc { font-size: .48rem; }
+
+    .rows[data-density="4"] { gap: .11rem; }
+    .rows[data-density="4"] .bar-label { font-size: .52rem; }
+    .rows[data-density="4"] .bar-track { height: .38rem; }
+    .rows[data-density="4"] .bar-val { font-size: .54rem; }
+    .rows[data-density="4"] .bar-val .pc { font-size: .44rem; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+  </style>
+  <link rel="stylesheet" href="a11y.css">
+  <link rel="stylesheet" href="base.css" />
+</head>
+
+<body>
+  <div class="slide-container">
+    <div class="top-accent"></div>
+    <div class="top-accent-secondary"></div>
+
+    <!-- ===================== HEADER INTERATIVO ===================== -->
+    <div class="flex items-start justify-between px-16 pt-8 pb-2 z-10">
+      <div style="min-width:0;">
+        <div class="flex items-center gap-3 mb-1">
+          <div class="w-1 h-8 bg-brand-secondary"></div>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Respostas por Unidade</p>
+        </div>
+        <p class="text-gray-500 font-medium ml-4" style="font-size:.68rem;">1º semestre de 2026 · 130 respostas · 34 unidades respondentes</p>
+      </div>
+
+      <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
+        <i class="fas fa-lock-open text-3xl" aria-hidden="true"></i>
+        <div class="flex flex-col justify-center pl-2" style="border-left:1px solid #CBD5E1;">
+          <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">CAPÍTULO 04</p>
+          <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none whitespace-nowrap">Seção de Transparência e Acesso à Informação - STAI</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- filtros em faixa de largura total: libera altura para os gráficos -->
+    <div class="px-16 pb-1 z-10">
+      <div class="chips" id="chips"></div>
+      <div class="grp-legend" id="grpLegend"></div>
+      <p class="hint-line"><i class="far fa-hand-pointer"></i> Clique numa sigla para exibir ou ocultar a unidade · a cor indica o tipo de unidade</p>
+    </div>
+
+    <!-- ===================== GRÁFICOS ===================== -->
+    <div class="flex-1 px-16 pb-2 z-10" style="min-height:0;">
+      <div class="charts-grid">
+        <!-- ◀ ESQUERDA: barras horizontais, uma por unidade -->
+        <div class="chart-card">
+          <p class="chart-cap" id="chartCap"></p>
+          <div class="rows" id="rows" data-density="1"></div>
+        </div>
+        <!-- ▶ DIREITA: rosca, agregada por tipo de unidade -->
+        <div class="chart-card">
+          <p class="chart-cap" id="pieCap"><i class="fas fa-chart-pie"></i> Distribuição por tipo</p>
+          <div class="chart-canvas-wrap" id="pieWrap"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="px-16 pb-4 pt-1 flex justify-between items-center z-10">
+      <p class="text-gray-400" style="font-size:.46rem;">Relatório 1º Semestre de 2026 – Ouvidoria – Agência Nacional de Transportes Aquaviários - ANTAQ</p>
+    </div>
+  </div>
+
+  <script>
+    /* =========================================================
+       DADOS — 130 respostas, 34 unidades, 1º sem/2026
+       Cada sub: ['Nome completo - SIGLA', quantidade, 'SIGLA']
+       ========================================================= */
+    const TOTAL = 130;
+
+    const GRUPOS = [
+      {
+        id: 'secoes', name: 'Seções', icon: 'fa-headset', color: '#F2A900',
+        subs: [
+          ['Seção de Transparência e Acesso à Informação - STAI', 20, 'STAI'],
+          ['Seção de Apoio ao Cidadão - SAC', 4, 'SAC']
+        ]
+      },
+      {
+        id: 'gerencias', name: 'Gerências', icon: 'fa-sitemap', color: '#10B981',
+        subs: [
+          ['Gerência de Outorgas de Autorização - GOA', 13, 'GOA'],
+          ['Gerência de Estatística e Avaliação de Desempenho - GEA', 8, 'GEA'],
+          ['Gerência de Regulação da Navegação - GRN', 8, 'GRN'],
+          ['Gerência de Gestão de Pessoas - GGP', 5, 'GGP'],
+          ['Gerência de Afretamento da Navegação - GAF', 4, 'GAF'],
+          ['Gerência de Portos Organizados - GPO', 4, 'GPO'],
+          ['Gerência de Regulação Portuária - GRP', 4, 'GRP'],
+          ['Gerência de Recursos Logísticos - GRL', 2, 'GRL'],
+          ['Gerência de Estudos Hidroviários - GEH', 1, 'GEH'],
+          ['Gerência de Governança, Gestão e Planejamento - GGGP', 1, 'GGGP'],
+          ['Gerência de Planejamento e Inteligência da Fiscalização - GPF', 1, 'GPF'],
+          ['Gerência de Recursos e de Apoio Técnico - GRAT', 1, 'GRAT'],
+          ['Gerência de Tecnologia e Gestão da Informação - GTGI', 1, 'GTGI']
+        ]
+      },
+      {
+        id: 'divisoes', name: 'Divisões', icon: 'fa-folder-tree', color: '#0090C0',
+        subs: [
+          ['Divisão de Planejamento, Desenvolvimento e Desempenho - DPDD', 10, 'DPDD'],
+          ['Divisão de Gestão de Informações Funcionais e Folha de Pagamento - DGIP', 4, 'DGIP'],
+          ['Divisão de Legislação Aplicada e Qualidade de Vida - DLQV', 4, 'DLQV'],
+          ['Divisão de Outorgas de Instalações Portuárias Privadas - DOIP', 3, 'DOIP'],
+          ['Divisão de Reuniões de Diretoria e Publicações - DRCP', 2, 'DRCP'],
+          ['Divisão de Distribuição, Deliberações e Comunicações Processuais - DDCP', 1, 'DDCP'],
+          ['Divisão de Gestão de Documentos - DGDOC', 1, 'DGDOC']
+        ]
+      },
+      {
+        id: 'superint', name: 'Superintendências', icon: 'fa-building-columns', color: '#6366F1',
+        subs: [
+          ['Superintendência de Fiscalização e Coordenação das Unidades Regionais - SFC', 4, 'SFC'],
+          ['Superintendência de Estudos e Projetos Hidroviários - SEPH', 2, 'SEPH'],
+          ['Superintendência de Outorgas - SOG', 2, 'SOG']
+        ]
+      },
+      {
+        id: 'regionais', name: 'Unidades Regionais', icon: 'fa-location-dot', color: '#0EA5E9',
+        subs: [
+          ['Gerência Regional de Manaus - GREMN', 2, 'GREMN'],
+          ['Gerência Regional de Santos - GREST', 2, 'GREST'],
+          ['Unidade Regional de Curitiba - URECB', 1, 'URECB']
+        ]
+      },
+      {
+        id: 'assessorias', name: 'Assessorias', icon: 'fa-comments', color: '#94A3B8',
+        subs: [
+          ['Assessoria de Comunicação e Cerimonial - ASCOM', 3, 'ASCOM'],
+          ['Assessoria de Relações internacionais - ARINT', 1, 'ARINT'],
+          ['Assessoria da Diretoria D4', 1, 'D4']
+        ]
+      },
+      {
+        id: 'vinculados', name: 'Órgãos vinculados', icon: 'fa-scale-balanced', color: '#22C55E',
+        subs: [
+          ['Secretaria Especial de Licitação de Concessões - SELC', 7, 'SELC'],
+          ['Procuradoria Federal junto à ANTAQ - PFA', 2, 'PFA'],
+          ['Ouvidoria - OUV', 1, 'OUV']
+        ]
+      }
+    ];
+
+    /* achata em unidades — a sigla é a chave de seleção */
+    const UNIDADES = [];
+    GRUPOS.forEach(g => g.subs.forEach(([nome, n, sigla]) =>
+      UNIDADES.push({ nome, n, sigla, g })));
+
+    const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const selected = new Set(UNIDADES.map(u => u.sigla)); // abre com tudo selecionado
+    let pieChart = null;
+
+    /* ===================== CHIPS — só a sigla ===================== */
+    const chipsWrap = document.getElementById('chips');
+    UNIDADES.forEach(u => {
+      const b = document.createElement('button');
+      b.className = 'chip';
+      b.dataset.sigla = u.sigla;
+      b.style.setProperty('--c', u.g.color);
+      b.title = u.nome + ' — ' + u.n + (u.n === 1 ? ' resposta' : ' respostas');
+      b.innerHTML = '<span>' + u.sigla + '</span><b>' + u.n + '</b>';
+      b.addEventListener('click', () => toggle(u.sigla));
+      chipsWrap.appendChild(b);
+    });
+
+    const allBtn = document.createElement('button');
+    allBtn.className = 'chip-reset';
+    allBtn.id = 'allBtn';
+    allBtn.addEventListener('click', () => {
+      if (selected.size === UNIDADES.length) selected.clear();
+      else UNIDADES.forEach(u => selected.add(u.sigla));
+      update();
+    });
+    chipsWrap.appendChild(allBtn);
+
+    /* legenda dos grupos — a cor precisa ser explicada, não adivinhada */
+    const legend = document.getElementById('grpLegend');
+    GRUPOS.forEach(g => {
+      const s = document.createElement('span');
+      s.className = 'grp-item';
+      s.innerHTML = '<span class="grp-dot" style="background:' + g.color + '"></span>' +
+        '<i class="fas ' + g.icon + '" style="color:' + g.color + ';font-size:.55rem;"></i>' + g.name;
+      legend.appendChild(s);
+    });
+
+    function toggle(sigla) {
+      if (selected.has(sigla)) selected.delete(sigla); else selected.add(sigla);
+      update();
+    }
+
+    function refreshChips() {
+      chipsWrap.querySelectorAll('.chip').forEach(c =>
+        c.classList.toggle('active', selected.has(c.dataset.sigla)));
+      const btn = document.getElementById('allBtn');
+      if (selected.size === UNIDADES.length) {
+        btn.innerHTML = '<i class="fas fa-eraser"></i><span>Zerar tudo</span>';
+        btn.title = 'Limpar toda a seleção';
+      } else {
+        btn.innerHTML = '<i class="fas fa-layer-group"></i><span>Exibir todas as unidades</span>';
+        btn.title = 'Selecionar todas as unidades de uma vez';
+      }
+    }
+
+    /* ===================== BARRAS (à esquerda) =====================
+       Mesmo mecanismo do slide-08: se sobrar barra demais para o card,
+       as unidades menores de cada grupo viram uma linha "Outras N
+       unidades". É isso que faz 34 unidades caberem sem rolagem. */
+    function makeRows(maxGroup) {
+      const rows = [];
+      GRUPOS.forEach(g => {
+        const sel = g.subs.filter(([, , sigla]) => selected.has(sigla));
+        if (!sel.length) return;
+        const keep = [], grp = [];
+        sel.forEach(s => (maxGroup > 0 && s[1] <= maxGroup ? grp : keep).push(s));
+        if (grp.length >= 2) {
+          keep.forEach(([nome, n, sigla]) => rows.push({ nome, n, sigla, g }));
+          rows.push({
+            nome: 'Outras ' + grp.length + ' unidades · ' + g.name,
+            n: grp.reduce((s, x) => s + x[1], 0),
+            sigla: null, g, juntas: grp.map(x => x[2])
+          });
+        } else {
+          sel.forEach(([nome, n, sigla]) => rows.push({ nome, n, sigla, g }));
+        }
+      });
+      return rows;
+    }
+
+    function buildRows() {
+      let rows = makeRows(0);
+      if (rows.length > 18) rows = makeRows(1);
+      if (rows.length > 24) rows = makeRows(2);
+      rows.sort((a, b) => b.n - a.n || a.nome.localeCompare(b.nome, 'pt-BR'));
+      return rows;
+    }
+
+    function renderBars() {
+      const rows = buildRows();
+      const wrap = document.getElementById('rows');
+      wrap.innerHTML = '';
+
+      if (!rows.length) {
+        wrap.dataset.density = '1';
+        wrap.innerHTML = '<div class="empty-state"><i class="far fa-hand-pointer"></i>' +
+          '<span>Clique numa sigla acima para exibir as unidades</span></div>';
+        return;
+      }
+
+      const n = rows.length;
+      wrap.dataset.density = n <= 10 ? '1' : n <= 16 ? '2' : n <= 22 ? '3' : '4';
+
+      const maxV = rows[0].n;
+      rows.forEach((r, i) => {
+        const el = document.createElement('div');
+        el.className = 'bar-row';
+        el.style.animationDelay = (REDUCED ? 0 : i * 20) + 'ms';
+        const pc = (r.n / TOTAL * 100).toFixed(1).replace('.', ',');
+        // nome completo - sigla, exatamente como vem dos dados
+        const tip = r.juntas ? r.juntas.join(' · ') : r.nome + ' · ' + r.g.name;
+        el.innerHTML =
+          '<span class="bar-label" title="' + tip.replace(/"/g, '&quot;') + '">' + r.nome + '</span>' +
+          '<div class="bar-track"><div class="bar-fill" style="background:' + r.g.color + '"></div></div>' +
+          '<span class="bar-val" style="color:' + r.g.color + '">' + r.n + '<span class="pc">' + pc + '%</span></span>';
+        wrap.appendChild(el);
+        const fill = el.querySelector('.bar-fill');
+        const w = (r.n / maxV * 100) + '%';
+        if (REDUCED) fill.style.width = w;
+        else requestAnimationFrame(() => requestAnimationFrame(() => { fill.style.width = w; }));
+      });
+    }
+
+    function refreshCaption() {
+      const sel = UNIDADES.filter(u => selected.has(u.sigla));
+      const cap = document.getElementById('chartCap');
+      const soma = sel.reduce((s, u) => s + u.n, 0);
+      if (!sel.length) {
+        cap.style.color = '#94a3b8';
+        cap.innerHTML = '<i class="far fa-hand-pointer"></i> Nenhuma unidade selecionada — 0 respostas';
+      } else if (sel.length === 1) {
+        cap.style.color = sel[0].g.color;
+        cap.innerHTML = '<i class="fas ' + sel[0].g.icon + '"></i> ' + sel[0].nome + ' — ' + soma +
+          (soma === 1 ? ' resposta' : ' respostas');
+      } else {
+        cap.style.color = '#475569';
+        cap.innerHTML = '<i class="fas fa-layer-group"></i> ' + sel.length + ' unidades selecionadas — ' +
+          soma + ' respostas (' + (soma / TOTAL * 100).toFixed(1).replace('.', ',') + '% das ' + TOTAL + ')';
+      }
+    }
+
+    /* ===================== ROSCA (embaixo) — agregada por grupo ===================== */
+    function renderPieChart() {
+      const wrap = document.getElementById('pieWrap');
+      const cap = document.getElementById('pieCap');
+
+      // soma por grupo apenas das unidades selecionadas
+      const porGrupo = GRUPOS.map(g => ({
+        g, v: g.subs.reduce((s, [, n, sigla]) => s + (selected.has(sigla) ? n : 0), 0)
+      })).filter(x => x.v > 0);
+
+      if (!porGrupo.length) {
+        if (pieChart) { pieChart.destroy(); pieChart = null; }
+        wrap.innerHTML = '<div class="pie-empty-state"><i class="fas fa-chart-pie"></i><span>Selecione ao menos uma unidade para ver a distribuição</span></div>';
+        cap.style.color = '#94a3b8';
+        cap.innerHTML = '<i class="fas fa-chart-pie"></i> Distribuição por tipo de unidade · 0 selecionadas';
+        return;
+      }
+
+      wrap.innerHTML = '<canvas id="pieChart" role="img"></canvas>';
+      const canvas = document.getElementById('pieChart');
+      canvas.setAttribute('aria-label', 'Gráfico de rosca: distribuição das respostas por tipo de unidade — ' +
+        porGrupo.map(x => x.g.name + ' ' + x.v).join(', '));
+      if (pieChart) pieChart.destroy();
+
+      const percentageLabelsPlugin = {
+        id: 'percentageLabels',
+        afterDraw(chart) {
+          const { ctx } = chart;
+          const meta = chart.getDatasetMeta(0);
+          const total = chart.data.datasets[0].data.reduce((s, v) => s + v, 0) || 1;
+          ctx.save();
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          meta.data.forEach((arc, index) => {
+            const value = chart.data.datasets[0].data[index];
+            const pct = value / total * 100;
+            if (!value || pct < 1) return;
+            const angle = (arc.startAngle + arc.endAngle) / 2;
+            const radius = (arc.outerRadius + arc.innerRadius) / 2;
+            const x = arc.x + Math.cos(angle) * radius * 0.8;
+            const y = arc.y + Math.sin(angle) * radius * 0.8;
+            const fontSize = pct >= 10 ? 13 : pct >= 5 ? 11 : 9;
+            ctx.font = '700 ' + fontSize + 'px Montserrat, sans-serif';
+            ctx.fillStyle = '#ffffff';
+            ctx.strokeStyle = 'rgba(16, 48, 80, 0.35)';
+            ctx.lineWidth = 3;
+            ctx.strokeText(pct.toFixed(1) + '%', x, y);
+            ctx.fillText(pct.toFixed(1) + '%', x, y);
+          });
+          ctx.restore();
+        }
+      };
+
+      pieChart = new Chart(canvas, {
+        type: 'doughnut',
+        data: {
+          labels: porGrupo.map(x => x.g.name),
+          datasets: [{
+            data: porGrupo.map(x => x.v),
+            backgroundColor: porGrupo.map(x => x.g.color),
+            borderColor: '#ffffff',
+            borderWidth: 2,
+            hoverOffset: 8
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          animation: { duration: REDUCED ? 0 : 650 },
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: { color: '#103050', boxWidth: 10, boxHeight: 10, padding: 8, font: { family: 'Open Sans', size: 10, weight: '600' } }
+            },
+            tooltip: {
+              callbacks: {
+                label: (c) => {
+                  const soma = c.dataset.data.reduce((s, v) => s + v, 0) || 1;
+                  return c.label + ': ' + c.parsed + ' respostas (' + (c.parsed / soma * 100).toFixed(1).replace('.', ',') + '%)';
+                }
+              }
+            }
+          }
+        },
+        plugins: [percentageLabelsPlugin]
+      });
+
+      if (window.A11y) {
+        A11y.renderChartFallbackTable(
+          canvas,
+          'Distribuição das respostas por tipo de unidade',
+          ['Tipo de unidade', 'Respostas'],
+          porGrupo.map(x => [x.g.name, String(x.v)])
+        );
+      }
+
+      const nSel = UNIDADES.filter(u => selected.has(u.sigla)).length;
+      cap.style.color = '#475569';
+      cap.innerHTML = '<i class="fas fa-chart-pie"></i> Distribuição por tipo de unidade · ' +
+        porGrupo.length + ' tipo' + (porGrupo.length > 1 ? 's' : '') + ' · ' + nSel + ' unidade' + (nSel > 1 ? 's' : '');
+    }
+
+    function update() {
+      refreshChips();
+      refreshCaption();
+      renderBars();
+      renderPieChart();
+    }
+
+    update();
+    // Garante a tabela de acessibilidade do gráfico também no carregamento
+    // inicial, caso a11y.js (script deferred) ainda não tivesse carregado
+    // no momento da primeira renderização.
+    document.addEventListener('DOMContentLoaded', function () {
+      if (window.A11y) renderPieChart();
+    });
+  </script>
+  <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
+  <script src="a11y.js" defer></script>
+</body>
+
+</html>

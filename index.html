@@ -5,9 +5,12 @@
   ║  index.html — PÁGINA INICIAL (portal de entrada)
   ╠══════════════════════════════════════════════════════════════╣
   ║  Esta é a primeira página que o usuário vê ao acessar o site.
-  ║  Exibe um card por relatório publicado (trimestral e anual de enquetes).
-  ║  O QUE ATUALIZAR: ano/trimestre nos textos dos cards;
-  ║  adicionar novo card se houver nova seção no relatório.
+  ║  Exibe os relatórios publicados agrupados por periodicidade — Anual,
+  ║  Semestral, Trimestral, nessa ordem (ver #report-groups no <body>).
+  ║  O QUE ATUALIZAR: ano/período nos textos dos cards; para adicionar um
+  ║  relatório, inclua um novo <a class="card card-{periodicidade}"> dentro
+  ║  do <div class="cards"> do grupo certo — a contagem do eyebrow ("· N
+  ║  relatórios") é recalculada sozinha pelo script no fim do <body>.
   ╚══════════════════════════════════════════════════════════════╝
 -->
 <html lang="pt-BR">
@@ -23,6 +26,30 @@
     rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet" />
   <style>
+    :root {
+      /* Escala de azul institucional ANTAQ, usada para diferenciar a periodicidade dos
+         relatórios no hub. #0090C0 é a cor de marca real (usada de forma consistente no
+         eyebrow do hero, no .gold do h1 e no :focus-visible dos três módulos do site) —
+         vira a âncora --antaq-azul-500. O resto da escala é derivado dela por mistura com
+         branco (tints, 100/300) ou com o navy institucional (shades, 700/900) — nenhum
+         matiz novo é introduzido, tudo fica na mesma família de azul.
+         Lógica: azul mais profundo = ciclo de publicação mais longo e consolidado
+         (Anual); tons mais claros/vibrantes = ciclos mais curtos e frequentes
+         (Trimestral). Semestral fica no meio. */
+      --antaq-azul-100: #DBEFF6;
+      /* tint mais claro — fundo do .card-icon (todos os grupos) e filete do eyebrow Anual */
+      --antaq-azul-300: #94D0E5;
+      /* tint claro — filete do eyebrow Semestral */
+      --antaq-azul-500: #0090C0;
+      /* base/âncora = cor de marca já usada no resto do site; só uso decorativo grande (3.65:1 sobre branco, insuficiente p/ texto pequeno) */
+      --antaq-azul-600: #0278A2;
+      /* derivado p/ garantir AA em texto pequeno — cor de texto/ícone/link do card Trimestral (4.99:1 sobre branco) */
+      --antaq-azul-700: #045E82;
+      /* cor de texto/ícone/link do card Semestral (7.17:1 sobre branco) */
+      --antaq-azul-900: #103050;
+      /* reaproveitado exato do #103050 já usado no header-bar/footer — cor de texto/ícone/link do card Anual (13.46:1 sobre branco) */
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -66,12 +93,28 @@
     }
 
     .org-bar {
-      padding: 20px 40px 0;
+      padding: 16px 32px 0;
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       position: relative;
       z-index: 2;
+    }
+
+    .org-bar-logo--ouvidoria {
+      height: 84px;
+      width: auto;
+      filter: brightness(0) invert(1);
+    }
+
+    .org-bar-logo--antaq {
+      height: 76px;
+      width: auto;
+    }
+
+    .org-bar-divider {
+      border-left: 1px solid rgba(255, 255, 255, 0.25);
+      padding-left: 16px;
     }
 
     .org-bar .org-title {
@@ -100,14 +143,14 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 40px 24px;
+      padding: 32px 24px;
       position: relative;
       z-index: 2;
     }
 
     .header-section {
       text-align: center;
-      margin-bottom: 48px;
+      margin-bottom: 32px;
     }
 
     .header-section .eyebrow {
@@ -135,12 +178,12 @@
 
     .header-section h1 {
       font-family: 'Montserrat', sans-serif;
-      font-size: 4.8rem;
+      font-size: clamp(1.8rem, 1.1rem + 3vw, 3.6rem);
       font-weight: 800;
       color: #FFFFFF;
       text-transform: uppercase;
       letter-spacing: -0.5px;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       text-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
     }
 
@@ -150,10 +193,10 @@
 
     .header-section p {
       display: inline-block;
-      font-size: 16px;
+      font-size: 14px;
       color: #FFFFFF;
       font-weight: 900;
-      padding: 8px 18px;
+      padding: 7px 16px;
       background-color: rgba(16, 48, 80, 0.55);
       backdrop-filter: blur(6px);
       -webkit-backdrop-filter: blur(6px);
@@ -162,12 +205,72 @@
       text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
     }
 
-    .cards {
+    .report-groups {
       display: flex;
-      gap: 28px;
-      flex-wrap: wrap;
-      justify-content: center;
-      max-width: 1300px;
+      flex-direction: column;
+      gap: 30px;
+      width: 100%;
+      max-width: 1120px;
+    }
+
+    .report-group {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    /* Seção sem nenhum relatório não é renderizada (controlado via JS no fim do body). */
+    .report-group.is-empty {
+      display: none;
+    }
+
+    .group-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--antaq-azul-100);
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .group-eyebrow-count {
+      font-weight: 600;
+      opacity: 0.85;
+      white-space: nowrap;
+    }
+
+    .group-eyebrow-rule {
+      flex: 1 1 auto;
+      border-radius: 1px;
+    }
+
+    /* Anual: filete mais grosso = ciclo mais "pesado"/consolidado */
+    .group-eyebrow--anual .group-eyebrow-rule {
+      background-color: var(--antaq-azul-100);
+      height: 4px;
+    }
+
+    /* Semestral: peso intermediário */
+    .group-eyebrow--semestral .group-eyebrow-rule {
+      background-color: var(--antaq-azul-300);
+      height: 3px;
+    }
+
+    /* Trimestral: filete mais fino = ciclo mais "leve"/frequente */
+    .group-eyebrow--trimestral .group-eyebrow-rule {
+      background-color: var(--antaq-azul-500);
+      height: 2px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+      gap: 20px;
+      justify-items: center;
     }
 
     .card {
@@ -175,16 +278,17 @@
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       border: 1px solid rgba(255, 255, 255, 0.35);
-      border-left: 6px solid rgba(255, 255, 255, 0.6);
-      border-radius: 16px;
-      width: 380px;
-      padding: 32px 28px;
+      border-left: 5px solid rgba(255, 255, 255, 0.6);
+      border-radius: 14px;
+      width: 100%;
+      max-width: 360px;
+      padding: 22px 20px;
       text-decoration: none;
       color: inherit;
       transition: transform .3s cubic-bezier(.2, .7, .3, 1), background-color .3s ease, box-shadow .3s ease, border-color .3s ease;
       display: flex;
       align-items: flex-start;
-      gap: 20px;
+      gap: 16px;
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
       animation: cardIn .55s cubic-bezier(.2, .7, .3, 1) both;
     }
@@ -227,33 +331,63 @@
       }
     }
 
-    .card-relatorio {
-      border-left-color: #0070C0;
+    /* Anual — antaq-azul-900, o tom mais profundo da escala: ciclo mais longo/consolidado */
+    .card-anual {
+      border-left-color: var(--antaq-azul-900);
+    }
+
+    .card-anual .card-icon {
+      background-color: var(--antaq-azul-100);
+      color: var(--antaq-azul-900);
+    }
+
+    .card-anual:hover {
+      border-color: var(--antaq-azul-900);
+    }
+
+    .card-anual .card-link {
+      color: var(--antaq-azul-900);
     }
 
     .card-falabr {
       border-left-color: #103050;
     }
 
-    .card-portal {
-      border-left-color: #0090C0;
-    }
-
+    /* Semestral — antaq-azul-700, tom intermediário */
     .card-semestral {
-      border-left-color: #103050;
+      border-left-color: var(--antaq-azul-700);
     }
 
     .card-semestral .card-icon {
-      background-color: #E0E7FF;
-      color: #103050;
+      background-color: var(--antaq-azul-100);
+      color: var(--antaq-azul-700);
     }
 
     .card-semestral:hover {
-      border-color: #103050;
+      border-color: var(--antaq-azul-700);
     }
 
     .card-semestral .card-link {
-      color: #103050;
+      color: var(--antaq-azul-700);
+    }
+
+    /* Trimestral — antaq-azul-500 (base) no border decorativo, antaq-azul-600 em
+       texto/ícone p/ garantir AA; ciclo mais curto/frequente = tom mais claro/vibrante */
+    .card-trimestral {
+      border-left-color: var(--antaq-azul-500);
+    }
+
+    .card-trimestral .card-icon {
+      background-color: var(--antaq-azul-100);
+      color: var(--antaq-azul-600);
+    }
+
+    .card-trimestral:hover {
+      border-color: var(--antaq-azul-500);
+    }
+
+    .card-trimestral .card-link {
+      color: var(--antaq-azul-600);
     }
 
     .card:hover {
@@ -262,22 +396,14 @@
       box-shadow: 0 18px 34px rgba(16, 48, 80, 0.28);
     }
 
-    .card-relatorio:hover {
-      border-color: #0070C0;
-    }
-
-    .card-portal:hover {
-      border-color: #0090C0;
-    }
-
     .card-icon {
-      width: 56px;
-      height: 56px;
-      border-radius: 14px;
+      width: 44px;
+      height: 44px;
+      border-radius: 11px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 22px;
+      font-size: 18px;
       flex-shrink: 0;
       transition: transform .3s ease;
     }
@@ -286,40 +412,30 @@
       transform: scale(1.1) rotate(-6deg);
     }
 
-    .card-relatorio .card-icon {
-      background-color: #DBEAFE;
-      color: #0070C0;
-    }
-
     .card-falabr .card-icon {
       background-color: #E0E7FF;
       color: #103050;
     }
 
-    .card-portal .card-icon {
-      background-color: #E1F2F8;
-      color: #0090C0;
-    }
-
-    .card-content h2 {
+    .card-content h3 {
       font-family: 'Montserrat', sans-serif;
-      font-size: 18px;
+      font-size: 15px;
       font-weight: 700;
       color: #1E293B;
-      margin-bottom: 6px;
+      margin-bottom: 5px;
     }
 
     .card-content p {
-      font-size: 14px;
+      font-size: 12.5px;
       color: #1E293B;
       font-weight: 600;
-      line-height: 1.5;
-      margin-bottom: 12px;
+      line-height: 1.45;
+      margin-bottom: 10px;
     }
 
     .card-link {
       font-family: 'Montserrat', sans-serif;
-      font-size: 13px;
+      font-size: 11.5px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.5px;
@@ -329,16 +445,8 @@
       transition: gap 0.2s ease;
     }
 
-    .card-relatorio .card-link {
-      color: #0070C0;
-    }
-
     .card-falabr .card-link {
       color: #103050;
-    }
-
-    .card-portal .card-link {
-      color: #0090C0;
     }
 
     .card:hover .card-link {
@@ -346,7 +454,7 @@
     }
 
     .footer {
-      padding: 18px 40px;
+      padding: 14px 32px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -434,6 +542,22 @@
       }
     }
 
+    @media (max-width: 480px) {
+      .org-bar {
+        padding: 16px 20px 0;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .org-bar-logo--ouvidoria {
+        height: 64px;
+      }
+
+      .org-bar-logo--antaq {
+        height: 58px;
+      }
+    }
+
     /* Foco visível só em navegação por teclado — não altera o estado padrão. */
     a.card:focus-visible {
       outline: 3px solid #F2A900;
@@ -461,10 +585,9 @@
   <div class="secondary-bar"></div>
 
   <div class="org-bar">
-    <img src="Imagens/logomarca_Ouvidoria.png" alt="Ouvidoria da ANTAQ"
-      style="height: 112px; width: auto; filter: brightness(0) invert(1);" />
-    <div style="border-left: 1px solid rgba(255,255,255,0.25); padding-left: 20px;">
-      <img src="sistema/Imagens/Logo Horizontal_Branca_S_N.png" alt="Logo ANTAQ" style="height: 102px; width: auto;" />
+    <img src="Imagens/logomarca_Ouvidoria.png" alt="Ouvidoria da ANTAQ" class="org-bar-logo--ouvidoria" />
+    <div class="org-bar-divider">
+      <img src="sistema/Imagens/Logo Horizontal_Branca_S_N.png" alt="Logo ANTAQ" class="org-bar-logo--antaq" />
     </div>
   </div>
 
@@ -474,43 +597,71 @@
       <p>Selecione o conteúdo que deseja acessar</p>
     </div>
 
-    <div class="cards">
-      <a class="card card-relatorio" href="#"
-        onclick="event.preventDefault(); window.open('sistema/index.html', '_blank');">
-        <div class="card-icon">
-          <i class="fa-solid fa-chart-column"></i>
-        </div>
-        <div class="card-content">
-          <h2>Relatório Trimestral 2026</h2>
-          <p>Dados consolidados das manifestações do 1º trimestre (Jan–Mar).</p>
-          <span class="card-link">Abrir apresentação <i class="fa-solid fa-arrow-right" aria-hidden="true"></i><span class="sr-only"> (abre em nova aba)</span></span>
-        </div>
-      </a>
+    <div class="report-groups" id="report-groups">
 
-      <a class="card card-portal" href="#"
-        onclick="event.preventDefault(); window.open('enquetes-2026/index.html', '_blank');">
-        <div class="card-icon">
-          <i class="fa-solid fa-users"></i>
+      <section class="report-group" data-periodicity="anual" aria-labelledby="grupo-anual-heading">
+        <h2 id="grupo-anual-heading" class="group-eyebrow group-eyebrow--anual">
+          <span>Anual</span>
+          <span class="group-eyebrow-count">· 1 relatório</span>
+          <span class="group-eyebrow-rule" aria-hidden="true"></span>
+        </h2>
+        <div class="cards">
+          <a class="card card-anual" href="enquetes-2026/index.html" target="_blank" rel="noopener noreferrer">
+            <div class="card-icon">
+              <i class="fa-solid fa-users" aria-hidden="true"></i>
+            </div>
+            <div class="card-content">
+              <h3>Relatório Anual de Enquetes do Conselho de Usuários de Serviços Públicos da ANTAQ 2026</h3>
+              <p>Resultados das enquetes dos 31 serviços da Carta de Serviços — 2ª rodada de avaliação (07/04 a
+                27/04/2026).</p>
+              <span class="card-link">Abrir apresentação <i class="fa-solid fa-arrow-right" aria-hidden="true"></i><span
+                  class="sr-only"> (abre em nova aba)</span></span>
+            </div>
+          </a>
         </div>
-        <div class="card-content">
-          <h2>Relatório Anual de Enquetes do Conselho de Usuários de Serviços Públicos da ANTAQ 2026</h2>
-          <p>Resultados das enquetes dos 31 serviços da Carta de Serviços — 2ª rodada de avaliação (07/04 a
-            27/04/2026).</p>
-          <span class="card-link">Abrir apresentação <i class="fa-solid fa-arrow-right" aria-hidden="true"></i><span class="sr-only"> (abre em nova aba)</span></span>
-        </div>
-      </a>
+      </section>
 
-      <a class="card card-semestral" href="#"
-        onclick="event.preventDefault(); window.open('semestral/index.html', '_blank');">
-        <div class="card-icon">
-          <i class="fa-solid fa-chart-line"></i>
+      <section class="report-group" data-periodicity="semestral" aria-labelledby="grupo-semestral-heading">
+        <h2 id="grupo-semestral-heading" class="group-eyebrow group-eyebrow--semestral">
+          <span>Semestral</span>
+          <span class="group-eyebrow-count">· 1 relatório</span>
+          <span class="group-eyebrow-rule" aria-hidden="true"></span>
+        </h2>
+        <div class="cards">
+          <a class="card card-semestral" href="semestral/index.html" target="_blank" rel="noopener noreferrer">
+            <div class="card-icon">
+              <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
+            </div>
+            <div class="card-content">
+              <h3>Relatório Semestral 2026</h3>
+              <p>Dados consolidados das manifestações do 1º semestre (Jan–Jun).</p>
+              <span class="card-link">Abrir apresentação <i class="fa-solid fa-arrow-right" aria-hidden="true"></i><span
+                  class="sr-only"> (abre em nova aba)</span></span>
+            </div>
+          </a>
         </div>
-        <div class="card-content">
-          <h2>Relatório Semestral 2026</h2>
-          <p>Dados consolidados das manifestações do 1º semestre (Jan–Jun).</p>
-          <span class="card-link">Abrir apresentação <i class="fa-solid fa-arrow-right" aria-hidden="true"></i><span class="sr-only"> (abre em nova aba)</span></span>
+      </section>
+
+      <section class="report-group" data-periodicity="trimestral" aria-labelledby="grupo-trimestral-heading">
+        <h2 id="grupo-trimestral-heading" class="group-eyebrow group-eyebrow--trimestral">
+          <span>Trimestral</span>
+          <span class="group-eyebrow-count">· 1 relatório</span>
+          <span class="group-eyebrow-rule" aria-hidden="true"></span>
+        </h2>
+        <div class="cards">
+          <a class="card card-trimestral" href="sistema/index.html" target="_blank" rel="noopener noreferrer">
+            <div class="card-icon">
+              <i class="fa-solid fa-chart-column" aria-hidden="true"></i>
+            </div>
+            <div class="card-content">
+              <h3>Relatório Trimestral 2026</h3>
+              <p>Dados consolidados das manifestações do 1º trimestre (Jan–Mar).</p>
+              <span class="card-link">Abrir apresentação <i class="fa-solid fa-arrow-right" aria-hidden="true"></i><span
+                  class="sr-only"> (abre em nova aba)</span></span>
+            </div>
+          </a>
         </div>
-      </a>
+      </section>
 
     </div>
 
@@ -536,6 +687,31 @@
       <div class="anchor-icon"><i class="fa-solid fa-anchor"></i></div>
     </div>
   </div>
+
+  <script>
+    // Para cada grupo de periodicidade: conta os relatórios reais e escreve a contagem
+    // no eyebrow ("· N relatório"/"· N relatórios"); esconde o grupo inteiro se ficar
+    // sem nenhum card (ex.: se um relatório for removido no futuro). Sem dependências.
+    (function () {
+      var grupos = document.querySelectorAll('#report-groups .report-group');
+
+      grupos.forEach(function (grupo) {
+        var cards = grupo.querySelectorAll('.cards > .card');
+        var total = cards.length;
+
+        if (total === 0) {
+          grupo.classList.add('is-empty');
+          return;
+        }
+
+        var contagem = grupo.querySelector('.group-eyebrow-count');
+        if (contagem) {
+          var substantivo = total === 1 ? 'relatório' : 'relatórios';
+          contagem.textContent = '· ' + total + ' ' + substantivo;
+        }
+      });
+    })();
+  </script>
 
 </body>
 

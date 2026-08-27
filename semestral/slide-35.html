@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
+<!--
+  ╔══════════════════════════════════════════════════════════════╗
+  ║  SLIDE 35 — Links Úteis e Contatos — encerramento da apresentação
+  ╠══════════════════════════════════════════════════════════════╣
+  ║  O QUE ATUALIZAR A CADA SEMESTRE:
+  ║  Verificar se os links ainda estão ativos; atualizar telefone/endereço se necessário
+  ╚══════════════════════════════════════════════════════════════╝
+-->
+
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Links Úteis - Relatório Semestral Ouvidoria ANTAQ</title>
+    <link rel="icon" type="image/png"
+        href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&amp;family=Open+Sans:ital,wght@0,400;0,600;1,400&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        html {
+            font-size: 16px;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #f3f4f6;
+        }
+
+        .slide-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(135deg, #0A2236 0%, #103050 50%, #16466E 100%);
+            overflow: hidden;
+            color: white;
+        }
+
+        .font-montserrat {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .bg-brand-secondary {
+            background-color: #0070C0;
+        }
+
+        .shape-bg {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 45%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.03);
+            clip-path: polygon(25% 0, 100% 0, 100% 100%, 0% 100%);
+            z-index: 1;
+        }
+
+        .link-card {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 16px;
+            padding: 1.9rem 2.1rem;
+            display: flex;
+            align-items: center;
+            gap: 1.4rem;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .link-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .link-icon {
+            flex-shrink: 0;
+            width: 3.6rem;
+            height: 3.6rem;
+            border-radius: 12px;
+            background-color: #0090C0;
+            color: #103050;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.65rem;
+            transition: transform .3s ease;
+        }
+
+        /* ===== Interatividade ===== */
+        .link-card {
+            transition: transform .28s cubic-bezier(.2, .7, .3, 1), background-color .25s ease, border-color .25s ease, box-shadow .28s ease;
+        }
+
+        .link-card:hover {
+            transform: translateY(-5px) translateX(5px);
+            border-color: rgba(0, 144, 192, 0.5);
+            box-shadow: 0 20px 38px -14px rgba(0, 0, 0, 0.5);
+        }
+
+        .link-card:hover .link-icon {
+            transform: scale(1.12) rotate(-6deg);
+        }
+
+        /* Variante compacta para caber todos os links úteis */
+        .link-card.lc-sm {
+            padding: 0.8rem 1rem;
+            gap: 0.85rem;
+            border-radius: 12px;
+        }
+
+        .link-card.lc-sm .link-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            font-size: 1.1rem;
+            border-radius: 10px;
+        }
+
+        .lc-title {
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 0.98rem;
+            line-height: 1.15;
+        }
+
+        .lc-sub {
+            color: #9db9e6;
+            font-size: 0.76rem;
+            line-height: 1.2;
+            word-break: break-word;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .link-card {
+            animation: fadeIn .5s ease both;
+        }
+
+        /* ===== QR WhatsApp da Ouvidoria (IARA) — compacto, canto inferior direito ===== */
+        .qr-wa {
+            position: absolute;
+            right: 3.2rem;
+            bottom: 8.5rem;
+            z-index: 30;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 0.9rem;
+            padding: 0.7rem 1rem 0.7rem 0.7rem;
+            background: rgba(255, 255, 255, 0.97);
+            border: 1px solid rgba(37, 211, 102, 0.55);
+            border-radius: 14px;
+            box-shadow: 0 14px 30px -10px rgba(0, 0, 0, 0.55);
+            text-decoration: none;
+            animation: fadeIn .6s ease .4s both, qrPulse 2.4s ease-in-out infinite;
+        }
+
+        .qr-wa::before {
+            content: "";
+            position: absolute;
+            inset: -5px;
+            border-radius: 18px;
+            border: 2px solid rgba(37, 211, 102, 0.6);
+            opacity: 0;
+            animation: qrRing 2.4s ease-out infinite;
+            pointer-events: none;
+        }
+
+        /* Texto fora e ao lado do QR Code, em coluna à direita */
+        .qr-wa-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+            max-width: 11rem;
+        }
+
+        .qr-wa-head {
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 0.85rem;
+            letter-spacing: 0.02em;
+            color: #0d3358;
+            text-transform: uppercase;
+        }
+
+        /* Cor convertida de verde de marca (#25D366) para azul institucional, conforme
+           regra "proibido verde" do prompt. */
+        .qr-wa-head i {
+            color: #0090C0;
+            font-size: 1.15rem;
+        }
+
+        .qr-wa img {
+            width: 110px;
+            height: 110px;
+            display: block;
+            border-radius: 6px;
+        }
+
+        .qr-wa-sub {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #334155;
+            text-align: left;
+            line-height: 1.3;
+        }
+
+        @keyframes qrPulse {
+            0%, 100% { box-shadow: 0 14px 30px -10px rgba(0, 0, 0, 0.55), 0 0 0 0 rgba(37, 211, 102, 0.0); }
+            50% { box-shadow: 0 14px 30px -10px rgba(0, 0, 0, 0.55), 0 0 22px 2px rgba(37, 211, 102, 0.45); }
+        }
+
+        @keyframes qrRing {
+            0% { opacity: 0.7; transform: scale(1); }
+            70% { opacity: 0; transform: scale(1.12); }
+            100% { opacity: 0; transform: scale(1.12); }
+        }
+
+        .link-card:nth-child(2) {
+            animation-delay: .1s;
+        }
+
+        .link-card:nth-child(3) {
+            animation-delay: .2s;
+        }
+
+        .link-card:nth-child(4) {
+            animation-delay: .3s;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+    </style>
+  <link rel="stylesheet" href="a11y.css">
+  <link rel="stylesheet" href="base.css" />
+</head>
+
+<body>
+    <div class="slide-container">
+        <div class="shape-bg"></div>
+        <div class="absolute left-0 top-0 h-full w-3 z-20" style="background-color: #0090C0;"></div>
+        <div class="absolute left-3 top-0 h-full w-1 bg-brand-secondary z-20"></div>
+        <!-- Main Content -->
+        <div class="relative z-10 flex flex-col justify-center h-full w-full pl-24 pr-16 font-montserrat">
+            <!-- Header (logo ANTAQ fica só na abertura e no sumário) -->
+            <div class="absolute top-16 right-24 flex items-center gap-3 z-20 text-white">
+                <i class="fas fa-book-open text-3xl" aria-hidden="true" style="color: #ffffff;"></i>
+                <div class="flex flex-col justify-center pl-2" style="border-left:1px solid rgba(255,255,255,0.12);">
+                    <p class="font-montserrat font-bold text-white text-sm tracking-widest leading-none mb-1 whitespace-nowrap">CAPÍTULO 06</p>
+                    <p class="font-montserrat font-bold text-blue-200 text-xs tracking-tight uppercase leading-none whitespace-nowrap">Apêndice</p>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <div class="flex items-center gap-3 mb-1">
+                    <div class="w-10 h-0.5" style="background-color: #0090C0;"></div>
+                    <p class="text-blue-200 text-base font-semibold tracking-[0.3em] uppercase">Encerramento</p>
+                </div>
+                <h1 class="font-black tracking-tight" style="font-size: 3.6rem; color:#0090C0;">Links Úteis &amp;
+                    Contatos</h1>
+                <p class="text-blue-100 text-lg mt-1">Fale com a Ouvidoria da ANTAQ — sua manifestação é importante.</p>
+
+                <!-- Botão de download do relatório -->
+                <a class="link-card lc-sm" href="relatorio.html" target="_blank" rel="noopener noreferrer"
+                    style="margin-top: 1.2rem; max-width: 72rem; background: rgba(0,144,192,0.18); border-color: rgba(0,144,192,0.55);">
+                    <div class="link-icon" style="background-color:#f2a900;"><i class="fas fa-file-pdf"></i></div>
+                    <div>
+                        <p class="lc-title text-xl">Baixar Relatório em PDF</p>
+                        <p class="lc-sub">Versão completa em documento — abre e salva como PDF na sua máquina</p>
+                    </div>
+                </a>
+
+                <!-- Todos os links úteis -->
+                <div class="grid grid-cols-3 gap-3 mt-4 max-w-6xl">
+                    <a class="link-card lc-sm" href="https://www.gov.br/antaq/pt-br" target="_blank" rel="noopener noreferrer">
+                        <div class="link-icon"><i class="fas fa-globe"></i></div>
+                        <div><p class="lc-title">Portal ANTAQ</p><p class="lc-sub">gov.br/antaq</p></div>
+                    </a>
+                    <a class="link-card lc-sm" href="https://www.gov.br/antaq/pt-br/acesso-a-informacao" target="_blank" rel="noopener noreferrer">
+                        <div class="link-icon"><i class="fas fa-circle-info"></i></div>
+                        <div><p class="lc-title">Acesso à Informação</p><p class="lc-sub">gov.br/antaq · Acesso à Informação</p></div>
+                    </a>
+                    <a class="link-card lc-sm" href="https://www.gov.br/pt-br/orgaos/agencia-nacional-de-transportes-aquaviarios/@@download.pdf" target="_blank" rel="noopener noreferrer">
+                        <div class="link-icon"><i class="fas fa-file-contract"></i></div>
+                        <div><p class="lc-title">Carta de Serviços ao Usuário</p><p class="lc-sub">gov.br/antaq (PDF)</p></div>
+                    </a>
+                    <a class="link-card lc-sm" href="https://falabr.cgu.gov.br" target="_blank" rel="noopener noreferrer">
+                        <div class="link-icon"><img src="Imagens/Logo_Fala_BR.png" alt="Fala.BR" style="height: 26px; width: auto;"></div>
+                        <div><p class="lc-title">Plataforma Fala.BR</p><p class="lc-sub">falabr.cgu.gov.br</p></div>
+                    </a>
+                    <a class="link-card lc-sm" href="https://www.gov.br/acessoainformacao/pt-br/lai-para-sic/transparencia-passiva" target="_blank" rel="noopener noreferrer">
+                        <div class="link-icon"><i class="fas fa-building-columns"></i></div>
+                        <div><p class="lc-title">Transparência Passiva</p><p class="lc-sub">LAI / SIC — gov.br/acessoainformacao</p></div>
+                    </a>
+                    <a class="link-card lc-sm" href="https://centralpaineis.cgu.gov.br/visualizar/lai" target="_blank" rel="noopener noreferrer">
+                        <div class="link-icon"><i class="fas fa-book-open"></i></div>
+                        <div><p class="lc-title">Painel LAI — CGU</p><p class="lc-sub">centralpaineis.cgu.gov.br/lai</p></div>
+                    </a>
+                    <a class="link-card lc-sm" href="https://centralpaineis.cgu.gov.br/visualizar/resolveu" target="_blank" rel="noopener noreferrer">
+                        <div class="link-icon"><i class="fas fa-check-circle"></i></div>
+                        <div><p class="lc-title">Painel Resolveu? — CGU</p><p class="lc-sub">centralpaineis.cgu.gov.br/resolveu</p></div>
+                    </a>
+                    <a class="link-card lc-sm" href="https://dados.gov.br/dados/organizacoes/visualizar/agencia-nacional-de-transportes-aquaviarios" target="_blank" rel="noopener noreferrer">
+                        <div class="link-icon"><i class="fas fa-database"></i></div>
+                        <div><p class="lc-title">Dados Abertos ANTAQ</p><p class="lc-sub">dados.gov.br</p></div>
+                    </a>
+                    <a class="link-card lc-sm" href="https://www.gov.br/antaq/pt-br/acesso-a-informacao/dados-abertos/PDA20262028ANTAQOCR.pdf" target="_blank" rel="noopener noreferrer">
+                        <div class="link-icon"><i class="fas fa-file-lines"></i></div>
+                        <div><p class="lc-title">Plano de Dados Abertos</p><p class="lc-sub">PDA 2026–2028 (PDF)</p></div>
+                    </a>
+                    <a class="link-card lc-sm" href="tel:08006445001">
+                        <div class="link-icon"><i class="fas fa-phone-volume"></i></div>
+                        <div><p class="lc-title">Disque Ouvidoria</p><p class="lc-sub">0800 644 5001 · +55 61 2029-6576</p></div>
+                    </a>
+                    <a class="link-card lc-sm" href="mailto:ouvidoria@antaq.gov.br">
+                        <div class="link-icon"><i class="fas fa-envelope"></i></div>
+                        <div><p class="lc-title">E-mail da Ouvidoria</p><p class="lc-sub">ouvidoria@antaq.gov.br</p></div>
+                    </a>
+                    <a class="link-card lc-sm"
+                        href="https://www.google.com/maps/search/?api=1&query=SEPN+Quadra+514+Conjunto+E+Edif%C3%ADcio+ANTAQ+Bras%C3%ADlia+DF"
+                        target="_blank" rel="noopener noreferrer">
+                        <div class="link-icon"><i class="fas fa-location-dot"></i></div>
+                        <div><p class="lc-title">Endereço</p><p class="lc-sub">SEPN Q. 514, Ed. ANTAQ — Brasília/DF</p></div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- QR WhatsApp da Ouvidoria (IARA) -->
+            <div class="qr-wa" title="WhatsApp da Ouvidoria — Assistente IARA">
+                <img src="Imagens/QRCODE_IARA.jpeg" alt="QR Code do WhatsApp da Ouvidoria da ANTAQ (IARA)" />
+                <div class="qr-wa-info">
+                    <span class="qr-wa-head"><i class="fa-brands fa-whatsapp"></i> WhatsApp · IARA</span>
+                    <span class="qr-wa-sub">Aponte a câmera para falar com a Ouvidoria</span>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="absolute bottom-12 left-24 right-16 flex justify-between items-end pt-6"
+                style="border-top: 1px solid rgba(255,255,255,0.15);">
+                <div class="flex flex-col gap-1 text-xs text-blue-200">
+                    <span class="font-semibold uppercase tracking-wider text-blue-100">Canais oficiais ANTAQ</span>
+                    <div class="flex flex-wrap items-center gap-3 mt-1">
+                        <a href="https://www.facebook.com/ANTAQ.oficial" target="_blank" rel="noopener noreferrer"
+                            class="flex items-center gap-1 hover:text-white transition-colors"><i
+                                class="fa-brands fa-facebook"></i><span>Facebook</span></a>
+                        <a href="https://www.instagram.com/antaq_oficial/" target="_blank" rel="noopener noreferrer"
+                            class="flex items-center gap-1 hover:text-white transition-colors"><i
+                                class="fa-brands fa-instagram"></i><span>Instagram</span></a>
+                        <a href="https://www.youtube.com/c/CanalANTAQ/" target="_blank" rel="noopener noreferrer"
+                            class="flex items-center gap-1 hover:text-white transition-colors"><i
+                                class="fa-brands fa-youtube"></i><span>YouTube</span></a>
+                        <a href="https://www.linkedin.com/company/antaq" target="_blank" rel="noopener noreferrer"
+                            class="flex items-center gap-1 hover:text-white transition-colors"><i
+                                class="fa-brands fa-linkedin"></i><span>LinkedIn</span></a>
+                        <a href="https://x.com/ANTAQ_oficial" target="_blank" rel="noopener noreferrer"
+                            class="flex items-center gap-1 hover:text-white transition-colors"><i
+                                class="fa-brands fa-twitter"></i><span>Twitter</span></a>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <p class="text-blue-200 text-xs text-right"><br /><span class="text-white font-semibold"></span></p>
+                    <div class="h-10 w-10 rounded-full flex items-center justify-center"
+                        style="background-color: #0090C0; color: #103050;"><i class="fas fa-anchor"></i></div>
+                </div>
+            </div>
+        </div>
+        <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
+  <script src="a11y.js" defer></script>
+</body>
+
+</html>

@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
+<!-- SLIDE CONSIDERAÇÕES FINAIS — Síntese geral do Relatório Semestral da Ouvidoria 2026 -->
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Considerações Finais — Relatório Semestral Ouvidoria ANTAQ</title>
+    <link rel="icon" type="image/png"
+        href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&amp;family=Open+Sans:ital,wght@0,400;0,600;1,400&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        html {
+            font-size: 26px;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f3f4f6;
+            overflow: hidden;
+        }
+
+        .slide-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            background: #fff;
+            overflow: hidden;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .font-montserrat {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .text-brand-primary {
+            color: #103050;
+        }
+
+        .text-brand-secondary {
+            color: #0070C0;
+        }
+
+        .bg-brand-secondary {
+            background-color: #0070C0;
+        }
+
+        .top-accent {
+            height: 8px;
+            background: #103050;
+        }
+
+        .top-accent-secondary {
+            height: 4px;
+            background: #0070C0;
+        }
+
+        .gov-eyebrow {
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: .62rem;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+            color: #64748B;
+            margin-bottom: .5rem;
+        }
+
+        .gov-eyebrow i {
+            color: #0070C0;
+        }
+
+        .concl-lead {
+            color: #103050;
+            font-size: .98rem;
+            line-height: 1.5;
+            font-weight: 600;
+            border-left: 4px solid #0090C0;
+            padding-left: 1.1rem;
+            margin: 0;
+        }
+
+        .concl-lead b {
+            color: #0070C0;
+            font-weight: 700;
+        }
+
+        .concl-cols {
+            columns: 2;
+            column-gap: 3rem;
+            text-align: left;
+            hyphens: none;
+        }
+
+        /* Sem recuo no parágrafo com capitular: alinha a 1ª linha ("atuação")
+           com as linhas que contornam o "A" flutuante ("de Apoio...") */
+        .concl-cols p.first {
+            text-indent: 0;
+        }
+
+        .concl-cols p {
+            text-indent: 1.8em;
+            color: #334155;
+            font-size: .82rem;
+            line-height: 1.62;
+            margin: 0 0 .85rem;
+            break-inside: avoid;
+        }
+
+        .concl-cols p b {
+            color: #103050;
+            font-weight: 700;
+        }
+
+        .concl-cols p.first::first-letter {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 2.9rem;
+            color: #0070C0;
+            float: left;
+            line-height: .82;
+            margin: .08rem .5rem 0 0;
+        }
+
+        .concl-close {
+            padding-top: .7rem;
+            border-top: 1px solid #E2E8F0;
+            font-size: .84rem;
+            line-height: 1.55;
+            color: #475569;
+            font-style: italic;
+        }
+
+        .concl-close b {
+            color: #103050;
+            font-style: normal;
+            font-weight: 700;
+        }
+
+        .metric-strip {
+            border: 1px solid #E2E8F0;
+            border-radius: 14px;
+            overflow: hidden;
+            display: flex;
+            align-items: stretch;
+            background: #fff;
+            box-shadow: 0 10px 26px -18px rgba(16, 48, 80, .28);
+            animation: fadeInUp .5s cubic-bezier(.2, .7, .3, 1) .1s both;
+        }
+
+        .metric-head {
+            background: #103050;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 1.4rem;
+            min-width: 220px;
+        }
+
+        .metric-head .mh-k {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: .58rem;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: #7fb2d6;
+        }
+
+        .metric-head .mh-t {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: .95rem;
+            margin-top: .15rem;
+        }
+
+        .metric-cells {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+        }
+
+        .metric-cell {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 1rem .5rem;
+        }
+
+        .metric-cell+.metric-cell {
+            border-left: 1px solid #EDF1F6;
+        }
+
+        .metric-value {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            font-size: 1.9rem;
+            color: #103050;
+            line-height: 1;
+        }
+
+        .metric-value .up {
+            color: #0090C0;
+        }
+
+        .metric-value .ok {
+            color: #16a34a;
+        }
+
+        .metric-label {
+            font-size: .6rem;
+            font-weight: 600;
+            color: #64748B;
+            margin-top: .4rem;
+            line-height: 1.22;
+            text-transform: uppercase;
+            letter-spacing: .03em;
+        }
+
+        .closing-band {
+            background: linear-gradient(135deg, #0A2236 0%, #103050 48%, #0e5f96 100%);
+            border-radius: 16px;
+            padding: 1rem 1.4rem;
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 18px 40px -18px rgba(16, 48, 80, .55);
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            animation: fadeInUp .5s cubic-bezier(.2, .7, .3, 1) .2s both;
+        }
+
+        .cb-ico {
+            width: 3.6rem;
+            height: 3.6rem;
+            border-radius: 14px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.7rem;
+            color: #fff;
+            background: rgba(255, 255, 255, .12);
+            border: 1px solid rgba(255, 255, 255, .2);
+        }
+
+        .cb-text {
+            margin: 0;
+            font-size: .8rem;
+            line-height: 1.45;
+            color: #eaf4fb;
+        }
+
+        .cb-text b {
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .cb-watermark {
+            position: absolute;
+            right: -10px;
+            bottom: -26px;
+            font-size: 8rem;
+            opacity: .1;
+        }
+
+        .bg-pattern {
+            position: absolute;
+            bottom: -60px;
+            right: -50px;
+            width: 400px;
+            height: 400px;
+            opacity: .03;
+            z-index: 0;
+            color: #103050;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+    </style>
+  <link rel="stylesheet" href="a11y.css">
+  <link rel="stylesheet" href="base.css" />
+</head>
+
+<body>
+    <div class="slide-container">
+        <div class="top-accent"></div>
+        <div class="top-accent-secondary"></div>
+        <div class="flex items-start justify-between px-16 pt-10 pb-3 z-10">
+            <div>
+                <div class="flex items-center gap-3 mb-1">
+                    <div class="w-1 h-8 bg-brand-secondary"></div>
+                    <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Considerações Finais
+                    </p>
+                </div>
+                <p class="text-gray-500 font-medium ml-4 text-lg">Síntese do que foi apresentado no relatório · Ouvidoria da ANTAQ — 1º semestre de 2026
+                </p>
+            </div>
+            <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
+                <i class="fas fa-flag-checkered text-3xl" aria-hidden="true"></i>
+                <div class="flex flex-col justify-center pl-2" style="border-left:1px solid #CBD5E1;">
+                    <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">CAPÍTULO 05</p>
+                    <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none whitespace-nowrap">Considerações Finais</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex-1 flex flex-col justify-center px-16 pb-3 z-10 gap-4" style="min-height:0;">
+            <p class="concl-lead">
+                Ao longo deste relatório, a <b>Ouvidoria da ANTAQ</b> reafirmou seu papel como <b>instância de controle
+                social</b> e principal ponte entre o cidadão e a Agência — acolhendo, tratando e respondendo às
+                manifestações da sociedade e promovendo a transparência sobre a atuação pública.
+            </p>
+
+            <div class="concl-cols">
+                <p class="first">
+                    A atuação estruturou-se em duas frentes complementares: a <b>Seção de Apoio ao Cidadão (SAC)</b>,
+                    responsável por acolher, triar e encaminhar as manifestações — denúncias, reclamações, solicitações,
+                    sugestões e elogios — recebidas pelos canais oficiais; e a <b>Seção de Transparência e Acesso à
+                    <span style="white-space:nowrap;">Informação (STAI)</span></b>, incumbida da gestão dos pedidos de acesso à informação e da promoção da
+                    transparência ativa e passiva. O tratamento padronizado e rastreável no <b>Fala.BR</b>, com atenção à
+                    <b>tempestividade</b> das respostas, assegurou que cada demanda fosse conduzida à área competente e
+                    devolvida ao cidadão de forma clara e conclusiva.
+                </p>
+                <p>
+                    No eixo da transparência, o relatório reafirmou o compromisso da Agência com a <b>Lei de Acesso à
+                    Informação (Lei nº 12.527/2011)</b> — que consagra a publicidade como regra e o sigilo como exceção —
+                    e com a divulgação proativa de informações de interesse coletivo. A política de <b>dados abertos</b>
+                    avançou com o novo <b>Plano de Dados Abertos 2026–2028</b> e com a ampliação das bases publicadas no
+                    Portal Brasileiro de Dados Abertos, reduzindo a assimetria de informação entre o setor aquaviário e a
+                    sociedade e estimulando o controle social, a pesquisa e a inovação.
+                </p>
+                <p>
+                    Somam-se a esse conjunto a <b>Carta de Serviços</b> e o atendimento <b>omnichannel</b>&nbsp;—&nbsp;presencial,
+                    telefônico e digital, incluindo o assistente virtual&nbsp;—, que aproximam a Agência do cidadão e ampliam
+                    o alcance da Ouvidoria. Em conjunto, essas iniciativas revelam uma gestão <b>eficaz, íntegra e
+                    orientada por dados</b>, alinhada aos interesses da sociedade brasileira.
+                </p>
+            </div>
+
+            <p class="concl-close">
+                Mais do que registrar demandas, a Ouvidoria <b>transforma cada manifestação e cada pedido de acesso em
+                melhoria concreta do serviço público aquaviário</b> — fortalecendo a governança, a transparência e a
+                confiança da sociedade na ANTAQ, e orientando a melhoria contínua dos próximos ciclos.
+            </p>
+        </div>
+
+        <div class="px-16 pb-6 pt-1 flex justify-between items-center z-10">
+            <p class="text-gray-400 text-xs">Relatório 1º Semestre de 2026 – Ouvidoria – Agência Nacional de Transportes Aquaviários - ANTAQ</p>
+        </div>
+    </div>
+    <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
+  <script src="a11y.js" defer></script>
+</body>
+
+</html>

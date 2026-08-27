@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
+<!--
+  ╔══════════════════════════════════════════════════════════════╗
+  ║  SLIDE PDA — Apresentação do Plano de Dados Abertos 2026–2028
+  ╠══════════════════════════════════════════════════════════════╣
+  ║  Abre o Capítulo 07 (após capa-07): apresentação em texto do
+  ║  que é o PDA. Redação baseada no documento oficial do PDA da
+  ║  ANTAQ (gov.br / Decreto nº 8.777/2016).
+  ╚══════════════════════════════════════════════════════════════╝
+-->
+
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Plano de Dados Abertos 2026–2028 - Relatório Semestral Ouvidoria ANTAQ</title>
+    <link rel="icon" type="image/png"
+        href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&amp;family=Open+Sans:ital,wght@0,400;0,600;1,400&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        html { font-size: 26px; }
+        body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
+
+        .slide-container {
+            width: 100vw; height: 100vh; position: relative;
+            display: flex; flex-direction: column;
+            background-color: #ffffff; overflow: hidden;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .font-montserrat { font-family: 'Montserrat', sans-serif; }
+        .text-brand-primary { color: #103050; }
+        .text-brand-secondary { color: #0070C0; }
+        .bg-brand-secondary { background-color: #0070C0; }
+
+        .top-accent { height: 8px; background-color: #103050; width: 100%; }
+        .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
+
+        .gov-eyebrow {
+            display: flex; align-items: center; gap: .5rem;
+            font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: .62rem;
+            letter-spacing: .16em; text-transform: uppercase; color: #64748B; margin-bottom: .5rem;
+        }
+        .gov-eyebrow i { color: #0070C0; }
+
+        /* ── Corpo editorial — apresentação em texto corrido ── */
+        .doc {
+            flex: 1; min-height: 0; position: relative; z-index: 10;
+            padding: 0.7rem 5rem 0.6rem 5rem;
+            display: flex; flex-direction: column; justify-content: center;
+            animation: fadeInUp .5s cubic-bezier(.2,.7,.3,1) both;
+        }
+        .doc-lead {
+            font-size: .98rem; line-height: 1.5; color: #103050; font-weight: 600;
+            border-left: 4px solid #0090C0; padding-left: 1.1rem; margin-bottom: 1rem;
+        }
+        .doc-lead b { color: #0070C0; font-weight: 700; }
+
+        .doc-cols { columns: 2; column-gap: 3rem; text-align: justify; hyphens: auto; }
+        .doc-cols p { color: #334155; font-size: .8rem; line-height: 1.6; margin: 0 0 .78rem; break-inside: avoid; text-indent: 1.8em; }
+        .doc-cols p b { color: #103050; font-weight: 700; }
+        .doc-cols p.first { text-indent: 0; }
+        .doc-cols p.first::first-letter {
+            font-family: 'Montserrat', sans-serif; font-weight: 800; color: #0070C0;
+            font-size: 2.9rem; line-height: .82; float: left; margin: .08rem .5rem 0 0;
+        }
+
+        .doc-close {
+            margin-top: .55rem; padding-top: .6rem; border-top: 1px solid #E2E8F0;
+            font-size: .72rem; color: #475569; font-style: italic; line-height: 1.5;
+        }
+        .doc-close b { color: #103050; font-style: normal; font-weight: 700; }
+
+        .bg-pattern { position: absolute; bottom: -60px; right: -50px; width: 400px; height: 400px; opacity: 0.03; z-index: 0; color: #103050; }
+
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+        @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+    </style>
+  <link rel="stylesheet" href="a11y.css">
+  <link rel="stylesheet" href="base.css" />
+</head>
+
+<body>
+    <div class="slide-container">
+        <div class="top-accent"></div>
+        <div class="top-accent-secondary"></div>
+
+        <!-- Cabeçalho institucional -->
+        <div class="flex items-start justify-between px-16 pt-10 pb-3 z-10">
+            <div>
+                <div class="flex items-center gap-3 mb-1">
+                    <div class="w-1 h-8 bg-brand-secondary"></div>
+                    <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Plano de Dados Abertos · PDA 2026–2028</p>
+                </div>
+                <p class="text-gray-500 font-medium ml-4 text-lg">Apresentação do Plano de Dados Abertos da ANTAQ</p>
+            </div>
+            <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
+                <i class="fas fa-lock-open text-3xl" aria-hidden="true"></i>
+                <div class="flex flex-col justify-center pl-2" style="border-left:1px solid #CBD5E1;">
+                    <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">CAPÍTULO 04</p>
+                    <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none whitespace-nowrap">Seção de Transparência e Acesso à Informação - STAI</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conteúdo — apresentação em texto -->
+        <div class="doc">
+            <p class="doc-lead">
+                O <b>Plano de Dados Abertos (PDA) 2026–2028</b> da ANTAQ tem por objetivo implementar as ações de
+                promoção de abertura de dados na Agência, como <b>documento orientador da política de dados abertos</b>
+                e <b>plano tático institucional</b>, seguindo padrões mínimos de qualidade para facilitar o entendimento
+                e a reutilização das informações em benefício do <b>mercado regulado</b>, da <b>academia</b>, do
+                <b>Poder Público</b> e da <b>Sociedade</b>.
+            </p>
+
+            <div class="doc-cols">
+                <p class="first">
+                    Os <b>dados abertos</b> são informações públicas disponibilizadas em <b>formato aberto e processável
+                    por máquina</b>, de acesso público e livre reutilização — respeitados os padrões de qualidade, as
+                    informações resguardadas por sigilo e a proteção dos dados pessoais. Sua publicação se justifica em
+                    prol da <b>transparência</b>, da melhoria do serviço público, da inovação e do crescimento econômico
+                    e da eficiência no uso dos recursos públicos.
+                </p>
+                <p>
+                    O <b>objetivo geral</b> do Plano é promover a abertura, a ampliação e o aprimoramento contínuo dos
+                    dados públicos sob responsabilidade da ANTAQ, em estrita observância aos princípios da
+                    <b>publicidade, transparência e eficiência</b> — ampliando a disseminação de informações de qualidade
+                    para a sociedade, estimulando o <b>controle social e a participação</b> e fomentando a pesquisa
+                    científica, o desenvolvimento tecnológico e a geração de novos negócios.
+                </p>
+                <p>
+                    Com o PDA, busca-se <b>fomentar a cultura de dados abertos</b> na Agência, identificar as bases de
+                    dados e prospectar possibilidades de <b>reutilização das informações</b> para o seu público de
+                    interesse. Ao divulgar dados e desenvolver essa cultura, o Plano contribui para o cumprimento da
+                    <b>Missão</b> e o alcance da <b>Visão</b> da ANTAQ, permitindo que o público interessado exerça o
+                    <b>controle social</b> das ações da Agência e participe de suas decisões com base nas informações
+                    disponíveis.
+                </p>
+            </div>
+
+            <p class="doc-close">
+                <b>Fundamento legal:</b> Decreto nº 8.777/2016 (Política de Dados Abertos do Poder Executivo Federal) e
+                alterações, Instrução Normativa nº 4/2012 (INDA), Resolução CGINDA nº 3/2017 e Lei de Acesso à Informação
+                (Lei nº 12.527/2011), entre outros normativos correlatos.
+            </p>
+        </div>
+
+        <!-- Rodapé institucional -->
+        <div class="px-16 pb-6 pt-1 flex justify-between items-center z-10">
+            <p class="text-gray-400 text-xs">Relatório 1º Semestre de 2026 – Ouvidoria – Agência Nacional de Transportes Aquaviários - ANTAQ</p>
+        </div>
+        <div class="bg-pattern"><i class="fas fa-database text-9xl"></i></div>
+    </div>
+    <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
+  <script src="a11y.js" defer></script>
+</body>
+
+</html>

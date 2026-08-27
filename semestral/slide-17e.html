@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Perfil de Uso Fala.BR - Relatório Semestral Ouvidoria ANTAQ</title>
+  <link rel="icon" type="image/png"
+    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    html {
+      font-size: 26px;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f3f4f6;
+      overflow: hidden;
+    }
+
+    .slide-container {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background-color: #ffffff;
+      overflow: hidden;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    .font-montserrat {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .text-brand-primary {
+      color: #103050;
+    }
+
+    .text-brand-secondary {
+      color: #0070C0;
+    }
+
+    .bg-brand-secondary {
+      background-color: #0070C0;
+    }
+
+    .top-accent {
+      height: 8px;
+      background-color: #103050;
+      width: 100%;
+    }
+
+    .top-accent-secondary {
+      height: 4px;
+      background-color: #0070C0;
+      width: 100%;
+    }
+
+    .chart-card {
+      background-color: #ffffff;
+      border: 2px solid #E2E8F0;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px -8px rgba(16, 48, 80, 0.18);
+      padding: 1.4rem 1.6rem;
+      transition: transform .28s cubic-bezier(.2, .7, .3, 1), box-shadow .28s ease, border-color .28s ease;
+    }
+
+    .chart-card:hover {
+      transform: translateY(-7px);
+      box-shadow: 0 22px 42px -12px rgba(16, 48, 80, .30);
+      border-color: #0070C0;
+    }
+
+    .highlight-card {
+      position: relative;
+      background: linear-gradient(160deg, #f0f7ff, #e8f4fd);
+      border: 2px solid #0070C0;
+      border-radius: 16px;
+      padding: 0.7rem 1.3rem;
+      text-align: center;
+      transition: transform .28s ease, box-shadow .28s ease;
+    }
+
+    .highlight-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 30px -12px rgba(16, 48, 80, .25);
+    }
+
+    /* Botão de ajuda "?" (com dica) que leva ao painel oficial da CGU */
+    .card-help {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.18rem 0.3rem 0.18rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(0, 112, 192, 0.10);
+      color: #0070C0;
+      font-size: 0.55rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      white-space: nowrap;
+      text-decoration: none;
+      transition: background .2s ease, color .2s ease;
+    }
+
+    .card-help i {
+      width: 1.05rem;
+      height: 1.05rem;
+      border-radius: 50%;
+      background: rgba(0, 112, 192, 0.16);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.55rem;
+    }
+
+    .card-help:hover {
+      background: #0070C0;
+      color: #fff;
+    }
+
+    .card-help:hover i {
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+    .percentage-ring {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: conic-gradient(#0070C0 0deg 107.8deg, #E2E8F0 107.8deg 360deg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+    }
+
+    .percentage-ring-inner {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="a11y.css">
+  <link rel="stylesheet" href="base.css" />
+</head>
+
+<body>
+  <div class="slide-container">
+    <div class="top-accent"></div>
+    <div class="top-accent-secondary"></div>
+
+    <!-- Header Ajustado com Barra Azul e Tag Capítulo 02 -->
+    <div class="flex items-start justify-between px-16 pt-10 pb-3 z-10">
+      <div>
+        <div class="flex items-center gap-3 mb-1">
+          <div class="w-1 h-8 bg-brand-secondary"></div>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Ouvidoria em Números
+          </p>
+        </div>
+        <p class="text-gray-500 font-medium ml-4 text-lg">Distribuição das Demandas</p>
+      </div>
+      <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
+        <i class="fas fa-landmark text-3xl align-middle" aria-hidden="true"></i>
+        <div class="flex flex-col justify-center border-left pl-2" style="border-left: 1px solid #CBD5E1;">
+          <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">CAPÍTULO 02</p>
+          <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none whitespace-nowrap">A
+            Ouvidoria da ANTAQ</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex-1 grid grid-cols-2 gap-8 px-16 pb-6 z-10">
+      <!-- Gráfico Donut / Pizza -->
+      <div class="chart-card flex flex-col">
+        <p class="text-brand-primary font-montserrat font-bold text-xl mb-1 flex items-center gap-6"><i
+            class="fas fa-circle-pie slice text-brand-secondary"></i> Composição das Demandas no Fala.BR</p>
+        </p>
+        <div class="flex-1 relative"><canvas id="chartFalaPerfil" role="img" aria-label="Gráfico de rosca: composição das demandas do Fala.BR — Manifestações (Painel Resolveu) 304, LAI (Acesso à Informação) 130, total 434"></canvas></div>
+      </div>
+
+      <!-- Indicadores -->
+      <div class="flex flex-col gap-2 justify-center">
+
+        <!-- Card explicativo (sem números) -->
+        <div class="chart-card" style="padding:.6rem 1.15rem;">
+          <p class="text-brand-primary font-montserrat font-bold text-base mb-1 flex items-center gap-3">
+            <i class="fas fa-diagram-project text-brand-secondary"></i> Como as demandas se distribuem
+          </p>
+          <p class="text-gray-600"
+            style="font-size:.66rem; line-height:1.35; text-align:justify; text-indent:1.5em; margin:0;">
+            As 434 demandas recebidas pela Ouvidoria da ANTAQ neste semestre chegaram por meio da plataforma Fala.BR e
+            se distribuem conforme a sua natureza: de um lado, os pedidos de acesso à informação, amparados pela Lei de
+            Acesso à Informação (LAI); de outro, as manifestações de ouvidoria — denúncias, reclamações, solicitações,
+            sugestões e elogios. Essa classificação define o fluxo de tratamento e o painel oficial em que cada tipo de
+            demanda é acompanhado.
+          </p>
+        </div>
+        <!-- Painel Resolveu Card -->
+        <div class="highlight-card" style="background:#f8fafc;border-color:#E2E8F0;">
+          <a href="https://centralpaineis.cgu.gov.br/visualizar/resolveu" target="_blank" rel="noopener noreferrer"
+            class="card-help" title="Abrir Painel Resolveu? — CGU"><span>Clique aqui para saber mais</span><i
+              class="fas fa-question"></i></a>
+          <i class="fas fa-check-circle text-brand-secondary text-xl mb-1"></i>
+          <p class="font-montserrat font-bold text-base text-brand-primary">Manifestações — Painel Resolveu</p>
+          <p class="font-montserrat font-black text-3xl text-brand-primary mt-0 mb-0">304</p>
+          <p class="text-gray-500 text-xs">demandas de ouvidoria tratadas no Fala.BR</p>
+          <div class="flex items-center justify-center gap-2 mt-1">
+            <div style="width:9px;height:9px;border-radius:3px;background:#103050;"></div>
+            <span class="text-brand-primary font-bold text-xl">70,05%</span>
+            <span class="text-gray-400 text-xs">do total Fala.BR</span>
+          </div>
+        </div>
+
+        <!-- LAI Card -->
+        <div class="highlight-card">
+          <a href="https://centralpaineis.cgu.gov.br/visualizar/lai" target="_blank" rel="noopener noreferrer"
+            class="card-help" title="Abrir Painel LAI — CGU"><span>Clique aqui para saber mais</span><i
+              class="fas fa-question"></i></a>
+          <i class="fas fa-book-open text-brand-secondary text-xl mb-1"></i>
+          <p class="font-montserrat font-bold text-base text-brand-primary">Pedidos de Acesso à Informação - Painel LAI
+          </p>
+          <p class="font-montserrat font-black text-3xl text-brand-primary mt-0 mb-0">130</p>
+          <p class="text-gray-500 text-xs">demandas de LAI</p>
+          <div class="flex items-center justify-center gap-2 mt-1">
+            <div style="width:9px;height:9px;border-radius:3px;background:#0070C0;"></div>
+            <span class="text-brand-secondary font-bold text-xl">29,95%</span>
+            <span class="text-gray-400 text-xs">do total Fala.BR</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="px-16 pb-8 flex justify-between items-center z-10">
+      <p class="text-gray-400 text-xs">Relatório 1º Semestre de 2026 – Ouvidoria – Agência Nacional de Transportes Aquaviários - ANTAQ</p>
+    </div>
+  </div>
+  <script>
+    const falaPerfilLabels = ['Manifestações — Painel Resolveu', 'LAI — Acesso à Informação'];
+    const falaPerfilData = [304, 130];
+    new Chart(document.getElementById('chartFalaPerfil'), {
+      type: 'doughnut',
+      data: {
+        labels: falaPerfilLabels,
+        datasets: [{
+          data: falaPerfilData,
+          backgroundColor: ['#103050', '#0070C0'],
+          borderColor: ['#ffffff', '#ffffff'],
+          borderWidth: 3,
+          hoverOffset: 12
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        cutout: '55%',
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: { color: '#374151', font: { size: 12, weight: '600' }, padding: 16, usePointStyle: true, pointStyle: 'circle' }
+          },
+          tooltip: {
+            callbacks: {
+              label: function (ctx) {
+                var total = ctx.dataset.data.reduce(function (a, b) { return a + b; }, 0);
+                return ctx.label + ': ' + ctx.parsed + ' (' + (ctx.parsed / total * 100).toFixed(2) + '%)';
+              }
+            }
+          }
+        }
+      },
+      plugins: [{
+        id: 'centerText',
+        afterDraw: function (chart) {
+          var w = chart.width, h = chart.height, ctx = chart.ctx;
+          ctx.save();
+          var text = '434';
+          ctx.font = '700 58px Montserrat, sans-serif';
+          ctx.fillStyle = '#103050';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText(text, w / 2, h / 2 - 8);
+          ctx.font = '400 21px Open Sans, sans-serif';
+          ctx.fillStyle = '#6b7280';
+          ctx.fillText('Total', w / 2, h / 2 + 28);
+          ctx.restore();
+        }
+      }]
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!window.A11y) return;
+      A11y.renderChartFallbackTable(
+        document.getElementById('chartFalaPerfil'),
+        'Composição das demandas do Fala.BR',
+        ['Categoria', 'Quantidade'],
+        falaPerfilLabels.map((l, i) => [l, String(falaPerfilData[i])])
+      );
+    });
+  </script>
+  <script>
+    document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });
+  </script>
+  <script src="a11y.js" defer></script>
+</body>
+
+</html>

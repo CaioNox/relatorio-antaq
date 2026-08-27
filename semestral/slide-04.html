@@ -2,129 +2,282 @@
 <!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
 <!--
   ╔══════════════════════════════════════════════════════════════╗
-  ║  SLIDE 04 — placeholder (esqueleto do Relatório Semestral)
-  ║  Conteúdo real ainda não definido — só a estrutura de navegação.
+  ║  SLIDE 04 — KPIs principais de manifestações recebidas no semestre
+  ╠══════════════════════════════════════════════════════════════╣
+  ║  O QUE ATUALIZAR A CADA SEMESTRE:
+  ║  Atualizar: total respondidas, arquivadas, encaminhadas e tempo médio de conclusão
+  ║  (design portado do slide-18 — KPIs em 4 cards)
   ╚══════════════════════════════════════════════════════════════╝
 -->
+
 <html lang="pt-BR">
 
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Relatório Semestral — Slide 04 (placeholder)</title>
-  <link rel="icon" type="image/png"
-    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@400;600&display=swap"
-    rel="stylesheet" />
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Manifestações Recebidas - Relatório Semestral Ouvidoria ANTAQ</title>
+    <link rel="icon" type="image/png"
+        href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&amp;family=Open+Sans:ital,wght@0,400;0,600;1,400&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        html {
+            font-size: 26px;
+        }
 
-    html,
-    body {
-      width: 100vw;
-      height: 100vh;
-      overflow: hidden;
-      font-family: 'Open Sans', sans-serif;
-    }
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f3f4f6;
+            overflow: hidden;
+        }
 
-    .slide {
-      width: 100vw;
-      height: 100vh;
-      -webkit-print-color-adjust: exact;
-      print-color-adjust: exact;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(150deg, #071A2E 0%, #0C2D50 45%, #103C6B 100%);
-      overflow: hidden;
-    }
+        .slide-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            background-color: #ffffff;
+            overflow: hidden;
+            font-family: 'Open Sans', sans-serif;
+        }
 
-    .accent-bar {
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 6px;
-      height: 100%;
-      background: #0090C0;
-    }
+        .font-montserrat {
+            font-family: 'Montserrat', sans-serif;
+        }
 
-    .placeholder-badge {
-      font-family: 'Montserrat', sans-serif;
-      font-size: .78rem;
-      font-weight: 700;
-      letter-spacing: .28em;
-      text-transform: uppercase;
-      color: #0090C0;
-      margin-bottom: 1.1rem;
-    }
+        .text-brand-primary {
+            color: #103050;
+        }
 
-    .slide-num {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 6.5rem;
-      font-weight: 900;
-      color: rgba(255, 255, 255, 0.12);
-      line-height: 1;
-      margin-bottom: .4rem;
-    }
+        .text-brand-secondary {
+            color: #0070C0;
+        }
 
-    .slide-title {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 2.1rem;
-      font-weight: 800;
-      color: #fff;
-      text-align: center;
-    }
+        .bg-brand-secondary {
+            background-color: #0070C0;
+        }
 
-    .slide-hint {
-      margin-top: .9rem;
-      font-size: 1.05rem;
-      color: #9fc3df;
-      text-align: center;
-      max-width: 44rem;
-    }
+        .top-accent {
+            height: 8px;
+            background-color: #103050;
+            width: 100%;
+        }
 
-    .divider {
-      width: 70px;
-      height: 3px;
-      background: linear-gradient(90deg, #0090C0, rgba(0, 144, 192, 0));
-      border-radius: 2px;
-      margin: 1.4rem auto 0;
-    }
-  </style>
+        .top-accent-secondary {
+            height: 4px;
+            background-color: #0070C0;
+            width: 100%;
+        }
+
+        /* ===== Interatividade ===== */
+        .kpi-card {
+            transition: transform .28s cubic-bezier(.2, .7, .3, 1), box-shadow .28s ease, border-color .28s ease, background-color .28s ease;
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-9px) scale(1.018);
+            box-shadow: 0 30px 58px -16px rgba(16, 48, 80, .6);
+        }
+
+        .kpi-watermark {
+            transition: transform .4s ease, opacity .4s ease;
+        }
+
+        .kpi-card:hover .kpi-watermark {
+            transform: scale(1.12);
+            opacity: .2;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .kpi-card {
+            animation: fadeIn .5s ease both;
+        }
+
+        .kpi-card:nth-child(2) {
+            animation-delay: .09s;
+        }
+
+        .kpi-card:nth-child(3) {
+            animation-delay: .18s;
+        }
+
+        .kpi-card:nth-child(4) {
+            animation-delay: .27s;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+
+        .kpi-card {
+            border-radius: 20px;
+            padding: 2.2rem 2rem;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 420px;
+            box-shadow: 0 18px 40px -12px rgba(16, 48, 80, 0.45);
+        }
+
+        .kpi-primary {
+            background: linear-gradient(160deg, #103050 0%, #0070C0 100%);
+        }
+
+        .kpi-soft {
+            background: linear-gradient(160deg, #0e3a66 0%, #11598f 100%);
+        }
+
+        .kpi-num {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            line-height: 1;
+            color: #ffffff;
+        }
+
+        .kpi-watermark {
+            position: absolute;
+            right: -10px;
+            bottom: -20px;
+            font-size: 9rem;
+            opacity: 0.12;
+            color: #ffffff;
+        }
+
+        .bg-pattern {
+            position: absolute;
+            bottom: -50px;
+            right: -50px;
+            width: 400px;
+            height: 400px;
+            opacity: 0.03;
+            z-index: 0;
+            color: #103050;
+        }
+    </style>
+  <link rel="stylesheet" href="a11y.css">
+  <link rel="stylesheet" href="base.css" />
 </head>
 
 <body>
-  <div class="slide">
-    <div class="accent-bar"></div>
-    <p class="placeholder-badge">Relatório Semestral · Esqueleto</p>
-    <p class="slide-num">04</p>
-    <h1 class="slide-title">Slide 04 — conteúdo a definir</h1>
-    <p class="slide-hint">Estrutura de navegação já funcional (viewer, PDF e PowerPoint). O conteúdo
-      deste bloco entra aqui quando o material do semestre estiver definido.</p>
-    <div class="divider"></div>
-  </div>
-
-  <script>
-    function goToSlide(n) {
-      window.parent.postMessage({ type: "slide-goto", slide: n }, "*");
-    }
-    function goToFile(file) {
-      window.parent.postMessage({ type: "slide-goto-file", file: file }, "*");
-    }
-    document.addEventListener("keydown", function (e) {
-      if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) {
-        e.preventDefault();
-        window.parent.postMessage({ type: "slide-nav", key: e.key }, "*");
-      }
-    });
-  </script>
+    <div class="slide-container">
+        <div class="top-accent"></div>
+        <div class="top-accent-secondary"></div>
+        <!-- Header -->
+        <div class="flex items-start justify-between px-16 pt-10 pb-3 z-10">
+            <div>
+                <div class="flex items-center gap-3 mb-2">
+                    <div class="w-1 h-8 bg-brand-secondary"></div>
+                    <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">
+                        Manifestações Recebidas no Fala.BR</p>
+                </div>
+                <p class="text-gray-500 font-medium ml-4 text-lg">Manifestações recebidas e tratadas no Fala.BR — 1º
+                    semestre de 2026</p>
+            </div>
+            <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
+                <i class="fas fa-headset text-3xl" aria-hidden="true"></i>
+                <div class="flex flex-col justify-center pl-2" style="border-left:1px solid #CBD5E1;">
+                    <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">
+                        CAPÍTULO 03</p>
+                    <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none whitespace-nowrap">
+                        Seção de Apoio ao Cidadão — SAC</p>
+                </div>
+            </div>
+        </div>
+        <!-- ===== ÁREA DE DADOS — atualizar a cada semestre =====
+     Cada .kpi-num abaixo é um número em destaque. Troque pelo valor real do semestre.
+     ===== FIM DA ÁREA DE DADOS ============================= -->
+        <!-- KPIs -->
+        <div class="flex-1 flex flex-col justify-center px-16 pb-6 z-10 gap-5">
+            <div class="grid grid-cols-4 gap-6">
+                <!-- Total Recebidas -->
+                <div class="kpi-card kpi-primary" style="min-height:280px;">
+                    <div>
+                        <p class="text-blue-100 font-montserrat font-bold text-sm uppercase tracking-widest mb-2">Total
+                            de manifestações</p>
+                        <p class="kpi-num text-7xl">304</p>
+                    </div>
+                    <p class="text-blue-100 text-base leading-relaxed relative z-10">O total de manifestações inclui
+                        tanto as arquivadas quanto as respondidas.</p>
+                    <i class="fas fa-comments kpi-watermark"></i>
+                </div>
+                <!-- Total Arquivadas -->
+                <div class="kpi-card kpi-soft" style="min-height:280px;">
+                    <div>
+                        <p class="text-blue-100 font-montserrat font-bold text-sm uppercase tracking-widest mb-2">
+                            Manifestações Arquivadas</p>
+                        <p class="kpi-num text-7xl">46</p>
+                    </div>
+                    <p class="text-blue-100 text-base leading-relaxed relative z-10">Principal razão de arquivamento:
+                        Falta de clareza/Insuficiência de dados.</p>
+                    <i class="fas fa-archive kpi-watermark"></i>
+                </div>
+                <!-- Total Respondidas -->
+                <div class="kpi-card kpi-primary" style="min-height:280px;">
+                    <div>
+                        <p class="text-blue-100 font-montserrat font-bold text-sm uppercase tracking-widest mb-2">
+                            Manifestações Respondidas</p>
+                        <p class="kpi-num text-7xl">258</p>
+                    </div>
+                    <p class="text-blue-100 text-base leading-relaxed relative z-10">Manifestações que concluiram o
+                        fluxo de atendimento.</p>
+                    <i class="fas fa-inbox kpi-watermark"></i>
+                </div>
+                <!-- Tempo médio -->
+                <div class="kpi-card kpi-soft" style="min-height:280px;">
+                    <div>
+                        <p class="text-blue-100 font-montserrat font-bold text-sm uppercase tracking-widest mb-2">Tempo
+                            médio de conclusão</p>
+                        <p class="kpi-num text-7xl">13,9<span class="text-2xl font-bold ml-1">dias</span></p>
+                    </div>
+                    <p class="text-blue-100 text-base leading-relaxed relative z-10">Da abertura à conclusão das
+                        manifestações no semestre.</p>
+                    <i class="fas fa-clock kpi-watermark"></i>
+                </div>
+            </div>
+            <!-- Encaminhadas (linha inferior) -->
+            <div class="grid grid-cols-1">
+                <div class="kpi-card kpi-primary"
+                    style="min-height:0; padding:1.4rem 2rem; flex-direction:row; align-items:center; justify-content:flex-start; gap:2rem;">
+                    <p class="kpi-num text-6xl">12</p>
+                    <div>
+                        <p class="text-blue-100 font-montserrat font-bold text-sm uppercase tracking-widest mb-1">
+                            Encaminhadas a outros órgãos</p>
+                        <p class="text-blue-100 text-base leading-relaxed relative z-10">Manifestações redirecionadas a
+                            outros órgãos para o devido tratamento.</p>
+                    </div>
+                    <i class="fas fa-share-from-square kpi-watermark"></i>
+                </div>
+            </div>
+        </div>
+        <!-- Footer -->
+        <div class="px-16 pb-8 flex justify-between items-center z-10">
+            <p class="text-gray-400 text-xs">Relatório 1º Semestre de 2026 – Ouvidoria – Agência Nacional de Transportes Aquaviários - ANTAQ</p>
+        </div>
+        <div class="bg-pattern"><i class="fas fa-inbox text-9xl"></i></div>
+    </div>
+    <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
   <script src="a11y.js" defer></script>
 </body>
 

@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
+<!--
+  ╔══════════════════════════════════════════════════════════════╗
+  ║  SLIDE — Perguntas e Respostas · Dados Abertos (Capítulo 04)
+  ╠══════════════════════════════════════════════════════════════╣
+  ║  Vem logo ANTES do slide-pda.html e prepara o público para o
+  ║  trecho final do capítulo: o Plano de Dados Abertos e as bases
+  ║  publicadas pela ANTAQ.
+  ║
+  ║  LAYOUT — idêntico ao de slide-qa-geral.html: sanfona de barras
+  ║  retangulares clicáveis, uma resposta aberta por vez; no PDF sai
+  ║  igual à tela, e as respostas completas vão para um anexo textual
+  ║  (deck.js → RELATORIO.anexos). Ao alterar um dos dois, replique no
+  ║  outro para manter a padronização.
+  ║
+  ║  O QUE ATUALIZAR A CADA SEMESTRE:
+  ║    18 bases abertas · 8 previstas ............ slide-21
+  ║    nomes das bases publicadas e previstas .... slide-21
+  ║    vigência e base legal do PDA .............. slide-pda
+  ╚══════════════════════════════════════════════════════════════╝
+-->
+
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Perguntas e Respostas · Dados Abertos — Relatório Semestral Ouvidoria ANTAQ</title>
+  <link rel="icon" type="image/png"
+    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&amp;family=Open+Sans:ital,wght@0,400;0,600;1,400&amp;display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    /* Escala proporcional à tela (26px no canvas 1920×1080). */
+    html { font-size: clamp(13px, min(1.354vw, 2.407vh), 26px); }
+    body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
+
+    .slide-container {
+      width: 100vw; height: 100vh; position: relative;
+      display: flex; flex-direction: column;
+      background-color: #ffffff; overflow: hidden; font-family: 'Open Sans', sans-serif;
+    }
+
+    .font-montserrat { font-family: 'Montserrat', sans-serif; }
+    .text-brand-primary { color: #103050; }
+    .text-brand-secondary { color: #0070C0; }
+    .bg-brand-secondary { background-color: #0070C0; }
+    .top-accent { height: 8px; background-color: #103050; width: 100%; }
+    .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
+
+    /* ───────── Painel: trilhas empilhadas em coluna única ───────── */
+    .board {
+      flex: 1; min-height: 0; z-index: 10;
+      display: flex; flex-direction: column; justify-content: space-between;
+      padding: .35rem 4rem .45rem;
+    }
+    .track { display: flex; flex-direction: column; gap: .3rem; }
+
+    /* Cores da trilha: --c acento · --ct texto · --cs fundo suave */
+    .t1 { --c: #0070C0; --ct: #0A5FA0; --cs: #E9F2FA; }
+    .t2 { --c: #F2A900; --ct: #A96F00; --cs: #FDF3DE; }
+    .t3 { --c: #103050; --ct: #103050; --cs: #E8EDF3; }
+
+    .track-head {
+      display: flex; align-items: center; gap: .45rem;
+      padding-left: .5rem; border-left: 3px solid var(--c); margin-bottom: .06rem;
+      animation: fadeIn .45s ease both;
+    }
+    .track-head i { color: var(--ct); font-size: .62rem; }
+    .track-head span {
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .58rem;
+      letter-spacing: .11em; text-transform: uppercase; color: #103050;
+    }
+
+    /* ───────── Barra retangular clicável ───────── */
+    .qa {
+      background: #fff; border: 1px solid #E5E9F0; border-left: 4px solid var(--c);
+      border-radius: 10px; overflow: hidden;
+      box-shadow: 0 4px 12px -9px rgba(16, 48, 80, .25);
+      transition: border-color .25s ease, box-shadow .25s ease, background-color .25s ease;
+      animation: fadeIn .45s ease both;
+    }
+    .qa:hover { border-color: var(--c); box-shadow: 0 10px 22px -14px rgba(16, 48, 80, .35); }
+    .qa.open { border-color: var(--c); box-shadow: 0 12px 26px -16px rgba(16, 48, 80, .38); }
+
+    .qa-bar {
+      width: 100%; display: flex; align-items: center; gap: .7rem;
+      padding: .42rem .9rem; margin: 0;
+      background: none; border: 0; cursor: pointer; text-align: left; font: inherit;
+    }
+    .qa-bar:focus-visible { outline: 2px solid var(--c); outline-offset: -3px; }
+
+    .qa-n {
+      flex-shrink: 0; width: 1.4rem; height: 1.4rem; border-radius: 7px;
+      background: var(--cs); color: var(--ct);
+      font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: .6rem;
+      display: flex; align-items: center; justify-content: center; letter-spacing: -.02em;
+      transition: background-color .25s ease;
+    }
+    .qa.open .qa-n { background: var(--c); color: #fff; }
+
+    .qa-q {
+      flex: 1; min-width: 0;
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .78rem;
+      color: #103050; line-height: 1.2;
+    }
+    .qa-chev {
+      flex-shrink: 0; font-size: .58rem; color: #94A3B8;
+      transition: transform .3s ease, color .25s ease;
+    }
+    .qa.open .qa-chev { transform: rotate(180deg); color: var(--ct); }
+
+    /* ───────── Painel expansível ───────── */
+    .qa-panel {
+      max-height: 0; opacity: 0; overflow: hidden;
+      transition: max-height .32s cubic-bezier(.2, .7, .3, 1), opacity .24s ease;
+    }
+    .qa.open .qa-panel { max-height: 16rem; opacity: 1; }
+    .qa-panel-in { padding: 0 .9rem .55rem 3rem; }
+    .qa-a { font-size: .7rem; line-height: 1.42; color: #334155; margin: 0; }
+    .qa-a b { color: var(--ct); font-weight: 800; }
+
+    /* ───────── Etiquetas de origem (clicáveis) ───────── */
+    .qa-refs { display: flex; flex-wrap: wrap; gap: .3rem; margin-top: .4rem; }
+    .qa-ref {
+      display: inline-flex; align-items: center; gap: .32rem;
+      font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: .53rem;
+      line-height: 1.15; color: #64748B; background: #F8FAFC;
+      border: 1px solid #E2E8F0; border-radius: 999px;
+      padding: .24rem .62rem .24rem .52rem; cursor: pointer;
+      transition: all .2s ease;
+    }
+    .qa-ref i { font-size: .48rem; color: var(--ct); transition: transform .2s ease; }
+    .qa-ref:hover, .qa-ref:focus-visible {
+      background: var(--cs); border-color: var(--c); color: #103050; outline: none;
+    }
+    .qa-ref:hover i, .qa-ref:focus-visible i { transform: translateX(2px); }
+
+    .bg-pattern { position: absolute; bottom: -60px; right: -50px; width: 400px; height: 400px; opacity: .03; z-index: 0; color: #103050; }
+
+    .hint { display: inline-flex; align-items: center; gap: .35rem; font-size: .46rem; color: #94A3B8; font-weight: 600; }
+    .hint i { color: #0070C0; }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+    .t2 .qa { animation-delay: .06s; }
+    .t3 .qa { animation-delay: .12s; }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+
+    /* Impressão/PDF: abre tudo, para o relatório não sair só com perguntas. */
+    /* As respostas completas saem no anexo textual do relatório (deck.js →
+       RELATORIO.anexos['slide-qa-dados-abertos.html']), não aqui: abrir
+       todos os .qa-panel em @media print fazia o conteúdo passar de 1080px
+       de altura (até 1653px medidos) e cortava as perguntas finais. O slide
+       sai no PDF igual à tela — só a pergunta 01 aberta. */
+    @media print {
+      .qa-chev { display: none; }
+      .hint { display: none; }
+    }
+  </style>
+  <link rel="stylesheet" href="a11y.css">
+  <link rel="stylesheet" href="base.css" />
+</head>
+
+<body>
+  <div class="slide-container">
+    <div class="top-accent"></div>
+    <div class="top-accent-secondary"></div>
+
+    <!-- ───────── Cabeçalho ───────── -->
+    <div class="flex items-start justify-between px-16 pt-8 pb-2 z-10">
+      <div>
+        <div class="flex items-center gap-3 mb-1">
+          <div class="w-1 h-8 bg-brand-secondary"></div>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Perguntas e Respostas</p>
+        </div>
+        <p class="text-gray-500 font-medium ml-4" style="font-size:.72rem;">Dados abertos em nove perguntas — antes do Plano de Dados Abertos</p>
+      </div>
+      <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
+        <i class="fas fa-lock-open text-3xl" aria-hidden="true"></i>
+        <div class="flex flex-col justify-center pl-2" style="border-left:1px solid #CBD5E1;">
+          <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">CAPÍTULO 04</p>
+          <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none whitespace-nowrap">Seção de Transparência e Acesso à Informação - STAI</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ───────── Sanfona de perguntas ───────── -->
+    <div class="board">
+
+      <!-- ══ Trilha 1 — O que são e por que abrir ══ -->
+      <div class="track t1">
+        <div class="track-head"><i class="fas fa-circle-info"></i><span>O que são e por que abrir</span></div>
+
+        <div class="qa open">
+          <button class="qa-bar" aria-expanded="true">
+            <span class="qa-n">01</span>
+            <span class="qa-q">O que são dados abertos?</span>
+            <i class="fas fa-chevron-down qa-chev" aria-hidden="true"></i>
+          </button>
+          <div class="qa-panel">
+            <div class="qa-panel-in">
+              <p class="qa-a">Informações públicas disponibilizadas em <b>formato aberto e processável por máquina</b>, de acesso público e livre reutilização — respeitados os sigilos legais e a proteção dos dados pessoais.</p>
+              <div class="qa-refs">
+                <button class="qa-ref" data-file="slide-pda.html"><i class="fas fa-chevron-right"></i> PDA 2026–2028</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="qa">
+          <button class="qa-bar" aria-expanded="false">
+            <span class="qa-n">02</span>
+            <span class="qa-q">Por que a ANTAQ abre seus dados?</span>
+            <i class="fas fa-chevron-down qa-chev" aria-hidden="true"></i>
+          </button>
+          <div class="qa-panel">
+            <div class="qa-panel-in">
+              <p class="qa-a">Em prol da <b>transparência</b>, da melhoria do serviço público, da inovação, do crescimento econômico e da eficiência no uso dos recursos públicos.</p>
+              <div class="qa-refs">
+                <button class="qa-ref" data-file="slide-pda.html"><i class="fas fa-chevron-right"></i> PDA 2026–2028</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="qa">
+          <button class="qa-bar" aria-expanded="false">
+            <span class="qa-n">03</span>
+            <span class="qa-q">A quem esses dados servem?</span>
+            <i class="fas fa-chevron-down qa-chev" aria-hidden="true"></i>
+          </button>
+          <div class="qa-panel">
+            <div class="qa-panel-in">
+              <p class="qa-a">Ao <b>mercado regulado</b>, à <b>academia</b>, ao <b>Poder Público</b> e à <b>sociedade</b> — reduzindo a assimetria de informação e estimulando o controle social.</p>
+              <div class="qa-refs">
+                <button class="qa-ref" data-file="slide-pda.html"><i class="fas fa-chevron-right"></i> PDA 2026–2028</button>
+                <button class="qa-ref" data-file="slide-4a.html"><i class="fas fa-chevron-right"></i> Apresentação da STAI</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ Trilha 2 — O Plano de Dados Abertos ══ -->
+      <div class="track t2">
+        <div class="track-head"><i class="fas fa-clipboard-list"></i><span>O Plano de Dados Abertos</span></div>
+
+        <div class="qa">
+          <button class="qa-bar" aria-expanded="false">
+            <span class="qa-n">04</span>
+            <span class="qa-q">O que é o PDA?</span>
+            <i class="fas fa-chevron-down qa-chev" aria-hidden="true"></i>
+          </button>
+          <div class="qa-panel">
+            <div class="qa-panel-in">
+              <p class="qa-a">O <b>Plano de Dados Abertos 2026–2028</b>: documento orientador da política de dados abertos da ANTAQ e plano tático institucional para as ações de abertura.</p>
+              <div class="qa-refs">
+                <button class="qa-ref" data-file="slide-pda.html"><i class="fas fa-chevron-right"></i> PDA 2026–2028</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="qa">
+          <button class="qa-bar" aria-expanded="false">
+            <span class="qa-n">05</span>
+            <span class="qa-q">Qual é o objetivo do Plano?</span>
+            <i class="fas fa-chevron-down qa-chev" aria-hidden="true"></i>
+          </button>
+          <div class="qa-panel">
+            <div class="qa-panel-in">
+              <p class="qa-a">Promover a <b>abertura, a ampliação e o aprimoramento contínuo</b> dos dados públicos sob responsabilidade da Agência, observados os princípios da publicidade, transparência e eficiência.</p>
+              <div class="qa-refs">
+                <button class="qa-ref" data-file="slide-pda.html"><i class="fas fa-chevron-right"></i> PDA 2026–2028</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="qa">
+          <button class="qa-bar" aria-expanded="false">
+            <span class="qa-n">06</span>
+            <span class="qa-q">Qual é a base legal?</span>
+            <i class="fas fa-chevron-down qa-chev" aria-hidden="true"></i>
+          </button>
+          <div class="qa-panel">
+            <div class="qa-panel-in">
+              <p class="qa-a"><b>Decreto nº 8.777/2016</b> (Política de Dados Abertos), Instrução Normativa nº 4/2012 (INDA), Resolução CGINDA nº 3/2017 e a <b>Lei nº 12.527/2011</b> (LAI).</p>
+              <div class="qa-refs">
+                <button class="qa-ref" data-file="slide-pda.html"><i class="fas fa-chevron-right"></i> PDA 2026–2028</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ Trilha 3 — O que já está publicado ══ -->
+      <div class="track t3">
+        <div class="track-head"><i class="fas fa-database"></i><span>O que já está publicado</span></div>
+
+        <div class="qa">
+          <button class="qa-bar" aria-expanded="false">
+            <span class="qa-n">07</span>
+            <span class="qa-q">Quantas bases estão abertas hoje?</span>
+            <i class="fas fa-chevron-down qa-chev" aria-hidden="true"></i>
+          </button>
+          <div class="qa-panel">
+            <div class="qa-panel-in">
+              <p class="qa-a"><b>18 bases</b> publicadas no dados.gov.br e mais <b>8 previstas</b> no PDA 2026–2028.</p>
+              <div class="qa-refs">
+                <button class="qa-ref" data-file="slide-21.html"><i class="fas fa-chevron-right"></i> Dados Abertos</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="qa">
+          <button class="qa-bar" aria-expanded="false">
+            <span class="qa-n">08</span>
+            <span class="qa-q">Que dados o cidadão encontra?</span>
+            <i class="fas fa-chevron-down qa-chev" aria-hidden="true"></i>
+          </button>
+          <div class="qa-panel">
+            <div class="qa-panel-in">
+              <p class="qa-a"><b>Estatístico Aquaviário</b>, Afretamento, Instalações Portuárias, Portos Organizados, Gestão de Multas, Gestão Orçamentária e Financeira e Situação dos Portos em Tempo Real, entre outras.</p>
+              <div class="qa-refs">
+                <button class="qa-ref" data-file="slide-21.html"><i class="fas fa-chevron-right"></i> Dados Abertos</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="qa">
+          <button class="qa-bar" aria-expanded="false">
+            <span class="qa-n">09</span>
+            <span class="qa-q">O que ainda será aberto?</span>
+            <i class="fas fa-chevron-down qa-chev" aria-hidden="true"></i>
+          </button>
+          <div class="qa-panel">
+            <div class="qa-panel-in">
+              <p class="qa-a">As <b>8 bases previstas</b>: Painel de Portos Públicos, Plano Geral de Outorgas Hidroviárias, TKU, Tarifas Portuárias Homologadas, Inventário de Painéis BI, SEI, Contratos Vigentes e Compras e Contratações.</p>
+              <div class="qa-refs">
+                <button class="qa-ref" data-file="slide-21.html"><i class="fas fa-chevron-right"></i> Dados Abertos</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ───────── Rodapé ───────── -->
+    <div class="px-16 pb-4 pt-1 flex justify-between items-center z-10">
+      <p class="text-gray-400" style="font-size:.46rem;">Relatório 1º Semestre de 2026 – Ouvidoria – Agência Nacional de Transportes Aquaviários - ANTAQ</p>
+      <p class="hint"><i class="far fa-hand-pointer"></i> Clique na pergunta para abrir a resposta · nas etiquetas, para ir ao slide que a detalha</p>
+    </div>
+    <div class="bg-pattern"><i class="fas fa-database text-9xl"></i></div>
+  </div>
+
+  <script>
+    /* Sanfona — uma resposta aberta por vez, para nunca estourar a altura da tela. */
+    document.querySelectorAll('.qa-bar').forEach(function (bar) {
+      bar.addEventListener('click', function () {
+        var item = bar.parentElement;
+        var abrir = !item.classList.contains('open');
+        document.querySelectorAll('.qa.open').forEach(function (aberto) {
+          aberto.classList.remove('open');
+          aberto.querySelector('.qa-bar').setAttribute('aria-expanded', 'false');
+        });
+        if (abrir) {
+          item.classList.add('open');
+          bar.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+
+    /* Etiquetas → navegam para o slide de origem da resposta. */
+    document.querySelectorAll('.qa-ref').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        window.parent.postMessage({ type: "slide-goto-file", file: btn.dataset.file }, "*");
+      });
+    });
+
+    /* Teclas de navegação — repassadas ao contêiner. Ignora quando o foco está
+       num botão, para não bloquear Espaço/Enter que abre a resposta. */
+    document.addEventListener("keydown", function (e) {
+      if (e.target.closest && e.target.closest('button')) return;
+      if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) {
+        e.preventDefault();
+        window.parent.postMessage({ type: "slide-nav", key: e.key }, "*");
+      }
+    });
+  </script>
+  <script src="a11y.js" defer></script>
+</body>
+
+</html>

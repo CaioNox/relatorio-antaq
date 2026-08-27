@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
+<!--
+  ╔══════════════════════════════════════════════════════════════╗
+  ║  SLIDE — Canais de Atendimento da Ouvidoria da ANTAQ
+  ╠══════════════════════════════════════════════════════════════╣
+  ║  Quatro canais oficiais de atendimento ao cidadão:
+  ║  Telefone · WhatsApp (QR Code) · Presencial · Correspondência/E-mail.
+  ╚══════════════════════════════════════════════════════════════╝
+-->
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Canais de Atendimento — Relatório Semestral Ouvidoria ANTAQ</title>
+  <link rel="icon" type="image/png"
+    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    html {
+      font-size: 26px;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f3f4f6;
+      overflow: hidden;
+    }
+
+    .slide-container {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background-color: #ffffff;
+      overflow: hidden;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    .font-montserrat {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .text-brand-primary {
+      color: #103050;
+    }
+
+    .text-brand-secondary {
+      color: #0070C0;
+    }
+
+    .bg-brand-secondary {
+      background-color: #0070C0;
+    }
+
+    .top-accent {
+      height: 8px;
+      background-color: #103050;
+      width: 100%;
+    }
+
+    .top-accent-secondary {
+      height: 4px;
+      background-color: #0070C0;
+      width: 100%;
+    }
+
+    /* ═══════════ Grid de canais ═══════════ */
+    .channels {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: 1.6rem;
+      padding: 1.2rem 4rem 1rem;
+      animation: fadeIn .6s ease both;
+    }
+
+    .card {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 1.6rem;
+      background: #ffffff;
+      border: 1px solid #E5E9F0;
+      border-left: 8px solid #0070C0;
+      border-radius: 16px;
+      box-shadow: 0 12px 30px -14px rgba(16, 48, 80, 0.30);
+      padding: 1.5rem 1.8rem;
+    }
+
+    .card-icon {
+      flex-shrink: 0;
+      width: 92px;
+      height: 92px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 2.4rem;
+      box-shadow: 0 8px 18px rgba(16, 48, 80, 0.25);
+    }
+
+    .card-body {
+      min-width: 0;
+    }
+
+    .card-tag {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: .62rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: #0070C0;
+      margin-bottom: .15rem;
+    }
+
+    .card-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 1.35rem;
+      color: #103050;
+      line-height: 1.05;
+      margin-bottom: .35rem;
+    }
+
+    .card-info {
+      font-size: .92rem;
+      color: #475569;
+      line-height: 1.3;
+    }
+
+    .card-info strong {
+      color: #103050;
+      font-weight: 700;
+    }
+
+    /* Card do WhatsApp com QR Code — cor convertida de verde de marca (#25D366) para
+       azul institucional, conforme regra "proibido verde" do prompt (decisão registrada
+       em INVENTARIO.md §DECISÕES). */
+    .card-wa {
+      border-left-color: #0090C0;
+    }
+
+    .qr-box {
+      flex-shrink: 0;
+      margin-left: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .2rem;
+    }
+
+    .qr-box img {
+      width: 118px;
+      height: 118px;
+      border-radius: 10px;
+      border: 4px solid #ffffff;
+      box-shadow: 0 6px 16px rgba(16, 48, 80, 0.25);
+    }
+
+    .qr-box span {
+      font-size: .58rem;
+      color: #64748B;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="a11y.css">
+  <link rel="stylesheet" href="base.css" />
+</head>
+
+<body>
+  <div class="slide-container">
+    <div class="top-accent"></div>
+    <div class="top-accent-secondary"></div>
+
+    <!-- Header -->
+    <div class="flex items-start justify-between px-16 pt-10 pb-3 z-10">
+      <div>
+        <div class="flex items-center gap-3 mb-1">
+          <div class="w-1 h-8 bg-brand-secondary"></div>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Canais de
+            Atendimento
+          </p>
+        </div>
+        <p class="text-gray-500 font-medium ml-4 text-lg">Como o cidadão pode acionar a Ouvidoria da ANTAQ</p>
+      </div>
+      <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
+        <i class="fas fa-landmark text-3xl align-middle" aria-hidden="true"></i>
+        <div class="flex flex-col justify-center border-left pl-2" style="border-left: 1px solid #CBD5E1;">
+          <p
+            class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">
+            CAPÍTULO 02</p>
+          <p
+            class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none whitespace-nowrap">
+            A
+            Ouvidoria da ANTAQ</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════ Cartões dos canais ═══════════ -->
+    <div class="channels">
+      <!-- Telefone -->
+      <div class="card">
+        <div class="card-icon" style="background:linear-gradient(145deg,#16466E,#0070C0);">
+          <i class="fas fa-phone-volume"></i>
+        </div>
+        <div class="card-body">
+          <div class="card-tag">Disque Ouvidoria</div>
+          <div class="card-title">Telefone</div>
+          <div class="card-info"><strong>0800 644 5001</strong></div>
+        </div>
+      </div>
+
+      <!-- WhatsApp com QR Code -->
+      <div class="card card-wa">
+        <div class="card-icon" style="background:linear-gradient(145deg,#103050,#0090C0);">
+          <i class="fa-brands fa-whatsapp"></i>
+        </div>
+        <div class="card-body">
+          <div class="card-tag">Atendimento digital</div>
+          <div class="card-title">WhatsApp</div>
+          <div class="card-info">Aponte a câmera<br />para falar com a Ouvidoria</div>
+        </div>
+        <div class="qr-box">
+          <img src="Imagens/QRCODE_IARA.jpeg" alt="QR Code do WhatsApp da Ouvidoria da ANTAQ" />
+          <span>Escaneie o QR Code</span>
+        </div>
+      </div>
+
+      <!-- Atendimento Presencial -->
+      <div class="card">
+        <div class="card-icon" style="background:linear-gradient(145deg,#0090C0,#0070C0);">
+          <i class="fas fa-user"></i>
+        </div>
+        <div class="card-body">
+          <div class="card-tag">Presencial</div>
+          <div class="card-title">Atendimento Presencial</div>
+          <div class="card-info">SEPN Q. 514, Conj. E, Ed. ANTAQ<br />CEP 70760-545 · Brasília/DF</div>
+        </div>
+      </div>
+
+      <!-- Correspondência e E-mail -->
+      <div class="card">
+        <div class="card-icon" style="background:linear-gradient(145deg,#11598f,#0090C0);">
+          <i class="fas fa-envelope"></i>
+        </div>
+        <div class="card-body">
+          <div class="card-tag">Escrito</div>
+          <div class="card-title">Correspondência e E-mail</div>
+          <div class="card-info">Envio de manifestações por carta<br />ou por meio eletrônico</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="px-16 pb-6 pt-1 flex justify-between items-center z-10">
+      <p class="text-gray-400 text-xs">Relatório 1º Semestre de 2026 – Ouvidoria – Agência Nacional de Transportes
+        Aquaviários - ANTAQ</p>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("keydown", function (e) {
+      if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) {
+        e.preventDefault();
+        window.parent.postMessage({ type: "slide-nav", key: e.key }, "*");
+      }
+    });
+  </script>
+  <script src="a11y.js" defer></script>
+</body>
+
+</html>

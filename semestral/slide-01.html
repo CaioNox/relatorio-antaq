@@ -2,129 +2,805 @@
 <!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
 <!--
   ╔══════════════════════════════════════════════════════════════╗
-  ║  SLIDE 01 — placeholder (esqueleto do Relatório Semestral)
-  ║  Conteúdo real ainda não definido — só a estrutura de navegação.
+  ║  SLIDE 01 — Capa e Sumário da apresentação — slide de abertura com índice clicável
+  ╠══════════════════════════════════════════════════════════════╣
+  ║  O QUE ATUALIZAR A CADA SEMESTRE:
+  ║  Atualizar: ano/semestre no título cover-sub; verificar goToSlide() se mudar nº de slides; adicionar animation-delay para novos itens do sumário
   ╚══════════════════════════════════════════════════════════════╝
 -->
+
 <html lang="pt-BR">
 
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Relatório Semestral — Slide 01 (placeholder)</title>
-  <link rel="icon" type="image/png"
-    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@400;600&display=swap"
-    rel="stylesheet" />
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Apresentação Semestral - Capa</title>
+    <link rel="icon" type="image/png"
+        href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&amp;family=Open+Sans:ital,wght@0,400;0,600;1,400&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        html {
+            font-size: 18px;
+        }
 
-    html,
-    body {
-      width: 100vw;
-      height: 100vh;
-      overflow: hidden;
-      font-family: 'Open Sans', sans-serif;
-    }
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #f3f4f6;
+        }
 
-    .slide {
-      width: 100vw;
-      height: 100vh;
-      -webkit-print-color-adjust: exact;
-      print-color-adjust: exact;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(150deg, #071A2E 0%, #0C2D50 45%, #103C6B 100%);
-      overflow: hidden;
-    }
+        .slide-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(135deg, #0A2236 0%, #103050 50%, #16466E 100%);
+            overflow: hidden;
+            color: white;
+        }
 
-    .accent-bar {
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 6px;
-      height: 100%;
-      background: #0090C0;
-    }
+        .bg-brand-secondary {
+            background-color: #0070C0;
+        }
 
-    .placeholder-badge {
-      font-family: 'Montserrat', sans-serif;
-      font-size: .78rem;
-      font-weight: 700;
-      letter-spacing: .28em;
-      text-transform: uppercase;
-      color: #0090C0;
-      margin-bottom: 1.1rem;
-    }
+        .font-montserrat {
+            font-family: 'Montserrat', sans-serif;
+        }
 
-    .slide-num {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 6.5rem;
-      font-weight: 900;
-      color: rgba(255, 255, 255, 0.12);
-      line-height: 1;
-      margin-bottom: .4rem;
-    }
+        .font-opensans {
+            font-family: 'Open Sans', sans-serif;
+        }
 
-    .slide-title {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 2.1rem;
-      font-weight: 800;
-      color: #fff;
-      text-align: center;
-    }
+        /* Decorative Shape */
+        .shape-bg {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 45%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.03);
+            clip-path: polygon(25% 0, 100% 0, 100% 100%, 0% 100%);
+            z-index: 1;
+        }
 
-    .slide-hint {
-      margin-top: .9rem;
-      font-size: 1.05rem;
-      color: #9fc3df;
-      text-align: center;
-      max-width: 44rem;
-    }
+        /* ===== Cover ===== */
+        .cover-year {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 0.4em;
+            color: #0090C0;
+        }
 
-    .divider {
-      width: 70px;
-      height: 3px;
-      background: linear-gradient(90deg, #0090C0, rgba(0, 144, 192, 0));
-      border-radius: 2px;
-      margin: 1.4rem auto 0;
-    }
-  </style>
+        .cover-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            text-transform: uppercase;
+            color: #ffffff;
+            filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.4));
+            margin: 0.4rem 0 0 0;
+        }
+
+        .cover-title .accent {
+            color: #0090C0;
+        }
+
+        /* Eyebrow / kicker acima do título */
+        .cover-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.7rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 0.82rem;
+            letter-spacing: 0.26em;
+            text-transform: uppercase;
+            color: #0090C0;
+            margin: 0 0 0.4rem;
+        }
+
+        .cover-eyebrow::before {
+            content: "";
+            width: 2.6rem;
+            height: 3px;
+            border-radius: 2px;
+            background: linear-gradient(90deg, #00AEEF, #0090C0);
+        }
+
+        .cover-sub {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #cfe0f7;
+            margin-top: 0.8rem;
+        }
+
+        .cover-org {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 0.9rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: #9db9e6;
+            margin-top: 0.35rem;
+        }
+
+        /* ===== Sumário ===== */
+        .sumario {
+            margin-top: 0.4rem;
+            max-width: none;
+            width: 100%;
+        }
+
+        .sumario-label {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.32em;
+            text-transform: uppercase;
+            color: #0090C0;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            margin-bottom: 1.1rem;
+        }
+
+        .sumario-label::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: rgba(0, 144, 192, 0.3);
+        }
+
+        /* ===== Sumário em 6 colunas (índice: números · capítulos · seções) ===== */
+        .sum-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 1.1rem 1.5rem;
+            align-items: start;
+            margin-top: 0.3rem;
+        }
+
+        .sum-col {
+            min-width: 0;
+        }
+
+        .sum-num {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            font-size: 3rem;
+            line-height: 1;
+            background: linear-gradient(135deg, #00AEEF 0%, #5AB4DC 55%, #0090C0 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+            margin-bottom: 0.35rem;
+        }
+
+        .sum-title {
+            display: block;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 0.9rem;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            color: #ffffff;
+            line-height: 1.22;
+            margin-bottom: 0.65rem;
+            padding-bottom: 0.45rem;
+            border-bottom: 2px solid rgba(0, 144, 192, 0.55);
+            text-decoration: none;
+            cursor: pointer;
+            transition: color .18s ease;
+        }
+
+        a.sum-title:hover {
+            color: #0090C0;
+        }
+
+        .sum-item {
+            position: relative;
+            display: block;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 0.82rem;
+            line-height: 1.28;
+            color: #e3eefc;
+            margin-bottom: 0.5rem;
+            padding-left: 0.95rem;
+            text-decoration: none;
+            cursor: pointer;
+            transition: color .18s ease;
+        }
+
+        .sum-item::before {
+            content: "\f105";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            top: 0.1rem;
+            font-size: 0.72rem;
+            color: #0090C0;
+            transition: transform .18s ease;
+        }
+
+        a.sum-item:hover {
+            color: #0090C0;
+        }
+
+        a.sum-item:hover::before {
+            transform: translateX(3px);
+        }
+
+        .sum-group {
+            position: relative;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 0.78rem;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: #0090C0;
+            margin: 0.72rem 0 0.42rem;
+            padding-left: 0.95rem;
+        }
+
+        .sum-group::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0.28rem;
+            width: 0.55rem;
+            height: 0.55rem;
+            border-radius: 2px;
+            background: #0090C0;
+        }
+
+        .sum-subitem {
+            display: block;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 0.77rem;
+            line-height: 1.26;
+            color: #cfe0f7;
+            margin-bottom: 0.4rem;
+            padding-left: 0.75rem;
+            border-left: 2px solid rgba(0, 144, 192, 0.35);
+            text-decoration: none;
+            cursor: pointer;
+            transition: color .18s ease, border-color .18s ease;
+        }
+
+        a.sum-subitem:hover {
+            color: #0090C0;
+            border-color: #0090C0;
+        }
+
+        .sum-hint {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 0.72rem;
+            color: #9db9e6;
+            margin: 0.15rem 0 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+        }
+
+        .sum-hint i {
+            color: #0090C0;
+        }
+
+        /* ===== Árvore do Sumário (multinível, estilo IDE) ===== */
+        .tree {
+            max-height: 600px;
+            overflow-y: auto;
+            padding-right: 0.5rem;
+        }
+
+        .tree::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .tree::-webkit-scrollbar-thumb {
+            background: rgba(0, 144, 192, 0.35);
+            border-radius: 4px;
+        }
+
+        .tree::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .tree ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* filhos: indentação + linha-guia; recolhidos por padrão */
+        .tree li>ul {
+            margin-left: 1.05rem;
+            padding-left: 0.95rem;
+            border-left: 1px solid rgba(255, 255, 255, 0.12);
+            display: none;
+        }
+
+        .tree li.open>ul {
+            display: block;
+            animation: fadeInUp .28s ease both;
+        }
+
+        /* linha (nó) */
+        .tnode {
+            display: flex;
+            align-items: center;
+            gap: 0.55rem;
+            padding: 0.32rem 0.55rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color .2s ease, padding-left .2s ease;
+            user-select: none;
+        }
+
+        .tnode:hover {
+            background: rgba(255, 255, 255, 0.06);
+            padding-left: 0.85rem;
+        }
+
+        /* chevron (pai) / ponto (folha) */
+        .tw-chev {
+            width: 1rem;
+            flex-shrink: 0;
+            text-align: center;
+            font-size: 0.72rem;
+            color: #0090C0;
+            transition: transform .2s ease, color .2s ease;
+        }
+
+        .tree li.open>.tnode .tw-chev {
+            transform: rotate(90deg);
+            color: #0090C0;
+        }
+
+        .tw-chev .tw-leaf {
+            font-size: 0.42rem;
+            color: rgba(0, 144, 192, 0.55);
+            vertical-align: middle;
+        }
+
+        /* número multinível (1 / 1.1 / 1.1.1) */
+        .tw-num {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            color: #0090C0;
+            font-size: 0.8rem;
+            min-width: 3rem;
+            flex-shrink: 0;
+            letter-spacing: 0.01em;
+        }
+
+        /* ícone do tópico (só nível 1) */
+        .tw-icon {
+            width: 1.35rem;
+            text-align: center;
+            color: #0090C0;
+            font-size: 0.92rem;
+            flex-shrink: 0;
+            transition: color .2s ease, transform .2s ease;
+        }
+
+        /* rótulo */
+        .tw-label {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            color: #eaf2fb;
+            letter-spacing: 0.01em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transition: color .2s ease;
+        }
+
+        /* tamanhos por nível */
+        .tnode.lvl-1 .tw-label {
+            font-size: 1.12rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .tnode.lvl-2 .tw-label {
+            font-size: 0.96rem;
+        }
+
+        .tnode.lvl-3 .tw-label {
+            font-size: 0.86rem;
+            color: #cfe0f7;
+        }
+
+        .tnode.lvl-2 .tw-num,
+        .tnode.lvl-3 .tw-num {
+            color: #0090C0;
+            font-weight: 700;
+            font-size: 0.74rem;
+        }
+
+        .tnode:hover .tw-label {
+            color: #0090C0;
+        }
+
+        .tnode:hover .tw-icon {
+            color: #0090C0;
+            transform: scale(1.12);
+        }
+
+        /* slide atual — "você está aqui" */
+        .tnode.current {
+            background: rgba(0, 144, 192, 0.16);
+        }
+
+        .tnode.current .tw-label {
+            color: #ffffff;
+        }
+
+        .tnode.current .tw-num {
+            color: #0090C0;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        .tree {
+            animation: fadeInUp .5s ease both;
+        }
+
+        .cover-title {
+            transition: transform .3s ease;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+    </style>
+  <link rel="stylesheet" href="a11y.css">
+  <link rel="stylesheet" href="base.css" />
 </head>
 
 <body>
-  <div class="slide">
-    <div class="accent-bar"></div>
-    <p class="placeholder-badge">Relatório Semestral · Esqueleto</p>
-    <p class="slide-num">01</p>
-    <h1 class="slide-title">Slide 01 — conteúdo a definir</h1>
-    <p class="slide-hint">Estrutura de navegação já funcional (viewer, PDF e PowerPoint). O conteúdo
-      deste bloco entra aqui quando o material do semestre estiver definido.</p>
-    <div class="divider"></div>
-  </div>
+    <div class="slide-container">
+        <!-- Background Elements -->
+        <div class="shape-bg"></div>
+        <!-- Left Accent Borders -->
+        <div class="absolute left-0 top-0 h-full w-3 z-20" style="background-color: #0090C0;"></div>
+        <div class="absolute left-3 top-0 h-full w-1 bg-brand-secondary z-20"></div>
+        <!-- Main Content Area -->
+        <div class="relative z-10 flex flex-col justify-start h-full w-full pl-24 pr-16 pt-44 pb-40 font-montserrat">
+            <!-- Top Header / Organization -->
+            <div class="absolute top-16 left-24 flex items-center gap-6">
+                <div>
+                    <img src="Imagens/logomarca_Ouvidoria.png" alt="Ouvidoria da ANTAQ"
+                        style="height: 78px; width: auto; filter: brightness(0) invert(1);" />
+                </div>
+                <div style="border-left: 1px solid rgba(255,255,255,0.25); padding-left: 20px;">
+                    <img src="Imagens/Logo Horizontal_Branca_C_N.png" alt="Logo ANTAQ"
+                        style="height: 98px; width: auto;" />
+                </div>
+            </div>
 
-  <script>
-    function goToSlide(n) {
-      window.parent.postMessage({ type: "slide-goto", slide: n }, "*");
-    }
-    function goToFile(file) {
-      window.parent.postMessage({ type: "slide-goto-file", file: file }, "*");
-    }
-    document.addEventListener("keydown", function (e) {
-      if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) {
-        e.preventDefault();
-        window.parent.postMessage({ type: "slide-nav", key: e.key }, "*");
-      }
-    });
-  </script>
+            <!-- Cover Title -->
+            <div class="mt-4">
+                <p class="cover-eyebrow">Ouvidoria da ANTAQ · Índice do Relatório</p>
+                <h1 class="cover-title">Sumário</h1>
+
+                <!-- ===== SUMÁRIO — árvore recolhível (lista multinível / estilo IDE) =====
+                 A hierarquia (tópicos → subtópicos → slides) é definida no objeto `tree`
+                 do <script> abaixo; a numeração 1 / 1.1 / 1.1.1 é gerada automaticamente.
+                 Nó pai: clique expande/recolhe. Folha (slide): clique navega via goToFile
+                 (robusto à ordem do array `slides` do index.html).
+             ================================================== -->
+                <!-- Sumário -->
+                <div class="sumario">
+                    <p class="sum-hint"><i class="fas fa-hand-pointer"></i> Clique em um capítulo ou seção para ir
+                        direto ao slide</p>
+                    <div class="sum-grid" id="sumGrid"></div>
+                </div>
+            </div>
+
+            <!-- Footer Info -->
+            <div class="absolute bottom-12 left-24 right-16 flex justify-between items-end pt-6"
+                style="border-top: 1px solid rgba(255,255,255,0.15);">
+                <div class="flex flex-col gap-1 text-xs text-blue-200">
+
+                    <span class="font-semibold uppercase tracking-wider text-blue-100">Canais oficiais ANTAQ</span>
+                    <div class="flex flex-wrap items-center gap-3 mt-1">
+
+                        <a href="https://www.facebook.com/ANTAQ.oficial" target="_blank" rel="noopener noreferrer"
+                            class="flex items-center gap-1 hover:text-white transition-colors">
+
+                            <i class="fa-brands fa-facebook"></i><span>Facebook</span>
+
+                        </a>
+
+                        <a href="https://www.instagram.com/antaq_oficial/" target="_blank" rel="noopener noreferrer"
+                            class="flex items-center gap-1 hover:text-white transition-colors">
+
+                            <i class="fa-brands fa-instagram"></i><span>Instagram</span>
+
+                        </a>
+
+                        <a href="https://www.youtube.com/c/CanalANTAQ/" target="_blank" rel="noopener noreferrer"
+                            class="flex items-center gap-1 hover:text-white transition-colors">
+
+                            <i class="fa-brands fa-youtube"></i><span>YouTube</span>
+
+                        </a>
+
+                        <a href="https://www.linkedin.com/company/antaq" target="_blank" rel="noopener noreferrer"
+                            class="flex items-center gap-1 hover:text-white transition-colors">
+
+                            <i class="fa-brands fa-linkedin"></i><span>LinkedIn</span>
+
+                        </a>
+
+                        <a href="https://x.com/ANTAQ_oficial" target="_blank" rel="noopener noreferrer"
+                            class="flex items-center gap-1 hover:text-white transition-colors">
+
+                            <i class="fa-brands fa-twitter"></i><span>Twitter</span>
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <div class="flex items-center gap-3">
+
+                    <div class="h-10 w-10 rounded-full flex items-center justify-center"
+                        style="background-color: #0090C0; color: #103050;">
+
+                        <i class="fas fa-anchor"></i>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ===== Nota de Copyright — canto inferior ===== -->
+            <div class="absolute bottom-3 left-24 right-16 z-10 flex items-start gap-2 text-blue-100"
+                style="font-size: 10px; line-height: 1.35; opacity: 0.85; max-width: 78%;">
+                <i class="fas fa-copyright" style="font-size: 14px; color: #0090C0; margin-top: 1px;"></i>
+                <span>Copyright &copy; 2026 — É permitida a reprodução parcial ou total desta obra, desde que citada a
+                    fonte, e vedada a impressão, distribuição e reprodução desta obra para fins comerciais sem a prévia
+                    e
+                    expressa anuência da ANTAQ.</span>
+            </div>
+
+        </div>
+        <script>
+            function goToSlide(n) {
+                window.parent.postMessage({ type: "slide-goto", slide: n }, "*");
+            }
+            // Navegação por NOME de arquivo — robusta à inserção/remoção de slides
+            function goToFile(file) {
+                window.parent.postMessage({ type: "slide-goto-file", file: file }, "*");
+            }
+
+            // ===== Árvore do Sumário — 6 blocos temáticos =====
+            // Nós de 1º nível = os 6 Blocos. `f` = arquivo (folha navegável);
+            // sem `f` = nó pai (retrátil). Manter em sincronia com o `deck`
+            // de index.html; a numeração 1 / 1.1 / 1.1.1 é gerada sozinha.
+            const tree = [
+                {
+                    t: 'Visão Geral das Ouvidorias públicas', icon: 'fa-bullhorn', children: [
+                        { t: 'Capa do bloco', f: 'capa-bloco-1.html' },
+                        { t: 'Apresentação das Ouvidorias', f: 'slide-ctx-01.html' },
+                        { t: 'Atribuições das Ouvidorias', f: 'slide-atribuicoes-01.html' },
+                        { t: 'Princípios das Ouvidorias', f: 'slide-principios-01.html' },
+                        { t: 'Diretrizes das Ouvidorias (1 a 8)', f: 'slide-diretrizes-01.html' },
+                        { t: 'Diretrizes das Ouvidorias (9 a 16)', f: 'slide-diretrizes-02.html' },
+                    ]
+                },
+                {
+                    t: 'A Ouvidoria da ANTAQ', icon: 'fa-landmark', children: [
+                        { t: 'Capa do bloco', f: 'capa-bloco-2.html' },
+                        { t: 'Apresentação da Ouvidoria da ANTAQ', f: 'slide-03c.html' },
+                        { t: 'Estrutura Organizacional da Ouvidoria', f: 'slide-ouvidoria-geral.html' },
+                        { t: 'Carta de Serviços da ANTAQ', f: 'slide-25.html' },
+                        { t: 'Carta de Serviços da ANTAQ (31 serviços)', f: 'slide-cartas-servicos.html' },
+                        { t: 'Conselho de Usuários', f: 'slide-CnsU.html' },
+                        { t: 'MMOuP — Modelo de Maturidade em Ouvidoria Pública', f: 'slide-CnsU2.html' },
+                        { t: 'Canais de Atendimento', f: 'slide-canais-atend.html' },
+                        { t: 'Fala.BR — Perguntas e Respostas', f: 'slide-falabr-faq.html' },
+                        { t: 'Ouvidoria em Números (Omnichannel)', f: 'slide-17b.html' },
+                        { t: 'Ouvidoria em Números (Distribuição das Demandas)', f: 'slide-17e.html' },
+                        { t: 'Ouvidoria em Números (Evolução Histórica)', f: 'slide-07.html' },
+                    ]
+                },
+                {
+                    t: 'Seção de Apoio ao Cidadão — SAC', icon: 'fa-headset', children: [
+                        { t: 'Capa do bloco', f: 'capa-bloco-3.html' },
+                        { t: 'Apresentação da SAC', f: 'slide-sac-apres.html' },
+                        { t: 'Tipos de Manifestações de ouvidoria', f: 'slide-sac-ativ.html' },
+                        { t: 'Distribuição de Manifestações por Tipo', f: 'slide-14.html' },
+                        { t: 'Distribuição de Manifestações por Canal', f: 'slide-canal.html' },
+                        { t: 'Distribuição das Manifestações por Mês', f: 'slide-17d.html' },
+                        { t: 'Manifestações Recebidas no Fala.BR', f: 'slide-04.html' },
+                        { t: 'Tratamento de Demandas no Fala.BR', f: 'slide-05.html' },
+                        { t: 'Destaques do Semestre (Gráficos)', f: 'slide-08.html' },
+                        { t: 'Destaques do Semestre (Resumo)', f: 'slide-ctx-03.html' },
+                        { t: 'Análise Qualitativa', f: 'slide-11.html' },
+                        { t: 'Riscos e Oportunidades', f: 'slide-12.html' },
+                    ]
+                },
+                {
+                    t: 'Seção de Transparência e Acesso à Informação — STAI', icon: 'fa-lock-open', children: [
+                        { t: 'Capa do bloco', f: 'capa-bloco-4.html' },
+                        { t: 'Apresentação da STAI', f: 'slide-4a.html' },
+                        { t: 'Perguntas e Respostas', f: 'slide-qa-geral.html' },
+                        { t: 'Transparência Ativa', f: 'slide-22.html' },
+                        { t: 'Transparência Passiva', f: 'slide-23.html' },
+                        { t: 'LAI · Transparência Passiva', f: 'slide-18.html' },
+                        { t: 'Histórico LAI', f: 'slide-20.html' },
+                        { t: 'Demandas Tramitadas por UORG', f: 'slide-tramit-uorg.html' },
+                        { t: 'Respostas por Unidade', f: 'slide-resp-unidade.html' },
+                        { t: 'Perguntas e Respostas · Dados Abertos', f: 'slide-qa-dados-abertos.html' },
+                        { t: 'Plano de Dados Abertos · PDA 2026–2028', f: 'slide-pda.html' },
+                        { t: 'Dados Abertos', f: 'slide-21.html' },
+                    ]
+                },
+                {
+                    t: 'Considerações Finais', icon: 'fa-lightbulb', children: [
+                        { t: 'Capa do bloco', f: 'capa-bloco-5.html' },
+                        { t: 'Principais Achados', f: 'slide-09.html' },
+                        { t: 'Considerações Finais', f: 'slide-conclusao.html' },
+                    ]
+                },
+                {
+                    t: 'Apêndice', icon: 'fa-book-bookmark', children: [
+                        { t: 'Capa do bloco', f: 'capa-bloco-6.html' },
+                        { t: 'Decretos', f: 'slide-31.html' },
+                        { t: 'Glossário', f: 'slide-29.html' },
+                        { t: 'Glossário (continuação)', f: 'slide-29b.html' },
+                        { t: 'Leis', f: 'slide-30.html' },
+                        { t: 'Normativos e Portarias', f: 'slide-32.html' },
+                        { t: 'Links Úteis & Contatos', f: 'slide-35.html' },
+                    ]
+                },
+            ];
+
+            function buildNode(node, num, level) {
+                const li = document.createElement('li');
+                const row = document.createElement('div');
+                row.className = 'tnode lvl-' + level;
+                const kids = node.children && node.children.length;
+
+                const chev = document.createElement('span');
+                chev.className = 'tw-chev';
+                chev.innerHTML = kids ? '<i class="fas fa-chevron-right"></i>' : '<i class="fas fa-circle tw-leaf"></i>';
+                row.appendChild(chev);
+
+                const n = document.createElement('span');
+                n.className = 'tw-num';
+                n.textContent = num;
+                row.appendChild(n);
+
+                if (node.icon) {
+                    const ic = document.createElement('span');
+                    ic.className = 'tw-icon';
+                    ic.innerHTML = '<i class="fas ' + node.icon + '"></i>';
+                    row.appendChild(ic);
+                }
+
+                const lab = document.createElement('span');
+                lab.className = 'tw-label';
+                lab.textContent = node.t;
+                row.appendChild(lab);
+
+                li.appendChild(row);
+
+                if (kids) {
+                    const ul = document.createElement('ul');
+                    node.children.forEach((c, i) => ul.appendChild(buildNode(c, num + '.' + (i + 1), level + 1)));
+                    li.appendChild(ul);
+                    row.addEventListener('click', () => li.classList.toggle('open'));
+                } else if (node.f) {
+                    row.classList.add('leaf');
+                    row.addEventListener('click', () => goToFile(node.f));
+                    if (node.f === 'slide-01.html') row.classList.add('current');
+                }
+                return li;
+            }
+
+            // ===== Render do Sumário em 6 colunas =====
+            // Cada bloco vira uma coluna: número + título (linka para a capa do
+            // bloco) + suas seções. Grupos (nós com filhos) viram subtítulo com
+            // seus itens; folhas navegam por goToFile. Mantém textos/links do `tree`.
+            function makeLink(cls, node) {
+                const el = document.createElement(node.f ? 'a' : 'span');
+                el.className = cls;
+                el.textContent = node.t;
+                if (node.f) {
+                    el.href = 'javascript:void(0)';
+                    el.addEventListener('click', function (e) { e.preventDefault(); goToFile(node.f); });
+                }
+                return el;
+            }
+
+            (function renderSumario() {
+                const root = document.getElementById('sumGrid');
+                if (!root) return;
+                tree.forEach(function (block, i) {
+                    const col = document.createElement('div');
+                    col.className = 'sum-col';
+
+                    const num = document.createElement('div');
+                    num.className = 'sum-num';
+                    num.textContent = (i + 1);
+                    col.appendChild(num);
+
+                    // título do capítulo — clica e vai para a capa do bloco, se houver
+                    const capa = (block.children || []).find(function (c) { return /^Capa/i.test(c.t) && c.f; });
+                    const title = document.createElement(capa ? 'a' : 'span');
+                    title.className = 'sum-title';
+                    title.textContent = block.t;
+                    if (capa) {
+                        title.href = 'javascript:void(0)';
+                        title.addEventListener('click', function (e) { e.preventDefault(); goToFile(capa.f); });
+                    }
+                    col.appendChild(title);
+
+                    (block.children || []).forEach(function (child) {
+                        if (capa && child === capa) return; // já virou o título da coluna
+                        if (child.children && child.children.length) {
+                            const g = document.createElement('div');
+                            g.className = 'sum-group';
+                            g.textContent = child.t;
+                            col.appendChild(g);
+                            child.children.forEach(function (sub) { col.appendChild(makeLink('sum-subitem', sub)); });
+                        } else {
+                            col.appendChild(makeLink('sum-item', child));
+                        }
+                    });
+
+                    root.appendChild(col);
+                });
+
+                // Alinha as barrinhas (underline) dos títulos de capítulo: iguala a
+                // altura de todos os .sum-title à do maior, para que os border-bottom
+                // fiquem na mesma linha de base, independente do nº de linhas do título.
+                function alignTitles() {
+                    const titles = root.querySelectorAll('.sum-title');
+                    let max = 0;
+                    titles.forEach(function (t) { t.style.minHeight = ''; });
+                    titles.forEach(function (t) { max = Math.max(max, t.offsetHeight); });
+                    titles.forEach(function (t) { t.style.minHeight = max + 'px'; });
+                }
+                requestAnimationFrame(alignTitles);
+                if (document.fonts && document.fonts.ready) document.fonts.ready.then(alignTitles);
+                window.addEventListener('resize', alignTitles);
+            })();
+
+            document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });
+        </script>
   <script src="a11y.js" defer></script>
 </body>
 
