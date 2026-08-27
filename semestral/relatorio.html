@@ -1,30 +1,5 @@
 <!DOCTYPE html>
-<!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
-<!--
-  ╔══════════════════════════════════════════════════════════════════════════╗
-  ║  semestral/relatorio.html — VERSÃO PARA IMPRESSÃO / PDF                   ║
-  ╠══════════════════════════════════════════════════════════════════════════╣
-  ║  NENHUM SLIDE É ALTERADO POR ESTE ARQUIVO. Ele apenas monta os slides     ║
-  ║  existentes em páginas 16:9 paisagem.                                     ║
-  ║                                                                           ║
-  ║  LEVEZA (o que mudou em relação à versão anterior):                       ║
-  ║   • Os 47 iframes não são mais criados de uma vez. Cada página só monta   ║
-  ║     o slide quando chega perto da tela (IntersectionObserver) e é         ║
-  ║     desmontada quando fica longe — navegar fica leve.                     ║
-  ║   • Para imprimir, use o botão "Preparar impressão": ele monta tudo em    ║
-  ║     lotes, espera carregar (com barra de progresso) e só então chama o    ║
-  ║     print. Isso evita páginas em branco por iframe não carregado.         ║
-  ║                                                                           ║
-  ║  ANEXOS: o conteúdo que no slide só aparece ao clicar (glossário,         ║
-  ║  decretos, leis, normativos, carta de serviços, bases de dados abertos)   ║
-  ║  é lido dos próprios arquivos e vira páginas de texto, logo após o slide  ║
-  ║  correspondente. São páginas leves (sem iframe).                          ║
-  ║                                                                           ║
-  ║  Para gerar o PDF sem bordas:                                             ║
-  ║   • Ctrl+P → Destino "Salvar como PDF" • Layout Paisagem                  ║
-  ║   • Margens: Nenhuma • marque "Gráficos de segundo plano"                 ║
-  ╚══════════════════════════════════════════════════════════════════════════╝
--->
+
 <html lang="pt-BR">
 
 <head>
@@ -35,18 +10,17 @@
     href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Open+Sans:wght@400;600&display=swap"
     rel="stylesheet" />
-  <!-- Usadas só pelo botão "Baixar PowerPoint": tiram um print de cada slide
-       e montam um .pptx no navegador, sem servidor. -->
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
   <link rel="stylesheet" href="a11y.css" />
   <style>
-    /* Página física = 16:9 landscape → o slide preenche 100% sem bordas */
+
     :root {
       --page-w: 297mm;
       --page-h: 167mm;
       --scale: 0.584646;
-      /* escala do canvas 1920×1080 para 297mm */
+
     }
 
     @page {
@@ -66,7 +40,7 @@
       font-family: 'Open Sans', 'Segoe UI', sans-serif;
     }
 
-    /* ───────────────────────── Barra de ações (só na tela) ──────────────── */
+
     .toolbar {
       position: sticky;
       top: 0;
@@ -146,7 +120,7 @@
       transition: width .2s;
     }
 
-    /* ───────────────────────────── Folhas ───────────────────────────────── */
+
     .sheets {
       display: flex;
       flex-direction: column;
@@ -164,8 +138,7 @@
       box-shadow: 0 10px 30px rgba(0, 0, 0, .35);
     }
 
-    /* Cada slide roda no tamanho de projeto (1920×1080) e é reduzido por
-       transform para preencher exatamente a página. */
+
     .page iframe {
       width: 1920px;
       height: 1080px;
@@ -178,7 +151,7 @@
       background: #fff;
     }
 
-    /* Marcador exibido enquanto o slide não está montado (só na tela) */
+
     .ph {
       position: absolute;
       inset: 0;
@@ -198,7 +171,7 @@
       font-size: 15px;
     }
 
-    /* ──────────────────────────── Páginas de anexo ──────────────────────── */
+
     .annex {
       padding: 11mm 13mm 9mm;
       display: flex;
@@ -314,7 +287,7 @@
       justify-content: space-between;
     }
 
-    /* ───────────────────────────── Impressão ────────────────────────────── */
+
     @media print {
 
       html,
@@ -370,27 +343,17 @@
 
   <script src="deck.js"></script>
   <script>
-    /* ════════════════════════════════════════════════════════════════════
-       1. ORDEM DOS SLIDES — vem de deck.js (fonte única, compartilhada com
-          index.html). Para reordenar/incluir/excluir um slide, mexa em
-          `sistema/deck.js`, não aqui.
-       ════════════════════════════════════════════════════════════════════ */
+
     const files = RELATORIO.paraRelatorio();
     if (window.location.search.includes('auditoria=1') && RELATORIO.checarSanidade) RELATORIO.checarSanidade();
 
-    /* ════════════════════════════════════════════════════════════════════
-       2. ANEXOS — slides cujo conteúdo só aparece ao clicar/passar o mouse.
-          O conteúdo é lido do próprio arquivo do slide (nada é alterado
-          lá) e vira páginas de texto logo depois do slide. A configuração
-          vem de deck.js (RELATORIO.anexos); aqui só interpretamos o atalho
-          `ler:'tile'` usado pelos cartões de apêndice.
-       ════════════════════════════════════════════════════════════════════ */
+
     const txt = (el, sel) => {
       const n = sel ? el.querySelector(sel) : el;
       return n ? n.textContent.replace(/\s+/g, ' ').trim() : '';
     };
 
-    // Cartões dos apêndices: .tile → nome, etiqueta e o conteúdo do modal
+
     const lerTile = (el) => ({
       num: txt(el, '.lb-num') || txt(el, '.db-num') || '',
       nome: txt(el, '.tile-name'),
@@ -407,9 +370,7 @@
       };
     });
 
-    /* ════════════════════════════════════════════════════════════════════
-       3. MONTAGEM DAS PÁGINAS (sem iframe ainda — só o esqueleto)
-       ════════════════════════════════════════════════════════════════════ */
+
     const sheets = document.getElementById('sheets');
     const paginas = [];
 
@@ -444,7 +405,7 @@
       page.dataset.montado = '0';
     }
 
-    /* Só o que está perto da tela fica montado → navegação leve */
+
     const perto = new IntersectionObserver((entries) => {
       entries.forEach(e => e.isIntersecting ? montar(e.target) : null);
     }, { rootMargin: '150% 0px' });
@@ -455,9 +416,7 @@
 
     paginas.forEach(p => { perto.observe(p); longe.observe(p); });
 
-    /* ════════════════════════════════════════════════════════════════════
-       4. ANEXOS — lê os arquivos, quebra em páginas pela altura real
-       ════════════════════════════════════════════════════════════════════ */
+
     function novaPaginaAnexo(titulo, parte) {
       const page = document.createElement('div');
       page.className = 'page annex';
@@ -514,8 +473,8 @@
         for (const it of itens) {
           let el = itemHTML(it);
           cols[ic].appendChild(el);
-          // Coube? segue. Estourou? tenta a próxima coluna; se não houver,
-          // abre nova página. Um item nunca é descartado.
+
+
           if (cols[ic].scrollHeight > cols[ic].clientHeight + 1) {
             cols[ic].removeChild(el);
             ic++;
@@ -528,16 +487,14 @@
               ic = 0;
             }
             cols[ic].appendChild(el);
-            // item gigante que não cabe nem numa coluna vazia: deixa passar
-            // (a coluna tem overflow hidden só como segurança visual)
+
+
           }
         }
       }
     }
 
-    /* ════════════════════════════════════════════════════════════════════
-       5. PREPARAR IMPRESSÃO — monta tudo em lotes e espera carregar
-       ════════════════════════════════════════════════════════════════════ */
+
     const btn = document.getElementById('btnPrint');
     const prog = document.getElementById('prog');
     const barra = prog.querySelector('i');
@@ -548,7 +505,7 @@
         let pronto = false;
         const ok = () => { if (!pronto) { pronto = true; res(); } };
         frame.addEventListener('load', () => setTimeout(ok, 220));
-        setTimeout(ok, 6000); // rede lenta não trava a fila
+        setTimeout(ok, 6000);
       });
     }
 
@@ -560,7 +517,7 @@
       for (let i = 0; i < alvos.length; i += LOTE) {
         const lote = alvos.slice(i, i + LOTE);
         await Promise.all(lote.map(p => {
-          p.dataset.fixo = '1';               // não desmontar mais
+          p.dataset.fixo = '1';
           const f = p.querySelector('iframe') || montar(p);
           return p.dataset.montado === '1' && f && !f.dataset.pronto
             ? esperar(f).then(() => { f.dataset.pronto = '1'; })
@@ -577,52 +534,34 @@
 
     btn.addEventListener('click', prepararEImprimir);
 
-    // Ctrl+P direto: pelo menos monta tudo (pode não dar tempo de carregar)
+
     window.addEventListener('beforeprint', () => {
       paginas.forEach(p => { p.dataset.fixo = '1'; montar(p); });
     });
 
-    // Guardada porque o PowerPoint precisa esperar os anexos existirem.
+
     const anexosProntos = gerarAnexos();
 
-    /* ════════════════════════════════════════════════════════════════════
-       6. BAIXAR POWERPOINT (cru) — cada página vira uma imagem dentro do
-          .pptx: os slides são capturados numa iframe escondida de
-          1920×1080, e as páginas de anexo, direto do DOM daqui. Não mexe
-          nos iframes de `.sheets` usados pela impressão, nem nos arquivos
-          de slide — todo ajuste de captura é injetado na hora.
-       ════════════════════════════════════════════════════════════════════ */
+
     const btnPptx = document.getElementById('btnPptx');
 
-    /* Resolução nativa do deck (1920×1080, scale=1): o slide já É desenhado
-       nessa resolução, então capturar em 3840×2160 (scale=2) só multiplicava
-       por 4 a quantidade de pixels a rasterizar e a codificar em JPEG — sem
-       ganho real de nitidez, só lentidão e um .pptx ~4x maior. Se precisar
-       de mais zoom (projeção muito grande), suba para 2880 ou 3840. */
+
     const PPTX_LARGURA = 1920;
     const PPTX_JPEG = 0.88;
 
-    /* CSS que vale só durante a captura.
-       Animação e transição morrem para o print não pegar um quadro do meio
-       do caminho — mas SEM tocar em `opacity`/`transform`: forçar
-       `opacity:1` acendia os overlays fechados (`.overlay` dos slides 29,
-       29b, 30, 31, 32; `.base-pop` do slide-21; `.svc-pop` do
-       slide-cartas-servicos — todos se escondem só com `opacity:0`, sem
-       `visibility`/`display`), e o .pptx saía com um véu azul e um cartão
-       modal por cima do slide. O que é transitório por natureza sai de
-       cena de vez. */
+
     const CSS_CAPTURA =
       '*{animation:none!important;transition:none!important}' +
       '.overlay,.base-pop,.svc-pop{display:none!important}';
 
-    // Ajustes por slide — vêm de deck.js (RELATORIO.capturaPptx), mesma
-    // fonte única que governa a ordem. A chave é o arquivo sem a query
-    // string.
+
+
+
     const AJUSTES_CAPTURA = RELATORIO.capturaPptx || {};
 
-    // Memoizado: a logomarca institucional e outros ícones se repetem em
-    // dezenas de slides — sem cache, cada um era baixado e recodificado em
-    // base64 de novo a cada slide.
+
+
+
     const cacheDataUrl = new Map();
     function imagemParaDataUrl(src) {
       if (cacheDataUrl.has(src)) return cacheDataUrl.get(src);
@@ -646,12 +585,7 @@
       return st;
     }
 
-    /* Fontes embutidas. No modo foreignObjectRendering o navegador não
-       carrega recurso externo: Font Awesome e Google Fonts não chegam na
-       captura, então os ícones saíam vazios e o texto caía numa fonte de
-       sistema — com métrica diferente, o que desalinhava e cortava frases.
-       Baixar o CSS das fontes e trocar cada url() por um data: URI resolve.
-       Roda uma vez só e o resultado serve para as ~70 páginas. */
+
     let cssFontes = null;
     async function carregarFontesInline() {
       if (cssFontes !== null) return cssFontes;
@@ -663,26 +597,26 @@
       for (const href of folhas) {
         try {
           let css = await (await fetch(href)).text();
-          // O CSS do Font Awesome aponta os arquivos por caminho relativo
-          // (`../webfonts/…`), daí resolver contra o href da folha.
+
+
           for (const m of [...css.matchAll(/url\((['"]?)([^)'"]+)\1\)/g)]) {
             if (!/\.(woff2?|ttf)(\?|$)/i.test(m[2])) continue;
             try {
               const dataUrl = await imagemParaDataUrl(new URL(m[2], href).href);
               css = css.replace(m[0], 'url(' + dataUrl + ')');
-            } catch (e) { /* mantém a URL original se a rede falhar */ }
+            } catch (e) {  }
           }
           out += css + '\n';
-        } catch (e) { /* folha indisponível: segue sem ela */ }
+        } catch (e) {  }
       }
       cssFontes = out;
       return out;
     }
 
-    // O html2canvas com foreignObjectRendering (necessário pro CSS do
-    // Tailwind vindo de CDN renderizar certo) não embute direito <img> de
-    // documentos dentro de iframe — troca o `src` por um data: URI antes
-    // da captura, senão as logomarcas das capas saem quebradas no .pptx.
+
+
+
+
     async function inlinarImagens(doc) {
       const imgs = Array.from(doc.querySelectorAll('img'));
       await Promise.all(imgs.map(async (img) => {
@@ -690,7 +624,7 @@
         if (!src || src.startsWith('data:')) return;
         try {
           img.src = await imagemParaDataUrl(new URL(src, doc.baseURI).href);
-        } catch (e) { /* mantém como está se falhar */ }
+        } catch (e) {  }
       }));
     }
 
@@ -710,10 +644,10 @@
             }
 
             await inlinarImagens(doc);
-            // Sem esperar a fonte ficar pronta, a captura pega o texto no
-            // fallback e a métrica muda.
+
+
             if (doc.fonts && doc.fonts.ready) await doc.fonts.ready;
-          } catch (e) { /* segue mesmo assim */ }
+          } catch (e) {  }
           requestAnimationFrame(() => requestAnimationFrame(resolve));
         });
         iframe.src = src;
@@ -724,16 +658,16 @@
       const original = btnPptx.textContent;
       btnPptx.disabled = true;
 
-      // 1920×1080: os slides usam `html{font-size:26px}` fixo (não relativo
-      // ao viewport) — capturar numa largura menor faz título/cards
-      // quebrarem linha de um jeito que o CSS não previu, sobrepondo
-      // conteúdo. 1920×1080 é a resolução em que o deck foi desenhado.
-      //
-      // DUAS iframes-palco, não uma: enquanto o slide N está sendo
-      // fotografado (html2canvas), o slide N+1 já pode começar a carregar
-      // (rede) na outra iframe — carregamento é I/O, roda em paralelo com o
-      // resto do JS. Isso sobrepõe boa parte do tempo de rede com o tempo
-      // de captura, em vez de somar os dois em série a cada slide.
+
+
+
+
+
+
+
+
+
+
       const stageA = document.createElement('iframe');
       stageA.style.cssText = 'position:fixed; left:-99999px; top:0; width:1920px; height:1080px; border:0;';
       const stageB = stageA.cloneNode();
@@ -743,38 +677,38 @@
 
       try {
         btnPptx.textContent = 'Preparando…';
-        // Os anexos são montados de forma assíncrona no carregamento da
-        // página; sem esperar, o .pptx pode sair sem eles.
+
+
         await anexosProntos;
         await carregarFontesInline();
-        // As páginas de anexo são capturadas do DOM deste documento, então
-        // ele também precisa das fontes embutidas — uma vez só.
+
+
         if (cssFontes && !document.body.dataset.fontesPptx) {
           injetarStyle(document, cssFontes);
           document.body.dataset.fontesPptx = '1';
           if (document.fonts && document.fonts.ready) await document.fonts.ready;
         }
 
-        // Ordem do documento: cada anexo já está logo depois do slide de
-        // origem, então percorrer as páginas dá a sequência final do .pptx.
-        // NOTA: diferente da impressão, o PowerPoint NÃO usa os iframes de
-        // `.sheets` — ele fotografa cada slide na sua própria iframe-palco
-        // (acima) e cada anexo direto do DOM. Montar os iframes de `.sheets`
-        // aqui seria carregar cada slide DUAS vezes à toa.
+
+
+
+
+
+
         const paginasPptx = [...document.querySelectorAll('#sheets .page')];
         const pptx = new PptxGenJS();
         pptx.layout = 'LAYOUT_WIDE';
 
-        // Índices das páginas com arquivo, pré-computados uma vez (em vez de
-        // rescanear `paginasPptx` do zero a cada slide) — um ponteiro simples
-        // avança por esse array conforme os arquivos vão sendo agendados.
+
+
+
         const idxArquivos = [];
         for (let i = 0; i < paginasPptx.length; i++) {
           if (paginasPptx[i].dataset.file) idxArquivos.push(i);
         }
         let ptrArquivo = 0;
 
-        // idx da página → Promise da iframe-palco já pronta para ela
+
         const preparos = new Map();
         let proximaStage = 0;
         function agendarProximo() {
@@ -784,7 +718,7 @@
           proximaStage++;
           preparos.set(idx, prepararIframePptx(stage, paginasPptx[idx].dataset.file).then(() => stage));
         }
-        // pré-carrega os dois primeiros arquivos antes mesmo do loop começar
+
         agendarProximo();
         agendarProximo();
 
@@ -802,15 +736,15 @@
               scale: PPTX_LARGURA / 1920,
               backgroundColor: '#ffffff'
             });
-            // SÓ AGORA, com o conteúdo desta iframe-palco já lido para o
-            // canvas, é seguro reaproveitá-la para o PRÓXIMO arquivo ainda
-            // não agendado — agendar antes de ler sobrescreveria o `src`
-            // (e portanto o conteúdo) que o html2canvas ainda ia capturar.
+
+
+
+
             agendarProximo();
           } else {
-            // Página de anexo: DOM comum, CSS local, sem Tailwind de CDN —
-            // o renderizador padrão do html2canvas dá conta e sai mais fiel
-            // do que o foreignObject.
+
+
+
             canvas = await html2canvas(page, {
               useCORS: true,
               scale: PPTX_LARGURA / page.offsetWidth,

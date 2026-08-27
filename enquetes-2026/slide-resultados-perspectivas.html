@@ -1,31 +1,5 @@
 <!DOCTYPE html>
-<!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
-<!--
-  ╔══════════════════════════════════════════════════════════════╗
-  ║  Resultados gerados a partir das avaliações — 3 perspectivas ║
-  ╠══════════════════════════════════════════════════════════════╣
-  ║  Unifica os dois slides antigos (slide-resultados-orgao.html ║
-  ║  "Para o órgão / Para o cidadão" + slide-22.html "Para        ║
-  ║  ambos") numa única tela, no MESMO formato do slide-19        ║
-  ║  (metodologia): stepper com uma perspectiva em foco por vez.  ║
-  ║  Motivo: as listas em colunas simultâneas obrigavam corpo de  ║
-  ║  texto .715rem — ilegível em projeção. Agora o corpo fica em  ║
-  ║  1.2rem.                                                     ║
-  ║                                                              ║
-  ║  Interação:                                                  ║
-  ║   · clique nos nós da trilha ou teclas 1–3 → vai à           ║
-  ║     perspectiva                                              ║
-  ║   · → ← (e espaço/PageDown/PageUp) → percorrem as três e só  ║
-  ║     então passam o comando de slide adiante ao index         ║
-  ║   · G → visão geral (as três listas lado a lado)             ║
-  ║   · C → convite para ser conselheiro (CTA do slide-22) em    ║
-  ║     overlay, com os números da rodada                        ║
-  ║                                                              ║
-  ║  ATUALIZAR: os números do convite vêm de dados-enquetes.js.  ║
-  ║  `ajustarFonte()` reduz o corpo do texto só se ele exceder    ║
-  ║  o painel (rede de segurança contra overflow em 1920x1080).  ║
-  ╚══════════════════════════════════════════════════════════════╝
--->
+
 <html lang="pt-BR">
 
 <head>
@@ -50,7 +24,7 @@
     .top-accent { height: 8px; background-color: #103050; width: 100%; }
     .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
 
-    /* ───────── Barra de contexto (convite integral vai no overlay) ───────── */
+
     .ctx-bar {
       margin: .35rem 3.4rem .2rem; display: flex; align-items: center; gap: .7rem;
       border-left: 4px solid #0090C0; padding: .15rem 0 .15rem 1rem;
@@ -66,14 +40,14 @@
     }
     .ctx-btn:hover { background: #0070C0; color: #fff; border-color: #0070C0; }
 
-    /* ───────── Palco: trilha das perspectivas + painel em foco ───────── */
+
     .palco { flex: 1; min-height: 0; display: flex; flex-direction: column; padding: 0 3.4rem; }
 
     .trilha {
       position: relative; display: grid; grid-template-columns: repeat(3, 1fr);
       gap: .6rem; padding: .5rem 0 .9rem; flex-shrink: 0;
     }
-    /* Linha-base e barra de progresso ligando os 3 nós */
+
     .trilha::before, .trilha-fill {
       content: ''; position: absolute; top: calc(.5rem + 1.15rem); height: 4px; border-radius: 2px;
       left: 16.66%; right: 16.66%;
@@ -105,11 +79,11 @@
     .no:hover .no-bolha { border-color: #0090C0; color: #0070C0; }
     .no:hover .no-rot { color: #475569; }
 
-    /* Perspectivas já percorridas */
+
     .no.feita .no-bolha { background: #103050; border-color: #103050; color: #fff; }
     .no.feita .no-rot { color: #64748B; }
 
-    /* Perspectiva em foco */
+
     .no.ativa .no-bolha {
       background: linear-gradient(150deg, #103050, #0070C0); border-color: #0090C0; color: #fff;
       transform: scale(1.22); box-shadow: 0 10px 22px -8px rgba(16, 48, 80, .65);
@@ -117,7 +91,7 @@
     .no.ativa .no-rot { color: #103050; font-weight: 800; }
     .no.ativa .no-cnt { color: #0070C0; }
 
-    /* ───────── Painel da perspectiva em foco ───────── */
+
     .painel {
       flex: 1; min-height: 0; position: relative;
       border: 2px solid #E2E8F0; border-radius: 18px; background: #fff;
@@ -136,7 +110,7 @@
     .etapa-foco.ativa { display: grid; animation: entra .38s cubic-bezier(.4, 0, .2, 1) both; }
     @keyframes entra { from { opacity: 0; transform: translateX(22px); } to { opacity: 1; transform: none; } }
 
-    /* Coluna-marcador: número grande + ícone da perspectiva */
+
     .marcador { display: flex; flex-direction: column; align-items: center; gap: .5rem; padding-top: .2rem; }
     .marcador-n {
       font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 4.6rem; line-height: .85;
@@ -147,8 +121,7 @@
     .marcador-p { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: .62rem; letter-spacing: .12em; color: #94A3B8; text-transform: uppercase; }
 
     .foco-txt { min-width: 0; max-width: 46rem; }
-    /* A lista de 12 resultados (órgão) usa a largura toda em duas colunas,
-       para o corpo de texto não precisar encolher. */
+
     .etapa-foco.ampla .foco-txt { max-width: none; }
     .foco-t {
       font-family: 'Montserrat', sans-serif; font-weight: 800; color: #103050;
@@ -170,11 +143,7 @@
     .foco-lista li:nth-child(odd) { background: #F8FAFC; }
     .foco-lista li i { color: #0090C0; font-size: calc(.5rem * var(--fit)); margin-top: .55em; flex-shrink: 0; }
 
-    /* ───────── Modo visão geral: as três listas lado a lado ─────────
-       A coluna do órgão tem 12 dos 25 resultados, quase o dobro das outras
-       duas: por isso ela é mais larga (1.3fr) e o corpo da lista é menor que
-       no painel em foco — assim as três listas cabem inteiras na altura do
-       slide, que é o que vai para o PDF e para o .pptx.                    */
+
     .grade { --fit-g: 1; display: none; flex: 1; min-height: 0; grid-template-columns: 1fr 1.3fr 1fr; gap: .95rem; padding: .4rem 0 0; }
     body.modo-grade .trilha, body.modo-grade .painel { display: none; }
     body.modo-grade .grade { display: grid; }
@@ -211,7 +180,7 @@
     .etapa li:nth-child(odd) { background: #F8FAFC; }
     .etapa li i { color: #0090C0; font-size: .5em; margin-top: .55em; flex-shrink: 0; }
 
-    /* ───────── Rodapé + dicas de teclado ───────── */
+
     .dicas { display: flex; align-items: center; gap: .45rem; flex-shrink: 0; }
     .dica {
       display: inline-flex; align-items: center; gap: .22rem; font-size: .52rem; white-space: nowrap;
@@ -225,7 +194,7 @@
     .dica-btn:hover .tecla { border-color: #0090C0; color: #0070C0; }
     .dica-btn.on .tecla { background: #0070C0; border-color: #0070C0; color: #fff; }
 
-    /* ───────── Overlay do convite (CTA do slide-22) ───────── */
+
     .ctx-overlay {
       position: absolute; inset: 0; z-index: 30; background: rgba(16, 48, 80, .55);
       display: flex; align-items: center; justify-content: center; padding: 3rem;
@@ -270,9 +239,7 @@
     @keyframes fadeInUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
 
-    /* Impressão (relatorio.html): no papel não há como percorrer a trilha, e
-       sair só a perspectiva 1 perderia 19 dos 25 resultados. Então o PDF sai
-       sempre na visão geral, com as três listas, sem os controles de teclado. */
+
     @media print {
       .trilha, .painel { display: none !important; }
       .grade { display: grid !important; }
@@ -317,7 +284,7 @@
     </div>
 
     <div class="palco">
-      <!-- Trilha das 3 perspectivas — clicável e sincronizada com o painel -->
+
       <div class="trilha" role="tablist" aria-label="Perspectivas dos resultados">
         <div class="trilha-fill" id="trilhaFill" aria-hidden="true"></div>
 
@@ -338,7 +305,7 @@
         </button>
       </div>
 
-      <!-- Painel em foco: mesmas listas dos cards, com o corpo de texto ampliado -->
+
       <div class="painel">
         <section class="etapa-foco" id="etapa-1" role="tabpanel" data-n="1">
           <div class="marcador">
@@ -414,7 +381,7 @@
         </section>
       </div>
 
-      <!-- Visão geral: as três listas lado a lado, no formato compacto (tecla G) -->
+
       <div class="grade" id="grade" aria-label="Visão geral das três perspectivas">
         <div class="etapa" data-n="1">
           <div class="et-h">
@@ -495,7 +462,7 @@
 
     <div class="bg-pattern"><i class="fas fa-lightbulb text-9xl"></i></div>
 
-    <!-- Convite para novos conselheiros, preservado do slide-22 -->
+
     <div class="ctx-overlay" id="ctxOverlay" role="dialog" aria-modal="true" aria-labelledby="ctxTitulo">
       <div class="ctx-card">
         <p class="quote">“Você ainda não é voluntário de nenhum conselho. Seja voluntário e nos ajude a melhorar o
@@ -528,7 +495,7 @@
 
   <script src="dados-enquetes.js"></script>
   <script>
-    // Números do convite — sempre de dados-enquetes.js, nunca fixos no HTML.
+
     (function () {
       document.getElementById('nEnquetes').textContent = ENQUETES.length;
       document.getElementById('nRespostas').textContent =
@@ -537,7 +504,7 @@
     })();
   </script>
   <script>
-    // ── Estado: perspectiva em foco (1–3), modo grade e overlay do convite ────
+
     const TOTAL_ETAPAS = 3;
     const nos = Array.from(document.querySelectorAll('.no'));
     const focos = Array.from(document.querySelectorAll('.etapa-foco'));
@@ -556,14 +523,14 @@
         no.setAttribute('aria-selected', i === etapa ? 'true' : 'false');
       });
       focos.forEach((f) => f.classList.toggle('ativa', +f.dataset.n === etapa));
-      // Progresso: a barra vai do centro do nó 1 (16,66%) ao do nó 3 (83,33%) —
-      // logo, 100% de avanço corresponde a 66,66% da largura da trilha.
+
+
       fill.style.width = ((etapa - 1) / (TOTAL_ETAPAS - 1) * 66.66) + '%';
       ajustarFonte();
     }
 
-    // Rede de segurança: se a lista ampliada estourar a altura do painel
-    // (fonte de fallback, zoom do navegador), reduz em passos de 4%.
+
+
     function ajustarFonte() {
       const alvo = focos.find((f) => f.classList.contains('ativa'));
       if (!alvo) return;
@@ -578,17 +545,17 @@
 
     nos.forEach((no) => no.addEventListener('click', () => irPara(+no.dataset.n)));
 
-    // Na visão geral, clicar num card abre aquela perspectiva em foco
+
     document.querySelectorAll('.grade .etapa').forEach((card) => {
       card.addEventListener('click', () => { alternarGrade(false); irPara(+card.dataset.n); });
     });
 
-    // ── Visão geral (as três listas lado a lado) ──────────────────────────────
+
     const gradeBtn = document.getElementById('gradeBtn');
     const grade = document.getElementById('grade');
 
-    // Mesma rede de segurança do painel, para os cards: só mede com a grade
-    // visível (escondida, clientHeight é 0 e a conta não faria sentido).
+
+
     function ajustarGrade() {
       if (!grade.clientHeight) return;
       let escala = 1;
@@ -610,7 +577,7 @@
     }
     gradeBtn.addEventListener('click', () => alternarGrade());
 
-    // ── Overlay do convite ────────────────────────────────────────────────────
+
     const overlay = document.getElementById('ctxOverlay');
     const ctxBtn = document.getElementById('ctxBtn');
     function alternarCtx(estado) {
@@ -623,9 +590,9 @@
     document.getElementById('ctxFechar').addEventListener('click', () => alternarCtx(false));
     overlay.addEventListener('click', (e) => { if (e.target === overlay) alternarCtx(false); });
 
-    // ── Teclado ───────────────────────────────────────────────────────────────
-    // As setas primeiro percorrem as 3 perspectivas; esgotadas, o comando segue
-    // para o index.html e a apresentação avança/volta de slide normalmente.
+
+
+
     const TECLAS_NAV = ['ArrowRight', 'ArrowLeft', 'PageDown', 'PageUp', 'Home', 'End', ' ', 'f', 'F'];
     document.addEventListener('keydown', function (e) {
       const k = e.key;
@@ -638,7 +605,7 @@
       if (TECLAS_NAV.indexOf(k) === -1) return;
       e.preventDefault();
 
-      // Overlay aberto: a primeira seta apenas fecha o convite.
+
       if (ctxAberto && k !== 'f' && k !== 'F') { alternarCtx(false); return; }
 
       if (!modoGrade) {
@@ -656,9 +623,9 @@
     window.addEventListener('resize', ajustar);
     if (document.fonts && document.fonts.ready) { document.fonts.ready.then(ajustar); }
 
-    // O index.html não dá foco ao iframe: sem isto as setas seriam capturadas
-    // pelo documento-pai e as perspectivas nunca seriam percorridas. O pai
-    // continua recebendo tudo o que não é tratado aqui, via postMessage.
+
+
+
     function pegarFoco() { try { window.focus(); } catch (e) { } }
     pegarFoco();
     window.addEventListener('load', pegarFoco);

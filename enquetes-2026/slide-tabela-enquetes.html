@@ -1,14 +1,5 @@
 <!DOCTYPE html>
-<!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
-<!--
-  ╔══════════════════════════════════════════════════════════════╗
-  ║  Tabela 1 — enquetes publicadas no Portal Gov.br             ║
-  ╠══════════════════════════════════════════════════════════════╣
-  ║  Uso: slide-tabela-enquetes.html?p=1  (SOG)                  ║
-  ║       slide-tabela-enquetes.html?p=2  (SRG · SAF · SFC)      ║
-  ║  Linhas montadas a partir de dados-enquetes.js.              ║
-  ╚══════════════════════════════════════════════════════════════╝
--->
+
 <html lang="pt-BR">
 
 <head>
@@ -195,7 +186,7 @@
       color: #0070C0;
     }
 
-    /* Nº da enquete é clicável: leva ao slide de resultados dela */
+
     .enq-link {
       font-family: 'Montserrat', sans-serif;
       font-weight: 800;
@@ -380,10 +371,7 @@
 
       var corpo = document.getElementById('corpo');
 
-      /* Nº = posição do serviço na Carta de Serviços (campo `num`, por
-         superintendência), não uma contagem corrida da tabela — assim a
-         numeração bate com o arquivo de download da Carta e com os
-         cartões de slide-carta-32servicos.html.                        */
+
       sups.forEach(function (sigla) {
         var meta = SUPERINTENDENCIAS[sigla];
 
@@ -421,10 +409,7 @@
           });
       });
 
-      /* Clique no nº da enquete → slide de resultados dela (primeira tela,
-         `&p=1`). A navegação vai por NOME de arquivo, igual ao sumário
-         (slide-03), então é imune a reordenação do deck em index.html.
-         Fora do visualizador (arquivo aberto direto), abre o slide na aba. */
+
       corpo.addEventListener('click', function (ev) {
         var btn = ev.target.closest('.enq-link');
         if (!btn) return;

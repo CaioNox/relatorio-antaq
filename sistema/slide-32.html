@@ -1,13 +1,4 @@
 <!DOCTYPE html>
-<!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
-<!--
-  ╔══════════════════════════════════════════════════════════════╗
-  ║  SLIDE 32 — Legislação — Normativas e Portarias
-  ╠══════════════════════════════════════════════════════════════╣
-  ║  O QUE ATUALIZAR A CADA TRIMESTRE:
-  ║  Atualizar se nova normativa ou portaria for publicada
-  ╚══════════════════════════════════════════════════════════════╝
--->
 
 <html lang="pt-BR">
 
@@ -73,7 +64,7 @@
             width: 100%;
         }
 
-        /* ===== Grade de quadros ===== */
+
         .tile-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -140,7 +131,7 @@
             outline-offset: 3px;
         }
 
-        /* filete que corre no topo do card ao passar o mouse */
+
         .tile::before {
             content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
             background: linear-gradient(90deg, #103050, #0070C0 55%, #0090C0);
@@ -149,7 +140,7 @@
         }
         .tile:hover::before, .tile:focus-visible::before { transform: scaleX(1); }
 
-        /* marca d'água: preenche o vazio do card sem competir com o texto */
+
         .tile::after {
             content: '\f15c'; font-family: 'Font Awesome 6 Free'; font-weight: 900;
             position: absolute; right: -14px; bottom: -26px; font-size: 7rem;
@@ -251,7 +242,7 @@
             display: none;
         }
 
-        /* ===== Overlay ===== */
+
         .overlay {
             position: fixed;
             inset: 0;
@@ -436,7 +427,7 @@
     <div class="slide-container">
         <div class="top-accent"></div>
         <div class="top-accent-secondary"></div>
-        <!-- Header -->
+
         <div class="flex items-start justify-between px-16 pt-10 pb-3 z-10">
             <div>
                 <div class="flex items-center gap-3 mb-2">
@@ -457,10 +448,10 @@
                 </div>
             </div>
         </div>
-        <!-- Grade -->
+
         <div class="flex-1 px-16 pb-10 pt-3 z-10">
             <div class="tile-grid h-full">
-                <!-- IN 05/2018 -->
+
                 <button class="tile" onclick="openCard(this)" data-title="Instrução Normativa OGU/CGU nº 05/2018"
                     data-sub="Atividades das Ouvidorias federais"
                     data-badge='<span class="db-type">IN OGU/CGU</span><span class="db-num">05/2018</span>'
@@ -478,7 +469,7 @@
                             Pública Federal.</p>
                     </div>
                 </button>
-                <!-- IN 19/2018 -->
+
                 <button class="tile" onclick="openCard(this)" data-title="Instrução Normativa CGU nº 19/2018"
                     data-sub="Recebimento exclusivo via Sistema de Ouvidoria"
                     data-badge='<span class="db-type">IN CGU</span><span class="db-num">19/2018</span>'
@@ -494,7 +485,7 @@
                             federal.</p>
                     </div>
                 </button>
-                <!-- Portaria 235-DG-ANTAQ -->
+
                 <button class="tile" onclick="openCard(this)" data-title="Portaria nº 235-DG-ANTAQ, de 02/07/2019"
                     data-sub="Ouvidoria da ANTAQ como canal único"
                     data-badge='<span class="db-type">PORT. ANTAQ</span><span class="db-num">235/2019</span>'
@@ -509,7 +500,7 @@
                             recebimento de todas as manifestações de que trata o art. 10 da Lei nº 13.460, de 2017.</p>
                     </div>
                 </button>
-                <!-- Portaria 581-CGU -->
+
                 <button class="tile" onclick="openCard(this)" data-title="Portaria nº 581-CGU, de 9/03/2021"
                     data-sub="Competências das unidades de ouvidoria"
                     data-badge='<span class="db-type">PORT. CGU</span><span class="db-num">581/2021</span>'
@@ -529,7 +520,7 @@
                             providências.</p>
                     </div>
                 </button>
-                <!-- Resolução 7-CGU -->
+
                 <button class="tile" onclick="openCard(this)" data-title="Resolução nº 7-CGU, de 30/11/2021"
                     data-sub="Normas modelo para unidades de ouvidoria"
                     data-badge='<span class="db-type">RESOLUÇÃO</span><span class="db-num">07/2021</span>'
@@ -545,7 +536,7 @@
                             e a Norma Modelo para Regulamentação da Atividade de Ouvidoria em Órgãos Públicos.</p>
                     </div>
                 </button>
-                <!-- Portaria 3.126-CGU -->
+
                 <button class="tile" onclick="openCard(this)" data-title="Portaria nº 3.126-CGU, de 30/12/2021"
                     data-sub="Altera a Portaria nº 581/2021"
                     data-badge='<span class="db-type">PORT. CGU</span><span class="db-num">3.126/2021</span>'
@@ -561,7 +552,7 @@
                             nº 9.492, de 5 de setembro de 2018, e no Decreto nº 10.153, de 3 de novembro de 2019.</p>
                     </div>
                 </button>
-                <!-- Portaria 11/2023/OUV -->
+
                 <button class="tile" onclick="openCard(this)" data-title="Portaria nº 11/2023/OUV/ANTAQ"
                     data-sub="Boletim de Pessoal e Serviços — Fevereiro/2023, 3ª Ed. Extraordinária"
                     data-badge='<span class="db-type">PORT. OUV</span><span class="db-num">11/2023</span>'
@@ -578,7 +569,7 @@
                             serviços prestados pela Agência Nacional de Transportes Aquaviários - ANTAQ</p>
                     </div>
                 </button>
-                <!-- Portaria 3/2025/OUV -->
+
                 <button class="tile" onclick="openCard(this)" data-title="Portaria nº 3/2025/OUV/ANTAQ"
                     data-sub="Boletim de Pessoal e Serviços — Junho/2025, 5ª Ed. Extraordinária"
                     data-badge='<span class="db-type">PORT. OUV</span><span class="db-num">03/2025</span>'
@@ -600,14 +591,14 @@
                 </button>
             </div>
         </div>
-        <!-- Footer -->
+
         <div class="px-16 pb-8 flex justify-between items-center z-10">
             <p class="text-gray-400 text-xs">Relatório 1º Trimestre de 2026 – Ouvidoria – Agência Nacional de Transportes Aquaviários - ANTAQ</p>
         </div>
         <div class="bg-pattern"><i class="fas fa-stamp text-9xl"></i></div>
     </div>
 
-    <!-- Overlay -->
+
     <div class="overlay" id="overlay" onclick="closeCard(event)">
         <div class="overlay-card" role="dialog" aria-modal="true" onclick="event.stopPropagation()">
             <button class="overlay-close" onclick="closeCard(event)" aria-label="Fechar"><i

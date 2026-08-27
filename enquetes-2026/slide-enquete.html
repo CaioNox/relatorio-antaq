@@ -1,30 +1,5 @@
 <!DOCTYPE html>
-<!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
-<!--
-  ╔══════════════════════════════════════════════════════════════╗
-  ║  slide-enquete.html — TEMPLATE ÚNICO DAS TELAS DE ENQUETE     ║
-  ╠══════════════════════════════════════════════════════════════╣
-  ║  Cada enquete ocupa DUAS telas, escolhidas pela query string: ║
-  ║      slide-enquete.html?e=8298&p=1  → questões 1 e 2 (rosca)  ║
-  ║      slide-enquete.html?e=8298&p=2  → questões 3 e 4 (barras) ║
-  ║                                       + questão 5 embaixo    ║
-  ║  O cabeçalho se repete nas duas, com o selo 1/2 · 2/2, para   ║
-  ║  que cada tela se leia sozinha.                              ║
-  ║                                                              ║
-  ║  Enquete em que ninguém usou o serviço (q2 nulo): tela ÚNICA, ║
-  ║  selo 1/1 — o formulário encerra na questão 1 e não há 2 a 5. ║
-  ║                                                              ║
-  ║  Os dados vêm de dados-enquetes.js — NÃO edite números aqui.  ║
-  ║  Os textos de análise também: textoAnalise()/segmentosAnalise ║
-  ║                                                              ║
-  ║  Interatividade dos gráficos (não altera nenhum número):      ║
-  ║    · passar o mouse realça a fatia/barra e acende a oração    ║
-  ║      correspondente na caixa de análise (e vice-versa);       ║
-  ║    · clicar na legenda foca uma resposta (escurece a outra);  ║
-  ║    · "Ver números" troca o gráfico por uma tabela com os      ║
-  ║      mesmos valores.                                          ║
-  ╚══════════════════════════════════════════════════════════════╝
--->
+
 <html lang="pt-BR">
 
 <head>
@@ -64,9 +39,7 @@
       flex-direction: column;
       background: #fff;
       overflow: hidden;
-      /* Respiro no pé: sem ele o rodapé, a faixa de sugestões e as caixas de
-         análise ficam coladas na borda de baixo. 6% da altura do slide
-         (65px em 1080) — os gráficos, que são elásticos, cedem o espaço. */
+
       padding-bottom: 6vh;
     }
 
@@ -80,7 +53,7 @@
       background: #0070C0;
     }
 
-    /* ── Cabeçalho ── */
+
     .head {
       flex-shrink: 0;
       padding: 16px 56px 0;
@@ -124,8 +97,7 @@
       margin-top: 2px;
     }
 
-    /* Selo "Parte 1/2" · "Parte 2/2" — diz em que metade da enquete o leitor
-       está. Pílula sólida, para se ler de longe na projeção. */
+
     .parte-tag {
       display: inline-flex;
       align-items: baseline;
@@ -191,7 +163,7 @@
       color: #103050;
     }
 
-    /* ── Grade dos gráficos — 2 por tela ── */
+
     .grid {
       flex: 1;
       min-height: 0;
@@ -246,7 +218,7 @@
       line-height: 1.2;
     }
 
-    /* Alternar gráfico ↔ tabela de números */
+
     .btn-modo {
       margin-left: auto;
       flex-shrink: 0;
@@ -297,7 +269,7 @@
       transition: opacity .2s ease;
     }
 
-    /* ── Tabela de números (mesmos valores do gráfico) ── */
+
     .tabela-wrap {
       position: absolute;
       inset: 10px 12px;
@@ -364,12 +336,12 @@
       color: #94A3B8;
     }
 
-    /* linha da tabela em realce, espelhando o gráfico */
+
     table.numeros tr.on td {
       background: #EAF4FC;
     }
 
-    /* ── Caixa de análise ── */
+
     .analise {
       flex-shrink: 0;
       max-height: 158px;
@@ -389,7 +361,7 @@
       font-weight: 700;
     }
 
-    /* Oração ligada a uma fatia/barra do gráfico */
+
     .seg {
       border-radius: 4px;
       padding: 0 2px;
@@ -403,7 +375,7 @@
       color: #0A2540;
     }
 
-    /* ── Painel de "não utilizado" ── */
+
     .aviso {
       border: 2px dashed #CBD5E1;
       border-radius: 16px;
@@ -439,7 +411,7 @@
       margin: 0;
     }
 
-    /* ── Questão 5 — sugestões (só na tela 2/2) ── */
+
     .sug {
       flex-shrink: 0;
       margin: 0 56px 6px;
@@ -492,7 +464,7 @@
       margin: 0;
     }
 
-    /* ── Rodapé ── */
+
     .foot {
       flex-shrink: 0;
       padding: 0 56px 10px;
@@ -598,8 +570,8 @@
         return;
       }
 
-      // Sem uso do serviço: o formulário encerra na questão 1, então não há
-      // segunda tela — fica uma só, marcada como 1/1.
+
+
       var semUso = !e.q2;
       var partes = semUso ? 1 : 2;
       var parte = Number(params.get('p')) === 2 && !semUso ? 2 : 1;
@@ -607,7 +579,7 @@
       var sup = SUPERINTENDENCIAS[e.sup];
       var pad = function (n) { return n < 10 ? '0' + n : String(n); };
 
-      /* ── Cabeçalho — repetido nas duas telas ─────────────────────────── */
+
       document.getElementById('supTitle').textContent =
         'Serviços prestados pela ' + sup.nome + ' — ' + sup.sigla;
       document.getElementById('enqId').innerHTML =
@@ -628,18 +600,18 @@
           e.nota + '</span></div>';
       }
 
-      /* ── Utilidades ──────────────────────────────────────────────────── */
-      // Versão translúcida de uma cor #rrggbb — usada para apagar o que não
-      // está em foco, sem trocar a cor institucional.
+
+
+
       function rgba(hex, a) {
         return 'rgba(' + parseInt(hex.substr(1, 2), 16) + ',' +
           parseInt(hex.substr(3, 2), 16) + ',' + parseInt(hex.substr(5, 2), 16) + ',' + a + ')';
       }
 
-      // Reduz a fonte por degraus até o conteúdo caber na caixa. Fica
-      // registrado para rodar de novo quando as fontes web terminarem de
-      // carregar — antes disso a medição sai pela métrica da fonte de
-      // sistema e erraria a quebra de linha.
+
+
+
+
       var reajustes = [];
       function caberNaCaixa(el, escala, aplicar) {
         var rodar = function () {
@@ -657,7 +629,7 @@
         });
       }
 
-      /* ── Questão 5 — só na tela 2/2 ──────────────────────────────────── */
+
       var sugEl = document.getElementById('sug');
       if (parte === 2) {
         var sugs = e.sugestoes || [];
@@ -668,9 +640,9 @@
             ? '<ul class="sug-list">' + sugs.map(function (s) { return '<li>' + s + '</li>'; }).join('') + '</ul>'
             : '<p class="sug-vazio">Não houve sugestões registradas para este serviço.</p>');
 
-        // Usa a MAIOR fonte que ainda mantém a faixa dentro do teto de altura:
-        // os gráficos não são espremidos por uma enquete com muitas sugestões,
-        // nem a letra encolhe quando há pouco texto.
+
+
+
         caberNaCaixa(sugEl, [21, 20, 19, 18, 17, 16, 15], function (px) {
           sugEl.style.setProperty('--sug-fs', px + 'px');
         });
@@ -678,7 +650,7 @@
         sugEl.style.display = 'none';
       }
 
-      /* ── Cartões ─────────────────────────────────────────────────────── */
+
       var grid = document.getElementById('grid');
       if (semUso) grid.classList.add('solo');
 
@@ -708,9 +680,7 @@
         return d;
       }
 
-      /* Liga gráfico ↔ análise ↔ tabela: o realce de um acende os outros.
-         `chaves` mapeia o índice do gráfico na chave usada pelos segmentos
-         de texto ('sim', 'nao', 'n1'…'n5'). */
+
       function ligarRealce(cartao, chart, chaves, pintar, podeRealcar) {
         var st = { foco: null, realce: null };
         var segs = cartao.querySelectorAll('.seg');
@@ -738,11 +708,11 @@
           realcar(els.length ? els[0].index : null);
         };
         chart.canvas.addEventListener('mouseleave', function () { realcar(null); });
-        // Rede de segurança: sair do cartão sempre apaga o realce, mesmo que
-        // o ponteiro pule direto do gráfico para um botão.
+
+
         cartao.addEventListener('mouseleave', function () { realcar(null); });
 
-        // Da análise (e da tabela) de volta para o gráfico
+
         segs.forEach(function (s) {
           s.addEventListener('mouseenter', function () { realcar(chaves.indexOf(s.dataset.seg)); });
           s.addEventListener('mouseleave', function () { realcar(null); });
@@ -758,7 +728,7 @@
         };
       }
 
-      /* Escreve a caixa de análise já dividida nas orações de cada fatia. */
+
       function escreverAnalise(cartao, questao) {
         var caixa = cartao.querySelector('.analise');
         var html = '<b>Análise:</b> ';
@@ -770,7 +740,7 @@
         caberNaCaixa(caixa, [19, 18, 17, 16, 15, 14], function (px) { caixa.style.fontSize = px + 'px'; });
       }
 
-      /* ── Rosca (questões 1 e 2) ──────────────────────────────────────── */
+
       function pizzaCard(tag, titulo, dados, canvasId, questao) {
         var total = dados.sim + dados.nao;
         var itens = [];
@@ -784,7 +754,7 @@
         var cartao = card(tag, titulo, canvasId, aria);
         escreverAnalise(cartao, questao);
 
-        // Tabela com os MESMOS números do gráfico
+
         cartao.querySelector('.tabela-wrap').innerHTML =
           '<table class="numeros"><thead><tr><th scope="col">Resposta</th><th scope="col" style="text-align:right">Respostas</th>' +
           '<th scope="col" style="text-align:right">Percentual</th></tr></thead><tbody>' +
@@ -858,11 +828,11 @@
               chart.getDatasetMeta(0).data.forEach(function (arc, i) {
                 var txt = pct(itens[i].v, total);
                 var p = arc.tooltipPosition();
-                // Fatia apagada (fora de foco) fica clara demais para texto
-                // branco — o percentual passa a cinza-ardósia.
+
+
                 var apagada = String(arc.options.backgroundColor).indexOf('rgba') === 0;
-                // Fatia estreita: o rótulo sai para fora do anel, na cor da
-                // fatia, em vez de vazar por cima da borda.
+
+
                 var angulo = Math.abs(arc.endAngle - arc.startAngle);
                 var corda = 2 * ((arc.outerRadius + arc.innerRadius) / 2) * Math.sin(Math.min(angulo, Math.PI) / 2);
                 if (ctx.measureText(txt).width + 12 <= corda) {
@@ -885,7 +855,7 @@
         return chart;
       }
 
-      /* ── Barras (questões 3 e 4) ─────────────────────────────────────── */
+
       function barrasCard(tag, titulo, notas, canvasId, questao) {
         var max = Math.max.apply(null, notas);
         var totalNotas = notas.reduce(function (a, b) { return a + b; }, 0);
@@ -942,16 +912,16 @@
             scales: {
               x: { grid: { display: false }, ticks: { color: '#374151', font: { size: 16, weight: '600' } } },
               y: {
-                // Folga pequena acima da barra mais alta: o suficiente para o
-                // número não encostar no topo, sem deixar meio gráfico vazio.
-                // É `max` (e não `suggestedMax`) porque o passo inteiro do
-                // eixo arredondaria a folga para uma linha inteira a mais.
+
+
+
+
                 beginAtZero: true, max: (max || 1) + Math.max(0.4, max * 0.2),
                 grid: { color: '#eef2f7' },
                 ticks: {
                   stepSize: 1, precision: 0, color: '#9ca3af', font: { size: 15 },
-                  // O topo do eixo cai entre dois inteiros (a folga acima da
-                  // barra) — esse tick não ganha rótulo: contagem é inteira.
+
+
                   callback: function (v) { return v % 1 === 0 ? v : ''; }
                 }
               }
@@ -973,13 +943,13 @@
           }]
         });
 
-        // Coluna vazia não acende nada — não há oração correspondente.
+
         ligarRealce(cartao, chart, notas.map(function (v, i) { return 'n' + (i + 1); }), pintar,
           function (i) { return notas[i] > 0; });
         return chart;
       }
 
-      /* ── Montagem da tela ────────────────────────────────────────────── */
+
       if (parte === 1) {
         pizzaCard('01', 'Você já utilizou esse serviço?', e.q1, 'cQ1', 1);
 
@@ -1004,7 +974,7 @@
   </script>
   <script>
     document.addEventListener("keydown", function (e) {
-      // Espaço com um botão do slide em foco aciona o botão — não navega.
+
       var emBotao = document.activeElement && document.activeElement.tagName === 'BUTTON';
       if (e.key === ' ' && emBotao) return;
       if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) {

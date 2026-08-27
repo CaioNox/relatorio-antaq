@@ -1,15 +1,5 @@
 <!DOCTYPE html>
-<!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
-<!--
-  ╔══════════════════════════════════════════════════════════════╗
-  ║  Evolução da Carta de Serviços · 2021 · 2023 · 2025 · 2026   ║
-  ║  ATUALIZAR: a série vive em CARTA_HISTORICO,                 ║
-  ║  em dados-enquetes.js — não há número solto aqui.            ║
-  ║                                                              ║
-  ║  Critério: só entram serviços com enquete publicada. Por     ║
-  ║  isso 2026 fecha em 31 (SFC = 1), igual ao resto do sistema. ║
-  ╚══════════════════════════════════════════════════════════════╝
--->
+
 <html lang="pt-BR">
 
 <head>
@@ -75,10 +65,7 @@
       width: 100%;
     }
 
-    /* ── Filtro: pílulas de ano ─────────────────────────────────────────
-       São <button> de verdade para funcionar por Tab+Enter. O estado vive
-       em aria-pressed, e o CSS lê de lá — não há classe "ativo" paralela
-       que possa divergir do estado real.                                */
+
     .filtro {
       display: flex;
       align-items: center;
@@ -155,7 +142,7 @@
       outline-offset: 2px;
     }
 
-    /* ── Corpo ── */
+
     .body-wrap {
       flex: 1;
       min-height: 0;
@@ -172,17 +159,14 @@
       min-height: 0;
     }
 
-    /* A tabela toma toda a altura que sobra da coluna: as linhas se
-       distribuem no espaço em vez de deixar um vão embaixo. Como a
-       altura é dividida, o slide também não estoura em tela baixa. */
+
     .tab-wrap {
       flex: 1;
       min-height: 0;
       display: flex;
     }
 
-    /* O card ocupa a largura toda da coluna: número à esquerda, texto
-       ocupando o resto — sem buraco à direita. */
+
     .kpi {
       background: linear-gradient(150deg, #103050 0%, #0070C0 100%);
       border-radius: 18px;
@@ -221,8 +205,7 @@
       margin-bottom: .25rem;
     }
 
-    /* ── Tabela: é também a "table view" que dá identidade sem depender
-         da cor. Cada linha tem barra proporcional na cor da UORG.      */
+
     table.tab {
       width: 100%;
       height: 100%;
@@ -318,7 +301,7 @@
       border-radius: 999px;
     }
 
-    /* ── Gráfico ── */
+
     .right {
       display: flex;
       flex-direction: column;
@@ -351,9 +334,7 @@
       position: relative;
     }
 
-    /* ── Linha do tempo ─────────────────────────────────────────────────
-         Série única (o total por ano), então dispensa legenda: cada nó já
-         carrega o rótulo direto. Também serve de atalho para o filtro.  */
+
     .timeline {
       padding: .85rem 3.4rem .35rem;
     }
@@ -486,7 +467,7 @@
 
     <div class="filtro" id="filtro">
       <span class="filtro-rotulo">Anos</span>
-      <!-- pílulas injetadas por JS a partir de CARTA_HISTORICO -->
+
       <button class="yr-all" id="btnTodos" type="button"><i class="fas fa-layer-group"></i> Comparar todos</button>
     </div>
 
@@ -539,19 +520,17 @@
       function total(ano) {
         return SIGLAS.reduce(function (a, s) { return a + porAno[ano][s]; }, 0);
       }
-      /* Variação contra o ano anterior DA SÉRIE (não o civil): 2023 compara
-         com 2021, 2025 com 2023 e assim por diante. */
+
       function anoAnterior(ano) {
         var i = ANOS.indexOf(ano);
         return i > 0 ? ANOS[i - 1] : null;
       }
 
-      /* Seleção: começa só com o ano mais recente. Nunca fica vazia — é o
-         que garante que o slide sempre tenha algo para mostrar. */
+
       var sel = new Set([ANOS[ANOS.length - 1]]);
       var grafico = null;
 
-      /* ── Filtro ── */
+
       var filtro = document.getElementById('filtro');
       var btnTodos = document.getElementById('btnTodos');
       ANOS.forEach(function (ano) {
@@ -566,7 +545,7 @@
 
       function alterna(ano) {
         if (sel.has(ano)) {
-          if (sel.size === 1) return;   // nunca esvazia
+          if (sel.size === 1) return;
           sel.delete(ano);
         } else {
           sel.add(ano);
@@ -580,7 +559,7 @@
         render();
       });
 
-      /* ── Linha do tempo ── */
+
       var tl = document.getElementById('timeline');
       ANOS.forEach(function (ano) {
         var ant = anoAnterior(ano);
@@ -597,7 +576,7 @@
         tl.appendChild(b);
       });
 
-      /* ── Tabela ── */
+
       function montaTabela(anos) {
         var head = document.getElementById('tabHead');
         var body = document.getElementById('tabBody');
@@ -645,10 +624,7 @@
         });
       }
 
-      /* ── Rótulo direto dentro/junto de cada fatia da rosca ──────────────
-         SOG e SRG são dois azuis próximos; o rótulo é o que garante a
-         identidade sem depender da cor. Fatia estreita recebe o rótulo do
-         lado de fora, em tinta escura, para não ficar ilegível. */
+
       var rotulosRosca = {
         id: 'rotulosRosca',
         afterDatasetsDraw: function (chart) {
@@ -667,8 +643,7 @@
               ctx.fillStyle = '#fff';
               ctx.fillText(txt, p.x, p.y);
             } else {
-              /* Fatia estreita: rótulo do lado de fora, alinhado para o lado
-                 em que ele cresce, senão estoura a área de desenho. */
+
               var meio = (arc.startAngle + arc.endAngle) / 2;
               var r = arc.outerRadius + 14;
               var x = arc.x + Math.cos(meio) * r;
@@ -683,7 +658,7 @@
         }
       };
 
-      /* Valor no topo de cada barra — mesma função do rótulo da rosca. */
+
       var rotulosBarra = {
         id: 'rotulosBarra',
         afterDatasetsDraw: function (chart) {
@@ -807,7 +782,7 @@
           ? '<i class="fas fa-rotate-left"></i> Voltar a ' + ANOS[ANOS.length - 1]
           : '<i class="fas fa-layer-group"></i> Comparar todos';
 
-        /* O KPI fala sempre do ano mais recente selecionado. */
+
         var foco = anos[anos.length - 1];
         document.getElementById('kpiTotal').textContent = total(foco);
         document.getElementById('kpiAno').textContent = 'Serviços em ' + foco;
@@ -821,8 +796,7 @@
   </script>
   <script>
     document.addEventListener("keydown", function (e) {
-      /* Espaço e Enter pertencem ao botão que estiver com o foco — só o que
-         sobra é repassado ao index.html para navegar o deck. */
+
       if (e.target.closest && e.target.closest('button') && (e.key === ' ' || e.key === 'Enter')) return;
       if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) {
         e.preventDefault();

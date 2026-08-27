@@ -1,12 +1,6 @@
 
 <!DOCTYPE html>
-<!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
-<!--
-  ╔══════════════════════════════════════════════════════════════╗
-  ║  SLIDE 00 — Capa de abertura                                ║
-  ║  1º Relatório Trimestral de 2026 — ANTAQ                    ║
-  ╚══════════════════════════════════════════════════════════════╝
--->
+
 <html lang="pt-BR">
 
 <head>
@@ -50,7 +44,7 @@
       overflow: hidden;
     }
 
-    /* ── Elementos decorativos ── */
+
     .accent-bar {
       position: absolute;
       left: 0;
@@ -102,7 +96,7 @@
       left: 10vw;
     }
 
-    /* ── Conteúdo ── */
+
     .content {
       position: relative;
       z-index: 10;
@@ -127,7 +121,7 @@
       display: block;
     }
 
-    /* Mesmas proporções do sumário (slide-01): 98px / 78px, separador central */
+
     .logo-antaq {
       height: 98px;
       width: auto;
@@ -188,7 +182,7 @@
       animation: fadeIn .7s ease .55s both;
     }
 
-    /* ── Badge rodapé ── */
+
     .badge {
       position: absolute;
       bottom: 1.6rem;
@@ -205,7 +199,7 @@
       white-space: nowrap;
     }
 
-    /* ── Oceano wireframe (line art 3D) ── */
+
     .ocean {
       position: absolute;
       inset: 0;
@@ -215,7 +209,7 @@
       pointer-events: none;
     }
 
-    /* Faixa escura no pé da tela: mantém o badge legível sobre a arte */
+
     .ocean-scrim {
       position: absolute;
       left: 0;
@@ -227,7 +221,7 @@
       background: linear-gradient(180deg, rgba(7, 26, 46, 0) 0%, rgba(7, 26, 46, .30) 60%, rgba(7, 26, 46, .58) 100%);
     }
 
-    /* ── Animações ── */
+
     @keyframes waveMove {
       0% {
         transform: translateX(0) scaleY(1);
@@ -292,64 +286,47 @@
 <body>
   <div class="slide">
 
-    <!-- Decorativos -->
+
     <div class="accent-bar"></div>
     <div class="accent-bar-thin"></div>
     <div class="deco-circle deco-circle-1"></div>
     <div class="deco-circle deco-circle-2"></div>
     <div class="deco-circle deco-circle-3"></div>
 
-    <!-- Conteúdo central -->
+
     <div class="content">
 
-      <!-- Logos -->
+
       <div class="logos">
         <img class="logo-ouvidoria" src="Imagens/logomarca_Ouvidoria.png" alt="Ouvidoria da ANTAQ" />
         <div class="logo-sep"></div>
         <img class="logo-antaq" src="Imagens/Logo Horizontal_Branca_C_N.png" alt="Logo ANTAQ" />
       </div>
 
-      <!-- Título -->
+
       <h1 class="main-title">
         1º Relatório Trimestral<br />
         <span class="accent">de 2026</span>
       </h1>
 
-      <!-- Subtítulo -->
+
       <p class="subtitle">Ouvidoria da ANTAQ</p>
 
       <div class="divider"></div>
 
     </div>
 
-    <!-- Oceano em gravura — desenhado em <canvas> pelo script no fim do arquivo -->
+
     <canvas class="ocean" id="ocean"></canvas>
     <div class="ocean-scrim"></div>
 
-    <!-- Rodapé -->
+
     <p class="badge">Brasília · 2026 &nbsp;·&nbsp; 1º Trimestre · Janeiro — Março</p>
 
   </div>
 
   <script>
-    /* ══════════════════════════════════════════════════════════════════════
-       OCEANO EM GRAVURA — <canvas> 2D
-       ─────────────────────────────────────────────────────────────────────
-       6 CAMADAS de vaga, da mais distante à mais próxima. Cada uma é uma
-       silhueta preenchida que ENCOBRE a de trás (a oclusão é o que dá
-       profundidade), com traço no topo, hachuras internas que achatam ao
-       descer e brilhos flutuando na superfície.
 
-       Todo o desenho usa o sistema de coordenadas 1920×1080; o canvas se
-       reescala sozinho (inclusive em telas retina e na hora de imprimir).
-
-       MOVIMENTO: superfície recalculada a cada quadro — cada harmônica anda
-       numa velocidade, então a forma nunca se repete.
-       INTERAÇÃO: o cursor levanta a água sob ele (parallax junto); clique
-       ou toque na água joga um respingo com anéis e gotas.
-
-       Ajustes: CAMADAS (forma) e MOV (vida).
-       ══════════════════════════════════════════════════════════════════════ */
     const CAMADAS = [
       { y: 604, amp: 8, freq: .0062, hach: 4, passo: 9, fill: '#0B2C4E', op: .30, w: 1.0, resp: 0, vel: .22 },
       { y: 663, amp: 12, freq: .0052, hach: 5, passo: 12, fill: '#0A2745', op: .40, w: 1.2, resp: 3, vel: .30 },
@@ -360,13 +337,13 @@
     ];
 
     const MOV = {
-      VELOCIDADE: 1.0,   // ritmo das vagas (0 = mar parado)
-      FPS: 30,           // quadros por segundo
-      SOPRO: 1.0,        // quanto o cursor levanta a água (0 = desliga)
-      ALCANCE: 180,      // raio do sopro, em px
-      PARALLAX: 26,      // deslize máximo das camadas com o cursor
-      RESPINGO: true,    // clique/toque gera respingo
-      PASSO: 12          // amostragem em x (menor = traço mais fino/detalhado)
+      VELOCIDADE: 1.0,
+      FPS: 30,
+      SOPRO: 1.0,
+      ALCANCE: 180,
+      PARALLAX: 26,
+      RESPINGO: true,
+      PASSO: 12
     };
 
     (function oceano() {
@@ -382,18 +359,18 @@
       const P = { x: 960, alvo: 960, forca: 0, alvoForca: 0, px: 0, alvoPx: 0 };
       let fase = 0, escala = 1;
 
-      /* ── dimensiona o canvas (retina / impressão) ─────────────────────── */
+
       function medir(qualidade) {
         const r = cv.getBoundingClientRect();
         const dpr = qualidade || window.devicePixelRatio || 1;
         cv.width = Math.round(r.width * dpr);
         cv.height = Math.round(r.height * dpr);
-        // mantém as coordenadas de projeto (1920×1080) e ancora o mar embaixo
+
         escala = cv.width / W;
         ctx.setTransform(escala, 0, 0, escala, 0, cv.height - H * escala);
       }
 
-      /* ── forma das vagas ──────────────────────────────────────────────── */
+
       const F = [], PH = [];
       CAMADAS.forEach(c => {
         F.push([c.freq, c.freq * 2.17, c.freq * 3.61]);
@@ -403,7 +380,7 @@
       function surf(x, k, damp) {
         const c = CAMADAS[k], f = F[k], ph = PH[k], t = fase * c.vel;
         const th = x * f[0] + ph[0] + t;
-        let v = Math.sin(th) + 0.14 * Math.sin(2 * th + 0.4);      // marola: crista arredondada
+        let v = Math.sin(th) + 0.14 * Math.sin(2 * th + 0.4);
         v += 0.34 * Math.sin(x * f[1] + ph[1] + t * 1.35);
         v += 0.16 * Math.sin(x * f[2] + ph[2] + t * 0.70);
         let y = c.y - c.amp * (damp === undefined ? 1 : damp) * v;
@@ -423,7 +400,7 @@
         }
       }
 
-      /* ── brilhos na superfície ────────────────────────────────────────── */
+
       const camadas = CAMADAS.map((c, k) => {
         const resp = [];
         for (let n = 0; n < c.resp; n++)
@@ -433,13 +410,13 @@
 
       const gotas = [], aneis = [];
 
-      /* ── um quadro ────────────────────────────────────────────────────── */
+
       function desenhar(dt) {
         ctx.clearRect(-400, -200, W + 800, H + 400);
         ctx.lineJoin = 'round';
         ctx.lineCap = 'round';
 
-        // brilho do horizonte
+
         const g = ctx.createRadialGradient(960, 576, 0, 960, 576, 900);
         g.addColorStop(0, 'rgba(0,144,192,.30)');
         g.addColorStop(.55, 'rgba(0,144,192,.08)');
@@ -449,7 +426,7 @@
         ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
         ctx.restore();
 
-        // linha do horizonte
+
         ctx.strokeStyle = 'rgba(191,231,250,.18)';
         ctx.lineWidth = 1;
         ctx.beginPath(); ctx.moveTo(0, 576); ctx.lineTo(W, 576); ctx.stroke();
@@ -457,14 +434,14 @@
         camadas.forEach(L => {
           const c = L.c, k = L.k;
           ctx.save();
-          ctx.translate(P.px * (k + 1) / 6, 0);          // parallax por profundidade
+          ctx.translate(P.px * (k + 1) / 6, 0);
 
-          // 1) silhueta preenchida — encobre a camada de trás
+
           traco(k, 1, 0);
           ctx.lineTo(X1, FUNDO); ctx.lineTo(X0, FUNDO); ctx.closePath();
           ctx.fillStyle = c.fill; ctx.fill();
 
-          // 2) hachuras internas (achatam ao descer)
+
           ctx.strokeStyle = '#9ED8F2';
           ctx.lineWidth = c.w * 0.5;
           for (let j = 1; j <= c.hach; j++) {
@@ -474,14 +451,14 @@
           }
           ctx.globalAlpha = 1;
 
-          // 3) traço do topo
+
           ctx.strokeStyle = '#DCF1FC';
           ctx.lineWidth = c.w;
           ctx.globalAlpha = c.op;
           traco(k, 1, 0);
           ctx.stroke();
 
-          // 4) brilhos flutuando na superfície
+
           ctx.fillStyle = '#DCF1FC';
           L.resp.forEach(r => {
             r.x -= c.vel * MOV.VELOCIDADE * dt * 55;
@@ -497,7 +474,7 @@
           ctx.restore();
         });
 
-        // respingo do clique: anéis em perspectiva + gotas balísticas
+
         ctx.strokeStyle = '#EAF7FF';
         for (let i = aneis.length - 1; i >= 0; i--) {
           const a = aneis[i];
@@ -524,7 +501,7 @@
         ctx.globalAlpha = 1;
       }
 
-      /* ── laço ─────────────────────────────────────────────────────────── */
+
       medir();
       window.addEventListener('resize', () => { medir(); if (parado) desenhar(0); });
 
@@ -544,7 +521,7 @@
         })(0);
       }
 
-      /* ── interação ────────────────────────────────────────────────────── */
+
       const posX = e => ((e.touches ? e.touches[0] : e).clientX / window.innerWidth) * W;
       const mover = e => {
         P.alvo = posX(e);
@@ -559,14 +536,14 @@
         window.addEventListener('pointerdown', e => {
           const x = (e.clientX / window.innerWidth) * W;
           const y = (e.clientY / window.innerHeight) * H;
-          if (y < 560) return;                       // só no mar
+          if (y < 560) return;
           for (let i = 0; i < 3; i++) aneis.push({ x: x, y: y, t: -i * .13 });
           for (let i = 0; i < 9; i++)
             gotas.push({ x: x, y: y, vx: (rnd() - .5) * 420, vy: -110 - rnd() * 190, r: 1 + rnd() * 2, t: 0 });
         });
       }
 
-      /* ── impressão: redesenha em alta resolução (o PDF sai nítido) ────── */
+
       window.addEventListener('beforeprint', () => { medir(3); desenhar(0); });
       window.addEventListener('afterprint', () => { medir(); desenhar(0); });
     })();

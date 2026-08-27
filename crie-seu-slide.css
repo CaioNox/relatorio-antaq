@@ -1,11 +1,5 @@
-/* Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. */
-/* ══════════════════════════════════════════════════════════════════════════
-   crie-seu-slide.css — ESTILO COMPARTILHADO do montador de apresentação
-   ──────────────────────────────────────────────────────────────────────────
-   Usado pelas duas ferramentas (crie-seu-slide-trimestral.html e
-   crie-seu-slide-conselho.html) — mesma fonte única, para as duas não
-   divergirem visualmente. Nada aqui é específico de um relatório.
-   ══════════════════════════════════════════════════════════════════════════ */
+
+
 * {
   box-sizing: border-box;
 }
@@ -40,14 +34,12 @@ input:focus-visible,
   outline-offset: 2px;
 }
 
-/* ───────────────────────────── Layout geral ──────────────────────────── */
 .app-shell {
   display: flex;
   flex-direction: column;
   height: 100vh;
 }
 
-/* ───────────────────────────── Barra superior ────────────────────────── */
 .topbar {
   display: flex;
   align-items: center;
@@ -152,7 +144,6 @@ input:focus-visible,
   cursor: progress;
 }
 
-/* ───────────────────────────── Área de trabalho ──────────────────────── */
 .workspace {
   flex: 1;
   display: flex;
@@ -215,7 +206,6 @@ input:focus-visible,
   min-height: 16px;
 }
 
-/* ───────────────────────────── Biblioteca (gaveta lateral) ───────────── */
 .library {
   position: fixed;
   top: 0;
@@ -365,12 +355,6 @@ input:focus-visible,
   text-align: center;
 }
 
-/* ───────────────────────────── Rolo de slides (vertical) ──────────────────
-   Um "rolo de filme" na vertical: cada slide selecionado é um quadro
-   empilhado em cima do outro, na ordem em que vai aparecer no PowerPoint.
-   Arrastar um quadro pra cima/baixo reordena; as perfurações nas bordas
-   (pseudo-elementos) só reforçam a leitura de "rolo de filme".
-   ─────────────────────────────────────────────────────────────────────── */
 .filmstrip-wrap {
   flex-shrink: 0;
   width: 300px;
@@ -548,7 +532,6 @@ input:focus-visible,
   white-space: nowrap;
 }
 
-/* Linha conectando um quadro ao próximo — reforça a leitura de "rolo" */
 .fs-card:not(:last-child)::after {
   content: '';
   position: absolute;
@@ -559,7 +542,6 @@ input:focus-visible,
   background: #1e293b;
 }
 
-/* ───────────────────────────── Overlay de carregamento ────────────────── */
 .loading-overlay {
   position: fixed;
   inset: 0;

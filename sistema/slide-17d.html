@@ -1,12 +1,5 @@
 <!DOCTYPE html>
-<!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
-<!--
-  ╔══════════════════════════════════════════════════════════════╗
-  ║  SLIDE 17D — Fluxo Mensal do Painel Resolveu (Fala.BR)
-  ╠══════════════════════════════════════════════════════════════╣
-  ║  Atualizar: dados mensais Painel Resolveu · crescimento
-  ╚══════════════════════════════════════════════════════════════╝
--->
+
 <html lang="pt-BR">
 
 <head>
@@ -201,8 +194,7 @@
       border-radius: 16px;
       padding: 1.1rem 1.2rem;
       text-align: left;
-      /* com a saída do card "Distribuição Mensal", os dois cards restantes
-         dividem a coluna e centram o conteúdo, sem vazio no rodapé */
+
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -254,7 +246,7 @@
   <div class="slide-container">
     <div class="top-accent"></div>
     <div class="top-accent-secondary"></div>
-    <!-- Header -->
+
     <div class="flex items-start justify-between px-16 pt-10 pb-3 z-10">
       <div>
         <div class="flex items-center gap-3 mb-2">
@@ -271,7 +263,7 @@
       </div>
     </div>
 
-    <!-- Main -->
+
     <div class="flex-1 grid grid-cols-3 gap-6 px-16 pb-10 z-10">
       <div class="chart-card col-span-2 flex flex-col">
         <p class="text-brand-primary font-montserrat font-bold text-xl mb-1 flex items-center gap-2"><i
@@ -291,9 +283,9 @@
           <i class="fas fa-check-circle kpi-watermark"></i>
         </div>
 
-        <!-- Card "Distribuição Mensal" removido: era redundante com o gráfico de barras ao lado -->
 
-        <!-- Crescimentos mensais -->
+
+
         <div class="growth-card" style="flex:1;">
           <p class="font-montserrat font-bold text-sm text-brand-primary mb-2">Evolução mensal</p>
           <div class="growth-row">
@@ -309,7 +301,7 @@
       </div>
     </div>
 
-    <!-- Footer -->
+
     <div class="px-16 pb-8 flex justify-between items-center z-10">
       <p class="text-gray-400 text-xs">Relatório 1º Trimestre de 2026 – Ouvidoria – Agência Nacional de Transportes Aquaviários - ANTAQ</p>
     </div>
@@ -320,7 +312,7 @@
     const fluxoData = [90, 129, 85];
     new Chart(document.getElementById('chartFluxo'), {
       type: 'bar',
-      // espessura padronizada com o gráfico de barras do slide-canal
+
       data: { labels: fluxoLabels, datasets: [{ data: fluxoData, backgroundColor: monthColors, borderRadius: 6, maxBarThickness: 120, categoryPercentage: 0.85, barPercentage: 0.92 }] },
       options: { responsive: true, maintainAspectRatio: false, layout: { padding: { top: 20 } }, plugins: { legend: { display: false }, tooltip: { enabled: false } }, scales: { x: { grid: { display: false }, ticks: { color: '#6b7280', font: { size: 13, weight: '600' } } }, y: { beginAtZero: true, grid: { color: '#eef1f5' }, ticks: { color: '#9ca3af', font: { size: 11 } } } } },
       plugins: [{ id: 'valueLabels', afterDatasetsDraw(chart) { const { ctx } = chart; ctx.save(); ctx.font = '700 16px Montserrat, sans-serif'; ctx.fillStyle = '#103050'; ctx.textAlign = 'center'; chart.getDatasetMeta(0).data.forEach((bar, i) => { ctx.fillText(chart.data.datasets[0].data[i], bar.x, bar.y - 8); }); ctx.restore(); } }]

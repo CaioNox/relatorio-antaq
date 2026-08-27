@@ -1,11 +1,5 @@
 <!DOCTYPE html>
-<!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
-<!--
-  ╔══════════════════════════════════════════════════════════════╗
-  ║  SLIDE 14 — Tipos de manifestações + Tipos por Mês         ║
-  ║  ATUALIZAR: dados dos dois gráficos a cada trimestre        ║
-  ╚══════════════════════════════════════════════════════════════╝
--->
+
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8" />
@@ -71,7 +65,7 @@
 
     <div class="flex-1 grid gap-4 px-16 pb-3 z-10" style="grid-template-columns: 1fr 1.4fr; min-height:0;">
 
-      <!-- Coluna esquerda: gráfico trimestre + destaque -->
+
       <div class="flex flex-col gap-3">
         <div class="chart-card flex-1 flex flex-col" style="min-height:0;">
           <div class="flex-1 relative" style="min-height:0;"><canvas id="chartTipos" role="img" aria-label="Gráfico de barras: total de manifestações por tipo no trimestre — Denúncia 194, Solicitação 60, Reclamação 44, Sugestão 3, Elogio 2, Simplifique 1"></canvas></div>
@@ -95,7 +89,7 @@
         </div>
       </div>
 
-      <!-- Coluna direita: gráfico por mês -->
+
       <div class="flex flex-col gap-3">
         <div class="chart-card flex-1 flex flex-col" style="min-height:0;">
           <div class="flex-1 relative" style="min-height:0;"><canvas id="chartTiposMes" role="img" aria-label="Gráfico de barras: quantidade de manifestações por tipo em cada mês do trimestre (Janeiro, Fevereiro, Março)"></canvas></div>
@@ -116,7 +110,7 @@
     </div>
   </div>
   <script>
-    // Gráfico 1 — Total por tipo (trimestre)
+
     const labels = ['Reclamação', 'Solicitação', 'Denúncia', 'Sugestão', 'Elogio', 'Simplifique'];
     const data = [44, 60, 194, 3, 2, 1];
     const colors = data.map((_, i) => i === 2 ? '#103050' : '#0070C0');
@@ -149,7 +143,7 @@
       plugins: [valueLabels]
     });
 
-    // Gráfico 2 — Tipos por mês
+
     const valueLabels2 = {
       id: 'valueLabels2',
       afterDatasetsDraw(chart) {
@@ -194,7 +188,7 @@
       plugins: [valueLabels2]
     });
 
-    // Tabelas de dados para leitores de tela (fallback acessível dos gráficos)
+
     document.addEventListener('DOMContentLoaded', function () {
       if (!window.A11y) return;
       A11y.renderChartFallbackTable(

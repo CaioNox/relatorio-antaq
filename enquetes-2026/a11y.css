@@ -1,14 +1,11 @@
-/* Camada de acessibilidade — não altera a aparência padrão (mouse/sem foco).
-   Ver plano de acessibilidade do repositório. */
 
-/* Foco visível só em navegação por teclado — nunca mexe no estado padrão. */
+
 :focus-visible {
   outline: 3px solid #0090C0;
   outline-offset: 2px;
   border-radius: 2px;
 }
 
-/* Respeita a preferência do sistema por menos movimento. */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
@@ -18,7 +15,6 @@
   }
 }
 
-/* Conteúdo só para leitor de tela — invisível na tela, sem afetar o layout. */
 .sr-only {
   position: absolute;
   width: 1px;
@@ -31,7 +27,6 @@
   border: 0;
 }
 
-/* Link "pular para o conteúdo" — fora da tela até receber foco. */
 .skip-link {
   position: absolute;
   left: -9999px;
@@ -51,8 +46,6 @@
   left: 0;
 }
 
-/* Ícone pequeno de reforço não-cor, usado junto de sinais coloridos
-   (status/badge/pill) para não depender só da cor. */
 .a11y-cue {
   display: inline-flex;
   align-items: center;

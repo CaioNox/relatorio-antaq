@@ -1,13 +1,5 @@
 <!DOCTYPE html>
-<!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
-<!--
-  ╔══════════════════════════════════════════════════════════════╗
-  ║  SLIDE 05 — Manifestações que geraram processos administrativos sancionatórios
-  ╠══════════════════════════════════════════════════════════════╣
-  ║  O QUE ATUALIZAR A CADA SEMESTRE:
-  ║  Atualizar: número de processos abertos, valor de multas aplicadas
-  ╚══════════════════════════════════════════════════════════════╝
--->
+
 <html lang="pt-BR">
 
 <head>
@@ -72,7 +64,7 @@
       width: 100%;
     }
 
-    /* ===== HERO 304 + barra de proporção ===== */
+
     .hero {
       background: linear-gradient(135deg, #0A2236 0%, #103050 45%, #0090C0 100%);
       border-radius: 18px;
@@ -161,7 +153,7 @@
       padding: 0 .4rem;
     }
 
-    /* ===== Texto explicativo ===== */
+
     .explain {
       display: flex;
       align-items: flex-start;
@@ -195,7 +187,7 @@
       font-weight: 700;
     }
 
-    /* ===== Faixas de grupo (122 / 182) ===== */
+
     .groups,
     .ocards {
       display: grid;
@@ -232,7 +224,7 @@
       background: linear-gradient(135deg, #0A2A43, #16456B);
     }
 
-    /* ===== Cartões de desfecho ===== */
+
     .ocard {
       background: #fff;
       border: 2px solid #E2E8F0;
@@ -383,7 +375,7 @@
       transition: width .9s cubic-bezier(.2, .7, .3, 1);
     }
 
-    /* ===== Cartão destaque g-int (106) ===== */
+
     .ocard.g-int.hero103 {
       background: linear-gradient(150deg, #103050 0%, #0090C0 100%);
       border: 2px solid transparent;
@@ -414,7 +406,7 @@
       background: linear-gradient(90deg, #F2A900, #ffd166);
     }
 
-    /* ===== Cartão destaque g-ext (103) ===== */
+
     .ocard.g-ext.hero103 {
       background: linear-gradient(150deg, #0A2A43 0%, #1C5E92 100%);
       border: 2px solid transparent;
@@ -445,7 +437,7 @@
       background: linear-gradient(90deg, #F2A900, #ffd166);
     }
 
-    /* Segmentos do split-bar (agora só os números) */
+
     .split-seg {
       font-size: 1rem;
     }
@@ -459,7 +451,7 @@
       box-shadow: inset 1px 0 0 rgba(255, 255, 255, .2);
     }
 
-    /* ===== Subconjunto: 103 processos (dentro das 152 da SFC) — evita a soma mental ===== */
+
     .subset {
       position: relative;
       display: flex;
@@ -569,7 +561,7 @@
   <div class="slide-container">
     <div class="top-accent"></div>
     <div class="top-accent-secondary"></div>
-    <!-- Header -->
+
     <div class="flex items-start justify-between px-16 pt-10 pb-3 z-10">
       <div>
         <div class="flex items-center gap-3 mb-1">
@@ -590,12 +582,12 @@
       </div>
     </div>
 
-    <!-- Main -->
+
     <div class="flex-1 flex flex-col justify-center gap-4 px-16 pt-2 pb-5 z-10" style="min-height:0;">
-      <!-- Texto explicativo (movido para cima do HERO) -->
+
       <div class="explain">
         <i class="fas fa-circle-info" aria-hidden="true"></i>
-        <p>No 1º semestre de 2026, <b>258</b> manifestações foram respondidas pela ANTAQ no Fala.BR. Destas, <b>106</b>
+        <p class="txt-bloco">No 1º semestre de 2026, <b>258</b> manifestações foram respondidas pela ANTAQ no Fala.BR. Destas, <b>106</b>
           foram concluídas pela própria Ouvidoria e demais unidades, enquanto <b>152</b> foram encaminhadas para análise
           pela Superintendência de Fiscalização e Coordenação das Unidades Regionais (SFC). Do total encaminhado à
           SFC, <b>103</b>
@@ -603,7 +595,7 @@
         </p>
       </div>
 
-      <!-- HERO -->
+
       <div class="hero">
         <div class="hero-num">258<span>Demandas respondidas no 1º semestre</span></div>
         <div class="hero-split">
@@ -611,7 +603,7 @@
         <i class="fas fa-diagram-project hero-ico" aria-hidden="true"></i>
       </div>
 
-      <!-- Cartões 106 / 152 (as duas partes que compõem as 258) -->
+
       <div class="ocards" style="grid-template-columns:1fr 1fr;">
         <div class="ocard">
           <div class="oc-top">
@@ -635,19 +627,19 @@
         </div>
       </div>
 
-      <!-- Subconjunto das 152: 103 processos (destacado como PARTE das 152, não como soma) -->
+
       <div class="subset">
         <span class="subset-tag"><i class="fas fa-turn-down"></i> Dentro das 152 analisadas pela SFC</span>
         <div class="subset-num"><i class="fas fa-gavel"></i>103</div>
         <div class="subset-info">
           <div class="subset-lbl">deram origem a Processos Administrativos Sancionadores (SEI)</div>
-          <p class="subset-def"><b>Processo Administrativo Sancionador:</b> processo decorrente da atividade de
+          <p class="subset-def txt-bloco"><b>Processo Administrativo Sancionador:</b> processo decorrente da atividade de
             fiscalização da ANTAQ destinado à apuração de infrações administrativas e à cominação de sanções.</p>
         </div>
       </div>
     </div>
 
-    <!-- Footer -->
+
     <div class="px-16 pb-4 pt-1 flex justify-between items-center z-10">
       <p class="text-gray-400 text-xs">Relatório 1º Semestre de 2026 – Ouvidoria – Agência Nacional de Transportes Aquaviários - ANTAQ</p>
     </div>

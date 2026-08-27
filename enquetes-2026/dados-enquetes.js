@@ -1,37 +1,4 @@
-/* Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. */
-/*
-  ╔══════════════════════════════════════════════════════════════╗
-  ║  dados-enquetes.js — FONTE ÚNICA DOS DADOS DAS ENQUETES       ║
-  ╠══════════════════════════════════════════════════════════════╣
-  ║  Todos os slides de enquete (slide-enquete.html?e=NNNN), a    ║
-  ║  Tabela 1 e a versão de impressão (relatorio.html) leem daqui.║
-  ║  Para atualizar a próxima rodada: edite SÓ este arquivo.      ║
-  ║                                                              ║
-  ║  Campos de cada enquete:                                     ║
-  ║    id ............ nº da enquete na Plataforma da CGU        ║
-  ║    sup / num ..... superintendência e nº do serviço na Carta ║
-  ║    pagina ........ página do documento-fonte com o texto     ║
-  ║                    completo do serviço (Tabela 1 remete lá)  ║
-  ║    servico ....... nome do serviço (Carta de Serviços)       ║
-  ║    pergunta ...... enunciado publicado na Plataforma         ║
-  ║    publicacao .... data de publicação da enquete             ║
-  ║    respondentes .. quantos conselheiros responderam          ║
-  ║    base .......... total de conselheiros inscritos na data   ║
-  ║                    (null = não informado no documento-fonte) ║
-  ║    q1 ............ { sim, nao }  Você já utilizou o serviço? ║
-  ║    q2 ............ { sim, nao }  Teve facilidade de acesso?  ║
-  ║                    (null quando a questão não foi exibida)   ║
-  ║    q3 ............ [n1,n2,n3,n4,n5] notas do ATENDIMENTO     ║
-  ║    q4 ............ [n1,n2,n3,n4,n5] notas do TEMPO de        ║
-  ║                    conclusão do pedido                       ║
-  ║    sugestoes ..... respostas livres da questão 5             ║
-  ║    nota .......... observação de ressalva exibida no slide   ║
-  ║                                                              ║
-  ║  Os textos de análise NÃO ficam aqui: são gerados a partir   ║
-  ║  destes números (ver textoAnalise() no fim do arquivo), para ║
-  ║  que gráfico e texto nunca fiquem divergentes.               ║
-  ╚══════════════════════════════════════════════════════════════╝
-*/
+
 
 const PERIODO_ENQUETES = {
   inicio: '07/04/2026',
@@ -42,14 +9,6 @@ const PERIODO_ENQUETES = {
   conselheirosData: '06/05/2026'
 };
 
-/* ═══════════════ Rodadas de avaliação e quadriênio ═══════════════
-   Alimenta o slide-18.html: os cartões das rodadas realizadas e a
-   linha do tempo do quadriênio saem daqui, então acrescentar a
-   próxima rodada é editar só este bloco.
-
-   As datas da rodada corrente vêm de PERIODO_ENQUETES para não
-   existirem em dois lugares. Os anos ainda não realizados aparecem
-   como "prevista" por diferença entre `quadrienio` e `realizadas`. */
 const RODADAS = {
   quadrienio: { inicio: 2025, fim: 2028 },
   realizadas: [
@@ -65,14 +24,6 @@ const SUPERINTENDENCIAS = {
   SFC: { nome: 'Superintendência de Fiscalização e Coordenação das Unidades Regionais', sigla: 'SFC', servicos: 1, cor: '#F2A900' }
 };
 
-/* ═══════════════ Série histórica da Carta de Serviços ═══════════════
-   Fonte: documento da Carta publicado em cada exercício. Alimenta o
-   slide-14.html (carta-evolucao — filtro de anos + comparativo).
-
-   Critério a partir desta rodada: só entram serviços com enquete
-   publicada. SisPAT e ProTeu (SFC) ficaram de fora em 2026 — nenhum
-   dos dois teve enquete publicada nesta rodada — por isso SFC = 1 e
-   o total do exercício é 31, batendo com o resto do sistema.        */
 const CARTA_HISTORICO = [
   { ano: 2021, SOG: 18, SRG: 8, SAF: 2, SFC: 0 },
   { ano: 2023, SOG: 18, SRG: 8, SAF: 3, SFC: 1 },
@@ -81,7 +32,7 @@ const CARTA_HISTORICO = [
 ];
 
 const ENQUETES = [
-  /* ─────────────────── SOG · Superintendência de Outorgas ─────────────────── */
+
   {
     id: 8270, sup: 'SOG', num: 15, pagina: 139,
     servico: 'Solicitar autorização e registro na ANTAQ para afretamento de embarcação estrangeira',
@@ -260,7 +211,7 @@ const ENQUETES = [
     ]
   },
 
-  /* ─────────────────── SRG · Superintendência de Regulação ─────────────────── */
+
   {
     id: 8288, sup: 'SRG', num: 4, pagina: 47,
     servico: 'Obter autorização da ANTAQ para incorporação/desincorporação de bens da União ao/do acervo patrimonial dos portos organizados',
@@ -345,7 +296,7 @@ const ENQUETES = [
     ]
   },
 
-  /* ──────────── SAF · Superintendência de Administração e Finanças ──────────── */
+
   {
     id: 8296, sup: 'SAF', num: 1, pagina: 81,
     servico: 'Obter declaração da ANTAQ para fins de credenciamento, validação ou outros atestados',
@@ -388,7 +339,7 @@ const ENQUETES = [
     nota: 'No documento-fonte, o cabeçalho desta enquete repete o da enquete anterior. O enunciado acima foi reconstituído a partir da Carta de Serviços. O total de conselheiros inscritos na data não consta.'
   },
 
-  /* ── SFC · Superintendência de Fiscalização e Coordenação das Unidades Regionais ── */
+
   {
     id: 8300, sup: 'SFC', num: 1, pagina: 5,
     servico: 'Consultar empresas e embarcações para o transporte aquaviário federal de passageiros na navegação interior (Navegue Seguro)',
@@ -404,10 +355,7 @@ const ENQUETES = [
   }
 ];
 
-/* Serviço da Carta que não teve enquete publicada nesta rodada. */
 const SERVICOS_SEM_ENQUETE = [];
-
-/* ═══════════════════════ Helpers de apresentação ═══════════════════════ */
 
 const ESCALA_NOTAS = ['Péssimo', 'Ruim', 'Bom', 'Muito Bom', 'Excelente'];
 
@@ -426,17 +374,6 @@ function plural(n, singular, pluralForma) {
   return n === 1 ? singular : pluralForma;
 }
 
-/* Texto de análise gerado a partir dos números — garante que gráfico e
-   narrativa nunca fiquem divergentes.
-
-   O texto é montado em SEGMENTOS: cada oração que fala de uma fatia do
-   gráfico carrega a sua `chave` ('sim', 'nao', 'n1'…'n5'); as ligações
-   (' e ', ', ', ponto final, frase de encaminhamento) vêm com chave null.
-   É isso que permite ao slide acender a oração certa quando o mouse passa
-   pela fatia/barra correspondente — sem procurar pedaço de texto na mão.
-
-   REGRA DE OURO: segmentosAnalise(e, q).map(s => s.texto).join('') tem de
-   ser exatamente o texto que textoAnalise(e, q) devolve. */
 function segmentosAnalise(e, questao) {
   var q1 = e.q1, q2 = e.q2;
   var segs = [];
@@ -499,9 +436,9 @@ function segmentosAnalise(e, questao) {
   }
   if (!itens.length) return segs;
 
-  // O alvo ("o atendimento do serviço" / "o tempo…") entra UMA vez por forma
-  // verbal — como o texto é montado em ordem, trocar no primeiro item que
-  // contém cada forma equivale a trocar a 1ª ocorrência do texto inteiro.
+
+
+
   ['classificou com', 'classificaram com'].forEach(function (marca) {
     for (var k = 0; k < itens.length; k++) {
       if (itens[k].texto.indexOf(marca) !== -1) {
@@ -523,8 +460,6 @@ function textoAnalise(e, questao) {
   return segmentosAnalise(e, questao).map(function (s) { return s.texto; }).join('');
 }
 
-/* Média das notas (arredondamento definido na metodologia: < ,5 para baixo;
-   >= ,5 para cima). Retorna null quando não houve avaliação. */
 function mediaNotas(notas) {
   if (!notas) return null;
   var soma = 0, n = 0;

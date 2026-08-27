@@ -1,14 +1,4 @@
 <!DOCTYPE html>
-<!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
-<!--
-  ╔══════════════════════════════════════════════════════════════╗
-  ║  SLIDE 04 — KPIs principais de manifestações recebidas no trimestre
-  ╠══════════════════════════════════════════════════════════════╣
-  ║  O QUE ATUALIZAR A CADA TRIMESTRE:
-  ║  Atualizar: total respondidas, arquivadas, encaminhadas e tempo médio de conclusão
-  ║  (design portado do slide-18 — KPIs em 4 cards)
-  ╚══════════════════════════════════════════════════════════════╝
--->
 
 <html lang="pt-BR">
 
@@ -74,7 +64,7 @@
             width: 100%;
         }
 
-        /* ===== Interatividade ===== */
+
         .kpi-card {
             transition: transform .28s cubic-bezier(.2, .7, .3, 1), box-shadow .28s ease, border-color .28s ease, background-color .28s ease;
         }
@@ -183,7 +173,7 @@
     <div class="slide-container">
         <div class="top-accent"></div>
         <div class="top-accent-secondary"></div>
-        <!-- Header -->
+
         <div class="flex items-start justify-between px-16 pt-10 pb-3 z-10">
             <div>
                 <div class="flex items-center gap-3 mb-2">
@@ -204,13 +194,11 @@
                 </div>
             </div>
         </div>
-        <!-- ===== ÁREA DE DADOS — atualizar a cada trimestre =====
-     Cada .kpi-num abaixo é um número em destaque. Troque pelo valor real do trimestre.
-     ===== FIM DA ÁREA DE DADOS ============================= -->
-        <!-- KPIs -->
+
+
         <div class="flex-1 flex flex-col justify-center px-16 pb-6 z-10 gap-5">
             <div class="grid grid-cols-4 gap-6">
-                <!-- Total Recebidas -->
+
                 <div class="kpi-card kpi-primary" style="min-height:280px;">
                     <div>
                         <p class="text-blue-100 font-montserrat font-bold text-sm uppercase tracking-widest mb-2">Total
@@ -221,7 +209,7 @@
                         tanto as arquivadas quanto as respondidas.</p>
                     <i class="fas fa-comments kpi-watermark"></i>
                 </div>
-                <!-- Total Arquivadas -->
+
                 <div class="kpi-card kpi-soft" style="min-height:280px;">
                     <div>
                         <p class="text-blue-100 font-montserrat font-bold text-sm uppercase tracking-widest mb-2">
@@ -232,7 +220,7 @@
                         Falta de clareza/Insuficiência de dados.</p>
                     <i class="fas fa-archive kpi-watermark"></i>
                 </div>
-                <!-- Total Respondidas -->
+
                 <div class="kpi-card kpi-primary" style="min-height:280px;">
                     <div>
                         <p class="text-blue-100 font-montserrat font-bold text-sm uppercase tracking-widest mb-2">
@@ -243,7 +231,7 @@
                         fluxo de atendimento.</p>
                     <i class="fas fa-inbox kpi-watermark"></i>
                 </div>
-                <!-- Tempo médio -->
+
                 <div class="kpi-card kpi-soft" style="min-height:280px;">
                     <div>
                         <p class="text-blue-100 font-montserrat font-bold text-sm uppercase tracking-widest mb-2">Tempo
@@ -255,7 +243,7 @@
                     <i class="fas fa-clock kpi-watermark"></i>
                 </div>
             </div>
-            <!-- Encaminhadas (linha inferior) -->
+
             <div class="grid grid-cols-1">
                 <div class="kpi-card kpi-primary"
                     style="min-height:0; padding:1.4rem 2rem; flex-direction:row; align-items:center; justify-content:flex-start; gap:2rem;">
@@ -270,7 +258,7 @@
                 </div>
             </div>
         </div>
-        <!-- Footer -->
+
         <div class="px-16 pb-8 flex justify-between items-center z-10">
             <p class="text-gray-400 text-xs">Relatório 1º Trimestre de 2026 – Ouvidoria – Agência Nacional de Transportes Aquaviários - ANTAQ</p>
         </div>

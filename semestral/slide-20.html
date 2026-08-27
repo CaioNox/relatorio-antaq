@@ -1,13 +1,4 @@
 <!DOCTYPE html>
-<!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
-<!--
-  ╔══════════════════════════════════════════════════════════════╗
-  ║  SLIDE 20 — Histórico comparativo de pedidos LAI — 1º trimestre por ano
-  ╠══════════════════════════════════════════════════════════════╣
-  ║  O QUE ATUALIZAR A CADA TRIMESTRE:
-  ║  Atualizar: adicionar novo ano no INÍCIO dos arrays labels[] e data[] (mais recente primeiro); atualizar os KPI cards na coluna direita
-  ╚══════════════════════════════════════════════════════════════╝
--->
 
 <html lang="pt-BR">
 
@@ -15,12 +6,8 @@
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
   <title>Histórico de Pedidos LAI - Relatório Semestral Ouvidoria ANTAQ</title>
-  <!-- PENDÊNCIA: este slide compara o 1º trimestre (Q1) de pedidos LAI, 2023-2026. Não há
-       série de 1º semestre para os anos anteriores ainda. Usuário confirmou que vai
-       fornecer os dados de 1º semestre de 2023-2025 para reconstruir este comparativo.
-       Até lá, o conteúdo permanece com a leitura histórica trimestral original — ver
-       semestral/PENDENCIAS-DADOS.md. -->
-  <!-- TODO-DADO: aguardando dados de 1º semestre 2023-2025 fornecidos pelo usuário. -->
+
+
   <link rel="icon" type="image/png"
     href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
@@ -112,7 +99,7 @@
       margin-top: .15rem;
     }
 
-    /* ===== KPI cards laterais (um por ano) ===== */
+
     .hist-kpi {
       position: relative;
       border-left: 4px solid #0090C0;
@@ -155,7 +142,7 @@
       color: #6b7280;
     }
 
-    /* ===== Tempo médio de resposta (sub-bloco dentro de cada caixinha) ===== */
+
     .hist-kpi .hk-resp {
       margin-top: .4rem;
       padding-top: .4rem;
@@ -193,7 +180,7 @@
       color: #dbeaf5;
     }
 
-    /* ===== Ícone de ajuda "?" + tooltip ===== */
+
     .hk-help {
       position: absolute;
       top: .55rem;
@@ -331,7 +318,7 @@
   <div class="slide-container">
     <div class="top-accent"></div>
     <div class="top-accent-secondary"></div>
-    <!-- Header -->
+
     <div class="flex items-start justify-between px-16 pt-10 pb-3 z-10">
       <div>
         <div class="flex items-center gap-3 mb-1">
@@ -349,22 +336,18 @@
         </div>
       </div>
     </div>
-    <!-- Main Content -->
+
     <div class="flex-1 grid gap-6 px-16 pb-6 z-10" style="min-height:0; grid-template-columns: 1.73fr 1fr;">
-      <!-- Gráfico -->
+
       <div class="chart-card flex flex-col" style="min-height:0;">
         <p class="text-brand-primary font-montserrat font-bold text-xl mb-1 flex items-center gap-2"><i
             class="fas fa-file-circle-plus text-brand-secondary"></i> Pedidos de acesso à informação</p>
         <div class="flex-1 relative" style="min-height:0;"><canvas id="chartLaiHist" role="img" aria-label="Gráfico de barras: histórico de pedidos LAI no 1º trimestre de cada ano — 2023: 62, 2024: 105, 2025: 107, 2026: 130"></canvas></div>
-        <p class="chart-note"><i class="fas fa-circle-info"></i><span>O comparativo histórico demonstra a evolução da
+        <p class="chart-note txt-bloco"><i class="fas fa-circle-info"></i><span>O comparativo histórico demonstra a evolução da
             demanda por transparência pública e permite avaliar tendências de acesso à informação.</span></p>
       </div>
-      <!-- ===== DADOS — atualizar a cada trimestre =====
-         Adicione o NOVO trimestre no INÍCIO da lista (hk-feat).
-         Mova o que era hk-feat para hist-kpi normal.
-         Atualize também labels[] e data[] no Chart.js abaixo.
-     ================================================= -->
-      <!-- KPIs por ano — ordem: mais recente primeiro -->
+
+
       <div class="flex flex-col gap-2" style="min-height:0;">
         <div class="hist-kpi hk-feat">
           <span class="hk-help" tabindex="0" role="button"
@@ -416,14 +399,14 @@
         </div>
       </div>
     </div>
-    <!-- Footer -->
+
     <div class="px-16 pb-6 pt-1 flex justify-between items-center z-10">
       <p class="text-gray-400 text-xs">Relatório 1º Semestre de 2026 – Ouvidoria – Agência Nacional de Transportes Aquaviários - ANTAQ</p>
     </div>
   </div>
   <script>
     const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    // Rótulo de valor sobre cada barra
+
     const barLabels = {
       id: 'barLabels',
       afterDatasetsDraw(chart) {

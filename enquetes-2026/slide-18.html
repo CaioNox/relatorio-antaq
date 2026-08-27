@@ -1,25 +1,5 @@
 <!DOCTYPE html>
-<!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
-<!--
-  ╔══════════════════════════════════════════════════════════════╗
-  ║  O Conselho em números — base de conselheiros e rodadas      ║
-  ║                                                              ║
-  ║  ATUALIZAR: nada aqui. Os números saem de dados-enquetes.js  ║
-  ║  (PERIODO_ENQUETES e RODADAS) — acrescentar a próxima        ║
-  ║  rodada é editar só o `.js`.                                 ║
-  ║                                                              ║
-  ║  NÃO SOBREPÕE TEXTO: cada coluna tem uma variável `--fit`    ║
-  ║  que escala as alturas. `ajustar()` mede a altura real do    ║
-  ║  conteúdo e reduz `--fit` em passos de 4% até caber. Roda    ║
-  ║  na carga, no resize e no fonts.ready — este último cobre    ║
-  ║  o caso da fonte cair para fallback (é o que acontece na     ║
-  ║  captura do PowerPoint, onde o texto fica mais largo).       ║
-  ║                                                              ║
-  ║  SEM TAILWIND: usava 32 utilitários triviais e puxava o      ║
-  ║  framework inteiro do CDN. Agora o CSS é todo local — o      ║
-  ║  slide fica leve e renderiza certo mesmo sem rede.           ║
-  ╚══════════════════════════════════════════════════════════════╝
--->
+
 <html lang="pt-BR">
 
 <head>
@@ -67,11 +47,7 @@
       width: 100%;
     }
 
-    /* ── Cabeçalho e rodapé ─────────────────────────────────────────────
-         Antes vinham de utilitários do Tailwind. Os valores abaixo são a
-         conversão exata (a escala do Tailwind 2 é em rem, e aqui o root
-         está fixo em 26px) — mexer neles muda o orçamento de altura que
-         sobra para o corpo.                                            */
+
     .cabecalho {
       display: flex;
       align-items: flex-start;
@@ -173,11 +149,7 @@
       margin: 0;
     }
 
-    /* ── Corpo ───────────────────────────────────────────────────────────
-         Cada coluna carrega `--fit`. Tudo que define altura é
-         `calc(X * var(--fit))`, e o `.col-inner` existe para a medição:
-         a coluna centraliza, então o `scrollHeight` dela não enxergaria
-         o que vaza para cima. Medir o wrapper resolve.                 */
+
     .body-wrap {
       flex: 1;
       min-height: 0;
@@ -290,7 +262,7 @@
       overflow-wrap: anywhere;
     }
 
-    /* ── Rodadas ── */
+
     .rodadas-group {
       display: flex;
       flex-direction: column;
@@ -402,7 +374,7 @@
       box-shadow: 0 6px 14px -6px rgba(16, 48, 80, .5);
     }
 
-    /* ── Linha do tempo do quadriênio ── */
+
     .quadrienio {
       border: 2px solid #E2E8F0;
       border-radius: 16px;
@@ -419,7 +391,7 @@
       margin-top: calc(.55rem * var(--fit));
     }
 
-    /* O trilho acompanha `--fit` junto com os pontos, senão descola deles. */
+
     .timeline::before {
       content: '';
       position: absolute;
@@ -496,8 +468,7 @@
       font-weight: 700;
     }
 
-    /* Decorativo: z-index negativo para ficar atrás do conteúdo — com
-       z-index 0 ele é um elemento posicionado e pintaria por cima. */
+
     .bg-pattern {
       position: absolute;
       bottom: -60px;
@@ -605,13 +576,13 @@
         <div class="col-inner">
           <div class="rodadas-group">
             <h2><i class="fas fa-clock-rotate-left" aria-hidden="true"></i> Rodadas de enquetes realizadas</h2>
-            <!-- cartões injetados a partir de RODADAS.realizadas -->
+
           </div>
 
           <div class="quadrienio">
             <h2><i class="fas fa-route" aria-hidden="true"></i> Linha do tempo do quadriênio <span
                 id="quadrienioTit">—</span></h2>
-            <div class="timeline" id="timeline"><!-- injetada a partir de RODADAS --></div>
+            <div class="timeline" id="timeline"></div>
           </div>
         </div>
       </div>
@@ -630,7 +601,7 @@
       const vazio = (v) => v === undefined || v === null || v === '';
       const txt = (id, v) => { document.getElementById(id).textContent = vazio(v) ? '—' : v; };
 
-      /* ── Números do topo ── */
+
       txt('totalConselheiros', PERIODO_ENQUETES.conselheiros);
       txt('dataBase', PERIODO_ENQUETES.conselheirosData);
       txt('qtdEnquetes', ENQUETES.length);
@@ -642,7 +613,7 @@
       txt('quadrienioSub', periodo);
       txt('quadrienioTit', periodo);
 
-      /* ── Cartões das rodadas realizadas ── */
+
       const grupo = document.querySelector('.rodadas-group');
       RODADAS.realizadas.forEach((r, i) => {
         const el = document.createElement('div');
@@ -662,9 +633,7 @@
         grupo.appendChild(el);
       });
 
-      /* ── Linha do tempo: um nó por ano do quadriênio. O ano que tem
-            rodada aparece como concluído (ou em destaque, se for o desta
-            edição); os demais entram como previstos. ── */
+
       const tl = document.getElementById('timeline');
       const porAno = {};
       RODADAS.realizadas.forEach((r) => { porAno[r.ano] = r; });
@@ -686,13 +655,7 @@
         tl.appendChild(item);
       }
 
-      /* ── Rede de segurança contra sobreposição ────────────────────────
-            Mede a altura real do conteúdo de cada coluna e reduz `--fit`
-            até caber. Não depende de prever o tamanho do texto nem de a
-            fonte certa ter carregado: lê o que foi de fato renderizado.
-            Por isso roda também no fonts.ready — quando a fonte cai para
-            fallback (captura do PowerPoint, rede fora), o texto fica mais
-            largo, quebra mais linhas e a coluna precisa encolher.      */
+
       const colunas = Array.from(document.querySelectorAll('.body-wrap [data-fit]'));
 
       function ajustar() {

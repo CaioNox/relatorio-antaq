@@ -1,13 +1,4 @@
 <!DOCTYPE html>
-<!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
-<!--
-  ╔══════════════════════════════════════════════════════════════╗1
-  ║  SLIDE 08 — Destaques do trimestre — ranking de temas e subtemas
-  ╠══════════════════════════════════════════════════════════════╣
-  ║  O QUE ATUALIZAR A CADA TRIMESTRE:
-  ║  ATENÇÃO: atualizar const TOTAL (total de manifestações) e o array THEMES (temas, subtemas e valores)
-  ╚══════════════════════════════════════════════════════════════╝
--->
 
 <html lang="pt-BR">
 
@@ -74,10 +65,8 @@
       width: 100%;
     }
 
-    /* ===================== CHIPS DE FILTRO ===================== */
-    /* Grade retangular de 4 colunas × 2 linhas: ocupa a largura inteira
-       (inclusive o vazio à direita) e gasta menos altura que o antigo
-       flex-wrap, o que sobe os gráficos. */
+
+
     .chips {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -151,7 +140,7 @@
       color: #ffffff;
     }
 
-    /* botão de zerar filtros */
+
     .chip-reset {
       display: flex;
       align-items: center;
@@ -190,7 +179,7 @@
       border-color: #cbd5e1;
     }
 
-    /* instrução de uso */
+
     .hint-line {
       margin-top: .5rem;
       font-size: .56rem;
@@ -206,7 +195,7 @@
       font-size: .62rem;
     }
 
-    /* estado vazio do gráfico (0%) */
+
     .empty-state {
       display: flex;
       flex-direction: column;
@@ -226,7 +215,7 @@
       color: #cbd5e1;
     }
 
-    /* ===================== CONTADOR ODÔMETRO ===================== */
+
     .counter {
       text-align: right;
       flex-shrink: 0;
@@ -288,7 +277,7 @@
       letter-spacing: .02em;
     }
 
-    /* ===================== CARD DO GRÁFICO ===================== */
+
     .chart-card {
       background-color: #ffffff;
       border: 2px solid #E2E8F0;
@@ -350,7 +339,7 @@
       color: #cbd5e1;
     }
 
-    /* ===================== BARRAS ===================== */
+
     .rows {
       flex: 1;
       display: flex;
@@ -419,7 +408,7 @@
       line-height: 1;
     }
 
-    /* densidade — fontes/alturas se ajustam ao nº de barras (a página pode rolar) */
+
     .rows[data-density="2"] {
       gap: .42rem;
     }
@@ -486,7 +475,7 @@
     <div class="top-accent"></div>
     <div class="top-accent-secondary"></div>
 
-    <!-- ===================== ZONA SUPERIOR — header interativo ===================== -->
+
     <div class="flex items-start justify-between px-16 pt-10 pb-3 z-10">
       <div style="min-width:0;">
         <div class="flex items-center gap-3 mb-1">
@@ -496,7 +485,7 @@
         </div>
       </div>
 
-      <!-- contador de porcentagem / substituído por cabeçalho padrão de capítulo -->
+
       <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
         <i class="fas fa-headset text-3xl" aria-hidden="true"></i>
         <div class="flex flex-col justify-center pl-2" style="border-left:1px solid #CBD5E1;">
@@ -511,14 +500,14 @@
       </div>
     </div>
 
-    <!-- chips de filtro: faixa de largura total, em grade retangular -->
+
     <div class="px-16 pb-2 z-10">
       <div class="chips" id="chips"></div>
       <p class="hint-line"><i class="far fa-hand-pointer"></i> Um clique no tema exibe ou oculta suas demandas —
         combine vários temas ou use “Exibir todas as demandas” para o panorama completo</p>
     </div>
 
-    <!-- ===================== ZONA INFERIOR — gráficos dinâmicos ===================== -->
+
     <div class="flex-1 px-16 pb-3 z-10" style="min-height:0;">
       <div class="charts-grid" style="height:100%;">
         <div class="chart-card">
@@ -532,7 +521,7 @@
       </div>
     </div>
 
-    <!-- Footer -->
+
     <div class="px-16 pb-8 flex justify-between items-center z-10">
       <p class="text-gray-400 text-xs">Relatório 1º Trimestre de 2026 – Ouvidoria – Agência Nacional de Transportes
         Aquaviários - ANTAQ</p>
@@ -540,15 +529,8 @@
   </div>
 
   <script>
-    /* =========================================================
-     ATENÇÃO ESTAGIÁRIO — ATUALIZAÇÃO TRIMESTRAL
-     Atualize dois lugares aqui:
-     1) const TOTAL = ?   ← total geral de manifestações do trimestre
-     2) Array THEMES abaixo ← cada tema tem: name, total, subs[]
-        Cada sub é: ['nome do subtema', quantidade]
-        Os valores devem vir da planilha oficial do Fala.BR.
-     ========================================================= */
-    /* ===================== DADOS (planilha oficial — 1º tri/2026, total 304) ===================== */
+
+
     const TOTAL = 304;
     const THEMES = [
       {
@@ -643,10 +625,10 @@
     ];
 
     const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const selected = new Set(THEMES.map(t => t.id)); // abre com tudo selecionado (panorama completo)
+    const selected = new Set(THEMES.map(t => t.id));
     let pieChart = null;
 
-    /* ===================== CHIPS ===================== */
+
     const chipsWrap = document.getElementById('chips');
     THEMES.forEach(t => {
       const b = document.createElement('button');
@@ -659,15 +641,15 @@
       chipsWrap.appendChild(b);
     });
 
-    // botão alternante: exibir todas as demandas ⇄ zerar tudo (0%)
+
     const allBtn = document.createElement('button');
     allBtn.className = 'chip-reset';
     allBtn.id = 'allBtn';
     allBtn.addEventListener('click', () => {
       if (selected.size === THEMES.length) {
-        selected.clear();                          // zera literalmente tudo → 0%
+        selected.clear();
       } else {
-        THEMES.forEach(t => selected.add(t.id));   // seleciona todos os temas
+        THEMES.forEach(t => selected.add(t.id));
       }
       update();
     });
@@ -675,7 +657,7 @@
 
     function toggleTheme(id) {
       if (selected.has(id)) {
-        selected.delete(id); // pode chegar a zero — o painel mostra 0%
+        selected.delete(id);
       } else {
         selected.add(id);
       }
@@ -695,7 +677,7 @@
       }
     }
 
-    /* ===================== BARRAS ===================== */
+
     function makeRows(maxGroup) {
       const sel = THEMES.filter(t => selected.has(t.id));
       const rows = [];
@@ -753,7 +735,7 @@
       });
     }
 
-    /* ===================== LEGENDA DINÂMICA DO CARD ===================== */
+
     function refreshCaption() {
       const sel = THEMES.filter(t => selected.has(t.id));
       const cap = document.getElementById('chartCap');
@@ -879,17 +861,17 @@
         ' tema' + (sel.length > 1 ? 's' : '') + ' selecionado' + (sel.length > 1 ? 's' : '');
     }
 
-    /* ===================== CONTADOR ODÔMETRO ===================== */
+
     const odo = document.getElementById('odo');
-    let currentPct = null; // valor numérico atual
+    let currentPct = null;
 
     function digitsOf(pct) {
-      // "50,50" -> sem o símbolo %
+
       return pct.toFixed(2).replace('.', ',');
     }
 
     function buildOdo(str, initDigits) {
-      // reconstrói as colunas; initDigits = dígitos iniciais (string alinhada, mesmo tamanho)
+
       odo.innerHTML = '';
       for (let i = 0; i < str.length; i++) {
         const ch = str[i];
@@ -924,16 +906,16 @@
 
     function animateCol(strip, fromD, toD, dir, delay) {
       let startIdx, endIdx;
-      if (dir >= 0) {           // subindo: dígitos rolam para frente (de baixo para cima)
+      if (dir >= 0) {
         startIdx = fromD;
         endIdx = toD > fromD ? toD : toD + 10;
-      } else {                  // descendo: dígitos rolam para trás (de cima para baixo)
+      } else {
         startIdx = fromD + 10;
         endIdx = toD < fromD ? toD + 10 : toD;
       }
       strip.style.transition = 'none';
       strip.style.transform = odoY(startIdx);
-      strip.getBoundingClientRect(); // força reflow
+      strip.getBoundingClientRect();
       strip.style.transition = 'transform 420ms cubic-bezier(0.2, 0.7, 0.3, 1) ' + delay + 'ms';
       strip.style.transform = odoY(endIdx);
       const snap = () => {
@@ -948,7 +930,7 @@
       const newStr = digitsOf(newPct);
       if (currentPct === null || REDUCED) {
         buildOdo(newStr, newStr.replace(',', '0').split('').map((c, i) => newStr[i] === ',' ? '0' : newStr[i]).join(''));
-        // inicial: posiciona direto nos dígitos finais
+
         const cols = odo.querySelectorAll('.odo-strip');
         let di = 0;
         for (let i = 0; i < newStr.length; i++) {
@@ -964,12 +946,12 @@
       let oldStr = digitsOf(oldPct);
       const dir = newPct >= oldPct ? 1 : -1;
 
-      // alinha pela direita (decimais fixos): diferença só nos dígitos inteiros à esquerda
+
       let oldAligned = oldStr;
       while (oldAligned.length < newStr.length) oldAligned = '0' + oldAligned;
       while (oldAligned.length > newStr.length) oldAligned = oldAligned.slice(1);
 
-      // nº de colunas mudou? reconstrói partindo dos dígitos antigos alinhados
+
       const curCols = odo.querySelectorAll('.odo-col').length;
       const newCols = newStr.replace(/,/g, '').length;
       if (curCols !== newCols) buildOdo(newStr, oldAligned);
@@ -981,7 +963,7 @@
         const fromD = parseInt(oldAligned[i], 10);
         const toD = parseInt(newStr[i], 10);
         if (fromD !== toD) {
-          animateCol(strips[di], fromD, toD, dir, animIdx * 45); // cascata mecânica
+          animateCol(strips[di], fromD, toD, dir, animIdx * 45);
           animIdx++;
         }
         di++;
@@ -989,7 +971,7 @@
       currentPct = newPct;
     }
 
-    /* ===================== ATUALIZAÇÃO GERAL ===================== */
+
     function update() {
       refreshChips();
       refreshCaption();
@@ -1000,9 +982,9 @@
     }
 
     update();
-    // Garante a tabela de acessibilidade do gráfico também no carregamento
-    // inicial, caso a11y.js (script deferred) ainda não tivesse carregado
-    // no momento da primeira renderização.
+
+
+
     document.addEventListener('DOMContentLoaded', function () {
       if (window.A11y) renderPieChart();
     });

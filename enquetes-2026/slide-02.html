@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
+
 <html lang="pt-BR">
 
 <head>
@@ -176,7 +176,7 @@
       color: rgba(0, 144, 192, 0.85);
     }
 
-    /* Nome da Ouvidora — fonte institucional (sem caligrafia) */
+
     .sig-assinatura {
       font-family: 'Montserrat', sans-serif;
       font-weight: 800;
@@ -281,7 +281,7 @@
       }
     }
 
-    /* ── Lupa de zoom no texto (estilo e-commerce) ── */
+
     .quote-block {
       cursor: zoom-in;
     }
@@ -409,7 +409,7 @@
       }
     });
 
-    /* ── Lupa de zoom no texto da mensagem ── */
+
     (function () {
       var block = document.querySelector('.quote-block');
       var slide = document.querySelector('.slide');
@@ -417,10 +417,10 @@
       var inner = document.getElementById('zoomInner');
       if (!block || !slide || !lens || !inner) return;
 
-      var Z = 2.0;                       // fator de ampliação
-      var R = lens.offsetWidth / 2 || 170; // raio da lente
+      var Z = 2.0;
+      var R = lens.offsetWidth / 2 || 170;
 
-      // clona o texto uma única vez (cópia estática ampliada dentro da lente)
+
       var clone = block.cloneNode(true);
       clone.classList.remove('a', 'd3');
       inner.appendChild(clone);
@@ -428,12 +428,12 @@
       function move(e) {
         var sr = block.getBoundingClientRect();
         var slr = slide.getBoundingClientRect();
-        inner.style.width = sr.width + 'px';           // mesma largura => mesma quebra de linha
-        var rx = e.clientX - sr.left;                  // cursor relativo ao texto
+        inner.style.width = sr.width + 'px';
+        var rx = e.clientX - sr.left;
         var ry = e.clientY - sr.top;
         lens.style.left = (e.clientX - slr.left - R) + 'px';
         lens.style.top = (e.clientY - slr.top - R) + 'px';
-        // posiciona a cópia ampliada para que o ponto sob o cursor fique no centro da lente
+
         inner.style.transform = 'translate(' + (R - rx * Z) + 'px,' + (R - ry * Z) + 'px) scale(' + Z + ')';
       }
 

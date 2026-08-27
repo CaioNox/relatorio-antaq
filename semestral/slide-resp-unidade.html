@@ -1,28 +1,4 @@
 <!DOCTYPE html>
-<!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
-<!--
-  ╔══════════════════════════════════════════════════════════════╗
-  ║  SLIDE — Respostas por unidade (responsavel_resposta)
-  ╠══════════════════════════════════════════════════════════════╣
-  ║  Mesma lógica interativa do slide-08.html (chips → barras → rosca)
-  ║  e o mesmo layout LADO A LADO: barras à esquerda, rosca à direita.
-  ║  Cabe inteiro na tela (height:100vh, sem rolagem) — quem dá a folga
-  ║  é a densidade das barras + o agrupamento em "Outras N unidades".
-  ║
-  ║  COMO A COR FUNCIONA (não mude sem ler):
-  ║  São 34 unidades — cor por unidade seria ilegível e viola a regra de
-  ║  paleta categórica (máx. ~8 matizes, nunca cicladas). Por isso:
-  ║    • a COR codifica o TIPO de unidade (7 grupos);
-  ║    • a IDENTIDADE vem da sigla (chip) e do nome completo (barra).
-  ║  A rosca agrega por grupo — por isso ela tem 7 fatias, não 34.
-  ║  As 7 cores são exatamente as do slide-08.html, na mesma ordem —
-  ║  padrão do projeto. Não trocar por outra paleta.
-  ║
-  ║  O QUE ATUALIZAR A CADA SEMESTRE:
-  ║  const TOTAL (nº de respostas) e as contagens em GRUPOS[].subs.
-  ║  Cada sub é: ['Nome completo - SIGLA', quantidade, 'SIGLA']
-  ╚══════════════════════════════════════════════════════════════╝
--->
 
 <html lang="pt-BR">
 
@@ -42,8 +18,7 @@
     html { font-size: clamp(13px, min(1.354vw, 2.407vh), 26px); }
     body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
 
-    /* Tudo cabe na tela: altura travada e sem rolagem. O que dá folga é a
-       densidade das barras (data-density) + o agrupamento em "Outras". */
+
     .slide-container {
       width: 100vw; height: 100vh; position: relative;
       display: flex; flex-direction: column;
@@ -58,7 +33,7 @@
     .top-accent { height: 8px; background-color: #103050; width: 100%; }
     .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
 
-    /* ===================== CHIPS DE FILTRO (só a sigla) ===================== */
+
     .chips { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .6rem; }
 
     .chip {
@@ -83,7 +58,7 @@
     .chip.active { background: var(--c); color: #ffffff; opacity: 1; box-shadow: 0 8px 18px -8px color-mix(in srgb, var(--c) 70%, transparent); }
     .chip.active b { background: rgba(255, 255, 255, .25); color: #ffffff; }
 
-    /* legenda dos grupos — explica o que a cor significa */
+
     .grp-legend { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: .55rem; }
     .grp-item { display: inline-flex; align-items: center; gap: .32rem; font-size: .54rem; font-weight: 700; color: #475569; font-family: 'Montserrat', sans-serif; }
     .grp-dot { width: .5rem; height: .5rem; border-radius: 3px; flex-shrink: 0; }
@@ -109,7 +84,7 @@
     }
     .empty-state i { font-size: 1.6rem; color: #cbd5e1; }
 
-    /* ===================== CARDS ===================== */
+
     .chart-card {
       background-color: #ffffff; border: 2px solid #E2E8F0; border-radius: 16px;
       box-shadow: 0 8px 20px -8px rgba(16, 48, 80, 0.18);
@@ -125,14 +100,13 @@
       transition: color 250ms ease;
     }
 
-    /* Lado a lado, como no slide-08: barras à esquerda, rosca à direita. */
+
     .charts-grid {
       flex: 1; min-height: 0;
       display: grid; grid-template-columns: 1.25fr 0.75fr; gap: .8rem;
     }
 
-    /* Lado a lado enquanto couber. Abaixo disso a rosca fica estreita demais
-       para ser lida, então os dois empilham e cada um usa a largura inteira. */
+
     @media (max-width: 1400px) {
       .charts-grid {
         grid-template-columns: 1fr;
@@ -149,7 +123,7 @@
     }
     .pie-empty-state i { font-size: 1.4rem; color: #cbd5e1; }
 
-    /* ===================== BARRAS HORIZONTAIS ===================== */
+
     .rows {
       flex: 1; min-height: 0;
       display: flex; flex-direction: column; justify-content: center; gap: .26rem;
@@ -175,8 +149,7 @@
     .bar-val { flex: 0 0 3rem; font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: .72rem; text-align: left; line-height: 1; }
     .bar-val .pc { font-weight: 700; font-size: .56rem; color: #94a3b8; margin-left: .2rem; }
 
-    /* densidade — encolhe conforme o nº de barras, para nunca estourar o card.
-       Escala elevada em relação à original, priorizando legibilidade. */
+
     .rows[data-density="2"] { gap: .2rem; }
     .rows[data-density="2"] .bar-label { font-size: .64rem; }
     .rows[data-density="2"] .bar-track { height: .5rem; }
@@ -208,7 +181,7 @@
     <div class="top-accent"></div>
     <div class="top-accent-secondary"></div>
 
-    <!-- ===================== HEADER INTERATIVO ===================== -->
+
     <div class="flex items-start justify-between px-16 pt-8 pb-2 z-10">
       <div style="min-width:0;">
         <div class="flex items-center gap-3 mb-1">
@@ -227,22 +200,22 @@
       </div>
     </div>
 
-    <!-- filtros em faixa de largura total: libera altura para os gráficos -->
+
     <div class="px-16 pb-1 z-10">
       <div class="chips" id="chips"></div>
       <div class="grp-legend" id="grpLegend"></div>
       <p class="hint-line"><i class="far fa-hand-pointer"></i> Clique numa sigla para exibir ou ocultar a unidade · a cor indica o tipo de unidade</p>
     </div>
 
-    <!-- ===================== GRÁFICOS ===================== -->
+
     <div class="flex-1 px-16 pb-2 z-10" style="min-height:0;">
       <div class="charts-grid">
-        <!-- ◀ ESQUERDA: barras horizontais, uma por unidade -->
+
         <div class="chart-card">
           <p class="chart-cap" id="chartCap"></p>
           <div class="rows" id="rows" data-density="1"></div>
         </div>
-        <!-- ▶ DIREITA: rosca, agregada por tipo de unidade -->
+
         <div class="chart-card">
           <p class="chart-cap" id="pieCap"><i class="fas fa-chart-pie"></i> Distribuição por tipo</p>
           <div class="chart-canvas-wrap" id="pieWrap"></div>
@@ -256,10 +229,7 @@
   </div>
 
   <script>
-    /* =========================================================
-       DADOS — 130 respostas, 34 unidades, 1º sem/2026
-       Cada sub: ['Nome completo - SIGLA', quantidade, 'SIGLA']
-       ========================================================= */
+
     const TOTAL = 130;
 
     const GRUPOS = [
@@ -334,16 +304,16 @@
       }
     ];
 
-    /* achata em unidades — a sigla é a chave de seleção */
+
     const UNIDADES = [];
     GRUPOS.forEach(g => g.subs.forEach(([nome, n, sigla]) =>
       UNIDADES.push({ nome, n, sigla, g })));
 
     const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const selected = new Set(UNIDADES.map(u => u.sigla)); // abre com tudo selecionado
+    const selected = new Set(UNIDADES.map(u => u.sigla));
     let pieChart = null;
 
-    /* ===================== CHIPS — só a sigla ===================== */
+
     const chipsWrap = document.getElementById('chips');
     UNIDADES.forEach(u => {
       const b = document.createElement('button');
@@ -366,7 +336,7 @@
     });
     chipsWrap.appendChild(allBtn);
 
-    /* legenda dos grupos — a cor precisa ser explicada, não adivinhada */
+
     const legend = document.getElementById('grpLegend');
     GRUPOS.forEach(g => {
       const s = document.createElement('span');
@@ -394,10 +364,7 @@
       }
     }
 
-    /* ===================== BARRAS (à esquerda) =====================
-       Mesmo mecanismo do slide-08: se sobrar barra demais para o card,
-       as unidades menores de cada grupo viram uma linha "Outras N
-       unidades". É isso que faz 34 unidades caberem sem rolagem. */
+
     function makeRows(maxGroup) {
       const rows = [];
       GRUPOS.forEach(g => {
@@ -448,7 +415,7 @@
         el.className = 'bar-row';
         el.style.animationDelay = (REDUCED ? 0 : i * 20) + 'ms';
         const pc = (r.n / TOTAL * 100).toFixed(1).replace('.', ',');
-        // nome completo - sigla, exatamente como vem dos dados
+
         const tip = r.juntas ? r.juntas.join(' · ') : r.nome + ' · ' + r.g.name;
         el.innerHTML =
           '<span class="bar-label" title="' + tip.replace(/"/g, '&quot;') + '">' + r.nome + '</span>' +
@@ -480,12 +447,12 @@
       }
     }
 
-    /* ===================== ROSCA (embaixo) — agregada por grupo ===================== */
+
     function renderPieChart() {
       const wrap = document.getElementById('pieWrap');
       const cap = document.getElementById('pieCap');
 
-      // soma por grupo apenas das unidades selecionadas
+
       const porGrupo = GRUPOS.map(g => ({
         g, v: g.subs.reduce((s, [, n, sigla]) => s + (selected.has(sigla) ? n : 0), 0)
       })).filter(x => x.v > 0);
@@ -590,9 +557,9 @@
     }
 
     update();
-    // Garante a tabela de acessibilidade do gráfico também no carregamento
-    // inicial, caso a11y.js (script deferred) ainda não tivesse carregado
-    // no momento da primeira renderização.
+
+
+
     document.addEventListener('DOMContentLoaded', function () {
       if (window.A11y) renderPieChart();
     });

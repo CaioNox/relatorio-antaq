@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
-<!-- SLIDE CnsU2 — MMOuP · Modelo de Maturidade em Ouvidoria Pública (4 dimensões) -->
+
 <html lang="pt-BR">
 
 <head>
@@ -103,7 +102,7 @@
       font-weight: 700;
     }
 
-    /* ══ Corpo em duas colunas ══ */
+
     .mm-body {
       flex: 1;
       min-height: 0;
@@ -119,19 +118,14 @@
       min-height: 0;
     }
 
-    /* ══ Pirâmide MMOuP 2.0 ══ */
-    /* Grid único: cada linha contém o nível e o seu rótulo-âncora, o que
-       garante que os dois fiquem sempre alinhados (duas colunas flex
-       paralelas divergiam por causa do padding do vértice). */
+
+
     .pyr {
       flex: 1;
       min-height: 0;
       display: grid;
       grid-template-columns: 64% 1fr;
-      /* 1.5 + 1 + 1 + 1 = 4,5 unidades de altura. Com meia-largura de 50%,
-         a inclinação da lateral fica em 50/4,5 = 11,111% por unidade — e é
-         essa constante que faz os quatro níveis formarem uma reta contínua.
-         Os vértices dos clip-path abaixo são múltiplos exatos dela. */
+
       grid-template-rows: 1.5fr 1fr 1fr 1fr;
       column-gap: .7rem;
       row-gap: 5px;
@@ -152,7 +146,7 @@
       filter: drop-shadow(0 7px 10px rgba(16, 48, 80, .16));
     }
 
-    /* Vértice (triângulo) e trapézios crescentes — base do nível 01 = 100% */
+
     .lvl-4 {
       background: #103050;
       clip-path: polygon(50% 0, 66.67% 100%, 33.33% 100%);
@@ -212,7 +206,7 @@
       font-size: .66rem;
     }
 
-    /* Rótulos-âncora à direita da pirâmide */
+
     .anc {
       display: flex;
       flex-direction: column;
@@ -241,7 +235,7 @@
       color: #5A93BE;
     }
 
-    /* ══ Cards das quatro dimensões ══ */
+
     .dim-list {
       flex: 1;
       min-height: 0;
@@ -424,7 +418,7 @@
     <div class="px-16 pt-2 pb-4" style="flex:1; min-height:0; display:flex;">
       <div class="mm-body">
 
-        <!-- ── Coluna esquerda: pirâmide ── -->
+
         <div class="mm-col">
           <p class="gov-eyebrow"><i class="fas fa-layer-group"></i> MMOuP 2.0 · Dimensões</p>
           <div class="pyr">
@@ -465,7 +459,7 @@
           </div>
         </div>
 
-        <!-- ── Coluna direita: lead + as quatro dimensões ── -->
+
         <div class="mm-col">
           <p class="gov-lead">
             Desenvolvido pela <b>Controladoria-Geral da União</b>, o <b>MMOuP</b> é instrumento de referência para os
