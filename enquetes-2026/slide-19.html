@@ -1,25 +1,5 @@
 <!DOCTYPE html>
-<!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
-<!--
-  ╔══════════════════════════════════════════════════════════════╗
-  ║  Metodologia — as 5 etapas sistematizadas pela Ouvidoria     ║
-  ╠══════════════════════════════════════════════════════════════╣
-  ║  Slide interativo (stepper). Motivo: as 5 etapas em colunas  ║
-  ║  simultâneas obrigavam corpo de texto .69rem — ilegível em   ║
-  ║  projeção. Agora uma etapa fica em foco por vez, com o corpo ║
-  ║  em 1.38rem (o dobro) e o título em 1.7rem (o dobro).        ║
-  ║                                                              ║
-  ║  Interação:                                                  ║
-  ║   · clique nos nós da trilha ou teclas 1–5 → vai à etapa     ║
-  ║   · → ← (e espaço/PageDown/PageUp) → percorrem as etapas e   ║
-  ║     só então passam o comando de slide adiante ao index      ║
-  ║   · G → visão geral (grade original das 5 etapas)            ║
-  ║   · C → contexto normativo (Lei 13.460/2017) em overlay      ║
-  ║                                                              ║
-  ║  `ajustarFonte()` reduz o corpo do texto só se ele exceder   ║
-  ║  o painel (rede de segurança contra overflow em 1920x1080).  ║
-  ╚══════════════════════════════════════════════════════════════╝
--->
+
 <html lang="pt-BR">
 
 <head>
@@ -44,7 +24,7 @@
     .top-accent { height: 8px; background-color: #103050; width: 100%; }
     .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
 
-    /* ───────── Barra de contexto normativo (texto integral vai no overlay) ───────── */
+
     .ctx-bar {
       margin: .35rem 3.4rem .2rem; display: flex; align-items: center; gap: .7rem;
       border-left: 4px solid #0090C0; padding: .15rem 0 .15rem 1rem;
@@ -60,14 +40,14 @@
     }
     .ctx-btn:hover { background: #0070C0; color: #fff; border-color: #0070C0; }
 
-    /* ───────── Palco: trilha das etapas + painel em foco ───────── */
+
     .palco { flex: 1; min-height: 0; display: flex; flex-direction: column; padding: 0 3.4rem; }
 
     .trilha {
       position: relative; display: grid; grid-template-columns: repeat(5, 1fr);
       gap: .6rem; padding: .5rem 0 .9rem; flex-shrink: 0;
     }
-    /* Linha-base e barra de progresso ligando os 5 nós */
+
     .trilha::before, .trilha-fill {
       content: ''; position: absolute; top: calc(.5rem + 1.15rem); height: 4px; border-radius: 2px;
       left: 10%; right: 10%;
@@ -100,18 +80,18 @@
     .no:hover .no-bolha { border-color: #0090C0; color: #0070C0; }
     .no:hover .no-rot { color: #475569; }
 
-    /* Etapas já percorridas */
+
     .no.feita .no-bolha { background: #103050; border-color: #103050; color: #fff; }
     .no.feita .no-rot { color: #64748B; }
 
-    /* Etapa em foco */
+
     .no.ativa .no-bolha {
       background: linear-gradient(150deg, #103050, #0070C0); border-color: #0090C0; color: #fff;
       transform: scale(1.22); box-shadow: 0 10px 22px -8px rgba(16, 48, 80, .65);
     }
     .no.ativa .no-rot { color: #103050; font-weight: 800; }
 
-    /* ───────── Painel da etapa em foco ───────── */
+
     .painel {
       flex: 1; min-height: 0; position: relative;
       border: 2px solid #E2E8F0; border-radius: 18px; background: #fff;
@@ -130,7 +110,7 @@
     .etapa-foco.ativa { display: grid; animation: entra .38s cubic-bezier(.4, 0, .2, 1) both; }
     @keyframes entra { from { opacity: 0; transform: translateX(22px); } to { opacity: 1; transform: none; } }
 
-    /* Coluna-marcador: número grande + ícone da etapa */
+
     .marcador { display: flex; flex-direction: column; align-items: center; gap: .5rem; padding-top: .2rem; }
     .marcador-n {
       font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 4.6rem; line-height: .85;
@@ -156,7 +136,7 @@
       font-size: calc(1.15rem * var(--fit));
     }
 
-    /* ───────── Modo visão geral: a grade original das 5 etapas ───────── */
+
     .grade { display: none; flex: 1; min-height: 0; grid-template-columns: repeat(5, 1fr); gap: .95rem; padding: .4rem 0 0; }
     body.modo-grade .trilha, body.modo-grade .painel { display: none; }
     body.modo-grade .grade { display: grid; }
@@ -192,7 +172,7 @@
       font-family: 'Montserrat', sans-serif; display: flex; align-items: center; gap: .35rem;
     }
 
-    /* ───────── Rodapé + dicas de teclado ───────── */
+
     .dicas { display: flex; align-items: center; gap: .45rem; flex-shrink: 0; }
     .dica {
       display: inline-flex; align-items: center; gap: .22rem; font-size: .52rem; white-space: nowrap;
@@ -206,7 +186,7 @@
     .dica-btn:hover .tecla { border-color: #0090C0; color: #0070C0; }
     .dica-btn.on .tecla { background: #0070C0; border-color: #0070C0; color: #fff; }
 
-    /* ───────── Overlay do contexto normativo ───────── */
+
     .ctx-overlay {
       position: absolute; inset: 0; z-index: 30; background: rgba(16, 48, 80, .55);
       display: flex; align-items: center; justify-content: center; padding: 3rem;
@@ -272,7 +252,7 @@
     </div>
 
     <div class="palco">
-      <!-- Trilha das 5 etapas — clicável e sincronizada com o painel -->
+
       <div class="trilha" role="tablist" aria-label="Etapas da metodologia">
         <div class="trilha-fill" id="trilhaFill" aria-hidden="true"></div>
 
@@ -298,7 +278,7 @@
         </button>
       </div>
 
-      <!-- Painel em foco: mesmo conteúdo dos cards, com o dobro do corpo de texto -->
+
       <div class="painel">
         <section class="etapa-foco" id="etapa-1" role="tabpanel" data-n="1">
           <div class="marcador">
@@ -381,7 +361,7 @@
         </section>
       </div>
 
-      <!-- Visão geral: a grade original das 5 etapas (tecla G) -->
+
       <div class="grade" id="grade" aria-label="Visão geral das cinco etapas">
         <div class="etapa" data-n="1">
           <div class="et-n">1</div>
@@ -449,7 +429,7 @@
 
     <div class="bg-pattern"><i class="fas fa-diagram-project text-9xl"></i></div>
 
-    <!-- Texto normativo integral, preservado do slide original -->
+
     <div class="ctx-overlay" id="ctxOverlay" role="dialog" aria-modal="true" aria-labelledby="ctxTitulo">
       <div class="ctx-card">
         <h3 id="ctxTitulo"><i class="fas fa-scale-balanced text-brand-secondary" aria-hidden="true"></i> Contexto
@@ -467,7 +447,7 @@
   </div>
 
   <script>
-    // ── Estado: etapa em foco (1–5), modo grade e overlay de contexto ──────────
+
     const TOTAL_ETAPAS = 5;
     const nos = Array.from(document.querySelectorAll('.no'));
     const focos = Array.from(document.querySelectorAll('.etapa-foco'));
@@ -486,14 +466,14 @@
         no.setAttribute('aria-selected', i === etapa ? 'true' : 'false');
       });
       focos.forEach((f) => f.classList.toggle('ativa', +f.dataset.n === etapa));
-      // Progresso: a barra vai do centro do nó 1 (10%) ao do nó 5 (90%) — logo,
-      // 100% de avanço corresponde a 80% da largura da trilha.
+
+
       fill.style.width = ((etapa - 1) / (TOTAL_ETAPAS - 1) * 80) + '%';
       ajustarFonte();
     }
 
-    // Rede de segurança: se o texto no dobro do tamanho estourar a altura do
-    // painel (fonte de fallback, zoom do navegador), reduz em passos de 4%.
+
+
     function ajustarFonte() {
       const alvo = focos.find((f) => f.classList.contains('ativa'));
       if (!alvo) return;
@@ -508,12 +488,12 @@
 
     nos.forEach((no) => no.addEventListener('click', () => irPara(+no.dataset.n)));
 
-    // Na visão geral, clicar num card abre aquela etapa em foco
+
     document.querySelectorAll('.grade .etapa').forEach((card) => {
       card.addEventListener('click', () => { alternarGrade(false); irPara(+card.dataset.n); });
     });
 
-    // ── Visão geral (grade original) ──────────────────────────────────────────
+
     const gradeBtn = document.getElementById('gradeBtn');
     function alternarGrade(estado) {
       modoGrade = typeof estado === 'boolean' ? estado : !modoGrade;
@@ -524,7 +504,7 @@
     }
     gradeBtn.addEventListener('click', () => alternarGrade());
 
-    // ── Overlay do contexto normativo ─────────────────────────────────────────
+
     const overlay = document.getElementById('ctxOverlay');
     const ctxBtn = document.getElementById('ctxBtn');
     function alternarCtx(estado) {
@@ -537,9 +517,9 @@
     document.getElementById('ctxFechar').addEventListener('click', () => alternarCtx(false));
     overlay.addEventListener('click', (e) => { if (e.target === overlay) alternarCtx(false); });
 
-    // ── Teclado ───────────────────────────────────────────────────────────────
-    // As setas primeiro percorrem as 5 etapas; esgotadas, o comando segue para o
-    // index.html e a apresentação avança/volta de slide normalmente.
+
+
+
     const TECLAS_NAV = ['ArrowRight', 'ArrowLeft', 'PageDown', 'PageUp', 'Home', 'End', ' ', 'f', 'F'];
     document.addEventListener('keydown', function (e) {
       const k = e.key;
@@ -552,7 +532,7 @@
       if (TECLAS_NAV.indexOf(k) === -1) return;
       e.preventDefault();
 
-      // Overlay aberto: a primeira seta apenas fecha o contexto.
+
       if (ctxAberto && k !== 'f' && k !== 'F') { alternarCtx(false); return; }
 
       if (!modoGrade) {
@@ -569,9 +549,9 @@
     window.addEventListener('resize', ajustarFonte);
     if (document.fonts && document.fonts.ready) { document.fonts.ready.then(ajustarFonte); }
 
-    // O index.html não dá foco ao iframe: sem isto as setas seriam capturadas
-    // pelo documento-pai e as etapas nunca seriam percorridas. O pai continua
-    // recebendo tudo o que não é tratado aqui, via postMessage.
+
+
+
     function pegarFoco() { try { window.focus(); } catch (e) { } }
     pegarFoco();
     window.addEventListener('load', pegarFoco);

@@ -1,14 +1,5 @@
 <!DOCTYPE html>
-<!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
-<!--
-  ╔══════════════════════════════════════════════════════════════╗
-  ║  SLIDE CANAL — Manifestações por Canal + por Canal por Mês  ║
-  ║  ATUALIZAR: dados dos dois gráficos a cada trimestre        ║
-  ║  Omnichannel: Jan 209 | Fev 106 | Mar 90 | Total 405       ║
-  ║  Fala.BR:     Jan  90 | Fev 129 | Mar 85 | Total 304       ║
-  ║  E-mail:      Jan  23 | Fev  33 | Mar 14 | Total  70       ║
-  ╚══════════════════════════════════════════════════════════════╝
--->
+
 <html lang="pt-BR">
 
 <head>
@@ -186,7 +177,7 @@
 
     <div class="flex-1 grid gap-4 px-16 pb-3 z-10" style="grid-template-columns: 1fr 1.5fr; min-height:0;">
 
-      <!-- Coluna esquerda: gráfico total + tabela -->
+
       <div class="flex flex-col gap-3">
         <div class="chart-card flex-1 flex flex-col" style="min-height:0;">
           <div class="flex-1 relative" style="min-height:0;"><canvas id="chartCanal" role="img" aria-label="Gráfico de rosca: manifestações por canal de atendimento — Internet 215, Email 57, WhatsApp 22, Telefone 7, Outros 3"></canvas></div>
@@ -229,7 +220,7 @@
         </div>
       </div>
 
-      <!-- Coluna direita: gráfico por mês -->
+
       <div class="flex flex-col gap-3">
         <div class="chart-card flex-1 flex flex-col" style="min-height:0;">
           <p class="text-gray-400 text-xs font-montserrat font-bold uppercase tracking-wide mb-1">Totais por canal ·
@@ -268,10 +259,7 @@
     const canalData = [3, 7, 22, 57, 215];
     const canalColors = ['#1F97D4', '#4EAFE8', '#86C6EB', '#103050', '#0A75B7'];
 
-    /* Rótulos da rosca — TODOS por fora, nenhum por cima do azul.
-       Cada fatia ganha linha-guia na própria cor; os rótulos são empilhados
-       por lado (esquerdo/direito) com espaçamento mínimo e presos dentro do
-       canvas, então nem os finos somem nem os grandes se sobrepõem. */
+
     const pieLabelsPlugin = {
       id: 'pieLabels',
       afterDraw(chart) {
@@ -279,7 +267,7 @@
         const meta = chart.getDatasetMeta(0);
         const ds = chart.data.datasets[0];
         const total = ds.data.reduce((s, v) => s + v, 0) || 1;
-        const ESP = 20;                       // espaçamento vertical mínimo
+        const ESP = 20;
         const yMin = 12, yMax = chart.height - 12;
 
         const itens = [];
@@ -291,7 +279,7 @@
           itens.push({ arc, angle, pct, index, dir: Math.cos(angle) >= 0 ? 1 : -1 });
         });
 
-        // empilha cada lado separadamente, de cima para baixo
+
         [1, -1].forEach(lado => {
           const doLado = itens.filter(o => o.dir === lado)
             .map(o => {
@@ -316,9 +304,9 @@
           const x0 = arc.x + Math.cos(angle) * arc.outerRadius;
           const y0 = arc.y + Math.sin(angle) * arc.outerRadius;
           const xCotovelo = arc.x + Math.cos(angle) * (arc.outerRadius + 16);
-          // todos os rótulos de um lado saem na mesma coluna: em fatias quase
-          // verticais o cotovelo nasce perto do centro e, sem isso, os
-          // rótulos do topo se amontoariam sobre a própria rosca
+
+
+
           const xColuna = arc.x + dir * (arc.outerRadius + 26);
           ctx.strokeStyle = cor;
           ctx.lineWidth = 1.5;
@@ -327,8 +315,8 @@
           ctx.lineTo(xCotovelo, o.y);
           ctx.lineTo(xColuna, o.y);
           ctx.stroke();
-          // a hierarquia que antes vinha do tamanho dentro da fatia agora
-          // vem do corpo da fonte do rótulo externo
+
+
           ctx.font = '700 ' + (o.pct >= 15 ? 14 : 12) + 'px Montserrat, sans-serif';
           ctx.textAlign = dir > 0 ? 'left' : 'right';
           ctx.fillStyle = cor;
@@ -351,7 +339,7 @@
       options: {
         responsive: true, maintainAspectRatio: false,
         cutout: '58%',
-        // com os cinco rótulos por fora, a rosca encolhe para abrir margem
+
         layout: { padding: { left: 62, right: 62, top: 18, bottom: 18 } },
         plugins: {
           legend: { display: false },
@@ -372,7 +360,7 @@
           data: sorted.map(item => item.value),
           backgroundColor: sorted.map(item => item.color),
           borderRadius: 6,
-          // espessura padronizada com o gráfico de barras do slide-17d
+
           maxBarThickness: 120,
           categoryPercentage: 0.85,
           barPercentage: 0.92

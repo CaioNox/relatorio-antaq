@@ -1,37 +1,4 @@
 <!DOCTYPE html>
-<!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
-<!--
-  ╔══════════════════════════════════════════════════════════════╗
-  ║  SLIDE — Perguntas e Respostas do Capítulo 04 (STAI)
-  ╠══════════════════════════════════════════════════════════════╣
-  ║  Abre o bloco da Seção de Transparência e Acesso à Informação
-  ║  e resume, em nove perguntas, TODOS os slides do capítulo.
-  ║
-  ║  LAYOUT — sanfona (acordeão) de barras retangulares:
-  ║    · clique na barra para abrir/fechar a resposta;
-  ║    · só uma resposta aberta por vez (nunca estoura a tela);
-  ║    · na impressão/PDF o slide sai igual à tela (só a pergunta 01
-  ║      aberta) — as 9 respostas completas saem à parte, num anexo
-  ║      textual gerado por relatorio.html (deck.js → RELATORIO.anexos);
-  ║    · as etiquetas de cada resposta levam ao slide de origem
-  ║      (postMessage 'slide-goto-file').
-  ║  O mesmo layout é usado em slide-qa-dados-abertos.html.
-  ║
-  ║  O QUE ATUALIZAR A CADA TRIMESTRE (os números vêm de outros
-  ║  slides deste mesmo capítulo — mantenha em sincronia):
-  ║    130 pedidos · 100% no prazo · 9,1 dias .... slide-18 / slide-23
-  ║    6 recursos · 3,8 dias ..................... slide-18
-  ║    62/105/107/130 (série 2023–2026) .......... slide-20
-  ║    49/49 quesitos do Painel LAI .............. slide-4a (slide-22 saiu
-  ║      do deck do semestral; o dado agora só existe aqui e em slide-4a)
-  ║    371 demandas · 58 OUV AI .................. (slide-movimentacao
-  ║      saiu do deck em jul/2026 — o arquivo foi para a Área de
-  ║      Trabalho; estes números ficaram sem slide de origem)
-  ║    544 tramitações · 30 UORGs ................ slide-tramit-uorg
-  ║    130 respostas · 34 unidades · STAI 20 ..... slide-resp-unidade
-  ║    18 bases abertas · +8 previstas ........... slide-21
-  ╚══════════════════════════════════════════════════════════════╝
--->
 
 <html lang="pt-BR">
 
@@ -47,7 +14,7 @@
     rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
   <style>
-    /* Escala proporcional à tela (26px no canvas 1920×1080). */
+
     html { font-size: clamp(13px, min(1.354vw, 2.407vh), 26px); }
     body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
 
@@ -64,7 +31,7 @@
     .top-accent { height: 8px; background-color: #103050; width: 100%; }
     .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
 
-    /* ───────── Painel: trilhas empilhadas em coluna única ───────── */
+
     .board {
       flex: 1; min-height: 0; z-index: 10;
       display: flex; flex-direction: column; justify-content: space-between;
@@ -72,7 +39,7 @@
     }
     .track { display: flex; flex-direction: column; gap: .3rem; }
 
-    /* Cores da trilha: --c acento · --ct texto · --cs fundo suave */
+
     .t1 { --c: #0070C0; --ct: #0A5FA0; --cs: #E9F2FA; }
     .t2 { --c: #F2A900; --ct: #A96F00; --cs: #FDF3DE; }
     .t3 { --c: #103050; --ct: #103050; --cs: #E8EDF3; }
@@ -88,7 +55,7 @@
       letter-spacing: .11em; text-transform: uppercase; color: #103050;
     }
 
-    /* ───────── Barra retangular clicável ───────── */
+
     .qa {
       background: #fff; border: 1px solid #E5E9F0; border-left: 4px solid var(--c);
       border-radius: 10px; overflow: hidden;
@@ -126,7 +93,7 @@
     }
     .qa.open .qa-chev { transform: rotate(180deg); color: var(--ct); }
 
-    /* ───────── Painel expansível ───────── */
+
     .qa-panel {
       max-height: 0; opacity: 0; overflow: hidden;
       transition: max-height .32s cubic-bezier(.2, .7, .3, 1), opacity .24s ease;
@@ -136,7 +103,7 @@
     .qa-a { font-size: .7rem; line-height: 1.42; color: #334155; margin: 0; }
     .qa-a b { color: var(--ct); font-weight: 800; }
 
-    /* ───────── Etiquetas de origem (clicáveis) ───────── */
+
     .qa-refs { display: flex; flex-wrap: wrap; gap: .3rem; margin-top: .4rem; }
     .qa-ref {
       display: inline-flex; align-items: center; gap: .32rem;
@@ -162,12 +129,8 @@
     .t3 .qa { animation-delay: .12s; }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
 
-    /* Impressão/PDF: abre tudo, para o relatório não sair só com perguntas. */
-    /* As 9 respostas completas saem no anexo textual do relatório (deck.js
-       → RELATORIO.anexos['slide-qa-geral.html']), não aqui: abrir todos os
-       .qa-panel em @media print fazia o conteúdo passar de 1080px de altura
-       (até 1576px medidos) e cortava as perguntas finais. O slide sai no PDF
-       igual à tela — só a pergunta 01 aberta. */
+
+
     @media print {
       .qa-chev { display: none; }
       .hint { display: none; }
@@ -182,7 +145,7 @@
     <div class="top-accent"></div>
     <div class="top-accent-secondary"></div>
 
-    <!-- ───────── Cabeçalho ───────── -->
+
     <div class="flex items-start justify-between px-16 pt-8 pb-2 z-10">
       <div>
         <div class="flex items-center gap-3 mb-1">
@@ -200,10 +163,10 @@
       </div>
     </div>
 
-    <!-- ───────── Sanfona de perguntas ───────── -->
+
     <div class="board">
 
-      <!-- ══ Trilha 1 — Conceitos e base legal ══ -->
+
       <div class="track t1">
         <div class="track-head"><i class="fas fa-scale-balanced"></i><span>Conceitos e base legal</span></div>
 
@@ -231,12 +194,7 @@
           </button>
           <div class="qa-panel">
             <div class="qa-panel-in">
-              <!-- TODO-DADO: "100% dos 49 quesitos" é o resultado do 1º trimestre no Painel
-                   LAI. slide-22.html (que trazia esse dado) foi removido do deck — "transparência
-                   ativa" agora só existe como item de texto em slide-4a.html. Confirmar se este
-                   número deve ser mantido aqui (com nota de que é apuração trimestral do Painel
-                   LAI, fonte externa) ou removido/atualizado quando o usuário fornecer o dado do
-                   semestre. -->
+
               <p class="qa-a todo-dado">É a divulgação espontânea de informações, sem que ninguém precise pedir (<b>Art. 8º da LAI</b>). No Painel LAI, a ANTAQ cumpre <b>100% dos 49 quesitos</b> avaliados.</p>
               <div class="qa-refs">
                 <button class="qa-ref" data-file="slide-4a.html"><i class="fas fa-chevron-right"></i> Transparência Ativa</button>
@@ -262,17 +220,9 @@
         </div>
       </div>
 
-      <!-- PENDÊNCIA: toda a Trilha 2 (rótulo + 3 respostas) usa números do 1º trimestre
-           (130 pedidos, 43/mês, 9,1 dias, e a série histórica 62/105/107/130). O slide-23
-           (Transparência Passiva) já tem dado semestral CONFIRMADO (262 pedidos, 100% no
-           prazo, 10,3 dias) — esta trilha precisa ser reconciliada com esse mesmo dado na
-           mesma passada de edição (§11), não isoladamente aqui, para não publicar 130 e
-           262 como se fossem respostas diferentes à mesma pergunta. A série histórica
-           (linha "Sim. No 1º trimestre foram 62...") aguarda os dados de 1º semestre
-           2023-2025 que o usuário vai fornecer. Mantido 100% inalterado até essa passada —
-           ver semestral/PENDENCIAS-DADOS.md. -->
-      <!-- TODO-DADO: Trilha 2 inteira aguarda reconciliação com dado semestral confirmado (§11) + série histórica semestral (usuário). -->
-      <!-- ══ Trilha 2 — Números do trimestre ══ -->
+
+
+
       <div class="track t2">
         <div class="track-head"><i class="fas fa-gauge-high"></i><span>Números do trimestre</span></div>
 
@@ -325,7 +275,7 @@
         </div>
       </div>
 
-      <!-- ══ Trilha 3 — Fluxo interno e dados abertos ══ -->
+
       <div class="track t3">
         <div class="track-head"><i class="fas fa-diagram-project"></i><span>Fluxo interno e dados abertos</span></div>
 
@@ -381,7 +331,7 @@
 
     </div>
 
-    <!-- ───────── Rodapé ───────── -->
+
     <div class="px-16 pb-4 pt-1 flex justify-between items-center z-10">
       <p class="text-gray-400" style="font-size:.46rem;">Relatório 1º Semestre de 2026 – Ouvidoria – Agência Nacional de Transportes Aquaviários - ANTAQ</p>
       <p class="hint"><i class="far fa-hand-pointer"></i> Clique na pergunta para abrir a resposta · nas etiquetas, para ir ao slide que a detalha</p>
@@ -390,7 +340,7 @@
   </div>
 
   <script>
-    /* Sanfona — uma resposta aberta por vez, para nunca estourar a altura da tela. */
+
     document.querySelectorAll('.qa-bar').forEach(function (bar) {
       bar.addEventListener('click', function () {
         var item = bar.parentElement;
@@ -406,15 +356,14 @@
       });
     });
 
-    /* Etiquetas → navegam para o slide de origem da resposta. */
+
     document.querySelectorAll('.qa-ref').forEach(function (btn) {
       btn.addEventListener('click', function () {
         window.parent.postMessage({ type: "slide-goto-file", file: btn.dataset.file }, "*");
       });
     });
 
-    /* Teclas de navegação — repassadas ao contêiner. Ignora quando o foco está
-       num botão, para não bloquear Espaço/Enter que abre a resposta. */
+
     document.addEventListener("keydown", function (e) {
       if (e.target.closest && e.target.closest('button')) return;
       if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) {

@@ -1,18 +1,5 @@
 <!DOCTYPE html>
-<!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
-<!--
-  ╔══════════════════════════════════════════════════════════════╗
-  ║  index.html — PÁGINA INICIAL (portal de entrada)
-  ╠══════════════════════════════════════════════════════════════╣
-  ║  Esta é a primeira página que o usuário vê ao acessar o site.
-  ║  Exibe os relatórios publicados agrupados por periodicidade — Anual,
-  ║  Semestral, Trimestral, nessa ordem (ver #report-groups no <body>).
-  ║  O QUE ATUALIZAR: ano/período nos textos dos cards; para adicionar um
-  ║  relatório, inclua um novo <a class="card card-{periodicidade}"> dentro
-  ║  do <div class="cards"> do grupo certo — a contagem do eyebrow ("· N
-  ║  relatórios") é recalculada sozinha pelo script no fim do <body>.
-  ╚══════════════════════════════════════════════════════════════╝
--->
+
 <html lang="pt-BR">
 
 <head>
@@ -27,27 +14,19 @@
   <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet" />
   <style>
     :root {
-      /* Escala de azul institucional ANTAQ, usada para diferenciar a periodicidade dos
-         relatórios no hub. #0090C0 é a cor de marca real (usada de forma consistente no
-         eyebrow do hero, no .gold do h1 e no :focus-visible dos três módulos do site) —
-         vira a âncora --antaq-azul-500. O resto da escala é derivado dela por mistura com
-         branco (tints, 100/300) ou com o navy institucional (shades, 700/900) — nenhum
-         matiz novo é introduzido, tudo fica na mesma família de azul.
-         Lógica: azul mais profundo = ciclo de publicação mais longo e consolidado
-         (Anual); tons mais claros/vibrantes = ciclos mais curtos e frequentes
-         (Trimestral). Semestral fica no meio. */
+
       --antaq-azul-100: #DBEFF6;
-      /* tint mais claro — fundo do .card-icon (todos os grupos) e filete do eyebrow Anual */
+
       --antaq-azul-300: #94D0E5;
-      /* tint claro — filete do eyebrow Semestral */
+
       --antaq-azul-500: #0090C0;
-      /* base/âncora = cor de marca já usada no resto do site; só uso decorativo grande (3.65:1 sobre branco, insuficiente p/ texto pequeno) */
+
       --antaq-azul-600: #0278A2;
-      /* derivado p/ garantir AA em texto pequeno — cor de texto/ícone/link do card Trimestral (4.99:1 sobre branco) */
+
       --antaq-azul-700: #045E82;
-      /* cor de texto/ícone/link do card Semestral (7.17:1 sobre branco) */
+
       --antaq-azul-900: #103050;
-      /* reaproveitado exato do #103050 já usado no header-bar/footer — cor de texto/ícone/link do card Anual (13.46:1 sobre branco) */
+
     }
 
     * {
@@ -219,7 +198,7 @@
       gap: 14px;
     }
 
-    /* Seção sem nenhum relatório não é renderizada (controlado via JS no fim do body). */
+
     .report-group.is-empty {
       display: none;
     }
@@ -248,19 +227,19 @@
       border-radius: 1px;
     }
 
-    /* Anual: filete mais grosso = ciclo mais "pesado"/consolidado */
+
     .group-eyebrow--anual .group-eyebrow-rule {
       background-color: var(--antaq-azul-100);
       height: 4px;
     }
 
-    /* Semestral: peso intermediário */
+
     .group-eyebrow--semestral .group-eyebrow-rule {
       background-color: var(--antaq-azul-300);
       height: 3px;
     }
 
-    /* Trimestral: filete mais fino = ciclo mais "leve"/frequente */
+
     .group-eyebrow--trimestral .group-eyebrow-rule {
       background-color: var(--antaq-azul-500);
       height: 2px;
@@ -318,7 +297,6 @@
       color: #d97706;
     }
 
-
     @keyframes cardIn {
       from {
         opacity: 0;
@@ -331,7 +309,7 @@
       }
     }
 
-    /* Anual — antaq-azul-900, o tom mais profundo da escala: ciclo mais longo/consolidado */
+
     .card-anual {
       border-left-color: var(--antaq-azul-900);
     }
@@ -353,7 +331,7 @@
       border-left-color: #103050;
     }
 
-    /* Semestral — antaq-azul-700, tom intermediário */
+
     .card-semestral {
       border-left-color: var(--antaq-azul-700);
     }
@@ -371,8 +349,7 @@
       color: var(--antaq-azul-700);
     }
 
-    /* Trimestral — antaq-azul-500 (base) no border decorativo, antaq-azul-600 em
-       texto/ícone p/ garantir AA; ciclo mais curto/frequente = tom mais claro/vibrante */
+
     .card-trimestral {
       border-left-color: var(--antaq-azul-500);
     }
@@ -558,13 +535,13 @@
       }
     }
 
-    /* Foco visível só em navegação por teclado — não altera o estado padrão. */
+
     a.card:focus-visible {
       outline: 3px solid #F2A900;
       outline-offset: 3px;
     }
 
-    /* Texto só para leitor de tela — não afeta o layout visual. */
+
     .sr-only {
       position: absolute;
       width: 1px;
@@ -689,9 +666,9 @@
   </div>
 
   <script>
-    // Para cada grupo de periodicidade: conta os relatórios reais e escreve a contagem
-    // no eyebrow ("· N relatório"/"· N relatórios"); esconde o grupo inteiro se ficar
-    // sem nenhum card (ex.: se um relatório for removido no futuro). Sem dependências.
+
+
+
     (function () {
       var grupos = document.querySelectorAll('#report-groups .report-group');
 

@@ -1,41 +1,4 @@
 <!DOCTYPE html>
-<!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
-<!--
-  ╔══════════════════════════════════════════════════════════════╗
-  ║  SLIDE — Demandas tramitadas por UORG — 1º trimestre de 2026
-  ╠══════════════════════════════════════════════════════════════╣
-  ║  Mesma lógica interativa do slide-08.html (chips → barras), com o
-  ║  mesmo layout LADO A LADO: barras à esquerda, série mensal à direita.
-  ║  Cabe inteiro na tela (height:100vh, sem rolagem).
-  ║
-  ║  ⚠ AS DUAS BASES DE PERCENTUAL — não misturar:
-  ║   • BARRAS (por UORG): % sobre BASE_PCT = 353 demandas. Somam
-  ║     154,10%, porque uma mesma demanda é tramitada para várias
-  ║     unidades. NUNCA transformar essas barras em pizza: com 154%
-  ║     ela mentiria, já que pizza representa partes de um todo.
-  ║   • ROSCA (por superintendência): % sobre as TRAMITAÇÕES exibidas.
-  ║     Aqui fecha em 100%, porque cada tramitação pertence a uma
-  ║     única superintendência — não há dupla contagem. É por isso
-  ║     que esta rosca é legítima e a de UORG continua proibida.
-  ║  Cada gráfico declara a própria base no título; se mexer nos
-  ║  títulos, manter essa indicação.
-  ║
-  ║  ⚠ DUAS CONTAGENS DIFERENTES, não confundir:
-  ║   • 544 = total de TRAMITAÇÕES (uma demanda conta em cada UORG);
-  ║   • 353 = BASE do percentual (demandas de nov+dez/25 e 1º tri/26, B+C).
-  ║  O % de cada UORG é sobre 353, não sobre 544.
-  ║
-  ║  ⚠ 22 UORGs sem movimento ficaram FORA do gráfico (decisão editorial);
-  ║  estão listadas na nota de rodapé para não sumirem do relatório.
-  ║
-  ║  ⚠ Esta planilha veio só com SIGLAS — sem os nomes por extenso.
-  ║  Quando os nomes chegarem, trocar 'sigla' por 'Nome completo - SIGLA'
-  ║  no campo `nome` de cada UORG (igual ao slide-resp-unidade.html).
-  ║
-  ║  O QUE ATUALIZAR A CADA TRIMESTRE:
-  ║  BASE_PCT, os meses em MESES[] e os valores [jan, fev, mar] de cada UORG.
-  ╚══════════════════════════════════════════════════════════════╝
--->
 
 <html lang="pt-BR">
 
@@ -52,14 +15,11 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
-    /* teto elevado de 26px para 28px: a 1920×1080 o min() já batia no teto,
-       então era ele que limitava o corpo de texto do slide inteiro. 30px
-       (+15%) fazia o título colidir com o selo do capítulo e a grade
-       ultrapassar os 1080 — 28px é o máximo que cabe. */
+
     html { font-size: clamp(14px, min(1.4583vw, 2.5926vh), 28px); }
     body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
 
-    /* cabe inteiro na tela — sem rolagem */
+
     .slide-container {
       width: 100vw; height: 100vh; position: relative;
       display: flex; flex-direction: column;
@@ -73,8 +33,7 @@
     .top-accent { height: 8px; background-color: #103050; width: 100%; }
     .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
 
-    /* Grade retangular de largura total: gasta bem menos altura que o
-       flex-wrap antigo, o que sobe os gráficos (padrão do slide-08). */
+
     .chips {
       display: grid; grid-template-columns: repeat(5, 1fr);
       gap: .4rem .55rem; margin-top: .5rem; align-items: stretch;
@@ -102,7 +61,7 @@
     .chip.active { background: var(--c); color: #ffffff; opacity: 1; box-shadow: 0 8px 18px -8px color-mix(in srgb, var(--c) 70%, transparent); }
     .chip.active b { background: rgba(255, 255, 255, .25); color: #ffffff; }
 
-    /* largura cheia só dentro da grade; na faixa de meses ele segue compacto */
+
     .chips .chip-reset { width: 100%; }
 
     .chip-reset {
@@ -115,7 +74,7 @@
     }
     .chip-reset:hover { color: #103050; border-color: #103050; background: #f1f5f9; transform: translateY(-2px); }
 
-    /* ===== segunda linha de filtro: MÊS ===== */
+
     .chips-mes { display: flex; flex-wrap: wrap; align-items: center; gap: .35rem; margin-top: .35rem; }
     .mes-lab {
       font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .5rem;
@@ -153,9 +112,7 @@
       box-shadow: 0 8px 20px -8px rgba(16, 48, 80, 0.18);
       padding: .8rem 1.1rem .9rem; display: flex; flex-direction: column;
       min-height: 0; min-width: 0;
-      /* Sem isso, quando a nota .zeradas (lista de UORGs sem tramitação) mais
-         as barras não cabem no espaço do card, o conteúdo vaza por baixo do
-         card e sobrepõe o rodapé institucional em vez de ser contido. */
+
       overflow: hidden;
     }
 
@@ -166,24 +123,15 @@
       border-bottom: 1px solid #eef2f7; flex-shrink: 0; transition: color 250ms ease;
     }
 
-    /* lado a lado: barras à esquerda, série mensal à direita.
-       grid-template-rows precisa ser minmax(0,1fr): sem isso, a única linha
-       do grid usa sizing "auto" (tamanho do conteúdo mais alto), ignorando a
-       altura que `flex:1;min-height:0` reserva aqui — e o .chart-card com
-       30 UORGs cresce livremente, vazando por cima do rodapé. */
+
     .charts-grid {
-      /* O pai (.flex-1 acima) é `display:block`, então `flex:1;min-height:0`
-         aqui não pega — precisa de height:100% para herdar a altura que o
-         pai já reserva corretamente (resto da tela menos cabeçalho/rodapé). */
+
       flex: 1; min-height: 0; height: 100%;
       display: grid; grid-template-columns: 1.15fr 0.85fr; grid-template-rows: minmax(0, 1fr); gap: .8rem;
     }
     .chart-canvas-wrap { flex: 1; min-height: 0; position: relative; }
 
-    /* overflow:hidden é o que faltava: sem ele, quando as 30 barras (mais o
-       gap) somam mais altura do que o flex:1 reserva, o conteúdo vaza por
-       baixo da própria caixa em vez de ser contido — e é esse vazamento,
-       não a nota .zeradas em si, que sobrepõe o rodapé institucional. */
+
     .rows { flex: 1; min-height: 0; overflow: hidden; display: flex; flex-direction: column; justify-content: center; gap: .22rem; }
     .bar-row { display: flex; align-items: center; gap: .5rem; animation: fadeInRow .45s cubic-bezier(.2, .7, .3, 1) both; }
 
@@ -205,13 +153,7 @@
     .bar-val { flex: 0 0 3.6rem; font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: .55rem; text-align: left; line-height: 1; }
     .bar-val .pc { font-weight: 700; font-size: .44rem; color: #94a3b8; margin-left: .22rem; }
 
-    /* densidade — encolhe conforme o nº de barras.
-       density=3 (>22 UORGs) é o caso em que a lista pode não caber mesmo no
-       tamanho mínimo: com justify-content:center (herdado de .rows), o corte
-       por overflow:hidden tirava a barra do TOPO — coincidência grave, pois
-       é sempre a maior (a lista já vem ordenada da maior para a menor). Com
-       flex-start o que eventualmente falta é o fim da lista (as UORGs com
-       menos tramitações, já as menos relevantes). */
+
     .rows[data-density="3"] { justify-content: flex-start; }
     .rows[data-density="2"] { gap: .17rem; }
     .rows[data-density="2"] .bar-label { font-size: .5rem; }
@@ -224,7 +166,7 @@
     .rows[data-density="3"] .bar-val { font-size: .45rem; }
     .rows[data-density="3"] .bar-val .pc { font-size: .38rem; }
 
-    /* nota das UORGs sem movimento */
+
     .zeradas {
       margin-top: .4rem; font-size: .42rem; color: #94a3b8; line-height: 1.35;
       border-left: 3px solid #e2e8f0; padding-left: .5rem; flex-shrink: 0;
@@ -262,7 +204,7 @@
       </div>
     </div>
 
-    <!-- filtros em faixa de largura total, em grade retangular (padrão do slide-08) -->
+
     <div class="px-16 pb-1 z-10">
       <div class="chips" id="chips"></div>
       <div class="chips-mes" id="chipsMes"></div>
@@ -271,14 +213,13 @@
 
     <div class="flex-1 px-16 pb-2 z-10" style="min-height:0;">
       <div class="charts-grid">
-        <!-- ◀ ESQUERDA: barras horizontais, uma por UORG -->
+
         <div class="chart-card">
           <p class="chart-cap" id="chartCap"></p>
           <div class="rows" id="rows" data-density="1"></div>
           <p class="zeradas" id="zeradas"></p>
         </div>
-        <!-- ▶ DIREITA: rosca por superintendência (ver comentário do topo
-             sobre por que ESTA rosca fecha em 100% e a de UORG não fecharia) -->
+
         <div class="chart-card">
           <p class="chart-cap" id="pieCap"><i class="fas fa-chart-pie"></i> Distribuição por superintendência</p>
           <div class="chart-canvas-wrap" id="pieWrap"></div>
@@ -292,16 +233,11 @@
   </div>
 
   <script>
-    /* =========================================================
-       DADOS — QTD de demandas tramitadas por UORG, 1º tri/2026
-       BASE_PCT = denominador dos percentuais da planilha (353).
-       Cada UORG: { sigla, pai, m: [jan, fev, mar] }
-       ========================================================= */
-    const BASE_PCT = 353;   // demandas de nov+dez/25 e 1º tri/26 (B+C)
+
+    const BASE_PCT = 353;
     const MESES = ['Janeiro', 'Fevereiro', 'Março'];
 
-    /* Os 9 pais com movimento não cabem numa paleta categórica (máx. 8):
-       SESGI e PFA, com uma UORG ativa cada, entram como "Outras". */
+
     const PAIS = [
       { id: 'SFC', name: 'SFC', full: 'Superintendência de Fiscalização e Coordenação das Unidades Regionais', color: '#F2A900' },
       { id: 'SGE', name: 'SGE', full: 'SGE', color: '#10B981' },
@@ -346,7 +282,7 @@
       { sigla: 'GEH', pai: 'SEPH', m: [0, 0, 1] }
     ];
 
-    /* UORGs sem nenhuma tramitação no trimestre — fora do gráfico, citadas no rodapé */
+
     const ZERADAS = ['SFC', 'GRAT', 'UREPV', 'URESV', 'UREPL', 'GPO', 'SESGI', 'COIN', 'GEA', 'GLC',
       'AUD', 'CRG', 'ASPAR', 'ARINT', 'CEA', 'SEPH', 'AST-DG', 'AST-D1', 'AST-D2', 'AST-D3', 'AST-D4', 'STAI'];
 
@@ -355,16 +291,15 @@
 
     const TOTAL_TRAM = UORGS.reduce((s, u) => s + u.total, 0);
     const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const selected = new Set(PAIS.map(p => p.id));      // superintendências
-    const selMeses = new Set(MESES.map((_, i) => i));   // meses
+    const selected = new Set(PAIS.map(p => p.id));
+    const selMeses = new Set(MESES.map((_, i) => i));
     let mesChart = null;
 
-    /* Total de uma UORG considerando SÓ os meses selecionados — é o que
-       torna os dois filtros combináveis (superintendência × mês). */
+
     const totalDe = u => u.m.reduce((s, v, i) => s + (selMeses.has(i) ? v : 0), 0);
     const mesesSel = () => MESES.map((_, i) => i).filter(i => selMeses.has(i));
 
-    /* ===================== CHIPS — por superintendência ===================== */
+
     const chipsWrap = document.getElementById('chips');
     PAIS.forEach(p => {
       const q = UORGS.filter(u => u.pai === p.id).length;
@@ -389,7 +324,7 @@
     });
     chipsWrap.appendChild(allBtn);
 
-    /* ===================== CHIPS — por mês ===================== */
+
     const chipsMesWrap = document.getElementById('chipsMes');
     const lab = document.createElement('span');
     lab.className = 'mes-lab';
@@ -427,7 +362,7 @@
     }
 
     function refreshChips() {
-      // o contador de cada superintendência reflete o filtro de mês em vigor
+
       chipsWrap.querySelectorAll('.chip').forEach(c => {
         const id = c.dataset.id;
         c.classList.toggle('active', selected.has(id));
@@ -441,7 +376,7 @@
         ? '<i class="fas fa-eraser"></i><span>Zerar tudo</span>'
         : '<i class="fas fa-layer-group"></i><span>Exibir todas</span>';
 
-      // o contador de cada mês reflete o filtro de superintendência em vigor
+
       chipsMesWrap.querySelectorAll('.chip-mes').forEach(c => {
         const i = +c.dataset.mes;
         c.classList.toggle('active', selMeses.has(i));
@@ -453,10 +388,10 @@
         : '<i class="fas fa-calendar-days"></i><span>Todos os meses</span>';
     }
 
-    /* ===================== BARRAS (em cima) ===================== */
+
     function renderBars() {
-      // UORG sem tramitação nos meses escolhidos sai do gráfico — mesma regra
-      // do trimestre inteiro, onde as 22 zeradas ficaram de fora.
+
+
       const doPai = UORGS.filter(u => selected.has(u.pai));
       const sel = doPai.filter(u => totalDe(u) > 0)
         .sort((a, b) => totalDe(b) - totalDe(a) || a.sigla.localeCompare(b.sigla, 'pt-BR'));
@@ -474,7 +409,7 @@
         return;
       }
 
-      // densidade conforme o nº de barras, para não estourar o card
+
       wrap.dataset.density = sel.length <= 12 ? '1' : sel.length <= 22 ? '2' : '3';
       wrap.dataset.ocultas = ocultas;
 
@@ -518,14 +453,14 @@
       }
     }
 
-    /* ===================== SÉRIE MENSAL (embaixo) — empilhada por pai ===================== */
+
     function renderMes() {
       const wrap = document.getElementById('pieWrap');
       const cap = document.getElementById('pieCap');
       if (mesChart) { mesChart.destroy(); mesChart = null; }
 
-      // Uma tramitação pertence a UMA superintendência, então as fatias somam
-      // o total exibido — é isso que torna esta rosca legítima (ver topo).
+
+
       const porPai = PAIS
         .map(p => ({ p, v: UORGS.filter(u => u.pai === p.id && selected.has(u.pai)).reduce((s, u) => s + totalDe(u), 0) }))
         .filter(x => x.v > 0);
@@ -554,7 +489,7 @@
           ctx.textBaseline = 'middle';
           chart.getDatasetMeta(0).data.forEach((arc, i) => {
             const pct = ds.data[i] / total * 100;
-            if (pct < 4) return;                 // fatia fina: só no tooltip
+            if (pct < 4) return;
             const ang = (arc.startAngle + arc.endAngle) / 2;
             const r = (arc.outerRadius + arc.innerRadius) / 2;
             const x = arc.x + Math.cos(ang) * r;
@@ -616,7 +551,7 @@
         (parcial ? ' · ' + mesesSel().map(i => MESES[i].slice(0, 3).toLowerCase()).join(' · ') : '');
     }
 
-    /* nota das UORGs fora do gráfico + ressalva do denominador */
+
     function refreshZeradas() {
       const ocultas = +(document.getElementById('rows').dataset.ocultas || 0);
       const parcial = selMeses.size < MESES.length;
@@ -637,9 +572,9 @@
     }
 
     update();
-    // Garante a tabela de acessibilidade do gráfico também no carregamento
-    // inicial, caso a11y.js (script deferred) ainda não tivesse carregado
-    // no momento da primeira renderização.
+
+
+
     document.addEventListener('DOMContentLoaded', function () {
       if (window.A11y) renderMes();
     });

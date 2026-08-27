@@ -1,12 +1,5 @@
 <!DOCTYPE html>
-<!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
-<!--
-  ╔══════════════════════════════════════════════════════════════╗
-  ║  SLIDE — Carta de Serviços da ANTAQ (SOG + SRG + SAF + SFC)   ║
-  ║  Fusão dos antigos slides 26 e 27 — 31 serviços              ║
-  ║  Template/lógica de hover copiados do slide-21 (PDA)         ║
-  ╚══════════════════════════════════════════════════════════════╝
--->
+
 <html lang="pt-BR">
 
 <head>
@@ -34,7 +27,7 @@
     .top-accent { height: 8px; background-color: #103050; width: 100%; }
     .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
 
-    /* ── Banner de resumo (mantém os números) ── */
+
     .insight-banner {
       background: linear-gradient(135deg, #f4f9ff 0%, #eaf3fb 100%);
       border: 2px solid #C0E0F0; border-left: 5px solid #0070C0; border-radius: 14px;
@@ -47,7 +40,7 @@
     .insight-banner .ib-sep { width: 1px; height: 1.3rem; background: #C0E0F0; }
     .insight-banner .ib-hint { margin-left: auto; color: #0070C0; font-weight: 700; font-size: .68rem; display: flex; align-items: center; gap: .4rem; }
 
-    /* ── Badge de superintendência ── */
+
     .svc-badge {
       display: inline-flex; align-items: center; gap: .6rem;
       background: linear-gradient(135deg, #103050, #0070C0); color: #fff;
@@ -56,7 +49,7 @@
       letter-spacing: .03em; box-shadow: 0 10px 24px -10px rgba(16, 48, 80, .5);
     }
 
-    /* ── Barrinhas horizontais de serviço (estilo slide-21) ── */
+
     .svc-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 9px; }
     .svc-bar {
       display: flex; align-items: center; gap: .6rem;
@@ -83,7 +76,7 @@
 
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-    /* ── Popover de detalhe no hover (copiado do slide-21) ── */
+
     .svc-pop {
       position: fixed; z-index: 90; width: 360px; max-width: 92vw;
       background: #ffffff; border-radius: 14px; border-top: 5px solid #0070C0;
@@ -119,7 +112,7 @@
     <div class="top-accent"></div>
     <div class="top-accent-secondary"></div>
 
-    <!-- Header -->
+
     <div class="flex items-start justify-between px-16 pt-10 pb-3 z-10">
       <div>
         <div class="flex items-center gap-3 mb-1">
@@ -138,10 +131,10 @@
       </div>
     </div>
 
-    <!-- Corpo: 4 superintendências -->
+
     <div class="flex-1 px-16 pt-0 pb-2 z-10" style="min-height:0;">
 
-      <!-- SOG -->
+
       <div class="pb-1"><span class="svc-badge"><i class="fas fa-stamp"></i>Superintendência de Outorgas - SOG · 18 serviços</span></div>
       <div class="svc-grid mb-3">
         <div class="svc-bar" data-num="01" data-kicker="Superintendência de Outorgas · SOG" data-title="Solicitar autorização e registro na ANTAQ para afretamento de embarcação estrangeira">
@@ -218,7 +211,7 @@
         </div>
       </div>
 
-      <!-- SRG -->
+
       <div class="pb-1"><span class="svc-badge"><i class="fas fa-scale-balanced"></i>Superintendência de Regulação - SRG · 8 serviços</span></div>
       <div class="svc-grid mb-3">
         <div class="svc-bar" data-num="01" data-kicker="Superintendência de Regulação · SRG" data-title="Obter autorização da ANTAQ para incorporação/desincorporação de bens da União ao/do acervo patrimonial dos portos organizados">
@@ -255,7 +248,7 @@
         </div>
       </div>
 
-      <!-- SAF -->
+
       <div class="pb-1"><span class="svc-badge"><i class="fas fa-coins"></i>Superintendência de Administração e Finanças - SAF · 4 serviços</span></div>
       <div class="svc-grid mb-3">
         <div class="svc-bar" data-num="01" data-kicker="Superintendência de Administração e Finanças · SAF" data-title="Obter declaração da ANTAQ para fins de credenciamento, validação ou outros atestados">
@@ -276,7 +269,7 @@
         </div>
       </div>
 
-      <!-- SFC -->
+
       <div class="pb-1"><span class="svc-badge"><i class="fas fa-magnifying-glass-chart"></i>Superintendência de Fiscalização e Coordenação das Unidades Regionais - SFC · 1 serviço</span></div>
       <div class="svc-grid">
         <div class="svc-bar" data-num="01" data-kicker="Superintendência de Fiscalização e Coordenação · SFC" data-title="Consultar empresas e embarcações para o transporte aquaviário federal de passageiros na navegação interior (Navegue Seguro)">
@@ -287,14 +280,14 @@
 
     </div>
 
-    <!-- Footer -->
+
     <div class="px-16 pb-4 pt-1 flex justify-between items-center z-10">
       <p class="text-gray-400 text-xs">Relatório 1º Semestre de 2026 – Ouvidoria – Agência Nacional de Transportes Aquaviários - ANTAQ</p>
     </div>
     <div class="bg-pattern"><i class="fas fa-file-contract text-9xl"></i></div>
   </div>
 
-  <!-- Popover de detalhe do serviço (aparece ao passar o mouse) -->
+
   <div class="svc-pop" id="svcPop">
     <div class="sp-head">
       <div class="sp-num" id="spNum">01</div>
@@ -317,10 +310,10 @@
     function positionPop(bar) {
       const r = bar.getBoundingClientRect();
       const pw = pop.offsetWidth, ph = pop.offsetHeight, m = 12;
-      let left = r.right + m;                                   // abre à direita da barra
-      if (left + pw > window.innerWidth - m) left = r.left - m - pw;  // sem espaço → à esquerda
+      let left = r.right + m;
+      if (left + pw > window.innerWidth - m) left = r.left - m - pw;
       if (left < m) left = m;
-      let top = r.top + r.height / 2 - ph / 2;                  // centraliza verticalmente
+      let top = r.top + r.height / 2 - ph / 2;
       if (top < m) top = m;
       if (top + ph > window.innerHeight - m) top = window.innerHeight - m - ph;
       pop.style.left = left + 'px';

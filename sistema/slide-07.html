@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
+
 <html lang="pt-BR">
 
 <head>
@@ -97,7 +97,7 @@
       margin-top: .15rem;
     }
 
-    /* ===== KPI cards laterais (um por ano) ===== */
+
     .hist-kpi {
       border-left: 4px solid #0090C0;
       background-color: #EAF3FB;
@@ -200,7 +200,7 @@
     <div class="top-accent"></div>
     <div class="top-accent-secondary"></div>
 
-    <!-- Header Ajustado com Barra Azul e Tag Capítulo 02 -->
+
     <div class="flex items-start justify-between px-16 pt-10 pb-3 z-10">
       <div>
         <div class="flex items-center gap-3 mb-1">
@@ -220,9 +220,9 @@
       </div>
     </div>
 
-    <!-- Main Content -->
+
     <div class="flex-1 grid grid-cols-3 gap-6 px-16 pb-6 z-10" style="min-height:0;">
-      <!-- Gráfico -->
+
       <div class="chart-card col-span-2 flex flex-col" style="min-height:0;">
         <p class="text-brand-primary font-montserrat font-bold text-xl mb-1 flex items-center gap-2"><i
             class="fas fa-arrow-trend-up text-brand-secondary"></i> Trajetória das demandas no Fala.BR</p>
@@ -232,7 +232,7 @@
             tendências, avaliar o comportamento das demandas ao longo do tempo e fornecer subsídios mais robustos
             para a tomada de decisão institucional.</span></p>
       </div>
-      <!-- KPIs por ano -->
+
       <div class="col-span-1 flex flex-col gap-3" style="min-height:0;">
         <div class="hist-kpi hk-feat">
           <p class="hk-year">1º Tri 2026</p>
@@ -256,14 +256,14 @@
         </div>
       </div>
     </div>
-    <!-- Footer -->
+
     <div class="px-16 pb-6 pt-1 flex justify-between items-center z-10">
       <p class="text-gray-400 text-xs">Relatório 1º Trimestre de 2026 – Ouvidoria – Agência Nacional de Transportes Aquaviários - ANTAQ</p>
     </div>
   </div>
   <script>
     const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    // Rótulo de valor acima de cada ponto
+
     const pointLabels = {
       id: 'pointLabels',
       afterDatasetsDraw(chart) {

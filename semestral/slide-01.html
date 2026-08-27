@@ -1,13 +1,4 @@
 <!DOCTYPE html>
-<!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
-<!--
-  ╔══════════════════════════════════════════════════════════════╗
-  ║  SLIDE 01 — Capa e Sumário da apresentação — slide de abertura com índice clicável
-  ╠══════════════════════════════════════════════════════════════╣
-  ║  O QUE ATUALIZAR A CADA SEMESTRE:
-  ║  Atualizar: ano/semestre no título cover-sub; verificar goToSlide() se mudar nº de slides; adicionar animation-delay para novos itens do sumário
-  ╚══════════════════════════════════════════════════════════════╝
--->
 
 <html lang="pt-BR">
 
@@ -57,7 +48,7 @@
             font-family: 'Open Sans', sans-serif;
         }
 
-        /* Decorative Shape */
+
         .shape-bg {
             position: absolute;
             top: 0;
@@ -69,7 +60,7 @@
             z-index: 1;
         }
 
-        /* ===== Cover ===== */
+
         .cover-year {
             font-family: 'Montserrat', sans-serif;
             font-size: 1.1rem;
@@ -93,7 +84,7 @@
             color: #0090C0;
         }
 
-        /* Eyebrow / kicker acima do título */
+
         .cover-eyebrow {
             display: inline-flex;
             align-items: center;
@@ -132,7 +123,7 @@
             margin-top: 0.35rem;
         }
 
-        /* ===== Sumário ===== */
+
         .sumario {
             margin-top: 0.4rem;
             max-width: none;
@@ -159,7 +150,7 @@
             background: rgba(0, 144, 192, 0.3);
         }
 
-        /* ===== Sumário em 6 colunas (índice: números · capítulos · seções) ===== */
+
         .sum-grid {
             display: grid;
             grid-template-columns: repeat(6, 1fr);
@@ -296,7 +287,7 @@
             color: #0090C0;
         }
 
-        /* ===== Árvore do Sumário (multinível, estilo IDE) ===== */
+
         .tree {
             max-height: 600px;
             overflow-y: auto;
@@ -322,7 +313,7 @@
             padding: 0;
         }
 
-        /* filhos: indentação + linha-guia; recolhidos por padrão */
+
         .tree li>ul {
             margin-left: 1.05rem;
             padding-left: 0.95rem;
@@ -335,7 +326,7 @@
             animation: fadeInUp .28s ease both;
         }
 
-        /* linha (nó) */
+
         .tnode {
             display: flex;
             align-items: center;
@@ -352,7 +343,7 @@
             padding-left: 0.85rem;
         }
 
-        /* chevron (pai) / ponto (folha) */
+
         .tw-chev {
             width: 1rem;
             flex-shrink: 0;
@@ -373,7 +364,7 @@
             vertical-align: middle;
         }
 
-        /* número multinível (1 / 1.1 / 1.1.1) */
+
         .tw-num {
             font-family: 'Montserrat', sans-serif;
             font-weight: 800;
@@ -384,7 +375,7 @@
             letter-spacing: 0.01em;
         }
 
-        /* ícone do tópico (só nível 1) */
+
         .tw-icon {
             width: 1.35rem;
             text-align: center;
@@ -394,7 +385,7 @@
             transition: color .2s ease, transform .2s ease;
         }
 
-        /* rótulo */
+
         .tw-label {
             font-family: 'Montserrat', sans-serif;
             font-weight: 600;
@@ -406,7 +397,7 @@
             transition: color .2s ease;
         }
 
-        /* tamanhos por nível */
+
         .tnode.lvl-1 .tw-label {
             font-size: 1.12rem;
             font-weight: 700;
@@ -438,7 +429,7 @@
             transform: scale(1.12);
         }
 
-        /* slide atual — "você está aqui" */
+
         .tnode.current {
             background: rgba(0, 144, 192, 0.16);
         }
@@ -487,14 +478,14 @@
 
 <body>
     <div class="slide-container">
-        <!-- Background Elements -->
+
         <div class="shape-bg"></div>
-        <!-- Left Accent Borders -->
+
         <div class="absolute left-0 top-0 h-full w-3 z-20" style="background-color: #0090C0;"></div>
         <div class="absolute left-3 top-0 h-full w-1 bg-brand-secondary z-20"></div>
-        <!-- Main Content Area -->
+
         <div class="relative z-10 flex flex-col justify-start h-full w-full pl-24 pr-16 pt-44 pb-40 font-montserrat">
-            <!-- Top Header / Organization -->
+
             <div class="absolute top-16 left-24 flex items-center gap-6">
                 <div>
                     <img src="Imagens/logomarca_Ouvidoria.png" alt="Ouvidoria da ANTAQ"
@@ -506,18 +497,13 @@
                 </div>
             </div>
 
-            <!-- Cover Title -->
+
             <div class="mt-4">
                 <p class="cover-eyebrow">Ouvidoria da ANTAQ · Índice do Relatório</p>
                 <h1 class="cover-title">Sumário</h1>
 
-                <!-- ===== SUMÁRIO — árvore recolhível (lista multinível / estilo IDE) =====
-                 A hierarquia (tópicos → subtópicos → slides) é definida no objeto `tree`
-                 do <script> abaixo; a numeração 1 / 1.1 / 1.1.1 é gerada automaticamente.
-                 Nó pai: clique expande/recolhe. Folha (slide): clique navega via goToFile
-                 (robusto à ordem do array `slides` do index.html).
-             ================================================== -->
-                <!-- Sumário -->
+
+
                 <div class="sumario">
                     <p class="sum-hint"><i class="fas fa-hand-pointer"></i> Clique em um capítulo ou seção para ir
                         direto ao slide</p>
@@ -525,7 +511,7 @@
                 </div>
             </div>
 
-            <!-- Footer Info -->
+
             <div class="absolute bottom-12 left-24 right-16 flex justify-between items-end pt-6"
                 style="border-top: 1px solid rgba(255,255,255,0.15);">
                 <div class="flex flex-col gap-1 text-xs text-blue-200">
@@ -584,7 +570,7 @@
                 </div>
             </div>
 
-            <!-- ===== Nota de Copyright — canto inferior ===== -->
+
             <div class="absolute bottom-3 left-24 right-16 z-10 flex items-start gap-2 text-blue-100"
                 style="font-size: 10px; line-height: 1.35; opacity: 0.85; max-width: 78%;">
                 <i class="fas fa-copyright" style="font-size: 14px; color: #0090C0; margin-top: 1px;"></i>
@@ -599,15 +585,15 @@
             function goToSlide(n) {
                 window.parent.postMessage({ type: "slide-goto", slide: n }, "*");
             }
-            // Navegação por NOME de arquivo — robusta à inserção/remoção de slides
+
             function goToFile(file) {
                 window.parent.postMessage({ type: "slide-goto-file", file: file }, "*");
             }
 
-            // ===== Árvore do Sumário — 6 blocos temáticos =====
-            // Nós de 1º nível = os 6 Blocos. `f` = arquivo (folha navegável);
-            // sem `f` = nó pai (retrátil). Manter em sincronia com o `deck`
-            // de index.html; a numeração 1 / 1.1 / 1.1.1 é gerada sozinha.
+
+
+
+
             const tree = [
                 {
                     t: 'Visão Geral das Ouvidorias públicas', icon: 'fa-bullhorn', children: [
@@ -624,12 +610,11 @@
                         { t: 'Capa do bloco', f: 'capa-bloco-2.html' },
                         { t: 'Apresentação da Ouvidoria da ANTAQ', f: 'slide-03c.html' },
                         { t: 'Estrutura Organizacional da Ouvidoria', f: 'slide-ouvidoria-geral.html' },
+                        { t: 'Plataforma Fala.BR', f: 'slide-falabr.html' },
+                        { t: 'Canais de Atendimento', f: 'slide-canais-atend.html' },
+                        { t: 'Demais Canais de Atendimento', f: 'slide-demais-canais.html' },
                         { t: 'Carta de Serviços da ANTAQ', f: 'slide-25.html' },
                         { t: 'Carta de Serviços da ANTAQ (31 serviços)', f: 'slide-cartas-servicos.html' },
-                        { t: 'Conselho de Usuários', f: 'slide-CnsU.html' },
-                        { t: 'MMOuP — Modelo de Maturidade em Ouvidoria Pública', f: 'slide-CnsU2.html' },
-                        { t: 'Canais de Atendimento', f: 'slide-canais-atend.html' },
-                        { t: 'Fala.BR — Perguntas e Respostas', f: 'slide-falabr-faq.html' },
                         { t: 'Ouvidoria em Números (Omnichannel)', f: 'slide-17b.html' },
                         { t: 'Ouvidoria em Números (Distribuição das Demandas)', f: 'slide-17e.html' },
                         { t: 'Ouvidoria em Números (Evolução Histórica)', f: 'slide-07.html' },
@@ -645,10 +630,7 @@
                         { t: 'Distribuição das Manifestações por Mês', f: 'slide-17d.html' },
                         { t: 'Manifestações Recebidas no Fala.BR', f: 'slide-04.html' },
                         { t: 'Tratamento de Demandas no Fala.BR', f: 'slide-05.html' },
-                        { t: 'Destaques do Semestre (Gráficos)', f: 'slide-08.html' },
-                        { t: 'Destaques do Semestre (Resumo)', f: 'slide-ctx-03.html' },
-                        { t: 'Análise Qualitativa', f: 'slide-11.html' },
-                        { t: 'Riscos e Oportunidades', f: 'slide-12.html' },
+                        { t: 'Destaques do Semestre', f: 'slide-08.html' },
                     ]
                 },
                 {
@@ -656,14 +638,13 @@
                         { t: 'Capa do bloco', f: 'capa-bloco-4.html' },
                         { t: 'Apresentação da STAI', f: 'slide-4a.html' },
                         { t: 'Perguntas e Respostas', f: 'slide-qa-geral.html' },
-                        { t: 'Transparência Ativa', f: 'slide-22.html' },
                         { t: 'Transparência Passiva', f: 'slide-23.html' },
-                        { t: 'LAI · Transparência Passiva', f: 'slide-18.html' },
-                        { t: 'Histórico LAI', f: 'slide-20.html' },
-                        { t: 'Demandas Tramitadas por UORG', f: 'slide-tramit-uorg.html' },
-                        { t: 'Respostas por Unidade', f: 'slide-resp-unidade.html' },
-                        { t: 'Perguntas e Respostas · Dados Abertos', f: 'slide-qa-dados-abertos.html' },
                         { t: 'Plano de Dados Abertos · PDA 2026–2028', f: 'slide-pda.html' },
+                        { t: 'Perguntas e Respostas · Dados Abertos', f: 'slide-qa-dados-abertos.html' },
+                        { t: 'Respostas por Unidade', f: 'slide-resp-unidade.html' },
+                        { t: 'Demandas Tramitadas por UORG', f: 'slide-tramit-uorg.html' },
+                        { t: 'Histórico LAI', f: 'slide-20.html' },
+                        { t: 'LAI · Transparência Passiva', f: 'slide-18.html' },
                         { t: 'Dados Abertos', f: 'slide-21.html' },
                     ]
                 },
@@ -730,10 +711,10 @@
                 return li;
             }
 
-            // ===== Render do Sumário em 6 colunas =====
-            // Cada bloco vira uma coluna: número + título (linka para a capa do
-            // bloco) + suas seções. Grupos (nós com filhos) viram subtítulo com
-            // seus itens; folhas navegam por goToFile. Mantém textos/links do `tree`.
+
+
+
+
             function makeLink(cls, node) {
                 const el = document.createElement(node.f ? 'a' : 'span');
                 el.className = cls;
@@ -757,7 +738,7 @@
                     num.textContent = (i + 1);
                     col.appendChild(num);
 
-                    // título do capítulo — clica e vai para a capa do bloco, se houver
+
                     const capa = (block.children || []).find(function (c) { return /^Capa/i.test(c.t) && c.f; });
                     const title = document.createElement(capa ? 'a' : 'span');
                     title.className = 'sum-title';
@@ -769,7 +750,7 @@
                     col.appendChild(title);
 
                     (block.children || []).forEach(function (child) {
-                        if (capa && child === capa) return; // já virou o título da coluna
+                        if (capa && child === capa) return;
                         if (child.children && child.children.length) {
                             const g = document.createElement('div');
                             g.className = 'sum-group';
@@ -784,9 +765,9 @@
                     root.appendChild(col);
                 });
 
-                // Alinha as barrinhas (underline) dos títulos de capítulo: iguala a
-                // altura de todos os .sum-title à do maior, para que os border-bottom
-                // fiquem na mesma linha de base, independente do nº de linhas do título.
+
+
+
                 function alignTitles() {
                     const titles = root.querySelectorAll('.sum-title');
                     let max = 0;

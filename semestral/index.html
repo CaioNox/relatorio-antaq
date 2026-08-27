@@ -1,18 +1,5 @@
 <!DOCTYPE html>
-<!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
-<!--
-  ╔══════════════════════════════════════════════════════════════╗
-  ║  semestral/index.html — VISUALIZADOR DE SLIDES (palco principal)
-  ╠══════════════════════════════════════════════════════════════╣
-  ║  Carrega cada slide em um iframe e controla a navegação.
-  ║  ESQUELETO: só os 5 primeiros slides (placeholders) por enquanto.
-  ║  O QUE ATUALIZAR:
-  ║    semestral/deck.js  ← reordene/inclua/exclua arquivos aqui, não neste
-  ║    arquivo (é a mesma ordem usada por relatorio.html).
-  ║  Teclas: ← → navegar, Espaço próximo, F tela cheia, Home início
-  ║  Clique nas laterais escuras também navega.
-  ╚══════════════════════════════════════════════════════════════╝
--->
+
 <html lang="pt-BR">
 
 <head>
@@ -62,7 +49,7 @@
       flex: 0 0 auto;
     }
 
-    /* Zonas de clique de navegação — ficam no "fora do palco" (área azul), nas laterais do slide */
+
     .click-zone {
       flex: 1 1 0;
       align-self: stretch;
@@ -82,8 +69,8 @@
       transform-origin: top left;
     }
 
-    /* Wave acima do navbar */
-    /* Doca de navegação: só aparece no hover do rodapé */
+
+
     .nav-dock {
       position: fixed;
       left: 0;
@@ -158,7 +145,7 @@
       }
     }
 
-    /* Navigation bar - same style as Kenia */
+
     .nav-bar {
       position: fixed;
       bottom: 24px;
@@ -259,7 +246,7 @@
       font-size: 12px;
     }
 
-    /* Slide dots */
+
     .nav-dots {
       display: flex;
       gap: 2px;
@@ -271,7 +258,7 @@
       width: 5px;
       height: 5px;
       border-radius: 50%;
-      /* Tom sutil por bloco: variação de opacidade do azul institucional */
+
       background: rgba(122, 178, 216, calc(0.20 + (var(--dot-tint, 0.6) * 0.28)));
       border: none;
       cursor: pointer;
@@ -279,7 +266,7 @@
       transition: all 0.2s;
     }
 
-    /* Separação visível entre os blocos (Abertura · Blocos 1–6 · Sobras) */
+
     .nav-dots button.block-start {
       margin-left: 9px;
     }
@@ -294,7 +281,7 @@
       background: rgba(255, 255, 255, 0.65);
     }
 
-    /* Fullscreen button */
+
     .fs-btn {
       position: fixed;
       top: 16px;
@@ -319,7 +306,7 @@
       background: rgba(12, 50, 111, 1);
     }
 
-    /* Botão de impressão — mesmo formato do fechar/tela cheia */
+
     .pdf-btn {
       position: fixed;
       top: 16px;
@@ -345,7 +332,7 @@
       background: rgba(180, 120, 0, 1);
     }
 
-    /* Help button in nav-bar */
+
     .help-btn {
       background: rgba(255, 255, 255, 0.12);
       border: 1px solid rgba(255, 255, 255, 0.3);
@@ -370,7 +357,7 @@
       border-color: #0090C0;
     }
 
-    /* Nav hints — overlay modal */
+
     .nav-hints-overlay {
       position: fixed;
       inset: 0;
@@ -499,7 +486,7 @@
       background: #007aad;
     }
 
-    /* Close button */
+
     .close-btn {
       position: fixed;
       top: 16px;
@@ -618,9 +605,9 @@
 
   <script src="deck.js"></script>
   <script>
-    // ESTRUTURA DA APRESENTAÇÃO — a ordem vem de deck.js (fonte única,
-    // compartilhada com relatorio.html). Para reordenar/incluir/excluir um
-    // slide, mexa em `sistema/deck.js`, não aqui.
+
+
+
     const paginas = RELATORIO.paraApresentacao();
     const slides = paginas.map((p) => p.file);
     const meta = paginas.map((p) => ({ block: p.block, blockShort: p.blockShort, blockIndex: p.blockIndex, tint: p.tint }));
@@ -656,8 +643,8 @@
       });
     }
 
-    // Build dots — 1 por slide (navegação direta preservada), tingidos e
-    // separados por bloco para dar leitura visual dos 4 blocos.
+
+
     const dotsContainer = document.getElementById('navDots');
     for (let i = 0; i < total; i++) {
       const dot = document.createElement('button');
@@ -671,13 +658,13 @@
       dotsContainer.appendChild(dot);
     }
 
-    // Close presentation: returns to root index, or closes tab if opened from there
+
     function closePresentation() {
       if (window.opener) { window.close(); }
       else { window.location.href = '../index.html'; }
     }
 
-    // Fullscreen
+
     function toggleFullscreen() {
       if (!document.fullscreenElement) {
         document.documentElement.requestFullscreen().catch(() => { });
@@ -686,7 +673,7 @@
       }
     }
 
-    // Keyboard navigation
+
     function handleKey(key) {
       if (key === 'ArrowRight' || key === ' ' || key === 'PageDown') { next(); }
       else if (key === 'ArrowLeft' || key === 'PageUp') { prev(); }
@@ -700,7 +687,7 @@
         handleKey(e.key);
       }
     });
-    // Receive key events forwarded from the iframe slides
+
     window.addEventListener('message', (e) => {
       if (e.data && e.data.type === 'slide-nav' && e.data.key) {
         handleKey(e.data.key);
@@ -709,24 +696,24 @@
         current = e.data.slide;
         render();
       }
-      // Navegação por nome de arquivo (robusto a reordenação do array slides)
+
       if (e.data && e.data.type === 'slide-goto-file' && e.data.file) {
         const idx = slides.indexOf(e.data.file);
         if (idx !== -1) { current = idx + 1; render(); }
       }
     });
 
-    // Click side zones to navigate
+
     document.getElementById('clickLeft').addEventListener('click', () => prev());
     document.getElementById('clickRight').addEventListener('click', () => next());
 
     render();
 
-    // ===== Contador de página editável — clicar permite digitar o nº do slide =====
+
     const pageInfoEl = document.getElementById('pageInfo');
     pageInfoEl.title = 'Clique para digitar o número do slide';
     pageInfoEl.addEventListener('click', () => {
-      if (document.querySelector('.page-input')) return; // já aberto
+      if (document.querySelector('.page-input')) return;
       const input = document.createElement('input');
       input.type = 'number';
       input.className = 'page-input';
@@ -753,7 +740,7 @@
         }
         close();
       }
-      // Impede que as teclas cheguem ao atalho global de navegação (setas/espaço)
+
       input.addEventListener('keydown', (e) => {
         e.stopPropagation();
         if (e.key === 'Enter') commit();
@@ -762,7 +749,7 @@
       input.addEventListener('blur', commit);
     });
 
-    // Nav hints modal
+
     const navHints = document.getElementById('navHints');
     const helpBtn = document.getElementById('helpBtn');
 
@@ -771,16 +758,16 @@
       helpBtn.classList.toggle('active', open);
     }
 
-    // Close overlay clicking outside the panel
+
     navHints.addEventListener('click', (e) => {
       if (e.target === navHints) toggleHints();
     });
 
-    // Show automatically on first load
+
     navHints.classList.add('visible');
     helpBtn.classList.add('active');
 
-    // Scale iframe to fit stage
+
     const stage = document.querySelector('.stage');
     function scaleFrame() {
       const scale = Math.min(stage.clientWidth / 1920, stage.clientHeight / 1080);

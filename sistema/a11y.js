@@ -1,5 +1,4 @@
-/* Camada de acessibilidade — helpers reutilizados pelo visualizador e pelos
-   slides. Não altera nada visualmente por conta própria. */
+
 (function (global) {
   'use strict';
 
@@ -16,8 +15,7 @@
     return el;
   }
 
-  /* Anuncia uma mensagem para leitores de tela via região aria-live.
-     Limpa antes de escrever para garantir que repetições sejam lidas. */
+
   function announce(message) {
     var el = getLiveRegion();
     el.textContent = '';
@@ -26,10 +24,7 @@
     }, 50);
   }
 
-  /* Cria (ou atualiza) uma tabela .sr-only logo após `anchorEl` com os dados
-     de um gráfico, como alternativa textual equivalente ao canvas.
-     columns: array de strings (cabeçalhos)
-     rows: array de arrays (uma linha por item, mesma ordem das colunas) */
+
   function renderChartFallbackTable(anchorEl, caption, columns, rows) {
     if (!anchorEl || !anchorEl.parentNode) return;
     var existing = anchorEl.nextElementSibling;

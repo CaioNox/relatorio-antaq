@@ -1,14 +1,4 @@
 <!DOCTYPE html>
-<!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
-<!--
-  ╔══════════════════════════════════════════════════════════════╗
-  ║  SLIDE 29B — Glossário e Definições (parte 2 de 2)          ║
-  ║  Tipos de manifestação, instrumentos e conceitos-chave      ║
-  ╠══════════════════════════════════════════════════════════════╣
-  ║  O QUE ATUALIZAR A CADA TRIMESTRE:                          ║
-  ║  Raramente muda. Adicionar tile se surgir novo conceito     ║
-  ╚══════════════════════════════════════════════════════════════╝
--->
 
 <html lang="pt-BR">
 
@@ -74,7 +64,7 @@
             width: 100%;
         }
 
-        /* ===== Grade de quadros ===== */
+
         .tile-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -226,7 +216,7 @@
             line-height: 1.3;
         }
 
-        /* ===== Overlay (expande sobrepondo) ===== */
+
         .overlay {
             position: fixed;
             inset: 0;
@@ -445,7 +435,7 @@
     <div class="slide-container">
         <div class="top-accent"></div>
         <div class="top-accent-secondary"></div>
-        <!-- Header -->
+
         <div class="flex items-start justify-between px-16 pt-10 pb-3 z-10">
             <div>
                 <div class="flex items-center gap-3 mb-2">
@@ -466,10 +456,10 @@
                 </div>
             </div>
         </div>
-        <!-- Grade -->
+
         <div class="flex-1 px-16 pb-10 pt-3 z-10">
             <div class="tile-grid h-full">
-                <!-- SIC -->
+
                 <button class="tile" onclick="openCard(this)" data-title="SIC — Serviço de Informação ao Cidadão"
                     data-sub="Estrutura que recebe pedidos de acesso à informação" data-icon="fa-building-columns">
                     <span class="tile-ico"><i class="fas fa-building-columns"></i></span>
@@ -489,7 +479,7 @@
                         </div>
                     </div>
                 </button>
-                <!-- PDA -->
+
                 <button class="tile" onclick="openCard(this)" data-title="PDA — Plano de Dados Abertos"
                     data-sub="Instrumento de planejamento da abertura de dados" data-icon="fa-diagram-project">
                     <span class="tile-ico"><i class="fas fa-diagram-project"></i></span>
@@ -511,8 +501,8 @@
                         </div>
                     </div>
                 </button>
-                <!-- ── Tiles de Definições (incorporados do slide-28) ── -->
-                <!-- Fala.BR -->
+
+
                 <button class="tile" onclick="openCard(this)" data-title="Fala.BR"
                     data-sub="Plataforma integrada de ouvidoria e acesso à informação" data-icon="fa-comments">
                     <span class="tile-ico"><img src="Imagens/Logo_Fala_BR.png" alt="Fala.BR"
@@ -530,7 +520,7 @@
                         </div>
                     </div>
                 </button>
-                <!-- Fluxo de tratamento -->
+
                 <button class="tile" onclick="openCard(this)" data-title="Fluxo de tratamento das manifestações"
                     data-sub="Procedimentos adotados pela Ouvidoria da ANTAQ" data-icon="fa-diagram-project">
                     <span class="tile-ico"><i class="fas fa-diagram-project"></i></span>
@@ -552,7 +542,7 @@
                         </ul>
                     </div>
                 </button>
-                <!-- Ouvidoria -->
+
                 <button class="tile" onclick="openCard(this)" data-title="Ouvidoria"
                     data-sub="Instância de proteção dos direitos do cidadão" data-icon="fa-shield-halved">
                     <span class="tile-ico"><i class="fas fa-shield-halved"></i></span>
@@ -577,7 +567,7 @@
                         </div>
                     </div>
                 </button>
-                <!-- SFC e GPF/GCOR -->
+
                 <button class="tile" onclick="openCard(this)" data-title="SFC e GPF/GCOR"
                     data-sub="Áreas técnicas de fiscalização e coordenação" data-icon="fa-building">
                     <span class="tile-ico"><i class="fas fa-building"></i></span>
@@ -595,7 +585,7 @@
                         </ul>
                     </div>
                 </button>
-                <!-- Manifestação -->
+
                 <button class="tile" onclick="openCard(this)" data-title="Manifestação"
                     data-sub="Qualquer demanda enviada via Fala.BR" data-icon="fa-envelope-circle-check">
                     <span class="tile-ico"><i class="fas fa-envelope-circle-check"></i></span>
@@ -608,7 +598,7 @@
                             o tipo e a relevância para a ANTAQ.</p>
                     </div>
                 </button>
-                <!-- Dados Abertos -->
+
                 <button class="tile" onclick="openCard(this)" data-title="Dados Abertos"
                     data-sub="Dados públicos legíveis por máquina, livres para reúso" data-icon="fa-database">
                     <span class="tile-ico"><i class="fas fa-database"></i></span>
@@ -621,7 +611,7 @@
                             por máquina (CSV, JSON, XML).</p>
                     </div>
                 </button>
-                <!-- LAI -->
+
                 <button class="tile" onclick="openCard(this)" data-title="LAI — Lei de Acesso à Informação"
                     data-sub="Lei nº 12.527/2011" data-icon="fa-scale-balanced">
                     <span class="tile-ico"><i class="fas fa-scale-balanced"></i></span>
@@ -636,14 +626,14 @@
                 </button>
             </div>
         </div>
-        <!-- Footer -->
+
         <div class="px-16 pb-8 flex justify-between items-center z-10">
             <p class="text-gray-400 text-xs">Relatório 1º Trimestre de 2026 – Ouvidoria – Agência Nacional de Transportes Aquaviários - ANTAQ</p>
         </div>
         <div class="bg-pattern"><i class="fas fa-book text-9xl"></i></div>
     </div>
 
-    <!-- Overlay -->
+
     <div class="overlay" id="overlay" onclick="closeCard(event)">
         <div class="overlay-card" role="dialog" aria-modal="true" onclick="event.stopPropagation()">
             <button class="overlay-close" onclick="closeCard(event)" aria-label="Fechar"><i

@@ -1,28 +1,5 @@
-// Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva.
-// ╔══════════════════════════════════════════════════════════════════════════╗
-// ║  crie-seu-slide.js — MOTOR COMPARTILHADO do montador de apresentação      ║
-// ╠══════════════════════════════════════════════════════════════════════════╣
-// ║  Usado pelas duas ferramentas — crie-seu-slide-trimestral.html (foco no   ║
-// ║  Relatório Trimestral) e crie-seu-slide-conselho.html (foco no Relatório  ║
-// ║  do Conselho de Usuários). A ordem/seleção inicial de cada uma é o seu    ║
-// ║  próprio relatório, mas a Biblioteca sempre oferece os slides do OUTRO    ║
-// ║  relatório também — dá pra puxar slides de um pro outro à vontade.        ║
-// ║                                                                           ║
-// ║  Cada página que inclui este arquivo deve, ANTES do <script src=          ║
-// ║  "crie-seu-slide.js">, definir:                                          ║
-// ║    window.CRIE_SEU_SLIDE_CONFIG = {                                       ║
-// ║      focoOrigem: 'sistema' | 'enquetes',   // relatório padrão desta      ║
-// ║                                             // ferramenta                 ║
-// ║      tituloFoco: 'Relatório Trimestral',   // nome amigável, p/ mensagens ║
-// ║      storageKey: 'crieSeuSlide.trimestral.v1', // chave própria no        ║
-// ║                                             // localStorage (as duas      ║
-// ║                                             // ferramentas não podem      ║
-// ║                                             // compartilhar a mesma)      ║
-// ║    };                                                                    ║
-// ║                                                                           ║
-// ║  NENHUM arquivo de sistema/ ou enquetes-2026/ é alterado ou duplicado:    ║
-// ║  os slides são carregados ao vivo dos próprios arquivos originais.        ║
-// ╚══════════════════════════════════════════════════════════════════════════╝
+
+
 (function () {
   const CONFIG = Object.assign({
     focoOrigem: null,
@@ -30,16 +7,7 @@
     storageKey: 'crieSeuSlide.geral.v1',
   }, window.CRIE_SEU_SLIDE_CONFIG || {});
 
-  /* ══════════════════════════════════════════════════════════════════
-     1. CARREGAR OS DOIS DECKS SEM CONFLITO
-     sistema/deck.js e enquetes-2026/deck.js fazem, cada um, `window.
-     RELATORIO = {...}`. Incluí-los com <script src> normal faria o
-     segundo sobrescrever o primeiro. Em vez disso, buscamos o texto de
-     cada arquivo e rodamos dentro de uma função cujo parâmetro se chama
-     "window" — isso isola cada deck (inclusive o `const ENQUETES` que o
-     deck de enquetes espera encontrar no escopo) sem tocar no `window`
-     real nem um deck atropelar o outro.
-     ══════════════════════════════════════════════════════════════════ */
+
   const ORIGENS = {
     sistema: { label: 'Trimestral', pasta: 'sistema/', extras: [] },
     enquetes: { label: 'Conselho de Usuários', pasta: 'enquetes-2026/', extras: ['dados-enquetes.js'] },
@@ -62,7 +30,7 @@
   let focoUid = null;
 
   function salvar() {
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(selecao)); } catch (e) { /* ignora */ }
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(selecao)); } catch (e) {  }
   }
 
   function carregarSelecaoSalva() {
@@ -106,9 +74,9 @@
         poolTodos.push(item);
         poolPorUid.set(item.uid, item);
       });
-      // Ajustes de captura para o PPTX indexados por PASTA+ARQUIVO (não só
-      // pelo nome do arquivo): sistema/ e enquetes-2026/ têm arquivos de
-      // mesmo nome com conteúdo diferente.
+
+
+
       Object.entries(deck.capturaPptx || {}).forEach(([file, ajuste]) => {
         ajustesCaptura[cfg.pasta + file] = ajuste;
       });
@@ -130,9 +98,7 @@
       '<p>Não foi possível carregar os slides.<br>Veja o console para detalhes.</p></div>';
   });
 
-  /* ══════════════════════════════════════════════════════════════════
-     2. FILMSTRIP — a seleção atual, na ordem atual
-     ══════════════════════════════════════════════════════════════════ */
+
   const filmstripEl = document.getElementById('filmstrip');
   const filmstripCountEl = document.getElementById('filmstripCount');
   let dragUid = null;
@@ -242,10 +208,7 @@
     filmstripEl.scrollLeft = filmstripEl.scrollWidth;
   }
 
-  /* ══════════════════════════════════════════════════════════════════
-     3. BIBLIOTECA — os slides que não estão na seleção (do próprio
-        relatório em foco E do outro — dá pra puxar slides entre si)
-     ══════════════════════════════════════════════════════════════════ */
+
   const libBody = document.getElementById('libraryBody');
 
   function renderBiblioteca() {
@@ -295,9 +258,7 @@
     });
   }
 
-  /* ══════════════════════════════════════════════════════════════════
-     4. PALCO — pré-visualização do slide focado
-     ══════════════════════════════════════════════════════════════════ */
+
   const previewFrame = document.getElementById('previewFrame');
   const stageEmpty = document.getElementById('stageEmpty');
   const stageCaption = document.getElementById('stageCaption');
@@ -329,9 +290,7 @@
   window.addEventListener('resize', escalarPalco);
   new ResizeObserver(escalarPalco).observe(stageEl);
 
-  /* ══════════════════════════════════════════════════════════════════
-     5. BOTÕES DE TOPO
-     ══════════════════════════════════════════════════════════════════ */
+
   document.getElementById('btnReset').addEventListener('click', () => {
     if (!poolTodos.length) return;
     const msg = CONFIG.focoOrigem
@@ -357,13 +316,7 @@
   btnLib.addEventListener('click', () => toggleLibrary(!libraryEl.classList.contains('open')));
   document.getElementById('btnLibClose').addEventListener('click', () => toggleLibrary(false));
 
-  /* ══════════════════════════════════════════════════════════════════
-     6. BAIXAR POWERPOINT — cada slide da seleção vira uma imagem dentro
-        do .pptx. Mesmo mecanismo de sistema/relatorio.html: captura numa
-        iframe-palco escondida de 1920×1080 (fontes e imagens embutidas
-        antes da captura), com duas iframes alternadas para sobrepor rede
-        e captura.
-     ══════════════════════════════════════════════════════════════════ */
+
   const PPTX_LARGURA = 1920;
   const PPTX_JPEG = 0.88;
   const CSS_CAPTURA =
@@ -409,10 +362,10 @@
           try {
             const dataUrl = await imagemParaDataUrl(new URL(m[2], href).href);
             css = css.replace(m[0], 'url(' + dataUrl + ')');
-          } catch (e) { /* mantém a URL original se a rede falhar */ }
+          } catch (e) {  }
         }
         out += css + '\n';
-      } catch (e) { /* folha indisponível: segue sem ela */ }
+      } catch (e) {  }
     }
     cssFontes = out;
     return out;
@@ -425,7 +378,7 @@
       if (!src || src.startsWith('data:')) return;
       try {
         img.src = await imagemParaDataUrl(new URL(src, doc.baseURI).href);
-      } catch (e) { /* mantém como está se falhar */ }
+      } catch (e) {  }
     }));
   }
 
@@ -446,7 +399,7 @@
 
           await inlinarImagens(doc);
           if (doc.fonts && doc.fonts.ready) await doc.fonts.ready;
-        } catch (e) { /* segue mesmo assim */ }
+        } catch (e) {  }
         requestAnimationFrame(() => requestAnimationFrame(resolve));
       });
       iframe.src = src;

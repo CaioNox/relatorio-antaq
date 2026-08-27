@@ -1,16 +1,5 @@
 <!DOCTYPE html>
-<!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
-<!--
-  ╔══════════════════════════════════════════════════════════════╗
-  ║  Atribuições do Conselho — Lei nº 13.460/2017, arts. 18 a 22 ║
-  ║  ATUALIZAR: só se houver alteração legislativa.              ║
-  ║                                                              ║
-  ║  Estrutura: caput do art. 18 (.ref-caput, mesmo padrão dos   ║
-  ║  slides de Atribuições/Diretrizes das Ouvidorias) → os cinco ║
-  ║  incisos como cartões numerados I a V → arts. 19 a 22 numa   ║
-  ║  faixa compacta ao pé.                                       ║
-  ╚══════════════════════════════════════════════════════════════╝
--->
+
 <html lang="pt-BR">
 
 <head>
@@ -41,15 +30,10 @@
       text-transform: uppercase; padding: .25rem .8rem; border-radius: 999px;
     }
 
-    /* --fs escala TODO o texto do miolo (caput, incisos e arts. 19–22). O
-       ajustarCorpo(), no script, procura o maior valor até 1.35 em que nada
-       transborda: os cartões já ocupavam a altura inteira, mas com texto
-       pequeno e muito branco dentro deles. Os algarismos grandes (.inc-num e
-       a marca d'água) NÃO escalam — o ganho de espaço vai para o texto que se
-       lê, não para o número que já era grande.                            */
+
     .body-wrap { --fs: 1; flex: 1; min-height: 0; display: flex; flex-direction: column; gap: .55rem; padding: .5rem 3rem 0; }
 
-    /* ── Caput do artigo — mesmo componente dos slides do Bloco 1 ── */
+
     .ref-caput {
       font-size: calc(.76rem * var(--fs)); line-height: 1.45; color: #334155; margin: 0;
       background: #F1F5F9; border-left: 4px solid #0070C0; border-radius: 0 8px 8px 0;
@@ -58,11 +42,8 @@
     .ref-caput strong { color: #103050; }
     .ref-caput .par { display: block; margin-top: .3rem; color: #103050; font-weight: 600; }
 
-    /* ── Os cinco incisos: o miolo do slide ─────────────────────────────
-         Um cartão por inciso, algarismo romano grande — é o que o olho
-         pega primeiro e o que a revisão pediu para enfatizar.          */
-    /* Os incisos ficam com a maior fatia da altura, mas os arts. 19–22
-       também crescem — senão a faixa de baixo encosta no rodapé. */
+
+
     .incisos {
       flex: 1.45; min-height: 0;
       display: grid; grid-template-columns: repeat(5, 1fr); gap: .8rem;
@@ -88,21 +69,20 @@
       letter-spacing: .07em; text-transform: uppercase; color: var(--c);
       margin: 0 0 .5rem; padding-bottom: .45rem; border-bottom: 1px solid #E2E8F0;
     }
-    /* O texto ocupa a sobra do cartão e fica centrado nela — sem isso o
-       inciso curto deixa um buraco embaixo. */
+
     .inc-txt {
       flex: 1; min-height: 0; margin: 0; display: flex; align-items: center;
       font-size: calc(.82rem * var(--fs)); line-height: 1.55; color: #475569;
     }
 
-    /* Marca d'água do algarismo, bem discreta, para dar peso ao cartão */
+
     .inc::after {
       content: attr(data-num); position: absolute; right: .4rem; bottom: -.55rem;
       font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 3.4rem;
       color: var(--c); opacity: .06; line-height: 1; pointer-events: none;
     }
 
-    /* ── Arts. 19 a 22: o que a lei ainda define, em faixa compacta ── */
+
     .mais-rot {
       font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: calc(.6rem * var(--fs));
       letter-spacing: .12em; text-transform: uppercase; color: #94A3B8;
@@ -246,11 +226,11 @@
   </div>
 
   <script>
-    // ── Aproveitar o branco dentro dos cartões ───────────────────────────────
-    // O slide é um quadro fixo de 1920x1080: não dá para "chutar" o tamanho da
-    // fonte, porque uma linha a mais em qualquer cartão some atrás da borda.
-    // Então o texto cresce até 1.35× e recua de 2% em 2% enquanto algum bloco
-    // estiver transbordando — parando sempre no maior tamanho que caiba.
+
+
+
+
+
     (function () {
       const corpo = document.querySelector('.body-wrap');
       const blocos = Array.from(document.querySelectorAll('.ref-caput, .inc, .artigo'));
@@ -272,7 +252,7 @@
 
       ajustarCorpo();
       window.addEventListener('resize', ajustarCorpo);
-      // A métrica muda quando Montserrat/Open Sans terminam de carregar.
+
       if (document.fonts && document.fonts.ready) document.fonts.ready.then(ajustarCorpo);
     })();
 

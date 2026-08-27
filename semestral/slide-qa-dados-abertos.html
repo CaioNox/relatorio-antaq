@@ -1,25 +1,4 @@
 <!DOCTYPE html>
-<!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
-<!--
-  ╔══════════════════════════════════════════════════════════════╗
-  ║  SLIDE — Perguntas e Respostas · Dados Abertos (Capítulo 04)
-  ╠══════════════════════════════════════════════════════════════╣
-  ║  Vem logo ANTES do slide-pda.html e prepara o público para o
-  ║  trecho final do capítulo: o Plano de Dados Abertos e as bases
-  ║  publicadas pela ANTAQ.
-  ║
-  ║  LAYOUT — idêntico ao de slide-qa-geral.html: sanfona de barras
-  ║  retangulares clicáveis, uma resposta aberta por vez; no PDF sai
-  ║  igual à tela, e as respostas completas vão para um anexo textual
-  ║  (deck.js → RELATORIO.anexos). Ao alterar um dos dois, replique no
-  ║  outro para manter a padronização.
-  ║
-  ║  O QUE ATUALIZAR A CADA SEMESTRE:
-  ║    18 bases abertas · 8 previstas ............ slide-21
-  ║    nomes das bases publicadas e previstas .... slide-21
-  ║    vigência e base legal do PDA .............. slide-pda
-  ╚══════════════════════════════════════════════════════════════╝
--->
 
 <html lang="pt-BR">
 
@@ -35,7 +14,7 @@
     rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
   <style>
-    /* Escala proporcional à tela (26px no canvas 1920×1080). */
+
     html { font-size: clamp(13px, min(1.354vw, 2.407vh), 26px); }
     body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
 
@@ -52,7 +31,7 @@
     .top-accent { height: 8px; background-color: #103050; width: 100%; }
     .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
 
-    /* ───────── Painel: trilhas empilhadas em coluna única ───────── */
+
     .board {
       flex: 1; min-height: 0; z-index: 10;
       display: flex; flex-direction: column; justify-content: space-between;
@@ -60,7 +39,7 @@
     }
     .track { display: flex; flex-direction: column; gap: .3rem; }
 
-    /* Cores da trilha: --c acento · --ct texto · --cs fundo suave */
+
     .t1 { --c: #0070C0; --ct: #0A5FA0; --cs: #E9F2FA; }
     .t2 { --c: #F2A900; --ct: #A96F00; --cs: #FDF3DE; }
     .t3 { --c: #103050; --ct: #103050; --cs: #E8EDF3; }
@@ -76,7 +55,7 @@
       letter-spacing: .11em; text-transform: uppercase; color: #103050;
     }
 
-    /* ───────── Barra retangular clicável ───────── */
+
     .qa {
       background: #fff; border: 1px solid #E5E9F0; border-left: 4px solid var(--c);
       border-radius: 10px; overflow: hidden;
@@ -114,7 +93,7 @@
     }
     .qa.open .qa-chev { transform: rotate(180deg); color: var(--ct); }
 
-    /* ───────── Painel expansível ───────── */
+
     .qa-panel {
       max-height: 0; opacity: 0; overflow: hidden;
       transition: max-height .32s cubic-bezier(.2, .7, .3, 1), opacity .24s ease;
@@ -124,7 +103,7 @@
     .qa-a { font-size: .7rem; line-height: 1.42; color: #334155; margin: 0; }
     .qa-a b { color: var(--ct); font-weight: 800; }
 
-    /* ───────── Etiquetas de origem (clicáveis) ───────── */
+
     .qa-refs { display: flex; flex-wrap: wrap; gap: .3rem; margin-top: .4rem; }
     .qa-ref {
       display: inline-flex; align-items: center; gap: .32rem;
@@ -150,12 +129,8 @@
     .t3 .qa { animation-delay: .12s; }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
 
-    /* Impressão/PDF: abre tudo, para o relatório não sair só com perguntas. */
-    /* As respostas completas saem no anexo textual do relatório (deck.js →
-       RELATORIO.anexos['slide-qa-dados-abertos.html']), não aqui: abrir
-       todos os .qa-panel em @media print fazia o conteúdo passar de 1080px
-       de altura (até 1653px medidos) e cortava as perguntas finais. O slide
-       sai no PDF igual à tela — só a pergunta 01 aberta. */
+
+
     @media print {
       .qa-chev { display: none; }
       .hint { display: none; }
@@ -170,7 +145,7 @@
     <div class="top-accent"></div>
     <div class="top-accent-secondary"></div>
 
-    <!-- ───────── Cabeçalho ───────── -->
+
     <div class="flex items-start justify-between px-16 pt-8 pb-2 z-10">
       <div>
         <div class="flex items-center gap-3 mb-1">
@@ -188,10 +163,10 @@
       </div>
     </div>
 
-    <!-- ───────── Sanfona de perguntas ───────── -->
+
     <div class="board">
 
-      <!-- ══ Trilha 1 — O que são e por que abrir ══ -->
+
       <div class="track t1">
         <div class="track-head"><i class="fas fa-circle-info"></i><span>O que são e por que abrir</span></div>
 
@@ -245,7 +220,7 @@
         </div>
       </div>
 
-      <!-- ══ Trilha 2 — O Plano de Dados Abertos ══ -->
+
       <div class="track t2">
         <div class="track-head"><i class="fas fa-clipboard-list"></i><span>O Plano de Dados Abertos</span></div>
 
@@ -298,7 +273,7 @@
         </div>
       </div>
 
-      <!-- ══ Trilha 3 — O que já está publicado ══ -->
+
       <div class="track t3">
         <div class="track-head"><i class="fas fa-database"></i><span>O que já está publicado</span></div>
 
@@ -342,7 +317,7 @@
           </button>
           <div class="qa-panel">
             <div class="qa-panel-in">
-              <p class="qa-a">As <b>8 bases previstas</b>: Painel de Portos Públicos, Plano Geral de Outorgas Hidroviárias, TKU, Tarifas Portuárias Homologadas, Inventário de Painéis BI, SEI, Contratos Vigentes e Compras e Contratações.</p>
+              <p class="qa-a txt-bloco">As <b>8 bases previstas</b>: Painel de Portos Públicos, Plano Geral de Outorgas Hidroviárias, TKU, Tarifas Portuárias Homologadas, Inventário de Painéis BI, SEI, Contratos Vigentes e Compras e Contratações.</p>
               <div class="qa-refs">
                 <button class="qa-ref" data-file="slide-21.html"><i class="fas fa-chevron-right"></i> Dados Abertos</button>
               </div>
@@ -353,7 +328,7 @@
 
     </div>
 
-    <!-- ───────── Rodapé ───────── -->
+
     <div class="px-16 pb-4 pt-1 flex justify-between items-center z-10">
       <p class="text-gray-400" style="font-size:.46rem;">Relatório 1º Semestre de 2026 – Ouvidoria – Agência Nacional de Transportes Aquaviários - ANTAQ</p>
       <p class="hint"><i class="far fa-hand-pointer"></i> Clique na pergunta para abrir a resposta · nas etiquetas, para ir ao slide que a detalha</p>
@@ -362,7 +337,7 @@
   </div>
 
   <script>
-    /* Sanfona — uma resposta aberta por vez, para nunca estourar a altura da tela. */
+
     document.querySelectorAll('.qa-bar').forEach(function (bar) {
       bar.addEventListener('click', function () {
         var item = bar.parentElement;
@@ -378,15 +353,14 @@
       });
     });
 
-    /* Etiquetas → navegam para o slide de origem da resposta. */
+
     document.querySelectorAll('.qa-ref').forEach(function (btn) {
       btn.addEventListener('click', function () {
         window.parent.postMessage({ type: "slide-goto-file", file: btn.dataset.file }, "*");
       });
     });
 
-    /* Teclas de navegação — repassadas ao contêiner. Ignora quando o foco está
-       num botão, para não bloquear Espaço/Enter que abre a resposta. */
+
     document.addEventListener("keydown", function (e) {
       if (e.target.closest && e.target.closest('button')) return;
       if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) {
