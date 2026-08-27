@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
+<!--
+  ╔══════════════════════════════════════════════════════════════╗
+  ║  SLIDE 17D — Fluxo Mensal do Painel Resolveu (Fala.BR)
+  ╠══════════════════════════════════════════════════════════════╣
+  ║  Atualizar: dados mensais Painel Resolveu · crescimento
+  ╚══════════════════════════════════════════════════════════════╝
+-->
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Fluxo Mensal Painel Resolveu - Relatório Semestral Ouvidoria ANTAQ</title>
+  <link rel="icon" type="image/png"
+    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&amp;family=Open+Sans:ital,wght@0,400;0,600;1,400&amp;display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    html {
+      font-size: 26px;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f3f4f6;
+      overflow: hidden;
+    }
+
+    .slide-container {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background-color: #ffffff;
+      overflow: hidden;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    .font-montserrat {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .text-brand-primary {
+      color: #103050;
+    }
+
+    .text-brand-secondary {
+      color: #0070C0;
+    }
+
+    .bg-brand-secondary {
+      background-color: #0070C0;
+    }
+
+    .top-accent {
+      height: 8px;
+      background-color: #103050;
+      width: 100%;
+    }
+
+    .top-accent-secondary {
+      height: 4px;
+      background-color: #0070C0;
+      width: 100%;
+    }
+
+    .chart-card {
+      background-color: #ffffff;
+      border: 2px solid #E2E8F0;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px -8px rgba(16, 48, 80, 0.18);
+      padding: 1.4rem 1.6rem;
+      transition: transform .28s cubic-bezier(.2, .7, .3, 1), box-shadow .28s ease, border-color .28s ease;
+    }
+
+    .chart-card:hover {
+      transform: translateY(-7px);
+      box-shadow: 0 22px 42px -12px rgba(16, 48, 80, .30);
+      border-color: #0070C0;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    .chart-card {
+      animation: fadeIn .5s ease both;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+
+    .legend-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+      display: inline-block;
+    }
+
+    .kpi-card {
+      border-radius: 20px;
+      padding: 1.6rem 1.4rem;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 18px 40px -12px rgba(16, 48, 80, 0.45);
+    }
+
+    .kpi-primary {
+      background: linear-gradient(160deg, #103050 0%, #0070C0 100%);
+    }
+
+    .kpi-soft {
+      background: #f0f7ff;
+      border: 2px solid #c8dff0;
+      border-radius: 16px;
+      padding: 1.2rem 1.4rem;
+      text-align: center;
+    }
+
+    .kpi-num {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      line-height: 1;
+      color: #ffffff;
+    }
+
+    .kpi-watermark {
+      position: absolute;
+      right: -10px;
+      bottom: -20px;
+      font-size: 7rem;
+      opacity: 0.12;
+      color: #ffffff;
+    }
+
+    .kpi-card {
+      transition: transform .28s cubic-bezier(.2, .7, .3, 1), box-shadow .28s ease;
+    }
+
+    .kpi-card:hover {
+      transform: translateY(-7px) scale(1.015);
+      box-shadow: 0 30px 58px -16px rgba(16, 48, 80, .6);
+    }
+
+    .kpi-card:hover .kpi-watermark {
+      transform: scale(1.12);
+      opacity: .2;
+    }
+
+    .month-grid {
+      display: flex;
+      justify-content: space-around;
+    }
+
+    .month-item {
+      text-align: center;
+    }
+
+    .month-label {
+      font-size: 0.7rem;
+      color: #103050;
+      font-weight: 600;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .month-value {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 2rem;
+      color: #103050;
+      line-height: 1.1;
+    }
+
+    .growth-card {
+      background: #fefcf0;
+      border: 2px solid #F2A900;
+      border-radius: 16px;
+      padding: 1.1rem 1.2rem;
+      text-align: left;
+      /* com a saída do card "Distribuição Mensal", os dois cards restantes
+         dividem a coluna e centram o conteúdo, sem vazio no rodapé */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .growth-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: .6rem;
+      padding: .25rem 0;
+      border-bottom: 1px solid rgba(242, 169, 0, 0.22);
+    }
+
+    .growth-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .growth-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: .58rem;
+      font-weight: 700;
+      color: #8a6400;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+
+    .growth-value {
+      font-family: 'Montserrat', sans-serif;
+      font-size: .98rem;
+      font-weight: 800;
+      color: #103050;
+      white-space: nowrap;
+    }
+
+    /* Verde/vermelho substituídos por peso da escala azul + ícone direcional (▲/▼) no
+       markup — cor nunca é o único canal, conforme decisão registrada em
+       INVENTARIO.md §DECISÕES. */
+    .growth-value.up {
+      color: #103050;
+    }
+
+    .growth-value.down {
+      color: #5fb8dd;
+      font-weight: 600;
+    }
+  </style>
+  <link rel="stylesheet" href="a11y.css">
+  <link rel="stylesheet" href="base.css" />
+</head>
+
+<body>
+  <div class="slide-container">
+    <div class="top-accent"></div>
+    <div class="top-accent-secondary"></div>
+    <!-- Header -->
+    <div class="flex items-start justify-between px-16 pt-10 pb-3 z-10">
+      <div>
+        <div class="flex items-center gap-3 mb-2">
+          <div class="w-1 h-8 bg-brand-secondary"></div>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Distribuição das Manifestações por mês</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
+        <i class="fas fa-headset text-3xl" aria-hidden="true"></i>
+        <div class="flex flex-col justify-center pl-2" style="border-left:1px solid #CBD5E1;">
+          <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">CAPÍTULO 03</p>
+          <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none whitespace-nowrap">Seção de Apoio ao Cidadão — SAC</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main -->
+    <div class="flex-1 grid grid-cols-3 gap-6 px-16 pb-10 z-10">
+      <div class="chart-card col-span-2 flex flex-col">
+        <p class="text-brand-primary font-montserrat font-bold text-xl mb-1 flex items-center gap-2"><i
+            class="fas fa-chart-bar text-brand-secondary"></i> Atendimentos Painel Resolveu por Mês</p>
+        <p class="text-gray-400 text-sm mb-1">90 + 129 + 85 = <strong class="text-brand-primary">304</strong> manifestações no semestre</p>
+        <p class="text-gray-400 mb-2" style="font-size:0.5rem;">Distribuição mensal das manifestações recebidas no Fala.BR ao longo do semestre.</p>
+        <div class="flex-1 relative"><canvas id="chartFluxo" role="img" aria-label="Gráfico de barras: atendimentos do Painel Resolveu por mês — Janeiro 90, Fevereiro 129, Março 85"></canvas></div>
+      </div>
+
+      <div class="flex flex-col gap-4 justify-center">
+
+        <div class="kpi-card kpi-primary" style="flex:1;">
+          <p class="text-blue-100 font-montserrat font-bold text-xs uppercase tracking-widest mb-2">Fala.BR — Painel
+            Resolveu</p>
+          <p class="kpi-num text-6xl">304</p>
+          <p class="text-blue-200 text-sm mt-2">Total de manifestações registradas no semestre</p>
+          <i class="fas fa-check-circle kpi-watermark"></i>
+        </div>
+
+        <!-- Card "Distribuição Mensal" removido: era redundante com o gráfico de barras ao lado -->
+
+        <!-- Crescimentos mensais -->
+        <div class="growth-card" style="flex:1;">
+          <p class="font-montserrat font-bold text-sm text-brand-primary mb-2">Evolução mensal</p>
+          <div class="growth-row">
+            <span class="growth-label">Jan → Fev</span>
+            <span class="growth-value up">▲ +43,3%</span>
+          </div>
+          <div class="growth-row">
+            <span class="growth-label">Fev → Mar</span>
+            <span class="growth-value down">▼ -34,1%</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="px-16 pb-8 flex justify-between items-center z-10">
+      <p class="text-gray-400 text-xs">Relatório 1º Semestre de 2026 – Ouvidoria – Agência Nacional de Transportes Aquaviários - ANTAQ</p>
+    </div>
+  </div>
+  <script>
+    const monthColors = ['#0070C0', '#0090C0', '#103050'];
+    const fluxoLabels = ['Janeiro', 'Fevereiro', 'Março'];
+    const fluxoData = [90, 129, 85];
+    new Chart(document.getElementById('chartFluxo'), {
+      type: 'bar',
+      // espessura padronizada com o gráfico de barras do slide-canal
+      data: { labels: fluxoLabels, datasets: [{ data: fluxoData, backgroundColor: monthColors, borderRadius: 6, maxBarThickness: 120, categoryPercentage: 0.85, barPercentage: 0.92 }] },
+      options: { responsive: true, maintainAspectRatio: false, layout: { padding: { top: 20 } }, plugins: { legend: { display: false }, tooltip: { enabled: false } }, scales: { x: { grid: { display: false }, ticks: { color: '#6b7280', font: { size: 13, weight: '600' } } }, y: { beginAtZero: true, grid: { color: '#eef1f5' }, ticks: { color: '#9ca3af', font: { size: 11 } } } } },
+      plugins: [{ id: 'valueLabels', afterDatasetsDraw(chart) { const { ctx } = chart; ctx.save(); ctx.font = '700 16px Montserrat, sans-serif'; ctx.fillStyle = '#103050'; ctx.textAlign = 'center'; chart.getDatasetMeta(0).data.forEach((bar, i) => { ctx.fillText(chart.data.datasets[0].data[i], bar.x, bar.y - 8); }); ctx.restore(); } }]
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!window.A11y) return;
+      A11y.renderChartFallbackTable(
+        document.getElementById('chartFluxo'),
+        'Atendimentos do Painel Resolveu por mês',
+        ['Mês', 'Quantidade'],
+        fluxoLabels.map((l, i) => [l, String(fluxoData[i])])
+      );
+    });
+  </script>
+  <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
+  <script src="a11y.js" defer></script>
+</body>
+
+</html>

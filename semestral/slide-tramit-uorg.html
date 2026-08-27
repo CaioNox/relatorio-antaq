@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
+<!--
+  ╔══════════════════════════════════════════════════════════════╗
+  ║  SLIDE — Demandas tramitadas por UORG — 1º semestre de 2026
+  ╠══════════════════════════════════════════════════════════════╣
+  ║  Mesma lógica interativa do slide-08.html (chips → barras), com o
+  ║  mesmo layout LADO A LADO: barras à esquerda, série mensal à direita.
+  ║  Cabe inteiro na tela (height:100vh, sem rolagem).
+  ║
+  ║  ⚠ AS DUAS BASES DE PERCENTUAL — não misturar:
+  ║   • BARRAS (por UORG): % sobre BASE_PCT = 353 demandas. Somam
+  ║     154,10%, porque uma mesma demanda é tramitada para várias
+  ║     unidades. NUNCA transformar essas barras em pizza: com 154%
+  ║     ela mentiria, já que pizza representa partes de um todo.
+  ║   • ROSCA (por superintendência): % sobre as TRAMITAÇÕES exibidas.
+  ║     Aqui fecha em 100%, porque cada tramitação pertence a uma
+  ║     única superintendência — não há dupla contagem. É por isso
+  ║     que esta rosca é legítima e a de UORG continua proibida.
+  ║  Cada gráfico declara a própria base no título; se mexer nos
+  ║  títulos, manter essa indicação.
+  ║
+  ║  ⚠ DUAS CONTAGENS DIFERENTES, não confundir:
+  ║   • 544 = total de TRAMITAÇÕES (uma demanda conta em cada UORG);
+  ║   • 353 = BASE do percentual (demandas de nov+dez/25 e 1º sem/26, B+C).
+  ║  O % de cada UORG é sobre 353, não sobre 544.
+  ║
+  ║  ⚠ 22 UORGs sem movimento ficaram FORA do gráfico (decisão editorial);
+  ║  estão listadas na nota de rodapé para não sumirem do relatório.
+  ║
+  ║  ⚠ Esta planilha veio só com SIGLAS — sem os nomes por extenso.
+  ║  Quando os nomes chegarem, trocar 'sigla' por 'Nome completo - SIGLA'
+  ║  no campo `nome` de cada UORG (igual ao slide-resp-unidade.html).
+  ║
+  ║  O QUE ATUALIZAR A CADA SEMESTRE:
+  ║  BASE_PCT, os meses em MESES[] e os valores [jan, fev, mar] de cada UORG.
+  ╚══════════════════════════════════════════════════════════════╝
+-->
+
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Demandas tramitadas por Unidade - Relatório Semestral Ouvidoria ANTAQ</title>
+  <link rel="icon" type="image/png"
+    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&amp;family=Open+Sans:ital,wght@0,400;0,600;1,400&amp;display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    /* teto elevado de 26px para 28px: a 1920×1080 o min() já batia no teto,
+       então era ele que limitava o corpo de texto do slide inteiro. 30px
+       (+15%) fazia o título colidir com o selo do capítulo e a grade
+       ultrapassar os 1080 — 28px é o máximo que cabe. */
+    html { font-size: clamp(14px, min(1.4583vw, 2.5926vh), 28px); }
+    body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
+
+    /* cabe inteiro na tela — sem rolagem */
+    .slide-container {
+      width: 100vw; height: 100vh; position: relative;
+      display: flex; flex-direction: column;
+      background-color: #ffffff; overflow: hidden; font-family: 'Open Sans', sans-serif;
+    }
+
+    .font-montserrat { font-family: 'Montserrat', sans-serif; }
+    .text-brand-primary { color: #103050; }
+    .text-brand-secondary { color: #0070C0; }
+    .bg-brand-secondary { background-color: #0070C0; }
+    .top-accent { height: 8px; background-color: #103050; width: 100%; }
+    .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
+
+    /* Grade retangular de largura total: gasta bem menos altura que o
+       flex-wrap antigo, o que sobe os gráficos (padrão do slide-08). */
+    .chips {
+      display: grid; grid-template-columns: repeat(5, 1fr);
+      gap: .4rem .55rem; margin-top: .5rem; align-items: stretch;
+    }
+
+    .chip span { flex: 1; min-width: 0; }
+    .chip b { margin-left: auto; flex-shrink: 0; }
+
+    .chip {
+      display: flex; align-items: center; gap: .4rem; width: 100%; text-align: left;
+      border: 2px solid var(--c); color: var(--c); background: transparent;
+      border-radius: 10px; padding: .34rem .65rem;
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .6rem;
+      cursor: pointer; opacity: .5; white-space: normal; line-height: 1.15;
+      transition: background-color 200ms ease, color 200ms ease, opacity 200ms ease,
+        box-shadow 200ms ease, transform 200ms ease;
+    }
+    .chip b {
+      font-weight: 900; font-size: .52rem;
+      background: color-mix(in srgb, var(--c) 14%, #ffffff);
+      color: var(--c); border-radius: 999px; padding: .12rem .36rem; line-height: 1;
+      transition: background-color 200ms ease, color 200ms ease;
+    }
+    .chip:hover { opacity: .85; transform: translateY(-2px); }
+    .chip.active { background: var(--c); color: #ffffff; opacity: 1; box-shadow: 0 8px 18px -8px color-mix(in srgb, var(--c) 70%, transparent); }
+    .chip.active b { background: rgba(255, 255, 255, .25); color: #ffffff; }
+
+    /* largura cheia só dentro da grade; na faixa de meses ele segue compacto */
+    .chips .chip-reset { width: 100%; }
+
+    .chip-reset {
+      display: inline-flex; align-items: center; justify-content: center; gap: .38rem;
+      border: 2px dashed #cbd5e1; color: #64748b; background: transparent;
+      border-radius: 10px; padding: .34rem .65rem;
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .6rem;
+      cursor: pointer; white-space: normal; line-height: 1.15; text-align: center;
+      transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease, transform 200ms ease;
+    }
+    .chip-reset:hover { color: #103050; border-color: #103050; background: #f1f5f9; transform: translateY(-2px); }
+
+    /* ===== segunda linha de filtro: MÊS ===== */
+    .chips-mes { display: flex; flex-wrap: wrap; align-items: center; gap: .35rem; margin-top: .35rem; }
+    .mes-lab {
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .5rem;
+      letter-spacing: .1em; text-transform: uppercase; color: #94a3b8; margin-right: .2rem;
+    }
+    .chip-mes {
+      display: inline-flex; align-items: center; gap: .35rem;
+      border: 2px solid #103050; color: #103050; background: transparent;
+      border-radius: 8px; padding: .26rem .6rem;
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .55rem;
+      cursor: pointer; opacity: .45; white-space: nowrap; line-height: 1;
+      transition: background-color 180ms ease, color 180ms ease, opacity 180ms ease, transform 180ms ease;
+    }
+    .chip-mes b {
+      font-weight: 900; font-size: .48rem; background: #eef2f7; color: #103050;
+      border-radius: 5px; padding: .1rem .3rem; line-height: 1;
+      transition: background-color 180ms ease, color 180ms ease;
+    }
+    .chip-mes:hover { opacity: .8; transform: translateY(-1px); }
+    .chip-mes.active { background: #103050; color: #fff; opacity: 1; }
+    .chip-mes.active b { background: rgba(255, 255, 255, .22); color: #fff; }
+
+    .hint-line { margin-top: .45rem; font-size: .54rem; color: #94a3b8; font-weight: 600; display: flex; align-items: center; gap: .4rem; }
+    .hint-line i { color: #0090C0; font-size: .6rem; }
+
+    .empty-state {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: .6rem; color: #94a3b8; font-family: 'Montserrat', sans-serif; font-weight: 700;
+      font-size: .8rem; padding: 2.5rem 0;
+    }
+    .empty-state i { font-size: 1.6rem; color: #cbd5e1; }
+
+    .chart-card {
+      background-color: #ffffff; border: 2px solid #E2E8F0; border-radius: 16px;
+      box-shadow: 0 8px 20px -8px rgba(16, 48, 80, 0.18);
+      padding: .8rem 1.1rem .9rem; display: flex; flex-direction: column;
+      min-height: 0; min-width: 0;
+      /* Sem isso, quando a nota .zeradas (lista de UORGs sem tramitação) mais
+         as barras não cabem no espaço do card, o conteúdo vaza por baixo do
+         card e sobrepõe o rodapé institucional em vez de ser contido. */
+      overflow: hidden;
+    }
+
+    .chart-cap {
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .72rem;
+      display: flex; align-items: center; gap: .45rem;
+      padding-bottom: .4rem; margin-bottom: .4rem;
+      border-bottom: 1px solid #eef2f7; flex-shrink: 0; transition: color 250ms ease;
+    }
+
+    /* lado a lado: barras à esquerda, série mensal à direita.
+       grid-template-rows precisa ser minmax(0,1fr): sem isso, a única linha
+       do grid usa sizing "auto" (tamanho do conteúdo mais alto), ignorando a
+       altura que `flex:1;min-height:0` reserva aqui — e o .chart-card com
+       30 UORGs cresce livremente, vazando por cima do rodapé. */
+    .charts-grid {
+      /* O pai (.flex-1 acima) é `display:block`, então `flex:1;min-height:0`
+         aqui não pega — precisa de height:100% para herdar a altura que o
+         pai já reserva corretamente (resto da tela menos cabeçalho/rodapé). */
+      flex: 1; min-height: 0; height: 100%;
+      display: grid; grid-template-columns: 1.15fr 0.85fr; grid-template-rows: minmax(0, 1fr); gap: .8rem;
+    }
+    .chart-canvas-wrap { flex: 1; min-height: 0; position: relative; }
+
+    /* overflow:hidden é o que faltava: sem ele, quando as 30 barras (mais o
+       gap) somam mais altura do que o flex:1 reserva, o conteúdo vaza por
+       baixo da própria caixa em vez de ser contido — e é esse vazamento,
+       não a nota .zeradas em si, que sobrepõe o rodapé institucional. */
+    .rows { flex: 1; min-height: 0; overflow: hidden; display: flex; flex-direction: column; justify-content: center; gap: .22rem; }
+    .bar-row { display: flex; align-items: center; gap: .5rem; animation: fadeInRow .45s cubic-bezier(.2, .7, .3, 1) both; }
+
+    @keyframes fadeInRow {
+      from { opacity: 0; transform: translateX(-12px); }
+      to { opacity: 1; transform: none; }
+    }
+
+    .bar-label {
+      flex: 0 0 30%; min-width: 0;
+      font-family: 'Montserrat', sans-serif; font-weight: 800; color: #103050;
+      font-size: .55rem; line-height: 1.12; text-align: right;
+    }
+    .bar-label .pai { font-family: 'Open Sans', sans-serif; font-weight: 600; font-size: .44rem; color: #94a3b8; margin-left: .25rem; }
+
+    .bar-track { flex: 1; min-width: 0; height: .5rem; background: #eef2f7; border-radius: 999px; overflow: hidden; }
+    .bar-fill { height: 100%; width: 0; border-radius: 999px; transition: width 600ms cubic-bezier(.2, .7, .3, 1); }
+
+    .bar-val { flex: 0 0 3.6rem; font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: .55rem; text-align: left; line-height: 1; }
+    .bar-val .pc { font-weight: 700; font-size: .44rem; color: #94a3b8; margin-left: .22rem; }
+
+    /* densidade — encolhe conforme o nº de barras.
+       density=3 (>22 UORGs) é o caso em que a lista pode não caber mesmo no
+       tamanho mínimo: com justify-content:center (herdado de .rows), o corte
+       por overflow:hidden tirava a barra do TOPO — coincidência grave, pois
+       é sempre a maior (a lista já vem ordenada da maior para a menor). Com
+       flex-start o que eventualmente falta é o fim da lista (as UORGs com
+       menos tramitações, já as menos relevantes). */
+    .rows[data-density="3"] { justify-content: flex-start; }
+    .rows[data-density="2"] { gap: .17rem; }
+    .rows[data-density="2"] .bar-label { font-size: .5rem; }
+    .rows[data-density="2"] .bar-track { height: .44rem; }
+    .rows[data-density="2"] .bar-val { font-size: .5rem; }
+
+    .rows[data-density="3"] { gap: .12rem; }
+    .rows[data-density="3"] .bar-label { font-size: .44rem; }
+    .rows[data-density="3"] .bar-track { height: .36rem; }
+    .rows[data-density="3"] .bar-val { font-size: .45rem; }
+    .rows[data-density="3"] .bar-val .pc { font-size: .38rem; }
+
+    /* nota das UORGs sem movimento */
+    .zeradas {
+      margin-top: .4rem; font-size: .42rem; color: #94a3b8; line-height: 1.35;
+      border-left: 3px solid #e2e8f0; padding-left: .5rem; flex-shrink: 0;
+    }
+    .zeradas b { color: #64748b; font-weight: 700; font-family: 'Montserrat', sans-serif; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+  </style>
+  <link rel="stylesheet" href="a11y.css">
+  <link rel="stylesheet" href="base.css" />
+</head>
+
+<body>
+  <div class="slide-container">
+    <div class="top-accent"></div>
+    <div class="top-accent-secondary"></div>
+
+    <div class="flex items-start justify-between px-16 pt-8 pb-2 z-10">
+      <div style="min-width:0;">
+        <div class="flex items-center gap-3 mb-1">
+          <div class="w-1 h-8 bg-brand-secondary"></div>
+          <p class="font-montserrat font-bold text-brand-primary uppercase tracking-tight whitespace-nowrap"
+            style="font-size:1.5rem;">Demandas Tramitadas por Unidade</p>
+        </div>
+        <p class="text-gray-500 font-medium ml-4" style="font-size:.68rem;">1º semestre de 2026 · 544 tramitações · 30 UORGs com movimento</p>
+      </div>
+
+      <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
+        <i class="fas fa-lock-open text-3xl" aria-hidden="true"></i>
+        <div class="flex flex-col justify-center pl-2" style="border-left:1px solid #CBD5E1;">
+          <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">CAPÍTULO 04</p>
+          <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none whitespace-nowrap">Seção de Transparência e Acesso à Informação - STAI</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- filtros em faixa de largura total, em grade retangular (padrão do slide-08) -->
+    <div class="px-16 pb-1 z-10">
+      <div class="chips" id="chips"></div>
+      <div class="chips-mes" id="chipsMes"></div>
+      <p class="hint-line"><i class="far fa-hand-pointer"></i> Filtre por superintendência (cima) e por mês (baixo) · as duas bases de percentual estão indicadas no título de cada gráfico</p>
+    </div>
+
+    <div class="flex-1 px-16 pb-2 z-10" style="min-height:0;">
+      <div class="charts-grid">
+        <!-- ◀ ESQUERDA: barras horizontais, uma por UORG -->
+        <div class="chart-card">
+          <p class="chart-cap" id="chartCap"></p>
+          <div class="rows" id="rows" data-density="1"></div>
+          <p class="zeradas" id="zeradas"></p>
+        </div>
+        <!-- ▶ DIREITA: rosca por superintendência (ver comentário do topo
+             sobre por que ESTA rosca fecha em 100% e a de UORG não fecharia) -->
+        <div class="chart-card">
+          <p class="chart-cap" id="pieCap"><i class="fas fa-chart-pie"></i> Distribuição por superintendência</p>
+          <div class="chart-canvas-wrap" id="pieWrap"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="px-16 pb-4 pt-1 flex justify-between items-center z-10">
+      <p class="text-gray-400" style="font-size:.46rem;">Relatório 1º Semestre de 2026 – Ouvidoria – Agência Nacional de Transportes Aquaviários - ANTAQ</p>
+    </div>
+  </div>
+
+  <script>
+    /* =========================================================
+       DADOS — QTD de demandas tramitadas por UORG, 1º sem/2026
+       BASE_PCT = denominador dos percentuais da planilha (353).
+       Cada UORG: { sigla, pai, m: [jan, fev, mar] }
+       ========================================================= */
+    const BASE_PCT = 353;   // demandas de nov+dez/25 e 1º sem/26 (B+C)
+    const MESES = ['Janeiro', 'Fevereiro', 'Março'];
+
+    /* Os 9 pais com movimento não cabem numa paleta categórica (máx. 8):
+       SESGI e PFA, com uma UORG ativa cada, entram como "Outras". */
+    const PAIS = [
+      { id: 'SFC', name: 'SFC', full: 'Superintendência de Fiscalização e Coordenação das Unidades Regionais', color: '#F2A900' },
+      { id: 'SGE', name: 'SGE', full: 'SGE', color: '#10B981' },
+      { id: 'SOG', name: 'SOG', full: 'Superintendência de Outorgas', color: '#0090C0' },
+      { id: 'SRG', name: 'SRG', full: 'SRG', color: '#6366F1' },
+      { id: 'SAF', name: 'SAF', full: 'SAF', color: '#0EA5E9' },
+      { id: 'GAB', name: 'GAB', full: 'Gabinete', color: '#94A3B8' },
+      { id: 'SEPH', name: 'SEPH', full: 'Superintendência de Estudos e Projetos Hidroviários', color: '#22C55E' },
+      { id: 'OUTRAS', name: 'Outras', full: 'Outras unidades (SESGI · PFA)', color: '#0070C0' }
+    ];
+
+    const UORGS = [
+      { sigla: 'GCOR', pai: 'SFC', m: [57, 75, 80] },
+      { sigla: 'GPF', pai: 'SFC', m: [56, 70, 81] },
+      { sigla: 'SGE', pai: 'SGE', m: [8, 13, 5] },
+      { sigla: 'GOA', pai: 'SOG', m: [9, 4, 1] },
+      { sigla: 'GREBL', pai: 'SFC', m: [1, 5, 4] },
+      { sigla: 'GREMN', pai: 'SFC', m: [4, 1, 4] },
+      { sigla: 'GREFL', pai: 'SFC', m: [1, 5, 3] },
+      { sigla: 'GRP', pai: 'SRG', m: [2, 5, 2] },
+      { sigla: 'GRN', pai: 'SRG', m: [4, 2, 0] },
+      { sigla: 'GAF', pai: 'SOG', m: [3, 2, 0] },
+      { sigla: 'GRERJ', pai: 'SFC', m: [2, 0, 2] },
+      { sigla: 'GMS', pai: 'OUTRAS', m: [1, 3, 0] },
+      { sigla: 'GGP', pai: 'SAF', m: [0, 2, 1] },
+      { sigla: 'GRL', pai: 'SAF', m: [1, 2, 0] },
+      { sigla: 'PFA', pai: 'OUTRAS', m: [0, 3, 0] },
+      { sigla: 'UREVT', pai: 'SFC', m: [1, 0, 1] },
+      { sigla: 'SRG', pai: 'SRG', m: [0, 2, 0] },
+      { sigla: 'SAF', pai: 'SAF', m: [0, 2, 0] },
+      { sigla: 'GOF', pai: 'SAF', m: [1, 1, 0] },
+      { sigla: 'GAB', pai: 'GAB', m: [0, 0, 2] },
+      { sigla: 'URESL', pai: 'SFC', m: [0, 0, 1] },
+      { sigla: 'GRERE', pai: 'SFC', m: [0, 1, 0] },
+      { sigla: 'UREFT', pai: 'SFC', m: [0, 1, 0] },
+      { sigla: 'GREST', pai: 'SFC', m: [0, 0, 1] },
+      { sigla: 'URECB', pai: 'SFC', m: [0, 0, 1] },
+      { sigla: 'SOG', pai: 'SOG', m: [0, 1, 0] },
+      { sigla: 'ASCOM', pai: 'GAB', m: [0, 1, 0] },
+      { sigla: 'SELC', pai: 'GAB', m: [1, 0, 0] },
+      { sigla: 'GEE', pai: 'SEPH', m: [0, 0, 1] },
+      { sigla: 'GEH', pai: 'SEPH', m: [0, 0, 1] }
+    ];
+
+    /* UORGs sem nenhuma tramitação no semestre — fora do gráfico, citadas no rodapé */
+    const ZERADAS = ['SFC', 'GRAT', 'UREPV', 'URESV', 'UREPL', 'GPO', 'SESGI', 'COIN', 'GEA', 'GLC',
+      'AUD', 'CRG', 'ASPAR', 'ARINT', 'CEA', 'SEPH', 'AST-DG', 'AST-D1', 'AST-D2', 'AST-D3', 'AST-D4', 'STAI'];
+
+    const paiDe = id => PAIS.find(p => p.id === id);
+    UORGS.forEach(u => { u.total = u.m.reduce((a, b) => a + b, 0); u.p = paiDe(u.pai); });
+
+    const TOTAL_TRAM = UORGS.reduce((s, u) => s + u.total, 0);
+    const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const selected = new Set(PAIS.map(p => p.id));      // superintendências
+    const selMeses = new Set(MESES.map((_, i) => i));   // meses
+    let mesChart = null;
+
+    /* Total de uma UORG considerando SÓ os meses selecionados — é o que
+       torna os dois filtros combináveis (superintendência × mês). */
+    const totalDe = u => u.m.reduce((s, v, i) => s + (selMeses.has(i) ? v : 0), 0);
+    const mesesSel = () => MESES.map((_, i) => i).filter(i => selMeses.has(i));
+
+    /* ===================== CHIPS — por superintendência ===================== */
+    const chipsWrap = document.getElementById('chips');
+    PAIS.forEach(p => {
+      const q = UORGS.filter(u => u.pai === p.id).length;
+      const b = document.createElement('button');
+      b.className = 'chip';
+      b.dataset.id = p.id;
+      b.style.setProperty('--c', p.color);
+      b.dataset.q = q;
+      b.dataset.full = p.full;
+      b.innerHTML = '<span>' + p.name + '</span><b>0</b>';
+      b.addEventListener('click', () => toggle(p.id));
+      chipsWrap.appendChild(b);
+    });
+
+    const allBtn = document.createElement('button');
+    allBtn.className = 'chip-reset';
+    allBtn.id = 'allBtn';
+    allBtn.addEventListener('click', () => {
+      if (selected.size === PAIS.length) selected.clear();
+      else PAIS.forEach(p => selected.add(p.id));
+      update();
+    });
+    chipsWrap.appendChild(allBtn);
+
+    /* ===================== CHIPS — por mês ===================== */
+    const chipsMesWrap = document.getElementById('chipsMes');
+    const lab = document.createElement('span');
+    lab.className = 'mes-lab';
+    lab.textContent = 'Mês';
+    chipsMesWrap.appendChild(lab);
+
+    MESES.forEach((nome, i) => {
+      const b = document.createElement('button');
+      b.className = 'chip-mes';
+      b.dataset.mes = i;
+      b.innerHTML = '<span>' + nome + '</span><b>0</b>';
+      b.addEventListener('click', () => toggleMes(i));
+      chipsMesWrap.appendChild(b);
+    });
+
+    const allMesBtn = document.createElement('button');
+    allMesBtn.className = 'chip-reset';
+    allMesBtn.id = 'allMesBtn';
+    allMesBtn.style.fontSize = '.55rem';
+    allMesBtn.addEventListener('click', () => {
+      if (selMeses.size === MESES.length) selMeses.clear();
+      else MESES.forEach((_, i) => selMeses.add(i));
+      update();
+    });
+    chipsMesWrap.appendChild(allMesBtn);
+
+    function toggle(id) {
+      if (selected.has(id)) selected.delete(id); else selected.add(id);
+      update();
+    }
+
+    function toggleMes(i) {
+      if (selMeses.has(i)) selMeses.delete(i); else selMeses.add(i);
+      update();
+    }
+
+    function refreshChips() {
+      // o contador de cada superintendência reflete o filtro de mês em vigor
+      chipsWrap.querySelectorAll('.chip').forEach(c => {
+        const id = c.dataset.id;
+        c.classList.toggle('active', selected.has(id));
+        const n = UORGS.filter(u => u.pai === id).reduce((s, u) => s + totalDe(u), 0);
+        c.querySelector('b').textContent = n;
+        const q = c.dataset.q;
+        c.title = c.dataset.full + ' — ' + q + ' UORG' + (q > 1 ? 's' : '') + ' · ' + n +
+          ' tramitações' + (selMeses.size < MESES.length ? ' (meses filtrados)' : '');
+      });
+      document.getElementById('allBtn').innerHTML = selected.size === PAIS.length
+        ? '<i class="fas fa-eraser"></i><span>Zerar tudo</span>'
+        : '<i class="fas fa-layer-group"></i><span>Exibir todas</span>';
+
+      // o contador de cada mês reflete o filtro de superintendência em vigor
+      chipsMesWrap.querySelectorAll('.chip-mes').forEach(c => {
+        const i = +c.dataset.mes;
+        c.classList.toggle('active', selMeses.has(i));
+        c.querySelector('b').textContent =
+          UORGS.filter(u => selected.has(u.pai)).reduce((s, u) => s + u.m[i], 0);
+      });
+      document.getElementById('allMesBtn').innerHTML = selMeses.size === MESES.length
+        ? '<i class="fas fa-eraser"></i><span>Nenhum</span>'
+        : '<i class="fas fa-calendar-days"></i><span>Todos os meses</span>';
+    }
+
+    /* ===================== BARRAS (em cima) ===================== */
+    function renderBars() {
+      // UORG sem tramitação nos meses escolhidos sai do gráfico — mesma regra
+      // do semestre inteiro, onde as 22 zeradas ficaram de fora.
+      const doPai = UORGS.filter(u => selected.has(u.pai));
+      const sel = doPai.filter(u => totalDe(u) > 0)
+        .sort((a, b) => totalDe(b) - totalDe(a) || a.sigla.localeCompare(b.sigla, 'pt-BR'));
+      const ocultas = doPai.length - sel.length;
+      const wrap = document.getElementById('rows');
+      wrap.innerHTML = '';
+
+      if (!sel.length) {
+        wrap.dataset.density = '1';
+        wrap.innerHTML = '<div class="empty-state"><i class="far fa-hand-pointer"></i><span>' +
+          (!selMeses.size ? 'Nenhum mês selecionado' :
+            !selected.size ? 'Clique numa superintendência acima para exibir suas UORGs'
+              : 'Nenhuma UORG teve tramitação nos meses escolhidos') + '</span></div>';
+        wrap.dataset.ocultas = ocultas;
+        return;
+      }
+
+      // densidade conforme o nº de barras, para não estourar o card
+      wrap.dataset.density = sel.length <= 12 ? '1' : sel.length <= 22 ? '2' : '3';
+      wrap.dataset.ocultas = ocultas;
+
+      const maxV = totalDe(sel[0]);
+      sel.forEach((u, i) => {
+        const v = totalDe(u);
+        const el = document.createElement('div');
+        el.className = 'bar-row';
+        el.style.animationDelay = (REDUCED ? 0 : i * 22) + 'ms';
+        const pc = (v / BASE_PCT * 100).toFixed(2).replace('.', ',');
+        const detalhe = MESES.map((nm, k) => nm.slice(0, 3) + ' ' + u.m[k]).join(' · ');
+        el.innerHTML =
+          '<span class="bar-label" title="' + u.sigla + ' · ' + u.p.full + ' — ' + detalhe + '">' + u.sigla +
+          (u.sigla !== u.p.name ? '<span class="pai">' + u.p.name + '</span>' : '') + '</span>' +
+          '<div class="bar-track"><div class="bar-fill" style="background:' + u.p.color + '"></div></div>' +
+          '<span class="bar-val" style="color:' + u.p.color + '">' + v + '<span class="pc">' + pc + '%</span></span>';
+        wrap.appendChild(el);
+        const fill = el.querySelector('.bar-fill');
+        const w = (v / maxV * 100) + '%';
+        if (REDUCED) fill.style.width = w;
+        else requestAnimationFrame(() => requestAnimationFrame(() => { fill.style.width = w; }));
+      });
+    }
+
+    function refreshCaption() {
+      const sel = UORGS.filter(u => selected.has(u.pai) && totalDe(u) > 0);
+      const soma = sel.reduce((s, u) => s + totalDe(u), 0);
+      const cap = document.getElementById('chartCap');
+      const ms = mesesSel();
+      const rotuloMes = ms.length === MESES.length ? 'semestre'
+        : ms.length === 0 ? 'nenhum mês'
+          : ms.map(i => MESES[i]).join(' + ');
+      if (!sel.length) {
+        cap.style.color = '#94a3b8';
+        cap.innerHTML = '<i class="far fa-hand-pointer"></i> Nada a exibir · ' + rotuloMes;
+      } else {
+        cap.style.color = '#475569';
+        cap.innerHTML = '<i class="fas fa-ranking-star"></i> ' + sel.length + ' UORG' + (sel.length > 1 ? 's' : '') +
+          ' · ' + soma + ' de ' + TOTAL_TRAM + ' tramitações · <span style="font-weight:700;color:#0070C0;">' +
+          rotuloMes + '</span> · <span style="font-weight:700;color:#0070C0;">% de ' + BASE_PCT + ' demandas</span>';
+      }
+    }
+
+    /* ===================== SÉRIE MENSAL (embaixo) — empilhada por pai ===================== */
+    function renderMes() {
+      const wrap = document.getElementById('pieWrap');
+      const cap = document.getElementById('pieCap');
+      if (mesChart) { mesChart.destroy(); mesChart = null; }
+
+      // Uma tramitação pertence a UMA superintendência, então as fatias somam
+      // o total exibido — é isso que torna esta rosca legítima (ver topo).
+      const porPai = PAIS
+        .map(p => ({ p, v: UORGS.filter(u => u.pai === p.id && selected.has(u.pai)).reduce((s, u) => s + totalDe(u), 0) }))
+        .filter(x => x.v > 0);
+      const somaExibida = porPai.reduce((s, x) => s + x.v, 0);
+
+      if (!somaExibida) {
+        wrap.innerHTML = '<div class="empty-state"><i class="fas fa-chart-pie"></i>' +
+          '<span>Selecione ao menos uma superintendência e um mês</span></div>';
+        cap.style.color = '#94a3b8';
+        cap.innerHTML = '<i class="fas fa-chart-pie"></i> Distribuição por superintendência';
+        return;
+      }
+
+      wrap.innerHTML = '<canvas id="mesChart" role="img"></canvas>';
+      document.getElementById('mesChart').setAttribute('aria-label', 'Gráfico de rosca: distribuição das tramitações por superintendência — ' +
+        porPai.map(x => x.p.name + ' ' + x.v).join(', '));
+
+      const percentageLabelsPlugin = {
+        id: 'percentageLabels',
+        afterDraw(chart) {
+          const { ctx } = chart;
+          const ds = chart.data.datasets[0];
+          const total = ds.data.reduce((s, v) => s + v, 0) || 1;
+          ctx.save();
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          chart.getDatasetMeta(0).data.forEach((arc, i) => {
+            const pct = ds.data[i] / total * 100;
+            if (pct < 4) return;                 // fatia fina: só no tooltip
+            const ang = (arc.startAngle + arc.endAngle) / 2;
+            const r = (arc.outerRadius + arc.innerRadius) / 2;
+            const x = arc.x + Math.cos(ang) * r;
+            const y = arc.y + Math.sin(ang) * r;
+            ctx.font = '700 ' + (pct >= 15 ? 14 : 11) + 'px Montserrat, sans-serif';
+            ctx.strokeStyle = 'rgba(16,48,80,.35)';
+            ctx.lineWidth = 3;
+            ctx.strokeText(pct.toFixed(1).replace('.', ',') + '%', x, y);
+            ctx.fillStyle = '#ffffff';
+            ctx.fillText(pct.toFixed(1).replace('.', ',') + '%', x, y);
+          });
+          ctx.restore();
+        }
+      };
+
+      mesChart = new Chart(document.getElementById('mesChart'), {
+        type: 'doughnut',
+        data: {
+          labels: porPai.map(x => x.p.name),
+          datasets: [{
+            data: porPai.map(x => x.v),
+            backgroundColor: porPai.map(x => x.p.color),
+            borderColor: '#ffffff',
+            borderWidth: 3,
+            hoverOffset: 8
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          cutout: '58%',
+          animation: { duration: REDUCED ? 0 : 650 },
+          plugins: {
+            legend: { position: 'bottom', labels: { color: '#103050', boxWidth: 12, boxHeight: 12, padding: 10, font: { family: 'Open Sans', size: 11, weight: '600' } } },
+            tooltip: {
+              callbacks: {
+                label: c => c.label + ': ' + c.parsed + ' tramitações (' +
+                  (c.parsed / somaExibida * 100).toFixed(1).replace('.', ',') + '%)'
+              }
+            }
+          }
+        },
+        plugins: [percentageLabelsPlugin]
+      });
+
+      if (window.A11y) {
+        A11y.renderChartFallbackTable(
+          document.getElementById('mesChart'),
+          'Distribuição das tramitações por superintendência',
+          ['Superintendência', 'Tramitações'],
+          porPai.map(x => [x.p.name, String(x.v)])
+        );
+      }
+
+      const parcial = selMeses.size < MESES.length;
+      cap.style.color = '#475569';
+      cap.innerHTML = '<i class="fas fa-chart-pie"></i> Distribuição por superintendência · ' +
+        '<span style="font-weight:700;color:#0070C0;">% de ' + somaExibida + ' tramitações</span>' +
+        (parcial ? ' · ' + mesesSel().map(i => MESES[i].slice(0, 3).toLowerCase()).join(' · ') : '');
+    }
+
+    /* nota das UORGs fora do gráfico + ressalva do denominador */
+    function refreshZeradas() {
+      const ocultas = +(document.getElementById('rows').dataset.ocultas || 0);
+      const parcial = selMeses.size < MESES.length;
+      document.getElementById('zeradas').innerHTML =
+        '<b>' + ZERADAS.length + ' UORGs sem tramitação no semestre</b> (fora do gráfico): ' + ZERADAS.join(' · ') +
+        (parcial && ocultas ? '<br><b>+ ' + ocultas + ' sem tramitação no(s) mês(es) filtrado(s)</b>' : '') +
+        (parcial ? '<br><b>Atenção:</b> com o filtro de mês o numerador encolhe, mas o denominador do % continua ' +
+          'sendo ' + BASE_PCT + ' (o período inteiro) — a planilha não informa a base mês a mês. ' +
+          'Os percentuais parciais servem para comparar UORGs entre si, não para somar.' : '');
+    }
+
+    function update() {
+      refreshChips();
+      refreshCaption();
+      renderBars();
+      renderMes();
+      refreshZeradas();
+    }
+
+    update();
+    // Garante a tabela de acessibilidade do gráfico também no carregamento
+    // inicial, caso a11y.js (script deferred) ainda não tivesse carregado
+    // no momento da primeira renderização.
+    document.addEventListener('DOMContentLoaded', function () {
+      if (window.A11y) renderMes();
+    });
+  </script>
+  <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
+  <script src="a11y.js" defer></script>
+</body>
+
+</html>

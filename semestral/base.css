@@ -1,0 +1,109 @@
+/* Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. */
+/* ═══════════════════════════════════════════════════════════════════════════
+   semestral/base.css — tokens de cor + utilitários compartilhados
+   ═══════════════════════════════════════════════════════════════════════════
+   Slides devem CONSUMIR daqui em vez de duplicar CSS solto. Os valores abaixo
+   são os tokens REAIS já em uso em sistema/ (confirmados por grep em todos os
+   72 HTML do trimestral — ver semestral/INVENTARIO.md §5) — nenhuma cor nova
+   foi inventada aqui.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* Núcleo institucional (paleta marítima ANTAQ) */
+  --brand-primary: #103050;   /* .top-accent (8px), rodapé de anexo no PDF, .skip-link */
+  --brand-secondary: #0070C0; /* .top-accent-secondary (4px) */
+  --accent: #0090C0;          /* cor de interação mais usada: ícones ativos, hover, sumário, :focus-visible */
+  --dourado: #F2A900;         /* acento pontual: .kicker das capas de bloco, .btn-pptx */
+
+  /* Escala de apoio para diferenciação cromática dentro do template (§5 do
+     prompt) — variações de saturação/luminosidade do mesmo azul, sem sair da
+     família marítima. Usar para variar cards/itens dentro de um mesmo slide
+     padronizado, nunca para recodificar o núcleo acima. */
+  --azul-900: #0a2236; /* mais profundo — fundo de capas */
+  --azul-700: #0d3358; /* fundo alternativo de capas de bloco */
+  --azul-500: var(--accent);
+  --azul-300: #5fb8dd; /* tint claro derivado do accent, para texto/ícone sobre fundo escuro */
+  --cinza-ardosia: #334155; /* texto de apoio (.doc-text) */
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   .txt-bloco — bloco de texto justificado "quadrado", conforme §4 do prompt.
+   Fecha as duas margens (inclusive a última linha), sem rios de espaço.
+   Requer lang="pt-BR" no <html> — sem isso a hifenização não funciona e o
+   justify abre buracos.
+   ───────────────────────────────────────────────────────────────────────── */
+.txt-bloco {
+  text-align: justify;
+  text-align-last: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
+  word-spacing: normal;
+  orphans: 2;
+  widows: 2;
+}
+
+/* Parágrafo de bloco: só o PRIMEIRO tem recuo; os demais colam na margem. */
+.txt-bloco > p {
+  margin: 0 0 .55em 0;
+}
+
+.txt-bloco > p:first-child {
+  text-indent: 1.8em;
+}
+
+.txt-bloco > p:last-child {
+  margin-bottom: 0;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   .todo-dado — badge de dado pendente (§16 do prompt). Contorno tracejado
+   discreto em dourado, visível na apresentação para que ninguém publique um
+   número provisório por engano.
+   ───────────────────────────────────────────────────────────────────────── */
+.todo-dado {
+  position: relative;
+  outline: 2px dashed var(--dourado);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.todo-dado::after {
+  content: "DADO PROVISÓRIO";
+  position: absolute;
+  top: -10px;
+  right: -6px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .06em;
+  color: #1E293B;
+  background: var(--dourado);
+  padding: 1px 6px;
+  border-radius: 999px;
+  white-space: nowrap;
+  z-index: 5;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   .indicador — seta direcional + peso da escala azul para crescimento/queda,
+   substituindo o par verde/vermelho de slide-17d.html (decisão registrada em
+   INVENTARIO.md §3). Cor nunca é o único canal: ícone (▲/▼) + peso tipográfico
+   carregam a distinção também.
+   ───────────────────────────────────────────────────────────────────────── */
+.indicador {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 800;
+}
+
+.indicador--alta {
+  color: var(--brand-primary); /* tom mais profundo = crescimento */
+}
+
+.indicador--baixa {
+  color: var(--azul-300); /* tom mais claro = queda */
+  font-weight: 600;
+}

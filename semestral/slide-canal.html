@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<!-- Autoria exclusiva do código-fonte e da lógica de implementação: Caio Fábio Alves da Silva. -->
+<!--
+  ╔══════════════════════════════════════════════════════════════╗
+  ║  SLIDE CANAL — Manifestações por Canal + por Canal por Mês  ║
+  ║  ATUALIZAR: dados dos dois gráficos a cada semestre        ║
+  ║  Omnichannel: Jan 209 | Fev 106 | Mar 90 | Total 405       ║
+  ║  Fala.BR:     Jan  90 | Fev 129 | Mar 85 | Total 304       ║
+  ║  E-mail:      Jan  23 | Fev  33 | Mar 14 | Total  70       ║
+  ╚══════════════════════════════════════════════════════════════╝
+-->
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Manifestações por Canal - Relatório Semestral Ouvidoria ANTAQ</title>
+  <link rel="icon" type="image/png"
+    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    html {
+      font-size: 26px;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f3f4f6;
+      overflow: hidden;
+    }
+
+    .slide-container {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background-color: #ffffff;
+      overflow: hidden;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    .font-montserrat {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .text-brand-primary {
+      color: #103050;
+    }
+
+    .text-brand-secondary {
+      color: #0070C0;
+    }
+
+    .bg-brand-secondary {
+      background-color: #0070C0;
+    }
+
+    .top-accent {
+      height: 8px;
+      background-color: #103050;
+      width: 100%;
+    }
+
+    .top-accent-secondary {
+      height: 4px;
+      background-color: #0070C0;
+      width: 100%;
+    }
+
+    .chart-card {
+      background-color: #ffffff;
+      border: 2px solid #E2E8F0;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px -8px rgba(16, 48, 80, 0.18);
+      padding: .75rem 1rem;
+      transition: transform .28s cubic-bezier(.2, .7, .3, 1), box-shadow .28s ease, border-color .28s ease;
+      animation: fadeIn .5s ease both;
+    }
+
+    .chart-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 22px 42px -12px rgba(16, 48, 80, .30);
+      border-color: #0070C0;
+    }
+
+    .canal-stat {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: .35rem 0;
+      border-bottom: 1px solid #F1F5F9;
+    }
+
+    .canal-stat:last-child {
+      border-bottom: none;
+    }
+
+    .canal-stat .cs-left {
+      display: flex;
+      align-items: center;
+      gap: .45rem;
+      font-size: .78rem;
+      color: #334155;
+    }
+
+    .canal-stat .cs-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .canal-stat .cs-val {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: .95rem;
+      color: #103050;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+      font-size: .8rem;
+      color: #475569;
+    }
+
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="a11y.css">
+  <link rel="stylesheet" href="base.css" />
+</head>
+
+<body>
+  <div class="slide-container">
+    <div class="top-accent"></div>
+    <div class="top-accent-secondary"></div>
+
+    <div class="flex items-start justify-between px-16 pt-10 pb-3 z-10">
+      <div>
+        <div class="flex items-center gap-3 mb-1">
+          <div class="w-1 h-8 bg-brand-secondary"></div>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Distribuição de
+            Manifestações por Canal</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
+        <i class="fas fa-headset text-3xl" aria-hidden="true"></i>
+        <div class="flex flex-col justify-center pl-2" style="border-left:1px solid #CBD5E1;">
+          <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">CAPÍTULO 03</p>
+          <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none whitespace-nowrap">Seção
+            de Apoio ao Cidadão — SAC</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex-1 grid gap-4 px-16 pb-3 z-10" style="grid-template-columns: 1fr 1.5fr; min-height:0;">
+
+      <!-- Coluna esquerda: gráfico total + tabela -->
+      <div class="flex flex-col gap-3">
+        <div class="chart-card flex-1 flex flex-col" style="min-height:0;">
+          <div class="flex-1 relative" style="min-height:0;"><canvas id="chartCanal" role="img" aria-label="Gráfico de rosca: manifestações por canal de atendimento — Internet 215, Email 57, WhatsApp 22, Telefone 7, Outros 3"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <div class="canal-stat">
+            <div class="cs-left">
+              <div class="cs-dot" style="background:#0A75B7;"></div>Internet
+            </div>
+            <span class="cs-val">215</span>
+          </div>
+          <div class="canal-stat">
+            <div class="cs-left">
+              <div class="cs-dot" style="background:#103050;"></div>Email
+            </div>
+            <span class="cs-val">57</span>
+          </div>
+          <div class="canal-stat">
+            <div class="cs-left">
+              <div class="cs-dot" style="background:#86C6EB;"></div>WhatsApp
+            </div>
+            <span class="cs-val">22</span>
+          </div>
+          <div class="canal-stat">
+            <div class="cs-left">
+              <div class="cs-dot" style="background:#4EAFE8;"></div>Telefone
+            </div>
+            <span class="cs-val">7</span>
+          </div>
+          <div class="canal-stat">
+            <div class="cs-left">
+              <div class="cs-dot" style="background:#1F97D4;"></div>Outros
+            </div>
+            <span class="cs-val">3</span>
+          </div>
+          <div class="canal-stat" style="border-top:1px solid #E2E8F0; margin-top:.2rem; padding-top:.35rem;">
+            <div class="cs-left text-gray-500 font-semibold">Total</div>
+            <span class="cs-val" style="color:#0070C0;">304</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Coluna direita: gráfico por mês -->
+      <div class="flex flex-col gap-3">
+        <div class="chart-card flex-1 flex flex-col" style="min-height:0;">
+          <p class="text-gray-400 text-xs font-montserrat font-bold uppercase tracking-wide mb-1">Totais por canal ·
+            Semestre</p>
+          <div class="flex-1 relative" style="min-height:0;"><canvas id="chartCanalMes" role="img" aria-label="Gráfico de barras: totais por canal de atendimento no semestre"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <div class="flex gap-4 justify-center flex-wrap">
+            <div class="legend-item">
+              <div class="legend-dot" style="background:#103050;"></div>Email
+            </div>
+            <div class="legend-item">
+              <div class="legend-dot" style="background:#0A75B7;"></div>Internet
+            </div>
+            <div class="legend-item">
+              <div class="legend-dot" style="background:#1F97D4;"></div>Outros
+            </div>
+            <div class="legend-item">
+              <div class="legend-dot" style="background:#4EAFE8;"></div>Telefone
+            </div>
+            <div class="legend-item">
+              <div class="legend-dot" style="background:#86C6EB;"></div>WhatsApp
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="px-16 pb-4 pt-1 flex justify-between items-center z-10">
+      <p class="text-gray-400 text-xs">Relatório 1º Semestre de 2026 – Ouvidoria – Agência Nacional de Transportes Aquaviários - ANTAQ</p>
+    </div>
+  </div>
+  <script>
+    const canalLabels = ['Outros', 'Telefone', 'WhatsApp', 'Email', 'Internet'];
+    const canalData = [3, 7, 22, 57, 215];
+    const canalColors = ['#1F97D4', '#4EAFE8', '#86C6EB', '#103050', '#0A75B7'];
+
+    /* Rótulos da rosca — TODOS por fora, nenhum por cima do azul.
+       Cada fatia ganha linha-guia na própria cor; os rótulos são empilhados
+       por lado (esquerdo/direito) com espaçamento mínimo e presos dentro do
+       canvas, então nem os finos somem nem os grandes se sobrepõem. */
+    const pieLabelsPlugin = {
+      id: 'pieLabels',
+      afterDraw(chart) {
+        const { ctx } = chart;
+        const meta = chart.getDatasetMeta(0);
+        const ds = chart.data.datasets[0];
+        const total = ds.data.reduce((s, v) => s + v, 0) || 1;
+        const ESP = 20;                       // espaçamento vertical mínimo
+        const yMin = 12, yMax = chart.height - 12;
+
+        const itens = [];
+        meta.data.forEach((arc, index) => {
+          const value = ds.data[index];
+          if (!value) return;
+          const pct = value / total * 100;
+          const angle = (arc.startAngle + arc.endAngle) / 2;
+          itens.push({ arc, angle, pct, index, dir: Math.cos(angle) >= 0 ? 1 : -1 });
+        });
+
+        // empilha cada lado separadamente, de cima para baixo
+        [1, -1].forEach(lado => {
+          const doLado = itens.filter(o => o.dir === lado)
+            .map(o => {
+              o.yNatural = o.arc.y + Math.sin(o.angle) * (o.arc.outerRadius + 16);
+              return o;
+            })
+            .sort((a, b) => a.yNatural - b.yNatural);
+          let ultimoY = -Infinity;
+          doLado.forEach(o => {
+            let y = Math.max(yMin, Math.min(yMax, o.yNatural));
+            if (y - ultimoY < ESP) y = Math.min(yMax, ultimoY + ESP);
+            ultimoY = y;
+            o.y = y;
+          });
+        });
+
+        ctx.save();
+        ctx.textBaseline = 'middle';
+        itens.forEach(o => {
+          const { arc, angle, dir } = o;
+          const cor = ds.backgroundColor[o.index];
+          const x0 = arc.x + Math.cos(angle) * arc.outerRadius;
+          const y0 = arc.y + Math.sin(angle) * arc.outerRadius;
+          const xCotovelo = arc.x + Math.cos(angle) * (arc.outerRadius + 16);
+          // todos os rótulos de um lado saem na mesma coluna: em fatias quase
+          // verticais o cotovelo nasce perto do centro e, sem isso, os
+          // rótulos do topo se amontoariam sobre a própria rosca
+          const xColuna = arc.x + dir * (arc.outerRadius + 26);
+          ctx.strokeStyle = cor;
+          ctx.lineWidth = 1.5;
+          ctx.beginPath();
+          ctx.moveTo(x0, y0);
+          ctx.lineTo(xCotovelo, o.y);
+          ctx.lineTo(xColuna, o.y);
+          ctx.stroke();
+          // a hierarquia que antes vinha do tamanho dentro da fatia agora
+          // vem do corpo da fonte do rótulo externo
+          ctx.font = '700 ' + (o.pct >= 15 ? 14 : 12) + 'px Montserrat, sans-serif';
+          ctx.textAlign = dir > 0 ? 'left' : 'right';
+          ctx.fillStyle = cor;
+          ctx.fillText(o.pct.toFixed(1) + '%', xColuna + dir * 5, o.y);
+        });
+        ctx.restore();
+      }
+    };
+
+    new Chart(document.getElementById('chartCanal'), {
+      type: 'doughnut',
+      data: {
+        labels: canalLabels,
+        datasets: [{
+          data: canalData,
+          backgroundColor: canalColors,
+          borderWidth: 3, borderColor: '#fff', hoverOffset: 8
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        cutout: '58%',
+        // com os cinco rótulos por fora, a rosca encolhe para abrir margem
+        layout: { padding: { left: 62, right: 62, top: 18, bottom: 18 } },
+        plugins: {
+          legend: { display: false },
+          tooltip: { callbacks: { label: ctx => ` ${ctx.label}: ${ctx.parsed}` } }
+        }
+      },
+      plugins: [pieLabelsPlugin]
+    });
+
+    const sorted = canalLabels.map((label, index) => ({ label, value: canalData[index], color: canalColors[index] }))
+      .sort((a, b) => a.value - b.value);
+
+    new Chart(document.getElementById('chartCanalMes'), {
+      type: 'bar',
+      data: {
+        labels: sorted.map(item => item.label),
+        datasets: [{
+          data: sorted.map(item => item.value),
+          backgroundColor: sorted.map(item => item.color),
+          borderRadius: 6,
+          // espessura padronizada com o gráfico de barras do slide-17d
+          maxBarThickness: 120,
+          categoryPercentage: 0.85,
+          barPercentage: 0.92
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        layout: { padding: { top: 18 } },
+        plugins: {
+          legend: { display: false },
+          tooltip: { callbacks: { label: ctx => ` ${ctx.label}: ${ctx.parsed.y}` } }
+        },
+        scales: {
+          x: { grid: { display: false }, ticks: { color: '#374151', font: { size: 13, weight: '600' } } },
+          y: { beginAtZero: true, grid: { color: '#eef2f7' }, ticks: { color: '#9ca3af', font: { size: 12 } } }
+        }
+      },
+      plugins: [{
+        id: 'barValues',
+        afterDatasetsDraw(chart) {
+          const { ctx } = chart;
+          ctx.save();
+          ctx.font = '700 12px Montserrat, sans-serif';
+          ctx.textAlign = 'center';
+          ctx.fillStyle = '#103050';
+          chart.getDatasetMeta(0).data.forEach((bar, i) => {
+            if (chart.data.datasets[0].data[i] !== undefined) {
+              ctx.fillText(chart.data.datasets[0].data[i], bar.x, bar.y - 6);
+            }
+          });
+          ctx.restore();
+        }
+      }]
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!window.A11y) return;
+      A11y.renderChartFallbackTable(
+        document.getElementById('chartCanal'),
+        'Manifestações por canal de atendimento',
+        ['Canal', 'Quantidade'],
+        canalLabels.map((l, i) => [l, String(canalData[i])])
+      );
+      A11y.renderChartFallbackTable(
+        document.getElementById('chartCanalMes'),
+        'Totais por canal de atendimento no semestre',
+        ['Canal', 'Quantidade'],
+        sorted.map(item => [item.label, String(item.value)])
+      );
+    });
+  </script>
+  <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
+  <script src="a11y.js" defer></script>
+</body>
+
+</html>
