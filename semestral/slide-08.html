@@ -486,6 +486,10 @@
         </div>
       </div>
 
+      <div class="counter" role="status" aria-live="polite">
+        <div class="odo" id="odo"></div>
+        <p class="cap">DAS 614 MANIFESTAÇÕES DO SEMESTRE</p>
+      </div>
 
       <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
         <i class="fas fa-headset text-3xl" aria-hidden="true"></i>
@@ -532,87 +536,101 @@
   <script>
 
 
-    const TOTAL = 304;
+    const TOTAL = 614;
     const THEMES = [
       {
-        id: 'tarifa', name: 'Cobranças Abusivas', short: 'Cobranças Abusivas',
-        icon: 'fa-money-bill-trend-up', color: '#F2A900', total: 154,
+        id: 'tarifa', name: 'Tarifa Portuária Abusiva', short: 'Tarifa Portuária Abusiva',
+        icon: 'fa-money-bill-trend-up', color: '#F2A900', total: 291,
         subs: [
-          ['Detention/ Sobrestadia de Mercadorias', 56],
-          ['Cobrança Portuária Abusiva', 43],
-          ['Falta de Bookings/janelas para os navios', 21],
-          ['Cobrança Portuária Abusiva com Denúncia com Pedido de Medida Cautelar', 20],
-          ['Cobrança indevida de taxa', 7],
-          ['Demurrage', 3],
-          ['Bloqueio de carga', 3],
-          ['Desbloqueio de carga', 1]
+          ['Detention / Sobrestadia de Mercadorias', 87],
+          ['Tarifa Portuária Abusiva', 80],
+          ['Tarifa portuária abusiva com Denúncia com Pedido de Medida Cautelar', 42],
+          ['Tarifa Portuária Abusiva – falta de Bookings/janelas para os navios', 37],
+          ['Cobrança indevida de taxa', 17],
+          ['Demurrage – (Tarifa portuária abusiva)', 12],
+          ['Bloqueio de carga – (Tarifa portuária abusiva)', 8],
+          ['Scanner de Contêiner', 6],
+          ['Desbloqueio de carga – tarifa portuária abusiva', 2]
         ]
       },
       {
-        id: 'diversos', name: 'Diversos', short: 'Diversos',
-        icon: 'fa-clipboard-list', color: '#103050', total: 51,
+        id: 'diversos', name: 'Diversos (Solicitação)', short: 'Diversos',
+        icon: 'fa-clipboard-list', color: '#103050', total: 136,
         subs: [
-          ['Solicitação de Informação', 8],
-          ['Solicitação de Providencias', 8],
-          ['Sistemas SAMA/EVTE/SIG/IDA/SDP/SOE/SEI', 8],
-          ['Curriculum Vitæ', 7],
-          ['Sugestão', 3],
+          ['Sistemas SAMA/EVTE/SIG/IDA/SDP/SOE/SEI', 63],
+          ['Solicitação de Providencias', 20],
+          ['Solicitação / Solicitação de Informação', 11],
+          ['Curriculum Vitae', 9],
+          ['Assédio', 4],
+          ['Concurso', 4],
+          ['Sugestão', 4],
+          ['Convite para participar de Reunião', 3],
           ['Acesso à informação', 3],
-          ['Denúncia envolvendo servidores ou serviços', 2],
+          ['Solicitação Judicial', 2],
+          ['Servidores da ANTAQ', 2],
+          ['Denúncia envolvendo servidores e serviços', 2],
+          ['Audiência Pública', 2],
           ['Elogio', 2],
-          ['Convite para participar de Reunião', 2],
-          ['Solicitação Judicial', 1],
           ['NVOOC', 1],
-          ['Servidores da ANTAQ', 1],
           ['Ordem Judicial', 1],
-          ['Concurso', 1],
-          ['Audiência Pública', 1],
-          ['Guarda portuária', 1],
-          ['Mão de obra portuária avulsa – OGMO', 1]
+          ['Mão de obra portuária avulsa – OGMO', 1],
+          ['Website', 1],
+          ['Acesso à Processo', 1]
         ]
       },
       {
         id: 'regport', name: 'Regulação Portuária', short: 'Regulação Portuária',
-        icon: 'fa-anchor', color: '#0090C0', total: 41,
+        icon: 'fa-anchor', color: '#0090C0', total: 68,
         subs: [
-          ['Serviços Portuários/ Acesso /funcionamento', 15],
-          ['Irregularidade nas Instalações Portuárias', 12],
-          ['TUP', 3],
-          ['Empresa Autorizada pela ANTAQ', 3],
+          ['Concessão Portuária', 24],
+          ['SISPAT', 23],
+          ['Regulação Portuária', 4],
           ['Concorrência Desleal', 3],
-          ['Denúncia envolvendo Portos Delegados', 3],
-          ['Regulação Portuária', 1],
-          ['Denúncia envolvendo Autoridade Portuária', 1]
+          ['Denúncia envolvendo Autoridade Portuária', 3],
+          ['Serviços Portuários / Acesso / Funcionamento', 3],
+          ['Acesso à instalação portuária', 3],
+          ['Penalidades', 2],
+          ['Carga Perigosa', 2],
+          ['Irregularidade nas Instalações Portuárias', 1],
+          ['Empresa Autorizada pela ANTAQ', 1],
+          ['Denúncia envolvendo Portos Delegados', 1]
         ]
       },
       {
         id: 'navint', name: 'Serviços na Navegação Interior', short: 'Serviços na Navegação Interior',
-        icon: 'fa-ship', color: '#0d3358', total: 37,
+        icon: 'fa-ship', color: '#0d3358', total: 68,
         subs: [
-          ['Empresa irregular', 14],
-          ['Navegação – Serviços de embarque, bilhete e equipamentos', 11],
-          ['Outorgas', 5],
-          ['Navegação - Atraso e superlotação', 4],
+          ['Tarifa Abusiva no Transporte da Navegação Interior', 20],
+          ['Navegação – Serviços de embarque, bilhete e equipamentos', 15],
+          ['Atraso e Superlotação', 12],
+          ['Outorgas', 12],
+          ['Irregularidade no Transporte de Carga', 3],
           ['Gratuidade para idoso', 2],
-          ['Recusa do Passe Livre', 1]
+          ['Recusa do Passe Livre', 1],
+          ['Gratuidade para autista', 1],
+          ['Gratuidade para Crianças', 1],
+          ['Travessias fora da jurisdição da ANTAQ, reguladas por outros entes da Federação', 1]
         ]
       },
       {
         id: 'navmar', name: 'Regulação na Navegação Marítima', short: 'Regulação na Navegação Marítima',
-        icon: 'fa-compass', color: '#0EA5E9', total: 14,
+        icon: 'fa-compass', color: '#0EA5E9', total: 30,
         subs: [
-          ['Direitos do Usuário na Navegação', 8],
-          ['Segurança da Navegação', 2],
-          ['Autorização na Navegação', 2],
-          ['Regulação na Navegação interior', 1],
+          ['Direitos do Usuário na Navegação', 16],
+          ['Segurança da Navegação', 5],
+          ['Autorização na Navegação', 4],
+          ['Regulação na Navegação Interior', 2],
+          ['Regulação na Navegação Marítima', 2],
           ['Cabotagem', 1]
         ]
       },
       {
         id: 'fora', name: 'Jurisdição (Legislação) — Demandas fora do âmbito de atuação da ANTAQ', short: 'Fora do âmbito de atuação',
-        icon: 'fa-share-from-square', color: '#94A3B8', total: 4,
+        icon: 'fa-share-from-square', color: '#94A3B8', total: 18,
         subs: [
-          ['Jurisdição - Questão de competência da ANTAQ', 3],
+          ['Jurisdição – Questão fora da competência da ANTAQ', 13],
+          ['Legislação', 2],
+          ['Travessias', 2],
           ['Turismo', 1]
         ]
       },
@@ -624,6 +642,7 @@
         ]
       }
     ];
+
 
     const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const selected = new Set(THEMES.map(t => t.id));
@@ -697,10 +716,14 @@
       return rows;
     }
 
+    const MAX_LINHAS = 22;
+    const ESCALA_AGRUPAMENTO = [1, 2, 4, 8, 12, 20, 30];
+
     function buildRows() {
       let rows = makeRows(0);
-      if (rows.length > 16) rows = makeRows(1);
-      if (rows.length > 24) rows = makeRows(2);
+      for (let i = 0; i < ESCALA_AGRUPAMENTO.length && rows.length > MAX_LINHAS; i++) {
+        rows = makeRows(ESCALA_AGRUPAMENTO[i]);
+      }
       rows.sort((a, b) => b.v - a.v || a.l.localeCompare(b.l, 'pt-BR'));
       return rows;
     }
@@ -717,7 +740,7 @@
         return;
       }
       const n = rows.length;
-      wrap.dataset.density = n <= 8 ? '1' : n <= 13 ? '2' : n <= 20 ? '3' : '4';
+      wrap.dataset.density = n <= 7 ? '1' : n <= 11 ? '2' : n <= 16 ? '3' : '4';
       rows.forEach((r, i) => {
         const el = document.createElement('div');
         el.className = 'bar-row';

@@ -1,48 +1,125 @@
 <!DOCTYPE html>
 
 <html lang="pt-BR">
+
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
   <title>Tipos de Manifestações - Relatório Semestral Ouvidoria ANTAQ</title>
-  <link rel="icon" type="image/png" href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link rel="icon" type="image/png"
+    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap"
+    rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
-    html { font-size: 26px; }
-    body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
-    .slide-container { width: 100vw; height: 100vh; position: relative; display: flex; flex-direction: column; background-color: #ffffff; overflow: hidden; font-family: 'Open Sans', sans-serif; }
-    .font-montserrat { font-family: 'Montserrat', sans-serif; }
-    .text-brand-primary { color: #103050; }
-    .text-brand-secondary { color: #0070C0; }
-    .bg-brand-secondary { background-color: #0070C0; }
-    .top-accent { height: 8px; background-color: #103050; width: 100%; }
-    .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
+    html {
+      font-size: 26px;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f3f4f6;
+      overflow: hidden;
+    }
+
+    .slide-container {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background-color: #ffffff;
+      overflow: hidden;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    .font-montserrat {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .text-brand-primary {
+      color: #103050;
+    }
+
+    .text-brand-secondary {
+      color: #0070C0;
+    }
+
+    .bg-brand-secondary {
+      background-color: #0070C0;
+    }
+
+    .top-accent {
+      height: 8px;
+      background-color: #103050;
+      width: 100%;
+    }
+
+    .top-accent-secondary {
+      height: 4px;
+      background-color: #0070C0;
+      width: 100%;
+    }
 
     .chart-card {
-      background-color: #ffffff; border: 2px solid #E2E8F0; border-radius: 16px;
-      box-shadow: 0 8px 20px -8px rgba(16, 48, 80, 0.18); padding: .75rem 1rem;
-      transition: transform .28s cubic-bezier(.2,.7,.3,1), box-shadow .28s ease, border-color .28s ease;
+      background-color: #ffffff;
+      border: 2px solid #E2E8F0;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px -8px rgba(16, 48, 80, 0.18);
+      padding: .75rem 1rem;
+      transition: transform .28s cubic-bezier(.2, .7, .3, 1), box-shadow .28s ease, border-color .28s ease;
       animation: fadeIn .5s ease both;
     }
-    .chart-card:hover { transform: translateY(-5px); box-shadow: 0 22px 42px -12px rgba(16,48,80,.30); border-color: #0070C0; }
+
+    .chart-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 22px 42px -12px rgba(16, 48, 80, .30);
+      border-color: #0070C0;
+    }
 
     .highlight-mini {
       background: linear-gradient(160deg, #103050 0%, #0070C0 100%);
-      border-radius: 12px; color: #fff; padding: .65rem .85rem;
-      box-shadow: 0 10px 24px -10px rgba(16,48,80,.45);
+      border-radius: 12px;
+      color: #fff;
+      padding: .65rem .85rem;
+      box-shadow: 0 10px 24px -10px rgba(16, 48, 80, .45);
     }
 
-    .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
 
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
   </style>
   <link rel="stylesheet" href="a11y.css">
   <link rel="stylesheet" href="base.css" />
 </head>
+
 <body>
   <div class="slide-container">
     <div class="top-accent"></div>
@@ -52,14 +129,19 @@
       <div>
         <div class="flex items-center gap-3 mb-1">
           <div class="w-1 h-8 bg-brand-secondary"></div>
-          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Distribuição de Manifestações por Tipo</p>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Distribuição de
+            Manifestações por Tipo</p>
         </div>
       </div>
       <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
         <i class="fas fa-headset text-3xl" aria-hidden="true"></i>
         <div class="flex flex-col justify-center pl-2" style="border-left:1px solid #CBD5E1;">
-          <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">CAPÍTULO 03</p>
-          <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none whitespace-nowrap">Seção de Apoio ao Cidadão — SAC</p>
+          <p
+            class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">
+            CAPÍTULO 03</p>
+          <p
+            class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none whitespace-nowrap">
+            Seção de Apoio ao Cidadão — SAC</p>
         </div>
       </div>
     </div>
@@ -69,23 +151,34 @@
 
       <div class="flex flex-col gap-3">
         <div class="chart-card flex-1 flex flex-col" style="min-height:0;">
-          <div class="flex-1 relative" style="min-height:0;"><canvas id="chartTipos" role="img" aria-label="Gráfico de barras: total de manifestações por tipo no semestre — Denúncia 194, Solicitação 60, Reclamação 44, Sugestão 3, Elogio 2, Simplifique 1"></canvas></div>
+          <div class="flex-1 relative" style="min-height:0;"><canvas id="chartTipos" role="img"
+              aria-label="Gráfico de barras: total de manifestações por tipo no semestre — Denúncia 358, Solicitação 121, Reclamação 125, Sugestão 7, Elogio 2, Simplifique 1"></canvas>
+          </div>
         </div>
         <div class="highlight-mini">
-          <p class="text-blue-100 font-montserrat font-bold uppercase tracking-widest mb-0" style="font-size:.55rem;">Tipo mais frequente</p>
+          <p class="text-blue-100 font-montserrat font-bold uppercase tracking-widest mb-0" style="font-size:.55rem;">
+            Tipo mais frequente</p>
           <p class="font-montserrat font-black leading-none mb-0" style="font-size:1.5rem;">Denúncia</p>
-          <p class="font-montserrat font-black leading-none" style="font-size:2.5rem;">194</p>
-          <p class="text-blue-100 leading-tight" style="font-size:.65rem;">Representa <strong>63,8%</strong> das manifestações classificadas</p>
+          <p class="font-montserrat font-black leading-none" style="font-size:2.5rem;">358</p>
+          <p class="text-blue-100 leading-tight" style="font-size:.65rem;">Representa <strong>58,3%</strong> das
+            manifestações classificadas</p>
         </div>
         <div class="chart-card">
           <div class="space-y-1" style="font-size:.65rem;">
-            <div class="flex justify-between"><span class="text-gray-600">Denúncia</span><strong class="text-brand-primary">194</strong></div>
-            <div class="flex justify-between"><span class="text-gray-600">Solicitação</span><strong class="text-brand-primary">60</strong></div>
-            <div class="flex justify-between"><span class="text-gray-600">Reclamação</span><strong class="text-brand-primary">44</strong></div>
-            <div class="flex justify-between"><span class="text-gray-600">Sugestão</span><strong class="text-brand-primary">3</strong></div>
-            <div class="flex justify-between"><span class="text-gray-600">Elogio</span><strong class="text-brand-primary">2</strong></div>
-            <div class="flex justify-between"><span class="text-gray-600">Simplifique</span><strong class="text-brand-primary">1</strong></div>
-            <div class="flex justify-between border-t border-gray-200 pt-1 mt-1"><span class="text-gray-500 font-semibold">Total</span><strong class="text-brand-secondary">304</strong></div>
+            <div class="flex justify-between"><span class="text-gray-600">Denúncia</span><strong
+                class="text-brand-primary">358</strong></div>
+            <div class="flex justify-between"><span class="text-gray-600">Solicitação</span><strong
+                class="text-brand-primary">121</strong></div>
+            <div class="flex justify-between"><span class="text-gray-600">Reclamação</span><strong
+                class="text-brand-primary">125</strong></div>
+            <div class="flex justify-between"><span class="text-gray-600">Sugestão</span><strong
+                class="text-brand-primary">7</strong></div>
+            <div class="flex justify-between"><span class="text-gray-600">Elogio</span><strong
+                class="text-brand-primary">2</strong></div>
+            <div class="flex justify-between"><span class="text-gray-600">Simplifique</span><strong
+                class="text-brand-primary">1</strong></div>
+            <div class="flex justify-between border-t border-gray-200 pt-1 mt-1"><span
+                class="text-gray-500 font-semibold">Total</span><strong class="text-brand-secondary">614</strong></div>
           </div>
         </div>
       </div>
@@ -93,13 +186,30 @@
 
       <div class="flex flex-col gap-3">
         <div class="chart-card flex-1 flex flex-col" style="min-height:0;">
-          <div class="flex-1 relative" style="min-height:0;"><canvas id="chartTiposMes" role="img" aria-label="Gráfico de barras: quantidade de manifestações por tipo em cada mês do semestre (Janeiro, Fevereiro, Março)"></canvas></div>
+          <div class="flex-1 relative" style="min-height:0;"><canvas id="chartTiposMes" role="img"
+              aria-label="Gráfico de barras: quantidade de manifestações por tipo em cada mês do semestre (Janeiro, Fevereiro, Março, Abril, Maio e Junho)"></canvas>
+          </div>
         </div>
         <div class="chart-card">
           <div class="flex gap-4 justify-center" style="font-size:.62rem;">
-            <div class="flex items-center gap-1"><div class="legend-dot" style="background:#0070C0;"></div>Janeiro</div>
-            <div class="flex items-center gap-1"><div class="legend-dot" style="background:#0090C0;"></div>Fevereiro</div>
-            <div class="flex items-center gap-1"><div class="legend-dot" style="background:#103050;"></div>Março</div>
+            <div class="flex items-center gap-1">
+              <div class="legend-dot" style="background:#0A2236;"></div>Janeiro
+            </div>
+            <div class="flex items-center gap-1">
+              <div class="legend-dot" style="background:#103050;"></div>Fevereiro
+            </div>
+            <div class="flex items-center gap-1">
+              <div class="legend-dot" style="background:#16466E;"></div>Março
+            </div>
+            <div class="flex items-center gap-1">
+              <div class="legend-dot" style="background:#0070C0;"></div>Abril
+            </div>
+            <div class="flex items-center gap-1">
+              <div class="legend-dot" style="background:#0090C0;"></div>Maio
+            </div>
+            <div class="flex items-center gap-1">
+              <div class="legend-dot" style="background:#5fb8dd;"></div>Junho
+            </div>
           </div>
         </div>
       </div>
@@ -107,13 +217,14 @@
     </div>
 
     <div class="px-16 pb-4 pt-1 flex justify-between items-center z-10">
-      <p class="text-gray-400 text-xs">Relatório 1º Semestre de 2026 – Ouvidoria – Agência Nacional de Transportes Aquaviários - ANTAQ</p>
+      <p class="text-gray-400 text-xs">Relatório 1º Semestre de 2026 – Ouvidoria – Agência Nacional de Transportes
+        Aquaviários - ANTAQ</p>
     </div>
   </div>
   <script>
 
     const labels = ['Reclamação', 'Solicitação', 'Denúncia', 'Sugestão', 'Elogio', 'Simplifique'];
-    const data = [44, 60, 194, 3, 2, 1];
+    const data = [125, 121, 358, 7, 2, 1];
     const colors = data.map((_, i) => i === 2 ? '#103050' : '#0070C0');
     const valueLabels = {
       id: 'valueLabels',
@@ -162,9 +273,12 @@
       }
     };
     const datasetsMes = [
-      { label: 'Janeiro', data: [19, 23, 47, 0, 0, 1], backgroundColor: '#0070C0', borderRadius: 4, maxBarThickness: 58, categoryPercentage: 0.85, barPercentage: 0.98, skipNull: true },
-      { label: 'Fevereiro', data: [14, 33, 81, 1, 0, 0], backgroundColor: '#0090C0', borderRadius: 4, maxBarThickness: 58, categoryPercentage: 0.85, barPercentage: 0.98, skipNull: true },
-      { label: 'Março', data: [11, 4, 66, 2, 2, 0], backgroundColor: '#103050', borderRadius: 4, maxBarThickness: 58, categoryPercentage: 0.85, barPercentage: 0.98, skipNull: true }
+      { label: 'Janeiro', data: [19, 23, 47, 0, 0, 1], backgroundColor: '#0A2236', borderRadius: 4, maxBarThickness: 58, categoryPercentage: 0.85, barPercentage: 0.98, skipNull: true },
+      { label: 'Fevereiro', data: [14, 33, 81, 1, 0, 0], backgroundColor: '#103050', borderRadius: 4, maxBarThickness: 58, categoryPercentage: 0.85, barPercentage: 0.98, skipNull: true },
+      { label: 'Março', data: [11, 4, 66, 2, 2, 0], backgroundColor: '#16466E', borderRadius: 4, maxBarThickness: 58, categoryPercentage: 0.85, barPercentage: 0.98, skipNull: true },
+      { label: 'Abril', data: [21, 11, 49, 2, 0, 0], backgroundColor: '#0070C0', borderRadius: 4, maxBarThickness: 58, categoryPercentage: 0.85, barPercentage: 0.98, skipNull: true },
+      { label: 'Maio', data: [31, 26, 68, 0, 0, 0], backgroundColor: '#0090C0', borderRadius: 4, maxBarThickness: 58, categoryPercentage: 0.85, barPercentage: 0.98, skipNull: true },
+      { label: 'Junho', data: [29, 24, 47, 2, 0, 0], backgroundColor: '#5fb8dd', borderRadius: 4, maxBarThickness: 58, categoryPercentage: 0.85, barPercentage: 0.98, skipNull: true }
     ];
     new Chart(document.getElementById('chartTiposMes'), {
       type: 'bar',
@@ -206,7 +320,8 @@
       );
     });
   </script>
-  <script>document.addEventListener("keydown", function (e) { if (["ArrowRight","ArrowLeft","PageDown","PageUp","Home","End"," ","f","F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
+  <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
   <script src="a11y.js" defer></script>
 </body>
+
 </html>
