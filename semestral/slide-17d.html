@@ -254,14 +254,19 @@
       <div>
         <div class="flex items-center gap-3 mb-2">
           <div class="w-1 h-8 bg-brand-secondary"></div>
-          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Distribuição das Manifestações por mês</p>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Distribuição das
+            Manifestações por mês</p>
         </div>
       </div>
       <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
         <i class="fas fa-headset text-3xl" aria-hidden="true"></i>
         <div class="flex flex-col justify-center pl-2" style="border-left:1px solid #CBD5E1;">
-          <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">CAPÍTULO 03</p>
-          <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none whitespace-nowrap">Seção de Apoio ao Cidadão — SAC</p>
+          <p
+            class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">
+            CAPÍTULO 03</p>
+          <p
+            class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none whitespace-nowrap">
+            Seção de Apoio ao Cidadão — SAC</p>
         </div>
       </div>
     </div>
@@ -271,9 +276,14 @@
       <div class="chart-card col-span-2 flex flex-col">
         <p class="text-brand-primary font-montserrat font-bold text-xl mb-1 flex items-center gap-2"><i
             class="fas fa-chart-bar text-brand-secondary"></i> Atendimentos Painel Resolveu por Mês</p>
-        <p class="text-gray-400 text-sm mb-1">90 + 129 + 85 = <strong class="text-brand-primary">304</strong> manifestações no semestre</p>
-        <p class="text-gray-400 mb-2" style="font-size:0.5rem;">Distribuição mensal das manifestações recebidas no Fala.BR ao longo do semestre.</p>
-        <div class="flex-1 relative"><canvas id="chartFluxo" role="img" aria-label="Gráfico de barras: atendimentos do Painel Resolveu por mês — Janeiro 90, Fevereiro 129, Março 85"></canvas></div>
+        <p class="text-gray-400 text-sm mb-1">90 + 129 + 85 + 88 + 125 + 108 = <strong
+            class="text-brand-primary">625</strong>
+          manifestações recebidas no semestre</p>
+        <p class="text-gray-400 mb-2" style="font-size:0.5rem;">Distribuição mensal das manifestações recebidas no
+          Fala.BR ao longo do semestre.</p>
+        <div class="flex-1 relative"><canvas id="chartFluxo" role="img"
+            aria-label="Gráfico de barras: manifestações recebidas por mês — Janeiro 90, Fevereiro 129, Março 85, Abril 88, Maio 125, Junho 108"></canvas>
+        </div>
       </div>
 
       <div class="flex flex-col gap-4 justify-center">
@@ -281,8 +291,8 @@
         <div class="kpi-card kpi-primary" style="flex:1;">
           <p class="text-blue-100 font-montserrat font-bold text-xs uppercase tracking-widest mb-2">Fala.BR — Painel
             Resolveu</p>
-          <p class="kpi-num text-6xl">304</p>
-          <p class="text-blue-200 text-sm mt-2 txt-bloco">Total de manifestações registradas no semestre</p>
+          <p class="kpi-num text-6xl">625</p>
+          <p class="text-blue-200 text-sm mt-2 txt-bloco">Manifestações recebidas ao longo dos seis meses</p>
           <i class="fas fa-check-circle kpi-watermark"></i>
         </div>
 
@@ -299,6 +309,18 @@
             <span class="growth-label">Fev → Mar</span>
             <span class="growth-value down">▼ -34,1%</span>
           </div>
+          <div class="growth-row">
+            <span class="growth-label">Mar → Abr</span>
+            <span class="growth-value up">▲ +3,5%</span>
+          </div>
+          <div class="growth-row">
+            <span class="growth-label">Abr → Mai</span>
+            <span class="growth-value up">▲ +42,0%</span>
+          </div>
+          <div class="growth-row">
+            <span class="growth-label">Mai → Jun</span>
+            <span class="growth-value down">▼ -13,6%</span>
+          </div>
         </div>
 
       </div>
@@ -306,13 +328,14 @@
 
 
     <div class="px-16 pb-8 flex justify-between items-center z-10">
-      <p class="text-gray-400 text-xs">Relatório 1º Semestre de 2026 – Ouvidoria – Agência Nacional de Transportes Aquaviários - ANTAQ</p>
+      <p class="text-gray-400 text-xs">Relatório 1º Semestre de 2026 – Ouvidoria – Agência Nacional de Transportes
+        Aquaviários - ANTAQ</p>
     </div>
   </div>
   <script>
-    const monthColors = ['#0070C0', '#0090C0', '#103050'];
-    const fluxoLabels = ['Janeiro', 'Fevereiro', 'Março'];
-    const fluxoData = [90, 129, 85];
+    const monthColors = ['#0A2236', '#103050', '#16466E', '#0070C0', '#0090C0', '#5fb8dd'];
+    const fluxoLabels = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho'];
+    const fluxoData = [90, 129, 85, 88, 125, 108];
     new Chart(document.getElementById('chartFluxo'), {
       type: 'bar',
 

@@ -27,12 +27,27 @@
     .channels {
       flex: 1;
       min-height: 0;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      grid-template-rows: repeat(2, 1fr);
+      display: flex;
+      flex-direction: column;
       gap: .8rem;
       padding: .7rem 1.8rem .6rem;
       animation: fadeIn .6s ease both;
+    }
+
+    .row-top {
+      flex: 1;
+      min-height: 0;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: .8rem;
+    }
+
+    .row-bottom {
+      flex: 1;
+      min-height: 0;
+      display: grid;
+      grid-template-columns: 1.25fr 1.25fr 1.7fr;
+      gap: .8rem;
     }
 
     .card {
@@ -94,17 +109,29 @@
     }
 
     .card-wide {
-      grid-column: span 2;
       flex-direction: row;
       align-items: center;
-      gap: 1.2rem;
+      gap: 1.15rem;
     }
 
     .card-wide .card-icon {
-      width: 92px;
-      height: 92px;
-      font-size: 2.4rem;
-      border-radius: 20px;
+      width: 84px;
+      height: 84px;
+      font-size: 2.2rem;
+      border-radius: 19px;
+    }
+
+    .card-wide .card-tag {
+      font-size: .62rem;
+      letter-spacing: .06em;
+    }
+
+    .row-bottom .card:not(.card-wide) .card-title {
+      min-height: 2.16em;
+    }
+
+    .row-bottom .card:not(.card-wide) .card-info {
+      min-height: 4.02em;
     }
 
     .card-body { min-width: 0; }
@@ -165,85 +192,93 @@
 
     <div class="channels">
 
-      <div class="card" style="border-left-color:#0090C0;">
-        <div class="card-icon" style="background:linear-gradient(145deg,#103050,#0090C0);">
-          <i class="fas fa-globe"></i>
+      <div class="row-top">
+
+        <div class="card" style="border-left-color:#0090C0;">
+          <div class="card-icon" style="background:linear-gradient(145deg,#103050,#0090C0);">
+            <i class="fas fa-globe"></i>
+          </div>
+          <div class="card-body">
+            <div class="card-tag">Plataforma oficial</div>
+            <div class="card-title">Fala.BR</div>
+            <div class="card-info">falabr.cgu.gov.br/v2/</div>
+          </div>
         </div>
-        <div class="card-body">
-          <div class="card-tag">Plataforma oficial</div>
-          <div class="card-title">Fala.BR</div>
-          <div class="card-info">falabr.cgu.gov.br/v2/</div>
+
+        <div class="card">
+          <div class="card-icon" style="background:linear-gradient(145deg,#16466E,#0070C0);">
+            <i class="fas fa-phone-volume"></i>
+          </div>
+          <div class="card-body">
+            <div class="card-tag">Disque Ouvidoria</div>
+            <div class="card-title">Telefone</div>
+            <div class="card-info"><strong>0800 644 5001</strong></div>
+          </div>
         </div>
+
+        <div class="card" style="border-left-color:#0090C0;">
+          <div class="card-icon" style="background:linear-gradient(145deg,#103050,#0090C0);">
+            <i class="fa-brands fa-whatsapp"></i>
+          </div>
+          <div class="card-body">
+            <div class="card-tag">Omnichannel</div>
+            <div class="card-title">WhatsApp</div>
+            <div class="card-info">Aponte a câmera do celular</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-icon" style="background:linear-gradient(145deg,#11598f,#0090C0);">
+            <i class="fas fa-envelope"></i>
+          </div>
+          <div class="card-body">
+            <div class="card-tag">Escrito</div>
+            <div class="card-title">E-mail</div>
+            <div class="card-info">ouvidoria@antaq.gov.br<br />ouvidoria.interno@antaq.gov.br</div>
+          </div>
+        </div>
+
       </div>
 
-      <div class="card">
-        <div class="card-icon" style="background:linear-gradient(145deg,#16466E,#0070C0);">
-          <i class="fas fa-phone-volume"></i>
-        </div>
-        <div class="card-body">
-          <div class="card-tag">Disque Ouvidoria</div>
-          <div class="card-title">Telefone</div>
-          <div class="card-info"><strong>0800 644 5001</strong></div>
-        </div>
-      </div>
+      <div class="row-bottom">
 
-      <div class="card" style="border-left-color:#0090C0;">
-        <div class="card-icon" style="background:linear-gradient(145deg,#103050,#0090C0);">
-          <i class="fa-brands fa-whatsapp"></i>
+        <div class="card">
+          <div class="card-icon" style="background:linear-gradient(145deg,#0d3358,#0070C0);">
+            <i class="fas fa-building"></i>
+          </div>
+          <div class="card-body">
+            <div class="card-tag">Presencial</div>
+            <div class="card-title">Atendimento Presencial</div>
+            <div class="card-info">SEPN Q. 514, Conj. E, Ed. ANTAQ<br />CEP 70760-545 · Brasília/DF<br />ou Unidade Regional</div>
+          </div>
         </div>
-        <div class="card-body">
-          <div class="card-tag">Omnichannel</div>
-          <div class="card-title">WhatsApp</div>
-          <div class="card-info">Aponte a câmera do celular</div>
-        </div>
-      </div>
 
-      <div class="card">
-        <div class="card-icon" style="background:linear-gradient(145deg,#0d3358,#0070C0);">
-          <i class="fas fa-building"></i>
+        <div class="card">
+          <div class="card-icon" style="background:linear-gradient(145deg,#0a2236,#103050);">
+            <i class="fas fa-inbox"></i>
+          </div>
+          <div class="card-body">
+            <div class="card-tag">Escrito</div>
+            <div class="card-title">Correspondência</div>
+            <div class="card-info">SEPN Q. 514, Conj. E, Ed. ANTAQ<br />CEP 70760-545 · Brasília/DF</div>
+          </div>
         </div>
-        <div class="card-body">
-          <div class="card-tag">Presencial</div>
-          <div class="card-title">Atendimento Presencial</div>
-          <div class="card-info">SEPN Q. 514, Conj. E, Ed. ANTAQ<br />CEP 70760-545 · Brasília/DF, ou Unidade Regional</div>
-        </div>
-      </div>
 
-      <div class="card">
-        <div class="card-icon" style="background:linear-gradient(145deg,#11598f,#0090C0);">
-          <i class="fas fa-envelope"></i>
+        <div class="card card-wide" style="border-left-color:#0090C0;">
+          <div class="card-icon" style="background:linear-gradient(145deg,#103050,#0090C0);">
+            <i class="fas fa-robot"></i>
+          </div>
+          <div class="card-body">
+            <div class="card-tag">Inteligência artificial da ANTAQ</div>
+            <div class="card-title">IARA</div>
+            <div class="card-info">Informações sobre os serviços prestados pela Agência, disponível pelo WhatsApp.</div>
+          </div>
+          <div class="qr-box">
+            <img src="Imagens/QRCODE_IARA.jpeg" alt="QR Code da IARA, assistente de inteligência artificial da ANTAQ" />
+            <span>Escaneie o QR Code</span>
+          </div>
         </div>
-        <div class="card-body">
-          <div class="card-tag">Escrito</div>
-          <div class="card-title">E-mail</div>
-          <div class="card-info">ouvidoria@antaq.gov.br<br />ouvidoria.interno@antaq.gov.br</div>
-        </div>
-      </div>
 
-      <div class="card">
-        <div class="card-icon" style="background:linear-gradient(145deg,#0a2236,#103050);">
-          <i class="fas fa-inbox"></i>
-        </div>
-        <div class="card-body">
-          <div class="card-tag">Escrito</div>
-          <div class="card-title">Correspondência</div>
-          <div class="card-info">SEPN Q. 514, Conj. E, Ed. ANTAQ<br />CEP 70760-545 · Brasília/DF</div>
-        </div>
-      </div>
-
-      <div class="card card-wide" style="border-left-color:#0090C0;">
-        <div class="card-icon" style="background:linear-gradient(145deg,#103050,#0090C0);">
-          <i class="fas fa-robot"></i>
-        </div>
-        <div class="card-body">
-          <div class="card-tag">Inteligência artificial da ANTAQ</div>
-          <div class="card-title">IARA</div>
-          <div class="card-info">Informações sobre os serviços prestados pela Agência, disponível pelo WhatsApp.</div>
-        </div>
-        <div class="qr-box">
-          <img src="Imagens/QRCODE_IARA.jpeg" alt="QR Code da IARA, assistente de inteligência artificial da ANTAQ" />
-          <span>Escaneie o QR Code</span>
-        </div>
       </div>
 
     </div>

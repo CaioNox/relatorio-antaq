@@ -422,6 +422,26 @@
       animation-delay: .44s
     }
 
+    .m:nth-child(4) .m-bar {
+      animation-delay: .56s
+    }
+
+    .m:nth-child(5) .m-bar {
+      animation-delay: .68s
+    }
+
+    .m:nth-child(6) .m-bar {
+      animation-delay: .8s
+    }
+
+    .m.pendente .m-bar {
+      background: repeating-linear-gradient(135deg, #CBD5E1 0 8px, #E2E8F0 8px 16px);
+    }
+
+    .m.pendente .m-val {
+      color: #94A3B8;
+    }
+
     @media (prefers-reduced-motion: reduce) {
 
       *,
@@ -471,7 +491,7 @@
 
       <div class="hero anim d1">
         <p class="hero-eyebrow"><i class="fas fa-landmark"></i> No semestre</p>
-        <p class="hero-num">405</p>
+        <p class="hero-num">614</p>
         <p class="hero-unit">atendimentos realizados</p>
         <p class="hero-period">1º semestre de 2026 · Jan a Jun</p>
 
@@ -527,7 +547,7 @@
 
         <div class="chart-block">
           <p class="block-label"><i class="fas fa-chart-column"></i> Distribuição mensal dos atendimentos</p>
-          <div class="months anim d3">
+          <div class="months anim d3 todo-dado">
             <div class="m"><span class="m-val">152</span>
               <div class="m-bar" style="height: 100%;"></div><span class="m-name">Janeiro</span>
             </div>
@@ -536,6 +556,15 @@
             </div>
             <div class="m"><span class="m-val">130</span>
               <div class="m-bar" style="height: 86%;"></div><span class="m-name">Março</span>
+            </div>
+            <div class="m pendente"><span class="m-val">—</span>
+              <div class="m-bar" style="height: 30%;"></div><span class="m-name">Abril</span>
+            </div>
+            <div class="m pendente"><span class="m-val">—</span>
+              <div class="m-bar" style="height: 30%;"></div><span class="m-name">Maio</span>
+            </div>
+            <div class="m pendente"><span class="m-val">—</span>
+              <div class="m-bar" style="height: 30%;"></div><span class="m-name">Junho</span>
             </div>
           </div>
         </div>
