@@ -128,6 +128,10 @@
     }
 
     .header-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 22px;
       text-align: center;
       margin-bottom: 32px;
     }
@@ -155,6 +159,11 @@
       opacity: 0.8;
     }
 
+    .title-wrap {
+      display: inline-block;
+      position: relative;
+    }
+
     .header-section h1 {
       font-family: 'Montserrat', sans-serif;
       font-size: clamp(1.8rem, 1.1rem + 3vw, 3.6rem);
@@ -168,6 +177,48 @@
 
     .header-section h1 .gold {
       color: #0090C0;
+    }
+
+    /* Linha "flecha de duas pontas" sob o título — dourado institucional
+       (#F2A900, o mesmo já usado no foco de teclado dos cards), complementar
+       ao azul do resto da página. Largura = 101% da caixa do título (o
+       .title-wrap encolhe ao tamanho do <h1>). Entra com transition de 0.3s
+       ao carregar a página (classe .in adicionada via JS). */
+    .title-arrow {
+      position: absolute;
+      left: 50%;
+      bottom: -10px;
+      height: 3px;
+      width: 0%;
+      background: #F2A900;
+      transform: translateX(-50%);
+      transition: width 0.8s cubic-bezier(.16, 1, .3, 1);
+    }
+
+    .title-arrow.in {
+      width: 101%;
+    }
+
+    .title-arrow::before,
+    .title-arrow::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      width: 0;
+      height: 0;
+      border-top: 5px solid transparent;
+      border-bottom: 5px solid transparent;
+      transform: translateY(-50%);
+    }
+
+    .title-arrow::before {
+      left: -1px;
+      border-right: 7px solid #F2A900;
+    }
+
+    .title-arrow::after {
+      right: -1px;
+      border-left: 7px solid #F2A900;
     }
 
     .header-section p {
@@ -186,8 +237,11 @@
 
     .report-groups {
       display: flex;
-      flex-direction: column;
-      gap: 30px;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 64px;
       width: 100%;
       max-width: 1120px;
     }
@@ -195,7 +249,10 @@
     .report-group {
       display: flex;
       flex-direction: column;
+      align-items: center;
       gap: 14px;
+      flex: 1 1 280px;
+      min-width: 0;
     }
 
 
@@ -206,7 +263,10 @@
     .group-eyebrow {
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 12px;
+      width: 100%;
+      max-width: 360px;
       font-family: 'Montserrat', sans-serif;
       font-size: 11px;
       font-weight: 700;
@@ -223,26 +283,27 @@
     }
 
     .group-eyebrow-rule {
-      flex: 1 1 auto;
+      flex: 0 0 auto;
+      height: 18px;
       border-radius: 1px;
     }
 
 
     .group-eyebrow--anual .group-eyebrow-rule {
       background-color: var(--antaq-azul-100);
-      height: 4px;
+      width: 4px;
     }
 
 
     .group-eyebrow--semestral .group-eyebrow-rule {
       background-color: var(--antaq-azul-300);
-      height: 3px;
+      width: 3px;
     }
 
 
     .group-eyebrow--trimestral .group-eyebrow-rule {
       background-color: var(--antaq-azul-500);
-      height: 2px;
+      width: 2px;
     }
 
     .cards {
@@ -264,8 +325,9 @@
       padding: 22px 20px;
       text-decoration: none;
       color: inherit;
-      transition: transform .3s cubic-bezier(.2, .7, .3, 1), background-color .3s ease, box-shadow .3s ease, border-color .3s ease;
+      transition: transform .12s cubic-bezier(.2, .7, .3, 1), background-color .12s ease, box-shadow .12s ease, border-color .12s ease;
       display: flex;
+      flex-direction: column;
       align-items: flex-start;
       gap: 16px;
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
@@ -382,7 +444,7 @@
       justify-content: center;
       font-size: 18px;
       flex-shrink: 0;
-      transition: transform .3s ease;
+      transition: transform .12s ease;
     }
 
     .card:hover .card-icon {
@@ -570,7 +632,10 @@
 
   <div class="main">
     <div class="header-section">
-      <h1>Ouvidoria <span class="gold">da ANTAQ</span></h1>
+      <div class="title-wrap">
+        <h1>Ouvidoria <span class="gold">da ANTAQ</span></h1>
+        <span class="title-arrow" id="titleArrow" aria-hidden="true"></span>
+      </div>
       <p>Selecione o conteúdo que deseja acessar</p>
     </div>
 
@@ -686,6 +751,14 @@
           var substantivo = total === 1 ? 'relatório' : 'relatórios';
           contagem.textContent = '· ' + total + ' ' + substantivo;
         }
+      });
+    })();
+
+    (function () {
+      var seta = document.getElementById('titleArrow');
+      if (!seta) return;
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () { seta.classList.add('in'); });
       });
     })();
   </script>

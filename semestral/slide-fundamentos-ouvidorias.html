@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Atribuições, Princípios e Diretrizes das Ouvidorias - Relatório Semestral Ouvidoria ANTAQ</title>
+  <link rel="icon" type="image/png"
+    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    html {
+      font-size: 26px;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f3f4f6;
+      overflow: hidden;
+    }
+
+    .slide-container {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background-color: #fff;
+      overflow: hidden;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    .font-montserrat {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .text-brand-primary {
+      color: #103050;
+    }
+
+    .text-brand-secondary {
+      color: #0070C0;
+    }
+
+    .bg-brand-secondary {
+      background-color: #0070C0;
+    }
+
+    .top-accent {
+      height: 8px;
+      background-color: #103050;
+      width: 100%;
+    }
+
+    .top-accent-secondary {
+      height: 4px;
+      background-color: #0070C0;
+      width: 100%;
+    }
+
+    .ctx-bar {
+      margin: .3rem 3.2rem .15rem;
+      display: flex;
+      align-items: center;
+      gap: .7rem;
+      border-left: 4px solid #0090C0;
+      padding: .12rem 0 .12rem 1rem;
+      animation: fadeInUp .45s ease both;
+    }
+
+    .ctx-bar p {
+      margin: 0;
+      font-size: .74rem;
+      line-height: 1.35;
+      color: #103050;
+    }
+
+    .ctx-bar strong {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+    }
+
+    .ctx-btn {
+      flex-shrink: 0;
+      border: 1px solid #BFDCEB;
+      background: #F1F8FC;
+      color: #0070C0;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: .66rem;
+      padding: .28rem .75rem;
+      border-radius: 999px;
+      cursor: pointer;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+      transition: background .2s, color .2s;
+    }
+
+    .ctx-btn:hover {
+      background: #0070C0;
+      color: #fff;
+      border-color: #0070C0;
+    }
+
+    .palco {
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      padding: 0 3.2rem;
+    }
+
+    .trilha {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: .6rem;
+      padding: .45rem 0 .8rem;
+      flex-shrink: 0;
+    }
+
+    .trilha::before,
+    .trilha-fill {
+      content: '';
+      position: absolute;
+      top: calc(.45rem + 1.1rem);
+      height: 4px;
+      border-radius: 2px;
+      left: 10%;
+      right: 10%;
+    }
+
+    .trilha::before {
+      background: #E2E8F0;
+    }
+
+    .trilha-fill {
+      right: auto;
+      width: 0;
+      background: linear-gradient(90deg, #103050, #0090C0);
+      transition: width .45s cubic-bezier(.4, 0, .2, 1);
+    }
+
+    .no {
+      position: relative;
+      z-index: 1;
+      background: none;
+      border: 0;
+      padding: 0;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .35rem;
+      font-family: 'Montserrat', sans-serif;
+      text-align: center;
+      animation: fadeInUp .45s ease both;
+    }
+
+    .no:nth-child(3) {
+      animation-delay: .06s;
+    }
+
+    .no:nth-child(4) {
+      animation-delay: .12s;
+    }
+
+    .no:nth-child(5) {
+      animation-delay: .18s;
+    }
+
+    .no-bolha {
+      width: 2.2rem;
+      height: 2.2rem;
+      border-radius: 50%;
+      background: #fff;
+      border: 3px solid #CBD5E1;
+      color: #94A3B8;
+      font-weight: 900;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform .3s, background .3s, border-color .3s, color .3s, box-shadow .3s;
+    }
+
+    .no-rot {
+      font-weight: 700;
+      font-size: .68rem;
+      line-height: 1.25;
+      color: #94A3B8;
+      transition: color .3s;
+      max-width: 92%;
+    }
+
+    .no:hover .no-bolha {
+      border-color: #0090C0;
+      color: #0070C0;
+    }
+
+    .no:hover .no-rot {
+      color: #475569;
+    }
+
+    .no.feita .no-bolha {
+      background: #103050;
+      border-color: #103050;
+      color: #fff;
+    }
+
+    .no.feita .no-rot {
+      color: #64748B;
+    }
+
+    .no.ativa .no-bolha {
+      background: linear-gradient(150deg, #103050, #0070C0);
+      border-color: #0090C0;
+      color: #fff;
+      transform: scale(1.2);
+      box-shadow: 0 10px 22px -8px rgba(16, 48, 80, .65);
+    }
+
+    .no.ativa .no-rot {
+      color: #103050;
+      font-weight: 800;
+    }
+
+    .painel {
+      flex: 1;
+      min-height: 0;
+      position: relative;
+      border: 2px solid #E2E8F0;
+      border-radius: 18px;
+      background: #fff;
+      box-shadow: 0 14px 34px -20px rgba(16, 48, 80, .45);
+      overflow: hidden;
+    }
+
+    .painel::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: linear-gradient(90deg, #103050, #0090C0);
+      z-index: 2;
+    }
+
+    .etapa-foco {
+      position: absolute;
+      inset: 6px 0 0;
+      padding: 1rem 1.6rem 1rem;
+      display: none;
+      grid-template-columns: 7rem 1fr;
+      gap: 1.3rem;
+      align-items: stretch;
+    }
+
+    .etapa-foco.ativa {
+      display: grid;
+      animation: entra .38s cubic-bezier(.4, 0, .2, 1) both;
+    }
+
+    @keyframes entra {
+      from {
+        opacity: 0;
+        transform: translateX(22px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    .marcador {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: .45rem;
+    }
+
+    .marcador-n {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 3.6rem;
+      line-height: .85;
+      background: linear-gradient(150deg, #103050, #0090C0);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .marcador-i {
+      font-size: 1.5rem;
+      color: #0090C0;
+      opacity: .55;
+    }
+
+    .marcador-p {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: .56rem;
+      letter-spacing: .1em;
+      color: #94A3B8;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    .foco-lista {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+    }
+
+    .foco-t {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      color: #103050;
+      font-size: 1.12rem;
+      line-height: 1.2;
+      margin: 0 0 .5rem;
+    }
+
+    .ref-caput {
+      font-size: .8rem;
+      line-height: 1.28;
+      color: #334155;
+      margin: 0 0 .55rem 0;
+      background: #F1F5F9;
+      border-left: 3px solid #0070C0;
+      border-radius: 0 6px 6px 0;
+      padding: .32rem .65rem;
+      flex-shrink: 0;
+    }
+
+    .ref-caput strong {
+      color: #103050;
+    }
+
+    .ref-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(4, 1fr);
+      grid-auto-flow: column;
+      gap: .5rem 1.1rem;
+      flex: 1;
+      min-height: 0;
+    }
+
+    .ref-card {
+      position: relative;
+      display: flex;
+      align-items: center;
+      background: #fff;
+      border: 1px solid #E2E8F0;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px -3px rgba(16, 48, 80, .18);
+      padding: .4rem .65rem .4rem 1.75rem;
+    }
+
+    .ref-num {
+      position: absolute;
+      top: .32rem;
+      left: .32rem;
+      width: 1.05rem;
+      height: 1.05rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: .56rem;
+      color: #fff;
+      line-height: 1;
+      background: var(--tag);
+      border-radius: 4px;
+    }
+
+    .ref-num.c-a {
+      --tag: #103050;
+    }
+
+    .ref-num.c-b {
+      --tag: #0070C0;
+    }
+
+    .ref-body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+    }
+
+    .ref-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: .94rem;
+      letter-spacing: .02em;
+      text-transform: uppercase;
+      color: #000000;
+      margin: 0 0 .14rem;
+    }
+
+    .ref-desc {
+      font-size: .94rem;
+      line-height: 1.28;
+      color: #334155;
+      margin: 0;
+    }
+
+    .grade {
+      display: none;
+      flex: 1;
+      min-height: 0;
+      grid-template-columns: repeat(4, 1fr);
+      gap: .8rem;
+      padding: .35rem 0 0;
+    }
+
+    body.modo-grade .trilha,
+    body.modo-grade .painel {
+      display: none;
+    }
+
+    body.modo-grade .grade {
+      display: grid;
+    }
+
+    .etapa {
+      border: 2px solid #E2E8F0;
+      border-radius: 14px;
+      background: #fff;
+      padding: .8rem;
+      box-shadow: 0 10px 24px -14px rgba(16, 48, 80, .28);
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      animation: fadeInUp .45s ease both;
+      transition: transform .12s, border-color .12s;
+    }
+
+    .etapa:hover {
+      transform: translateY(-4px);
+      border-color: #0090C0;
+    }
+
+    .etapa::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, #103050, #0090C0);
+    }
+
+    .etapa:nth-child(2) {
+      animation-delay: .07s;
+    }
+
+    .etapa:nth-child(3) {
+      animation-delay: .14s;
+    }
+
+    .etapa:nth-child(4) {
+      animation-delay: .21s;
+    }
+
+    .et-n {
+      width: 2rem;
+      height: 2rem;
+      border-radius: .55rem;
+      flex-shrink: 0;
+      background: linear-gradient(150deg, #103050, #0070C0);
+      color: #fff;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: .92rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: .5rem;
+      box-shadow: 0 8px 16px -8px rgba(16, 48, 80, .6);
+    }
+
+    .et-t {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: .74rem;
+      color: #103050;
+      line-height: 1.2;
+      margin: 0 0 .4rem;
+    }
+
+    .et-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      overflow-y: auto;
+      font-size: .48rem;
+      line-height: 1.35;
+      color: #475569;
+    }
+
+    .et-list li {
+      margin: 0 0 .28rem;
+      padding-left: .85rem;
+      position: relative;
+    }
+
+    .et-list li::before {
+      content: attr(data-i) '.';
+      position: absolute;
+      left: 0;
+      color: #0070C0;
+      font-weight: 800;
+    }
+
+    .dicas {
+      display: flex;
+      align-items: center;
+      gap: .45rem;
+      flex-shrink: 0;
+    }
+
+    .dica {
+      display: inline-flex;
+      align-items: center;
+      gap: .22rem;
+      font-size: .52rem;
+      white-space: nowrap;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      color: #94A3B8;
+    }
+
+    .tecla {
+      border: 1px solid #CBD5E1;
+      border-bottom-width: 2px;
+      border-radius: 5px;
+      padding: .05rem .3rem;
+      color: #64748B;
+      background: #F8FAFC;
+      min-width: 1rem;
+      text-align: center;
+    }
+
+    .dica-btn {
+      background: none;
+      border: 0;
+      padding: 0;
+      cursor: pointer;
+    }
+
+    .dica-btn:hover .tecla {
+      border-color: #0090C0;
+      color: #0070C0;
+    }
+
+    .dica-btn.on .tecla {
+      background: #0070C0;
+      border-color: #0070C0;
+      color: #fff;
+    }
+
+    .ctx-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 30;
+      background: rgba(16, 48, 80, .55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .25s;
+    }
+
+    .ctx-overlay.aberto {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .ctx-card {
+      background: #fff;
+      border-radius: 18px;
+      max-width: 44rem;
+      padding: 1.8rem 2.1rem;
+      box-shadow: 0 30px 60px -24px rgba(0, 0, 0, .5);
+      border-top: 6px solid #0090C0;
+      transform: translateY(16px);
+      transition: transform .25s;
+    }
+
+    .ctx-overlay.aberto .ctx-card {
+      transform: none;
+    }
+
+    .ctx-card h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 1.3rem;
+      color: #103050;
+      margin: 0 0 .8rem;
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+    }
+
+    .ctx-card p {
+      font-size: 1rem;
+      line-height: 1.58;
+      color: #334155;
+      margin: 0 0 .7rem;
+      text-align: justify;
+    }
+
+    .ctx-card p:last-of-type {
+      margin-bottom: 0;
+    }
+
+    .ctx-fechar {
+      margin-top: 1.1rem;
+      border: 0;
+      background: #103050;
+      color: #fff;
+      border-radius: 999px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: .78rem;
+      padding: .42rem 1.35rem;
+      cursor: pointer;
+    }
+
+    .ctx-fechar:hover {
+      background: #0070C0;
+    }
+
+    .bg-pattern {
+      position: absolute;
+      bottom: -60px;
+      right: -50px;
+      width: 380px;
+      height: 380px;
+      opacity: .025;
+      z-index: 0;
+      color: #103050;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="a11y.css">
+  <link rel="stylesheet" href="base.css" />
+</head>
+
+<body>
+  <div class="slide-container">
+    <div class="top-accent"></div>
+    <div class="top-accent-secondary"></div>
+
+    <div class="flex items-start justify-between px-12 pt-6 pb-1 z-10">
+      <div>
+        <div class="flex items-center gap-3 mb-1">
+          <div class="w-1 h-8 bg-brand-secondary"></div>
+          <p class="font-montserrat font-bold text-brand-primary uppercase tracking-tight"
+            style="font-size:1.55rem; line-height:1.15;">Atribuições, Princípios e Diretrizes das Ouvidorias</p>
+        </div>
+        <p class="text-gray-500 ml-4" style="font-size:.72rem;">Fundamentos legais que orientam a atuação das Ouvidorias
+          públicas — Lei nº 13.460/2017.</p>
+      </div>
+      <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
+        <i class="fas fa-bullhorn align-middle" aria-hidden="true" style="font-size:44px;"></i>
+        <div class="flex flex-col justify-center pl-2" style="border-left: 1px solid #CBD5E1;">
+          <p class="font-montserrat font-bold text-gray-400 tracking-widest leading-none mb-1 whitespace-nowrap"
+            style="font-size:20px;">CAPÍTULO 01</p>
+          <p class="font-montserrat font-bold text-brand-secondary tracking-tight uppercase leading-none whitespace-nowrap"
+            style="font-size:17px;">Visão Geral das Ouvidorias públicas</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="ctx-bar">
+      <p><strong>Base normativa:</strong> Lei nº 13.460/2017 — arts. 4º, 5º e 13 — define, respectivamente, os
+        princípios, as diretrizes e as atribuições precípuas das Ouvidorias públicas.</p>
+      <button class="ctx-btn" id="ctxBtn" type="button" aria-haspopup="dialog" aria-expanded="false">
+        <i class="fas fa-circle-info" aria-hidden="true"></i> Contexto completo
+      </button>
+    </div>
+
+    <div class="palco">
+
+      <div class="trilha" role="tablist" aria-label="Fundamentos das Ouvidorias">
+        <div class="trilha-fill" id="trilhaFill" aria-hidden="true"></div>
+
+        <button class="no" type="button" role="tab" data-n="1" aria-controls="etapa-1">
+          <span class="no-bolha">1</span>
+          <span class="no-rot">Atribuições</span>
+        </button>
+        <button class="no" type="button" role="tab" data-n="2" aria-controls="etapa-2">
+          <span class="no-bolha">2</span>
+          <span class="no-rot">Princípios</span>
+        </button>
+        <button class="no" type="button" role="tab" data-n="3" aria-controls="etapa-3">
+          <span class="no-bolha">3</span>
+          <span class="no-rot">Diretrizes (1 a 8)</span>
+        </button>
+        <button class="no" type="button" role="tab" data-n="4" aria-controls="etapa-4">
+          <span class="no-bolha">4</span>
+          <span class="no-rot">Diretrizes (9 a 16)</span>
+        </button>
+      </div>
+
+      <div class="painel">
+
+        <section class="etapa-foco" id="etapa-1" role="tabpanel" data-n="1">
+          <div class="marcador">
+            <span class="marcador-n">1</span>
+            <i class="fas fa-list-check marcador-i" aria-hidden="true"></i>
+            <span class="marcador-p">Etapa 1 de 4</span>
+          </div>
+          <div class="foco-lista">
+            <h2 class="foco-t">Atribuições das Ouvidorias</h2>
+            <p class="ref-caput"><strong>Art. 13.</strong> As Ouvidorias terão como atribuições precípuas, sem prejuízo
+              de outras estabelecidas em regulamento específico:</p>
+            <div class="ref-grid">
+              <div class="ref-card">
+                <div class="ref-num c-a">1</div>
+                <div class="ref-body">
+                  <p class="ref-desc">Promover a participação do usuário na administração pública, em cooperação com
+                    outras entidades de defesa do usuário;</p>
+                </div>
+              </div>
+              <div class="ref-card">
+                <div class="ref-num c-a">2</div>
+                <div class="ref-body">
+                  <p class="ref-desc">Acompanhar a prestação dos serviços, visando a garantir a sua efetividade;</p>
+                </div>
+              </div>
+              <div class="ref-card">
+                <div class="ref-num c-a">3</div>
+                <div class="ref-body">
+                  <p class="ref-desc">Propor aperfeiçoamentos na prestação dos serviços;</p>
+                </div>
+              </div>
+              <div class="ref-card">
+                <div class="ref-num c-a">4</div>
+                <div class="ref-body">
+                  <p class="ref-desc">Auxiliar na prevenção e correção dos atos e procedimentos incompatíveis com os
+                    princípios estabelecidos nesta Lei;</p>
+                </div>
+              </div>
+              <div class="ref-card">
+                <div class="ref-num c-a">5</div>
+                <div class="ref-body">
+                  <p class="ref-desc">Propor a adoção de medidas para a defesa dos direitos do usuário, em observância
+                    às determinações desta Lei;</p>
+                </div>
+              </div>
+              <div class="ref-card">
+                <div class="ref-num c-a">6</div>
+                <div class="ref-body">
+                  <p class="ref-desc">Receber, analisar e encaminhar às autoridades competentes as manifestações,
+                    acompanhando o tratamento e a efetiva conclusão perante o órgão a que se vincula; e</p>
+                </div>
+              </div>
+              <div class="ref-card">
+                <div class="ref-num c-a">7</div>
+                <div class="ref-body">
+                  <p class="ref-desc">Promover a adoção de mediação e conciliação entre o usuário e o órgão ou a
+                    entidade pública, sem prejuízo de outros órgãos competentes.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="etapa-foco" id="etapa-2" role="tabpanel" data-n="2">
+          <div class="marcador">
+            <span class="marcador-n">2</span>
+            <i class="fas fa-scale-balanced marcador-i" aria-hidden="true"></i>
+            <span class="marcador-p">Etapa 2 de 4</span>
+          </div>
+          <div class="foco-lista">
+            <h2 class="foco-t">Princípios das Ouvidorias</h2>
+            <p class="ref-caput"><strong>Art. 4º</strong> Para adequada realização dos serviços públicos e do
+              atendimento ao usuário, deverão ser observados os seguintes princípios:</p>
+            <div class="ref-grid">
+              <div class="ref-card">
+                <div class="ref-num c-a">1</div>
+                <div class="ref-body">
+                  <p class="ref-title">Regularidade</p>
+                  <p class="ref-desc">Mesmo padrão de qualidade.</p>
+                </div>
+              </div>
+              <div class="ref-card">
+                <div class="ref-num c-a">2</div>
+                <div class="ref-body">
+                  <p class="ref-title">Continuidade</p>
+                  <p class="ref-desc">Prestação ininterrupta do serviço.</p>
+                </div>
+              </div>
+              <div class="ref-card">
+                <div class="ref-num c-a">3</div>
+                <div class="ref-body">
+                  <p class="ref-title">Efetividade</p>
+                  <p class="ref-desc">Resultados para a sociedade.</p>
+                </div>
+              </div>
+              <div class="ref-card">
+                <div class="ref-num c-a">4</div>
+                <div class="ref-body">
+                  <p class="ref-title">Segurança</p>
+                  <p class="ref-desc">Prestação sem riscos para usuários.</p>
+                </div>
+              </div>
+              <div class="ref-card">
+                <div class="ref-num c-a">5</div>
+                <div class="ref-body">
+                  <p class="ref-title">Atualidade</p>
+                  <p class="ref-desc">Modernidade de técnicas, equipamentos e instalações.</p>
+                </div>
+              </div>
+              <div class="ref-card">
+                <div class="ref-num c-a">6</div>
+                <div class="ref-body">
+                  <p class="ref-title">Generalidade</p>
+                  <p class="ref-desc">Atendimento de forma igualitária.</p>
+                </div>
+              </div>
+              <div class="ref-card">
+                <div class="ref-num c-a">7</div>
+                <div class="ref-body">
+                  <p class="ref-title">Transparência</p>
+                  <p class="ref-desc">Divulgação de informações claras e precisas sobre acesso aos serviços públicos.
+                  </p>
+                </div>
+              </div>
+              <div class="ref-card">
+                <div class="ref-num c-a">8</div>
+                <div class="ref-body">
+                  <p class="ref-title">Cortesia</p>
+                  <p class="ref-desc">Tratamento respeitoso do usuário atendido.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="etapa-foco" id="etapa-3" role="tabpanel" data-n="3">
+          <div class="marcador">
+            <span class="marcador-n">3</span>
+            <i class="fas fa-signs-post marcador-i" aria-hidden="true"></i>
+            <span class="marcador-p">Etapa 3 de 4</span>
+          </div>
+          <div class="foco-lista">
+            <h2 class="foco-t">Diretrizes das Ouvidorias (1 a 8)</h2>
+            <p class="ref-caput"><strong>Art. 5º</strong> O usuário de serviço público tem direito à adequada prestação
+              dos serviços, devendo os agentes públicos e prestadores de serviços públicos observar as seguintes
+              diretrizes:</p>
+            <div class="ref-grid">
+              <div class="ref-card">
+                <div class="ref-num c-a">1</div>
+                <div class="ref-body">
+                  <p class="ref-desc">Urbanidade, respeito, acessibilidade e cortesia no atendimento aos usuários;</p>
+                </div>
+              </div>
+              <div class="ref-card">
+                <div class="ref-num c-a">2</div>
+                <div class="ref-body">
+                  <p class="ref-desc">Presunção de boa-fé do usuário;</p>
+                </div>
+              </div>
+              <div class="ref-card">
+                <div class="ref-num c-a">3</div>
+                <div class="ref-body">
+                  <p class="ref-desc">Atendimento por ordem de chegada, ressalvados casos de urgência e agendamento, e
+                    as prioridades legais a pessoas com deficiência, idosos, gestantes, lactantes e acompanhados de
+                    crianças de colo;</p>
+                </div>
+              </div>
+              <div class="ref-card">
+                <div class="ref-num c-a">4</div>
+                <div class="ref-body">
+                  <p class="ref-desc">Adequação entre meios e fins, vedada a imposição de exigências, obrigações,
+                    restrições e sanções não previstas na legislação;</p>
+                </div>
+              </div>
+              <div class="ref-card">
+                <div class="ref-num c-a">5</div>
+                <div class="ref-body">
+                  <p class="ref-desc">Igualdade no tratamento aos usuários, vedado qualquer tipo de discriminação;</p>
+                </div>
+              </div>
+              <div class="ref-card">
+                <div class="ref-num c-a">6</div>
+                <div class="ref-body">
+                  <p class="ref-desc">Cumprimento de prazos e normas procedimentais;</p>
+                </div>
+              </div>
+              <div class="ref-card">
+                <div class="ref-num c-a">7</div>
+                <div class="ref-body">
+                  <p class="ref-desc">Definição, publicidade e observância de horários e normas compatíveis com o bom
+                    atendimento ao usuário;</p>
+                </div>
+              </div>
+              <div class="ref-card">
+                <div class="ref-num c-a">8</div>
+                <div class="ref-body">
+                  <p class="ref-desc">Adoção de medidas visando a proteção à saúde e a segurança dos usuários;</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="etapa-foco" id="etapa-4" role="tabpanel" data-n="4">
+          <div class="marcador">
+            <span class="marcador-n">4</span>
+            <i class="fas fa-route marcador-i" aria-hidden="true"></i>
+            <span class="marcador-p">Etapa 4 de 4</span>
+          </div>
+          <div class="foco-lista">
+            <h2 class="foco-t">Diretrizes das Ouvidorias (9 a 16)</h2>
+            <p class="ref-caput"><strong>Art. 5º</strong> <em>(continuação)</em> — diretrizes a serem observadas pelos
+              agentes públicos e prestadores de serviços públicos para a adequada prestação dos serviços:</p>
+            <div class="ref-grid">
+              <div class="ref-card">
+                <div class="ref-num c-a">9</div>
+                <div class="ref-body">
+                  <p class="ref-desc">Autenticação de documentos pelo próprio agente público, à vista dos originais
+                    apresentados pelo usuário, vedada a exigência de reconhecimento de firma, salvo dúvida de
+                    autenticidade;</p>
+                </div>
+              </div>
+              <div class="ref-card">
+                <div class="ref-num c-a">10</div>
+                <div class="ref-body">
+                  <p class="ref-desc">Manutenção de instalações salubres, seguras, sinalizadas, acessíveis e adequadas
+                    ao serviço e ao atendimento;</p>
+                </div>
+              </div>
+              <div class="ref-card">
+                <div class="ref-num c-a">11</div>
+                <div class="ref-body">
+                  <p class="ref-desc">Eliminação de formalidades e de exigências cujo custo econômico ou social seja
+                    superior ao risco envolvido;</p>
+                </div>
+              </div>
+              <div class="ref-card">
+                <div class="ref-num c-a">12</div>
+                <div class="ref-body">
+                  <p class="ref-desc">Observância dos códigos de ética ou de conduta aplicáveis às várias categorias de
+                    agentes públicos;</p>
+                </div>
+              </div>
+              <div class="ref-card">
+                <div class="ref-num c-a">13</div>
+                <div class="ref-body">
+                  <p class="ref-desc">Aplicação de soluções tecnológicas que visem a simplificar processos e
+                    procedimentos de atendimento ao usuário e a propiciar melhor compartilhamento das informações;</p>
+                </div>
+              </div>
+              <div class="ref-card">
+                <div class="ref-num c-a">14</div>
+                <div class="ref-body">
+                  <p class="ref-desc">Utilização de linguagem simples e compreensível, evitando o uso de siglas, jargões
+                    e estrangeirismos; e</p>
+                </div>
+              </div>
+              <div class="ref-card">
+                <div class="ref-num c-a">15</div>
+                <div class="ref-body">
+                  <p class="ref-desc">Vedação da exigência de nova prova sobre fato já comprovado em documentação válida
+                    apresentada.</p>
+                </div>
+              </div>
+              <div class="ref-card">
+                <div class="ref-num c-a">16</div>
+                <div class="ref-body">
+                  <p class="ref-desc">Comunicação prévia ao consumidor de que o serviço será desligado por
+                    inadimplemento, e do dia do desligamento, necessariamente em horário comercial.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div class="grade" id="grade" aria-label="Visão geral dos 4 fundamentos">
+        <div class="etapa" data-n="1">
+          <div class="et-n">1</div>
+          <p class="et-t">Atribuições</p>
+          <ol class="et-list">
+            <li data-i="1">Promover a participação do usuário na administração pública;</li>
+            <li data-i="2">Acompanhar a prestação dos serviços, garantindo sua efetividade;</li>
+            <li data-i="3">Propor aperfeiçoamentos na prestação dos serviços;</li>
+            <li data-i="4">Auxiliar na prevenção e correção de atos incompatíveis com a Lei;</li>
+            <li data-i="5">Propor medidas para a defesa dos direitos do usuário;</li>
+            <li data-i="6">Receber, analisar e encaminhar manifestações às autoridades; e</li>
+            <li data-i="7">Promover mediação e conciliação entre usuário e órgão público.</li>
+          </ol>
+        </div>
+        <div class="etapa" data-n="2">
+          <div class="et-n">2</div>
+          <p class="et-t">Princípios</p>
+          <ol class="et-list">
+            <li data-i="1">Regularidade — mesmo padrão de qualidade;</li>
+            <li data-i="2">Continuidade — prestação ininterrupta;</li>
+            <li data-i="3">Efetividade — resultados para a sociedade;</li>
+            <li data-i="4">Segurança — sem riscos para usuários;</li>
+            <li data-i="5">Atualidade — técnicas e instalações modernas;</li>
+            <li data-i="6">Generalidade — atendimento igualitário;</li>
+            <li data-i="7">Transparência — informações claras e precisas;</li>
+            <li data-i="8">Cortesia — tratamento respeitoso.</li>
+          </ol>
+        </div>
+        <div class="etapa" data-n="3">
+          <div class="et-n">3</div>
+          <p class="et-t">Diretrizes (1 a 8)</p>
+          <ol class="et-list">
+            <li data-i="1">Urbanidade, respeito, acessibilidade e cortesia;</li>
+            <li data-i="2">Presunção de boa-fé do usuário;</li>
+            <li data-i="3">Atendimento por ordem de chegada, com prioridades legais;</li>
+            <li data-i="4">Adequação entre meios e fins, sem exigências extralegais;</li>
+            <li data-i="5">Igualdade de tratamento, vedada discriminação;</li>
+            <li data-i="6">Cumprimento de prazos e normas procedimentais;</li>
+            <li data-i="7">Horários definidos, públicos e compatíveis; e</li>
+            <li data-i="8">Medidas de proteção à saúde e segurança dos usuários.</li>
+          </ol>
+        </div>
+        <div class="etapa" data-n="4">
+          <div class="et-n">4</div>
+          <p class="et-t">Diretrizes (9 a 16)</p>
+          <ol class="et-list">
+            <li data-i="9">Autenticação de documentos pelo próprio agente público;</li>
+            <li data-i="10">Instalações salubres, seguras e acessíveis;</li>
+            <li data-i="11">Eliminação de formalidades desproporcionais ao risco;</li>
+            <li data-i="12">Observância dos códigos de ética aplicáveis;</li>
+            <li data-i="13">Soluções tecnológicas que simplifiquem o atendimento;</li>
+            <li data-i="14">Linguagem simples, sem siglas ou jargões; e</li>
+            <li data-i="15">Vedação de nova prova sobre fato já comprovado.</li>
+            <li data-i="16">Aviso prévio de desligamento por inadimplemento.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <div class="px-12 pb-4 pt-3 flex justify-between items-center gap-6 z-10">
+      <p class="text-gray-400 text-xs whitespace-nowrap">Relatório 1º Semestre de 2026 – Ouvidoria – Agência Nacional de
+        Transportes Aquaviários - ANTAQ</p>
+      <div class="dicas">
+        <span class="dica"><span class="tecla">1</span>–<span class="tecla">4</span> etapa</span>
+        <span class="dica"><span class="tecla">←</span><span class="tecla">→</span> percorrer</span>
+        <button class="dica dica-btn" id="gradeBtn" type="button" aria-pressed="false"><span class="tecla">G</span>
+          visão geral</button>
+        <button class="dica dica-btn" id="ctxBtn2" type="button"><span class="tecla">C</span> contexto</button>
+      </div>
+    </div>
+
+    <div class="bg-pattern"><i class="fas fa-scale-balanced text-9xl"></i></div>
+
+    <div class="ctx-overlay" id="ctxOverlay" role="dialog" aria-modal="true" aria-labelledby="ctxTitulo">
+      <div class="ctx-card">
+        <h3 id="ctxTitulo"><i class="fas fa-scale-balanced text-brand-secondary" aria-hidden="true"></i> Contexto
+          normativo</h3>
+        <p>A Lei nº 13.460/2017 disciplina a participação, a proteção e a defesa dos direitos do usuário dos serviços
+          públicos prestados direta ou indiretamente pela administração pública.</p>
+        <p>Os arts. 4º, 5º e 13 estruturam, respectivamente, os <strong>princípios</strong> que orientam a prestação do
+          serviço, as <strong>diretrizes</strong> que os agentes públicos e prestadores devem observar no atendimento, e
+          as <strong>atribuições precípuas</strong> das Ouvidorias — a instância responsável por acompanhar essa
+          prestação e mediar a relação entre o usuário e o órgão público.</p>
+        <button class="ctx-fechar" id="ctxFechar" type="button">Fechar</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const TOTAL_ETAPAS = 4;
+    const nos = Array.from(document.querySelectorAll('.no'));
+    const focos = Array.from(document.querySelectorAll('.etapa-foco'));
+    const fill = document.getElementById('trilhaFill');
+    let etapa = 1;
+    let modoGrade = false;
+    let ctxAberto = false;
+
+    function irPara(n) {
+      etapa = Math.max(1, Math.min(TOTAL_ETAPAS, n));
+      nos.forEach((no) => {
+        const i = +no.dataset.n;
+        no.classList.toggle('ativa', i === etapa);
+        no.classList.toggle('feita', i < etapa);
+        no.setAttribute('aria-selected', i === etapa ? 'true' : 'false');
+      });
+      focos.forEach((f) => f.classList.toggle('ativa', +f.dataset.n === etapa));
+      fill.style.width = ((etapa - 1) / (TOTAL_ETAPAS - 1) * 80) + '%';
+    }
+
+    nos.forEach((no) => no.addEventListener('click', () => irPara(+no.dataset.n)));
+
+    document.querySelectorAll('.grade .etapa').forEach((card) => {
+      card.addEventListener('click', () => { alternarGrade(false); irPara(+card.dataset.n); });
+    });
+
+    const gradeBtn = document.getElementById('gradeBtn');
+    function alternarGrade(estado) {
+      modoGrade = typeof estado === 'boolean' ? estado : !modoGrade;
+      document.body.classList.toggle('modo-grade', modoGrade);
+      gradeBtn.classList.toggle('on', modoGrade);
+      gradeBtn.setAttribute('aria-pressed', modoGrade ? 'true' : 'false');
+    }
+    gradeBtn.addEventListener('click', () => alternarGrade());
+
+    const overlay = document.getElementById('ctxOverlay');
+    const ctxBtn = document.getElementById('ctxBtn');
+    function alternarCtx(estado) {
+      ctxAberto = typeof estado === 'boolean' ? estado : !ctxAberto;
+      overlay.classList.toggle('aberto', ctxAberto);
+      ctxBtn.setAttribute('aria-expanded', ctxAberto ? 'true' : 'false');
+    }
+    ctxBtn.addEventListener('click', () => alternarCtx());
+    document.getElementById('ctxBtn2').addEventListener('click', () => alternarCtx());
+    document.getElementById('ctxFechar').addEventListener('click', () => alternarCtx(false));
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) alternarCtx(false); });
+
+    const TECLAS_NAV = ['ArrowRight', 'ArrowLeft', 'PageDown', 'PageUp', 'Home', 'End', ' ', 'f', 'F'];
+    document.addEventListener('keydown', function (e) {
+      const k = e.key;
+
+      if (k >= '1' && k <= '4') { e.preventDefault(); alternarGrade(false); irPara(+k); return; }
+      if (k === 'g' || k === 'G') { e.preventDefault(); alternarGrade(); return; }
+      if (k === 'c' || k === 'C') { e.preventDefault(); alternarCtx(); return; }
+      if (k === 'Escape') { alternarCtx(false); alternarGrade(false); return; }
+
+      if (TECLAS_NAV.indexOf(k) === -1) return;
+      e.preventDefault();
+
+      if (ctxAberto && k !== 'f' && k !== 'F') { alternarCtx(false); return; }
+
+      if (!modoGrade) {
+        const avanca = (k === 'ArrowRight' || k === ' ' || k === 'PageDown');
+        const volta = (k === 'ArrowLeft' || k === 'PageUp');
+        if (avanca && etapa < TOTAL_ETAPAS) { irPara(etapa + 1); return; }
+        if (volta && etapa > 1) { irPara(etapa - 1); return; }
+      }
+
+      window.parent.postMessage({ type: 'slide-nav', key: k }, '*');
+    });
+
+    irPara(1);
+
+    function pegarFoco() { try { window.focus(); } catch (e) { } }
+    pegarFoco();
+    window.addEventListener('load', pegarFoco);
+  </script>
+  <script src="a11y.js" defer></script>
+</body>
+
+</html>

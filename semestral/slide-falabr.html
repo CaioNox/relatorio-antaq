@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Plataforma Fala.BR — Relatório Semestral Ouvidoria ANTAQ</title>
+  <link rel="icon" type="image/png"
+    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    html { font-size: 26px; }
+    body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
+    .slide-container { width: 100vw; height: 100vh; position: relative; display: flex; flex-direction: column; background-color: #ffffff; overflow: hidden; font-family: 'Open Sans', sans-serif; }
+    .font-montserrat { font-family: 'Montserrat', sans-serif; }
+    .text-brand-primary { color: #103050; }
+    .text-brand-secondary { color: #0070C0; }
+    .bg-brand-secondary { background-color: #0070C0; }
+    .top-accent { height: 8px; background-color: #103050; width: 100%; }
+    .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
+
+    .doc-lead {
+      font-size: 1.08rem; line-height: 1.4; color: #103050; font-weight: 600;
+      border-left: 4px solid #0090C0; padding-left: .85rem; margin: 0 0 .95rem;
+      flex-shrink: 0;
+    }
+    .doc-lead a { color: #0070C0; font-weight: 800; text-decoration: none; }
+    .doc-lead a:hover { text-decoration: underline; }
+
+    .doc-text {
+      color: #334155; font-size: .95rem; line-height: 1.4; margin: 0 0 1.05rem;
+      text-align: justify; text-indent: 1.4em; flex-shrink: 0;
+    }
+    .doc-text:last-of-type { margin-bottom: 1.05rem; }
+
+    .flow {
+      display: flex;
+      gap: 1rem;
+      align-items: stretch;
+      margin: 0 0 1.05rem;
+      flex: 1 1 auto;
+      min-height: 0;
+    }
+
+    .flow-step {
+      position: relative;
+      flex: 1;
+      min-width: 0;
+      background: linear-gradient(165deg, #FAFCFE 0%, #EDF5FA 100%);
+      border: 1px solid #DCE7F0;
+      border-radius: 14px;
+      padding: 1.1rem .85rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: .75rem;
+      box-shadow: 0 8px 20px -14px rgba(16, 48, 80, .35);
+    }
+
+    .flow-step:not(:last-child)::after {
+      content: '\f061';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      position: absolute;
+      right: -.78rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #0090C0;
+      font-size: .78rem;
+      z-index: 2;
+    }
+
+    .flow-n {
+      position: absolute;
+      top: .5rem;
+      left: .5rem;
+      width: 1.15rem;
+      height: 1.15rem;
+      border-radius: 5px;
+      background: #103050;
+      color: #fff;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: .6rem;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .flow-ico {
+      width: 4rem;
+      height: 4rem;
+      border-radius: 50%;
+      background: linear-gradient(150deg, #103050, #0070C0);
+      color: #fff;
+      font-size: 1.7rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 12px 24px -12px rgba(16, 48, 80, .6);
+    }
+
+    .flow-t {
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .92rem;
+      color: #103050; text-transform: uppercase; letter-spacing: .03em; line-height: 1.18;
+    }
+
+    .flow-d { font-size: .72rem; color: #64748B; line-height: 1.32; min-height: 2.64em; }
+
+    .info-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; flex-shrink: 0; }
+
+    .info-chip {
+      display: flex; align-items: center; gap: .9rem;
+      background: #F1F8FC; border: 1px solid #BFDCEB; border-radius: 12px;
+      padding: 1rem 1.15rem;
+    }
+
+    .info-chip i { color: #0070C0; font-size: 1.55rem; flex-shrink: 0; }
+    .info-chip-t { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .84rem; color: #103050; margin-bottom: .1rem; }
+    .info-chip-d { font-size: .7rem; color: #64748B; line-height: 1.3; }
+
+    .url-badge {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: #103050; color: #fff; border-radius: 999px;
+      padding: .35rem 1rem; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: .68rem;
+    }
+
+    .bg-pattern { position: absolute; bottom: -60px; right: -50px; width: 380px; height: 380px; opacity: .025; z-index: 0; color: #103050; }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+    .a { animation: fadeInUp .45s ease both; }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+  </style>
+  <link rel="stylesheet" href="a11y.css">
+  <link rel="stylesheet" href="base.css" />
+</head>
+
+<body>
+  <div class="slide-container">
+    <div class="top-accent"></div>
+    <div class="top-accent-secondary"></div>
+
+    <div class="flex items-start justify-between px-16 pt-10 pb-3 z-10">
+      <div>
+        <div class="flex items-center gap-3 mb-1">
+          <div class="w-1 h-8 bg-brand-secondary"></div>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Plataforma Fala.BR</p>
+        </div>
+        <p class="text-gray-500 font-medium ml-4 text-lg">O canal oficial de ouvidoria e acesso à informação da ANTAQ</p>
+      </div>
+      <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
+        <i class="fas fa-landmark text-3xl align-middle" aria-hidden="true"></i>
+        <div class="flex flex-col justify-center border-left pl-2" style="border-left: 1px solid #CBD5E1;">
+          <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">CAPÍTULO 02</p>
+          <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none whitespace-nowrap">A Ouvidoria da ANTAQ</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex-1 px-16 pt-2 pb-4 z-10" style="min-height:0; display:flex; flex-direction:column;">
+
+      <p class="doc-lead a">O <strong>Fala.BR</strong> — Plataforma Integrada de Ouvidoria e Acesso à Informação, mantida pela <strong>Controladoria-Geral da União (CGU)</strong> — é o canal oficial pelo qual a Ouvidoria da ANTAQ recebe e trata as manifestações da sociedade. Acesse em <a href="https://falabr.cgu.gov.br/v2/" target="_blank" rel="noopener">falabr.cgu.gov.br/v2/</a>.</p>
+
+      <p class="doc-text a">No Fala.BR são registrados tanto as <strong>manifestações de ouvidoria</strong> — denúncias, reclamações, solicitações, sugestões e elogios — quanto os <strong>pedidos de acesso à informação (LAI)</strong>, amparados pela Lei nº 12.527/2011. É a mesma plataforma usada por todos os órgãos e entidades do Poder Executivo federal, o que garante um fluxo padronizado de recebimento, tramitação e resposta ao cidadão.</p>
+
+      <div class="flow a">
+        <div class="flow-step">
+          <span class="flow-n">1</span>
+          <div class="flow-ico"><i class="fas fa-pen-to-square" aria-hidden="true"></i></div>
+          <div class="flow-t">Registro</div>
+          <div class="flow-d">Cidadão registra a manifestação ou pedido</div>
+        </div>
+        <div class="flow-step">
+          <span class="flow-n">2</span>
+          <div class="flow-ico"><i class="fas fa-filter" aria-hidden="true"></i></div>
+          <div class="flow-t">Triagem</div>
+          <div class="flow-d">Ouvidoria classifica e direciona</div>
+        </div>
+        <div class="flow-step">
+          <span class="flow-n">3</span>
+          <div class="flow-ico"><i class="fas fa-gears" aria-hidden="true"></i></div>
+          <div class="flow-t">Área técnica</div>
+          <div class="flow-d">Unidade responsável analisa</div>
+        </div>
+        <div class="flow-step">
+          <span class="flow-n">4</span>
+          <div class="flow-ico"><i class="fas fa-reply" aria-hidden="true"></i></div>
+          <div class="flow-t">Resposta</div>
+          <div class="flow-d">Retorno ao cidadão pela plataforma</div>
+        </div>
+        <div class="flow-step">
+          <span class="flow-n">5</span>
+          <div class="flow-ico"><i class="fas fa-clock" aria-hidden="true"></i></div>
+          <div class="flow-t">Prazo legal</div>
+          <div class="flow-d">Acompanhamento dentro do prazo</div>
+        </div>
+      </div>
+
+      <div class="info-row a">
+        <div class="info-chip">
+          <i class="fas fa-user-shield" aria-hidden="true"></i>
+          <div>
+            <div class="info-chip-t">Identificado ou anônimo</div>
+            <div class="info-chip-d">O cidadão escolhe se identificar ou manter sigilo.</div>
+          </div>
+        </div>
+        <div class="info-chip">
+          <i class="fas fa-magnifying-glass" aria-hidden="true"></i>
+          <div>
+            <div class="info-chip-t">Acompanhamento por protocolo</div>
+            <div class="info-chip-d">Consulta ao andamento a qualquer momento.</div>
+          </div>
+        </div>
+        <div class="info-chip">
+          <i class="fas fa-scale-balanced" aria-hidden="true"></i>
+          <div>
+            <div class="info-chip-t">Direito a recurso</div>
+            <div class="info-chip-d">Resposta insatisfatória pode ser recorrida.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="px-16 pb-6 pt-1 flex justify-between items-center z-10">
+      <p class="text-gray-400 text-xs">Relatório 1º Semestre de 2026 – Ouvidoria – Agência Nacional de Transportes
+        Aquaviários - ANTAQ</p>
+      <span class="url-badge"><i class="fas fa-link" aria-hidden="true"></i> falabr.cgu.gov.br/v2/</span>
+    </div>
+    <div class="bg-pattern"><i class="fas fa-diagram-project text-9xl"></i></div>
+  </div>
+
+  <script>
+    document.addEventListener("keydown", function (e) {
+      if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) {
+        e.preventDefault();
+        window.parent.postMessage({ type: "slide-nav", key: e.key }, "*");
+      }
+    });
+  </script>
+  <script src="a11y.js" defer></script>
+</body>
+
+</html>

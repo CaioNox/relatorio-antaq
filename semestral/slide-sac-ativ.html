@@ -84,57 +84,65 @@
     .act-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: .7rem;
+      grid-template-rows: repeat(2, 1fr);
+      gap: 1rem;
+      flex: 1;
+      min-height: 0;
     }
 
     .act-card {
       background: #F8FAFC;
       border: 1px solid #E2E8F0;
-      border-radius: 7px;
-      padding: 1rem 6rem;
+      border-left: 4px solid var(--card-accent, #103050);
+      border-radius: 10px;
+      padding: 1.3rem 1.4rem;
       display: flex;
       flex-direction: column;
-      gap: .45rem;
-      transition: box-shadow .2s, border-color .2s;
+      justify-content: center;
+      gap: .7rem;
+      transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
     }
 
     .act-card:hover {
-      box-shadow: 0 8px 20px -8px rgba(16, 48, 80, .18);
-      border-color: #0070C0;
+      transform: translateY(-4px);
+      box-shadow: 0 14px 28px -10px rgba(16, 48, 80, .22);
+      border-color: var(--card-accent, #0070C0);
     }
 
     .act-card .ico-wrap {
-      width: 28px;
-      height: 38px;
-      border-radius: 10px;
-      background: linear-gradient(135deg, #103050, #0070C0);
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      background: var(--card-accent-grad, linear-gradient(135deg, #103050, #0070C0));
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: .9rem;
+      font-size: 1.4rem;
       color: #fff;
+      flex-shrink: 0;
     }
 
     .act-card .c-title {
       font-family: 'Montserrat', sans-serif;
       font-weight: 800;
-      font-size: .68rem;
+      font-size: 1rem;
       color: #103050;
       text-transform: uppercase;
       letter-spacing: .04em;
     }
 
     .act-card .c-desc {
-      font-size: .85rem;
+      font-size: .92rem;
       color: #475569;
       line-height: 1.5;
     }
 
     .intro-text {
-      font-size: .72rem;
+      font-size: .78rem;
       color: #475569;
       line-height: 1.55;
-      margin-bottom: .65rem;
+      margin-bottom: .9rem;
+      flex-shrink: 0;
     }
 
     .intro-text b {
@@ -208,46 +216,46 @@
       </div>
     </div>
 
-    <div class="flex-1 px-16 pb-3 z-10 flex flex-col justify-center" style="min-height:0;">
+    <div class="flex-1 px-16 pb-3 z-10 flex flex-col" style="min-height:0;">
       <p class="intro-text a">No Fala.BR, o demandante pode cadastrar manifestações de diferentes tipos para registrar
         situações e demandas que precisam de resposta da Administração Pública.</p>
       <div class="act-grid a">
-        <div class="act-card">
+        <div class="act-card" style="--card-accent:#103050; --card-accent-grad:linear-gradient(135deg,#103050,#0070C0);">
           <div class="ico-wrap"><i class="fas fa-circle-exclamation"></i></div>
           <p class="c-title">Denúncia</p>
           <p class="c-desc txt-bloco">Utilizada para comunicar uma irregularidade, um ato ilícito ou uma violação de
             direitos no
             âmbito da administração pública ou dos serviços regulados pela ANTAQ.</p>
         </div>
-        <div class="act-card">
+        <div class="act-card" style="--card-accent:#0d3358; --card-accent-grad:linear-gradient(135deg,#0d3358,#0090C0);">
           <div class="ico-wrap"><i class="fas fa-comment-dots"></i></div>
           <p class="c-title">Reclamação</p>
           <p class="c-desc txt-bloco">Canal para que o cidadão manifeste sua insatisfação com a qualidade da prestação
             de um
             serviço público ou com o atendimento recebido.</p>
         </div>
-        <div class="act-card">
+        <div class="act-card" style="--card-accent:#0070C0; --card-accent-grad:linear-gradient(135deg,#0070C0,#0090C0);">
           <div class="ico-wrap"><i class="fas fa-file-signature"></i></div>
           <p class="c-title">Solicitação</p>
           <p class="c-desc txt-bloco">Direcionada para que o usuário requeira a adoção de alguma providência específica
             por parte
             da Administração Pública.</p>
         </div>
-        <div class="act-card">
+        <div class="act-card" style="--card-accent:#0a2236; --card-accent-grad:linear-gradient(135deg,#0a2236,#103050);">
           <div class="ico-wrap"><i class="fas fa-lightbulb"></i></div>
           <p class="c-title">Sugestão</p>
           <p class="c-desc txt-bloco">Espaço dedicado para o envio de ideias ou propostas de melhoria, visando o
             aprimoramento
             contínuo das políticas e dos serviços públicos.</p>
         </div>
-        <div class="act-card">
+        <div class="act-card" style="--card-accent:#0090C0; --card-accent-grad:linear-gradient(135deg,#0090C0,#5fb8dd);">
           <div class="ico-wrap"><i class="fas fa-thumbs-up"></i></div>
           <p class="c-title">Elogio</p>
           <p class="c-desc txt-bloco">Ferramenta para expressar satisfação, reconhecimento ou agradecimento por um
             serviço
             prestado com excelência ou por um bom atendimento público.</p>
         </div>
-        <div class="act-card">
+        <div class="act-card" style="--card-accent:#103050; --card-accent-grad:linear-gradient(135deg,#103050,#0090C0);">
           <div class="ico-wrap"><i class="fas fa-broom"></i></div>
           <p class="c-title">Simplifique</p>
           <p class="c-desc txt-bloco">Canal específico para o cidadão sugerir ideias e mudanças focadas em
