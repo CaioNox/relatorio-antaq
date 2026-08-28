@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Demais Canais de Atendimento — Relatório Semestral Ouvidoria ANTAQ</title>
+  <link rel="icon" type="image/png"
+    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    html { font-size: 26px; }
+    body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
+    .slide-container { width: 100vw; height: 100vh; position: relative; display: flex; flex-direction: column; background-color: #ffffff; overflow: hidden; font-family: 'Open Sans', sans-serif; }
+    .font-montserrat { font-family: 'Montserrat', sans-serif; }
+    .text-brand-primary { color: #103050; }
+    .text-brand-secondary { color: #0070C0; }
+    .bg-brand-secondary { background-color: #0070C0; }
+    .top-accent { height: 8px; background-color: #103050; width: 100%; }
+    .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
+
+    .channels {
+      flex: 1;
+      min-height: 0;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: .8rem;
+      padding: .7rem 1.8rem .6rem;
+      animation: fadeIn .6s ease both;
+    }
+
+    .card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: .6rem;
+      background: #ffffff;
+      border: 1px solid #E5E9F0;
+      border-left: 6px solid #0070C0;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px -14px rgba(16, 48, 80, 0.30);
+      padding: 1rem 1.15rem;
+      min-height: 0;
+    }
+
+    .card-icon {
+      flex-shrink: 0;
+      width: 76px;
+      height: 76px;
+      border-radius: 17px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 2rem;
+      box-shadow: 0 8px 16px rgba(16, 48, 80, 0.22);
+    }
+
+    .card-tag {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: .68rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: #0070C0;
+      margin-bottom: .12rem;
+    }
+
+    .card-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 1.6rem;
+      color: #103050;
+      line-height: 1.08;
+      margin-bottom: .25rem;
+    }
+
+    .card-info {
+      font-size: 1rem;
+      color: #475569;
+      line-height: 1.34;
+    }
+
+    .card-info strong {
+      color: #103050;
+      font-weight: 700;
+    }
+
+    .card-wide {
+      grid-column: span 2;
+      flex-direction: row;
+      align-items: center;
+      gap: 1.2rem;
+    }
+
+    .card-wide .card-icon {
+      width: 92px;
+      height: 92px;
+      font-size: 2.4rem;
+      border-radius: 20px;
+    }
+
+    .card-body { min-width: 0; }
+
+    .qr-box {
+      flex-shrink: 0;
+      margin-left: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .25rem;
+    }
+
+    .qr-box img {
+      width: 128px;
+      height: 128px;
+      border-radius: 10px;
+      border: 4px solid #ffffff;
+      box-shadow: 0 6px 14px rgba(16, 48, 80, 0.25);
+    }
+
+    .qr-box span {
+      font-size: .62rem;
+      color: #64748B;
+      font-weight: 600;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+  </style>
+  <link rel="stylesheet" href="a11y.css">
+  <link rel="stylesheet" href="base.css" />
+</head>
+
+<body>
+  <div class="slide-container">
+    <div class="top-accent"></div>
+    <div class="top-accent-secondary"></div>
+
+    <div class="flex items-start justify-between px-16 pt-10 pb-3 z-10">
+      <div>
+        <div class="flex items-center gap-3 mb-1">
+          <div class="w-1 h-8 bg-brand-secondary"></div>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Demais Canais de Atendimento</p>
+        </div>
+        <p class="text-gray-500 font-medium ml-4 text-lg">Outras formas de acionar a Ouvidoria da ANTAQ</p>
+      </div>
+      <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
+        <i class="fas fa-landmark text-3xl align-middle" aria-hidden="true"></i>
+        <div class="flex flex-col justify-center border-left pl-2" style="border-left: 1px solid #CBD5E1;">
+          <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">CAPÍTULO 02</p>
+          <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none whitespace-nowrap">A Ouvidoria da ANTAQ</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="channels">
+
+      <div class="card" style="border-left-color:#0090C0;">
+        <div class="card-icon" style="background:linear-gradient(145deg,#103050,#0090C0);">
+          <i class="fas fa-globe"></i>
+        </div>
+        <div class="card-body">
+          <div class="card-tag">Plataforma oficial</div>
+          <div class="card-title">Fala.BR</div>
+          <div class="card-info">falabr.cgu.gov.br/v2/</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-icon" style="background:linear-gradient(145deg,#16466E,#0070C0);">
+          <i class="fas fa-phone-volume"></i>
+        </div>
+        <div class="card-body">
+          <div class="card-tag">Disque Ouvidoria</div>
+          <div class="card-title">Telefone</div>
+          <div class="card-info"><strong>0800 644 5001</strong></div>
+        </div>
+      </div>
+
+      <div class="card" style="border-left-color:#0090C0;">
+        <div class="card-icon" style="background:linear-gradient(145deg,#103050,#0090C0);">
+          <i class="fa-brands fa-whatsapp"></i>
+        </div>
+        <div class="card-body">
+          <div class="card-tag">Omnichannel</div>
+          <div class="card-title">WhatsApp</div>
+          <div class="card-info">Aponte a câmera do celular</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-icon" style="background:linear-gradient(145deg,#0d3358,#0070C0);">
+          <i class="fas fa-building"></i>
+        </div>
+        <div class="card-body">
+          <div class="card-tag">Presencial</div>
+          <div class="card-title">Atendimento Presencial</div>
+          <div class="card-info">SEPN Q. 514, Conj. E, Ed. ANTAQ<br />CEP 70760-545 · Brasília/DF, ou Unidade Regional</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-icon" style="background:linear-gradient(145deg,#11598f,#0090C0);">
+          <i class="fas fa-envelope"></i>
+        </div>
+        <div class="card-body">
+          <div class="card-tag">Escrito</div>
+          <div class="card-title">E-mail</div>
+          <div class="card-info">ouvidoria@antaq.gov.br<br />ouvidoria.interno@antaq.gov.br</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-icon" style="background:linear-gradient(145deg,#0a2236,#103050);">
+          <i class="fas fa-inbox"></i>
+        </div>
+        <div class="card-body">
+          <div class="card-tag">Escrito</div>
+          <div class="card-title">Correspondência</div>
+          <div class="card-info">SEPN Q. 514, Conj. E, Ed. ANTAQ<br />CEP 70760-545 · Brasília/DF</div>
+        </div>
+      </div>
+
+      <div class="card card-wide" style="border-left-color:#0090C0;">
+        <div class="card-icon" style="background:linear-gradient(145deg,#103050,#0090C0);">
+          <i class="fas fa-robot"></i>
+        </div>
+        <div class="card-body">
+          <div class="card-tag">Inteligência artificial da ANTAQ</div>
+          <div class="card-title">IARA</div>
+          <div class="card-info">Informações sobre os serviços prestados pela Agência, disponível pelo WhatsApp.</div>
+        </div>
+        <div class="qr-box">
+          <img src="Imagens/QRCODE_IARA.jpeg" alt="QR Code da IARA, assistente de inteligência artificial da ANTAQ" />
+          <span>Escaneie o QR Code</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="px-16 pb-6 pt-1 flex justify-between items-center z-10">
+      <p class="text-gray-400 text-xs">Relatório 1º Semestre de 2026 – Ouvidoria – Agência Nacional de Transportes
+        Aquaviários - ANTAQ</p>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("keydown", function (e) {
+      if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) {
+        e.preventDefault();
+        window.parent.postMessage({ type: "slide-nav", key: e.key }, "*");
+      }
+    });
+  </script>
+  <script src="a11y.js" defer></script>
+</body>
+
+</html>

@@ -17,10 +17,10 @@
 
 .txt-bloco {
   text-align: justify;
-  text-align-last: justify;
+  text-align-last: left;
   text-justify: inter-word;
-  hyphens: auto;
-  -webkit-hyphens: auto;
+  hyphens: manual;
+  -webkit-hyphens: manual;
   overflow-wrap: break-word;
   word-spacing: normal;
   orphans: 2;

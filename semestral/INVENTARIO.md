@@ -67,8 +67,8 @@ existiam em `semestral/` de trabalho anterior — confirmados compatíveis.
 | 12 | `slide-03c.html` | idem | copiar | identidade semestral | ✅ |
 | 13 | `slide-ouvidoria-geral.html` | idem | copiar | identidade semestral (contém organograma com cores categóricas — ver §6) | ✅ |
 | 14 | `slide-falabr.html` | **NOVO** | criar (§6.1) | slide expositivo sobre a Plataforma Fala.BR | n/a |
-| 15 | `slide-canais-atend.html` | `slide-canais-atend.html` | copiar + editar bloco (§6.2) | "Manifestações e Pedido de Informação" → "Tipos de Manifestações da Ouvidoria"; **contém QR do WhatsApp — ver §3 (pendência)** | ✅ |
-| 16 | `slide-demais-canais.html` | **NOVO**, base `slide-canais-atend.html` | criar (§6.3) | 7 cards de canais; **2 QR Codes — ver §3 (pendência)** | n/a |
+| 15 | ~~`slide-canais-atend.html`~~ | — | **REMOVIDO** do deck | conteúdo integralmente redundante com `slide-demais-canais.html` (Telefone, WhatsApp, Presencial, Correspondência/E-mail já cobertos lá) — arquivo apagado do disco | n/a |
+| 16 | `slide-demais-canais.html` | **NOVO**, base `slide-canais-atend.html` (removido) | criar (§6.3) | 7 cards de canais; **2 QR Codes — ver §3 (pendência)** | n/a |
 | 17 | `slide-25.html` | idem | copiar | identidade semestral | ✅ |
 | 18 | `slide-cartas-servicos.html` | idem | copiar + remover `apresentacao:false` | passa a aparecer também na apresentação, não só no PDF | ✅ |
 | 19 | `slide-17b.html` | idem | copiar | ⚠️ TODO-DADO (Omnichannel) | ✅ |

@@ -14,14 +14,13 @@ window.RELATORIO = {
     },
     {
       block: 'Bloco 1 · Visão Geral das Ouvidorias públicas', short: 'Visão Geral', tint: 1,
-      files: ['capa-bloco-1.html', 'slide-ctx-01.html', 'slide-atribuicoes-01.html', 'slide-principios-01.html', 'slide-diretrizes-01.html', 'slide-diretrizes-02.html'],
+      files: ['capa-bloco-1.html', 'slide-ctx-01.html', 'slide-fundamentos-ouvidorias.html'],
     },
     {
       block: 'Bloco 2 · A Ouvidoria da ANTAQ', short: 'A Ouvidoria da ANTAQ', tint: 0.85,
       files: [
         'capa-bloco-2.html', 'slide-03c.html', 'slide-ouvidoria-geral.html',
         'slide-falabr.html',
-        'slide-canais-atend.html',
         'slide-demais-canais.html',
         'slide-25.html',
 
@@ -67,6 +66,21 @@ window.RELATORIO = {
 
 
   anexos: {
+    // slide-fundamentos-ouvidorias.html só mostra 1 das 4 etapas por vez (navegação
+    // interativa) — sem este anexo, o PDF perderia Princípios/Diretrizes 1-8/9-16.
+    'slide-fundamentos-ouvidorias.html': {
+      titulo: 'Atribuições, Princípios e Diretrizes das Ouvidorias — detalhamento completo',
+      sel: '.etapa-foco',
+      ler: (el, txt) => {
+        var itens = Array.from(el.querySelectorAll('.ref-card')).map(function (c) {
+          var n = txt(c, '.ref-num');
+          var t = txt(c, '.ref-title');
+          var d = txt(c, '.ref-desc');
+          return n + '. ' + (t ? t + ' — ' : '') + d;
+        }).join(' ');
+        return { num: el.dataset.n || '', nome: txt(el, '.foco-t'), tag: '', desc: itens };
+      }
+    },
     'slide-cartas-servicos.html': {
       titulo: 'Carta de Serviços da ANTAQ', sel: '.svc-bar',
       ler: (el, txt) => ({
