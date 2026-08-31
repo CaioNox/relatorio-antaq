@@ -145,15 +145,6 @@
       margin-bottom: 1.6rem;
     }
 
-    .desc {
-      font-family: 'Open Sans', sans-serif;
-      font-size: 1.22rem;
-      line-height: 1.75;
-      color: rgba(255, 255, 255, 0.65);
-      max-width: 480px;
-      margin-bottom: 1.4rem;
-    }
-
     .topics {
       display: flex;
       flex-direction: column;
@@ -217,57 +208,6 @@
       z-index: 5;
     }
 
-    .hint {
-      position: absolute;
-      bottom: 36px;
-      right: 72px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      color: rgba(255, 255, 255, 0.28);
-      font-size: 0.97rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-    }
-
-    .aline {
-      width: 40px;
-      height: 1px;
-      background: rgba(255, 255, 255, 0.22);
-      position: relative;
-    }
-
-    .aline::after {
-      content: '';
-      position: absolute;
-      right: -2px;
-      top: -4px;
-      border-left: 8px solid rgba(255, 255, 255, 0.22);
-      border-top: 5px solid transparent;
-      border-bottom: 5px solid transparent;
-    }
-
-    .wmark {
-      position: absolute;
-      right: -30px;
-      bottom: -80px;
-      font-size: 480px;
-      color: rgba(255, 255, 255, 0.02);
-      line-height: 1;
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    .logo-wm {
-      position: absolute;
-      top: 36px;
-      right: 60px;
-      height: 44px;
-      opacity: 0.10;
-      filter: brightness(0) invert(1);
-      pointer-events: none;
-    }
-
     @keyframes fadeInUp {
       from {
         opacity: 0;
@@ -315,11 +255,6 @@
     .d4 {
       animation-delay: .30s
     }
-
-    .d5 {
-      animation-delay: .40s
-    }
-
 
     .waves {
       position: absolute;
@@ -415,22 +350,22 @@
         <div class="topic"><div class="tdot"></div>Princípios das Ouvidorias</div>
         <div class="topic"><div class="tdot"></div>Diretrizes das Ouvidorias</div>
       </div>
-  </div>
+    </div>
 
-  <div class="vdiv"></div>
+    <div class="vdiv"></div>
 
-  <div class="stat-pane">
-    <div class="stat-icon ar"><i class="fas fa-bullhorn"></i></div>
-    <div class="stat-label ar d2">Ouvidorias públicas</div>
-  </div>
+    <div class="stat-pane">
+      <div class="stat-icon ar"><i class="fas fa-bullhorn"></i></div>
+      <div class="stat-label ar d2">Ouvidorias públicas</div>
+    </div>
 
 
 
-  <div class="waves">
-    <div class="wave wave-1"></div>
-    <div class="wave wave-2"></div>
-    <div class="wave wave-3"></div>
-  </div>
+    <div class="waves">
+      <div class="wave wave-1"></div>
+      <div class="wave wave-2"></div>
+      <div class="wave wave-3"></div>
+    </div>
   </div>
   <script>
     document.addEventListener("keydown", function (e) {
