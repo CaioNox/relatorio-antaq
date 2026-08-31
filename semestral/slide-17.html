@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Conselho de Usuários — Como se tornar conselheiro - Relatório Semestral Ouvidoria ANTAQ</title>
+  <link rel="icon" type="image/png"
+    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    html { font-size: 26px; }
+    body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
+    .slide-container { width: 100vw; height: 100vh; position: relative; display: flex; flex-direction: column; background-color: #fff; overflow: hidden; font-family: 'Open Sans', sans-serif; }
+    .font-montserrat { font-family: 'Montserrat', sans-serif; }
+    .text-brand-primary { color: #103050; }
+    .text-brand-secondary { color: #0070C0; }
+    .bg-brand-secondary { background-color: #0070C0; }
+    .top-accent { height: 8px; background-color: #103050; width: 100%; }
+    .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
+
+    .body-wrap { flex: 1; min-height: 0; display: grid; grid-template-columns: 1.3fr .92fr; gap: 2rem; padding: .7rem 3.4rem .3rem; align-items: stretch; }
+    .esq { display: flex; flex-direction: column; gap: 1rem; min-height: 0; }
+
+
+    .prosa {
+      font-size: 1.05rem; line-height: 1.72; color: #334155; margin: 0;
+      border-left: 5px solid #0070C0; padding-left: 1.1rem;
+      animation: fadeInLeft .5s cubic-bezier(.2,.7,.3,1) both;
+    }
+    .prosa strong { color: #103050; font-weight: 700; }
+
+
+    .passos { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: .8rem; }
+    .passo {
+      display: flex; flex-direction: column; justify-content: center; min-height: 0;
+      border: 2px solid #E2E8F0; border-top: 5px solid #0070C0; border-radius: 12px;
+      background: #fff; box-shadow: 0 10px 24px -16px rgba(16, 48, 80, .34);
+      padding: .9rem 1rem;
+      animation: fadeInUp .5s cubic-bezier(.2,.7,.3,1) both .12s;
+    }
+    .passo:nth-child(2) { animation-delay: .2s; }
+    .passo:nth-child(3) { animation-delay: .28s; }
+    .passo-n {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 1.55rem; height: 1.55rem; border-radius: .5rem; margin-bottom: .4rem;
+      background: linear-gradient(150deg, #103050, #0070C0); color: #fff;
+      font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: .8rem;
+    }
+    .passo h3 { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .84rem; color: #103050; margin: 0 0 .3rem; }
+    .passo p { margin: 0; font-size: .75rem; line-height: 1.5; color: #64748B; }
+
+    .cta {
+      border-radius: 18px; padding: 1.5rem 1.6rem; color: #fff;
+      background: linear-gradient(150deg, #103050 0%, #0070C0 100%);
+      box-shadow: 0 18px 40px -18px rgba(16,48,80,.7);
+      animation: fadeInUp .5s ease both .22s; text-align: center;
+      display: flex; flex-direction: column; justify-content: center; min-height: 0;
+    }
+    .cta i.big { font-size: 3rem; opacity: .9; }
+    .cta h3 { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.35rem; margin: .7rem 0 .4rem; line-height: 1.15; }
+    .cta p { font-size: .8rem; line-height: 1.5; opacity: .92; margin: 0 0 1rem; }
+    .cta .link {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.35);
+      border-radius: 999px; padding: .45rem 1.1rem; font-size: .72rem; font-weight: 700;
+      font-family: 'Montserrat', sans-serif; word-break: break-all; text-decoration: none; color: #fff;
+    }
+    .cta .nota { font-size: .66rem; opacity: .75; margin-top: .9rem; display: block; }
+
+    .bg-pattern { position: absolute; bottom: -60px; right: -50px; width: 400px; height: 400px; opacity: .03; z-index: 0; color: #103050; }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+    @keyframes fadeInLeft { from { opacity: 0; transform: translateX(-18px); } to { opacity: 1; transform: none; } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+  </style>
+  <link rel="stylesheet" href="a11y.css">
+  <link rel="stylesheet" href="base.css" />
+</head>
+
+<body>
+  <div class="slide-container">
+    <div class="top-accent"></div>
+    <div class="top-accent-secondary"></div>
+
+    <div class="flex items-start justify-between px-12 pt-7 pb-1 z-10">
+      <div>
+        <div class="flex items-center gap-3 mb-1">
+          <div class="w-1 h-8 bg-brand-secondary"></div>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Como se tornar
+            conselheiro</p>
+        </div>
+        <p class="text-gray-500 font-medium ml-4 text-lg">Conselho de Usuários — a participação é voluntária,
+          gratuita e totalmente on-line.</p>
+      </div>
+      <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
+        <i class="fas fa-landmark text-3xl align-middle" aria-hidden="true"></i>
+        <div class="flex flex-col justify-center pl-2" style="border-left: 1px solid #CBD5E1;">
+          <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">
+            CAPÍTULO 02</p>
+          <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none whitespace-nowrap">
+            A Ouvidoria da ANTAQ</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="body-wrap">
+      <div class="esq">
+        <p class="prosa">Para se tornar um conselheiro do <strong>Conselho de Usuários da ANTAQ</strong> de forma
+          simples e direta, qualquer cidadão pode se voluntariar. Não há exigência de concurso público ou processo
+          eletivo: basta acessar a plataforma oficial com sua conta do sistema unificado <strong>gov.br</strong> e
+          realizar a inscrição para participar da avaliação dos serviços regulados pela agência.</p>
+
+        <div class="passos">
+          <div class="passo">
+            <div class="passo-n">1</div>
+            <h3>Inscrição voluntária</h3>
+            <p>Acesse a Plataforma Virtual do Conselho de Usuários com a conta gov.br e inscreva-se.</p>
+          </div>
+          <div class="passo">
+            <div class="passo-n">2</div>
+            <h3>Seleção de serviços</h3>
+            <p>Escolha os serviços e órgãos cuja qualidade deseja acompanhar e sobre os quais quer opinar.</p>
+          </div>
+          <div class="passo">
+            <div class="passo-n">3</div>
+            <h3>Contribuição remota</h3>
+            <p>Responda às enquetes e envie contribuições pelas plataformas oficiais, de onde estiver.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="cta">
+        <i class="fas fa-hand-holding-heart big"></i>
+        <h3>Seja um conselheiro!</h3>
+        <p>Sua participação fortalece a gestão pública e transforma os serviços prestados à sociedade.</p>
+        <a class="link" href="https://conselhodeusuarios.cgu.gov.br/auth/enquetes/voluntario" target="_blank"
+          rel="noopener noreferrer">
+          <i class="fas fa-arrow-up-right-from-square"></i>conselhodeusuarios.cgu.gov.br
+        </a>
+        <span class="nota">A participação do usuário no conselho é considerada serviço relevante e não remunerado
+          (Lei nº 13.460/2017, art. 21).</span>
+      </div>
+    </div>
+
+    <div class="px-12 pb-4 pt-2 flex justify-between items-center z-10">
+      <p class="text-gray-400 text-xs">Relatório 1º Semestre de 2026 – Ouvidoria – Agência Nacional de Transportes
+        Aquaviários - ANTAQ</p>
+    </div>
+    <div class="bg-pattern"><i class="fas fa-user-plus text-9xl"></i></div>
+  </div>
+
+  <script>
+    document.addEventListener("keydown", function (e) {
+      if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) {
+        e.preventDefault();
+        window.parent.postMessage({ type: "slide-nav", key: e.key }, "*");
+      }
+    });
+  </script>
+  <script src="a11y.js" defer></script>
+</body>
+
+</html>
