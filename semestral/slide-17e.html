@@ -202,7 +202,7 @@
       <div class="chart-card flex flex-col">
         <p class="text-brand-primary font-montserrat font-bold text-xl mb-1 flex items-center gap-6"><i
             class="fas fa-circle-pie slice text-brand-secondary"></i> Composição das Demandas no Fala.BR</p>
-        <div class="flex-1 relative"><canvas id="chartFalaPerfil" role="img" aria-label="Gráfico de rosca: composição das demandas do Fala.BR — Manifestações (Painel Resolveu) 304, LAI (Acesso à Informação) 130, total 434"></canvas></div>
+        <div class="flex-1 relative"><canvas id="chartFalaPerfil" role="img" aria-label="Gráfico de rosca: composição das demandas do Fala.BR — Manifestações (Painel Resolveu) 614, LAI (Acesso à Informação) 262, total 876"></canvas></div>
       </div>
 
 
@@ -215,7 +215,7 @@
           </p>
           <p class="text-gray-600 txt-bloco"
             style="font-size:.66rem; line-height:1.35; text-align:justify; text-indent:1.5em; margin:0;">
-            As 434 demandas recebidas pela Ouvidoria da ANTAQ neste semestre chegaram por meio da plataforma Fala.BR e
+            As <span id="totalFalaTexto">876</span> demandas recebidas pela Ouvidoria da ANTAQ neste semestre chegaram por meio da plataforma Fala.BR e
             se distribuem conforme a sua natureza: de um lado, os pedidos de acesso à informação, amparados pela Lei de
             Acesso à Informação (LAI); de outro, as manifestações de ouvidoria — denúncias, reclamações, solicitações,
             sugestões e elogios. Essa classificação define o fluxo de tratamento e o painel oficial em que cada tipo de
@@ -229,11 +229,11 @@
               class="fas fa-question"></i></a>
           <i class="fas fa-check-circle text-brand-secondary text-xl mb-1"></i>
           <p class="font-montserrat font-bold text-base text-brand-primary">Manifestações — Painel Resolveu</p>
-          <p class="font-montserrat font-black text-3xl text-brand-primary mt-0 mb-0">304</p>
+          <p class="font-montserrat font-black text-3xl text-brand-primary mt-0 mb-0" id="qtdResolveu">614</p>
           <p class="text-gray-500 text-xs">demandas de ouvidoria tratadas no Fala.BR</p>
           <div class="flex items-center justify-center gap-2 mt-1">
             <div style="width:9px;height:9px;border-radius:3px;background:#103050;"></div>
-            <span class="text-brand-primary font-bold text-xl">70,05%</span>
+            <span class="text-brand-primary font-bold text-xl" id="pctResolveu">70,09%</span>
             <span class="text-gray-400 text-xs">do total Fala.BR</span>
           </div>
         </div>
@@ -246,11 +246,11 @@
           <i class="fas fa-book-open text-brand-secondary text-xl mb-1"></i>
           <p class="font-montserrat font-bold text-base text-brand-primary">Pedidos de Acesso à Informação - Painel LAI
           </p>
-          <p class="font-montserrat font-black text-3xl text-brand-primary mt-0 mb-0">130</p>
+          <p class="font-montserrat font-black text-3xl text-brand-primary mt-0 mb-0" id="qtdLai">262</p>
           <p class="text-gray-500 text-xs">demandas de LAI</p>
           <div class="flex items-center justify-center gap-2 mt-1">
             <div style="width:9px;height:9px;border-radius:3px;background:#0070C0;"></div>
-            <span class="text-brand-secondary font-bold text-xl">29,95%</span>
+            <span class="text-brand-secondary font-bold text-xl" id="pctLai">29,91%</span>
             <span class="text-gray-400 text-xs">do total Fala.BR</span>
           </div>
         </div>
@@ -264,7 +264,8 @@
   </div>
   <script>
     const falaPerfilLabels = ['Manifestações — Painel Resolveu', 'LAI — Acesso à Informação'];
-    const falaPerfilData = [304, 130];
+    const falaPerfilData = [614, 262];
+    const falaPerfilTotal = falaPerfilData.reduce(function (a, b) { return a + b; }, 0);
     new Chart(document.getElementById('chartFalaPerfil'), {
       type: 'doughnut',
       data: {
@@ -300,7 +301,7 @@
         afterDraw: function (chart) {
           var w = chart.width, h = chart.height, ctx = chart.ctx;
           ctx.save();
-          var text = '434';
+          var text = String(falaPerfilTotal);
           ctx.font = '700 58px Montserrat, sans-serif';
           ctx.fillStyle = '#103050';
           ctx.textAlign = 'center';
@@ -315,6 +316,13 @@
     });
 
     document.addEventListener('DOMContentLoaded', function () {
+      var pct = function (v) { return (v / falaPerfilTotal * 100).toFixed(2).replace('.', ',') + '%'; };
+      document.getElementById('totalFalaTexto').textContent = falaPerfilTotal;
+      document.getElementById('qtdResolveu').textContent = falaPerfilData[0];
+      document.getElementById('qtdLai').textContent = falaPerfilData[1];
+      document.getElementById('pctResolveu').textContent = pct(falaPerfilData[0]);
+      document.getElementById('pctLai').textContent = pct(falaPerfilData[1]);
+
       if (!window.A11y) return;
       A11y.renderChartFallbackTable(
         document.getElementById('chartFalaPerfil'),

@@ -19,13 +19,15 @@ window.RELATORIO = {
     {
       block: 'Bloco 2 · A Ouvidoria da ANTAQ', short: 'A Ouvidoria da ANTAQ', tint: 0.85,
       files: [
-        'capa-bloco-2.html', 'slide-03c.html', 'slide-ouvidoria-geral.html',
+        'capa-bloco-2.html',
+        'slide-03c.html',
         'slide-falabr.html',
         'slide-demais-canais.html',
+        'slide-ouvidoria-geral.html',
         'slide-25.html',
-
-
         'slide-cartas-servicos.html',
+        'slide-17.html',
+        'slide-CnsU2.html',
         'slide-17b.html', 'slide-17e.html', 'slide-07.html',
       ],
     },
