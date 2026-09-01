@@ -136,7 +136,7 @@
       font-family: 'Open Sans', sans-serif;
       font-size: 1.45rem;
       line-height: 1.46;
-      color: rgba(255, 255, 255, 0.72);
+      color: rgba(255, 255, 255, 0.724);
       text-indent: 1.5em;
       margin-bottom: 0.2rem;
     }
@@ -251,11 +251,12 @@
       }
     }
 
-    .quote-block {
+    /*.quote-block {
       cursor: zoom-in;
     }
+    
 
-    .zoom-lens {
+    /*.zoom-lens     .zoom-lens {
       position: absolute;
       width: 340px;
       height: 340px;
@@ -292,6 +293,8 @@
       opacity: 1 !important;
       transform: none !important;
     }
+      */
+
   </style>
   <link rel="stylesheet" href="a11y.css">
   <link rel="stylesheet" href="base.css" />
@@ -311,7 +314,7 @@
       <div class="divbar a d2"></div>
 
       <div class="quote-block a d3">
-        <p class="quote-text txt-bloco">
+        <p class="quote-text">
           É com satisfação que apresento o Relatório Semestral da Ouvidoria da Agência Nacional de Transportes
           Aquaviários — ANTAQ, referente ao primeiro semestre de 2026.
         </p>
@@ -336,7 +339,7 @@
           trabalho integrado e o compromisso institucional são essenciais para transformar a escuta da sociedade em
           resultados concretos.
         </p>
-        <p class="quote-text txt-bloco">
+        <p class="quote-text">
           Seguimos trabalhando para que a voz do cidadão seja cada vez mais ouvida, compreendida e transformada em
           valor público.
         </p>
@@ -354,10 +357,11 @@
         <span class="sig-role" style="color:#23c6fc"> Ouvidora <br><br> Autoridade de Monitoramento da LAI</span>
       </div>
     </div>
-
+    <!--
     <div class="zoom-lens" id="zoomLens">
       <div class="zoom-lens-inner" id="zoomInner"></div>
     </div>
+    -->
   </div>
   <script>
     document.addEventListener("keydown", function (e) {
@@ -370,8 +374,8 @@
     (function () {
       var block = document.querySelector('.quote-block');
       var slide = document.querySelector('.slide');
-      var lens = document.getElementById('zoomLens');
-      var inner = document.getElementById('zoomInner');
+      //var lens = document.getElementById('zoomLens');
+      //var inner = document.getElementById('zoomInner');
       if (!block || !slide || !lens || !inner) return;
 
       var Z = 2.0;
