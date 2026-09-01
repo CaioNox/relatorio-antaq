@@ -95,6 +95,12 @@
       position: relative;
       z-index: 10;
       padding: 1.9rem 4rem 0.9rem 5rem;
+      /* sobe o bloco de conteudo; o copyright e o rodape nao se mexem,
+         porque .cols e flex:1 e absorve a sobra */
+      margin-top: -1vh;
+      /* desce so o texto do cabecalho: deslocamento visual, fora do fluxo,
+         entao as colunas e o rodape ficam onde estao */
+      top: 2.98vh;
     }
 
     .kicker {
@@ -167,6 +173,8 @@
     }
 
     .cols {
+      /* respiro padrao entre nomes, valido nas tres colunas */
+      --gap-nome: 0.45rem;
       flex: 1;
       position: relative;
       z-index: 10;
@@ -201,7 +209,7 @@
       letter-spacing: 0.13em;
       text-transform: uppercase;
       color: #7fd3f0;
-      font-size: .92rem;
+      font-size: .82rem;
       display: flex;
       align-items: center;
       gap: 0.55rem;
@@ -210,7 +218,7 @@
 
     .sec-label i {
       color: #F2A900;
-      font-size: .82rem;
+      font-size: .74rem;
     }
 
     .sec-label::after {
@@ -230,6 +238,10 @@
     .exp-group:hover {
       transform: translateX(5px);
       border-color: #F2A900;
+      .exp-name-boss {
+        color: #F2A900;
+        transition: color .25s ease;
+      }
     }
 
     .exp-group:last-child {
@@ -237,7 +249,7 @@
     }
 
     .exp-title {
-      font-size: 1rem;
+      font-size: .89rem;
       font-weight: 700;
       letter-spacing: 0.05em;
       text-transform: uppercase;
@@ -245,28 +257,60 @@
       margin-bottom: 0.12rem;
     }
 
-    .exp-name {
+    .exp-name-boss {
       font-family: 'Open Sans', sans-serif;
-      font-size: 1.32rem;
+      font-size: 1.17rem;
       font-weight: 600;
       color: #eaf4fb;
-      line-height: 1.3;
+      line-height: 1.25;
+      margin-bottom: var(--gap-nome);
+    }
+
+    .exp-name {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 1.17rem;
+      font-weight: 600;
+      color: #eaf4fb;
+      line-height: 1.25;
+      margin-bottom: var(--gap-nome);
+    }
+
+    .exp-name:last-child {
+      margin-bottom: 0;
+    }
+
+    .col-exp .sec-label {
+      flex-wrap: wrap;
+      row-gap: 0.35rem;
+    }
+
+    .col-exp .sec-label > span {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    .col-exp .sec-label::after {
+      flex-basis: 100%;
+    }
+
+    .exp-role {
+      font-size: 0.69rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: rgba(255, 255, 255, 0.5);
+      white-space: nowrap;
     }
 
     .col-exp .exp-group {
-      margin-bottom: 0.55rem;
+      margin-bottom: 0.9rem;
     }
 
     .col-exp .exp-title {
-      margin-bottom: 0.2rem;
+      margin-bottom: var(--gap-nome);
     }
 
     .col-org .exp-group {
       margin-bottom: 0.5rem;
-    }
-
-    .col-org .exp-name {
-      line-height: 1.22;
     }
 
     .col-org .sec-label {
@@ -446,7 +490,6 @@
         <div class="title-wrap">
           <h1 class="title">Ficha <span class="acc">Técnica</span></h1>
         </div>
-        <div class="head-badge"><i class="fas fa-id-card"></i> Diretoria &amp; Equipe</div>
       </div>
     </div>
     <div class="head-divider"></div>
@@ -521,41 +564,40 @@
           <p class="exp-name">Joelson Neves Miranda</p>
         </div>
         <div class="exp-group">
-          <p class="exp-title txt-bloco">Superintendente de Estudos e Projetos Hidroviários</p>
+          <p class="exp-title">Superintendente de Estudos e Projetos Hidroviários</p>
           <p class="exp-name">Eduardo Pessoa de Queiroz</p>
         </div>
         <div class="exp-group">
-          <p class="exp-title txt-bloco">Superintendente de Fiscalização e Coord. das Unidades Regionais</p>
+          <p class="exp-title">Superintendente de Fiscalização e Coord. das Unidades Regionais</p>
           <p class="exp-name">Alexandre Palmieri Florambel</p>
         </div>
       </div>
 
 
       <div class="col col-exp">
-        <p class="sec-label"><i class="fas fa-pen-ruler"></i> Expediente Técnico</p>
+        <p class="sec-label"><i class="fas fa-users"></i> <span>Colaboradores &amp; Composição da Ouvidoria</span></p>
         <div class="exp-group">
-          <p class="exp-title">Elaboração</p>
-          <p class="exp-name">Renata Sousa Cordeiro</p>
-          <p class="exp-name">Alan Campelo de Oliveira Silva</p>
+          <p class="exp-title">Ouvidora</p>
+          <p class="exp-name-boss">Renata Sousa Cordeiro</p>
+        </div>
+        <div class="exp-group">
+          <p class="exp-title">Seção de Apoio Ao Cidadão - SAC</p>
+          <p class="exp-name-boss">Maria de Lourdes Gurgel Araújo <span class="exp-role">(Chefe da Seção)</span></p>
+          <p class="exp-name">Maria Lúcia Rodrigues Lima Teles</p>
           <p class="exp-name">Ana Clebia do Nascimento Torres</p>
           <p class="exp-name">Cynthia Karolina dos Santos Silva</p>
           <p class="exp-name">Indiara da Conceição</p>
-          <p class="exp-name">Eliseu Fernando Silveira de Carvalho</p>
-          <p class="exp-name">Maria de Lourdes Gurgel Araújo</p>
-          <p class="exp-name">Maria Lúcia Rodrigues Lima Teles</p>
           <p class="exp-name">Paloma Kissia Tavares Cavalcante</p>
           <p class="exp-name">Rodrigo Silva Ferreira</p>
           <p class="exp-name">Ursula Quaresma da Silva</p>
-          <p class="exp-name">Caio Fábio Alves da Silva</p>
-          <p class="exp-name">Leandro Lucas da Silva Santos</p>
         </div>
         <div class="exp-group">
-          <p class="exp-title">Revisão</p>
-          <p class="exp-name">Renata Sousa Cordeiro</p>
-          <p class="exp-name">Alan Campelo de Oliveira Silva</p>
+          <p class="exp-title">Seção de Transparência e Acesso à Informação - STAI</p>
+          <p class="exp-name-boss">Alan Campelo de Oliveira Silva <span class="exp-role">(Chefe da Seção)</span></p>
           <p class="exp-name">Eliseu Fernando Silveira de Carvalho</p>
-          <p class="exp-name">Maria de Lourdes Gurgel Araújo</p>
-          <p class="exp-name">Ursula Quaresma da Silva</p>
+          <p class="exp-name">Laís Guedes Ferreira</p>
+          <p class="exp-name">Caio Fábio Alves da Silva</p>
+          <p class="exp-name">Leandro Lucas da Silva Santos</p>
         </div>
         <div class="exp-group">
           <p class="exp-title">Desenvolvimento da Plataforma Digital</p>
@@ -599,7 +641,7 @@
           expressa
           anuência da ANTAQ.</p>
         <p class="data-ref"><i class="fas fa-calendar-day"></i> Os dados presentes neste relatório referem-se à data de
-          <strong>21/07/2026</strong>. Informações posteriores a essa data não estão contempladas neste documento.
+          <strong>01/09/2026</strong>. Informações posteriores a essa data não estão contempladas neste documento.
         </p>
       </div>
     </div>

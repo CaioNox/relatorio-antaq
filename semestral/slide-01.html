@@ -109,17 +109,16 @@
             min-width: 0;
         }
 
+        /* ordinal na linha do titulo: menor e elevado, no espirito do "º" */
         .sum-num {
             font-family: 'Montserrat', sans-serif;
             font-weight: 900;
-            font-size: 3rem;
+            font-size: 0.62em;
             line-height: 1;
-            background: linear-gradient(135deg, #00AEEF 0%, #5AB4DC 55%, #0090C0 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            color: transparent;
-            margin-bottom: 0.35rem;
+            vertical-align: 0.32em;
+            letter-spacing: 0.02em;
+            color: #00AEEF;
+            margin-right: 0.34em;
         }
 
         .sum-title {
@@ -129,7 +128,7 @@
             font-size: 0.9rem;
             letter-spacing: 0.03em;
             text-transform: uppercase;
-            color: #ffffff;
+            color: #ffffffe4;
             line-height: 1.22;
             margin-bottom: 0.65rem;
             padding-bottom: 0.45rem;
@@ -147,7 +146,7 @@
             position: relative;
             display: block;
             font-family: 'Open Sans', sans-serif;
-            font-size: 0.82rem;
+            font-size: 0.92rem;
             line-height: 1.28;
             color: #e3eefc;
             margin-bottom: 0.5rem;
@@ -669,16 +668,16 @@
                     const col = document.createElement('div');
                     col.className = 'sum-col';
 
-                    const num = document.createElement('div');
-                    num.className = 'sum-num';
-                    num.textContent = (i + 1);
-                    col.appendChild(num);
-
-
                     const capa = (block.children || []).find(function (c) { return /^Capa/i.test(c.t) && c.f; });
                     const title = document.createElement(capa ? 'a' : 'span');
                     title.className = 'sum-title';
-                    title.textContent = block.t;
+
+                    /* o numero passa a ser um ordinal na propria linha do titulo */
+                    const num = document.createElement('span');
+                    num.className = 'sum-num';
+                    num.textContent = (i + 1) + '.';
+                    title.appendChild(num);
+                    title.appendChild(document.createTextNode(block.t));
                     if (capa) {
                         title.href = 'javascript:void(0)';
                         title.addEventListener('click', function (e) { e.preventDefault(); goToFile(capa.f); });
