@@ -289,6 +289,15 @@
       grid-template-columns: 7rem 1fr;
       gap: 1.3rem;
       align-items: stretch;
+
+      /* escala propria do painel: os mesmos degraus da escala do slide,
+         um passo abaixo. Redefinir os tokens aqui encolhe titulo, caput,
+         cards e numeracao de uma vez, sem afetar a barra de contexto,
+         a trilha nem a visao geral. */
+      --fs-xs: .54rem;
+      --fs-md: .71rem;
+      --fs-lg: .82rem;
+      --fs-xl: 1rem;
     }
 
     .etapa-foco.ativa {
@@ -319,7 +328,7 @@
     .marcador-n {
       font-family: 'Montserrat', sans-serif;
       font-weight: 900;
-      font-size: 3.6rem;
+      font-size: 3.15rem;
       line-height: var(--lh-display);
       letter-spacing: var(--ls-title);
       background: linear-gradient(150deg, #103050, #0090C0);
@@ -329,7 +338,7 @@
     }
 
     .marcador-i {
-      font-size: 1.5rem;
+      font-size: 1.32rem;
       color: #0090C0;
       opacity: .55;
     }

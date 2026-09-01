@@ -236,13 +236,13 @@
       <div class="chart-card col-span-2 flex flex-col">
         <p class="text-brand-primary font-montserrat font-bold text-xl mb-1 flex items-center gap-2"><i
             class="fas fa-chart-bar text-brand-secondary"></i> Atendimentos Painel Resolveu por Mês</p>
-        <p class="text-gray-400 text-sm mb-1">90 + 129 + 85 + 88 + 125 + 108 = <strong
-            class="text-brand-primary">625</strong>
+        <p class="text-gray-400 text-sm mb-1">90 + 129 + 85 + 83 + 125 + 102 = <strong
+            class="text-brand-primary">614</strong>
           manifestações recebidas no semestre</p>
         <p class="text-gray-400 mb-2" style="font-size:0.5rem;">Distribuição mensal das manifestações recebidas no
           Fala.BR ao longo do semestre.</p>
         <div class="flex-1 relative"><canvas id="chartFluxo" role="img"
-            aria-label="Gráfico de barras: manifestações recebidas por mês — Janeiro 90, Fevereiro 129, Março 85, Abril 88, Maio 125, Junho 108"></canvas>
+            aria-label="Gráfico de barras: manifestações recebidas por mês — Janeiro 90, Fevereiro 129, Março 85, Abril 83, Maio 125, Junho 102"></canvas>
         </div>
       </div>
 
@@ -251,7 +251,7 @@
         <div class="kpi-card kpi-primary" style="flex:1;">
           <p class="text-blue-100 font-montserrat font-bold text-xs uppercase tracking-widest mb-2">Fala.BR — Painel
             Resolveu</p>
-          <p class="kpi-num text-6xl">625</p>
+          <p class="kpi-num text-6xl">614</p>
           <p class="text-blue-200 text-sm mt-2">Manifestações recebidas ao longo dos seis meses</p>
           <i class="fas fa-check-circle kpi-watermark"></i>
         </div>
@@ -295,7 +295,7 @@
   <script>
     const monthColors = ['#0A2236', '#103050', '#16466E', '#0070C0', '#0090C0', '#5fb8dd'];
     const fluxoLabels = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho'];
-    const fluxoData = [90, 129, 85, 88, 125, 108];
+    const fluxoData = [90, 129, 85, 83, 125, 102];
     new Chart(document.getElementById('chartFluxo'), {
       type: 'bar',
 

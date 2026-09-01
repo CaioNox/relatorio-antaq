@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Conselho de Usuários - Relatório Trimestral Ouvidoria ANTAQ</title>
+  <link rel="icon" type="image/png"
+    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    html {
+      font-size: 26px;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f3f4f6;
+      overflow: hidden;
+    }
+
+    .slide-container {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background-color: #ffffff;
+      overflow: hidden;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    .font-montserrat {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .text-brand-primary {
+      color: #103050;
+    }
+
+    .text-brand-secondary {
+      color: #0070C0;
+    }
+
+    .bg-brand-secondary {
+      background-color: #0070C0;
+    }
+
+    .top-accent {
+      height: 8px;
+      background-color: #103050;
+      width: 100%;
+    }
+
+    .top-accent-secondary {
+      height: 4px;
+      background-color: #0070C0;
+      width: 100%;
+    }
+
+
+    .gov-lead {
+      background: #F5F8FC;
+      border: 1px solid #E2E8F0;
+      border-left: 4px solid #0070C0;
+      border-radius: 12px;
+      padding: 1rem 1.3rem;
+      color: #334155;
+      font-size: .84rem;
+      line-height: 1.6;
+      text-indent: 1.8em;
+      animation: fadeInUp .5s cubic-bezier(.2, .7, .3, 1) both;
+    }
+
+    .gov-lead b {
+      color: #103050;
+      font-weight: 700;
+    }
+
+    .gov-lead a {
+      color: #0070C0;
+      font-weight: 700;
+      text-decoration: none;
+      border-bottom: 1px solid #C0E0F0;
+    }
+
+    .gov-lead a:hover {
+      border-bottom-color: #0070C0;
+    }
+
+
+    .cnsu-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.6rem;
+    }
+
+    .cnsu-card {
+      background: #fff;
+      border: 1px solid #E2E8F0;
+      border-top: 3px solid #0090C0;
+      border-radius: 14px;
+      padding: 1.1rem 1.35rem;
+      box-shadow: 0 10px 24px -18px rgba(16, 48, 80, .28);
+      transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+      animation: fadeInUp .5s cubic-bezier(.2, .7, .3, 1) .12s both;
+    }
+
+    .cnsu-card:nth-child(2) {
+      animation-delay: .22s;
+    }
+
+    .cnsu-card:hover {
+      transform: translateY(-5px);
+      border-top-color: #103050;
+      box-shadow: 0 18px 32px -18px rgba(16, 48, 80, .3);
+    }
+
+    .cnsu-head {
+      display: flex;
+      align-items: center;
+      gap: .7rem;
+      margin-bottom: .85rem;
+    }
+
+    .cnsu-ico {
+      width: 2.3rem;
+      height: 2.3rem;
+      border-radius: 10px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      color: #0070C0;
+      background: #EAF3FB;
+      border: 1px solid #C0E0F0;
+    }
+
+    .cnsu-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: .96rem;
+      color: #103050;
+      line-height: 1.15;
+      margin: 0;
+    }
+
+    .cnsu-text {
+      color: #334155;
+      font-size: .8rem;
+      line-height: 1.6;
+      margin: 0 0 .7rem;
+    }
+
+    .cnsu-text:last-child {
+      margin-bottom: 0;
+    }
+
+    .cnsu-text b {
+      color: #103050;
+      font-weight: 700;
+    }
+
+    .cnsu-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .cnsu-list li {
+      position: relative;
+      padding-left: 1.25rem;
+      margin-bottom: .62rem;
+      font-size: .8rem;
+      line-height: 1.5;
+      color: #334155;
+    }
+
+    .cnsu-list li:last-child {
+      margin-bottom: 0;
+    }
+
+    .cnsu-list li::before {
+      content: "\f105";
+      font-family: "Font Awesome 6 Free";
+      font-weight: 900;
+      position: absolute;
+      left: 0;
+      top: .02rem;
+      color: #0090C0;
+    }
+
+    .cnsu-list li b {
+      color: #103050;
+      font-weight: 700;
+    }
+
+
+    .cnsu-cta {
+      background: #F5F8FC;
+      border: 1px solid #E2E8F0;
+      border-radius: 14px;
+      padding: 1rem 1.4rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: .5rem;
+      animation: fadeInUp .5s cubic-bezier(.2, .7, .3, 1) .32s both;
+    }
+
+    .cnsu-cta-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 1.5rem;
+      color: #103050;
+      line-height: 1;
+      margin: 0;
+    }
+
+    .cnsu-cta-sub {
+      font-size: .78rem;
+      color: #64748B;
+      margin: 0;
+    }
+
+    .cnsu-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      background: #0070C0;
+      color: #fff;
+      border-radius: 999px;
+      padding: .4rem 1.15rem;
+      font-size: .74rem;
+      font-weight: 600;
+      text-decoration: none;
+      box-shadow: 0 8px 18px -10px rgba(0, 112, 192, .6);
+      transition: background .25s ease, transform .25s ease;
+    }
+
+    .cnsu-pill:hover {
+      background: #103050;
+      transform: translateY(-2px);
+    }
+
+    .ref-source {
+      font-size: .72rem;
+      color: #94A3B8;
+    }
+
+    .ref-source a {
+      color: #0070C0;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .ref-source a:hover {
+      text-decoration: underline;
+    }
+
+    .bg-pattern {
+      position: absolute;
+      bottom: -60px;
+      right: -50px;
+      width: 400px;
+      height: 400px;
+      opacity: 0.03;
+      z-index: 0;
+      color: #103050;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="a11y.css">
+</head>
+
+<body>
+  <div class="slide-container">
+    <div class="top-accent"></div>
+    <div class="top-accent-secondary"></div>
+
+    <div class="flex items-start justify-between px-16 pt-10 pb-3 z-10">
+      <div>
+        <div class="flex items-center gap-3 mb-1">
+          <div class="w-1 h-8 bg-brand-secondary"></div>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Conselho de Usuários
+          </p>
+        </div>
+        <p class="text-gray-500 font-medium ml-4 text-base">Órgão consultivo de avaliação dos serviços públicos · Lei nº
+          13.460/2017 e Decreto nº 10.228/2020</p>
+      </div>
+      <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
+        <i class="fas fa-landmark text-3xl" aria-hidden="true"></i>
+        <div class="flex flex-col justify-center pl-2" style="border-left:1px solid #CBD5E1;">
+          <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">
+            CAPÍTULO 02</p>
+          <p
+            class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none whitespace-nowrap">
+            A Ouvidoria da ANTAQ</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex-1 flex flex-col justify-center px-16 pb-4 z-10 gap-5" style="min-height:0;">
+      <p class="gov-lead">
+        A <a href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2017/lei/l13460.htm" target="_blank"
+          rel="noopener">Lei nº 13.460/2017</a> estabeleceu a necessidade de criação dos conselhos de usuários de
+        serviços públicos pelos órgãos e entidades a ela sujeitos. Em fevereiro de 2020, o
+        <a href="https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2020/decreto/D10228.htm" target="_blank"
+          rel="noopener">Decreto nº 10.228/2020</a> emendou o Decreto nº 9.492/2018, que passou a contemplar a
+        regulamentação dos conselhos de usuários dos serviços públicos no âmbito da administração pública direta,
+        indireta, autárquica e fundacional do Poder Executivo federal.
+      </p>
+
+      <div class="cnsu-grid">
+        <div class="cnsu-card">
+          <div class="cnsu-head">
+            <div class="cnsu-ico"><i class="fas fa-users"></i></div>
+            <p class="cnsu-title">O que é o Conselho</p>
+          </div>
+          <p class="cnsu-text">Órgão de caráter <b>consultivo e opinativo</b>, com foco permanente na qualidade do
+            atendimento e na melhoria contínua dos serviços.</p>
+          <p class="cnsu-text">Formado por <b>cidadãos voluntários</b>, entidades civis e órgãos de defesa do
+            consumidor, aproximando a sociedade da gestão pública.</p>
+        </div>
+
+        <div class="cnsu-card">
+          <div class="cnsu-head">
+            <div class="cnsu-ico"><i class="fas fa-list-check"></i></div>
+            <p class="cnsu-title">Principais Funções</p>
+          </div>
+          <ul class="cnsu-list">
+            <li><b>Avaliar</b> os serviços prestados à sociedade;</li>
+            <li><b>Apresentar</b> propostas de mudanças e inovações;</li>
+            <li><b>Acompanhar</b> metas e resultados de atendimento;</li>
+            <li><b>Responder</b> a consultas virtuais enviadas aos conselheiros.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="cnsu-cta">
+        <p class="cnsu-cta-title">Seja um Conselheiro!</p>
+        <p class="cnsu-cta-sub">Sua participação transforma e aprimora os serviços públicos no Brasil.</p>
+        <a class="cnsu-pill" href="https://conselhodeusuarios.cgu.gov.br" target="_blank" rel="noopener">
+          <i class="fas fa-globe"></i> conselhodeusuarios.cgu.gov.br
+        </a>
+      </div>
+    </div>
+
+    <div class="px-16 pb-6 pt-1 flex justify-between items-center z-10">
+      <p class="text-gray-400 text-xs">Relatório 1º Trimestre de 2026 – Ouvidoria – Agência Nacional de Transportes
+        Aquaviários - ANTAQ</p>
+      <p class="ref-source">Fonte: <a href="https://conselhodeusuarios.cgu.gov.br" target="_blank"
+          rel="noopener">Conselho de Usuários — CGU</a></p>
+    </div>
+    <div class="bg-pattern"><i class="fas fa-users text-9xl"></i></div>
+  </div>
+  <script>
+    document.addEventListener("keydown", function (e) {
+      if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) {
+        e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*");
+      }
+    });
+  </script>
+  <script src="a11y.js" defer></script>
+</body>
+
+</html>
