@@ -510,6 +510,81 @@
     .close-btn:hover {
       background: rgba(185, 28, 28, 1);
     }
+  
+    /* ---- confirmacao de download do PPTX ---- */
+    .pptx-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.55);
+      backdrop-filter: blur(4px);
+      z-index: 1200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .pptx-overlay.visible { opacity: 1; pointer-events: auto; }
+
+    .pptx-box {
+      position: relative;
+      background: linear-gradient(160deg, #0c3273 0%, #0a2040 100%);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 18px;
+      padding: 30px 34px 26px;
+      max-width: 440px;
+      width: 90%;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+      font-family: 'Roboto', sans-serif;
+      color: #fff;
+      text-align: center;
+    }
+
+    .pptx-box .pptx-ico {
+      width: 54px;
+      height: 54px;
+      margin: 0 auto 14px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      color: #f2a900;
+      background: rgba(242, 169, 0, 0.16);
+      border: 1px solid rgba(242, 169, 0, 0.38);
+    }
+
+    .pptx-box h3 { font-size: 18px; font-weight: 700; margin: 0 0 8px; }
+    .pptx-box p  { font-size: 14px; line-height: 1.5; color: rgba(255,255,255,0.6); margin: 0 0 22px; }
+    .pptx-box .pptx-arq {
+      display: block;
+      font-size: 12px;
+      color: rgba(255,255,255,0.42);
+      margin-top: 6px;
+      word-break: break-all;
+    }
+
+    .pptx-acoes { display: flex; gap: 10px; }
+
+    .pptx-acoes button {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      font-family: 'Roboto', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .pptx-sim { background: #0090C0; color: #fff; }
+    .pptx-sim:hover { background: #007aad; }
+    .pptx-nao { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.75); border: 1px solid rgba(255,255,255,0.18) !important; }
+    .pptx-nao:hover { background: rgba(255,255,255,0.16); color: #fff; }
+    .pptx-acoes button:focus-visible { outline: 2px solid #4dcfff; outline-offset: 2px; }
   </style>
 </head>
 
@@ -543,8 +618,8 @@
     </div>
   </div>
 
-  <a class="pdf-btn" href="relatorio.html" target="_blank" rel="noopener noreferrer" title="Imprimir / Salvar PDF"
-    aria-label="Imprimir / Salvar PDF"><i class="fa-solid fa-print" aria-hidden="true"></i></a>
+  <button class="pdf-btn" id="pptxBtn" type="button" title="Baixar PowerPoint dos slides"
+    aria-label="Baixar PowerPoint dos slides"><i class="fa-solid fa-file-powerpoint" aria-hidden="true"></i></button>
   <button class="close-btn" onclick="closePresentation()" title="Fechar apresentação"
     aria-label="Fechar apresentação"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
   <button class="fs-btn" onclick="toggleFullscreen()" title="Tela Cheia (F)" aria-label="Alternar tela cheia"><i
@@ -592,14 +667,27 @@
       <div class="hint-row">
         <div class="hint-icon-box"
           style="background:rgba(242,169,0,0.2); border-color:rgba(242,169,0,0.4); color:#f2a900;"><i
-            class="fa-solid fa-print"></i></div>
+            class="fa-solid fa-file-powerpoint"></i></div>
         <div class="hint-text">
-          <strong>Imprimir / Salvar PDF</strong>
-          <span>Ícone de impressora no canto superior direito — abre a versão para impressão.</span>
+          <strong>Baixar PowerPoint</strong>
+          <span>Baixe os slides em .pptx para editar ou apresentar</span>
         </div>
       </div>
 
       <button class="dismiss-btn" onclick="toggleHints()">Entendido</button>
+    </div>
+  </div>
+
+
+  <div class="pptx-overlay" id="pptxOverlay">
+    <div class="pptx-box" role="dialog" aria-modal="true" aria-labelledby="pptxTitulo">
+      <div class="pptx-ico"><i class="fa-solid fa-file-powerpoint" aria-hidden="true"></i></div>
+      <h3 id="pptxTitulo">Deseja baixar o arquivo PowerPoint dos slides apresentados?</h3>
+      <p>O download comeca imediatamente.<span class="pptx-arq">1o-Relatorio-Trimestral-2026-Ouvidoria-ANTAQ.pptx</span></p>
+      <div class="pptx-acoes">
+        <button class="pptx-nao" type="button" id="pptxNao">Nao</button>
+        <button class="pptx-sim" type="button" id="pptxSim">Sim, baixar</button>
+      </div>
     </div>
   </div>
 
@@ -689,6 +777,7 @@
     });
 
     window.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'go-menu') { irParaMenu(); }
       if (e.data && e.data.type === 'slide-nav' && e.data.key) {
         handleKey(e.data.key);
       }
@@ -776,6 +865,58 @@
     scaleFrame();
     window.addEventListener('resize', scaleFrame);
     new ResizeObserver(scaleFrame).observe(stage);
+
+    /* ---- confirmacao de download do PPTX ---- */
+    const ARQUIVO_PPTX = '1o-Relatorio-Trimestral-2026-Ouvidoria-ANTAQ.pptx';
+    const pptxOverlay = document.getElementById('pptxOverlay');
+    const pptxBtn = document.getElementById('pptxBtn');
+
+    function togglePptx(estado) {
+      const aberto = typeof estado === 'boolean'
+        ? pptxOverlay.classList.toggle('visible', estado)
+        : pptxOverlay.classList.toggle('visible');
+      if (aberto) document.getElementById('pptxSim').focus();
+      else if (pptxBtn) pptxBtn.focus();
+    }
+
+    if (pptxBtn) pptxBtn.addEventListener('click', () => togglePptx(true));
+    document.getElementById('pptxNao').addEventListener('click', () => togglePptx(false));
+    pptxOverlay.addEventListener('click', (e) => { if (e.target === pptxOverlay) togglePptx(false); });
+
+    document.getElementById('pptxSim').addEventListener('click', () => {
+      const a = document.createElement('a');
+      a.href = ARQUIVO_PPTX;
+      a.download = ARQUIVO_PPTX;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      togglePptx(false);
+    });
+
+    /* ---- Ctrl+M volta para o menu de relatorios ---- */
+    const MENU_URL = '../index.html';
+
+    function irParaMenu() { window.location.href = MENU_URL; }
+
+    function ehCtrlM(e) { return (e.ctrlKey || e.metaKey) && (e.key === 'm' || e.key === 'M'); }
+
+    document.addEventListener('keydown', (e) => {
+      if (ehCtrlM(e)) { e.preventDefault(); irParaMenu(); }
+    });
+
+    /* o slide vive num iframe e captura o teclado; quando a origem permite,
+       o mesmo atalho e anexado la dentro a cada troca de slide */
+    function armarAtalhoNoSlide() {
+      try {
+        const doc = frame.contentDocument;
+        if (!doc || doc.__menuArmado) return;
+        doc.__menuArmado = true;
+        doc.addEventListener('keydown', (e) => {
+          if (ehCtrlM(e)) { e.preventDefault(); irParaMenu(); }
+        });
+      } catch (err) { /* origem diferente: o postMessage do a11y.js cobre */ }
+    }
+    frame.addEventListener('load', armarAtalhoNoSlide);
   </script>
   <script src="a11y.js" defer></script>
 </body>

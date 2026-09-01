@@ -70,3 +70,16 @@
     renderChartFallbackTable: renderChartFallbackTable
   };
 })(window);
+
+/* ---- Ctrl+M: pede ao index para voltar ao menu de relatorios ----
+   O slide roda dentro de um iframe e captura o teclado; sem isto o
+   atalho so funcionaria quando o foco estivesse fora do slide. */
+(function () {
+  if (window.parent === window) return;
+  document.addEventListener('keydown', function (e) {
+    if ((e.ctrlKey || e.metaKey) && (e.key === 'm' || e.key === 'M')) {
+      e.preventDefault();
+      window.parent.postMessage({ type: 'go-menu' }, '*');
+    }
+  });
+})();
