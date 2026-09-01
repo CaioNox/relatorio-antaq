@@ -581,6 +581,13 @@
         ]
       },
       {
+        id: 'acesso', name: 'Acesso à Informação', short: 'Acesso à Informação',
+        icon: 'fa-book-open', color: '#0070C0', total: 99, foraDoTotal: true,
+        subs: [
+          ['Demandas redirecionadas à Seção de Transparência e Acesso à Informação — STAI', 99]
+        ]
+      },
+      {
         id: 'regport', name: 'Regulação Portuária', short: 'Regulação Portuária',
         icon: 'fa-anchor', color: '#0090C0', total: 68,
         subs: [
@@ -656,7 +663,8 @@
       b.className = 'chip';
       b.dataset.id = t.id;
       b.style.setProperty('--c', t.color);
-      b.title = t.name + ' — ' + t.total + ' manifestações';
+      b.title = t.name + ' — ' + t.total + ' manifestações' +
+        (t.foraDoTotal ? ' (não integram as ' + TOTAL + ' do semestre)' : '');
       b.innerHTML = '<i class="fas ' + t.icon + '"></i><span>' + t.short + '</span><b>' + t.total + '</b>';
       b.addEventListener('click', () => toggleTheme(t.id));
       chipsWrap.appendChild(b);
@@ -1002,7 +1010,7 @@
       refreshCaption();
       renderBars();
       renderPieChart();
-      const sum = THEMES.filter(t => selected.has(t.id)).reduce((s, t) => s + t.total, 0);
+      const sum = THEMES.filter(t => selected.has(t.id) && !t.foraDoTotal).reduce((s, t) => s + t.total, 0);
       setCounter(sum / TOTAL * 100);
     }
 

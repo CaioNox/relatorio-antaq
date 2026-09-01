@@ -229,7 +229,7 @@
       <div class="chart-card col-span-2 flex flex-col" style="min-height:0;">
         <p class="text-brand-primary font-montserrat font-bold text-xl mb-1 flex items-center gap-2"><i
             class="fas fa-arrow-trend-up text-brand-secondary"></i> Trajetória das demandas no Fala.BR</p>
-        <div class="flex-1 relative" style="min-height:0;"><canvas id="chartHist" role="img" aria-label="Gráfico de linha: trajetória histórica das demandas no Fala.BR no 1º Semestre — 2023: 205, 2024: 201, 2025: 337, 2026: 434"></canvas></div>
+        <div class="flex-1 relative" style="min-height:0;"><canvas id="chartHist" role="img" aria-label="Gráfico de linha: trajetória histórica das demandas no Fala.BR no 1º Semestre — 2023: 725, 2024: 704, 2025: 834, 2026: 876"></canvas></div>
         <p class="chart-note txt-bloco"><i class="fas fa-circle-info"></i><span>A inclusão de séries históricas permite
             identificar
             tendências, avaliar o comportamento das demandas ao longo do tempo e fornecer subsídios mais robustos
@@ -239,22 +239,22 @@
       <div class="col-span-1 flex flex-col gap-3" style="min-height:0;">
         <div class="hist-kpi hk-feat">
           <p class="hk-year">1º Semestre 2026</p>
-          <p class="hk-val">434</p>
+          <p class="hk-val" data-ano="2026">876</p>
           <p class="hk-label">Demandas</p>
         </div>
         <div class="hist-kpi">
           <p class="hk-year">1º Semestre 2025</p>
-          <p class="hk-val">337</p>
+          <p class="hk-val" data-ano="2025">834</p>
           <p class="hk-label">Demandas</p>
         </div>
         <div class="hist-kpi">
           <p class="hk-year">1º Semestre 2024</p>
-          <p class="hk-val">201</p>
+          <p class="hk-val" data-ano="2024">704</p>
           <p class="hk-label">Demandas</p>
         </div>
         <div class="hist-kpi">
           <p class="hk-year">1º Semestre 2023</p>
-          <p class="hk-val">205</p>
+          <p class="hk-val" data-ano="2023">725</p>
           <p class="hk-label">Demandas</p>
         </div>
       </div>
@@ -298,7 +298,7 @@
       }
     };
     const histLabels = ['1º Semestre 2023', '1º Semestre 2024', '1º Semestre 2025', '1º Semestre 2026'];
-    const histData = [205, 201, 337, 434];
+    const histData = [725, 704, 834, 876];
     new Chart(document.getElementById('chartHist'), {
       type: 'line',
       data: {
@@ -332,6 +332,11 @@
     });
 
     document.addEventListener('DOMContentLoaded', function () {
+      document.querySelectorAll('.hk-val[data-ano]').forEach(function (el) {
+        var i = histLabels.findIndex(function (l) { return l.indexOf(el.dataset.ano) !== -1; });
+        if (i !== -1) el.textContent = histData[i];
+      });
+
       if (!window.A11y) return;
       A11y.renderChartFallbackTable(
         document.getElementById('chartHist'),
