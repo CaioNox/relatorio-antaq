@@ -33,91 +33,94 @@
     .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
 
 
-    /* ---------- filtros: dois niveis ---------- */
+    /* ---------- barra de controle ---------- */
 
-    .filtros { display: flex; flex-direction: column; gap: .3rem; min-width: 0; }
+    .ctrl {
+      display: flex; align-items: flex-start; gap: 1rem;
+      justify-content: space-between; min-width: 0;
+    }
+
+    .ctrl-chips { display: flex; align-items: flex-start; gap: .6rem; min-width: 0; flex: 1; }
 
     .nivel-rot {
       font-family: 'Montserrat', sans-serif; font-weight: 800;
-      font-size: .46rem; letter-spacing: .14em; text-transform: uppercase;
+      font-size: .48rem; letter-spacing: .14em; text-transform: uppercase;
       color: #94A3B8; line-height: 1; flex-shrink: 0;
+      padding-top: .42rem; width: 3.4rem; text-align: right;
     }
 
-    .faixa { display: flex; align-items: flex-start; gap: .55rem; min-width: 0; }
-    .faixa > .nivel-rot { padding-top: .34rem; width: 3.6rem; text-align: right; }
-    .chips { display: flex; flex-wrap: wrap; gap: .26rem; min-width: 0; }
-
+    .chips { display: flex; flex-wrap: wrap; gap: .3rem; min-width: 0; }
 
     .chip-cadeia {
-      display: inline-flex; align-items: center; gap: .3rem;
-      border: 0; border-radius: 6px; cursor: pointer;
-      padding: .26rem .5rem .26rem .42rem;
-      background: #F1F5F9; color: #475569;
-      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .56rem;
+      display: inline-flex; align-items: center; gap: .34rem;
+      border: 1px solid #E2E8F0; border-radius: 999px; cursor: pointer;
+      padding: .28rem .58rem .28rem .44rem;
+      background: #F8FAFC; color: #64748B;
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .58rem;
       letter-spacing: .02em; line-height: 1; white-space: nowrap;
-      transition: background-color 180ms ease, color 180ms ease, box-shadow 180ms ease;
+      transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
     }
 
     .chip-cadeia .marca {
-      width: .34rem; height: .82rem; border-radius: 2px;
-      background: var(--c); flex-shrink: 0;
-      transition: opacity 180ms ease;
-      opacity: .3;
+      width: .36rem; height: .36rem; border-radius: 999px;
+      background: var(--c); flex-shrink: 0; opacity: .35;
+      transition: opacity 180ms ease, background-color 180ms ease;
     }
 
-    .chip-cadeia .qtd {
-      font-weight: 900; font-size: .5rem; color: #94A3B8;
-      transition: color 180ms ease;
+    .chip-cadeia .qtd { font-weight: 900; font-size: .52rem; color: #A6B2C2; transition: color 180ms ease; }
+
+    .chip-cadeia:hover { background: #EEF3F8; border-color: #CBD5E1; color: #334155; }
+
+    .chip-cadeia[aria-pressed="true"] {
+      background: var(--c); border-color: var(--c); color: #ffffff;
+      box-shadow: 0 4px 10px -5px rgba(16, 48, 80, .55);
     }
-
-    .chip-cadeia:hover { background: #E2E8F0; }
-
-    .chip-cadeia[aria-pressed="true"] { background: var(--c); color: #ffffff; }
-    .chip-cadeia[aria-pressed="true"] .marca { opacity: 1; background: rgba(255,255,255,.85); }
-    .chip-cadeia[aria-pressed="true"] .qtd { color: rgba(255,255,255,.82); }
+    .chip-cadeia[aria-pressed="true"] .marca { opacity: 1; background: rgba(255, 255, 255, .9); }
+    .chip-cadeia[aria-pressed="true"] .qtd { color: rgba(255, 255, 255, .85); }
 
     .chip-cadeia:focus-visible { outline: 2px solid #103050; outline-offset: 2px; }
 
 
+    .acoes { display: flex; align-items: center; gap: .4rem; flex-shrink: 0; }
+
     .acao {
-      display: inline-flex; align-items: center; gap: .3rem;
-      border: 0; background: transparent; color: #64748B; cursor: pointer;
-      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .5rem;
-      padding: .24rem .5rem; border-radius: 6px; white-space: nowrap; line-height: 1;
-      transition: color 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
+      display: inline-flex; align-items: center; gap: .34rem;
+      border: 1px solid transparent; background: transparent; color: #64748B; cursor: pointer;
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .52rem;
+      padding: .3rem .6rem; border-radius: 999px; white-space: nowrap; line-height: 1;
+      transition: color 180ms ease, background-color 180ms ease, border-color 180ms ease;
     }
-    .acao:hover { color: #103050; background: #F1F5F9; }
+    .acao:hover { color: #103050; background: #F1F5F9; border-color: #E2E8F0; }
     .acao:focus-visible { outline: 2px solid #103050; outline-offset: 2px; }
-    .acao[aria-pressed="true"] { color: #103050; background: #ffffff; box-shadow: inset 0 0 0 1.5px #103050; }
+    .acao[aria-pressed="true"] { color: #103050; background: #ffffff; border-color: #103050; }
 
 
-    /* ---------- barra de ferramentas ---------- */
+    /* ---------- paineis ---------- */
 
-    .ferramentas { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-width: 0; }
-
-    .leitura { display: flex; align-items: center; gap: .9rem; flex-wrap: wrap; min-width: 0; }
-    .leg { display: inline-flex; align-items: center; gap: .28rem; font-size: .46rem; color: #94A3B8; font-weight: 600; white-space: nowrap; }
-    .leg b { font-weight: 700; color: #475569; }
-    .leg-cor { display: inline-flex; gap: 1px; }
-    .leg-cor i { width: .34rem; height: .5rem; border-radius: 1px; display: block; }
-    .leg-ind { font-family: 'Montserrat', sans-serif; font-weight: 800; color: #CBD5E1; letter-spacing: -.05em; }
-
-
-    /* ---------- cartoes ---------- */
-
-    .charts-grid { flex: 1; min-height: 0; display: grid; grid-template-columns: 1.42fr .58fr; gap: 1.6rem; }
+    .charts-grid { flex: 1; min-height: 0; display: grid; grid-template-columns: 1.46fr .54fr; gap: 1.1rem; }
 
     @media (max-width: 1400px) {
-      .charts-grid { grid-template-columns: 1.3fr .7fr; gap: 1.1rem; }
+      .charts-grid { grid-template-columns: 1.34fr .66fr; gap: .8rem; }
     }
 
-    .card { display: flex; flex-direction: column; min-height: 0; min-width: 0; }
+    .col-dir { display: flex; flex-direction: column; min-height: 0; min-width: 0; gap: .7rem; }
+
+    .painel {
+      display: flex; flex-direction: column; min-height: 0; min-width: 0;
+      background: #ffffff; border: 1px solid #E2E8F0; border-radius: 14px;
+      box-shadow: 0 8px 20px -14px rgba(16, 48, 80, .45);
+      padding: .7rem .85rem .6rem;
+    }
+
+    .painel-barras { flex: 1; }
+    .painel-rosca { flex: 1; }
 
     .card-cap {
-      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .62rem;
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .64rem;
       display: flex; align-items: center; gap: .4rem; color: #103050;
-      padding-bottom: .3rem; margin-bottom: .45rem;
-      border-bottom: 1px solid #E2E8F0; flex-shrink: 0; line-height: 1.15;
+      padding-bottom: .35rem; margin: 0 0 .5rem;
+      border-bottom: 1px solid #EEF2F7; flex-shrink: 0; line-height: 1.15;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
       transition: color 250ms ease;
     }
     .card-cap .sec { font-weight: 700; color: #94A3B8; }
@@ -132,21 +135,57 @@
     .vazio i { font-size: 1.3rem; color: #E2E8F0; }
 
 
+    /* ---------- indicadores da coluna direita ---------- */
+
+    .kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: .5rem; flex-shrink: 0; }
+
+    .kpi {
+      background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 12px;
+      padding: .45rem .55rem .5rem; min-width: 0;
+      display: flex; flex-direction: column; gap: .12rem;
+    }
+    .kpi-rot {
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .44rem;
+      letter-spacing: .12em; text-transform: uppercase; color: #94A3B8; line-height: 1;
+    }
+    .kpi-val {
+      font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.25rem;
+      color: #103050; line-height: 1;
+    }
+    .kpi-sub { font-size: .44rem; color: #94A3B8; font-weight: 600; line-height: 1.15; }
+
+
+    /* ---------- rodape de leitura do painel de barras ---------- */
+
+    .leitura {
+      display: flex; align-items: center; gap: .9rem; flex-wrap: nowrap;
+      min-width: 0; flex-shrink: 0; overflow: hidden;
+      border-top: 1px solid #EEF2F7; margin-top: .45rem; padding-top: .4rem;
+    }
+    .leg { display: inline-flex; align-items: center; gap: .3rem; font-size: .46rem; color: #94A3B8; font-weight: 600; white-space: nowrap; }
+    .leg b { font-weight: 700; color: #475569; }
+    .leg-cor { display: inline-flex; gap: 1px; }
+    .leg-cor i { width: .34rem; height: .5rem; border-radius: 1px; display: block; }
+    .leg-ind { font-family: 'Montserrat', sans-serif; font-weight: 800; color: #CBD5E1; letter-spacing: -.05em; }
+
+
     /* ---------- barras ---------- */
 
     .linhas { flex: 1; min-height: 0; display: flex; flex-direction: column; justify-content: center; gap: .42rem; }
 
     .linha {
       display: flex; align-items: center; gap: .5rem; width: 100%;
-      border: 0; background: transparent; padding: 0; text-align: left; font: inherit;
+      border: 0; background: transparent; text-align: left; font: inherit;
+      padding: .04rem .1rem .04rem .5rem; border-radius: 6px;
+      box-shadow: inset 3px 0 0 var(--c);
       animation: entra .4s cubic-bezier(.2,.7,.3,1) both;
     }
 
     @keyframes entra { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: none; } }
 
     /* linha de cadeia: e um botao que abre e fecha o acordeao */
-    button.linha { cursor: pointer; border-radius: 6px; transition: background-color 180ms ease; }
-    button.linha:hover { background: #F8FAFC; }
+    button.linha { cursor: pointer; transition: background-color 180ms ease; }
+    button.linha:hover { background: #F5F9FC; }
     button.linha:focus-visible { outline: 2px solid #103050; outline-offset: 2px; }
 
     .linha.raiz .nome { font-family: 'Montserrat', sans-serif; font-weight: 800; color: #103050; }
@@ -159,6 +198,7 @@
       transition: transform 220ms cubic-bezier(.2,.7,.3,1), color 180ms ease;
     }
     button.linha:hover .chev { color: var(--c); }
+    .linha.aberta { background: #F5F9FC; }
     .linha.aberta .chev { transform: rotate(90deg); color: var(--c); }
     .chev.vazio { visibility: hidden; }
 
@@ -184,33 +224,36 @@
     }
     .nome .sg { font-family: 'Montserrat', sans-serif; font-weight: 800; color: var(--c); margin-right: .22rem; }
 
-    .trilho { flex: 1; min-width: 0; height: .58rem; background: #F1F5F9; border-radius: 999px; overflow: hidden; }
+    .trilho { flex: 1; min-width: 0; height: .6rem; background: #EEF2F7; border-radius: 999px; overflow: hidden; }
     .preench { height: 100%; width: 0; border-radius: 999px; background: var(--c); transition: width 620ms cubic-bezier(.2,.7,.3,1); }
 
-    .valor { flex: 0 0 3.6rem; font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.05rem; color: var(--c); line-height: 1; text-align: left; }
-    .valor .pc { font-weight: 700; font-size: .58rem; color: #94A3B8; margin-left: .2rem; }
+    .valor {
+      flex: 0 0 4.1rem; display: inline-flex; align-items: baseline; justify-content: flex-end; gap: .26rem;
+      font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.05rem; color: var(--c); line-height: 1;
+    }
+    .valor .pc { font-weight: 700; font-size: .58rem; color: #94A3B8; margin: 0; flex-shrink: 0; }
 
     .linhas[data-d="2"] { gap: .3rem; }
     .linhas[data-d="2"] .nome { font-size: .76rem; }
     .linhas[data-d="2"] .trilha { font-size: .46rem; }
-    .linhas[data-d="2"] .trilho { height: .48rem; }
-    .linhas[data-d="2"] .valor { font-size: .82rem; }
+    .linhas[data-d="2"] .trilho { height: .5rem; }
+    .linhas[data-d="2"] .valor { font-size: .82rem; flex-basis: 3.6rem; }
     .linhas[data-d="2"] .valor .pc { font-size: .5rem; }
     .linhas[data-d="2"] .chev { font-size: .46rem; }
 
     .linhas[data-d="3"] { gap: .16rem; }
-    .linhas[data-d="3"] .nome { font-size: .56rem; }
+    .linhas[data-d="3"] .nome { font-size: .58rem; }
     .linhas[data-d="3"] .trilha { font-size: .38rem; }
-    .linhas[data-d="3"] .trilho { height: .38rem; }
-    .linhas[data-d="3"] .valor { font-size: .62rem; }
+    .linhas[data-d="3"] .trilho { height: .4rem; }
+    .linhas[data-d="3"] .valor { font-size: .64rem; flex-basis: 3rem; }
     .linhas[data-d="3"] .valor .pc { font-size: .44rem; }
     .linhas[data-d="3"] .chev { font-size: .4rem; }
 
     .linhas[data-d="4"] { gap: .08rem; }
-    .linhas[data-d="4"] .nome { font-size: .48rem; }
+    .linhas[data-d="4"] .nome { font-size: .5rem; }
     .linhas[data-d="4"] .trilha { font-size: .33rem; }
-    .linhas[data-d="4"] .trilho { height: .3rem; }
-    .linhas[data-d="4"] .valor { font-size: .52rem; }
+    .linhas[data-d="4"] .trilho { height: .32rem; }
+    .linhas[data-d="4"] .valor { font-size: .54rem; flex-basis: 2.7rem; }
     .linhas[data-d="4"] .valor .pc { font-size: .4rem; }
     .linhas[data-d="4"] .chev { font-size: .36rem; }
     .linhas[data-d="4"] .rot { flex-basis: 46%; }
@@ -249,21 +292,14 @@
 
 
     <div class="px-16 pb-2 z-10">
-      <div class="filtros">
-        <div class="faixa">
+      <div class="ctrl">
+        <div class="ctrl-chips">
           <span class="nivel-rot">Cadeia</span>
           <div class="chips" id="chipsCadeia" role="group" aria-label="Filtrar por cadeia hierárquica"></div>
         </div>
-        <div class="ferramentas">
-          <div class="leitura">
-            <span class="leg"><span class="leg-ind" aria-hidden="true">▸</span> <b>Clique numa cadeia</b> para abrir as unidades dela</span>
-            <span class="leg"><span class="leg-cor" aria-hidden="true"><i style="background:#0090C0"></i><i style="background:#0278a2"></i><i style="background:#036084"></i></span> <b>Cor</b> = cadeia; o tom escurece a cada nível</span>
-            <span class="leg"><span class="trilha" style="font-size:.44rem;" aria-hidden="true"><span class="mudo">SRG</span></span> <b>Tom apagado</b> = unidade da estrutura que não respondeu</span>
-          </div>
-          <div class="flex items-center gap-2 flex-shrink-0">
-            <button class="acao" type="button" id="btnRank" aria-pressed="false" title="Listar as unidades por volume, ignorando a hierarquia"><i class="fas fa-ranking-star"></i>Ranking</button>
-            <button class="acao" type="button" id="btnTudo"></button>
-          </div>
+        <div class="acoes">
+          <button class="acao" type="button" id="btnRank" aria-pressed="false" title="Listar as unidades por volume, ignorando a hierarquia"><i class="fas fa-ranking-star" aria-hidden="true"></i>Ranking</button>
+          <button class="acao" type="button" id="btnTudo"></button>
         </div>
       </div>
     </div>
@@ -271,14 +307,39 @@
 
     <div class="flex-1 px-16 pb-2 z-10" style="min-height:0;">
       <div class="charts-grid">
-        <div class="card">
+        <div class="painel painel-barras">
           <p class="card-cap" id="capBarras"></p>
           <div class="linhas" id="linhas" data-d="1"></div>
+          <div class="leitura">
+            <span class="leg"><span class="leg-ind" aria-hidden="true">▸</span> <b>Clique numa cadeia</b> para abrir as unidades dela</span>
+            <span class="leg"><span class="leg-cor" aria-hidden="true"><i style="background:#0090C0"></i><i style="background:#0278a2"></i><i style="background:#036084"></i></span> <b>Cor</b> = cadeia; o tom escurece a cada nível</span>
+            <span class="leg"><span class="trilha" style="font-size:.44rem;" aria-hidden="true"><span class="mudo">SRG</span></span> <b>Tom apagado</b> = unidade da estrutura que não respondeu</span>
+          </div>
         </div>
 
-        <div class="card">
-          <p class="card-cap" id="capRosca"></p>
-          <div class="canvas-wrap" id="roscaWrap"></div>
+        <div class="col-dir">
+          <div class="kpis">
+            <div class="kpi">
+              <span class="kpi-rot">Respostas</span>
+              <span class="kpi-val" id="kpiResp">—</span>
+              <span class="kpi-sub" id="kpiRespSub"></span>
+            </div>
+            <div class="kpi">
+              <span class="kpi-rot">Unidades</span>
+              <span class="kpi-val" id="kpiUn">—</span>
+              <span class="kpi-sub" id="kpiUnSub"></span>
+            </div>
+            <div class="kpi">
+              <span class="kpi-rot">Cadeias</span>
+              <span class="kpi-val" id="kpiCad">—</span>
+              <span class="kpi-sub" id="kpiCadSub"></span>
+            </div>
+          </div>
+
+          <div class="painel painel-rosca">
+            <p class="card-cap" id="capRosca"></p>
+            <div class="canvas-wrap" id="roscaWrap"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -728,6 +789,25 @@
         }
       };
 
+      var textoCentro = {
+        id: 'textoCentro',
+        afterDraw: function (ch) {
+          var meta = ch.getDatasetMeta(0);
+          if (!meta.data.length) return;
+          var arc = meta.data[0];
+          var t = ch.data.datasets[0].data.reduce(function (a, b) { return a + b; }, 0);
+          var ctx = ch.ctx;
+          ctx.save(); ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+          ctx.fillStyle = '#103050';
+          ctx.font = '900 20px Montserrat, sans-serif';
+          ctx.fillText(String(t), arc.x, arc.y - 7);
+          ctx.fillStyle = '#94A3B8';
+          ctx.font = '700 9px Montserrat, sans-serif';
+          ctx.fillText('RESPOSTAS', arc.x, arc.y + 11);
+          ctx.restore();
+        }
+      };
+
       rosca = new Chart(cv, {
         type: 'doughnut',
         data: {
@@ -739,7 +819,7 @@
           }]
         },
         options: {
-          responsive: true, maintainAspectRatio: false, cutout: '58%',
+          responsive: true, maintainAspectRatio: false, cutout: '64%',
           animation: { duration: REDUZIDO ? 0 : 620 },
           plugins: {
             legend: {
@@ -756,7 +836,7 @@
             }
           }
         },
-        plugins: [rotulosPct]
+        plugins: [rotulosPct, textoCentro]
       });
 
       if (window.A11y) {
@@ -766,11 +846,31 @@
     }
 
 
+    /* ---------- indicadores do recorte ativo ---------- */
+
+    function txt(id, v) { document.getElementById(id).textContent = v; }
+
+    function pintarKpis() {
+      var cad = cadeiasAtivas();
+      var soma = cad.reduce(function (a, c) { return a + c.total; }, 0);
+      var qUn = cad.reduce(function (a, c) { return a + c.respondentes; }, 0);
+
+      txt('kpiResp', soma);
+      txt('kpiRespSub', soma === TOTAL ? 'total do semestre' :
+        (soma / TOTAL * 100).toFixed(0) + '% de ' + TOTAL);
+      txt('kpiUn', qUn);
+      txt('kpiUnSub', 'de ' + N_RESPONDENTES + ' respondentes');
+      txt('kpiCad', cad.length);
+      txt('kpiCadSub', 'de ' + CADEIAS.length + ' cadeias');
+    }
+
+
     /* ---------- ciclo ---------- */
 
     function atualizar() {
       btnRank.setAttribute('aria-pressed', ordem === 'rank' ? 'true' : 'false');
       pintarChips();
+      pintarKpis();
       capBarras();
       renderBarras();
       renderRosca();
