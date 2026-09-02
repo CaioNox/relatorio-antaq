@@ -44,8 +44,8 @@ window.RELATORIO = {
 
 
 
-        'slide-pda.html', 'slide-qa-dados-abertos.html', 'slide-resp-unidade.html',
-        'slide-tramit-uorg.html', 'slide-20.html', 'slide-18.html', 'slide-21.html',
+        'slide-pda.html', 'slide-qa-dados-abertos.html',
+        'slide-20.html', 'slide-18.html', 'slide-21.html',
       ],
     },
     {
