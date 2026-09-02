@@ -64,51 +64,32 @@
       width: 100%;
     }
 
-    .gov-eyebrow {
-      display: flex;
-      align-items: center;
-      gap: .5rem;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
-      font-size: .62rem;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-      color: #64748B;
-      margin: 0 0 .6rem;
-      flex-shrink: 0;
-    }
 
-    .gov-eyebrow i {
-      color: #0070C0;
-    }
-
-    .gov-lead {
-      background: #F5F8FC;
-      border: 1px solid #E2E8F0;
-      border-left: 4px solid #0070C0;
-      border-radius: 12px;
-      padding: .85rem 1.15rem;
+    /* ---------- Texto de abertura (largura total) ---------- */
+    .mm-lead {
+      margin: 0 0 .85rem;
+      padding-bottom: .85rem;
+      border-bottom: 1px solid #E2E8F0;
       color: #334155;
-      font-size: .74rem;
+      font-size: .85rem;
       line-height: 1.55;
-      text-indent: 1.8em;
-      margin: 0;
       flex-shrink: 0;
       animation: fadeInUp .5s cubic-bezier(.2, .7, .3, 1) both;
     }
 
-    .gov-lead b {
+    .mm-lead b {
       color: #103050;
       font-weight: 700;
     }
 
 
+    /* ---------- Corpo: pirâmide + dimensões ---------- */
     .mm-body {
       flex: 1;
       min-height: 0;
       display: grid;
-      grid-template-columns: 1.25fr 1fr;
-      gap: 2rem;
+      grid-template-columns: 1fr 1.4fr;
+      column-gap: 2rem;
       z-index: 10;
     }
 
@@ -119,26 +100,19 @@
     }
 
 
-
+    /* ---------- Pirâmide ---------- */
     .pyr {
       flex: 1;
       min-height: 0;
       display: grid;
-      grid-template-columns: 64% 1fr;
-
-      grid-template-rows: 1.5fr 1fr 1fr 1fr;
-      column-gap: .7rem;
-      row-gap: 5px;
+      grid-template-rows: 1.5fr 1fr 1fr 1.1fr;
+      row-gap: 6px;
       animation: fadeInUp .5s cubic-bezier(.2, .7, .3, 1) .1s both;
     }
 
-    .lvl,
-    .anc {
+    .lvl {
       min-height: 0;
       overflow: hidden;
-    }
-
-    .lvl {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -146,12 +120,11 @@
       filter: drop-shadow(0 7px 10px rgba(16, 48, 80, .16));
     }
 
-
     .lvl-4 {
       background: #103050;
       clip-path: polygon(50% 0, 66.67% 100%, 33.33% 100%);
       align-items: flex-end;
-      padding-bottom: .55rem;
+      padding-bottom: .6rem;
     }
 
     .lvl-3 {
@@ -160,12 +133,12 @@
     }
 
     .lvl-2 {
-      background: #0090C0;
+      background: #1F86C4;
       clip-path: polygon(22.22% 0, 77.78% 0, 88.89% 100%, 11.11% 100%);
     }
 
     .lvl-1 {
-      background: #7FB2D6;
+      background: #9CC3DF;
       color: #103050;
       clip-path: polygon(11.11% 0, 88.89% 0, 100% 100%, 0 100%);
     }
@@ -174,177 +147,147 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: .1rem;
+      gap: .12rem;
     }
 
     .lvl-num {
       font-family: 'Montserrat', sans-serif;
       font-weight: 900;
-      font-size: 1.75rem;
+      font-size: 2.35rem;
       line-height: 1;
     }
 
     .lvl-4 .lvl-num {
-      font-size: 1.35rem;
-    }
-
-    .lvl-rule {
-      display: none;
+      font-size: 1.75rem;
     }
 
     .lvl-name {
       font-family: 'Montserrat', sans-serif;
-      font-weight: 800;
-      font-size: .72rem;
-      letter-spacing: .09em;
+      font-weight: 700;
+      font-size: .95rem;
+      letter-spacing: .07em;
       text-transform: uppercase;
       line-height: 1;
       white-space: nowrap;
     }
 
     .lvl-4 .lvl-name {
-      font-size: .66rem;
+      font-size: .8rem;
     }
 
 
-    .anc {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      text-align: right;
-      border-top: 1px solid #E2E8F0;
-      padding-top: .35rem;
-      font-size: .62rem;
-      line-height: 1.3;
-      font-weight: 600;
-    }
-
-    .anc-4 {
-      color: #103050;
-    }
-
-    .anc-3 {
-      color: #0070C0;
-    }
-
-    .anc-2 {
-      color: #0090C0;
-    }
-
-    .anc-1 {
-      color: #5A93BE;
-    }
-
-
+    /* ---------- Lista de dimensões (mesma ordem da pirâmide) ---------- */
     .dim-list {
       flex: 1;
       min-height: 0;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      margin-top: .7rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
     }
 
-    .dim-card {
-      flex: 0 0 auto;
+    .dim-row {
+      flex: 0 1 auto;
+      min-height: 0;
       display: flex;
-      align-items: stretch;
-      background: #fff;
-      border: 1px solid #E2E8F0;
-      border-radius: 12px;
-      box-shadow: 0 2px 6px -3px rgba(16, 48, 80, .18);
+      gap: 1rem;
+      padding: .55rem 0 .7rem;
+      border-top: 1px solid #E2E8F0;
       animation: fadeInUp .45s ease both;
     }
 
-    .dim-card:nth-child(1) {
+    .dim-row:last-child {
+      border-bottom: 1px solid #E2E8F0;
+    }
+
+    .dim-row:nth-child(1) {
       animation-delay: .14s;
     }
 
-    .dim-card:nth-child(2) {
+    .dim-row:nth-child(2) {
       animation-delay: .22s;
     }
 
-    .dim-card:nth-child(3) {
+    .dim-row:nth-child(3) {
       animation-delay: .3s;
     }
 
-    .dim-card:nth-child(4) {
+    .dim-row:nth-child(4) {
       animation-delay: .38s;
     }
 
-    .dim-num {
-      position: relative;
-      flex: 0 0 2.4rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 800;
-      font-size: 1.15rem;
-      color: #fff;
-      line-height: 1;
+    .dim-bar {
+      flex: 0 0 5px;
+      border-radius: 2px;
       background: var(--tag);
-      border-radius: 12px 0 0 12px;
-    }
-
-    .dim-num::after {
-      content: '';
-      position: absolute;
-      right: -7px;
-      top: 50%;
-      transform: translateY(-50%);
-      border-top: 7px solid transparent;
-      border-bottom: 7px solid transparent;
-      border-left: 7px solid var(--tag);
-    }
-
-    .dim-num.c-1 {
-      --tag: #7FB2D6;
-      color: #103050;
-    }
-
-    .dim-num.c-2 {
-      --tag: #0090C0;
-    }
-
-    .dim-num.c-3 {
-      --tag: #0070C0;
-    }
-
-    .dim-num.c-4 {
-      --tag: #103050;
+      align-self: stretch;
     }
 
     .dim-body {
-      padding: .3rem .85rem;
+      min-width: 0;
       display: flex;
       flex-direction: column;
       justify-content: center;
+      gap: .2rem;
+    }
+
+    .dim-head {
+      display: flex;
+      align-items: baseline;
+      gap: .7rem;
+      flex-wrap: wrap;
     }
 
     .dim-title {
       font-family: 'Montserrat', sans-serif;
       font-weight: 800;
-      font-size: .72rem;
-      letter-spacing: .05em;
+      font-size: .95rem;
+      letter-spacing: .09em;
       text-transform: uppercase;
-      color: #0070C0;
-      margin: 0 0 .1rem;
+      color: var(--ink);
+      margin: 0;
+      line-height: 1.1;
+    }
+
+    .dim-sub {
+      font-size: .78rem;
+      font-weight: 600;
+      color: #94A3B8;
+      line-height: 1.25;
     }
 
     .dim-desc {
-      font-size: .64rem;
-      line-height: 1.32;
+      font-size: .8rem;
+      line-height: 1.42;
       color: #334155;
       margin: 0;
     }
 
     .dim-note {
-      display: block;
       font-style: italic;
-      font-size: .58rem;
-      color: #94A3B8;
-      margin-top: .12rem;
+      color: #7C8CA0;
+    }
+
+    .c-1 {
+      --tag: #9CC3DF;
+      --ink: #4C87B4;
+    }
+
+    .c-2 {
+      --tag: #1F86C4;
+      --ink: #1F86C4;
+    }
+
+    .c-3 {
+      --tag: #0070C0;
+      --ink: #0070C0;
+    }
+
+    .c-4 {
+      --tag: #103050;
+      --ink: #103050;
     }
 
     .ref-source {
@@ -394,7 +337,7 @@
     <div class="top-accent"></div>
     <div class="top-accent-secondary"></div>
 
-    <div class="flex items-start justify-between px-16 pt-10 pb-3 z-10">
+    <div class="flex items-start justify-between px-16 pt-9 pb-2 z-10">
       <div>
         <div class="flex items-center gap-3 mb-1">
           <div class="w-1 h-8 bg-brand-secondary"></div>
@@ -407,7 +350,8 @@
       <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
         <i class="fas fa-landmark text-3xl" aria-hidden="true"></i>
         <div class="flex flex-col justify-center pl-2" style="border-left:1px solid #CBD5E1;">
-          <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">
+          <p
+            class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">
             CAPÍTULO 02</p>
           <p
             class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none whitespace-nowrap">
@@ -416,95 +360,96 @@
       </div>
     </div>
 
-    <div class="px-16 pt-2 pb-4" style="flex:1; min-height:0; display:flex;">
+    <div class="px-16 pt-2 pb-3" style="flex:1; min-height:0; display:flex; flex-direction:column;">
+
+      <p class="mm-lead">
+        Desenvolvido pela <b>Controladoria-Geral da União</b>, o <b>MMOuP</b> é instrumento de referência para os
+        gestores de Ouvidoria na otimização dos objetivos, da estrutura e dos processos da unidade. Seu correto
+        preenchimento é fundamental para identificar lacunas e desenvolver a ouvidoria como canal seguro e efetivo
+        para o cidadão e para os usuários internos. A matriz está estruturada em <b>quatro dimensões</b>:
+      </p>
+
       <div class="mm-body">
 
-
         <div class="mm-col">
-          <p class="gov-eyebrow"><i class="fas fa-layer-group"></i> MMOuP 2.0 · Dimensões</p>
-          <div class="pyr">
-            <div class="lvl lvl-4">
+          <div class="pyr" role="img"
+            aria-label="Pirâmide das quatro dimensões do MMOuP, da base para o topo: 01 Estruturante, 02 Essencial, 03 Prospectiva e 04 Específica.">
+            <div class="lvl lvl-4" aria-hidden="true">
               <div class="lvl-in">
                 <span class="lvl-num">04</span>
                 <span class="lvl-name">Específica</span>
               </div>
             </div>
-            <div class="anc anc-4">Mandatos específicos<br />(dimensão modular)</div>
-
-            <div class="lvl lvl-3">
+            <div class="lvl lvl-3" aria-hidden="true">
               <div class="lvl-in">
                 <span class="lvl-num">03</span>
-                <span class="lvl-rule"></span>
                 <span class="lvl-name">Prospectiva</span>
               </div>
             </div>
-            <div class="anc anc-3">Projetos e articulação<br />interinstitucional</div>
-
-            <div class="lvl lvl-2">
+            <div class="lvl lvl-2" aria-hidden="true">
               <div class="lvl-in">
                 <span class="lvl-num">02</span>
-                <span class="lvl-rule"></span>
                 <span class="lvl-name">Essencial</span>
               </div>
             </div>
-            <div class="anc anc-2">Processos e gestão<br />estratégica</div>
-
-            <div class="lvl lvl-1">
+            <div class="lvl lvl-1" aria-hidden="true">
               <div class="lvl-in">
                 <span class="lvl-num">01</span>
-                <span class="lvl-rule"></span>
                 <span class="lvl-name">Estruturante</span>
               </div>
             </div>
-            <div class="anc anc-1">Capacidades, autonomia,<br />infraestrutura e gestão<br />de recursos</div>
           </div>
         </div>
 
-
         <div class="mm-col">
-          <p class="gov-lead">
-            Desenvolvido pela <b>Controladoria-Geral da União</b>, o <b>MMOuP</b> é instrumento de referência para os
-            gestores de Ouvidoria na otimização dos objetivos, da estrutura e dos processos da unidade. Seu correto
-            preenchimento é fundamental para identificar lacunas e desenvolver a ouvidoria como canal seguro e efetivo
-            para o cidadão e para os usuários internos. A matriz está estruturada em <b>quatro dimensões</b>:
-          </p>
-
-          <div class="dim-list">
-            <div class="dim-card">
-              <div class="dim-num c-1">01</div>
+          <ul class="dim-list">
+            <li class="dim-row c-4">
+              <span class="dim-bar" aria-hidden="true"></span>
               <div class="dim-body">
-                <p class="dim-title">Estruturante</p>
-                <p class="dim-desc">Agrega aspectos gerais sobre infraestrutura, planejamento, gestão de pessoas e
-                  garantias do titular da unidade de ouvidoria.</p>
-              </div>
-            </div>
-            <div class="dim-card">
-              <div class="dim-num c-2">02</div>
-              <div class="dim-body">
-                <p class="dim-title">Essencial</p>
-                <p class="dim-desc">Afere a profissionalização dos processos da ouvidoria: tratamento de manifestações
-                  e governança de serviços da instituição à qual a unidade está vinculada.</p>
-              </div>
-            </div>
-            <div class="dim-card">
-              <div class="dim-num c-3">03</div>
-              <div class="dim-body">
-                <p class="dim-title">Prospectiva</p>
-                <p class="dim-desc">Afere a maturidade dos projetos da ouvidoria, em especial os que buscam, de forma
-                  ativa ou proativa, informações úteis à gestão junto aos usuários de serviços públicos.</p>
-              </div>
-            </div>
-            <div class="dim-card">
-              <div class="dim-num c-4">04</div>
-              <div class="dim-body">
-                <p class="dim-title">Específica</p>
+                <div class="dim-head">
+                  <p class="dim-title">Específica</p>
+                  <span class="dim-sub">Mandatos específicos (dimensão modular)</span>
+                </div>
                 <p class="dim-desc">Dimensão modular, desenvolvida conforme as características de um dado conjunto de
                   unidades de ouvidoria (ex.: atuação como órgão central de rede ou sistema).
                   <span class="dim-note">Não consta no ciclo avaliativo do 2º biênio do MMOuP.</span>
                 </p>
               </div>
-            </div>
-          </div>
+            </li>
+            <li class="dim-row c-3">
+              <span class="dim-bar" aria-hidden="true"></span>
+              <div class="dim-body">
+                <div class="dim-head">
+                  <p class="dim-title">Prospectiva</p>
+                  <span class="dim-sub">Projetos e articulação interinstitucional</span>
+                </div>
+                <p class="dim-desc">Afere a maturidade dos projetos da ouvidoria, em especial os que buscam, de forma
+                  ativa ou proativa, informações úteis à gestão junto aos usuários de serviços públicos.</p>
+              </div>
+            </li>
+            <li class="dim-row c-2">
+              <span class="dim-bar" aria-hidden="true"></span>
+              <div class="dim-body">
+                <div class="dim-head">
+                  <p class="dim-title">Essencial</p>
+                  <span class="dim-sub">Processos e gestão estratégica</span>
+                </div>
+                <p class="dim-desc">Afere a profissionalização dos processos da ouvidoria: tratamento de manifestações
+                  e governança de serviços da instituição à qual a unidade está vinculada.</p>
+              </div>
+            </li>
+            <li class="dim-row c-1">
+              <span class="dim-bar" aria-hidden="true"></span>
+              <div class="dim-body">
+                <div class="dim-head">
+                  <p class="dim-title">Estruturante</p>
+                  <span class="dim-sub">Capacidades, autonomia, infraestrutura e gestão de recursos</span>
+                </div>
+                <p class="dim-desc">Agrega aspectos gerais sobre infraestrutura, planejamento, gestão de pessoas e
+                  garantias do titular da unidade de ouvidoria.</p>
+              </div>
+            </li>
+          </ul>
         </div>
 
       </div>
