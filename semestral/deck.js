@@ -39,13 +39,15 @@ window.RELATORIO = {
     {
       block: 'Bloco 4 · Seção de Transparência e Acesso à Informação — STAI', short: 'STAI', tint: 0.55,
       files: [
-        'capa-bloco-4.html', 'slide-4a.html', 'slide-qa-geral.html', 'slide-23.html',
-
-
-
-
-        'slide-pda.html', 'slide-qa-dados-abertos.html',
-        'slide-20.html', 'slide-18.html', 'slide-21.html',
+        'capa-bloco-4.html', 'slide-4a.html', 'slide-informa-br.html',
+        // PDA / Dados Abertos
+        'slide-pda.html', 'slide-21.html',
+        // Acesso à informação por iniciativa da ANTAQ (transparência ativa)
+        'slide-22.html',
+        // Acesso à informação sob iniciativa do cidadão (transparência passiva)
+        'slide-23.html', 'slide-18.html', 'slide-resp-unidade.html', 'slide-tramit-uorg.html', 'slide-20.html',
+        // Perguntas e Respostas
+        'slide-qa-geral.html', 'slide-qa-dados-abertos.html',
       ],
     },
     {

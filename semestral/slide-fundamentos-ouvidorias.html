@@ -102,6 +102,11 @@
       line-height: var(--lh-snug);
       letter-spacing: var(--ls-body);
       color: #103050;
+      text-align: justify;
+      text-align-last: left;
+      hyphens: auto;
+      -webkit-hyphens: auto;
+      -ms-hyphens: auto;
     }
 
     .ctx-bar strong {
@@ -382,6 +387,11 @@
       border-radius: 0 6px 6px 0;
       padding: .32rem .65rem;
       flex-shrink: 0;
+      text-align: justify;
+      text-align-last: left;
+      hyphens: auto;
+      -webkit-hyphens: auto;
+      -ms-hyphens: auto;
     }
 
     .ref-caput strong {
@@ -461,6 +471,12 @@
       letter-spacing: var(--ls-body);
       color: #334155;
       margin: 0;
+      text-align: justify;
+      text-align-last: left;
+      hyphens: auto;
+      -webkit-hyphens: auto;
+      -ms-hyphens: auto;
+      overflow-wrap: break-word;
     }
 
     .grade {
@@ -567,6 +583,11 @@
       margin: 0 0 .28rem;
       padding-left: 1.15rem;
       position: relative;
+      text-align: justify;
+      text-align-last: left;
+      hyphens: auto;
+      -webkit-hyphens: auto;
+      -ms-hyphens: auto;
     }
 
     .et-list li::before {
@@ -681,6 +702,10 @@
       color: #334155;
       margin: 0 0 .7rem;
       text-align: justify;
+      text-align-last: left;
+      hyphens: auto;
+      -webkit-hyphens: auto;
+      -ms-hyphens: auto;
     }
 
     .ctx-card p:last-of-type {
@@ -760,16 +785,18 @@
       <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
         <i class="fas fa-bullhorn text-3xl align-middle" aria-hidden="true"></i>
         <div class="flex flex-col justify-center pl-2" style="border-left: 1px solid #CBD5E1;">
-          <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">
+          <p
+            class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">
             CAPÍTULO 01</p>
-          <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none whitespace-nowrap">
+          <p
+            class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none whitespace-nowrap">
             Visão Geral das Ouvidorias públicas</p>
         </div>
       </div>
     </div>
 
     <div class="ctx-bar">
-      <p><strong>Base normativa:</strong> Lei nº 13.460/2017 — arts. 4º, 5º e 13 — define, respectivamente, os
+      <p class="txt-bloco"><strong>Base normativa:</strong> Lei nº 13.460/2017 — arts. 4º, 5º e 13 — define, respectivamente, os
         princípios, as diretrizes e as atribuições precípuas das Ouvidorias públicas.</p>
       <button class="ctx-btn" id="ctxBtn" type="button" aria-haspopup="dialog" aria-expanded="false">
         <i class="fas fa-circle-info" aria-hidden="true"></i> Contexto completo
@@ -809,53 +836,54 @@
           </div>
           <div class="foco-lista">
             <h2 class="foco-t">Atribuições das Ouvidorias</h2>
-            <p class="ref-caput"><strong>Art. 13.</strong> As Ouvidorias terão como atribuições precípuas, sem prejuízo
+            <p class="ref-caput txt-bloco"><strong>Art. 13.</strong> As Ouvidorias terão como atribuições precípuas, sem prejuízo
               de outras estabelecidas em regulamento específico:</p>
             <div class="ref-grid">
               <div class="ref-card">
                 <div class="ref-num c-a">1</div>
                 <div class="ref-body">
-                  <p class="ref-desc">Promover a participação do usuário na administração pública, em cooperação com
+                  <p class="ref-desc txt-bloco">Promover a participação do usuário na administração pública, em
+                    cooperação com
                     outras entidades de defesa do usuário;</p>
                 </div>
               </div>
               <div class="ref-card">
                 <div class="ref-num c-a">2</div>
                 <div class="ref-body">
-                  <p class="ref-desc">Acompanhar a prestação dos serviços, visando a garantir a sua efetividade;</p>
+                  <p class="ref-desc txt-bloco">Acompanhar a prestação dos serviços, visando a garantir a sua efetividade;</p>
                 </div>
               </div>
               <div class="ref-card">
                 <div class="ref-num c-a">3</div>
                 <div class="ref-body">
-                  <p class="ref-desc">Propor aperfeiçoamentos na prestação dos serviços;</p>
+                  <p class="ref-desc txt-bloco">Propor aperfeiçoamentos na prestação dos serviços;</p>
                 </div>
               </div>
               <div class="ref-card">
                 <div class="ref-num c-a">4</div>
                 <div class="ref-body">
-                  <p class="ref-desc">Auxiliar na prevenção e correção dos atos e procedimentos incompatíveis com os
+                  <p class="ref-desc txt-bloco">Auxiliar na prevenção e correção dos atos e procedimentos incompatíveis com os
                     princípios estabelecidos nesta Lei;</p>
                 </div>
               </div>
               <div class="ref-card">
                 <div class="ref-num c-a">5</div>
                 <div class="ref-body">
-                  <p class="ref-desc">Propor a adoção de medidas para a defesa dos direitos do usuário, em observância
+                  <p class="ref-desc txt-bloco">Propor a adoção de medidas para a defesa dos direitos do usuário, em observância
                     às determinações desta Lei;</p>
                 </div>
               </div>
               <div class="ref-card">
                 <div class="ref-num c-a">6</div>
                 <div class="ref-body">
-                  <p class="ref-desc">Receber, analisar e encaminhar às autoridades competentes as manifestações,
+                  <p class="ref-desc txt-bloco">Receber, analisar e encaminhar às autoridades competentes as manifestações,
                     acompanhando o tratamento e a efetiva conclusão perante o órgão a que se vincula; e</p>
                 </div>
               </div>
               <div class="ref-card">
                 <div class="ref-num c-a">7</div>
                 <div class="ref-body">
-                  <p class="ref-desc">Promover a adoção de mediação e conciliação entre o usuário e o órgão ou a
+                  <p class="ref-desc txt-bloco">Promover a adoção de mediação e conciliação entre o usuário e o órgão ou a
                     entidade pública, sem prejuízo de outros órgãos competentes.</p>
                 </div>
               </div>
@@ -871,56 +899,56 @@
           </div>
           <div class="foco-lista">
             <h2 class="foco-t">Princípios das Ouvidorias</h2>
-            <p class="ref-caput"><strong>Art. 4º</strong> Para adequada realização dos serviços públicos e do
+            <p class="ref-caput txt-bloco"><strong>Art. 4º</strong> Para adequada realização dos serviços públicos e do
               atendimento ao usuário, deverão ser observados os seguintes princípios:</p>
             <div class="ref-grid">
               <div class="ref-card">
                 <div class="ref-num c-a">1</div>
                 <div class="ref-body">
                   <p class="ref-title">Regularidade</p>
-                  <p class="ref-desc">Mesmo padrão de qualidade.</p>
+                  <p class="ref-desc txt-bloco">Mesmo padrão de qualidade.</p>
                 </div>
               </div>
               <div class="ref-card">
                 <div class="ref-num c-a">2</div>
                 <div class="ref-body">
                   <p class="ref-title">Continuidade</p>
-                  <p class="ref-desc">Prestação ininterrupta do serviço.</p>
+                  <p class="ref-desc txt-bloco">Prestação ininterrupta do serviço.</p>
                 </div>
               </div>
               <div class="ref-card">
                 <div class="ref-num c-a">3</div>
                 <div class="ref-body">
                   <p class="ref-title">Efetividade</p>
-                  <p class="ref-desc">Resultados para a sociedade.</p>
+                  <p class="ref-desc txt-bloco">Resultados para a sociedade.</p>
                 </div>
               </div>
               <div class="ref-card">
                 <div class="ref-num c-a">4</div>
                 <div class="ref-body">
                   <p class="ref-title">Segurança</p>
-                  <p class="ref-desc">Prestação sem riscos para usuários.</p>
+                  <p class="ref-desc txt-bloco">Prestação sem riscos para usuários.</p>
                 </div>
               </div>
               <div class="ref-card">
                 <div class="ref-num c-a">5</div>
                 <div class="ref-body">
                   <p class="ref-title">Atualidade</p>
-                  <p class="ref-desc">Modernidade de técnicas, equipamentos e instalações.</p>
+                  <p class="ref-desc txt-bloco">Modernidade de técnicas, equipamentos e instalações.</p>
                 </div>
               </div>
               <div class="ref-card">
                 <div class="ref-num c-a">6</div>
                 <div class="ref-body">
                   <p class="ref-title">Generalidade</p>
-                  <p class="ref-desc">Atendimento de forma igualitária.</p>
+                  <p class="ref-desc txt-bloco">Atendimento de forma igualitária.</p>
                 </div>
               </div>
               <div class="ref-card">
                 <div class="ref-num c-a">7</div>
                 <div class="ref-body">
                   <p class="ref-title">Transparência</p>
-                  <p class="ref-desc">Divulgação de informações claras e precisas sobre acesso aos serviços públicos.
+                  <p class="ref-desc txt-bloco">Divulgação de informações claras e precisas sobre acesso aos serviços públicos.
                   </p>
                 </div>
               </div>
@@ -928,7 +956,7 @@
                 <div class="ref-num c-a">8</div>
                 <div class="ref-body">
                   <p class="ref-title">Cortesia</p>
-                  <p class="ref-desc">Tratamento respeitoso do usuário atendido.</p>
+                  <p class="ref-desc txt-bloco">Tratamento respeitoso do usuário atendido.</p>
                 </div>
               </div>
             </div>
@@ -943,26 +971,26 @@
           </div>
           <div class="foco-lista">
             <h2 class="foco-t">Diretrizes das Ouvidorias (1 a 8)</h2>
-            <p class="ref-caput"><strong>Art. 5º</strong> O usuário de serviço público tem direito à adequada prestação
+            <p class="ref-caput txt-bloco"><strong>Art. 5º</strong> O usuário de serviço público tem direito à adequada prestação
               dos serviços, devendo os agentes públicos e prestadores de serviços públicos observar as seguintes
               diretrizes:</p>
             <div class="ref-grid">
               <div class="ref-card">
                 <div class="ref-num c-a">1</div>
                 <div class="ref-body">
-                  <p class="ref-desc">Urbanidade, respeito, acessibilidade e cortesia no atendimento aos usuários;</p>
+                  <p class="ref-desc txt-bloco">Urbanidade, respeito, acessibilidade e cortesia no atendimento aos usuários;</p>
                 </div>
               </div>
               <div class="ref-card">
                 <div class="ref-num c-a">2</div>
                 <div class="ref-body">
-                  <p class="ref-desc">Presunção de boa-fé do usuário;</p>
+                  <p class="ref-desc txt-bloco">Presunção de boa-fé do usuário;</p>
                 </div>
               </div>
               <div class="ref-card">
                 <div class="ref-num c-a">3</div>
                 <div class="ref-body">
-                  <p class="ref-desc">Atendimento por ordem de chegada, ressalvados casos de urgência e agendamento, e
+                  <p class="ref-desc txt-bloco">Atendimento por ordem de chegada, ressalvados casos de urgência e agendamento, e
                     as prioridades legais a pessoas com deficiência, idosos, gestantes, lactantes e acompanhados de
                     crianças de colo;</p>
                 </div>
@@ -970,33 +998,33 @@
               <div class="ref-card">
                 <div class="ref-num c-a">4</div>
                 <div class="ref-body">
-                  <p class="ref-desc">Adequação entre meios e fins, vedada a imposição de exigências, obrigações,
+                  <p class="ref-desc txt-bloco">Adequação entre meios e fins, vedada a imposição de exigências, obrigações,
                     restrições e sanções não previstas na legislação;</p>
                 </div>
               </div>
               <div class="ref-card">
                 <div class="ref-num c-a">5</div>
                 <div class="ref-body">
-                  <p class="ref-desc">Igualdade no tratamento aos usuários, vedado qualquer tipo de discriminação;</p>
+                  <p class="ref-desc txt-bloco">Igualdade no tratamento aos usuários, vedado qualquer tipo de discriminação;</p>
                 </div>
               </div>
               <div class="ref-card">
                 <div class="ref-num c-a">6</div>
                 <div class="ref-body">
-                  <p class="ref-desc">Cumprimento de prazos e normas procedimentais;</p>
+                  <p class="ref-desc txt-bloco">Cumprimento de prazos e normas procedimentais;</p>
                 </div>
               </div>
               <div class="ref-card">
                 <div class="ref-num c-a">7</div>
                 <div class="ref-body">
-                  <p class="ref-desc">Definição, publicidade e observância de horários e normas compatíveis com o bom
+                  <p class="ref-desc txt-bloco">Definição, publicidade e observância de horários e normas compatíveis com o bom
                     atendimento ao usuário;</p>
                 </div>
               </div>
               <div class="ref-card">
                 <div class="ref-num c-a">8</div>
                 <div class="ref-body">
-                  <p class="ref-desc">Adoção de medidas visando a proteção à saúde e a segurança dos usuários;</p>
+                  <p class="ref-desc txt-bloco">Adoção de medidas visando a proteção à saúde e a segurança dos usuários;</p>
                 </div>
               </div>
             </div>
@@ -1011,13 +1039,13 @@
           </div>
           <div class="foco-lista">
             <h2 class="foco-t">Diretrizes das Ouvidorias (9 a 16)</h2>
-            <p class="ref-caput"><strong>Art. 5º</strong> <em>(continuação)</em> — diretrizes a serem observadas pelos
+            <p class="ref-caput txt-bloco"><strong>Art. 5º</strong> <em>(continuação)</em> — diretrizes a serem observadas pelos
               agentes públicos e prestadores de serviços públicos para a adequada prestação dos serviços:</p>
             <div class="ref-grid">
               <div class="ref-card">
                 <div class="ref-num c-a">9</div>
                 <div class="ref-body">
-                  <p class="ref-desc">Autenticação de documentos pelo próprio agente público, à vista dos originais
+                  <p class="ref-desc txt-bloco">Autenticação de documentos pelo próprio agente público, à vista dos originais
                     apresentados pelo usuário, vedada a exigência de reconhecimento de firma, salvo dúvida de
                     autenticidade;</p>
                 </div>
@@ -1025,49 +1053,49 @@
               <div class="ref-card">
                 <div class="ref-num c-a">10</div>
                 <div class="ref-body">
-                  <p class="ref-desc">Manutenção de instalações salubres, seguras, sinalizadas, acessíveis e adequadas
+                  <p class="ref-desc txt-bloco">Manutenção de instalações salubres, seguras, sinalizadas, acessíveis e adequadas
                     ao serviço e ao atendimento;</p>
                 </div>
               </div>
               <div class="ref-card">
                 <div class="ref-num c-a">11</div>
                 <div class="ref-body">
-                  <p class="ref-desc">Eliminação de formalidades e de exigências cujo custo econômico ou social seja
+                  <p class="ref-desc txt-bloco">Eliminação de formalidades e de exigências cujo custo econômico ou social seja
                     superior ao risco envolvido;</p>
                 </div>
               </div>
               <div class="ref-card">
                 <div class="ref-num c-a">12</div>
                 <div class="ref-body">
-                  <p class="ref-desc">Observância dos códigos de ética ou de conduta aplicáveis às várias categorias de
+                  <p class="ref-desc txt-bloco">Observância dos códigos de ética ou de conduta aplicáveis às várias categorias de
                     agentes públicos;</p>
                 </div>
               </div>
               <div class="ref-card">
                 <div class="ref-num c-a">13</div>
                 <div class="ref-body">
-                  <p class="ref-desc">Aplicação de soluções tecnológicas que visem a simplificar processos e
+                  <p class="ref-desc txt-bloco">Aplicação de soluções tecnológicas que visem a simplificar processos e
                     procedimentos de atendimento ao usuário e a propiciar melhor compartilhamento das informações;</p>
                 </div>
               </div>
               <div class="ref-card">
                 <div class="ref-num c-a">14</div>
                 <div class="ref-body">
-                  <p class="ref-desc">Utilização de linguagem simples e compreensível, evitando o uso de siglas, jargões
+                  <p class="ref-desc txt-bloco">Utilização de linguagem simples e compreensível, evitando o uso de siglas, jargões
                     e estrangeirismos; e</p>
                 </div>
               </div>
               <div class="ref-card">
                 <div class="ref-num c-a">15</div>
                 <div class="ref-body">
-                  <p class="ref-desc">Vedação da exigência de nova prova sobre fato já comprovado em documentação válida
+                  <p class="ref-desc txt-bloco">Vedação da exigência de nova prova sobre fato já comprovado em documentação válida
                     apresentada.</p>
                 </div>
               </div>
               <div class="ref-card">
                 <div class="ref-num c-a">16</div>
                 <div class="ref-body">
-                  <p class="ref-desc">Comunicação prévia ao consumidor de que o serviço será desligado por
+                  <p class="ref-desc txt-bloco">Comunicação prévia ao consumidor de que o serviço será desligado por
                     inadimplemento, e do dia do desligamento, necessariamente em horário comercial.</p>
                 </div>
               </div>
@@ -1153,9 +1181,9 @@
       <div class="ctx-card">
         <h3 id="ctxTitulo"><i class="fas fa-scale-balanced text-brand-secondary" aria-hidden="true"></i> Contexto
           normativo</h3>
-        <p>A Lei nº 13.460/2017 disciplina a participação, a proteção e a defesa dos direitos do usuário dos serviços
+        <p class="txt-bloco">A Lei nº 13.460/2017 disciplina a participação, a proteção e a defesa dos direitos do usuário dos serviços
           públicos prestados direta ou indiretamente pela administração pública.</p>
-        <p>Os arts. 4º, 5º e 13 estruturam, respectivamente, os <strong>princípios</strong> que orientam a prestação do
+        <p class="txt-bloco">Os arts. 4º, 5º e 13 estruturam, respectivamente, os <strong>princípios</strong> que orientam a prestação do
           serviço, as <strong>diretrizes</strong> que os agentes públicos e prestadores devem observar no atendimento, e
           as <strong>atribuições precípuas</strong> das Ouvidorias — a instância responsável por acompanhar essa
           prestação e mediar a relação entre o usuário e o órgão público.</p>
