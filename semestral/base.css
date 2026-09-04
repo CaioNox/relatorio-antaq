@@ -18,9 +18,9 @@
 .txt-bloco {
   text-align: justify;
   text-align-last: left;
-  text-justify: inter-word;
-  hyphens: manual;
-  -webkit-hyphens: manual;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
   overflow-wrap: break-word;
   word-spacing: normal;
   orphans: 2;

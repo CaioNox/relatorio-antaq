@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Plataforma Informa.BR - Relatório Semestral Ouvidoria ANTAQ</title>
+  <link rel="icon" type="image/png"
+    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    html {
+      font-size: 26px;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f3f4f6;
+      overflow: hidden;
+    }
+
+    .slide-container {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background-color: #ffffff;
+      overflow: hidden;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    .font-montserrat {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .text-brand-primary {
+      color: #103050;
+    }
+
+    .text-brand-secondary {
+      color: #0070C0;
+    }
+
+    .bg-brand-secondary {
+      background-color: #0070C0;
+    }
+
+    .top-accent {
+      height: 8px;
+      background-color: #103050;
+      width: 100%;
+    }
+
+    .top-accent-secondary {
+      height: 4px;
+      background-color: #0070C0;
+      width: 100%;
+    }
+
+    .painel-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+      background: linear-gradient(135deg, #103050, #0070C0);
+      color: #fff;
+      border-radius: 999px;
+      padding: .4rem 1.1rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: .7rem;
+      letter-spacing: .05em;
+      box-shadow: 0 8px 20px -10px rgba(16, 48, 80, .5);
+      text-decoration: none;
+      transition: opacity .2s;
+      white-space: nowrap;
+    }
+
+    .painel-badge:hover {
+      opacity: .85;
+    }
+
+    .doc-lead {
+      font-size: 1.05rem;
+      line-height: 1.52;
+      color: #103050;
+      font-weight: 600;
+      border-left: 4px solid #0090C0;
+      padding-left: 1.1rem;
+      margin-bottom: 1rem;
+    }
+
+    .doc-lead b {
+      color: #0070C0;
+      font-weight: 700;
+    }
+
+    .feature-card {
+      background: #ffffff;
+      border: 1.5px solid #E2E8F0;
+      border-radius: 14px;
+      padding: 1rem 1.2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: .4rem;
+      box-shadow: 0 4px 12px -4px rgba(16, 48, 80, .12);
+      transition: transform .24s ease, border-color .24s ease, box-shadow .24s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--card-accent, #0070C0);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      border-color: #0090C0;
+      box-shadow: 0 12px 24px -8px rgba(16, 48, 80, .24);
+    }
+
+    .fc-head {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+    }
+
+    .fc-ico {
+      width: 2rem;
+      height: 2rem;
+      border-radius: 8px;
+      background: #F0F7FC;
+      color: var(--card-accent, #0070C0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .95rem;
+      flex-shrink: 0;
+    }
+
+    .fc-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: .88rem;
+      color: #103050;
+      line-height: 1.25;
+    }
+
+    .fc-desc {
+      font-size: .82rem;
+      line-height: 1.5;
+      color: #475569;
+      margin: 0;
+      text-align: justify;
+      text-align-last: left;
+    }
+
+    .info-footer {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 10px;
+      padding: .6rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      font-size: .78rem;
+      color: #64748B;
+      flex-shrink: 0;
+    }
+
+    .info-footer strong {
+      color: #103050;
+    }
+
+    .bg-pattern {
+      position: absolute;
+      bottom: -60px;
+      right: -50px;
+      width: 400px;
+      height: 400px;
+      opacity: 0.03;
+      z-index: 0;
+      color: #103050;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    .anim-in {
+      animation: fadeInUp .45s cubic-bezier(.2, .7, .3, 1) both;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="a11y.css">
+  <link rel="stylesheet" href="base.css" />
+</head>
+
+<body>
+  <div class="slide-container">
+    <div class="top-accent"></div>
+    <div class="top-accent-secondary"></div>
+
+    <div class="flex items-start justify-between px-16 pt-10 pb-3 z-10">
+      <div>
+        <div class="flex items-center gap-3 mb-1">
+          <div class="w-1 h-8 bg-brand-secondary"></div>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Plataforma Informa.BR</p>
+        </div>
+        <p class="text-gray-500 font-medium ml-4 text-base">Inteligência artificial da CGU para localização de informações públicas e pedidos LAI</p>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="https://informabr.cgu.gov.br" target="_blank" rel="noopener noreferrer" class="painel-badge">
+          <i class="fas fa-arrow-up-right-from-square"></i> Acessar Informa.BR
+        </a>
+        <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
+          <i class="fas fa-lock-open text-3xl" aria-hidden="true"></i>
+          <div class="flex flex-col justify-center pl-2" style="border-left:1px solid #CBD5E1;">
+            <p
+              class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">
+              CAPÍTULO 04</p>
+            <p
+              class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none whitespace-nowrap">
+              Seção de Transparência e Acesso à Informação - STAI</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex-1 flex flex-col justify-between px-16 pb-4 z-10 anim-in" style="min-height:0;">
+      <p class="doc-lead txt-bloco">
+        Desenvolvido pela <b>Controladoria-Geral da União (CGU)</b>, o <b>Informa.BR</b> é uma ferramenta inovadora que emprega <b>inteligência artificial</b> para democratizar o acesso à informação, realizando buscas semânticas em dados já divulgados e conectando o cidadão ao registro direto de pedidos via Fala.BR.
+      </p>
+
+      <div class="grid grid-cols-2 gap-4 my-auto" style="min-height:0;">
+        <div class="feature-card" style="--card-accent:#103050;">
+          <div class="fc-head">
+            <div class="fc-ico"><i class="fas fa-magnifying-glass-chart"></i></div>
+            <p class="fc-title">Busca Semântica com Inteligência Artificial</p>
+          </div>
+          <p class="fc-desc txt-bloco">
+            Interpreta perguntas em linguagem natural e vasculha simultaneamente o Portal da Transparência, dados abertos e sítios oficiais de órgãos públicos federais, localizando respostas imediatas sem necessidade de termos técnicos.
+          </p>
+        </div>
+
+        <div class="feature-card" style="--card-accent:#0070C0;">
+          <div class="fc-head">
+            <div class="fc-ico"><i class="fas fa-arrow-right-arrow-left"></i></div>
+            <p class="fc-title">Integração Direta com o Fala.BR</p>
+          </div>
+          <p class="fc-desc txt-bloco">
+            Caso a informação desejada não seja encontrada nas bases públicas, a plataforma orienta o usuário e permite converter a pesquisa diretamente em um pedido formal de acesso à informação (LAI) cadastrado no Fala.BR.
+          </p>
+        </div>
+
+        <div class="feature-card" style="--card-accent:#0090C0;">
+          <div class="fc-head">
+            <div class="fc-ico"><i class="fas fa-bolt"></i></div>
+            <p class="fc-title">Redução de Demandas Repetitivas</p>
+          </div>
+          <p class="fc-desc txt-bloco">
+            Ao entregar prontamente dados que já estão publicados na transparência ativa da ANTAQ e do governo federal, evita o retrabalho dos setores técnicos e diminui o tempo de resposta ao cidadão.
+          </p>
+        </div>
+
+        <div class="feature-card" style="--card-accent:#F2A900;">
+          <div class="fc-head">
+            <div class="fc-ico"><i class="fas fa-shield-halved"></i></div>
+            <p class="fc-title">Fortalecimento do Controle Social</p>
+          </div>
+          <p class="fc-desc txt-bloco">
+            Reúne em um ponto único de contato dados orçamentários, contratos, compras, servidores e regulações, promovendo maior transparência e controle social sobre as ações da administração pública.
+          </p>
+        </div>
+      </div>
+
+      <div class="info-footer">
+        <div class="flex items-center gap-2">
+          <i class="fas fa-circle-info text-brand-secondary"></i>
+          <span>Plataforma governamental disponível em: <strong>informabr.cgu.gov.br</strong></span>
+        </div>
+        <div>
+          <span>Fundamento: <strong>Lei nº 12.527/2011 (LAI)</strong> e <strong>Decreto nº 7.724/2012</strong></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="px-16 pb-6 pt-1 flex justify-between items-center z-10">
+      <p class="text-gray-400 text-xs">Relatório 1º Semestre de 2026 – Ouvidoria – Agência Nacional de Transportes
+        Aquaviários - ANTAQ</p>
+    </div>
+    <div class="bg-pattern"><i class="fas fa-robot text-9xl"></i></div>
+  </div>
+
+  <script>
+    document.addEventListener("keydown", function (e) {
+      if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) {
+        e.preventDefault();
+        window.parent.postMessage({ type: "slide-nav", key: e.key }, "*");
+      }
+    });
+  </script>
+  <script src="a11y.js" defer></script>
+</body>
+
+</html>
