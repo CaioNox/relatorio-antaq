@@ -288,6 +288,10 @@
       animation-delay: 240ms;
     }
 
+    .hist-kpi:nth-child(5) {
+      animation-delay: 320ms;
+    }
+
     @keyframes fadeInUp {
       from {
         opacity: 0;
@@ -341,7 +345,7 @@
       <div class="chart-card flex flex-col" style="min-height:0;">
         <p class="text-brand-primary font-montserrat font-bold text-xl mb-1 flex items-center gap-2"><i
             class="fas fa-file-circle-plus text-brand-secondary"></i> Pedidos de acesso à informação</p>
-        <div class="flex-1 relative" style="min-height:0;"><canvas id="chartLaiHist" role="img" aria-label="Gráfico de barras: histórico de pedidos LAI no 1º semestre de cada ano — 2022: 416, 2023: 300, 2024: 156, 2025: 188"></canvas></div>
+        <div class="flex-1 relative" style="min-height:0;"><canvas id="chartLaiHist" role="img" aria-label="Gráfico de barras: histórico de pedidos LAI no 1º semestre de cada ano — 2022: 416, 2023: 300, 2024: 156, 2025: 188, 2026: 262"></canvas></div>
         <p class="chart-note"><i class="fas fa-circle-info"></i><span>O comparativo histórico demonstra a evolução da
             demanda por transparência pública e permite avaliar tendências de acesso à informação.</span></p>
       </div>
@@ -352,6 +356,13 @@
           <span class="hk-help" tabindex="0" role="button"
             aria-label="Pedidos registrados no 1º semestre">?</span>
           <span class="hk-tip">Total de pedidos LAI registrados no 1º semestre do ano. O dado mais recente é o destaque.</span>
+          <p class="hk-year">1º semestre de 2026</p>
+          <p class="hk-val">262 <span class="hk-label">pedidos</span></p>
+        </div>
+        <div class="hist-kpi">
+          <span class="hk-help" tabindex="0" role="button"
+            aria-label="Pedidos registrados no 1º semestre">?</span>
+          <span class="hk-tip">Total de pedidos LAI registrados no 1º semestre do ano.</span>
           <p class="hk-year">1º semestre de 2025</p>
           <p class="hk-val">188 <span class="hk-label">pedidos</span></p>
         </div>
@@ -418,15 +429,15 @@
         ctx.restore();
       }
     };
-    const laiHistLabels = ['1º semestre 2022', '1º semestre 2023', '1º semestre 2024', '1º semestre 2025'];
-    const laiHistData = [416, 300, 156, 188];
+    const laiHistLabels = ['1º semestre 2022', '1º semestre 2023', '1º semestre 2024', '1º semestre 2025', '1º semestre 2026'];
+    const laiHistData = [416, 300, 156, 188, 262];
     new Chart(document.getElementById('chartLaiHist'), {
       type: 'bar',
       data: {
         labels: laiHistLabels,
         datasets: [{
           data: laiHistData,
-          backgroundColor: ['#D8ECF6', '#90C8E5', '#5AAFD8', '#0090C0'],
+          backgroundColor: ['#E2F0F8', '#B8DCEC', '#8AC5DF', '#4FA8D1', '#0090C0'],
           borderRadius: 8,
           maxBarThickness: 80
         }]
@@ -449,7 +460,7 @@
       if (!window.A11y) return;
       A11y.renderChartFallbackTable(
         document.getElementById('chartLaiHist'),
-        'Histórico de pedidos LAI no 1º semestre · 2022–2025',
+        'Histórico de pedidos LAI no 1º semestre · 2022–2026',
         ['Período', 'Pedidos'],
         laiHistLabels.map((l, i) => [l, String(laiHistData[i])])
       );
