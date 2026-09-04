@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Acesso à informação por iniciativa da ANTAQ - Relatório Semestral Ouvidoria ANTAQ</title>
+  <link rel="icon" type="image/png"
+    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    html {
+      font-size: clamp(13px, min(1.354vw, 2.407vh), 26px);
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f3f4f6;
+      overflow: hidden;
+    }
+
+    .slide-container {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background-color: #ffffff;
+      overflow: hidden;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    .font-montserrat {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .text-brand-primary {
+      color: #103050;
+    }
+
+    .text-brand-secondary {
+      color: #0070C0;
+    }
+
+    .bg-brand-secondary {
+      background-color: #0070C0;
+    }
+
+    .top-accent {
+      height: 8px;
+      background-color: #103050;
+      width: 100%;
+    }
+
+    .top-accent-secondary {
+      height: 4px;
+      background-color: #0070C0;
+      width: 100%;
+    }
+
+    .kpi-card {
+      border-radius: 20px;
+      padding: 1.8rem 1.6rem;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      gap: 1rem;
+      box-shadow: 0 18px 40px -12px rgba(16, 48, 80, 0.45);
+      transition: transform .28s cubic-bezier(.2, .7, .3, 1), box-shadow .28s ease;
+    }
+
+    .kpi-card:hover {
+      transform: translateY(-8px) scale(1.015);
+      box-shadow: 0 30px 58px -16px rgba(16, 48, 80, .6);
+    }
+
+    .kpi-primary {
+      background: linear-gradient(160deg, #103050 0%, #0070C0 100%);
+    }
+
+    .kpi-soft {
+      background: linear-gradient(160deg, #0e3a66 0%, #11598f 100%);
+    }
+
+    .kpi-num {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      line-height: 1;
+      color: #ffffff;
+      text-align: center;
+    }
+
+    .kpi-watermark {
+      position: absolute;
+      right: -10px;
+      bottom: -20px;
+      font-size: 9rem;
+      opacity: 0.12;
+      color: #ffffff;
+      transition: transform .4s ease, opacity .4s ease;
+    }
+
+    .kpi-card:hover .kpi-watermark {
+      transform: scale(1.12);
+      opacity: .2;
+    }
+
+    .info-card {
+      background: #ffffff;
+      border: 2px solid #E2E8F0;
+      border-left: 5px solid #0070C0;
+      border-radius: 14px;
+      padding: 1rem 1.3rem;
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      box-shadow: 0 6px 16px -8px rgba(16, 48, 80, .18);
+      transition: transform .28s cubic-bezier(.2, .7, .3, 1), box-shadow .28s ease, border-color .28s ease;
+    }
+
+    .info-card:hover {
+      transform: translateY(-5px);
+      border-color: #0090C0;
+      box-shadow: 0 18px 34px -14px rgba(16, 48, 80, .32);
+    }
+
+    .painel-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+      background: linear-gradient(135deg, #103050, #0070C0);
+      color: #fff;
+      border-radius: 999px;
+      padding: .4rem 1.1rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: .7rem;
+      letter-spacing: .05em;
+      box-shadow: 0 8px 20px -10px rgba(16, 48, 80, .5);
+      text-decoration: none;
+      transition: opacity .2s;
+      white-space: nowrap;
+    }
+
+    .painel-badge:hover {
+      opacity: .85;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    .kpi-card {
+      animation: fadeIn .5s ease both;
+    }
+
+    .kpi-card:nth-child(2) {
+      animation-delay: .1s;
+    }
+
+    .info-card {
+      animation: fadeIn .5s ease both;
+    }
+
+    .info-card:nth-child(2) {
+      animation-delay: .08s;
+    }
+
+    .info-card:nth-child(3) {
+      animation-delay: .16s;
+    }
+
+    .info-card:nth-child(4) {
+      animation-delay: .24s;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="a11y.css">
+  <link rel="stylesheet" href="base.css" />
+</head>
+
+<body>
+  <div class="slide-container">
+    <div class="top-accent"></div>
+    <div class="top-accent-secondary"></div>
+
+    <div class="flex items-start justify-between px-16 pt-10 pb-3 z-10">
+      <div>
+        <div class="flex items-center gap-3 mb-1">
+          <div class="w-1 h-8 bg-brand-secondary"></div>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Acesso à informação por iniciativa da ANTAQ</p>
+        </div>
+        <p class="text-gray-500 font-medium ml-4 text-base">1º Semestre de 2026 · Painel LAI</p>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="https://www.gov.br/antaq/pt-br/acesso-a-informacao" target="_blank" rel="noopener noreferrer"
+          class="painel-badge">
+          <i class="fas fa-arrow-up-right-from-square"></i> Acesso à Informação — ANTAQ
+        </a>
+        <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
+          <i class="fas fa-lock-open text-3xl" aria-hidden="true"></i>
+          <div class="flex flex-col justify-center pl-2" style="border-left:1px solid #CBD5E1;">
+            <p
+              class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">
+              CAPÍTULO 04</p>
+            <p
+              class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none whitespace-nowrap">
+              Seção de Transparência e Acesso à Informação - STAI</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex-1 grid grid-cols-3 gap-6 px-16 pb-6 z-10" style="min-height:0;">
+
+      <div class="col-span-1 flex flex-col gap-4" style="min-height:0;">
+        <div class="kpi-card kpi-primary" style="flex:1; min-height:0;">
+          <div class="flex flex-col items-center text-center">
+            <p class="text-blue-100 font-montserrat font-bold text-xs uppercase tracking-widest mb-1 text-center">Itens cumpridos</p>
+            <p class="kpi-num text-7xl">100%</p>
+          </div>
+          <p class="text-blue-100 text-sm leading-relaxed relative z-10 text-center">Nota máxima no ranking do Painel LAI, que avalia o acesso à informação por iniciativa do órgão.</p>
+          <i class="fas fa-ranking-star kpi-watermark"></i>
+        </div>
+        <div class="kpi-card kpi-soft" style="flex:1; min-height:0;">
+          <div class="flex flex-col items-center text-center">
+            <p class="text-blue-100 font-montserrat font-bold text-xs uppercase tracking-widest mb-1 text-center">Quesitos avaliados</p>
+            <p class="kpi-num text-7xl">49/49</p>
+          </div>
+          <p class="text-blue-100 text-sm leading-relaxed relative z-10 text-center">Todos os quesitos do Painel LAI atendidos integralmente.</p>
+          <i class="fas fa-list-check kpi-watermark"></i>
+        </div>
+      </div>
+
+      <div class="col-span-2 flex flex-col gap-4" style="min-height:0;">
+        <div class="info-card" style="border-left-color:#0070C0;">
+          <p class="font-montserrat font-bold text-brand-primary text-base mb-1 flex items-center gap-2">
+            <i class="fas fa-circle-info text-brand-secondary"></i> O que é o acesso à informação por iniciativa da
+            ANTAQ?
+          </p>
+          <p class="text-gray-600 text-sm leading-relaxed">É a divulgação espontânea de informações pelo órgão público,
+            independentemente de solicitação — disponibilizando dados sobre estrutura, orçamento, contratos, serviços e
+            indicadores de forma proativa em seu portal. Corresponde ao que a LAI chama de “transparência ativa”.</p>
+        </div>
+        <div class="info-card" style="border-left-color:#0090C0;">
+          <p class="font-montserrat font-bold text-brand-primary text-base mb-1 flex items-center gap-2">
+            <i class="fas fa-gavel text-brand-secondary"></i> Base legal
+          </p>
+          <p class="text-gray-600 text-sm leading-relaxed">Lei nº 12.527/2011 (LAI) — Art. 8º: obriga os órgãos públicos
+            a disponibilizarem, na internet, informações de interesse coletivo ou geral. Decreto nº 7.724/2012
+            regulamenta os itens mínimos exigidos.</p>
+        </div>
+        <div class="info-card" style="border-left-color:#F2A900;">
+          <p class="font-montserrat font-bold text-brand-primary text-base mb-1 flex items-center gap-2">
+            <i class="fas fa-star" style="color:#F2A900;"></i> Desempenho da ANTAQ no Painel LAI
+          </p>
+          <p class="text-gray-600 text-sm leading-relaxed">No 1º semestre de 2026, a ANTAQ atingiu <strong
+              class="text-brand-primary">100% dos 49 quesitos</strong> avaliados pelo Ministério da Gestão no Painel
+            LAI, mantendo-se como referência em acesso à informação por iniciativa do órgão entre as agências
+            reguladoras federais.</p>
+        </div>
+        <div class="info-card" style="border-left-color:#16a34a;">
+          <p class="font-montserrat font-bold text-brand-primary text-base mb-1 flex items-center gap-2">
+            <i class="fas fa-link" style="color:#16a34a;"></i> Acesso ao portal de transparência
+          </p>
+
+          <p class="text-gray-600 text-sm leading-relaxed">Consulte todas as informações divulgadas por iniciativa da
+            ANTAQ em: <a href="https://www.gov.br/antaq/pt-br/acesso-a-informacao" target="_blank"
+              rel="noopener noreferrer" class="font-semibold text-brand-secondary underline">gov.br/antaq — Acesso à
+              Informação</a></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="px-16 pb-6 pt-1 flex justify-between items-center z-10">
+      <p class="text-gray-400 text-xs">Relatório 1º Semestre de 2026 – Ouvidoria – Agência Nacional de Transportes
+        Aquaviários - ANTAQ</p>
+    </div>
+  </div>
+  <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
+  <script src="a11y.js" defer></script>
+</body>
+
+</html>
