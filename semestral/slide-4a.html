@@ -69,7 +69,7 @@
       min-height: 0;
       position: relative;
       z-index: 10;
-      padding: 1rem 5rem 1rem 5rem;
+      padding: .8rem 5rem 1rem 5rem;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -77,13 +77,13 @@
     }
 
     .doc-lead {
-      font-size: 1.16rem;
-      line-height: 1.58;
+      font-size: 1.05rem;
+      line-height: 1.52;
       color: #103050;
       font-weight: 600;
       border-left: 4px solid #0090C0;
-      padding-left: 1.2rem;
-      margin-bottom: 1.5rem;
+      padding-left: 1.1rem;
+      margin-bottom: 1rem;
     }
 
     .doc-lead b {
@@ -98,9 +98,9 @@
 
     .doc-text {
       color: #334155;
-      font-size: .93rem;
-      line-height: 1.68;
-      margin: 0 0 .95rem;
+      font-size: .86rem;
+      line-height: 1.55;
+      margin: 0 0 .75rem;
       break-inside: avoid;
       text-indent: 1.8em;
       text-align: justify;
@@ -115,10 +115,10 @@
       font-family: 'Montserrat', sans-serif;
       font-weight: 800;
       font-size: .78rem;
-      letter-spacing: .1em;
+      letter-spacing: .08em;
       text-transform: uppercase;
       color: #0070C0;
-      margin: 0 0 .65rem;
+      margin: 0 0 .55rem;
       display: flex;
       align-items: center;
       gap: .5rem;
@@ -131,17 +131,17 @@
 
     .act-list {
       list-style: none;
-      margin: 0 0 .3rem;
+      margin: 0;
       padding: 0;
       break-inside: avoid;
     }
 
     .act-list li {
       position: relative;
-      padding-left: 1.3rem;
-      margin-bottom: .62rem;
-      font-size: .92rem;
-      line-height: 1.54;
+      padding-left: 1.2rem;
+      margin-bottom: .5rem;
+      font-size: .83rem;
+      line-height: 1.48;
       color: #334155;
       text-align: justify;
     }
@@ -159,6 +159,11 @@
     .act-list li b {
       color: #103050;
       font-weight: 700;
+    }
+
+    .act-list li a {
+      color: #0070C0;
+      text-decoration: underline;
     }
 
     .bg-pattern {
@@ -210,7 +215,7 @@
           <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Apresentação da STAI
           </p>
         </div>
-        <p class="text-gray-500 font-medium ml-4 text-lg">Seção de Transparência e Acesso à Informação no
+        <p class="text-gray-500 font-medium ml-4 text-base">Seção de Transparência e Acesso à Informação no
           âmbito da Ouvidoria</p>
       </div>
       <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
@@ -228,9 +233,9 @@
 
 
     <div class="doc">
-      <p class="doc-lead">
-        A <b>Seção de Transparência e Acesso à Informação (STAI)</b> fomenta a substituição da cultura de sigilo pela
-        cultura da transparência, sem deixar de observar a segurança das informações resguardadas por lei.
+      <p class="doc-lead txt-bloco">
+        A <b>Seção de Transparência e Acesso à Informação (STAI)</b> é a unidade encarregada de assegurar a plena
+        efetividade do direito fundamental de acesso à informação pública.
       </p>
 
       <div class="doc-cols">
@@ -241,8 +246,9 @@
           exatidão, tempestividade e linguagem acessível ao cidadão.
         </p>
         <p class="doc-text txt-bloco">
-          Na <b>transparência passiva</b>, recebe, instrui e responde aos pedidos formulados via <b>Fala.BR</b>,
-          monitorando o cumprimento dos prazos legais; na <b>transparência ativa</b>, promove a divulgação proativa de
+          No <b>acesso à informação sob iniciativa do cidadão</b> (transparência passiva, na LAI), recebe, instrui e
+          responde aos pedidos formulados via <b>Fala.BR</b>, monitorando o cumprimento dos prazos legais; no
+          <b>acesso à informação por iniciativa da ANTAQ</b> (transparência ativa), promove a divulgação proativa de
           informações de interesse coletivo. A condução das <b>políticas de dados abertos</b>, por meio do Plano de
           Dados Abertos (PDA), completa esse tripé, reduzindo a assimetria de informação e estimulando o controle
           social.
@@ -250,14 +256,19 @@
 
         <p class="doc-subtitle"><i class="fas fa-list-check"></i> Principais atividades da STAI</p>
         <ul class="act-list">
-          <li><b>Transparência Passiva:</b> A STAI recebe, instrui e responde os pedidos de informação cadastrados no
+          <li class="txt-bloco"><b>Acesso à informação sob iniciativa do cidadão:</b> A STAI recebe, instrui e
+            responde os pedidos de informação cadastrados no
             <strong>Fala.BR</strong>, além de monitorar o cumprimento dos prazos legais, atuando como ponto focal e
             articulando as áreas técnicas para que cada demanda seja respondida com exatidão, tempestividade e linguagem
-            acessível ao cidadão.</li>
-          <li><b>Transparência Ativa:</b> Promove a divulgação proativa de informações de interesse coletivo no site da
-            <b>ANTAQ</b>, acessíveis no menu <strong>“Acesso à Informação”</strong>.</li>
-          <li><b>Dados Abertos:</b> A condução das políticas de dados abertos, por meio do Plano de Dados Abertos (PDA),
+            acessível ao cidadão.
+          </li>
+          <li class="txt-bloco"><b>Acesso à informação por iniciativa da ANTAQ:</b> Promove a divulgação proativa de
+            informações de interesse coletivo no site da
+            <b>ANTAQ</b>, acessíveis no menu <strong>“Acesso à Informação”</strong>.
+          </li>
+          <li class="txt-bloco"><b>Dados Abertos:</b> A condução das políticas de dados abertos, por meio do Plano de Dados Abertos (PDA),
             completa esse tripé, reduzindo a assimetria de informação e estimulando o controle social.</li>
+          <li class="txt-bloco"><b>e-Agendas (Transparência de Agendas Públicas):</b> Acompanha e orienta o cumprimento do Decreto nº 10.889/2021 e da Lei nº 12.813/2013, assegurando a publicidade das agendas de compromissos públicos das autoridades da ANTAQ no sistema <a href="https://eagendas.cgu.gov.br/" target="_blank" rel="noopener noreferrer" class="font-semibold text-brand-secondary underline">e-Agendas</a> da CGU.</li>
         </ul>
       </div>
     </div>

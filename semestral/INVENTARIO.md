@@ -46,6 +46,18 @@ existiam em `semestral/` de trabalho anterior — confirmados compatíveis.
 
 ---
 
+## DECISÕES REGISTRADAS (2026-09-04) — reorganização do Bloco 4 (STAI)
+
+| Pendência | Decisão |
+|---|---|
+| Terminologia "transparência ativa/passiva" | **Renomear em todo o deck semestral.** `transparência ativa` → **"acesso à informação por iniciativa da ANTAQ"**; `transparência passiva` → **"acesso à informação sob iniciativa do cidadão"**. Substituição integral em títulos (`<title>` + H1), sumário (`slide-01.html`), capa do bloco, botões de referência do Q&A e prosa. O termo legal fica só como glosa entre parênteses / "antiga …" na 1ª menção de cada slide expositivo (`slide-4a`, `slide-22`, `slide-23`, `slide-29b`, `slide-qa-geral`). Dois pontos apertados de UI usam forma curta: card do mapa mental em `slide-ouvidoria-geral.html` → "Acesso à Informação · ANTAQ e cidadão"; pílula de link externo em `slide-23.html` → "Painel LAI". |
+| `slide-22.html` (ex-"Transparência Ativa") | **Reincluído** (revertendo a reversão de 2026-08-27). Copiado de `sistema/slide-22.html` e adaptado ao semestral: `<title>`/H1 com o novo nome, subtítulo/rodapé/card "1º trimestre" → "1º semestre de 2026", `+base.css`, H1 reduzido para `text-2xl`, pílula do cabeçalho encurtada. Registrado em `deck.js` e no sumário. |
+| `slide-resp-unidade.html` + `slide-tramit-uorg.html` | **Reincluídos no `deck.js`** (estavam no INVENTARIO §1 e no sumário, mas tinham sido retirados de `deck.js` — as 3 linhas em branco no array do Bloco 4 eram a cicatriz). ⚠️ Ainda com dados/arrays trimestrais (`BASE_PCT`, `MESES` de 3 meses) e **sem** o badge `.todo-dado` — ver `PENDENCIAS-DADOS.md §3`. |
+| Aviso Informa.BR | Card `.informa-br` adicionado em `slide-4a.html`, depois da lista "Principais atividades da STAI", com link para `informabr.cgu.gov.br`. |
+| Ordem do Bloco 4 | Apresentação → PDA (`slide-pda`, `slide-21`) → por iniciativa da ANTAQ (`slide-22`) → sob iniciativa do cidadão (`slide-23`, `slide-18`, `slide-resp-unidade`, `slide-tramit-uorg`, `slide-20`) → Perguntas e Respostas (`slide-qa-geral`, `slide-qa-dados-abertos`). Aplicada em `deck.js`, `slide-01.html` (árvore) e `capa-bloco-4.html` (lista de tópicos, também limpa de itens que não eram slides). Bloco 4 passa de 9 → **12 arquivos** (+`slide-22`, +`slide-resp-unidade`, +`slide-tramit-uorg`). |
+
+---
+
 ## 1. Tabela de derivação (51 slides do deck do semestral)
 
 | # | Destino (`semestral/`) | Origem (`sistema/`) | Ação | O que muda | Origem confirmada? |
