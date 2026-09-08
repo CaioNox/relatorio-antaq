@@ -634,7 +634,6 @@
     <div class="header-section">
       <div class="title-wrap">
         <h1>Ouvidoria <span class="gold">da ANTAQ</span></h1>
-        <span class="title-arrow" id="titleArrow" aria-hidden="true"></span>
       </div>
       <p>Selecione o conteúdo que deseja acessar</p>
     </div>
@@ -751,14 +750,6 @@
           var substantivo = total === 1 ? 'relatório' : 'relatórios';
           contagem.textContent = '· ' + total + ' ' + substantivo;
         }
-      });
-    })();
-
-    (function () {
-      var seta = document.getElementById('titleArrow');
-      if (!seta) return;
-      requestAnimationFrame(function () {
-        requestAnimationFrame(function () { seta.classList.add('in'); });
       });
     })();
   </script>
