@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Perguntas e Respostas · Conceitos e base legal — Relatório Semestral Ouvidoria ANTAQ</title>
+  <link rel="icon" type="image/png"
+    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&amp;family=Barlow:ital,wght@0,400;0,500;0,600;1,400&amp;display=swap"
+    rel="stylesheet" />
+  <style>
+    html { font-size: clamp(13px, min(1.354vw, 2.407vh), 26px); }
+    body { margin: 0; padding: 0; background: #DFE3E7; overflow: hidden; }
+
+    .slide-container {
+      width: 100vw; height: 100vh; position: relative;
+      display: flex; flex-direction: column;
+      background: #F2F2F3; overflow: hidden;
+      font-family: 'Barlow', sans-serif; color: #2F3A46;
+    }
+
+    /* faixas de topo */
+    .top-accent { height: .38rem; background: #103050; }
+    .top-accent-secondary { height: .19rem; background: #0070C0; }
+
+    /* cabecalho */
+    .cab {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      padding: 1.54rem 3.46rem .92rem;
+    }
+    .cab-kicker {
+      display: block; margin: 0 0 .38rem;
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: 1rem;
+      letter-spacing: .26em; text-transform: uppercase; color: #8593A1;
+    }
+    .cab h1 {
+      margin: 0;
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 2.77rem;
+      line-height: 1; letter-spacing: .03em; text-transform: uppercase; color: #103050;
+    }
+    .cab-faixa {
+      flex-shrink: 0;
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1.31rem;
+      letter-spacing: .14em; color: #FFFFFF; background: var(--faixa, #103050);
+      padding: .31rem .77rem;
+    }
+    .regua { height: .12rem; background: #0070C0; margin: 0 3.46rem; }
+
+    /* corpo: tres perguntas em alturas iguais */
+    .board { flex: 1; min-height: 0; display: flex; flex-direction: column; padding: 0 3.46rem; }
+    .qa {
+      flex: 1; display: flex; gap: 1.31rem; align-items: flex-start; padding: 1rem 0;
+      animation: subir .45s ease both;
+    }
+    .qa + .qa { border-top: 1px solid #C6CED6; }
+    .qa:nth-child(2) { animation-delay: .07s; }
+    .qa:nth-child(3) { animation-delay: .14s; }
+
+    /* numeral emoldurado com marcas de registro */
+    .qa-n {
+      position: relative; flex-shrink: 0;
+      width: 3.38rem; height: 3.38rem; border: 1px solid #0070C0;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1.92rem;
+      line-height: 1; color: #0070C0;
+    }
+    .qa-n i {
+      position: absolute; font-style: normal; font-size: .62rem; line-height: 1; color: #0070C0;
+    }
+    .qa-n .tl { top: -.3rem; left: -.3rem; }
+    .qa-n .tr { top: -.3rem; right: -.3rem; }
+    .qa-n .bl { bottom: -.3rem; left: -.3rem; }
+    .qa-n .br { bottom: -.3rem; right: -.3rem; }
+
+    .qa-txt { min-width: 0; display: flex; flex-direction: column; gap: .46rem; }
+    .qa-q {
+      margin: 0;
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: 1.92rem;
+      line-height: 1.05; text-transform: uppercase; color: #103050;
+    }
+    .qa-a { margin: 0; font-size: 1.38rem; line-height: 1.34; color: #2F3A46; text-wrap: pretty; }
+    .qa-a b { color: #0A5FA0; font-weight: 600; }
+
+    /* etiquetas de referencia: legiveis como legenda, clicaveis se o operador quiser */
+    .qa-refs { display: flex; flex-wrap: wrap; gap: .62rem; }
+    .qa-ref {
+      font: inherit; background: none; border: 0; padding: 0; cursor: pointer;
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 500; font-size: 1.08rem;
+      letter-spacing: .08em; text-transform: uppercase; color: #7C8896;
+      transition: color .2s ease;
+    }
+    .qa-ref:hover { color: #0070C0; }
+    .qa-ref:focus-visible { outline: 2px solid #0070C0; outline-offset: 2px; }
+
+    /* rodape */
+    .rodape {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: .77rem 3.46rem 1.23rem;
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 500; font-size: 1rem;
+      letter-spacing: .04em; color: #8A96A3;
+    }
+    .rodape .eixo {
+      font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: #0070C0;
+    }
+
+    @keyframes subir { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+    @media print { .qa { animation: none; } }
+  </style>
+  <link rel="stylesheet" href="a11y.css">
+  <link rel="stylesheet" href="base.css" />
+</head>
+
+<body>
+  <div class="slide-container">
+    <div class="top-accent"></div>
+    <div class="top-accent-secondary"></div>
+
+    <div class="cab">
+      <div>
+        <span class="cab-kicker">Perguntas e Respostas · Capítulo 04 · STAI</span>
+        <h1>Conceitos e base legal</h1>
+      </div>
+      <span class="cab-faixa" style="--faixa:#103050;">01–03</span>
+    </div>
+    <div class="regua"></div>
+
+    <div class="board">
+        <div class="qa">
+          <div class="qa-n"><i class="tl">+</i><i class="tr">+</i><i class="bl">+</i><i class="br">+</i>01</div>
+          <div class="qa-txt">
+            <p class="qa-q">O que é a STAI?</p>
+            <p class="qa-a">Seção de Transparência e Acesso à Informação — a unidade da Ouvidoria que responde pelo acesso à informação por iniciativa da ANTAQ, pelo acesso à informação sob iniciativa do cidadão e pelos dados abertos.</p>
+            <div class="qa-refs">
+              <button class="qa-ref" data-file="slide-4a.html">&rarr; Apresentação da STAI</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="qa">
+          <div class="qa-n"><i class="tl">+</i><i class="tr">+</i><i class="bl">+</i><i class="br">+</i>02</div>
+          <div class="qa-txt">
+            <p class="qa-q">O que é o acesso à informação por iniciativa da ANTAQ?</p>
+            <p class="qa-a">É a divulgação espontânea de informações, sem que ninguém precise pedir (transparência ativa, <b>Art. 8º da LAI</b>). No Painel LAI, a ANTAQ cumpre <b>100% dos 49 quesitos</b> avaliados.</p>
+            <div class="qa-refs">
+              <button class="qa-ref" data-file="slide-22.html">&rarr; Acesso à informação por iniciativa da ANTAQ</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="qa">
+          <div class="qa-n"><i class="tl">+</i><i class="tr">+</i><i class="bl">+</i><i class="br">+</i>03</div>
+          <div class="qa-txt">
+            <p class="qa-q">E o acesso à informação sob iniciativa do cidadão?</p>
+            <p class="qa-a">É a resposta a pedidos feitos pelo cidadão (transparência passiva). Qualquer pessoa registra o pedido no <b>Fala.BR</b> e o órgão tem <b>20 dias</b>, prorrogáveis por mais 10, para responder.</p>
+            <div class="qa-refs">
+              <button class="qa-ref" data-file="slide-23.html">&rarr; Acesso à informação sob iniciativa do cidadão</button>
+              <button class="qa-ref" data-file="slide-falabr.html">&rarr; Fala.BR</button>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <div class="rodape">
+      <span>Relatório 1º Semestre de 2026 – Ouvidoria – Agência Nacional de Transportes Aquaviários - ANTAQ</span>
+      <span class="eixo">Eixo 1 de 3</span>
+    </div>
+  </div>
+
+  <script>
+    // etiquetas: navegacao opcional para o slide que detalha o dado
+    document.querySelectorAll('.qa-ref').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        window.parent.postMessage({ type: "slide-goto-file", file: btn.dataset.file }, "*");
+      });
+    });
+
+    // setas do teclado passam para o deck: o slide nao precisa de clique
+    document.addEventListener("keydown", function (e) {
+      if (e.target.closest && e.target.closest('button')) return;
+      if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) {
+        e.preventDefault();
+        window.parent.postMessage({ type: "slide-nav", key: e.key }, "*");
+      }
+    });
+  </script>
+  <script src="a11y.js" defer></script>
+</body>
+
+</html>

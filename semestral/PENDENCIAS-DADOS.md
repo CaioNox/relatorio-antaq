@@ -31,7 +31,7 @@ ainda não executada.
 |---|---|---|
 | `slide-07.html` | Dados de 1º semestre de 2023, 2024 e 2025 (hoje só tem 1º trimestre de cada ano) | Usuário confirmou que vai fornecer. Mantido com dado/rótulo trimestral original até lá (comentário `TODO-DADO` já inserido no arquivo). |
 | `slide-20.html` | Idem acima, para a série histórica de pedidos LAI | Mesma situação — comentário já inserido. |
-| `slide-qa-geral.html` (Trilha 2 inteira) | Reconciliar com o dado confirmado de `slide-23.html` (262/100%/10,3 dias) **e** com a série histórica de `slide-20.html` quando disponível — hoje ainda mostra 130 pedidos/9,1 dias/série 62-105-107-130 | Bloco inteiro sinalizado com comentário `TODO-DADO`, conteúdo preservado sem alteração até a reconciliação. |
+| ~~`slide-qa-geral.html` (Trilha 2 inteira)~~ | **Resolvido** — `slide-qa-geral.html` e `slide-qa-dados-abertos.html` foram substituídos por 3 slides novos (`slide-qa-conceitos.html`, `slide-qa-numeros.html`, `slide-qa-fluxo.html`, design "eixos" azul), já reconciliados com o dado confirmado de `slide-23.html` (262/100%/10,3 dias) e com `slide-tramit-uorg.html` (229/47 UORGs). A série histórica de `slide-20.html` continua com o rótulo original (§2 acima) até confirmação. | Concluído. |
 
 ## 3. Slides que precisam de badge `.todo-dado` sistemático (§16) — pendente, não iniciado
 
@@ -46,10 +46,10 @@ semestre de 2026. -->` em cada KPI/gráfico — isso é trabalho ainda não feit
 a ser executado como Etapa 9 (ver `INVENTARIO.md`).
 
 ⚠️ **Atenção especial** (já identificado pela auditoria, ver `INVENTARIO.md`):
-- `slide-tramit-uorg.html`: a base de cálculo `BASE_PCT = 353` e o array
-  `MESES = ['Janeiro','Fevereiro','Março']` estão hardcoded para 3 meses —
-  vão precisar virar 7 meses (Jan–Jul) com os respectivos valores, não é só
-  trocar o texto "trimestre"→"semestre".
+- ~~`slide-tramit-uorg.html`~~: **Resolvido** — dados reais do 1º semestre de
+  2026 (planilha `dados.xlsx`, 262 pedidos LAI) implementados: `BASE_PCT = 262`,
+  `MESES` com os 6 meses (Jan–Jun) e `UORGS`/`PAIS` recalculados por unidade
+  responsável (agregado por sigla, sem dado pessoal — padrão LGPD).
 - `slide-17d.html`: mesma situação — passa de 3 para 7 meses; os indicadores
   ▲/▼ já foram convertidos para a escala azul (ver INVENTARIO.md), mas os
   valores em si (+43,3%/-34,1%) ainda são os do trimestre e a série mensal

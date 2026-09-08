@@ -47,7 +47,7 @@ window.RELATORIO = {
         // Acesso à informação sob iniciativa do cidadão (transparência passiva)
         'slide-23.html', 'slide-18.html', 'slide-resp-unidade.html', 'slide-tramit-uorg.html', 'slide-20.html',
         // Perguntas e Respostas
-        'slide-qa-geral.html', 'slide-qa-dados-abertos.html',
+        'slide-qa-conceitos.html', 'slide-qa-numeros.html', 'slide-qa-fluxo.html',
       ],
     },
     {
@@ -105,20 +105,25 @@ window.RELATORIO = {
     'slide-29b.html': { titulo: 'Glossário (continuação)', sel: '.tile', ler: 'tile' },
     'slide-30.html': { titulo: 'Leis', sel: '.tile', ler: 'tile' },
     'slide-32.html': { titulo: 'Normativos e Portarias', sel: '.tile', ler: 'tile' },
-    'slide-qa-geral.html': {
-      titulo: 'Perguntas e Respostas — STAI', sel: '.qa',
-      ler: (el, txt) => ({ num: txt(el, '.qa-n'), nome: txt(el, '.qa-q'), tag: '', desc: txt(el, '.qa-a') })
+    'slide-qa-conceitos.html': {
+      titulo: 'Perguntas e Respostas — Conceitos e base legal', sel: '.qa',
+      ler: (el, txt) => ({ num: txt(el, '.qa-n').replace(/[^0-9]/g, ''), nome: txt(el, '.qa-q'), tag: '', desc: txt(el, '.qa-a') })
     },
-    'slide-qa-dados-abertos.html': {
-      titulo: 'Perguntas e Respostas — Dados Abertos', sel: '.qa',
-      ler: (el, txt) => ({ num: txt(el, '.qa-n'), nome: txt(el, '.qa-q'), tag: '', desc: txt(el, '.qa-a') })
+    'slide-qa-numeros.html': {
+      titulo: 'Perguntas e Respostas — Números do semestre', sel: '.qa',
+      ler: (el, txt) => ({ num: txt(el, '.qa-n').replace(/[^0-9]/g, ''), nome: txt(el, '.qa-q'), tag: '', desc: txt(el, '.qa-a') })
+    },
+    'slide-qa-fluxo.html': {
+      titulo: 'Perguntas e Respostas — Fluxo e dados abertos', sel: '.qa',
+      ler: (el, txt) => ({ num: txt(el, '.qa-n').replace(/[^0-9]/g, ''), nome: txt(el, '.qa-q'), tag: '', desc: txt(el, '.qa-a') })
     },
   },
 
 
   capturaPptx: {
-    'slide-qa-geral.html': { esconder: '.hint' },
-    'slide-qa-dados-abertos.html': { esconder: '.hint' },
+    'slide-qa-conceitos.html': { esconder: '.hint' },
+    'slide-qa-numeros.html': { esconder: '.hint' },
+    'slide-qa-fluxo.html': { esconder: '.hint' },
   },
 };
 

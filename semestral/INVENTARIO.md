@@ -289,3 +289,25 @@ ação.)
 >   para cor de marca de terceiro. Vou usar um gradiente dentro da escala
 >   azul (ex. `linear-gradient(145deg, var(--brand-primary), var(--accent))`)
 >   no lugar de `linear-gradient(145deg,#128C7E,#25D366)`.
+
+## Atualização — Perguntas e Respostas (2026-09-08)
+
+`slide-qa-geral.html` (#41) e `slide-qa-dados-abertos.html` (#42) foram
+**removidos** do `deck.js`, do disco e da árvore de `slide-01.html`. No lugar
+entraram três slides novos (design "eixos" azul, fonte Barlow/Barlow
+Condensed, fundo `#F2F2F3`/`#DFE3E7`), recebidos prontos do usuário e
+inseridos sem alteração estética:
+
+- `slide-qa-conceitos.html` — Eixo 1/3, perguntas 01–03 (o que é a STAI,
+  transparência ativa e passiva).
+- `slide-qa-numeros.html` — Eixo 2/3, perguntas 04–06 (pedidos do semestre,
+  recursos, série histórica).
+- `slide-qa-fluxo.html` — Eixo 3/3, perguntas 07–09 (fluxo interno, quem
+  responde, dados abertos). O texto da pergunta 07 foi reescrito para citar os
+  números já reconciliados de `slide-tramit-uorg.html` (262 pedidos, 33
+  respondidos direto pela STAI, 229 tramitações em 47 unidades) no lugar dos
+  números antigos (371/58/544/30).
+
+Cada slide mantém a navegação `slide-goto-file` já suportada pelo player em
+`index.html`. `capa-bloco-4.html` teve os dois tópicos finais da lista
+trocados pelos três novos títulos.
