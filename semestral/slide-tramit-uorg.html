@@ -192,7 +192,7 @@
           <div class="w-1 h-8 bg-brand-secondary"></div>
           <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Demandas Tramitadas por Unidade</p>
         </div>
-        <p class="text-gray-500 font-medium ml-4 text-base">1º semestre de 2026 · 544 tramitações · 30 UORGs com movimento</p>
+        <p class="text-gray-500 font-medium ml-4 text-base">1º semestre de 2026 · 229 tramitações a outras unidades · 47 UORGs com movimento</p>
       </div>
 
       <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
@@ -234,57 +234,74 @@
 
   <script>
 
-    const BASE_PCT = 353;
-    const MESES = ['Janeiro', 'Fevereiro', 'Março'];
+    const BASE_PCT = 262;
+    const MESES = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho'];
 
 
     const PAIS = [
-      { id: 'SFC', name: 'SFC', full: 'Superintendência de Fiscalização e Coordenação das Unidades Regionais', color: '#F2A900' },
-      { id: 'SGE', name: 'SGE', full: 'SGE', color: '#103050' },
       { id: 'SOG', name: 'SOG', full: 'Superintendência de Outorgas', color: '#0090C0' },
-      { id: 'SRG', name: 'SRG', full: 'SRG', color: '#0d3358' },
-      { id: 'SAF', name: 'SAF', full: 'SAF', color: '#0EA5E9' },
-      { id: 'GAB', name: 'GAB', full: 'Gabinete', color: '#94A3B8' },
-      { id: 'SEPH', name: 'SEPH', full: 'Superintendência de Estudos e Projetos Hidroviários', color: '#5fb8dd' },
-      { id: 'OUTRAS', name: 'Outras', full: 'Outras unidades (SESGI · PFA)', color: '#0070C0' }
+      { id: 'SAF', name: 'SAF', full: 'Superintendência de Administração e Finanças', color: '#0EA5E9' },
+      { id: 'OUTRAS', name: 'Outras', full: 'Outras unidades e assessorias (GEA · SAC · OUV · PFA · GM/GMS · ASPAR · ARINT · Diretoria D4)', color: '#0070C0' },
+      { id: 'SRG', name: 'SRG', full: 'Superintendência de Regulação', color: '#0d3358' },
+      { id: 'SFC', name: 'SFC', full: 'Superintendência de Fiscalização e Coordenação das Unidades Regionais', color: '#F2A900' },
+      { id: 'SGE', name: 'SGE', full: 'Secretaria-Geral', color: '#103050' },
+      { id: 'GAB', name: 'GAB', full: 'Gabinete da Diretoria Geral', color: '#94A3B8' },
+      { id: 'SEPH', name: 'SEPH', full: 'Superintendência de Estudos e Projetos Hidroviários', color: '#5fb8dd' }
     ];
 
+    // Unidade que efetivamente respondeu/tramitou a demanda (agregado por sigla — sem dados pessoais, conforme LGPD)
     const UORGS = [
-      { sigla: 'GCOR', pai: 'SFC', m: [57, 75, 80] },
-      { sigla: 'GPF', pai: 'SFC', m: [56, 70, 81] },
-      { sigla: 'SGE', pai: 'SGE', m: [8, 13, 5] },
-      { sigla: 'GOA', pai: 'SOG', m: [9, 4, 1] },
-      { sigla: 'GREBL', pai: 'SFC', m: [1, 5, 4] },
-      { sigla: 'GREMN', pai: 'SFC', m: [4, 1, 4] },
-      { sigla: 'GREFL', pai: 'SFC', m: [1, 5, 3] },
-      { sigla: 'GRP', pai: 'SRG', m: [2, 5, 2] },
-      { sigla: 'GRN', pai: 'SRG', m: [4, 2, 0] },
-      { sigla: 'GAF', pai: 'SOG', m: [3, 2, 0] },
-      { sigla: 'GRERJ', pai: 'SFC', m: [2, 0, 2] },
-      { sigla: 'GMS', pai: 'OUTRAS', m: [1, 3, 0] },
-      { sigla: 'GGP', pai: 'SAF', m: [0, 2, 1] },
-      { sigla: 'GRL', pai: 'SAF', m: [1, 2, 0] },
-      { sigla: 'PFA', pai: 'OUTRAS', m: [0, 3, 0] },
-      { sigla: 'UREVT', pai: 'SFC', m: [1, 0, 1] },
-      { sigla: 'SRG', pai: 'SRG', m: [0, 2, 0] },
-      { sigla: 'SAF', pai: 'SAF', m: [0, 2, 0] },
-      { sigla: 'GOF', pai: 'SAF', m: [1, 1, 0] },
-      { sigla: 'GAB', pai: 'GAB', m: [0, 0, 2] },
-      { sigla: 'URESL', pai: 'SFC', m: [0, 0, 1] },
-      { sigla: 'GRERE', pai: 'SFC', m: [0, 1, 0] },
-      { sigla: 'UREFT', pai: 'SFC', m: [0, 1, 0] },
-      { sigla: 'GREST', pai: 'SFC', m: [0, 0, 1] },
-      { sigla: 'URECB', pai: 'SFC', m: [0, 0, 1] },
-      { sigla: 'SOG', pai: 'SOG', m: [0, 1, 0] },
-      { sigla: 'ASCOM', pai: 'GAB', m: [0, 1, 0] },
-      { sigla: 'SELC', pai: 'GAB', m: [1, 0, 0] },
-      { sigla: 'GEE', pai: 'SEPH', m: [0, 0, 1] },
-      { sigla: 'GEH', pai: 'SEPH', m: [0, 0, 1] }
+      { sigla: 'GEA', pai: 'OUTRAS', m: [1, 4, 3, 7, 6, 7] },
+      { sigla: 'SON', pai: 'SOG', m: [0, 0, 0, 3, 4, 9] },
+      { sigla: 'GRN', pai: 'SRG', m: [1, 3, 4, 2, 3, 3] },
+      { sigla: 'GOA', pai: 'SOG', m: [2, 3, 8, 0, 2, 1] },
+      { sigla: 'GRP', pai: 'SRG', m: [2, 1, 1, 3, 3, 1] },
+      { sigla: 'GGP', pai: 'SAF', m: [0, 2, 3, 2, 4, 0] },
+      { sigla: 'SELC', pai: 'GAB', m: [0, 1, 6, 0, 4, 0] },
+      { sigla: 'DPDD', pai: 'SAF', m: [5, 1, 4, 0, 0, 0] },
+      { sigla: 'GPO', pai: 'SOG', m: [1, 1, 2, 1, 1, 2] },
+      { sigla: 'DOIP', pai: 'SOG', m: [1, 1, 1, 0, 1, 2] },
+      { sigla: 'GTGI', pai: 'SGE', m: [0, 1, 0, 0, 4, 1] },
+      { sigla: 'GAF', pai: 'SOG', m: [0, 4, 0, 0, 1, 1] },
+      { sigla: 'DGIP', pai: 'SAF', m: [2, 2, 0, 2, 0, 0] },
+      { sigla: 'SOG', pai: 'SOG', m: [0, 0, 2, 2, 0, 1] },
+      { sigla: 'SEPH', pai: 'SEPH', m: [1, 1, 0, 0, 2, 1] },
+      { sigla: 'DLQV', pai: 'SAF', m: [1, 2, 1, 0, 0, 1] },
+      { sigla: 'SAC', pai: 'OUTRAS', m: [0, 0, 4, 0, 0, 1] },
+      { sigla: 'CAA', pai: 'SGE', m: [0, 0, 0, 0, 3, 2] },
+      { sigla: 'SFC', pai: 'SFC', m: [0, 2, 2, 0, 1, 0] },
+      { sigla: 'DRCP', pai: 'SGE', m: [1, 0, 1, 1, 1, 0] },
+      { sigla: 'ASCOM', pai: 'GAB', m: [2, 0, 1, 0, 1, 0] },
+      { sigla: 'DGDOC', pai: 'SGE', m: [0, 1, 0, 0, 1, 1] },
+      { sigla: 'GEE', pai: 'SEPH', m: [0, 0, 0, 1, 2, 0] },
+      { sigla: 'GREMN', pai: 'SFC', m: [2, 0, 0, 1, 0, 0] },
+      { sigla: 'GRAT', pai: 'SFC', m: [0, 0, 1, 0, 0, 1] },
+      { sigla: 'GEH', pai: 'SEPH', m: [1, 0, 0, 0, 0, 1] },
+      { sigla: 'GPF', pai: 'SFC', m: [1, 0, 0, 0, 0, 1] },
+      { sigla: 'CGGR', pai: 'SRG', m: [0, 0, 0, 0, 1, 1] },
+      { sigla: 'OUV', pai: 'OUTRAS', m: [1, 0, 0, 0, 1, 0] },
+      { sigla: 'PFA', pai: 'OUTRAS', m: [0, 0, 2, 0, 0, 0] },
+      { sigla: 'GREST', pai: 'SFC', m: [0, 1, 1, 0, 0, 0] },
+      { sigla: 'GRL', pai: 'SAF', m: [1, 0, 1, 0, 0, 0] },
+      { sigla: 'URESV', pai: 'SFC', m: [0, 0, 0, 0, 0, 1] },
+      { sigla: 'GMS', pai: 'OUTRAS', m: [0, 0, 0, 0, 0, 1] },
+      { sigla: 'SAF', pai: 'SAF', m: [0, 0, 0, 0, 0, 1] },
+      { sigla: 'GAB-DG', pai: 'GAB', m: [0, 0, 0, 0, 1, 0] },
+      { sigla: 'GREFL', pai: 'SFC', m: [0, 0, 0, 0, 1, 0] },
+      { sigla: 'GCOR-Inv', pai: 'SFC', m: [0, 0, 0, 0, 1, 0] },
+      { sigla: 'ASPAR', pai: 'OUTRAS', m: [0, 0, 0, 0, 1, 0] },
+      { sigla: 'GM', pai: 'OUTRAS', m: [0, 0, 0, 1, 0, 0] },
+      { sigla: 'GOF', pai: 'SAF', m: [0, 0, 0, 1, 0, 0] },
+      { sigla: 'GLC', pai: 'SAF', m: [0, 0, 0, 1, 0, 0] },
+      { sigla: 'AssD4', pai: 'OUTRAS', m: [0, 0, 1, 0, 0, 0] },
+      { sigla: 'URECB', pai: 'SFC', m: [0, 0, 1, 0, 0, 0] },
+      { sigla: 'GGGP', pai: 'SGE', m: [0, 0, 1, 0, 0, 0] },
+      { sigla: 'ARINT', pai: 'OUTRAS', m: [0, 0, 1, 0, 0, 0] },
+      { sigla: 'DDCP', pai: 'SGE', m: [0, 1, 0, 0, 0, 0] }
     ];
 
-
-    const ZERADAS = ['SFC', 'GRAT', 'UREPV', 'URESV', 'UREPL', 'GPO', 'SESGI', 'COIN', 'GEA', 'GLC',
-      'AUD', 'CRG', 'ASPAR', 'ARINT', 'CEA', 'SEPH', 'AST-DG', 'AST-D1', 'AST-D2', 'AST-D3', 'AST-D4', 'STAI'];
+    // 33 dos 262 pedidos foram respondidos diretamente pela própria STAI, sem tramitação a outra unidade
+    const AUTORRESPONDIDAS_STAI = 33;
 
     const paiDe = id => PAIS.find(p => p.id === id);
     UORGS.forEach(u => { u.total = u.m.reduce((a, b) => a + b, 0); u.p = paiDe(u.pai); });
@@ -556,8 +573,9 @@
       const ocultas = +(document.getElementById('rows').dataset.ocultas || 0);
       const parcial = selMeses.size < MESES.length;
       document.getElementById('zeradas').innerHTML =
-        '<b>' + ZERADAS.length + ' UORGs sem tramitação no semestre</b> (fora do gráfico): ' + ZERADAS.join(' · ') +
-        (parcial && ocultas ? '<br><b>+ ' + ocultas + ' sem tramitação no(s) mês(es) filtrado(s)</b>' : '') +
+        '<b>' + AUTORRESPONDIDAS_STAI + ' das ' + BASE_PCT + ' demandas</b> foram respondidas diretamente pela ' +
+        'própria STAI, sem tramitação a outra unidade (não entram no gráfico ao lado).' +
+        (parcial && ocultas ? '<br><b>+ ' + ocultas + ' UORGs sem tramitação no(s) mês(es) filtrado(s)</b>' : '') +
         (parcial ? '<br><b>Atenção:</b> com o filtro de mês o numerador encolhe, mas o denominador do % continua ' +
           'sendo ' + BASE_PCT + ' (o período inteiro) — a planilha não informa a base mês a mês. ' +
           'Os percentuais parciais servem para comparar UORGs entre si, não para somar.' : '');
