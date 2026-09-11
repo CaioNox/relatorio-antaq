@@ -278,7 +278,7 @@
           <div class="w-1 h-8 bg-brand-secondary"></div>
           <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Respostas por Unidade</p>
         </div>
-        <p class="text-gray-500 font-medium ml-4 text-base" id="subCab">1º semestre de 2026 · 130 respostas · 34 unidades respondentes</p>
+        <p class="text-gray-500 font-medium ml-4 text-base" id="subCab">1º semestre de 2026 · 262 respostas · 47 unidades respondentes</p>
       </div>
 
       <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
@@ -360,78 +360,90 @@
     const CADEIAS = [
       {
         id: 'SOG', cor: '#0090C0',
-        raiz: { sg: 'SOG', nome: 'Superintendência de Outorgas', n: 2, f: [
-          { sg: 'GOA', nome: 'Gerência de Outorgas de Autorização', n: 13, f: [
-            { sg: 'DOIP', nome: 'Divisão de Outorgas de Instalações Portuárias Privadas', n: 3 }
+        raiz: { sg: 'SOG', nome: 'Superintendência de Outorgas', n: 5, f: [
+          { sg: 'GOA', nome: 'Gerência de Outorgas de Autorização', n: 16, f: [
+            { sg: 'DOIP', nome: 'Divisão de Outorgas de Instalações Portuárias Privadas', n: 6 }
           ]},
-          { sg: 'GAF', nome: 'Gerência de Afretamento da Navegação', n: 4 },
-          { sg: 'GPO', nome: 'Gerência de Portos Organizados', n: 4 }
+          { sg: 'GAF', nome: 'Gerência de Afretamento da Navegação', n: 6 },
+          { sg: 'GPO', nome: 'Gerência de Portos Organizados', n: 8 },
+          { sg: 'SON', nome: 'Seção de Outorgas da Navegação', n: 16 }
         ]}
       },
       {
         id: 'SAF', cor: '#0E7FB0',
-        raiz: { sg: 'SAF', nome: 'Superintendência de Administração e Finanças', n: null, f: [
-          { sg: 'GGP', nome: 'Gerência de Gestão de Pessoas', n: 5, f: [
+        raiz: { sg: 'SAF', nome: 'Superintendência de Administração e Finanças', n: 1, f: [
+          { sg: 'GGP', nome: 'Gerência de Gestão de Pessoas', n: 11, f: [
             { sg: 'DPDD', nome: 'Divisão de Planejamento, Desenvolvimento e Desempenho', n: 10 },
-            { sg: 'DGIP', nome: 'Divisão de Gestão de Informações Funcionais e Folha de Pagamento', n: 4 },
-            { sg: 'DLQV', nome: 'Divisão de Legislação Aplicada e Qualidade de Vida', n: 4 }
+            { sg: 'DGIP', nome: 'Divisão de Gestão de Informações Funcionais e Folha de Pagamento', n: 6 },
+            { sg: 'DLQV', nome: 'Divisão de Legislação Aplicada e Qualidade de Vida', n: 5 }
           ]},
-          { sg: 'GRL', nome: 'Gerência de Recursos Logísticos', n: 2 }
+          { sg: 'GRL', nome: 'Gerência de Recursos Logísticos', n: 2 },
+          { sg: 'GOF', nome: 'Gerência de Orçamento e Finanças', n: 1 },
+          { sg: 'GLC', nome: 'Gerência de Licitações e Contratos', n: 1 }
         ]}
       },
       {
         id: 'OUV', cor: '#C48200',
-        raiz: { sg: 'OUV', nome: 'Ouvidoria', n: 1, f: [
-          { sg: 'STAI', nome: 'Seção de Transparência e Acesso à Informação', n: 20 },
-          { sg: 'SAC', nome: 'Seção de Apoio ao Cidadão', n: 4 }
+        raiz: { sg: 'OUV', nome: 'Ouvidoria', n: 2, f: [
+          { sg: 'STAI', nome: 'Seção de Transparência e Acesso à Informação', n: 33 },
+          { sg: 'SAC', nome: 'Seção de Apoio ao Cidadão', n: 5 }
         ]}
       },
       {
         id: 'SRG', cor: '#1B5E8C',
         raiz: { sg: 'SRG', nome: 'Superintendência de Regulação', n: null, f: [
-          { sg: 'GRN', nome: 'Gerência de Regulação da Navegação', n: 8 },
-          { sg: 'GRP', nome: 'Gerência de Regulação Portuária', n: 4 }
+          { sg: 'GRN', nome: 'Gerência de Regulação da Navegação', n: 16 },
+          { sg: 'GRP', nome: 'Gerência de Regulação Portuária', n: 11 },
+          { sg: 'CGGR', nome: 'Coordenadoria-Geral de Governança Regulatória', n: 2 }
         ]}
       },
       {
         id: 'GAB', cor: '#64748B',
         raiz: { sg: 'GAB', nome: 'Gabinete da Diretoria', n: null, f: [
-          { sg: 'SELC', nome: 'Secretaria Especial de Licitação de Concessões', n: 7 },
-          { sg: 'ASCOM', nome: 'Assessoria de Comunicação e Cerimonial', n: 3 },
+          { sg: 'SELC', nome: 'Secretaria Especial de Licitação de Concessões', n: 11 },
+          { sg: 'ASCOM', nome: 'Assessoria de Comunicação e Cerimonial', n: 4 },
           { sg: 'ARINT', nome: 'Assessoria de Relações Internacionais', n: 1 },
-          { sg: 'D4', nome: 'Assessoria da Diretoria D4', n: 1 }
+          { sg: 'D4', nome: 'Assessoria da Diretoria D4', n: 1 },
+          { sg: 'GAB DG', nome: 'Gabinete do Diretor-Geral', n: 1 },
+          { sg: 'ASPAR', nome: 'Assessoria de Relações Parlamentares e Institucionais', n: 1 }
         ]}
       },
       {
         id: 'SFC', cor: '#103050',
-        raiz: { sg: 'SFC', nome: 'Superintendência de Fiscalização e Coordenação das Unidades Regionais', n: 4, f: [
-          { sg: 'GPF', nome: 'Gerência de Planejamento e Inteligência da Fiscalização', n: 1 },
-          { sg: 'GRAT', nome: 'Gerência de Recursos e de Apoio Técnico', n: 1 },
-          { sg: 'GREMN', nome: 'Gerência Regional de Manaus', n: 2 },
+        raiz: { sg: 'SFC', nome: 'Superintendência de Fiscalização e Coordenação das Unidades Regionais', n: 5, f: [
+          { sg: 'GPF', nome: 'Gerência de Planejamento e Inteligência da Fiscalização', n: 2 },
+          { sg: 'GRAT', nome: 'Gerência de Recursos e de Apoio Técnico', n: 2 },
+          { sg: 'GREMN', nome: 'Gerência Regional de Manaus', n: 3 },
           { sg: 'GREST', nome: 'Gerência Regional de Santos', n: 2 },
-          { sg: 'URECB', nome: 'Unidade Regional de Curitiba', n: 1 }
+          { sg: 'URECB', nome: 'Unidade Regional de Curitiba', n: 1 },
+          { sg: 'URESV', nome: 'Unidade Regional de Salvador', n: 1 },
+          { sg: 'GREFL', nome: 'Gerência Regional de Florianópolis', n: 1 },
+          { sg: 'GEF', nome: 'Grupo Especializado de Fiscalização de Investimentos', n: 1 }
         ]}
       },
       {
         id: 'SESGI', cor: '#3E93B8',
         raiz: { sg: 'SESGI', nome: 'Superintendência de ESG e Inovação', n: null, f: [
-          { sg: 'GEA', nome: 'Gerência de Estatística e Avaliação de Desempenho', n: 8 }
+          { sg: 'GEA', nome: 'Gerência de Estatística e Avaliação de Desempenho', n: 28 },
+          { sg: 'GMS', nome: 'Gerência de Meio Ambiente e Sustentabilidade', n: 2 }
         ]}
       },
       {
         id: 'SGE', cor: '#0070C0',
         raiz: { sg: 'SGE', nome: 'Secretaria-Geral', n: null, f: [
           { sg: 'GGGP', nome: 'Gerência de Governança, Gestão e Planejamento', n: 1 },
-          { sg: 'GTGI', nome: 'Gerência de Tecnologia e Gestão da Informação', n: 1 },
-          { sg: 'DRCP', nome: 'Divisão de Reuniões de Diretoria e Publicações', n: 2 },
+          { sg: 'GTGI', nome: 'Gerência de Tecnologia e Gestão da Informação', n: 6 },
+          { sg: 'DRCP', nome: 'Divisão de Reuniões de Diretoria e Publicações', n: 4 },
           { sg: 'DDCP', nome: 'Divisão de Distribuição, Deliberações e Comunicações Processuais', n: 1 },
-          { sg: 'DGDOC', nome: 'Divisão de Gestão de Documentos', n: 1 }
+          { sg: 'DGDOC', nome: 'Divisão de Gestão de Documentos', n: 3 },
+          { sg: 'CAA', nome: 'Coordenadoria de Ativos Analíticos', n: 5 }
         ]}
       },
       {
         id: 'SEPH', cor: '#2E6E86',
-        raiz: { sg: 'SEPH', nome: 'Superintendência de Estudos e Projetos Hidroviários', n: 2, f: [
-          { sg: 'GEH', nome: 'Gerência de Estudos Hidroviários', n: 1 }
+        raiz: { sg: 'SEPH', nome: 'Superintendência de Estudos e Projetos Hidroviários', n: 5, f: [
+          { sg: 'GEH', nome: 'Gerência de Estudos Hidroviários', n: 2 },
+          { sg: 'GEE', nome: 'Gerência Especial de Estudos', n: 3 }
         ]}
       },
       {
