@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <title>Demandas tramitadas por Unidade - Relatório Semestral Ouvidoria ANTAQ</title>
+  <title>Demandas e tramitações por Unidade - Relatório Semestral Ouvidoria ANTAQ</title>
   <link rel="icon" type="image/png"
     href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
@@ -74,31 +74,74 @@
     }
     .chip-reset:hover { color: #103050; border-color: #103050; background: #f1f5f9; transform: translateY(-2px); }
 
-
-    .chips-mes { display: flex; flex-wrap: wrap; align-items: center; gap: .35rem; margin-top: .35rem; }
-    .mes-lab {
-      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .5rem;
-      letter-spacing: .1em; text-transform: uppercase; color: #94a3b8; margin-right: .2rem;
-    }
-    .chip-mes {
-      display: inline-flex; align-items: center; gap: .35rem;
-      border: 2px solid #103050; color: #103050; background: transparent;
-      border-radius: 8px; padding: .26rem .6rem;
-      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .55rem;
-      cursor: pointer; opacity: .45; white-space: nowrap; line-height: 1;
-      transition: background-color 180ms ease, color 180ms ease, opacity 180ms ease, transform 180ms ease;
-    }
-    .chip-mes b {
-      font-weight: 900; font-size: .48rem; background: #eef2f7; color: #103050;
-      border-radius: 5px; padding: .1rem .3rem; line-height: 1;
-      transition: background-color 180ms ease, color 180ms ease;
-    }
-    .chip-mes:hover { opacity: .8; transform: translateY(-1px); }
-    .chip-mes.active { background: #103050; color: #fff; opacity: 1; }
-    .chip-mes.active b { background: rgba(255, 255, 255, .22); color: #fff; }
-
     .hint-line { margin-top: .45rem; font-size: .54rem; color: #94a3b8; font-weight: 600; display: flex; align-items: center; gap: .4rem; }
     .hint-line i { color: #0090C0; font-size: .6rem; }
+
+
+    /* ---------- trilha de 2 etapas (padrao de slide-cartas-servicos) ---------- */
+    .trilha {
+      position: relative; display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: .6rem; padding: .3rem 0 .45rem; flex-shrink: 0;
+      max-width: 24rem; margin: 0 auto;
+    }
+
+    /* linha cinza de base: liga as duas etapas e sugere continuidade entre elas */
+    .trilha::before,
+    .trilha-fill {
+      content: '';
+      position: absolute; top: calc(.3rem + .85rem); height: 3px; border-radius: 2px;
+      left: 25%; right: 25%;
+    }
+
+    .trilha::before { background: #E2E8F0; }
+
+    .trilha-fill {
+      right: auto; width: 0;
+      background: linear-gradient(90deg, #103050, #0090C0);
+      transition: width .45s cubic-bezier(.4, 0, .2, 1);
+    }
+
+    .no {
+      position: relative; z-index: 1; background: none; border: 0; padding: 0; cursor: pointer;
+      display: flex; flex-direction: column; align-items: center; gap: .25rem;
+      font-family: 'Montserrat', sans-serif; text-align: center;
+    }
+
+    .no-bolha {
+      width: 1.7rem; height: 1.7rem; border-radius: 50%;
+      background: #fff; border: 3px solid #CBD5E1; color: #94A3B8;
+      font-weight: 900; font-size: .72rem;
+      display: flex; align-items: center; justify-content: center;
+      transition: transform .3s, background .3s, border-color .3s, color .3s, box-shadow .3s;
+    }
+
+    .no-rot {
+      font-weight: 700; font-size: .56rem; line-height: 1.15; color: #94A3B8;
+      transition: color .3s; max-width: 96%;
+    }
+
+    .no.feita .no-bolha { background: #103050; border-color: #103050; color: #fff; }
+    .no.feita .no-rot { color: #64748B; }
+
+    .no.ativa .no-bolha {
+      background: linear-gradient(150deg, #103050, #0070C0);
+      border-color: #0090C0; color: #fff; transform: scale(1.18);
+      box-shadow: 0 10px 22px -8px rgba(16, 48, 80, .65);
+    }
+
+    .no.ativa .no-rot { color: #103050; font-weight: 800; }
+
+
+    .painel { position: relative; }
+
+    .etapa-foco { position: absolute; inset: 0; display: none; flex-direction: column; min-height: 0; }
+    .etapa-foco.ativa { display: flex; animation: entra .38s cubic-bezier(.4, 0, .2, 1) both; }
+
+    @keyframes entra {
+      from { opacity: 0; transform: translateX(18px); }
+      to { opacity: 1; transform: none; }
+    }
+
 
     .empty-state {
       display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -153,6 +196,9 @@
     .bar-val { flex: 0 0 3.6rem; font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: .55rem; text-align: left; line-height: 1; }
     .bar-val .pc { font-weight: 700; font-size: .44rem; color: #94a3b8; margin-left: .22rem; }
 
+    /* na etapa das demandas o valor nao leva percentual: nao ha total do qual calcular */
+    .rows[data-metrica="demandas"] .bar-val { flex: 0 0 2.4rem; }
+
 
     .rows[data-density="3"] { justify-content: flex-start; }
     .rows[data-density="2"] { gap: .17rem; }
@@ -173,6 +219,17 @@
     }
     .zeradas b { color: #64748b; font-weight: 700; font-family: 'Montserrat', sans-serif; }
 
+    /* o aviso de nao-somabilidade e a mensagem central do slide: ganha destaque proprio */
+    .zeradas.alerta { border-left-color: #F2A900; color: #8a6400; }
+    .zeradas.alerta b { color: #7a5800; }
+
+
+    /* a etapa das demandas tem um card so. Ele nao estica de ponta a ponta: com os
+       rotulos a 30%, a largura cheia abriria um vao vazio a esquerda e achataria as
+       barras menores, que aqui sao a maioria. */
+    #etapa-1 .charts-grid { grid-template-columns: minmax(0, 1fr); }
+    #etapa-1 .chart-card { max-width: 62%; margin: 0 auto; width: 100%; }
+
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation: none !important; transition: none !important; }
     }
@@ -190,16 +247,16 @@
       <div style="min-width:0;">
         <div class="flex items-center gap-3 mb-1">
           <div class="w-1 h-8 bg-brand-secondary"></div>
-          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Demandas Tramitadas por Unidade</p>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Demandas e Tramitações por Unidade</p>
         </div>
-        <p class="text-gray-500 font-medium ml-4 text-base">1º semestre de 2026 · 2.362 tramitações · 910 demandas · 20 setores com movimento</p>
+        <p class="text-gray-500 font-medium ml-4 text-base">1º semestre de 2026 · 2.362 tramitações · 20 setores com movimento</p>
       </div>
 
       <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
-        <i class="fas fa-lock-open text-3xl" aria-hidden="true"></i>
+        <i class="fas fa-headset text-3xl" aria-hidden="true"></i>
         <div class="flex flex-col justify-center pl-2" style="border-left:1px solid #CBD5E1;">
-          <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">CAPÍTULO 04</p>
-          <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none whitespace-nowrap">Seção de Transparência e Acesso à Informação - STAI</p>
+          <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">CAPÍTULO 03</p>
+          <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none whitespace-nowrap">Seção de Apoio ao Cidadão — SAC</p>
         </div>
       </div>
     </div>
@@ -207,23 +264,55 @@
 
     <div class="px-16 pb-1 z-10">
       <div class="chips" id="chips"></div>
-      <p class="hint-line"><i class="far fa-hand-pointer"></i> Filtre por superintendência · barras em tramitações, com o total de demandas de cada setor entre parênteses</p>
+      <p class="hint-line" id="hintLine"></p>
     </div>
 
-    <div class="flex-1 px-16 pb-2 z-10" style="min-height:0;">
-      <div class="charts-grid">
-
-        <div class="chart-card">
-          <p class="chart-cap" id="chartCap"></p>
-          <div class="rows" id="rows" data-density="1"></div>
-          <p class="zeradas" id="zeradas"></p>
-        </div>
-
-        <div class="chart-card">
-          <p class="chart-cap" id="pieCap"><i class="fas fa-chart-pie"></i> Distribuição por superintendência</p>
-          <div class="chart-canvas-wrap" id="pieWrap"></div>
-        </div>
+    <div class="px-16 z-10">
+      <div class="trilha" role="tablist" aria-label="Etapas: demandas e tramitações">
+        <div class="trilha-fill" id="trilhaFill" aria-hidden="true"></div>
+        <button class="no" type="button" role="tab" data-n="1" aria-controls="etapa-1" aria-selected="false">
+          <span class="no-bolha">1</span>
+          <span class="no-rot">Demandas</span>
+        </button>
+        <button class="no" type="button" role="tab" data-n="2" aria-controls="etapa-2" aria-selected="false">
+          <span class="no-bolha">2</span>
+          <span class="no-rot">Tramitações</span>
+        </button>
       </div>
+    </div>
+
+    <div class="flex-1 px-16 pb-2 z-10 painel" style="min-height:0;">
+
+      <section class="etapa-foco" data-n="1" id="etapa-1" role="tabpanel" aria-label="Demandas por setor">
+        <div class="charts-grid">
+
+          <div class="chart-card">
+            <p class="chart-cap" id="capDem"></p>
+            <div class="rows" id="rowsDem" data-density="1" data-metrica="demandas"></div>
+            <p class="zeradas alerta" id="notaDem"></p>
+          </div>
+
+        </div>
+      </section>
+
+
+      <section class="etapa-foco" data-n="2" id="etapa-2" role="tabpanel" aria-label="Tramitações por setor">
+        <div class="charts-grid">
+
+          <div class="chart-card">
+            <p class="chart-cap" id="capTram"></p>
+            <div class="rows" id="rowsTram" data-density="1" data-metrica="tramitacoes"></div>
+            <p class="zeradas" id="notaTram"></p>
+          </div>
+
+          <div class="chart-card">
+            <p class="chart-cap" id="pieCap"><i class="fas fa-chart-pie"></i> Distribuição por superintendência</p>
+            <div class="chart-canvas-wrap" id="pieWrap"></div>
+          </div>
+
+        </div>
+      </section>
+
     </div>
 
     <div class="px-16 pb-4 pt-1 flex justify-between items-center z-10">
@@ -233,8 +322,14 @@
 
   <script>
 
-    const BASE_T = 2362;   // total de tramitações (encaminhamentos entre unidades)
-    const BASE_D = 910;    // total de demandas distintas com movimento
+    /* Tramitacao e um evento por passagem: soma entre setores. 2.362 no semestre.
+       Demanda e indivisivel e a mesma aparece em varios setores, entao a coluna de
+       demandas NAO tem total por soma. Nao existe aqui um total de demandas do
+       semestre — e por isso ele nao e exibido. */
+    const BASE_T = 2362;
+
+    // milhar em pt-BR ("2.362"), como no subtitulo do slide
+    const fmt = n => n.toLocaleString('pt-BR');
 
 
     const PAIS = [
@@ -245,8 +340,8 @@
       { id: 'SESGI', name: 'SESGI', full: 'Superintendência de ESG e Inovação', color: '#5fb8dd' }
     ];
 
-    // Participação por setor — caminho hierárquico (superintendência/gerência/unidade),
-    // demandas distintas e total de tramitações (encaminhamentos) entre unidades
+    // Participacao por setor — caminho hierarquico (superintendencia/gerencia/unidade),
+    // demandas distintas que passaram pelo setor e total de tramitacoes registradas nele
     const UORGS = [
       { caminho: 'SFC/GCOR', demandas: 382, tramitacoes: 1021 },
       { caminho: 'SFC/GPF', demandas: 376, tramitacoes: 1011 },
@@ -283,6 +378,9 @@
     const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const selected = new Set(PAIS.map(p => p.id));
 
+    const TOTAL_ETAPAS = 2;
+    let etapa = 1;
+
 
     const chipsWrap = document.getElementById('chips');
     PAIS.forEach(p => {
@@ -313,14 +411,19 @@
       update();
     }
 
+    /* Na etapa 1 o distintivo do chip conta SETORES, nunca demandas: somar as demandas
+       de uma superintendencia repetiria a mesma demanda em cada setor dela. */
     function refreshChips() {
       chipsWrap.querySelectorAll('.chip').forEach(c => {
         const id = c.dataset.id;
         c.classList.toggle('active', selected.has(id));
+        const q = +c.dataset.q;
         const n = UORGS.filter(u => u.pai === id).reduce((s, u) => s + u.tramitacoes, 0);
-        c.querySelector('b').textContent = n;
-        const q = c.dataset.q;
-        c.title = c.dataset.full + ' — ' + q + ' setor' + (q > 1 ? 'es' : '') + ' · ' + n + ' tramitações';
+        const setores = q + ' setor' + (q > 1 ? 'es' : '');
+        c.querySelector('b').textContent = etapa === 1 ? q : fmt(n);
+        c.title = etapa === 1
+          ? c.dataset.full + ' — ' + setores + ' com demandas no semestre'
+          : c.dataset.full + ' — ' + setores + ' · ' + fmt(n) + ' tramitações';
       });
       document.getElementById('allBtn').innerHTML = selected.size === PAIS.length
         ? '<i class="fas fa-eraser"></i><span>Zerar tudo</span>'
@@ -328,35 +431,44 @@
     }
 
 
-    function renderBars() {
+    function renderBarras(metrica) {
+      const campo = metrica === 'demandas' ? 'demandas' : 'tramitacoes';
+      const wrap = document.getElementById(metrica === 'demandas' ? 'rowsDem' : 'rowsTram');
       const sel = UORGS.filter(u => selected.has(u.pai))
-        .sort((a, b) => b.tramitacoes - a.tramitacoes || a.sigla.localeCompare(b.sigla, 'pt-BR'));
-      const wrap = document.getElementById('rows');
+        .sort((a, b) => b[campo] - a[campo] || a.sigla.localeCompare(b.sigla, 'pt-BR'));
       wrap.innerHTML = '';
 
       if (!sel.length) {
         wrap.dataset.density = '1';
         wrap.innerHTML = '<div class="empty-state"><i class="far fa-hand-pointer"></i><span>' +
           'Clique numa superintendência acima para exibir seus setores</span></div>';
-        wrap.dataset.ocultas = 0;
         return;
       }
 
       wrap.dataset.density = sel.length <= 12 ? '1' : sel.length <= 22 ? '2' : '3';
-      wrap.dataset.ocultas = 0;
 
-      const maxV = sel[0].tramitacoes;
+      const maxV = sel[0][campo];
       sel.forEach((u, i) => {
-        const v = u.tramitacoes;
+        const v = u[campo];
         const el = document.createElement('div');
         el.className = 'bar-row';
         el.style.animationDelay = (REDUCED ? 0 : i * 22) + 'ms';
-        const pc = (v / BASE_T * 100).toFixed(2).replace('.', ',');
+
+        // percentual so na tramitacao: ela tem um total valido (2.362) do qual ser fracao.
+        const sufixo = metrica === 'demandas'
+          ? ''
+          : '<span class="pc">(' + (v / BASE_T * 100).toFixed(2).replace('.', ',') + '%)</span>';
+
+        const titulo = metrica === 'demandas'
+          ? u.caminho + ' · ' + u.p.full + ' — ' + fmt(v) + ' demanda' + (v > 1 ? 's' : '') + ' que passaram por este setor'
+          : u.caminho + ' · ' + u.p.full + ' — ' + fmt(v) + ' tramitações registradas neste setor';
+
         el.innerHTML =
-          '<span class="bar-label" title="' + u.caminho + ' · ' + u.p.full + ' — ' + u.demandas + ' demandas · ' + v + ' tramitações">' + u.sigla +
+          '<span class="bar-label" title="' + titulo + '">' + u.sigla +
           (u.imediato ? '<span class="pai">' + u.imediato + '</span>' : u.sigla !== u.p.name ? '<span class="pai">' + u.p.name + '</span>' : '') + '</span>' +
           '<div class="bar-track"><div class="bar-fill" style="background:' + u.p.color + '"></div></div>' +
-          '<span class="bar-val" style="color:' + u.p.color + '">' + v + '<span class="pc">(' + u.demandas + ' dem. · ' + pc + '%)</span></span>';
+          '<span class="bar-val" style="color:' + u.p.color + '">' + fmt(v) + sufixo + '</span>';
+
         wrap.appendChild(el);
         const fill = el.querySelector('.bar-fill');
         const w = (v / maxV * 100) + '%';
@@ -365,25 +477,45 @@
       });
     }
 
-    function refreshCaption() {
+
+    function refreshLegendas() {
       const sel = UORGS.filter(u => selected.has(u.pai));
-      const somaT = sel.reduce((s, u) => s + u.tramitacoes, 0);
-      const somaD = sel.reduce((s, u) => s + u.demandas, 0);
-      const cap = document.getElementById('chartCap');
+      const capD = document.getElementById('capDem');
+      const capT = document.getElementById('capTram');
+      const notaD = document.getElementById('notaDem');
+      const notaT = document.getElementById('notaTram');
+
       if (!sel.length) {
-        cap.style.color = '#94a3b8';
-        cap.innerHTML = '<i class="far fa-hand-pointer"></i> Nada a exibir';
-      } else {
-        cap.style.color = '#475569';
-        cap.innerHTML = '<i class="fas fa-ranking-star"></i> ' + sel.length + ' setor' + (sel.length > 1 ? 'es' : '') +
-          ' · ' + somaT + ' de ' + TOTAL_TRAM + ' tramitações <span style="font-weight:700;color:#0070C0;">(' +
-          somaD + ' demandas)</span>';
+        capD.style.color = '#94a3b8';
+        capT.style.color = '#94a3b8';
+        capD.innerHTML = '<i class="far fa-hand-pointer"></i> Nada a exibir';
+        capT.innerHTML = '<i class="far fa-hand-pointer"></i> Nada a exibir';
+        notaD.innerHTML = '';
+        notaT.innerHTML = '';
+        return;
       }
+
+      const somaT = sel.reduce((s, u) => s + u.tramitacoes, 0);
+      const setores = sel.length + ' setor' + (sel.length > 1 ? 'es' : '');
+
+      capD.style.color = '#475569';
+      capD.innerHTML = '<i class="fas fa-list-ol"></i> Demandas por setor · ' + setores +
+        ' <span style="font-weight:700;color:#8a6400;">(sem total: não se somam)</span>';
+
+      capT.style.color = '#475569';
+      capT.innerHTML = '<i class="fas fa-ranking-star"></i> ' + setores +
+        ' · ' + fmt(somaT) + ' de ' + fmt(TOTAL_TRAM) + ' <span style="font-weight:700;color:#0070C0;">tramitações</span>';
+
+      notaD.innerHTML = 'Cada barra conta as demandas <b>que passaram por aquele setor</b>. A mesma demanda ' +
+        'aparece em mais de uma barra, então elas <b>não somam</b> — não há um total de demandas nesta etapa.';
+
+      notaT.innerHTML = 'Cada passagem de uma demanda por um setor é <b>uma tramitação</b>, registrada de forma ' +
+        'independente. Por isso as barras somam: <b>' + fmt(TOTAL_TRAM) + '</b> tramitações no semestre.';
     }
 
 
     let pieChart = null;
-    function renderMes() {
+    function renderRosca() {
       const wrap = document.getElementById('pieWrap');
       const cap = document.getElementById('pieCap');
       if (pieChart) { pieChart.destroy(); pieChart = null; }
@@ -453,7 +585,7 @@
             legend: { position: 'bottom', labels: { color: '#103050', boxWidth: 12, boxHeight: 12, padding: 10, font: { family: 'Open Sans', size: 11, weight: '600' } } },
             tooltip: {
               callbacks: {
-                label: c => c.label + ': ' + c.parsed + ' tramitações (' +
+                label: c => c.label + ': ' + fmt(c.parsed) + ' tramitações (' +
                   (c.parsed / somaExibida * 100).toFixed(1).replace('.', ',') + '%)'
               }
             }
@@ -473,30 +605,54 @@
 
       cap.style.color = '#475569';
       cap.innerHTML = '<i class="fas fa-chart-pie"></i> Distribuição por superintendência · ' +
-        '<span style="font-weight:700;color:#0070C0;">% de ' + somaExibida + ' tramitações</span>';
+        '<span style="font-weight:700;color:#0070C0;">% de ' + fmt(somaExibida) + ' tramitações</span>';
     }
 
 
-    function refreshZeradas() {
-      document.getElementById('zeradas').innerHTML =
-        'Cada demanda pode gerar mais de uma tramitação entre unidades — por isso o total de ' +
-        '<b>tramitações (' + BASE_T + ')</b> supera o total de <b>demandas distintas (' + BASE_D + ')</b>.';
+    /* ---------- trilha de etapas ---------- */
+    const nos = Array.from(document.querySelectorAll('.no'));
+    const focos = Array.from(document.querySelectorAll('.etapa-foco'));
+    const fill = document.getElementById('trilhaFill');
+
+    function irPara(n) {
+      etapa = Math.max(1, Math.min(TOTAL_ETAPAS, n));
+      nos.forEach(no => {
+        const i = +no.dataset.n;
+        no.classList.toggle('ativa', i === etapa);
+        no.classList.toggle('feita', i < etapa);
+        no.setAttribute('aria-selected', i === etapa ? 'true' : 'false');
+      });
+      focos.forEach(f => f.classList.toggle('ativa', +f.dataset.n === etapa));
+      fill.style.width = ((etapa - 1) / (TOTAL_ETAPAS - 1) * 50) + '%';
+      refreshChips();
+      refreshHint();
+      if (etapa === 2) renderRosca();
     }
+
+    nos.forEach(no => no.addEventListener('click', () => irPara(+no.dataset.n)));
+
+    function refreshHint() {
+      document.getElementById('hintLine').innerHTML = etapa === 1
+        ? '<i class="far fa-hand-pointer"></i><span>Filtre por superintendência · barras em <b style="color:#64748b;">demandas</b>, contadas por setor e <b style="color:#8a6400;">não somáveis</b></span>'
+        : '<i class="far fa-hand-pointer"></i><span>Filtre por superintendência · barras em <b style="color:#64748b;">tramitações</b>, com o percentual sobre as ' + fmt(BASE_T) + ' do semestre</span>';
+    }
+
 
     function update() {
       refreshChips();
-      refreshCaption();
-      renderBars();
-      renderMes();
-      refreshZeradas();
+      refreshLegendas();
+      renderBarras('demandas');
+      renderBarras('tramitacoes');
+      if (etapa === 2) renderRosca();
+      refreshHint();
     }
 
     update();
-
+    irPara(1);
 
 
     document.addEventListener('DOMContentLoaded', function () {
-      if (window.A11y) renderMes();
+      if (window.A11y && etapa === 2) renderRosca();
     });
   </script>
   <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
