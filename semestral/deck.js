@@ -34,7 +34,7 @@ window.RELATORIO = {
     },
     {
       block: 'Bloco 3 · Seção de Apoio ao Cidadão — SAC', short: 'SAC', tint: 0.7,
-      files: ['capa-bloco-3.html', 'slide-sac-apres.html', 'slide-sac-ativ.html', 'slide-14.html', 'slide-17d.html', 'slide-canal.html', 'slide-04.html', 'slide-05.html', 'slide-08.html'],
+      files: ['capa-bloco-3.html', 'slide-sac-apres.html', 'slide-sac-ativ.html', 'slide-14.html', 'slide-17d.html', 'slide-canal.html', 'slide-04.html', 'slide-05.html', 'slide-08.html', 'slide-tramit-uorg.html'],
     },
     {
       block: 'Bloco 4 · Seção de Transparência e Acesso à Informação — STAI', short: 'STAI', tint: 0.55,
@@ -45,7 +45,7 @@ window.RELATORIO = {
         // Acesso à informação por iniciativa da ANTAQ (transparência ativa)
         'slide-22.html',
         // Acesso à informação sob iniciativa do cidadão (transparência passiva)
-        'slide-23.html', 'slide-18.html', 'slide-resp-unidade.html', 'slide-tramit-uorg.html', 'slide-20.html',
+        'slide-23.html', 'slide-18.html', 'slide-resp-unidade.html', 'slide-20.html',
       ],
     },
     {
