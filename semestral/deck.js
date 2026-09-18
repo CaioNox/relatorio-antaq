@@ -27,7 +27,6 @@ window.RELATORIO = {
         'slide-25.html',
         'slide-cartas-servicos.html',
         'conselho.html',
-        'slide-17.html',
         'slide-CnsU2.html',
         'slide-17b.html', 'slide-17e.html', 'slide-07.html',
       ],
