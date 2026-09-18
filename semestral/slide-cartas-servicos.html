@@ -114,8 +114,16 @@
     .card-cont { display: flex; align-items: baseline; gap: .35rem; flex-shrink: 0; }
     .card-cont-rot { color: #64748B; font-size: .7rem; font-weight: 600; }
 
-    .card-aux { color: #94A3B8; font-size: .7rem; margin: 0 0 .85rem; }
-    .card-aux b { color: #0070C0; font-weight: 600; }
+    /* mesma .hint-line de slide-08 / slide-tramit-uorg: avisa que o slide e interativo.
+       A linha cinza abaixo dela separa o cabecalho do card da lista de servicos. */
+    .hint-line {
+      display: flex; align-items: center; gap: .4rem;
+      color: #94a3b8; font-size: .7rem; font-weight: 600;
+      margin: 0 0 .85rem; padding-bottom: .55rem;
+      border-bottom: 1px solid #eef2f7;
+    }
+    .hint-line i { color: #0090C0; font-size: .75rem; }
+    .hint-line b { color: #0070C0; font-weight: 600; }
 
     .svc-grid {
       display: grid; grid-template-columns: repeat(3, 1fr);
@@ -126,18 +134,23 @@
 
     /* ---------- tile de servico (.base-chip do slide-21) ---------- */
     .svc-bar {
+      position: relative; z-index: 0;
       display: flex; align-items: center; gap: .6rem;
       background: #f8fafc; border: 1px solid #E2E8F0; border-left: 4px solid #0070C0;
       border-radius: 10px; padding: .4rem .7rem; cursor: pointer;
-      transition: transform .25s ease, border-color .25s ease, background-color .25s ease, box-shadow .25s ease;
+      transition: transform .25s cubic-bezier(.2, .7, .3, 1), border-color .25s ease, background-color .25s ease, box-shadow .25s ease;
       animation: fadeIn .5s ease both;
     }
 
+    /* o tile cresce de verdade no hover e sobe acima dos vizinhos */
     .svc-bar:hover, .svc-bar:focus-visible {
-      border-color: #0070C0; background: #eef6fc; transform: translateX(4px);
-      box-shadow: 0 12px 24px -14px rgba(16, 48, 80, .3);
+      border-color: #0070C0; background: #eef6fc;
+      transform: scale(1.07);
+      z-index: 3;
+      box-shadow: 0 20px 38px -14px rgba(16, 48, 80, .45);
       outline: none;
     }
+
 
     .svc-bar .sb-num {
       font-family: 'Montserrat', sans-serif; font-weight: 900; color: #0090C0;
@@ -264,7 +277,7 @@
                 <span class="card-cont-rot">serviços</span>
               </div>
             </div>
-            <p class="card-aux">Serviços prestados pela ANTAQ — <b>clique no serviço para ver detalhes</b></p>
+            <p class="hint-line"><i class="far fa-hand-pointer" aria-hidden="true"></i> Serviços prestados pela ANTAQ — <b>clique no serviço para ver detalhes</b></p>
             <div class="svc-grid" style="grid-template-rows: repeat(6, minmax(0, 1fr));">
             <div class="svc-bar" tabindex="0" data-num="01" data-kicker="Superintendência de Outorgas · SOG" data-title="Solicitar autorização e registro na ANTAQ para afretamento de embarcação estrangeira">
               <span class="sb-num">01</span><span class="sb-name">Solicitar autorização e registro na ANTAQ para afretamento de embarcação estrangeira</span><i class="fas fa-plus sb-plus" aria-hidden="true"></i>
@@ -354,7 +367,7 @@
                 <span class="card-cont-rot">serviços</span>
               </div>
             </div>
-            <p class="card-aux">Serviços prestados pela ANTAQ — <b>clique no serviço para ver detalhes</b></p>
+            <p class="hint-line"><i class="far fa-hand-pointer" aria-hidden="true"></i> Serviços prestados pela ANTAQ — <b>clique no serviço para ver detalhes</b></p>
             <div class="svc-grid" style="grid-template-rows: repeat(3, minmax(0, 1fr));">
             <div class="svc-bar" tabindex="0" data-num="01" data-kicker="Superintendência de Regulação · SRG" data-title="Obter autorização da ANTAQ para incorporação/desincorporação de bens da União ao/do acervo patrimonial dos portos organizados">
               <span class="sb-num">01</span><span class="sb-name">Obter autorização da ANTAQ para incorporação/desincorporação de bens da União ao/do acervo patrimonial dos portos organizados</span><i class="fas fa-plus sb-plus" aria-hidden="true"></i>
@@ -404,7 +417,7 @@
                 <span class="card-cont-rot">serviços</span>
               </div>
             </div>
-            <p class="card-aux">Serviços prestados pela ANTAQ — <b>clique no serviço para ver detalhes</b></p>
+            <p class="hint-line"><i class="far fa-hand-pointer" aria-hidden="true"></i> Serviços prestados pela ANTAQ — <b>clique no serviço para ver detalhes</b></p>
             <div class="svc-grid" style="grid-template-rows: repeat(2, minmax(0, auto));">
             <div class="svc-bar" tabindex="0" data-num="01" data-kicker="Superintendência de Administração e Finanças · SAF" data-title="Obter declaração da ANTAQ para fins de credenciamento, validação ou outros atestados">
               <span class="sb-num">01</span><span class="sb-name">Obter declaração da ANTAQ para fins de credenciamento, validação ou outros atestados</span><i class="fas fa-plus sb-plus" aria-hidden="true"></i>
@@ -438,7 +451,7 @@
                 <span class="card-cont-rot">serviços</span>
               </div>
             </div>
-            <p class="card-aux">Serviços prestados pela ANTAQ — <b>clique no serviço para ver detalhes</b></p>
+            <p class="hint-line"><i class="far fa-hand-pointer" aria-hidden="true"></i> Serviços prestados pela ANTAQ — <b>clique no serviço para ver detalhes</b></p>
             <div class="svc-grid" style="grid-template-rows: repeat(1, minmax(0, auto));">
             <div class="svc-bar" tabindex="0" data-num="01" data-kicker="Superintendência de Fiscalização e Coordenação · SFC" data-title="Consultar empresas e embarcações para o transporte aquaviário federal de passageiros na navegação interior (Navegue Seguro)">
               <span class="sb-num">01</span><span class="sb-name">Consultar empresas e embarcações para o transporte aquaviário federal de passageiros na navegação interior (Navegue Seguro)</span><i class="fas fa-plus sb-plus" aria-hidden="true"></i>
