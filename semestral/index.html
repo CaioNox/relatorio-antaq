@@ -750,8 +750,14 @@
       return slides[n - 1];
     }
 
+    /* direcao da troca: entrando de re, um slide com etapas abre na ultima */
+    let direcao = "frente";
+    /* ligado pelo proprio slide, via postMessage, quando ele tem etapas internas */
+    let slideComEtapas = false;
+
     function render() {
-      frame.src = fileFor(current);
+      slideComEtapas = false;
+      frame.src = fileFor(current) + (direcao === "tras" ? "#fim" : "");
       const label = `Slide ${current} de ${total}: ${meta[current - 1].block}`;
       frame.title = label;
       document.getElementById('pageInfo').textContent = `${current} / ${total}`;
@@ -761,9 +767,9 @@
       if (window.A11y) window.A11y.announce(label);
     }
 
-    function next() { if (current < total) { current++; render(); } }
-    function prev() { if (current > 1) { current--; render(); } }
-    function goHome() { current = 1; render(); }
+    function next() { if (current < total) { direcao = "frente"; current++; render(); } }
+    function prev() { if (current > 1) { direcao = "tras"; current--; render(); } }
+    function goHome() { direcao = "frente"; current = 1; render(); }
 
     function updateDots() {
       document.querySelectorAll('.nav-dots button').forEach((dot, i) => {
@@ -827,6 +833,7 @@
     });
 
     window.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'slide-etapas') { slideComEtapas = true; }
       if (e.data && e.data.type === 'go-menu') { irParaMenu(); }
       if (e.data && e.data.type === 'slide-nav' && e.data.key) {
         /* o slide dentro do iframe nao navega enquanto a ajuda estiver aberta */
@@ -845,8 +852,16 @@
     });
 
 
-    document.getElementById('clickLeft').addEventListener('click', () => prev());
-    document.getElementById('clickRight').addEventListener('click', () => next());
+    /* num slide com etapas, o clique lateral percorre as etapas, nao os slides */
+    function cliqueLateral(tecla, semEtapas) {
+      if (slideComEtapas && frame.contentWindow) {
+        frame.contentWindow.postMessage({ type: "deck-key", key: tecla }, "*");
+        return;
+      }
+      semEtapas();
+    }
+    document.getElementById('clickLeft').addEventListener('click', () => cliqueLateral('ArrowLeft', prev));
+    document.getElementById('clickRight').addEventListener('click', () => cliqueLateral('ArrowRight', next));
 
     render();
 

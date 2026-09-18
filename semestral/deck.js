@@ -83,12 +83,21 @@ window.RELATORIO = {
         return { num: el.dataset.n || '', nome: txt(el, '.foco-t'), tag: '', desc: itens };
       }
     },
+    // slide-cartas-servicos.html mostra uma superintendencia por vez (4 etapas);
+    // sem varrer todas as .etapa-foco, o PDF perderia 3 das 4.
     'slide-cartas-servicos.html': {
-      titulo: 'Carta de Serviços da ANTAQ', sel: '.svc-bar',
-      ler: (el, txt) => ({
-        num: el.dataset.num || '', nome: el.dataset.title || txt(el, '.sb-name'),
-        tag: el.dataset.kicker || '', desc: txt(el, '.sb-desc')
-      })
+      titulo: 'Carta de Serviços da ANTAQ', sel: '.etapa-foco',
+      ler: (el, txt) => {
+        var itens = Array.from(el.querySelectorAll('.svc-bar')).map(function (b) {
+          var n = b.dataset.num || txt(b, '.sb-num');
+          var t = b.dataset.title || txt(b, '.sb-name');
+          return n + '. ' + t + ' — ' + txt(b, '.sb-desc');
+        }).join(' ');
+        return {
+          num: el.dataset.n || '', nome: txt(el, '.card-nome p'),
+          tag: txt(el, '.card-cont'), desc: itens
+        };
+      }
     },
     'slide-21.html': {
       titulo: 'Dados Abertos — bases publicadas', sel: '.base-chip',
