@@ -32,79 +32,145 @@
     .top-accent { height: 8px; background-color: #103050; width: 100%; }
     .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
 
+    /* duas colunas ocupando toda a altura: o painel ancora, o fluxo preenche */
     .doc {
-      flex: 1; min-height: 0; position: relative; z-index: 10;
-      padding: .7rem 5rem .5rem 5rem;
-      display: flex; flex-direction: column; justify-content: center;
+      flex: 1; min-height: 0; z-index: 10;
+      display: grid; grid-template-columns: 33% 1fr; gap: 2.1rem;
+      padding: .55rem 4rem .5rem;
     }
 
-    /* identidade da plataforma — a marca e a frase que diz o que ela é */
-    .plat-hero {
-      display: flex; align-items: center; gap: 1.3rem;
-      border-left: 4px solid #0090C0; padding-left: 1.2rem;
+    /* ---------- painel de identidade ---------- */
+    .marca {
+      background:
+        radial-gradient(120% 80% at 12% 0%, rgba(255, 255, 255, .09), transparent 60%),
+        linear-gradient(155deg, #0A1E30 0%, #103050 48%, #17426A 100%);
+      border-radius: 18px; color: #fff;
+      padding: 1.5rem 1.4rem 1.2rem;
+      display: flex; flex-direction: column;
+      position: relative; overflow: hidden;
+      box-shadow: 0 16px 34px -16px rgba(16, 48, 80, .55);
+      animation: fadeInUp .5s cubic-bezier(.2, .7, .3, 1) both;
     }
-    .ph-mark { flex-shrink: 0; width: 4.2rem; display: flex; align-items: center; justify-content: center; }
-    .ph-mark img { width: 100%; height: auto; display: block; }
-    .ph-text { font-size: .88rem; line-height: 1.46; color: #103050; font-weight: 600; margin: 0; }
-    .ph-text b { color: #0070C0; font-weight: 700; }
 
-    .plat-sub {
-      margin: .7rem 0 0; color: #475569; font-size: .72rem; line-height: 1.6;
-      text-align: justify; hyphens: auto; text-indent: 1.8em;
+    .marca::after {
+      content: "\f086"; font-family: "Font Awesome 6 Free"; font-weight: 900;
+      position: absolute; right: -1.3rem; bottom: -1.9rem;
+      font-size: 8rem; color: rgba(255, 255, 255, .05);
     }
-    .plat-sub b { color: #103050; font-weight: 700; }
 
-    /* o fluxo é o elemento dominante do slide */
-    .flux { position: relative; display: grid; grid-template-columns: repeat(5, 1fr); margin-top: 1.15rem; }
-    .flux::before {
-      content: ""; position: absolute; left: 10%; right: 10%; top: 1.42rem; height: 3px;
-      background: linear-gradient(90deg, #D6E9F5, #0070C0); border-radius: 2px;
-    }
-    .fx {
-      position: relative; display: flex; flex-direction: column; align-items: center;
-      text-align: center; padding: 0 .5rem; animation: fadeInUp .5s ease both;
-    }
-    .fx:nth-child(1) { animation-delay: .06s; }
-    .fx:nth-child(2) { animation-delay: .14s; }
-    .fx:nth-child(3) { animation-delay: .22s; }
-    .fx:nth-child(4) { animation-delay: .30s; }
-    .fx:nth-child(5) { animation-delay: .38s; }
-    .fx-dot {
-      width: 2.85rem; height: 2.85rem; border-radius: 999px; background: #fff;
-      border: 3px solid #D6E9F5; color: #0070C0; font-size: 1.02rem;
+    .marca-logo {
+      width: 5.6rem; height: 5.6rem; border-radius: 16px; background: #fff;
       display: flex; align-items: center; justify-content: center;
+      padding: .5rem; box-shadow: 0 10px 22px -12px rgba(0, 0, 0, .5);
     }
-    .fx.key .fx-dot {
-      background: linear-gradient(135deg, #103050, #0070C0); border-color: #0070C0; color: #fff;
-      transform: scale(1.16); box-shadow: 0 14px 26px -12px rgba(16, 48, 80, .65);
-    }
-    .fx-t {
-      font-family: 'Montserrat', sans-serif; font-weight: 700; color: #103050;
-      font-size: .68rem; line-height: 1.2; margin: .62rem 0 0;
-    }
-    .fx.key .fx-t { color: #0070C0; font-weight: 800; }
-    .fx-d { font-size: .58rem; color: #64748B; line-height: 1.4; margin: .2rem 0 0; }
 
-    /* notas de apoio — quietas, sem moldura */
-    .plat-notes {
-      margin-top: 1rem; padding-top: .7rem; border-top: 1px solid #E2E8F0;
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem;
-    }
-    .pn { display: flex; gap: .6rem; align-items: flex-start; }
-    .pn i { color: #0090C0; font-size: .82rem; margin-top: .14rem; flex-shrink: 0; }
-    .pn-t { font-family: 'Montserrat', sans-serif; font-weight: 700; color: #103050; font-size: .63rem; margin: 0; }
-    .pn-d { font-size: .58rem; color: #64748B; line-height: 1.42; margin: .1rem 0 0; }
+    .marca-logo img { width: 100%; height: auto; display: block; }
 
-    .url-badge {
-      display: inline-flex; align-items: center; gap: .5rem;
-      background: #103050; color: #fff; border-radius: 999px;
-      padding: .35rem 1rem; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: .68rem;
+    .marca-nome {
+      font-family: 'Montserrat', sans-serif; font-weight: 900;
+      font-size: 2.05rem; line-height: 1; letter-spacing: -.02em;
+      margin: .9rem 0 .3rem;
     }
-    .url-badge a { color: #fff; text-decoration: none; }
+
+    .marca-sub {
+      font-size: .66rem; line-height: 1.45; color: #9dc6e8;
+      font-weight: 600; margin: 0;
+    }
+
+    .marca-div { height: 1px; background: rgba(255, 255, 255, .15); margin: 1.05rem 0 .9rem; }
+
+    .marca-notas { display: flex; flex-direction: column; gap: .85rem; }
+
+    .mn { display: flex; gap: .65rem; align-items: flex-start; }
+
+    .mn-ico {
+      width: 1.75rem; height: 1.75rem; border-radius: 8px; flex-shrink: 0;
+      background: rgba(255, 255, 255, .12); color: #9dc6e8;
+      display: flex; align-items: center; justify-content: center; font-size: .78rem;
+    }
+
+    .mn-t {
+      font-family: 'Montserrat', sans-serif; font-weight: 700;
+      font-size: .64rem; color: #fff; margin: 0 0 .1rem;
+    }
+
+    .mn-d { font-size: .6rem; line-height: 1.4; color: rgba(255, 255, 255, .62); margin: 0; }
+
+    .marca-url {
+      margin-top: auto; padding-top: 1rem;
+      display: inline-flex; align-items: center; gap: .45rem;
+      font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: .62rem;
+      color: #9dc6e8; text-decoration: none;
+    }
+
+    .marca-url:hover { color: #fff; }
+
+    /* ---------- coluna do fluxo ---------- */
+    .lado { display: flex; flex-direction: column; min-width: 0; padding-top: .3rem; }
+
+    .intro {
+      color: #334155; font-size: .76rem; line-height: 1.62;
+      text-align: justify; hyphens: auto; margin: 0 0 1.15rem;
+      animation: fadeInUp .5s cubic-bezier(.2, .7, .3, 1) .08s both;
+    }
+
+    .intro b { color: #103050; font-weight: 700; }
+
+    .fluxo-tit {
+      display: flex; align-items: center; gap: .55rem;
+      font-family: 'Montserrat', sans-serif; font-weight: 800;
+      font-size: .6rem; letter-spacing: .12em; text-transform: uppercase;
+      color: #0070C0; margin: 0 0 .85rem;
+    }
+
+    .fluxo-tit::after { content: ""; flex: 1; height: 1px; background: #E2E8F0; }
+
+    /* trilha vertical: a linha corre por tras dos marcadores */
+    .fluxo { position: relative; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+
+    .fluxo::before {
+      content: ""; position: absolute; left: 1.08rem; top: 1.1rem; bottom: 1.1rem;
+      width: 2px; background: linear-gradient(180deg, #D6E9F5, #0070C0);
+    }
+
+    .etapa {
+      position: relative; display: flex; align-items: flex-start; gap: .95rem;
+      animation: fadeInUp .5s cubic-bezier(.2, .7, .3, 1) both;
+    }
+
+    .etapa:nth-child(1) { animation-delay: .14s; }
+    .etapa:nth-child(2) { animation-delay: .22s; }
+    .etapa:nth-child(3) { animation-delay: .30s; }
+    .etapa:nth-child(4) { animation-delay: .38s; }
+    .etapa:nth-child(5) { animation-delay: .46s; }
+
+    .etapa-n {
+      width: 2.2rem; height: 2.2rem; border-radius: 999px; flex-shrink: 0;
+      background: #fff; border: 2px solid #D6E9F5; color: #0070C0;
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .8rem;
+      display: flex; align-items: center; justify-content: center; z-index: 1;
+    }
+
+    .etapa.chave .etapa-n {
+      background: linear-gradient(140deg, #103050, #0070C0);
+      border-color: #0070C0; color: #fff;
+      box-shadow: 0 10px 20px -10px rgba(16, 48, 80, .7);
+    }
+
+    .etapa-corpo { padding-top: .18rem; min-width: 0; }
+
+    .etapa-t {
+      font-family: 'Montserrat', sans-serif; font-weight: 800;
+      font-size: .82rem; color: #103050; line-height: 1.15; margin: 0 0 .16rem;
+    }
+
+    .etapa.chave .etapa-t { color: #0070C0; }
+
+    .etapa-d { font-size: .68rem; line-height: 1.5; color: #64748B; margin: 0; }
 
     .bg-pattern { position: absolute; bottom: -60px; right: -50px; width: 380px; height: 380px; opacity: .025; z-index: 0; color: #103050; }
+
     @keyframes fadeInUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
-    .a { animation: fadeInUp .45s ease both; }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
   </style>
   <link rel="stylesheet" href="a11y.css">
@@ -137,71 +203,89 @@
 
     <div class="doc">
 
-      <div class="plat-hero a">
-        <div class="ph-mark"><img src="Imagens/Logo_Fala_BR.png" alt="Logotipo da plataforma Fala.BR" /></div>
-        <p class="ph-text txt-bloco">
-          O <b>Fala.BR</b> é o sistema do <b>Governo Federal</b>, gerido pela <b>Controladoria-Geral da União
-          (CGU)</b>, que centraliza em um só lugar as <b>manifestações de ouvidoria</b> e os <b>pedidos de acesso
-          à informação</b> de todos os órgãos do Poder Executivo federal. É por ele que a Ouvidoria da ANTAQ recebe
-          e trata as demandas da sociedade.
+      <aside class="marca">
+        <div class="marca-logo"><img src="Imagens/Logo_Fala_BR.png" alt="Logotipo da plataforma Fala.BR" /></div>
+        <p class="marca-nome">Fala.BR</p>
+        <p class="marca-sub">Plataforma Integrada de Ouvidoria e Acesso à Informação · Controladoria-Geral da União</p>
+
+        <div class="marca-div"></div>
+
+        <div class="marca-notas">
+          <div class="mn">
+            <div class="mn-ico"><i class="fas fa-user-shield" aria-hidden="true"></i></div>
+            <div>
+              <p class="mn-t">Identificado ou anônimo</p>
+              <p class="mn-d">O cidadão escolhe se identificar ou manter sigilo.</p>
+            </div>
+          </div>
+          <div class="mn">
+            <div class="mn-ico"><i class="fas fa-magnifying-glass" aria-hidden="true"></i></div>
+            <div>
+              <p class="mn-t">Acompanhamento por protocolo</p>
+              <p class="mn-d">Consulta ao andamento da demanda a qualquer momento.</p>
+            </div>
+          </div>
+          <div class="mn">
+            <div class="mn-ico"><i class="fas fa-scale-balanced" aria-hidden="true"></i></div>
+            <div>
+              <p class="mn-t">Direito a recurso</p>
+              <p class="mn-d">Resposta insatisfatória pode ser recorrida na plataforma.</p>
+            </div>
+          </div>
+        </div>
+
+        <a class="marca-url" href="https://falabr.cgu.gov.br/v2/" target="_blank" rel="noopener noreferrer">
+          <i class="fas fa-link" aria-hidden="true"></i> falabr.cgu.gov.br
+        </a>
+      </aside>
+
+
+      <div class="lado">
+        <p class="intro txt-bloco">
+          O Fala.BR é o sistema do <b>Governo Federal</b>, gerido pela <b>Controladoria-Geral da União</b>, que
+          centraliza em um só lugar as manifestações de ouvidoria — denúncias, reclamações, solicitações, sugestões e
+          elogios — e os pedidos de acesso à informação amparados pela <b>Lei nº 12.527/2011</b>. Por ser a mesma
+          plataforma em todos os órgãos do Poder Executivo federal, o cidadão encontra sempre o mesmo fluxo de
+          recebimento, tramitação e resposta, qualquer que seja o assunto.
         </p>
-      </div>
 
-      <p class="plat-sub txt-bloco">
-        Na plataforma são registrados tanto as <b>manifestações de ouvidoria</b> — denúncias, reclamações,
-        solicitações, sugestões e elogios — quanto os <b>pedidos de acesso à informação</b>, amparados pela
-        <b>Lei nº 12.527/2011</b>. Por ser a mesma plataforma em todos os órgãos, o cidadão encontra um fluxo
-        padronizado de recebimento, tramitação e resposta, qualquer que seja o assunto.
-      </p>
+        <p class="fluxo-tit"><i class="fas fa-diagram-project" aria-hidden="true"></i> Como a demanda caminha</p>
 
-      <div class="flux">
-        <div class="fx">
-          <div class="fx-dot"><i class="fas fa-user" aria-hidden="true"></i></div>
-          <p class="fx-t">Cidadão</p>
-          <p class="fx-d">Registra a manifestação ou o pedido, identificado ou anônimo.</p>
-        </div>
-        <div class="fx key">
-          <div class="fx-dot"><i class="fas fa-comments" aria-hidden="true"></i></div>
-          <p class="fx-t">Fala.BR</p>
-          <p class="fx-d">A plataforma da CGU protocola a demanda e a encaminha ao órgão.</p>
-        </div>
-        <div class="fx">
-          <div class="fx-dot"><i class="fas fa-landmark" aria-hidden="true"></i></div>
-          <p class="fx-t">Ouvidoria da ANTAQ</p>
-          <p class="fx-d">Classifica, instrui e direciona à área competente da Agência.</p>
-        </div>
-        <div class="fx">
-          <div class="fx-dot"><i class="fas fa-gears" aria-hidden="true"></i></div>
-          <p class="fx-t">Unidade responsável</p>
-          <p class="fx-d">A área técnica analisa o caso e subsidia a resposta.</p>
-        </div>
-        <div class="fx">
-          <div class="fx-dot"><i class="fas fa-reply" aria-hidden="true"></i></div>
-          <p class="fx-t">Resposta</p>
-          <p class="fx-d">Retorno ao cidadão pela própria plataforma, dentro do prazo legal.</p>
-        </div>
-      </div>
-
-      <div class="plat-notes">
-        <div class="pn">
-          <i class="fas fa-user-shield" aria-hidden="true"></i>
-          <div>
-            <p class="pn-t">Identificado ou anônimo</p>
-            <p class="pn-d">O cidadão escolhe se identificar ou manter sigilo.</p>
+        <div class="fluxo">
+          <div class="etapa">
+            <div class="etapa-n">1</div>
+            <div class="etapa-corpo">
+              <p class="etapa-t">Cidadão</p>
+              <p class="etapa-d">Registra a manifestação ou o pedido de acesso, identificado ou anônimo.</p>
+            </div>
           </div>
-        </div>
-        <div class="pn">
-          <i class="fas fa-magnifying-glass" aria-hidden="true"></i>
-          <div>
-            <p class="pn-t">Acompanhamento por protocolo</p>
-            <p class="pn-d">Consulta ao andamento da demanda a qualquer momento.</p>
+          <div class="etapa chave">
+            <div class="etapa-n">2</div>
+            <div class="etapa-corpo">
+              <p class="etapa-t">Fala.BR</p>
+              <p class="etapa-d">A plataforma da CGU protocola a demanda e a encaminha ao órgão competente.</p>
+            </div>
           </div>
-        </div>
-        <div class="pn">
-          <i class="fas fa-scale-balanced" aria-hidden="true"></i>
-          <div>
-            <p class="pn-t">Direito a recurso</p>
-            <p class="pn-d">Resposta insatisfatória pode ser recorrida na plataforma.</p>
+          <div class="etapa">
+            <div class="etapa-n">3</div>
+            <div class="etapa-corpo">
+              <p class="etapa-t">Ouvidoria da ANTAQ</p>
+              <p class="etapa-d">Classifica, instrui e direciona à área competente da Agência.</p>
+            </div>
+          </div>
+          <div class="etapa">
+            <div class="etapa-n">4</div>
+            <div class="etapa-corpo">
+              <p class="etapa-t">Unidade responsável</p>
+              <p class="etapa-d">A área técnica analisa o caso e subsidia a resposta ao cidadão.</p>
+            </div>
+          </div>
+          <div class="etapa">
+            <div class="etapa-n">5</div>
+            <div class="etapa-corpo">
+              <p class="etapa-t">Resposta</p>
+              <p class="etapa-d">Retorno pela própria plataforma, dentro do prazo legal e com direito a recurso.</p>
+            </div>
           </div>
         </div>
       </div>
@@ -212,8 +296,6 @@
     <div class="px-16 pb-6 pt-1 flex justify-between items-center z-10">
       <p class="text-gray-400 text-xs">Relatório 1º Semestre de 2026 – Ouvidoria – Agência Nacional de Transportes
         Aquaviários - ANTAQ</p>
-      <span class="url-badge"><i class="fas fa-link" aria-hidden="true"></i> <a href="https://falabr.cgu.gov.br/v2/"
-          target="_blank" rel="noopener noreferrer">falabr.cgu.gov.br</a></span>
     </div>
     <div class="bg-pattern"><i class="fas fa-comments text-9xl"></i></div>
   </div>
