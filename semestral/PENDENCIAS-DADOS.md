@@ -147,7 +147,10 @@ prováveis, por posição na tabela, são `Penalidades` (2) ou `Carga Perigosa` 
 
 A linha `Acesso à informação — Demandas redirecionadas à STAI (99)` **não** entra
 no gráfico: as 7 categorias já somam 614 sem ela, e ela representa demandas
-redirecionadas, não manifestações do próprio recorte. As categorias
+redirecionadas, não manifestações do próprio recorte. Desde 17/09/2026 ela foi
+removida do slide por completo (antes aparecia como chip/fatia marcada
+`foraDoTotal`); o cálculo passou a ser simplesmente `soma dos temas / 614`,
+igual ao do relatório trimestral. As categorias
 `Reabertura de demandas` e `Controladoria-Geral da União – CGU` vieram sem
 quantidade e também ficaram de fora.
 
