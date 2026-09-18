@@ -121,6 +121,7 @@
     requestAnimationFrame(passo);
   }
 
+  /* Força tudo para o estado final. Necessário antes de capturar imagem. */
   function finalizar() {
     pendentes.forEach(function (reg) {
       if (reg.cancelado) return;
