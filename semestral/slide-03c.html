@@ -114,8 +114,6 @@
       align-items: center;
       gap: .5rem;
       break-inside: avoid;
-      break-before: column;
-      -webkit-column-break-before: column;
       break-after: avoid;
       -webkit-column-break-after: avoid;
     }
@@ -135,6 +133,7 @@
       line-height: 1.54;
       color: #334155;
       text-align: justify;
+      break-inside: avoid;
     }
 
     .act-list li::before {
@@ -145,6 +144,11 @@
       left: 0;
       top: .05rem;
       color: #0090C0;
+    }
+
+    .act-list + .doc-text {
+      break-before: column;
+      -webkit-column-break-before: column;
     }
 
     .bg-pattern {
@@ -218,6 +222,16 @@
       </p>
 
       <div class="doc-cols">
+        <p class="doc-subtitle"><i class="fas fa-list-check" aria-hidden="true"></i> Principais atividades</p>
+        <ul class="act-list">
+          <li><strong>Participação Social:</strong> Atua como instância pública responsável pelo tratamento de
+            Reclamações, Solicitações, Denúncias, Sugestões e Elogios relativos às políticas e aos serviços
+            fiscalizados e regulados pela ANTAQ.</li>
+          <li><strong>Transparência:</strong> Compromete-se com o atendimento regular e efetivo ao cidadão, promovendo
+            ações de transparência e prestação de contas das atividades da Ouvidoria.</li>
+          <li><strong>Independência:</strong> Para garantir a transparência e segurança, o(a) Ouvidor(a) atua com
+            autonomia em relação aos demais setores da Agência.</li>
+        </ul>
 
         <p class="doc-text txt-bloco" style="text-indent: 1.8em;">
           O papel da Ouvidoria é vital para a missão da ANTAQ de promover o desenvolvimento sustentável do setor
@@ -230,18 +244,6 @@
           qualificadas e diagnósticos. Essa atuação fortalece a governança, apoia a melhoria contínua dos processos
           internos da Agência e amplia a transparência e a prestação de contas com a sociedade.
         </p>
-
-
-        <p class="doc-subtitle"><i class="fas fa-list-check"></i> Principais atividades</p>
-        <ul class="act-list">
-          <li><strong>Participação Social:</strong> Atua como instância pública responsável pelo tratamento de
-            Reclamações, Solicitações, Denúncias, Sugestões e Elogios relativos às políticas e aos serviços
-            fiscalizados e regulados pela ANTAQ.</li>
-          <li><strong>Transparência:</strong> Compromete-se com o atendimento regular e efetivo ao cidadão, promovendo
-            ações de transparência e prestação de contas das atividades da Ouvidoria.</li>
-          <li><strong>Independência:</strong> Para garantir a transparência e segurança, o(a) Ouvidor(a) atua com
-            autonomia em relação aos demais setores da Agência.</li>
-        </ul>
       </div>
     </div>
 
