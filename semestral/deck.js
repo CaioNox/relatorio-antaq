@@ -46,8 +46,6 @@ window.RELATORIO = {
         'slide-22.html',
         // Acesso à informação sob iniciativa do cidadão (transparência passiva)
         'slide-23.html', 'slide-18.html', 'slide-resp-unidade.html', 'slide-tramit-uorg.html', 'slide-20.html',
-        // Perguntas e Respostas
-        'slide-qa-conceitos.html', 'slide-qa-numeros.html', 'slide-qa-fluxo.html',
       ],
     },
     {
@@ -56,7 +54,7 @@ window.RELATORIO = {
     },
     {
       block: 'Bloco 6 · Apêndice', short: 'Apêndice', tint: 0.3,
-      files: ['capa-bloco-6.html', 'slide-31.html', 'slide-29.html', 'slide-29b.html', 'slide-30.html', 'slide-32.html'],
+      files: ['capa-bloco-6.html', 'slide-qa-conceitos.html', 'slide-qa-numeros.html', 'slide-qa-fluxo.html', 'slide-31.html', 'slide-29.html', 'slide-29b.html', 'slide-30.html', 'slide-32.html'],
     },
     {
       block: 'Encerramento', short: 'Encerramento', tint: 0.2,
