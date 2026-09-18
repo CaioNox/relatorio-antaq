@@ -52,6 +52,8 @@
   function interpretar(txt) {
     var t = (txt || '').trim();
     if (!t) return null;
+
+    /* Descarta ordinais ("01", "02"), datas ("05/2018") e texto misto. */
     if (/^0\d/.test(t)) return null;
     if (/[\/\-–—a-zA-ZÀ-ÿ]/.test(t)) return null;
     if (!/\d/.test(t)) return null;
