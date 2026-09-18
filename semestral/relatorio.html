@@ -398,6 +398,16 @@
       return frame;
     }
 
+    /* Congela as contagens do vida.js dentro de cada slide ja montado. */
+    function finalizarVida() {
+      paginas.forEach(p => {
+        const f = p.querySelector('iframe');
+        try {
+          if (f && f.contentWindow && f.contentWindow.Vida) f.contentWindow.Vida.finalizar();
+        } catch (e) { }
+      });
+    }
+
     function desmontar(page) {
       if (page.dataset.montado !== '1' || page.dataset.fixo === '1') return;
       const f = page.querySelector('iframe');
@@ -537,6 +547,7 @@
 
     window.addEventListener('beforeprint', () => {
       paginas.forEach(p => { p.dataset.fixo = '1'; montar(p); });
+      finalizarVida();
     });
 
 
@@ -644,6 +655,9 @@
             }
 
             await inlinarImagens(doc);
+
+            /* vida.js anima os numeros; congela no valor final antes da captura */
+            if (iframe.contentWindow && iframe.contentWindow.Vida) iframe.contentWindow.Vida.finalizar();
 
 
             if (doc.fonts && doc.fonts.ready) await doc.fonts.ready;
