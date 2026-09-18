@@ -10,218 +10,109 @@
     href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
   <link
-    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&amp;family=Open+Sans:ital,wght@0,400;0,600;1,400&amp;display=swap"
     rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
   <style>
-    html {
-      font-size: 26px;
-    }
-
-    body {
-      margin: 0;
-      padding: 0;
-      background-color: #f3f4f6;
-      overflow: hidden;
-    }
+    html { font-size: 26px; }
+    body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
 
     .slide-container {
-      width: 100vw;
-      height: 100vh;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      background-color: #ffffff;
-      overflow: hidden;
+      width: 100vw; height: 100vh; position: relative;
+      display: flex; flex-direction: column;
+      background-color: #ffffff; overflow: hidden;
       font-family: 'Open Sans', sans-serif;
     }
 
-    .font-montserrat {
-      font-family: 'Montserrat', sans-serif;
+    .font-montserrat { font-family: 'Montserrat', sans-serif; }
+    .text-brand-primary { color: #103050; }
+    .text-brand-secondary { color: #0070C0; }
+    .bg-brand-secondary { background-color: #0070C0; }
+
+    .top-accent { height: 8px; background-color: #103050; width: 100%; }
+    .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
+
+    .doc {
+      flex: 1; min-height: 0; position: relative; z-index: 10;
+      padding: .7rem 5rem .5rem 5rem;
+      display: flex; flex-direction: column; justify-content: center;
     }
 
-    .text-brand-primary {
-      color: #103050;
+    /* identidade da plataforma — a marca e a frase que diz o que ela é */
+    .plat-hero {
+      display: flex; align-items: center; gap: 1.3rem;
+      border-left: 4px solid #0090C0; padding-left: 1.2rem;
     }
-
-    .text-brand-secondary {
-      color: #0070C0;
+    .ph-mark { flex-shrink: 0; width: 4.2rem; display: flex; align-items: center; justify-content: center; }
+    .ph-tile {
+      width: 4.2rem; height: 4.2rem; border-radius: 16px;
+      background: linear-gradient(135deg, #103050, #0070C0); color: #fff;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .18rem;
+      box-shadow: 0 14px 26px -14px rgba(16, 48, 80, .65);
     }
+    .ph-tile i { font-size: 1.25rem; }
+    .ph-tile span { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .48rem; letter-spacing: .06em; }
+    .ph-text { font-size: .88rem; line-height: 1.46; color: #103050; font-weight: 600; margin: 0; }
+    .ph-text b { color: #0070C0; font-weight: 700; }
 
-    .bg-brand-secondary {
-      background-color: #0070C0;
+    .plat-sub {
+      margin: .7rem 0 0; color: #475569; font-size: .72rem; line-height: 1.6;
+      text-align: justify; hyphens: auto; text-indent: 1.8em;
     }
+    .plat-sub b { color: #103050; font-weight: 700; }
 
-    .top-accent {
-      height: 8px;
-      background-color: #103050;
-      width: 100%;
+    /* o fluxo é o elemento dominante do slide */
+    .flux { position: relative; display: grid; grid-template-columns: repeat(5, 1fr); margin-top: 1.15rem; }
+    .flux::before {
+      content: ""; position: absolute; left: 10%; right: 10%; top: 1.42rem; height: 3px;
+      background: linear-gradient(90deg, #D6E9F5, #0070C0); border-radius: 2px;
     }
-
-    .top-accent-secondary {
-      height: 4px;
-      background-color: #0070C0;
-      width: 100%;
+    .fx {
+      position: relative; display: flex; flex-direction: column; align-items: center;
+      text-align: center; padding: 0 .5rem; animation: fadeInUp .5s ease both;
     }
-
-    .painel-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: .6rem;
-      background: linear-gradient(135deg, #103050, #0070C0);
-      color: #fff;
-      border-radius: 999px;
-      padding: .4rem 1.1rem;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
-      font-size: .7rem;
-      letter-spacing: .05em;
-      box-shadow: 0 8px 20px -10px rgba(16, 48, 80, .5);
-      text-decoration: none;
-      transition: opacity .2s;
-      white-space: nowrap;
+    .fx:nth-child(1) { animation-delay: .06s; }
+    .fx:nth-child(2) { animation-delay: .14s; }
+    .fx:nth-child(3) { animation-delay: .22s; }
+    .fx:nth-child(4) { animation-delay: .30s; }
+    .fx:nth-child(5) { animation-delay: .38s; }
+    .fx-dot {
+      width: 2.85rem; height: 2.85rem; border-radius: 999px; background: #fff;
+      border: 3px solid #D6E9F5; color: #0070C0; font-size: 1.02rem;
+      display: flex; align-items: center; justify-content: center;
     }
-
-    .painel-badge:hover {
-      opacity: .85;
+    .fx.key .fx-dot {
+      background: linear-gradient(135deg, #103050, #0070C0); border-color: #0070C0; color: #fff;
+      transform: scale(1.16); box-shadow: 0 14px 26px -12px rgba(16, 48, 80, .65);
     }
-
-    .doc-lead {
-      font-size: 1.05rem;
-      line-height: 1.52;
-      color: #103050;
-      font-weight: 600;
-      border-left: 4px solid #0090C0;
-      padding-left: 1.1rem;
-      margin-bottom: 1rem;
+    .fx-t {
+      font-family: 'Montserrat', sans-serif; font-weight: 700; color: #103050;
+      font-size: .68rem; line-height: 1.2; margin: .62rem 0 0;
     }
+    .fx.key .fx-t { color: #0070C0; font-weight: 800; }
+    .fx-d { font-size: .58rem; color: #64748B; line-height: 1.4; margin: .2rem 0 0; }
 
-    .doc-lead b {
-      color: #0070C0;
-      font-weight: 700;
+    /* notas de apoio — quietas, sem moldura */
+    .plat-notes {
+      margin-top: 1rem; padding-top: .7rem; border-top: 1px solid #E2E8F0;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem;
     }
+    .pn { display: flex; gap: .6rem; align-items: flex-start; }
+    .pn i { color: #0090C0; font-size: .82rem; margin-top: .14rem; flex-shrink: 0; }
+    .pn-t { font-family: 'Montserrat', sans-serif; font-weight: 700; color: #103050; font-size: .63rem; margin: 0; }
+    .pn-d { font-size: .58rem; color: #64748B; line-height: 1.42; margin: .1rem 0 0; }
 
-    .feature-card {
-      background: #ffffff;
-      border: 1.5px solid #E2E8F0;
-      border-radius: 14px;
-      padding: 1rem 1.2rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      gap: .4rem;
-      box-shadow: 0 4px 12px -4px rgba(16, 48, 80, .12);
-      transition: transform .24s ease, border-color .24s ease, box-shadow .24s ease;
-      position: relative;
-      overflow: hidden;
+    .url-badge {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: #103050; color: #fff; border-radius: 999px;
+      padding: .35rem 1rem; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: .68rem;
     }
+    .url-badge a { color: #fff; text-decoration: none; }
 
-    .feature-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 4px;
-      height: 100%;
-      background: var(--card-accent, #0070C0);
-    }
-
-    .feature-card:hover {
-      transform: translateY(-4px);
-      border-color: #0090C0;
-      box-shadow: 0 12px 24px -8px rgba(16, 48, 80, .24);
-    }
-
-    .fc-head {
-      display: flex;
-      align-items: center;
-      gap: .6rem;
-    }
-
-    .fc-ico {
-      width: 2rem;
-      height: 2rem;
-      border-radius: 8px;
-      background: #F0F7FC;
-      color: var(--card-accent, #0070C0);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: .95rem;
-      flex-shrink: 0;
-    }
-
-    .fc-title {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 800;
-      font-size: .88rem;
-      color: #103050;
-      line-height: 1.25;
-    }
-
-    .fc-desc {
-      font-size: .82rem;
-      line-height: 1.5;
-      color: #475569;
-      margin: 0;
-      text-align: justify;
-      text-align-last: left;
-    }
-
-    .info-footer {
-      background: #F8FAFC;
-      border: 1px solid #E2E8F0;
-      border-radius: 10px;
-      padding: .6rem 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      font-size: .78rem;
-      color: #64748B;
-      flex-shrink: 0;
-    }
-
-    .info-footer strong {
-      color: #103050;
-    }
-
-    .bg-pattern {
-      position: absolute;
-      bottom: -60px;
-      right: -50px;
-      width: 400px;
-      height: 400px;
-      opacity: 0.03;
-      z-index: 0;
-      color: #103050;
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(14px);
-      }
-
-      to {
-        opacity: 1;
-        transform: none;
-      }
-    }
-
-    .anim-in {
-      animation: fadeInUp .45s cubic-bezier(.2, .7, .3, 1) both;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-
-      *,
-      *::before,
-      *::after {
-        animation: none !important;
-        transition: none !important;
-      }
-    }
+    .bg-pattern { position: absolute; bottom: -60px; right: -50px; width: 380px; height: 380px; opacity: .025; z-index: 0; color: #103050; }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+    .a { animation: fadeInUp .45s ease both; }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
   </style>
   <link rel="stylesheet" href="a11y.css">
   <link rel="stylesheet" href="base.css" />
@@ -232,95 +123,113 @@
     <div class="top-accent"></div>
     <div class="top-accent-secondary"></div>
 
+
     <div class="flex items-start justify-between px-16 pt-10 pb-3 z-10">
       <div>
         <div class="flex items-center gap-3 mb-1">
           <div class="w-1 h-8 bg-brand-secondary"></div>
           <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Plataforma Informa.BR</p>
         </div>
-        <p class="text-gray-500 font-medium ml-4 text-base">Inteligência artificial da CGU para localização de informações públicas e pedidos LAI</p>
+        <p class="text-gray-500 font-medium ml-4 text-base">A busca com inteligência artificial que antecede o pedido de acesso à informação</p>
       </div>
-      <div class="flex items-center gap-4">
-        <a href="https://informabr.cgu.gov.br" target="_blank" rel="noopener noreferrer" class="painel-badge">
-          <i class="fas fa-arrow-up-right-from-square"></i> Acessar Informa.BR
-        </a>
-        <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
-          <i class="fas fa-lock-open text-3xl" aria-hidden="true"></i>
-          <div class="flex flex-col justify-center pl-2" style="border-left:1px solid #CBD5E1;">
-            <p
-              class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">
-              CAPÍTULO 04</p>
-            <p
-              class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none whitespace-nowrap">
-              Seção de Transparência e Acesso à Informação - STAI</p>
-          </div>
+      <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
+        <i class="fas fa-lock-open text-3xl" aria-hidden="true"></i>
+        <div class="flex flex-col justify-center pl-2" style="border-left:1px solid #CBD5E1;">
+          <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">CAPÍTULO 04</p>
+          <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none whitespace-nowrap">Seção de Transparência e Acesso à Informação - STAI</p>
         </div>
       </div>
     </div>
 
-    <div class="flex-1 flex flex-col justify-between px-16 pb-4 z-10 anim-in" style="min-height:0;">
-      <p class="doc-lead txt-bloco">
-        Desenvolvido pela <b>Controladoria-Geral da União (CGU)</b>, o <b>Informa.BR</b> é uma ferramenta inovadora que emprega <b>inteligência artificial</b> para democratizar o acesso à informação, realizando buscas semânticas em dados já divulgados e conectando o cidadão ao registro direto de pedidos via Fala.BR.
+
+    <div class="doc">
+
+      <div class="plat-hero a">
+        <div class="ph-mark">
+          <div class="ph-tile">
+            <i class="fas fa-magnifying-glass" aria-hidden="true"></i>
+            <span>INFORMA.BR</span>
+          </div>
+        </div>
+        <p class="ph-text txt-bloco">
+          O <b>Informa.BR</b> é a Plataforma de Transparência e Acesso à Informação do <b>Governo Federal</b>,
+          desenvolvida pela <b>Controladoria-Geral da União (CGU)</b>. Ela emprega <b>inteligência artificial</b>
+          para encontrar, no que o poder público já divulgou, a resposta que o cidadão procura — e, quando essa
+          resposta não existe, conduz ao <b>pedido formal de acesso à informação</b> no Fala.BR.
+        </p>
+      </div>
+
+      <p class="plat-sub txt-bloco">
+        A busca é <b>semântica</b>: o cidadão pergunta em linguagem natural e a plataforma vasculha ao mesmo tempo o
+        <b>Portal da Transparência</b>, os <b>dados abertos</b> e os sítios oficiais dos órgãos federais, sem exigir
+        termos técnicos. Em um só ponto de contato reúne dados orçamentários, contratos, compras, servidores e
+        regulações — o que aproxima a informação do cidadão e reforça o <b>controle social</b> sobre a administração
+        pública.
       </p>
 
-      <div class="grid grid-cols-2 gap-4 my-auto" style="min-height:0;">
-        <div class="feature-card" style="--card-accent:#103050;">
-          <div class="fc-head">
-            <div class="fc-ico"><i class="fas fa-magnifying-glass-chart"></i></div>
-            <p class="fc-title">Busca Semântica com Inteligência Artificial</p>
-          </div>
-          <p class="fc-desc txt-bloco">
-            Interpreta perguntas em linguagem natural e vasculha simultaneamente o Portal da Transparência, dados abertos e sítios oficiais de órgãos públicos federais, localizando respostas imediatas sem necessidade de termos técnicos.
-          </p>
+      <div class="flux">
+        <div class="fx">
+          <div class="fx-dot"><i class="fas fa-user" aria-hidden="true"></i></div>
+          <p class="fx-t">Cidadão</p>
+          <p class="fx-d">Pergunta em linguagem natural, sem precisar de termos técnicos.</p>
         </div>
-
-        <div class="feature-card" style="--card-accent:#0070C0;">
-          <div class="fc-head">
-            <div class="fc-ico"><i class="fas fa-arrow-right-arrow-left"></i></div>
-            <p class="fc-title">Integração Direta com o Fala.BR</p>
-          </div>
-          <p class="fc-desc txt-bloco">
-            Caso a informação desejada não seja encontrada nas bases públicas, a plataforma orienta o usuário e permite converter a pesquisa diretamente em um pedido formal de acesso à informação (LAI) cadastrado no Fala.BR.
-          </p>
+        <div class="fx key">
+          <div class="fx-dot"><i class="fas fa-magnifying-glass" aria-hidden="true"></i></div>
+          <p class="fx-t">Informa.BR</p>
+          <p class="fx-d">A inteligência artificial da CGU interpreta a pergunta.</p>
         </div>
-
-        <div class="feature-card" style="--card-accent:#0090C0;">
-          <div class="fc-head">
-            <div class="fc-ico"><i class="fas fa-bolt"></i></div>
-            <p class="fc-title">Redução de Demandas Repetitivas</p>
-          </div>
-          <p class="fc-desc txt-bloco">
-            Ao entregar prontamente dados que já estão publicados na transparência ativa da ANTAQ e do governo federal, evita o retrabalho dos setores técnicos e diminui o tempo de resposta ao cidadão.
-          </p>
+        <div class="fx">
+          <div class="fx-dot"><i class="fas fa-database" aria-hidden="true"></i></div>
+          <p class="fx-t">Bases públicas</p>
+          <p class="fx-d">Portal da Transparência, dados abertos e sítios oficiais dos órgãos.</p>
         </div>
-
-        <div class="feature-card" style="--card-accent:#F2A900;">
-          <div class="fc-head">
-            <div class="fc-ico"><i class="fas fa-shield-halved"></i></div>
-            <p class="fc-title">Fortalecimento do Controle Social</p>
-          </div>
-          <p class="fc-desc txt-bloco">
-            Reúne em um ponto único de contato dados orçamentários, contratos, compras, servidores e regulações, promovendo maior transparência e controle social sobre as ações da administração pública.
-          </p>
+        <div class="fx">
+          <div class="fx-dot"><i class="fas fa-bolt" aria-hidden="true"></i></div>
+          <p class="fx-t">Resposta imediata</p>
+          <p class="fx-d">O que já está divulgado chega ao cidadão na hora.</p>
+        </div>
+        <div class="fx">
+          <div class="fx-dot"><i class="fas fa-comments" aria-hidden="true"></i></div>
+          <p class="fx-t">Pedido no Fala.BR</p>
+          <p class="fx-d">Não encontrou? A pesquisa vira pedido de acesso e segue o fluxo da Ouvidoria.</p>
         </div>
       </div>
 
-      <div class="info-footer">
-        <div class="flex items-center gap-2">
-          <i class="fas fa-circle-info text-brand-secondary"></i>
-          <span>Plataforma governamental disponível em: <strong>informabr.cgu.gov.br</strong></span>
+      <div class="plat-notes">
+        <div class="pn">
+          <i class="fas fa-arrows-rotate" aria-hidden="true"></i>
+          <div>
+            <p class="pn-t">Menos demandas repetitivas</p>
+            <p class="pn-d">Ao entregar de pronto o que já é publicado por iniciativa da ANTAQ e do governo federal,
+              evita o retrabalho dos setores técnicos.</p>
+          </div>
         </div>
-        <div>
-          <span>Fundamento: <strong>Lei nº 12.527/2011 (LAI)</strong> e <strong>Decreto nº 7.724/2012</strong></span>
+        <div class="pn">
+          <i class="fas fa-shield-halved" aria-hidden="true"></i>
+          <div>
+            <p class="pn-t">Controle social fortalecido</p>
+            <p class="pn-d">Um ponto único de contato para acompanhar as ações da administração pública.</p>
+          </div>
+        </div>
+        <div class="pn">
+          <i class="fas fa-scale-balanced" aria-hidden="true"></i>
+          <div>
+            <p class="pn-t">Fundamento legal</p>
+            <p class="pn-d">Lei nº 12.527/2011 (LAI) e Decreto nº 7.724/2012.</p>
+          </div>
         </div>
       </div>
+
     </div>
+
 
     <div class="px-16 pb-6 pt-1 flex justify-between items-center z-10">
       <p class="text-gray-400 text-xs">Relatório 1º Semestre de 2026 – Ouvidoria – Agência Nacional de Transportes
         Aquaviários - ANTAQ</p>
+      <span class="url-badge"><i class="fas fa-link" aria-hidden="true"></i> <a href="https://informabr.cgu.gov.br"
+          target="_blank" rel="noopener noreferrer">informabr.cgu.gov.br</a></span>
     </div>
-    <div class="bg-pattern"><i class="fas fa-robot text-9xl"></i></div>
+    <div class="bg-pattern"><i class="fas fa-magnifying-glass text-9xl"></i></div>
   </div>
 
   <script>
