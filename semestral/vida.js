@@ -91,6 +91,7 @@
     el.dataset.vidaFeito = '1';
     el.dataset.vidaFinal = original;
 
+    /* Leitores de tela recebem só o valor final, uma vez. */
     if (!el.hasAttribute('aria-label')) el.setAttribute('aria-label', original.trim());
     el.setAttribute('aria-hidden', 'true');
 
