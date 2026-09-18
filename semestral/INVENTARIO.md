@@ -392,3 +392,48 @@ relatório, nenhum arquivo faltando, nenhum duplicado, `anexos` e `capturaPptx`
 apontando só para slides presentes no deck, e árvore de `slide-01.html` na mesma
 ordem do `deck.js`. Todos os slides tocados foram conferidos em Chrome headless
 a 1920x1080.
+
+---
+
+## 18/09/2026 — `slide-cartas-servicos.html` em 4 etapas
+
+O slide comprimia os 33 serviços das 4 superintendências numa grade de 4
+colunas a `.56rem` com clamp de 2 linhas — ilegível projetado. Passou a usar o
+sistema de etapas de `slide-fundamentos-ouvidorias.html` (uma etapa por
+superintendência) com a estética de lista de `slide-21.html` (`.chart-card` +
+tiles no padrão `.base-chip` + popup).
+
+- **Continua sendo um arquivo só.** A entrada em `deck.js` não mudou.
+- Nome do serviço de `.56rem` para `.78rem`; clamp de 2 para 3 linhas.
+- Numeração preservada: reinicia em 01 em cada setor (SOG 01–18, SRG 01–08,
+  SAF 01–04, SFC 01–03). Total 33.
+- Nenhum texto alterado: as 33 tuplas `data-num`/`data-kicker`/`data-title` e
+  os `.sb-name`/`.sb-desc` foram copiados byte a byte do arquivo anterior.
+  O arquivo novo foi gerado por script a partir do antigo, justamente para
+  nenhuma string passar por reescrita manual.
+
+### Navegação
+
+O slide agora consome as setas antes de repassá-las ao pai. Três furos do
+modelo de etapas foram fechados, e as correções valem para qualquer slide que
+venha a usar etapas:
+
+1. **Foco.** O pai também escuta `keydown`; se o iframe perde o foco, a seta
+   pula as 4 etapas de uma vez. O slide re-foca em `load`, `pointerdown` e no
+   primeiro `mousemove`.
+2. **Entrada pela ré.** `render()` recria o iframe, então o estado se perdia e o
+   slide reabria na etapa 1 ao voltar do seguinte. `index.html` passou a marcar
+   a direção (`next` = frente, `prev` = trás) e a anexar `#fim` ao `src`; o
+   slide lê `location.hash` e abre na última etapa.
+3. **Clique lateral.** `#clickLeft`/`#clickRight` chamavam `prev()`/`next()`
+   direto. Agora o slide se auto-registra com
+   `postMessage({type:"slide-etapas"})` e, quando registrado, o clique lateral
+   vira `postMessage({type:"deck-key"})` para dentro do iframe. Slides sem
+   etapas seguem com o comportamento anterior.
+
+### Anexo do PDF
+
+Como só uma etapa fica visível por vez, o anexo em `deck.js` deixou de ler
+`.svc-bar` e passou a varrer `.etapa-foco`, no mesmo modelo de
+`slide-fundamentos-ouvidorias.html`. Sem isso a exportação perderia 3 das 4
+superintendências.
