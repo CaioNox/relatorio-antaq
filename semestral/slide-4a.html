@@ -123,8 +123,6 @@
       align-items: center;
       gap: .5rem;
       break-inside: avoid;
-      break-before: column;
-      -webkit-column-break-before: column;
       break-after: avoid;
       -webkit-column-break-after: avoid;
     }
@@ -144,6 +142,7 @@
       line-height: 1.48;
       color: #334155;
       text-align: justify;
+      break-inside: avoid;
     }
 
     .act-list li::before {
@@ -154,6 +153,11 @@
       left: 0;
       top: .05rem;
       color: #0090C0;
+    }
+
+    .act-list + .doc-text {
+      break-before: column;
+      -webkit-column-break-before: column;
     }
 
     .act-list li b {
@@ -239,22 +243,7 @@
       </p>
 
       <div class="doc-cols">
-        <p class="doc-text txt-bloco">
-          Integrada à estrutura da <b>Ouvidoria da ANTAQ</b>, a STAI é a unidade encarregada de assegurar a plena
-          efetividade do direito fundamental de acesso à informação pública. Atua como ponto focal do <b>Serviço de
-            Informação ao Cidadão (e-SIC)</b>, articulando as áreas técnicas para que cada demanda seja respondida com
-          exatidão, tempestividade e linguagem acessível ao cidadão.
-        </p>
-        <p class="doc-text txt-bloco">
-          No <b>acesso à informação sob iniciativa do cidadão</b> (transparência passiva, na LAI), recebe, instrui e
-          responde aos pedidos formulados via <b>Fala.BR</b>, monitorando o cumprimento dos prazos legais; no
-          <b>acesso à informação por iniciativa da ANTAQ</b> (transparência ativa), promove a divulgação proativa de
-          informações de interesse coletivo. A condução das <b>políticas de dados abertos</b>, por meio do Plano de
-          Dados Abertos (PDA), completa esse tripé, reduzindo a assimetria de informação e estimulando o controle
-          social.
-        </p>
-
-        <p class="doc-subtitle"><i class="fas fa-list-check"></i> Principais atividades da STAI</p>
+        <p class="doc-subtitle"><i class="fas fa-list-check" aria-hidden="true"></i> Principais atividades da STAI</p>
         <ul class="act-list">
           <li class="txt-bloco"><b>Acesso à informação sob iniciativa do cidadão:</b> A STAI recebe, instrui e
             responde os pedidos de informação cadastrados no
@@ -270,6 +259,21 @@
             completa esse tripé, reduzindo a assimetria de informação e estimulando o controle social.</li>
           <li class="txt-bloco"><b>e-Agendas (Transparência de Agendas Públicas):</b> Acompanha e orienta o cumprimento do Decreto nº 10.889/2021 e da Lei nº 12.813/2013, assegurando a publicidade das agendas de compromissos públicos das autoridades da ANTAQ no sistema <a href="https://eagendas.cgu.gov.br/" target="_blank" rel="noopener noreferrer" class="font-semibold text-brand-secondary underline">e-Agendas</a> da CGU.</li>
         </ul>
+
+        <p class="doc-text txt-bloco">
+          Integrada à estrutura da <b>Ouvidoria da ANTAQ</b>, a STAI é a unidade encarregada de assegurar a plena
+          efetividade do direito fundamental de acesso à informação pública. Atua como ponto focal do <b>Serviço de
+            Informação ao Cidadão (e-SIC)</b>, articulando as áreas técnicas para que cada demanda seja respondida com
+          exatidão, tempestividade e linguagem acessível ao cidadão.
+        </p>
+        <p class="doc-text txt-bloco">
+          No <b>acesso à informação sob iniciativa do cidadão</b> (transparência passiva, na LAI), recebe, instrui e
+          responde aos pedidos formulados via <b>Fala.BR</b>, monitorando o cumprimento dos prazos legais; no
+          <b>acesso à informação por iniciativa da ANTAQ</b> (transparência ativa), promove a divulgação proativa de
+          informações de interesse coletivo. A condução das <b>políticas de dados abertos</b>, por meio do Plano de
+          Dados Abertos (PDA), completa esse tripé, reduzindo a assimetria de informação e estimulando o controle
+          social.
+        </p>
       </div>
     </div>
 

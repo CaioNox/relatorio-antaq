@@ -117,8 +117,6 @@
       align-items: center;
       gap: .5rem;
       break-inside: avoid;
-      break-before: column;
-      -webkit-column-break-before: column;
       break-after: avoid;
       -webkit-column-break-after: avoid;
     }
@@ -137,6 +135,7 @@
       font-size: .92rem;
       line-height: 1.54;
       color: #334155;
+      break-inside: avoid;
     }
 
     .act-list li::before {
@@ -147,6 +146,11 @@
       left: 0;
       top: .05rem;
       color: #0090C0;
+    }
+
+    .act-list + .doc-text {
+      break-before: column;
+      -webkit-column-break-before: column;
     }
 
     .act-list li b {
@@ -222,6 +226,15 @@
       </p>
 
       <div class="doc-cols">
+        <p class="doc-subtitle"><i class="fas fa-list-check" aria-hidden="true"></i> Principais atividades da SAC</p>
+        <ul class="act-list">
+          <li>Realizar atendimento ao cidadão pelos canais oficiais da Ouvidoria: presencial, e-mails e omnichannel
+            (0800 644 5001 e Fale com a Iara!)</li>
+          <li>Cadastrar as demandas dos cidadãos no Fala.BR</li>
+          <li>Gerenciar as demandas de ouvidoria cadastradas no Fala.BR</li>
+          <li>Produzir relatórios gerenciais.</li>
+        </ul>
+
         <p class="doc-text txt-bloco">
           A Seção de Apoio ao Cidadão (SAC) constitui a linha de frente da Ouvidoria no relacionamento com o
           cidadão. É responsável por receber, registrar e encaminhar as demandas apresentadas por passageiros,
@@ -233,15 +246,6 @@
           manifestação seja tratada de forma padronizada, rastreável e transparente — reforçando a
           confiança da sociedade na atuação da ANTAQ e subsidiando a melhoria contínua dos serviços prestados.
         </p>
-
-        <p class="doc-subtitle"><i class="fas fa-list-check"></i> Principais atividades da SAC</p>
-        <ul class="act-list">
-          <li>Realizar atendimento ao cidadão pelos canais oficiais da Ouvidoria: presencial, e-mails e omnichannel
-            (0800 644 5001 e Fale com a Iara!)</li>
-          <li>Cadastrar as demandas dos cidadãos no Fala.BR</li>
-          <li>Gerenciar as demandas de ouvidoria cadastradas no Fala.BR</li>
-          <li>Produzir relatórios gerenciais.</li>
-        </ul>
       </div>
     </div>
 
