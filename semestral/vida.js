@@ -141,6 +141,7 @@
     document.querySelectorAll(GPU).forEach(function (el) {
       el.classList.add('vida-gpu');
     });
+    /* Qualquer elemento com animação em loop também entra. */
     document.querySelectorAll('[class]').forEach(function (el) {
       var chave = el.className;
       if (typeof chave !== 'string' || vistos[chave] === false) return;
