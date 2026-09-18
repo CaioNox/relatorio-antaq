@@ -19,7 +19,7 @@
   var ALVOS = '.kpi-num, .metric-value, .lb-num, [data-vida]';
   var DURACAO = 1100;
 
-  /* Camadas com animação infinita, promovidas para a GPU.
+  /* Elementos que rodam animação em loop ganham promoção de camada.
      Puramente de performance — o resultado visual é idêntico. */
   var GPU = '.ocean, .wave, .wave-1, .wave-2, .wave-3, .nav-wave, .qr-ring';
 
