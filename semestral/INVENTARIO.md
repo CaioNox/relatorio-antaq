@@ -311,3 +311,84 @@ inseridos sem alteração estética:
 Cada slide mantém a navegação `slide-goto-file` já suportada pelo player em
 `index.html`. `capa-bloco-4.html` teve os dois tópicos finais da lista
 trocados pelos três novos títulos.
+
+---
+
+## 18/09/2026 — Refatoração do deck (T1–T14)
+
+Rodada de 14 tarefas sobre `semestral/`, uma por commit, prefixo `semestral:`.
+Contagem de slides inalterada: **53** (entra `slide-destaques-semestre.html`,
+sai `slide-17.html` do `deck.js`).
+
+### Ordem (`deck.js`)
+
+- **Bloco 2:** `slide-ouvidoria-geral.html` sobe para logo depois de
+  `slide-03c.html`.
+- **Bloco 3:** `slide-tramit-uorg.html` vem do Bloco 4 e fecha o bloco, depois
+  de `slide-08.html`. Cabeçalho do slide ajustado (CAPÍTULO 04 → 03, rótulo do
+  bloco, ícone fa-lock-open → fa-headset).
+- **Bloco 4:** perde os três slides de Perguntas e Respostas e o
+  `slide-tramit-uorg.html`.
+- **Bloco 5:** ganha `slide-destaques-semestre.html` entre `capa-bloco-5.html`
+  e `slide-09.html`.
+- **Bloco 6:** recebe `slide-qa-conceitos/numeros/fluxo` logo após a capa;
+  kicker dos três passou a "Perguntas e Respostas · Capítulo 06 · Apêndice".
+- **Fusão:** `slide-17.html` (Como se tornar conselheiro) foi absorvido por
+  `conselho.html` e saiu do array `files`. **O arquivo continua no disco.**
+  Coube em 100vh sem navegação interna, então não gerou entrada em
+  `RELATORIO.anexos`.
+
+A árvore de `slide-01.html` e as listas de tópicos de `capa-bloco-3/4/5/6.html`
+foram sincronizadas com o `deck.js` em cada mudança.
+
+### Forma
+
+- **Slides de apresentação de seção** (`slide-ctx-01`, `slide-03c`,
+  `slide-sac-apres`, `slide-4a`): dentro de `.doc-cols`, a lista de atuação
+  passa a vir antes do texto contextual. Os quatro ficaram com a mesma
+  estrutura — `.doc-lead` → lista → texto. A quebra de coluna saiu de
+  `.doc-subtitle` e foi para `.act-list + .doc-text`. `slide-pda.html` ficou de
+  fora de propósito: usa o padrão mas não é slide de apresentação.
+- `slide-25.html` convertido para o padrão de colunas do PDA.
+- `slide-cartas-servicos.html` refeito no padrão `.doc` do PDA, mantendo os 33
+  `.svc-bar` e seus `data-*` — a entrada em `RELATORIO.anexos` não precisou
+  mudar.
+- `slide-falabr.html` e `slide-informa-br.html` redesenhados em par: marca +
+  frase de identidade, fluxo como elemento dominante, notas quietas no pé. As
+  duas plataformas ficaram visualmente irmãs.
+- `slide-demais-canais.html` reagrupado por natureza do canal (entrada ×
+  atendimento/informação), com a IARA como canal de entrada.
+- `slide-17b.html`: a IARA sai da nota de rodapé e vira um `.ch` como os
+  outros; os dados de contato (0800, Portal ANTAQ) passam para dentro das
+  caixas.
+- `slide-fundamentos-ouvidorias.html`: removido o parágrafo "Base normativa",
+  que repetia o diálogo "Contexto normativo"; o acesso ao diálogo ficou só no
+  botão do rodapé.
+
+### Defeitos achados e corrigidos no caminho
+
+1. **`slide-cartas-servicos.html` estourava os 100vh** — a faixa da SFC caía
+   sobre o rodapé. Barras e badges compactados.
+2. **Verde na paleta** — a caixa do QR Code em `slide-demais-canais.html` era
+   verde esmeralda (`#064E3B`/`#047857`/`#10B981`). Convertida para azul
+   institucional.
+3. **Google Fonts quebrado** em `slide-25.html` (`css2 family=`, sem o `?`): o
+   slide carregava sem Montserrat/Open Sans.
+4. **Rótulo errado** — `slide-08.html` aparecia como "Destaques do Semestre" na
+   árvore e em `capa-bloco-3`, mas o slide é "Demandas recorrentes". Corrigido
+   antes de o nome colidir com o slide novo do Bloco 5.
+5. **`conselho.html`** dizia "Relatório 1º Trimestre de 2026" no `<title>` e no
+   rodapé.
+6. **`slide-informa-br.html`** usava "transparência ativa da ANTAQ" como rótulo
+   solto, contra a renomeação de 04/09/2026.
+7. **Ordem trocada** entre `slide-17d` e `slide-canal` na árvore de `slide-01` e
+   em `capa-bloco-3`, em relação ao `deck.js`.
+
+### Auditoria
+
+Conferência equivalente a `index.html?auditoria=1` (mesmas checagens de
+`checarSanidade`, rodadas fora do browser): 53 slides na apresentação, 53 no
+relatório, nenhum arquivo faltando, nenhum duplicado, `anexos` e `capturaPptx`
+apontando só para slides presentes no deck, e árvore de `slide-01.html` na mesma
+ordem do `deck.js`. Todos os slides tocados foram conferidos em Chrome headless
+a 1920x1080.
