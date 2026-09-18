@@ -144,28 +144,16 @@
       margin: 0.4rem 0 0.5rem;
     }
 
-    .hero-contact {
-      display: flex;
-      flex-direction: column;
-      gap: .66rem;
+    .hero-lead {
+      font-size: .74rem;
+      line-height: 1.5;
+      color: rgba(255, 255, 255, .82);
+      margin: 0;
     }
 
-    .hc-item {
-      display: flex;
-      align-items: center;
-      gap: .66rem;
-    }
-
-    .hc-ico {
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
-      background: rgba(255, 255, 255, .12);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: .81rem;
-      flex-shrink: 0;
+    .hero-lead b {
+      color: #fff;
+      font-weight: 700;
     }
 
     .hc-label {
@@ -194,43 +182,6 @@
       border-color: #fff;
     }
 
-
-    .iara-note {
-
-      margin-top: .47rem;
-      min-height: 12.35rem;
-      background: rgba(255, 255, 255, .07);
-      border: 1px solid rgba(255, 255, 255, .12);
-      border-radius: 11px;
-      padding: .85rem .85rem .95rem;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .iara-title {
-      display: flex;
-      align-items: center;
-      gap: .43rem;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
-      font-size: .72rem;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: #93C5FD;
-      margin: 0 0 .45rem 0;
-    }
-
-    .iara-text {
-      font-size: .81rem;
-      line-height: 1.5;
-      color: rgba(255, 255, 255, .82);
-      margin: 0;
-    }
-
-    .iara-text b {
-      color: #fff;
-      font-weight: 700;
-    }
 
 
     .right {
@@ -277,21 +228,56 @@
 
     .channels {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: .9rem;
+      grid-template-columns: repeat(4, 1fr);
+      gap: .7rem;
       margin-bottom: 1.15rem;
     }
 
     .ch {
       border: 1px solid #E2E8F0;
+      border-left: 5px solid #0090C0;
       border-radius: 12px;
-      padding: .75rem .5rem;
+      padding: .62rem .68rem .7rem;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: .4rem;
+      align-items: flex-start;
+      gap: .26rem;
       background: #F8FAFC;
       transition: border-color .2s, box-shadow .2s, transform .2s;
+    }
+
+    .ch-head {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+
+    .ch-pill {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: .48rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      border-radius: 999px;
+      padding: .1rem .46rem;
+      background: #E6F2FA;
+      color: #0070C0;
+    }
+
+    .ch-entrada {
+      border-left-color: #103050;
+    }
+
+    .ch-entrada .ch-pill {
+      background: #103050;
+      color: #fff;
+    }
+
+    .ch-desc {
+      font-size: .58rem;
+      line-height: 1.36;
+      color: #475569;
+      margin: 0;
     }
 
     .ch:hover {
@@ -301,9 +287,10 @@
     }
 
     .ch-ico {
-      width: 42px;
-      height: 42px;
-      border-radius: 11px;
+      width: 34px;
+      height: 34px;
+      border-radius: 9px;
+      flex-shrink: 0;
       background: linear-gradient(135deg, #103050, #0070C0);
       color: #fff;
       display: flex;
@@ -314,9 +301,29 @@
 
     .ch-name {
       font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
-      font-size: .66rem;
+      font-weight: 800;
+      font-size: .7rem;
       color: #103050;
+    }
+
+    /* o dado do canal mora dentro da propria caixa */
+    .ch .hc-label {
+      color: #64748B;
+      margin-top: auto;
+    }
+
+    .ch .hc-value {
+      color: #103050;
+      font-size: .66rem;
+    }
+
+    .ch .hc-value a {
+      color: #0070C0;
+      border-bottom-color: rgba(0, 112, 192, .4);
+    }
+
+    .ch .hc-value a:hover {
+      border-bottom-color: #0070C0;
     }
 
 
@@ -328,7 +335,7 @@
       display: flex;
       align-items: flex-end;
       gap: 1.6rem;
-      height: 430px;
+      height: 340px;
       padding: 0 .5rem;
     }
 
@@ -489,50 +496,52 @@
 
         <div class="hero-div"></div>
 
-        <div class="hero-contact">
-          <div class="hc-item">
-            <div class="hc-ico"><i class="fas fa-phone"></i></div>
-            <div>
-              <p class="hc-label">Disque Ouvidoria</p>
-              <p class="hc-value">0800 644 5001</p>
-            </div>
-          </div>
-          <div class="hc-item">
-            <div class="hc-ico"><i class="fas fa-globe"></i></div>
-            <div>
-              <p class="hc-label">Portal institucional</p>
-              <p class="hc-value"><a href="https://www.gov.br/antaq/pt-br" target="_blank" rel="noopener">Portal
-                  ANTAQ</a></p>
-            </div>
-          </div>
-        </div>
-
-        <div class="iara-note">
-          <p class="iara-title"><i class="fas fa-robot"></i> Sobre a IARA</p>
-          <p class="iara-text txt-bloco">Inteligência artificial da ANTAQ que atua como <b>intermédio ao cidadão</b>, reunindo em
-            um só fluxo o <b>WhatsApp</b>, o <b>Portal ANTAQ</b> e o <b>telefone</b>. Ela orienta, organiza e trata os
-            dados das demandas e, quando necessário, encaminha o cidadão a um <b>atendente humano</b>.</p>
-        </div>
-      </div>
-
-
-      <div class="right">
-        <p class="lead anim d2 txt-bloco">
+        <p class="hero-lead txt-bloco">
           O <b>Omnichannel</b> é a plataforma que centraliza, em um único fluxo, os atendimentos da Ouvidoria.
           Voltado a <b>orientações e atendimentos rápidos</b>, reúne os diferentes meios de contato do cidadão em
           uma experiência integrada e padronizada.
         </p>
+      </div>
 
-        <p class="block-label"><i class="fas fa-diagram-project"></i> Meios de contato integrados</p>
+
+      <div class="right">
+        <p class="block-label"><i class="fas fa-diagram-project" aria-hidden="true"></i> Canais integrados ao Omnichannel</p>
         <div class="channels anim d2">
-          <div class="ch">
-            <div class="ch-ico"><i class="fab fa-whatsapp"></i></div><span class="ch-name">WhatsApp</span>
+          <div class="ch ch-entrada">
+            <div class="ch-head">
+              <div class="ch-ico"><i class="fas fa-robot" aria-hidden="true"></i></div><span class="ch-name">IARA</span>
+            </div>
+            <span class="ch-pill">Entrada</span>
+            <p class="ch-desc">Inteligência artificial da ANTAQ: orienta o cidadão, organiza e trata os dados das demandas e, quando necessário, encaminha a um atendente humano.</p>
+            <p class="hc-label">Onde atende</p>
+            <p class="hc-value">WhatsApp, Portal e telefone</p>
           </div>
           <div class="ch">
-            <div class="ch-ico"><i class="fas fa-phone"></i></div><span class="ch-name">Telefone</span>
+            <div class="ch-head">
+              <div class="ch-ico"><i class="fab fa-whatsapp" aria-hidden="true"></i></div><span class="ch-name">WhatsApp</span>
+            </div>
+            <span class="ch-pill">Atendimento</span>
+            <p class="ch-desc">Meio de contato por mensagem, por onde a IARA atende o cidadão.</p>
+            <p class="hc-label">Acesso</p>
+            <p class="hc-value">QR Code da IARA</p>
           </div>
           <div class="ch">
-            <div class="ch-ico"><i class="fas fa-globe"></i></div><span class="ch-name">Portal</span>
+            <div class="ch-head">
+              <div class="ch-ico"><i class="fas fa-phone" aria-hidden="true"></i></div><span class="ch-name">Telefone</span>
+            </div>
+            <span class="ch-pill">Atendimento</span>
+            <p class="ch-desc">Disque Ouvidoria: orientação por voz, com atendente humano quando necessário.</p>
+            <p class="hc-label">Disque Ouvidoria</p>
+            <p class="hc-value">0800 644 5001</p>
+          </div>
+          <div class="ch">
+            <div class="ch-head">
+              <div class="ch-ico"><i class="fas fa-globe" aria-hidden="true"></i></div><span class="ch-name">Portal</span>
+            </div>
+            <span class="ch-pill">Atendimento</span>
+            <p class="ch-desc">Atendimento pelo sítio institucional da Agência, integrado ao mesmo fluxo.</p>
+            <p class="hc-label">Portal institucional</p>
+            <p class="hc-value"><a href="https://www.gov.br/antaq/pt-br" target="_blank" rel="noopener">Portal ANTAQ</a></p>
           </div>
 
         </div>
