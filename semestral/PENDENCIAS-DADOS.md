@@ -239,3 +239,39 @@ Sem as encaminhadas, os três cortes passam a ser coerentes entre si:
 `slide-17b.html` (Omnichannel) segue com a série mensal marcada como
 DADO PROVISÓRIO — mede *atendimentos do Omnichannel*, métrica distinta das
 manifestações do Fala.BR, e seus valores mensais (152/123/130) não foram atualizados.
+
+---
+
+## 6. Refatoração de 18/09/2026 — `slide-destaques-semestre.html`
+
+Slide novo no Bloco 5, criado **apenas com dado já presente no repositório**:
+
+| Destaque | Valor | Origem no repositório |
+|---|---|---|
+| Atendimentos no Omnichannel | 1.022 (Jan–Jun) | `slide-17b.html` |
+| Manifestações no Fala.BR | 614 · 544 respondidas · 69 arquivadas · 12,6 dias | `slide-04.html` |
+| Pedidos de acesso à informação | 262 · 100% no prazo · 10,3 dias | `slide-23.html` |
+| Painel LAI | 100% dos 49 quesitos | `slide-22.html` |
+| Bases de dados abertas | 18 publicadas, +8 previstas | `slide-21.html` |
+| Demandas tramitadas | 2.362 tramitações · 910 demandas · 20 setores | `slide-tramit-uorg.html` |
+| Carta de Serviços | 33 serviços | `slide-cartas-servicos.html` |
+
+### ⛔ Pendente neste slide
+
+- **Conselho de Usuários — sem número.** O destaque do Conselho ficou apenas
+  qualitativo, com marcador `<!-- DADO PENDENTE -->` no HTML. Nenhum slide traz
+  quantidade de conselheiros nem de consultas virtuais respondidas no semestre
+  (`conselho.html` e `slide-17.html` são só descritivos). Informar o número para
+  o destaque ganhar a mesma forma dos demais.
+
+### ⚠️ Divergência entre este arquivo e o estado atual de `slide-17b.html`
+
+A seção "Ainda pendente" acima diz que a série mensal do Omnichannel segue como
+DADO PROVISÓRIO, com apenas três meses (152/123/130) e badge `.todo-dado`. Isso
+não corresponde mais ao arquivo: `slide-17b.html` hoje traz os seis meses
+(152 · 123 · 130 · 168 · 228 · 221), que somam exatamente os 1.022 do card
+principal, e **não há nenhum badge `.todo-dado` em nenhum slide do deck**.
+
+Os destaques usaram o valor atual do arquivo (1.022). **Confirmar com a área se
+a série do Omnichannel está fechada**; se ainda for provisória, o card de
+atendimentos do `slide-destaques-semestre.html` precisa ser marcado.

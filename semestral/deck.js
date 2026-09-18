@@ -50,7 +50,7 @@ window.RELATORIO = {
     },
     {
       block: 'Bloco 5 · Considerações Finais', short: 'Considerações Finais', tint: 0.4,
-      files: ['capa-bloco-5.html', 'slide-09.html', 'slide-conclusao.html'],
+      files: ['capa-bloco-5.html', 'slide-destaques-semestre.html', 'slide-09.html', 'slide-conclusao.html'],
     },
     {
       block: 'Bloco 6 · Apêndice', short: 'Apêndice', tint: 0.3,
