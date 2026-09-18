@@ -38,12 +38,12 @@
       font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .78rem;
       letter-spacing: .1em; text-transform: uppercase; color: #0070C0;
       margin: 0 0 .65rem; display: flex; align-items: center; gap: .5rem; break-inside: avoid;
-      break-before: column; -webkit-column-break-before: column;
       break-after: avoid; -webkit-column-break-after: avoid; margin-top: 0;
     }
     .act-list { list-style: none; margin: 0 0 .3rem; padding: 0; break-inside: avoid; }
-    .act-list li { position: relative; padding-left: 1.3rem; margin-bottom: .62rem; font-size: .92rem; line-height: 1.54; color: #334155; }
+    .act-list li { position: relative; padding-left: 1.3rem; margin-bottom: .62rem; font-size: .92rem; line-height: 1.54; color: #334155; break-inside: avoid; }
     .act-list li::before { content: "\f105"; font-family: "Font Awesome 6 Free"; font-weight: 900; position: absolute; left: 0; top: .05rem; color: #0090C0; }
+    .act-list + .doc-text { break-before: column; -webkit-column-break-before: column; }
 
     .bg-pattern { position: absolute; bottom: -60px; right: -50px; width: 400px; height: 400px; opacity: 0.03; z-index: 0; color: #103050; }
     @keyframes fadeInUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
@@ -83,21 +83,20 @@
       </p>
 
       <div class="doc-cols">
-        <p class="doc-text txt-bloco">
-          A origem histórica do instituto remete à Suécia de 1809 com a criação do Ombudsman, instituído para mediar e encaminhar queixas dos cidadãos. No cenário nacional, o conceito evoluiu desde os "ouvidos do rei" na época colonial até a sua completa ressignificação democrática após a Constituição Federal de 1988.
-        </p>
-        <p class="doc-text txt-bloco">
-          Hoje, as Ouvidorias consolidaram-se como parte da administração pública e são amparadas por marcos como a Lei nº 13.460/2017, que reconheceu a ouvidoria pública como instituição essencial à adequada prestação dos serviços públicos.
-        </p>
-
-
-        <p class="doc-subtitle"><i class="fas fa-list-check"></i> Atuação das Ouvidorias públicas</p>
+        <p class="doc-subtitle"><i class="fas fa-list-check" aria-hidden="true"></i> Atuação das Ouvidorias públicas</p>
         <ul class="act-list">
           <li>Promover o fortalecimento da cidadania e a participação social, atuando como um canal permanente de interlocução da administração pública.</li>
           <li>Garantir o direito fundamental de manifestação por meio de canais integrados e acessíveis.</li>
           <li>Conduzir o tratamento das demandas com estrita independência funcional e caráter mediador, funcionando como um elo equilibrado entre as necessidades da sociedade e a atuação do Estado.</li>
           <li>Promover a transparência institucional e resguardar a proteção ao cidadão.</li>
         </ul>
+
+        <p class="doc-text txt-bloco">
+          A origem histórica do instituto remete à Suécia de 1809 com a criação do Ombudsman, instituído para mediar e encaminhar queixas dos cidadãos. No cenário nacional, o conceito evoluiu desde os "ouvidos do rei" na época colonial até a sua completa ressignificação democrática após a Constituição Federal de 1988.
+        </p>
+        <p class="doc-text txt-bloco">
+          Hoje, as Ouvidorias consolidaram-se como parte da administração pública e são amparadas por marcos como a Lei nº 13.460/2017, que reconheceu a ouvidoria pública como instituição essencial à adequada prestação dos serviços públicos.
+        </p>
       </div>
     </div>
 
