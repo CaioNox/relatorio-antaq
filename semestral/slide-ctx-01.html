@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
   <style>
-    html { font-size: 26px; }
+    html { font-size: 27px; }
     body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
     .slide-container { width: 100vw; height: 100vh; position: relative; display: flex; flex-direction: column; background-color: #ffffff; overflow: hidden; font-family: 'Open Sans', sans-serif; }
     .font-montserrat { font-family: 'Montserrat', sans-serif; }
@@ -22,28 +22,75 @@
 
 
     .doc {
-      flex: 1; min-height: 0; position: relative; z-index: 10;
-      padding: 1rem 5rem 1rem 5rem;
-      display: flex; flex-direction: column; justify-content: center;
-      animation: fadeInUp .5s cubic-bezier(.2,.7,.3,1) both;
+      flex: 1;
+      min-height: 0;
+      position: relative;
+      z-index: 10;
+      padding: .4rem 5rem 1rem 5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      animation: fadeInUp .5s cubic-bezier(.2, .7, .3, 1) both;
     }
     .doc-lead {
-      font-size: 1.16rem; line-height: 1.58; color: #103050; font-weight: 600;
-      border-left: 4px solid #0090C0; padding-left: 1.2rem; margin-bottom: 1.5rem;
+      font-size: 1.05rem;
+      line-height: 1.5;
+      color: #103050;
+      font-weight: 600;
+      border-left: 4px solid #0090C0;
+      padding-left: 1.2rem;
+      margin-bottom: 1.05rem;
     }
-    .doc-cols { columns: 2; column-gap: 2.6rem; }
-    .doc-text { color: #334155; font-size: .93rem; line-height: 1.68; margin: 0 0 .95rem; break-inside: avoid; text-align: justify; text-indent: 1.8em; }
+    .doc-cols {
+      columns: 2;
+      column-gap: 2.6rem;
+    }
+    .doc-text {
+      color: #334155;
+      font-size: .93rem;
+      line-height: 1.62;
+      margin: 0 0 .95rem;
+      break-inside: avoid;
+      text-align: justify;
+      text-indent: 1.8em;
+    }
 
     .doc-subtitle {
-      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .78rem;
-      letter-spacing: .1em; text-transform: uppercase; color: #0070C0;
-      margin: 0 0 .65rem; display: flex; align-items: center; gap: .5rem; break-inside: avoid;
-      break-after: avoid; -webkit-column-break-after: avoid; margin-top: 0;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: .78rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: #0070C0;
+      margin: 0 0 .65rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      break-inside: avoid;
+      break-after: avoid;
+      -webkit-column-break-after: avoid;
     }
-    .act-list { list-style: none; margin: 0 0 .3rem; padding: 0; break-inside: avoid; }
-    .act-list li { position: relative; padding-left: 1.3rem; margin-bottom: .62rem; font-size: .92rem; line-height: 1.54; color: #334155; break-inside: avoid; }
+    .act-list {
+      list-style: none;
+      margin: 0 0 .3rem;
+      padding: 0;
+      break-inside: avoid;
+    }
+    .act-list li {
+      position: relative;
+      padding-left: 1.3rem;
+      margin-bottom: .62rem;
+      font-size: .92rem;
+      line-height: 1.54;
+      color: #334155;
+      text-align: justify;
+      break-inside: avoid;
+    }
     .act-list li::before { content: "\f105"; font-family: "Font Awesome 6 Free"; font-weight: 900; position: absolute; left: 0; top: .05rem; color: #0090C0; }
-    .act-list + .doc-text { break-before: column; -webkit-column-break-before: column; }
+    .act-list + .doc-text {
+      break-before: column;
+      -webkit-column-break-before: column;
+    }
 
     .bg-pattern { position: absolute; bottom: -60px; right: -50px; width: 400px; height: 400px; opacity: 0.03; z-index: 0; color: #103050; }
     @keyframes fadeInUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
@@ -58,20 +105,18 @@
     <div class="top-accent-secondary"></div>
 
 
-    <div class="flex items-start justify-between px-16 pt-10 pb-3 z-10" style="min-height: 7.25rem;">
+    <div class="flex items-start justify-between px-16 pt-10 pb-3 z-10">
       <div>
-
         <div class="flex items-center gap-3 mb-1">
           <div class="w-1 h-8 bg-brand-secondary"></div>
           <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Apresentação das Ouvidorias</p>
         </div>
       </div>
-
       <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
-        <i class="fas fa-bullhorn align-middle" aria-hidden="true" style="font-size:48px;"></i>
-        <div class="flex flex-col justify-center border-left pl-2" style="border-left: 1px solid #CBD5E1;">
-          <p class="font-montserrat font-bold text-gray-400 tracking-widest leading-none mb-1 whitespace-nowrap" style="font-size:22px;">CAPÍTULO 01</p>
-          <p class="font-montserrat font-bold text-brand-secondary tracking-tight uppercase leading-none whitespace-nowrap" style="font-size:19px;">Visão Geral das Ouvidorias públicas</p>
+        <i class="fas fa-bullhorn text-3xl" aria-hidden="true"></i>
+        <div class="flex flex-col justify-center pl-2" style="border-left:1px solid #CBD5E1;">
+          <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">CAPÍTULO 01</p>
+          <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none whitespace-nowrap">Visão Geral das Ouvidorias públicas</p>
         </div>
       </div>
     </div>
