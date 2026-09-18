@@ -41,9 +41,9 @@ window.RELATORIO = {
         'capa-bloco-4.html', 'slide-4a.html', 'slide-informa-br.html',
         // PDA / Dados Abertos
         'slide-pda.html', 'slide-21.html',
-        // Acesso à informação por iniciativa da ANTAQ (transparência ativa)
+        // Transparência ativa (transparência ativa)
         'slide-22.html',
-        // Acesso à informação sob iniciativa do cidadão (transparência passiva)
+        // Transparência passiva (transparência passiva)
         'slide-23.html', 'slide-18.html', 'slide-resp-unidade.html', 'slide-20.html',
       ],
     },
