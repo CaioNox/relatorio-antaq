@@ -37,13 +37,14 @@
     .kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: .8rem; flex-shrink: 0; }
 
     .kpi {
-      display: flex; align-items: baseline; gap: .55rem;
+      display: grid; grid-template-columns: 3.9rem 1fr;
+      align-items: center; gap: .55rem;
       background: #F8FAFC; border: 1px solid #E2E8F0; border-left: 5px solid #0090C0;
-      border-radius: 12px; padding: .5rem .9rem .55rem; min-width: 0;
+      border-radius: 12px; padding: .5rem .9rem; min-width: 0;
     }
     .kpi-val {
       font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 2rem;
-      color: #103050; line-height: 1; flex-shrink: 0;
+      color: #103050; line-height: 1; font-variant-numeric: tabular-nums;
     }
     .kpi-rot {
       font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: .66rem;
@@ -72,7 +73,7 @@
     .cap i { color: #0090C0; font-size: .82rem; }
     .cap .sec { font-weight: 700; color: #94A3B8; font-size: .86em; margin-left: auto; white-space: nowrap; }
 
-    .lista { flex: 1; min-height: 0; display: flex; flex-direction: column; justify-content: center; }
+    .lista { flex: 1; min-height: 0; display: flex; flex-direction: column; justify-content: flex-start; }
 
 
     /* ---------- barras das areas ---------- */
@@ -82,6 +83,7 @@
       align-items: center; gap: .75rem; width: 100%; text-align: left;
       border: 0; background: transparent; font: inherit; cursor: pointer;
       padding: .3rem .5rem; border-radius: 10px;
+      flex: 1 1 auto; max-height: 3.2rem;
       transition: background-color 180ms ease;
       animation: entra .4s cubic-bezier(.2,.7,.3,1) both;
     }
@@ -123,7 +125,8 @@
 
     .un {
       display: grid; grid-template-columns: 1fr 2.6rem;
-      align-items: center; gap: .22rem .5rem; padding: .26rem .1rem;
+      align-items: center; align-content: center; gap: .22rem .5rem; padding: .26rem .1rem;
+      flex: 1 1 auto; max-height: 3.4rem;
       border-bottom: 1px dashed #EEF2F7;
       animation: entra .35s cubic-bezier(.2,.7,.3,1) both;
     }

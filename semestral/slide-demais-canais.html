@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <title>Demais Canais de Atendimento — Relatório Semestral Ouvidoria ANTAQ</title>
+  <title>Canais de Atendimento — Relatório Semestral Ouvidoria ANTAQ</title>
   <link rel="icon" type="image/png"
     href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
@@ -14,15 +14,55 @@
     rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
   <style>
-    html { font-size: 26px; }
-    body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
-    .slide-container { width: 100vw; height: 100vh; position: relative; display: flex; flex-direction: column; background-color: #ffffff; overflow: hidden; font-family: 'Open Sans', sans-serif; }
-    .font-montserrat { font-family: 'Montserrat', sans-serif; }
-    .text-brand-primary { color: #103050; }
-    .text-brand-secondary { color: #0070C0; }
-    .bg-brand-secondary { background-color: #0070C0; }
-    .top-accent { height: 8px; background-color: #103050; width: 100%; }
-    .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
+    html {
+      font-size: 26px;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f3f4f6;
+      overflow: hidden;
+    }
+
+    .slide-container {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background-color: #ffffff;
+      overflow: hidden;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    .font-montserrat {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .text-brand-primary {
+      color: #103050;
+    }
+
+    .text-brand-secondary {
+      color: #0070C0;
+    }
+
+    .bg-brand-secondary {
+      background-color: #0070C0;
+    }
+
+    .top-accent {
+      height: 8px;
+      background-color: #103050;
+      width: 100%;
+    }
+
+    .top-accent-secondary {
+      height: 4px;
+      background-color: #0070C0;
+      width: 100%;
+    }
 
     .channels {
       flex: 1;
@@ -70,23 +110,53 @@
          devolve o controle ao :hover quando a animacao termina */
       animation: cardIn .42s cubic-bezier(.2, .7, .3, 1) backwards;
       transition: transform .28s cubic-bezier(.2, .7, .3, 1),
-                  box-shadow .28s ease,
-                  border-color .28s ease;
+        box-shadow .28s ease,
+        border-color .28s ease;
     }
 
     /* uma classe por caixa: entram em cascata, 65ms entre elas */
-    .card-falabr          { animation-delay: .05s; }
-    .card-telefone        { animation-delay: .115s; }
-    .card-whatsapp        { animation-delay: .18s; }
-    .card-email           { animation-delay: .245s; }
-    .card-presencial      { animation-delay: .31s; }
-    .card-correspondencia { animation-delay: .375s; }
-    .card-iara            { animation-delay: .44s; }
-    .card-qr              { animation-delay: .505s; }
+    .card-falabr {
+      animation-delay: .05s;
+    }
+
+    .card-telefone {
+      animation-delay: .115s;
+    }
+
+    .card-whatsapp {
+      animation-delay: .18s;
+    }
+
+    .card-email {
+      animation-delay: .245s;
+    }
+
+    .card-presencial {
+      animation-delay: .31s;
+    }
+
+    .card-correspondencia {
+      animation-delay: .375s;
+    }
+
+    .card-iara {
+      animation-delay: .44s;
+    }
+
+    .card-qr {
+      animation-delay: .505s;
+    }
 
     @keyframes cardIn {
-      from { opacity: 0; transform: translateY(18px) scale(.97); }
-      to   { opacity: 1; transform: none; }
+      from {
+        opacity: 0;
+        transform: translateY(18px) scale(.97);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
     }
 
     .card:hover {
@@ -158,7 +228,9 @@
       min-height: 4.02em;
     }
 
-    .card-body { min-width: 0; }
+    .card-body {
+      min-width: 0;
+    }
 
     /* caixa propria do QR, em verde esmeralda escuro:
        rotulo em cima, QR ocupando o meio, instrucao embaixo */
@@ -174,10 +246,25 @@
       border-left-color: #10B981;
     }
 
-    .card-qr .card-tag { color: #A7F3D0; }
-    .card-qr .card-title { color: #ffffff; margin-bottom: 0; font-size: 1.3rem; }
-    .card-qr .card-info { color: #D1FAE5; font-size: .82rem; line-height: 1.3; }
-    .card-qr .card-info strong { color: #ffffff; }
+    .card-qr .card-tag {
+      color: #A7F3D0;
+    }
+
+    .card-qr .card-title {
+      color: #ffffff;
+      margin-bottom: 0;
+      font-size: 1.3rem;
+    }
+
+    .card-qr .card-info {
+      color: #D1FAE5;
+      font-size: .82rem;
+      line-height: 1.3;
+    }
+
+    .card-qr .card-info strong {
+      color: #ffffff;
+    }
 
     /* o hover generico usa ciano; aqui a caixa mantem a familia esmeralda */
     .card-qr:hover {
@@ -185,7 +272,9 @@
       border-left-color: #10B981;
     }
 
-    .card-qr:hover .card-title { color: #A7F3D0; }
+    .card-qr:hover .card-title {
+      color: #A7F3D0;
+    }
 
     .card-qr:hover .qr-box img {
       transform: scale(1.04);
@@ -225,7 +314,15 @@
       transition: transform .28s cubic-bezier(.2, .7, .3, 1), box-shadow .28s ease;
     }
 
-    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
   </style>
   <link rel="stylesheet" href="a11y.css">
   <link rel="stylesheet" href="base.css" />
@@ -240,15 +337,20 @@
       <div>
         <div class="flex items-center gap-3 mb-1">
           <div class="w-1 h-8 bg-brand-secondary"></div>
-          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Demais Canais de Atendimento</p>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Canais de
+            Atendimento</p>
         </div>
         <p class="text-gray-500 font-medium ml-4 text-lg">Outras formas de acionar a Ouvidoria da ANTAQ</p>
       </div>
       <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
         <i class="fas fa-landmark text-3xl align-middle" aria-hidden="true"></i>
         <div class="flex flex-col justify-center border-left pl-2" style="border-left: 1px solid #CBD5E1;">
-          <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">CAPÍTULO 02</p>
-          <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none whitespace-nowrap">A Ouvidoria da ANTAQ</p>
+          <p
+            class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">
+            CAPÍTULO 02</p>
+          <p
+            class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none whitespace-nowrap">
+            A Ouvidoria da ANTAQ</p>
         </div>
       </div>
     </div>
@@ -286,7 +388,7 @@
           <div class="card-body">
             <div class="card-tag">Omnichannel</div>
             <div class="card-title">WhatsApp</div>
-            <div class="card-info">Aponte a câmera do celular</div>
+            <div class="card-info">Acesse o QR-CODE</div>
           </div>
         </div>
 
@@ -312,7 +414,8 @@
           <div class="card-body">
             <div class="card-tag">Presencial</div>
             <div class="card-title">Atendimento Presencial</div>
-            <div class="card-info">SEPN Q. 514, Conj. E, Ed. ANTAQ<br />CEP 70760-545 · Brasília/DF<br />ou Unidade Regional</div>
+            <div class="card-info">SEPN Q. 514, Conj. E, Ed. ANTAQ<br />CEP 70760-545 · Brasília/DF<br />ou Unidade
+              Regional</div>
           </div>
         </div>
 
@@ -344,7 +447,8 @@
             <div class="card-title">QR Code</div>
           </div>
           <div class="qr-box">
-            <img src="Imagens/QRCODE_IARA.jpeg" alt="QR Code para falar com a IARA, assistente de inteligência artificial da ANTAQ, pelo WhatsApp" />
+            <img src="Imagens/QRCODE_IARA.jpeg"
+              alt="QR Code para falar com a IARA, assistente de inteligência artificial da ANTAQ, pelo WhatsApp" />
           </div>
           <div class="card-info">Aponte a câmera do celular para falar com a <strong>IARA</strong> no WhatsApp.</div>
         </div>

@@ -34,7 +34,7 @@ window.RELATORIO = {
     },
     {
       block: 'Bloco 3 · Seção de Apoio ao Cidadão — SAC', short: 'SAC', tint: 0.7,
-      files: ['capa-bloco-3.html', 'slide-sac-apres.html', 'slide-sac-ativ.html', 'slide-14.html', 'slide-canal.html', 'slide-17d.html', 'slide-04.html', 'slide-05.html', 'slide-08.html'],
+      files: ['capa-bloco-3.html', 'slide-sac-apres.html', 'slide-sac-ativ.html', 'slide-14.html', 'slide-17d.html', 'slide-canal.html', 'slide-04.html', 'slide-05.html', 'slide-08.html'],
     },
     {
       block: 'Bloco 4 · Seção de Transparência e Acesso à Informação — STAI', short: 'STAI', tint: 0.55,
