@@ -21,9 +21,9 @@ window.RELATORIO = {
       files: [
         'capa-bloco-2.html',
         'slide-03c.html',
+        'slide-ouvidoria-geral.html',
         'slide-falabr.html',
         'slide-demais-canais.html',
-        'slide-ouvidoria-geral.html',
         'slide-25.html',
         'slide-cartas-servicos.html',
         'conselho.html',
