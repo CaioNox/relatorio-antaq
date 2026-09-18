@@ -47,7 +47,7 @@
     document.head.appendChild(s);
   }
 
-  /* Lê um número no formato pt-BR (1.234,5).
+  /* Interpreta número no formato pt-BR: "10.233" -> 10233 ; "13,9" -> 13.9
      Devolve null quando o conteúdo não é um número puro. */
   function interpretar(txt) {
     var t = (txt || '').trim();
