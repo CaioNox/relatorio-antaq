@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Carta de Serviços da ANTAQ - Relatório Semestral Ouvidoria ANTAQ</title>
+    <title>Cartas de Serviço ANTAQ - Relatório Semestral Ouvidoria ANTAQ</title>
     <link rel="icon" type="image/png"
         href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
@@ -14,71 +14,200 @@
         rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
     <style>
-        html { font-size: 31px; }
-        body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
+        html {
+            font-size: 31px;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f3f4f6;
+            overflow: hidden;
+        }
 
         .slide-container {
-            width: 100vw; height: 100vh; position: relative;
-            display: flex; flex-direction: column;
-            background-color: #ffffff; overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            background-color: #ffffff;
+            overflow: hidden;
             font-family: 'Open Sans', sans-serif;
         }
 
-        .font-montserrat { font-family: 'Montserrat', sans-serif; }
-        .text-brand-primary { color: #103050; }
-        .text-brand-secondary { color: #0070C0; }
-        .bg-brand-secondary { background-color: #0070C0; }
+        .font-montserrat {
+            font-family: 'Montserrat', sans-serif;
+        }
 
-        .top-accent { height: 8px; background-color: #103050; width: 100%; }
-        .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
+        .text-brand-primary {
+            color: #103050;
+        }
+
+        .text-brand-secondary {
+            color: #0070C0;
+        }
+
+        .bg-brand-secondary {
+            background-color: #0070C0;
+        }
+
+        .top-accent {
+            height: 8px;
+            background-color: #103050;
+            width: 100%;
+        }
+
+        .top-accent-secondary {
+            height: 4px;
+            background-color: #0070C0;
+            width: 100%;
+        }
 
         .doc {
-            flex: 1; min-height: 0; position: relative; z-index: 10;
-            padding: 0.7rem 5rem 0.6rem 5rem;
-            display: flex; flex-direction: column; justify-content: center;
-            animation: fadeInUp .5s cubic-bezier(.2,.7,.3,1) both;
+            flex: 1;
+            min-height: 0;
+            position: relative;
+            z-index: 10;
+            padding: 4.2rem 5rem 0.6rem 5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            animation: fadeInUp .5s cubic-bezier(.2, .7, .3, 1) both;
         }
-        .doc-lead {
-            font-size: .98rem; line-height: 1.5; color: #103050; font-weight: 600;
-            border-left: 4px solid #0090C0; padding-left: 1.1rem; margin-bottom: 1rem;
-        }
-        .doc-lead b { color: #0070C0; font-weight: 700; }
 
-        .doc-cols { columns: 2; column-gap: 3rem; text-align: justify; hyphens: auto; }
-        .doc-cols p { color: #334155; font-size: .8rem; line-height: 1.6; margin: 0 0 .78rem; break-inside: avoid; text-indent: 1.8em; }
-        .doc-cols p b { color: #103050; font-weight: 700; }
-        .doc-cols p.first { text-indent: 0; }
+        .doc-lead {
+            font-size: .85rem;
+            line-height: 1.5;
+            color: #103050;
+            font-weight: 600;
+            border-left: 4px solid #0090C0;
+            padding-left: 1.1rem;
+            margin-bottom: 1rem;
+            margin-top: -4.9rem;
+        }
+
+        .doc-lead b {
+            color: #0070C0;
+            font-weight: 700;
+        }
+
+        .doc-cols {
+            columns: 2;
+            column-gap: 2.5rem;
+            text-align: justify;
+            hyphens: auto;
+        }
+
+        .doc-ident {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #103050;
+            margin-top: 0.7rem;
+            margin-bottom: 1rem;
+        }
+
+        .doc-cols p {
+            color: #334155;
+            font-size: .93rem;
+            line-height: 1.6;
+            margin: 0 0 .78rem;
+            break-inside: avoid;
+            text-indent: 1.8em;
+        }
+
+        .doc-cols p b {
+            color: #103050;
+            font-weight: 700;
+        }
+
+        .doc-cols p.first {
+            text-indent: 0;
+        }
+
         .doc-cols p.first::first-letter {
-            font-family: 'Montserrat', sans-serif; font-weight: 800; color: #0070C0;
-            font-size: 2.9rem; line-height: .82; float: left; margin: .08rem .5rem 0 0;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            color: #0070C0;
+            font-size: 2.9rem;
+            line-height: .82;
+            float: left;
+            margin: .08rem .5rem 0 0;
         }
 
         .doc-close {
-            margin-top: .55rem; padding-top: .6rem; border-top: 1px solid #E2E8F0;
-            display: flex; justify-content: center;
+            margin-top: .55rem;
+            padding-top: .6rem;
+            border-top: 1px solid #E2E8F0;
+            display: flex;
+            justify-content: center;
         }
 
         .btn-carta {
-            display: inline-flex; align-items: center; gap: .55rem;
-            padding: .42rem 1.15rem; border-radius: 999px;
-            font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: .8rem;
-            letter-spacing: .01em; color: #0070C0;
-            background: rgba(0, 112, 192, .06); border: 1px solid rgba(0, 112, 192, .30);
-            text-decoration: none; transition: all .2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: .25rem;
+            padding: .22rem 1.1rem;
+            border-radius: 299px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: .8rem;
+            letter-spacing: .01em;
+            color: #0070C0;
+            background: rgba(0, 112, 192, .06);
+            border: 1px solid rgba(0, 100, 192, .30);
+            text-decoration: none;
+            transition: all .2s ease;
+
         }
+
         .btn-carta:hover {
-            background: #0070C0; color: #fff; border-color: #0070C0;
+            background: #0070C0;
+            color: #fff;
+            border-color: #0070C0;
             box-shadow: 0 6px 16px -6px rgba(0, 112, 192, .55);
         }
-        .btn-carta .btn-ico { font-size: .95rem; }
 
-        .bg-pattern { position: absolute; bottom: -60px; right: -50px; width: 400px; height: 400px; opacity: 0.03; z-index: 0; color: #103050; }
+        .btn-carta .btn-ico {
+            font-size: .85rem;
+        }
 
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
-        @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+        .bg-pattern {
+            position: absolute;
+            bottom: -60px;
+            right: -50px;
+            width: 400px;
+            height: 400px;
+            opacity: 0.03;
+            z-index: 0;
+            color: #103050;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
     </style>
-  <link rel="stylesheet" href="a11y.css">
-  <link rel="stylesheet" href="base.css" />
+    <link rel="stylesheet" href="a11y.css">
+    <link rel="stylesheet" href="base.css" />
 </head>
 
 <body>
@@ -91,15 +220,20 @@
             <div>
                 <div class="flex items-center gap-3 mb-1">
                     <div class="w-1 h-8 bg-brand-secondary"></div>
-                    <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Carta de Serviços da ANTAQ</p>
+                    <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Carta de
+                        Serviços da ANTAQ</p>
                 </div>
                 <p class="text-gray-500 font-medium ml-4 text-base">A Ouvidoria como guardiã da Carta de Serviços</p>
             </div>
             <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
                 <i class="fas fa-landmark text-3xl" aria-hidden="true"></i>
                 <div class="flex flex-col justify-center pl-2" style="border-left:1px solid #CBD5E1;">
-                    <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">CAPÍTULO 02</p>
-                    <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none whitespace-nowrap">A Ouvidoria da ANTAQ</p>
+                    <p
+                        class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">
+                        CAPÍTULO 02</p>
+                    <p
+                        class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none whitespace-nowrap">
+                        A Ouvidoria da ANTAQ</p>
                 </div>
             </div>
         </div>
@@ -108,26 +242,32 @@
         <div class="doc">
             <p class="doc-lead txt-bloco">
                 No primeiro semestre de 2026, a Ouvidoria atuou diretamente como <b>guardiã da Carta de Serviços da
-                ANTAQ</b> — documento fundamental que, respaldado pela <b>Lei nº 13.460/2017</b>, informa os cidadãos
-                sobre os serviços prestados pela agência, seus requisitos, prazos e padrões de atendimento, visando
-                promover a participação direta da sociedade civil na melhoria contínua dos <b>33 serviços</b>
-                disponíveis.
+                    ANTAQ</b> — documento fundamental que, respaldado pela <b>Lei nº 13.460/2017</b>, informa os
+                cidadãos
+                sobre os serviços prestados pela agência, seus requisitos, prazos e padrões de atendimento, Visando
+                promover a participação direta da sociedade civil na melhoria contínua dos <b>33 serviços</b> disponiveis.
             </p>
 
             <div class="doc-cols">
+
                 <p class="first txt-bloco">
-                    A <b>Carta de Serviços aos Usuários</b> é um instrumento disciplinado pela <b>Lei nº 13.460/2017</b>
+                    A <b>Carta de Serviços aos Usuários</b> é um instrumento disciplinado pela <b>Lei nº
+                        13.460/2017</b>
                     e regulamentado pelo <b>Decreto nº 9.094/2017</b>. Ela tem por objetivo principal informar de
                     maneira clara e precisa quais são os serviços prestados pelo órgão, as formas de acesso
-                    disponíveis, os compromissos e os padrões de qualidade estabelecidos para o atendimento ao público,
+                    disponíveis, os compromissos e os padrões de qualidade estabelecidos para o atendimento ao
+                    público,
                     bem como as opções disponibilizadas por meio do <b>Portal Gov.br</b>.
                 </p>
                 <p class="txt-bloco">
-                    Em conformidade com as diretrizes da <b>Portaria CGU nº 581/2021</b>, o documento deve detalhar os
+                    Em conformidade com as diretrizes da <b>Portaria CGU nº 581/2021</b>, o documento deve detalhar
+                    os
                     requisitos mínimos exigidos do cidadão, as etapas processuais necessárias para a obtenção do
-                    produto, as formas de comunicação com o solicitante, os locais físicos e digitais de acesso, além de
+                    produto, as formas de comunicação com o solicitante, os locais físicos e digitais de acesso,
+                    além de
                     delimitar e estipular os <b>prazos máximos</b> para a efetiva prestação de cada serviço.
                 </p>
+
             </div>
 
             <div class="doc-close">
@@ -140,12 +280,13 @@
 
 
         <div class="px-16 pb-6 pt-1 flex justify-between items-center z-10">
-            <p class="text-gray-400 text-xs">Relatório 1º Semestre de 2026 – Ouvidoria – Agência Nacional de Transportes Aquaviários - ANTAQ</p>
+            <p class="text-gray-400 text-xs">Relatório 1º Semestre de 2026 – Ouvidoria – Agência Nacional de Transportes
+                Aquaviários - ANTAQ</p>
         </div>
         <div class="bg-pattern"><i class="fas fa-file-contract text-9xl"></i></div>
     </div>
     <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
-  <script src="a11y.js" defer></script>
+    <script src="a11y.js" defer></script>
 </body>
 
 </html>
