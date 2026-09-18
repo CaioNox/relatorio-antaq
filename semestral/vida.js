@@ -17,7 +17,11 @@
    * ------------------------------------------------------------------ */
 
   var ALVOS = '.kpi-num, .metric-value, .lb-num, [data-vida]';
-  var DURACAO = 1100;
+  var DURACAO = 1600;
+
+  /* Escalonamento entre os números do mesmo slide, para entrarem em
+     cascata em vez de subirem todos travados no mesmo frame. */
+  var ATRASO = 90;
 
   /* Elementos que rodam animação em loop ganham promoção de camada.
      Puramente de performance — o resultado visual é idêntico. */
@@ -81,11 +85,11 @@
    * Contagem
    * ------------------------------------------------------------------ */
 
-  function contar(el) {
-    if (el.dataset.vidaFeito) return;
+  function contar(el, atraso) {
+    if (el.dataset.vidaFeito) return false;
 
     var info = interpretar(el.textContent);
-    if (info === null) { el.dataset.vidaFeito = '1'; return; }
+    if (info === null) { el.dataset.vidaFeito = '1'; return false; }
 
     var original = el.textContent;
     el.dataset.vidaFeito = '1';
@@ -95,20 +99,21 @@
     if (!el.hasAttribute('aria-label')) el.setAttribute('aria-label', original.trim());
     el.setAttribute('aria-hidden', 'true');
 
-    if (reduzido()) return;
+    if (reduzido()) return false;
 
     el.classList.add('vida-contando');
     el.textContent = formatar(0, info.casas, info.milhar);
 
     var t0 = null;
+    var espera = atraso || 0;
     var reg = { el: el, texto: original };
     pendentes.push(reg);
 
     function passo(t) {
       if (reg.cancelado) return;
       if (t0 === null) t0 = t;
-      var p = Math.min((t - t0) / DURACAO, 1);
-      var e = 1 - Math.pow(1 - p, 3);            /* easeOutCubic */
+      var p = Math.min(Math.max((t - t0 - espera) / DURACAO, 0), 1);
+      var e = 1 - Math.pow(1 - p, 5);            /* easeOutQuint */
       el.textContent = formatar(info.valor * e, info.casas, info.milhar);
       if (p < 1) {
         requestAnimationFrame(passo);
@@ -119,6 +124,7 @@
       }
     }
     requestAnimationFrame(passo);
+    return true;
   }
 
   /* Força tudo para o estado final. Necessário antes de capturar imagem. */
@@ -162,7 +168,10 @@
   function iniciar() {
     injetarCSS();
     promoverCamadas();
-    document.querySelectorAll(ALVOS).forEach(contar);
+    var n = 0;
+    document.querySelectorAll(ALVOS).forEach(function (el) {
+      if (contar(el, n * ATRASO)) n++;
+    });
   }
 
   if (document.readyState === 'loading') {
