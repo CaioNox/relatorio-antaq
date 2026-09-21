@@ -79,58 +79,104 @@
 
 
     /* ---------- trilha de 2 etapas (padrao de slide-cartas-servicos) ---------- */
-    .trilha {
-      position: relative; display: grid; grid-template-columns: repeat(2, 1fr);
-      gap: .6rem; padding: .3rem 0 .45rem; flex-shrink: 0;
-      max-width: 24rem; margin: 0 auto;
+    /* ------------------------------------------------------------------
+       Alternador Demandas / Tramitacoes — padrao Switch Button (kokonutui):
+       brilho que atravessa no hover e halo radial. Sem degrade e sem giro no
+       icone, a pedido. O estado ligado usa o azul do relatorio, porque aqui o
+       botao nao e decorativo: ele diz qual metrica esta na tela.
+       ------------------------------------------------------------------ */
+    .sw-bar {
+      display: flex; align-items: center; justify-content: center; gap: .55rem;
+      padding: .3rem 0 .1rem; flex-shrink: 0;
     }
 
-    /* linha cinza de base: liga as duas etapas e sugere continuidade entre elas */
-    .trilha::before,
-    .trilha-fill {
-      content: '';
-      position: absolute; top: calc(.3rem + .85rem); height: 3px; border-radius: 2px;
-      left: 25%; right: 25%;
+    .sw-grupo { display: flex; gap: .45rem; }
+
+    .sw, .sw-seta {
+      position: relative; overflow: hidden; cursor: pointer;
+      height: 2.05rem;
+      border: 1px solid #E4E4E7; border-radius: 10px;
+      background: #FAFAFA;
+      box-shadow: 0 1px 2px -1px rgb(0 0 0 / .1), 0 1px 3px -2px rgb(0 0 0 / .1);
+      backdrop-filter: blur(4px);
+      color: #52525B;
+      font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: .68rem;
+      transition: color .3s ease-out, background .2s ease-out,
+        border-color .2s ease-out, box-shadow .2s ease-out, transform .2s ease-out;
     }
 
-    .trilha::before { background: #E2E8F0; }
+    .sw { display: inline-flex; align-items: center; gap: .45rem; padding: 0 .95rem; }
 
-    .trilha-fill {
-      right: auto; width: 0;
-      background: linear-gradient(90deg, #103050, #0090C0);
-      transition: width .45s cubic-bezier(.4, 0, .2, 1);
+    .sw-seta {
+      width: 2.05rem; display: inline-flex; align-items: center; justify-content: center;
+      font-size: .72rem;
     }
 
-    .no {
-      position: relative; z-index: 1; background: none; border: 0; padding: 0; cursor: pointer;
-      display: flex; flex-direction: column; align-items: center; gap: .25rem;
-      font-family: 'Montserrat', sans-serif; text-align: center;
+    .sw:hover, .sw-seta:hover:not(:disabled) {
+      color: #27272A;
+      background: #F1F1F3;
+      border-color: #D4D4D8;
+      box-shadow: 0 2px 4px -2px rgb(0 0 0 / .15), 0 2px 6px -3px rgb(0 0 0 / .15);
     }
 
-    .no-bolha {
-      width: 1.7rem; height: 1.7rem; border-radius: 50%;
-      background: #fff; border: 3px solid #CBD5E1; color: #94A3B8;
-      font-weight: 900; font-size: .72rem;
-      display: flex; align-items: center; justify-content: center;
-      transition: transform .3s, background .3s, border-color .3s, color .3s, box-shadow .3s;
+    .sw:active, .sw-seta:active:not(:disabled) { box-shadow: 0 0 1px 0 rgb(0 0 0 / .1); transform: scale(.97); }
+    .sw-seta:disabled { opacity: .35; cursor: default; }
+
+    /* o icone gira 360° no hover; ligado, fica meia-volta adiantado */
+    .sw-ico i, .sw-seta i {
+      display: inline-block; font-size: .74rem; color: #0090C0;
+      transition: color .3s ease-out;
     }
 
-    .no-rot {
-      font-weight: 700; font-size: .56rem; line-height: 1.15; color: #94A3B8;
-      transition: color .3s; max-width: 96%;
+    /* ligado: azul do relatorio, para dizer qual metrica esta na tela */
+    .sw.ativa {
+      color: #fff; border-color: #0070C0;
+      background: #103050;
+      box-shadow: 0 8px 18px -10px rgba(16, 48, 80, .7);
     }
 
-    .no.feita .no-bolha { background: #103050; border-color: #103050; color: #fff; }
-    .no.feita .no-rot { color: #64748B; }
+    .sw.ativa .sw-ico i { color: #7FD3F0; }
 
-    .no.ativa .no-bolha {
-      background: linear-gradient(150deg, #103050, #0070C0);
-      border-color: #0090C0; color: #fff; transform: scale(1.18);
-      box-shadow: 0 10px 22px -8px rgba(16, 48, 80, .65);
+    /* brilho que atravessa o botao */
+    .sw-brilho {
+      position: absolute; inset: 0; z-index: 1; pointer-events: none;
+      transform: translateX(-100%);
+      background: linear-gradient(to right, rgba(113, 113, 122, 0), rgba(113, 113, 122, .12), rgba(113, 113, 122, 0));
+      transition: transform .5s ease-in-out;
     }
 
-    .no.ativa .no-rot { color: #103050; font-weight: 800; }
+    .sw.ativa .sw-brilho {
+      background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, .14), rgba(255, 255, 255, 0));
+    }
 
+    .sw:hover .sw-brilho { transform: translateX(100%); }
+
+    .sw-halo {
+      position: absolute; inset: 0; z-index: 2; opacity: 0; pointer-events: none;
+      background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, .5), transparent 70%);
+      transition: opacity .5s ease;
+    }
+
+    .sw.ativa .sw-halo { background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, .12), transparent 70%); }
+    .sw:hover .sw-halo { opacity: 1; }
+
+    .sw-rot, .sw-ico { position: relative; z-index: 3; }
+    .sw-ico { display: inline-flex; }
+
+    /* aviso de que o slide e interativo */
+    .sw-aviso {
+      display: flex; align-items: center; justify-content: center; gap: .38rem;
+      margin: .1rem 0 0; color: #94A3B8; font-size: .6rem; font-weight: 600;
+    }
+
+    .sw-aviso i { color: #0090C0; font-size: .66rem; }
+    .sw-aviso b { color: #0070C0; font-weight: 700; }
+
+    .sw-aviso .chev {
+      font-family: 'Montserrat', sans-serif; font-weight: 800; color: #64748B;
+      background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 5px;
+      padding: 0 .32rem;
+    }
 
     .painel { position: relative; }
 
@@ -268,17 +314,36 @@
     </div>
 
     <div class="px-16 z-10">
-      <div class="trilha" role="tablist" aria-label="Etapas: demandas e tramitações">
-        <div class="trilha-fill" id="trilhaFill" aria-hidden="true"></div>
-        <button class="no" type="button" role="tab" data-n="1" aria-controls="etapa-1" aria-selected="false">
-          <span class="no-bolha">1</span>
-          <span class="no-rot">Demandas</span>
+      <div class="sw-bar">
+        <button class="sw-seta" id="swPrev" type="button" aria-label="Métrica anterior">
+          <i class="fas fa-chevron-left" aria-hidden="true"></i>
         </button>
-        <button class="no" type="button" role="tab" data-n="2" aria-controls="etapa-2" aria-selected="false">
-          <span class="no-bolha">2</span>
-          <span class="no-rot">Tramitações</span>
+
+        <div class="sw-grupo" role="tablist" aria-label="Métricas: demandas e tramitações">
+          <button class="sw" type="button" role="tab" data-n="1" aria-controls="etapa-1" aria-selected="false">
+            <span class="sw-ico"><i class="fas fa-list-ol" aria-hidden="true"></i></span>
+            <span class="sw-rot">Demandas</span>
+            <span class="sw-brilho" aria-hidden="true"></span>
+            <span class="sw-halo" aria-hidden="true"></span>
+          </button>
+          <button class="sw" type="button" role="tab" data-n="2" aria-controls="etapa-2" aria-selected="false">
+            <span class="sw-ico"><i class="fas fa-arrow-right-arrow-left" aria-hidden="true"></i></span>
+            <span class="sw-rot">Tramitações</span>
+            <span class="sw-brilho" aria-hidden="true"></span>
+            <span class="sw-halo" aria-hidden="true"></span>
+          </button>
+        </div>
+
+        <button class="sw-seta" id="swNext" type="button" aria-label="Próxima métrica">
+          <i class="fas fa-chevron-right" aria-hidden="true"></i>
         </button>
       </div>
+
+      <p class="sw-aviso">
+        <i class="far fa-hand-pointer" aria-hidden="true"></i>
+        Slide interativo: alterne entre <b>Demandas</b> e <b>Tramitações</b> nos botões ou nas setas
+        <span class="chev">&lt;</span> <span class="chev">&gt;</span>
+      </p>
     </div>
 
     <div class="flex-1 px-16 pb-2 z-10 painel" style="min-height:0;">
@@ -610,9 +675,10 @@
 
 
     /* ---------- trilha de etapas ---------- */
-    const nos = Array.from(document.querySelectorAll('.no'));
+    const nos = Array.from(document.querySelectorAll('.sw'));
+    const setaPrev = document.getElementById('swPrev');
+    const setaNext = document.getElementById('swNext');
     const focos = Array.from(document.querySelectorAll('.etapa-foco'));
-    const fill = document.getElementById('trilhaFill');
 
     function irPara(n) {
       etapa = Math.max(1, Math.min(TOTAL_ETAPAS, n));
@@ -623,13 +689,16 @@
         no.setAttribute('aria-selected', i === etapa ? 'true' : 'false');
       });
       focos.forEach(f => f.classList.toggle('ativa', +f.dataset.n === etapa));
-      fill.style.width = ((etapa - 1) / (TOTAL_ETAPAS - 1) * 50) + '%';
+      setaPrev.disabled = etapa === 1;
+      setaNext.disabled = etapa === TOTAL_ETAPAS;
       refreshChips();
       refreshHint();
       if (etapa === 2) renderRosca();
     }
 
     nos.forEach(no => no.addEventListener('click', () => irPara(+no.dataset.n)));
+    setaPrev.addEventListener('click', () => irPara(etapa - 1));
+    setaNext.addEventListener('click', () => irPara(etapa + 1));
 
     function refreshHint() {
       document.getElementById('hintLine').innerHTML = etapa === 1
@@ -647,15 +716,65 @@
       refreshHint();
     }
 
+    /* o handler de teclado (script separado, no fim do arquivo) usa estes dois */
+    window.irParaEtapa = irPara;
+    window.etapaAtual = function () { return etapa; };
+
     update();
-    irPara(1);
+    /* entrando de re pelo deck, abrir ja em Tramitacoes */
+    irPara(location.hash === '#fim' ? TOTAL_ETAPAS : 1);
 
 
     document.addEventListener('DOMContentLoaded', function () {
       if (window.A11y && etapa === 2) renderRosca();
     });
   </script>
-  <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
+  <script>
+    /* Mesmo padrao do slide-cartas-servicos: as setas primeiro alternam entre
+       Demandas e Tramitacoes; so quando ja se esta na ponta e que a tecla e
+       repassada ao deck para trocar de slide. */
+    (function () {
+      var TECLAS_NAV = ['ArrowRight', 'ArrowLeft', 'PageDown', 'PageUp', 'Home', 'End', ' ', 'f', 'F'];
+
+      function tratarTecla(k) {
+        if (k === '1' || k === '2') { window.irParaEtapa(+k); return; }
+        if (TECLAS_NAV.indexOf(k) === -1) return;
+
+        var atual = window.etapaAtual();
+        var avanca = (k === 'ArrowRight' || k === ' ' || k === 'PageDown');
+        var volta = (k === 'ArrowLeft' || k === 'PageUp');
+        if (avanca && atual < 2) { window.irParaEtapa(atual + 1); return; }
+        if (volta && atual > 1) { window.irParaEtapa(atual - 1); return; }
+
+        window.parent.postMessage({ type: 'slide-nav', key: k }, '*');
+      }
+
+      document.addEventListener('keydown', function (e) {
+        if (TECLAS_NAV.indexOf(e.key) !== -1 || e.key === '1' || e.key === '2') {
+          e.preventDefault();
+          tratarTecla(e.key);
+        }
+      });
+
+      /* clique nas laterais do deck chega como 'deck-key' e usa o mesmo caminho */
+      window.addEventListener('message', function (e) {
+        if (e.data && e.data.type === 'deck-key' && e.data.key) tratarTecla(e.data.key);
+      });
+
+      /* o pai rouba o foco; retomar sempre que o ponteiro voltar ao slide */
+      function pegarFoco() { try { window.focus(); } catch (err) { } }
+      pegarFoco();
+      window.addEventListener('load', pegarFoco);
+      document.addEventListener('pointerdown', pegarFoco);
+      document.addEventListener('mousemove', pegarFoco, { once: true });
+
+      /* avisar o deck que este slide tem etapas proprias — sem isto as setas
+         do teclado passam direto para o slide seguinte */
+      function avisarEtapas() { window.parent.postMessage({ type: 'slide-etapas', total: 2 }, '*'); }
+      avisarEtapas();
+      window.addEventListener('load', avisarEtapas);
+    })();
+  </script>
   <script src="a11y.js" defer></script>
   <script src="vida.js" defer></script>
 </body>

@@ -41,11 +41,11 @@ window.RELATORIO = {
       files: [
         'capa-bloco-4.html', 'slide-4a.html', 'slide-informa-br.html',
         // PDA / Dados Abertos
-        'slide-pda.html', 'slide-21.html',
+        'slide-pda.html',
         // Transparência ativa (transparência ativa)
         'slide-22.html',
         // Transparência passiva (transparência passiva)
-        'slide-23.html', 'slide-18.html', 'slide-resp-unidade.html', 'slide-20.html',
+        'slide-23.html', 'slide-resp-unidade.html', 'slide-20.html',
       ],
     },
     {

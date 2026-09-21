@@ -283,6 +283,13 @@
       font-weight: 600;
     }
 
+    /* Etapa 3 (SAF): sao 4 servicos. Com o fluxo em coluna eles se acomodavam
+       em 2 colunas de 2; em linha, ocupam as 3 colunas do template — tres no
+       primeiro nivel e um no segundo. */
+    #etapa-3 .svc-grid {
+      grid-auto-flow: row;
+    }
+
     .svc-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);

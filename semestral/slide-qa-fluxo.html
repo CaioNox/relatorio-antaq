@@ -1,113 +1,123 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <title>Perguntas e Respostas · Fluxo e dados abertos — Relatório Semestral Ouvidoria ANTAQ</title>
+  <title>Fluxo e dados abertos — Perguntas e Respostas - Relatório Semestral Ouvidoria ANTAQ</title>
   <link rel="icon" type="image/png"
     href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
   <link
-    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&amp;family=Barlow:ital,wght@0,400;0,500;0,600;1,400&amp;display=swap"
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&amp;family=Open+Sans:ital,wght@0,400;0,600;1,400&amp;display=swap"
     rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
   <style>
-    html { font-size: clamp(13px, min(1.354vw, 2.407vh), 26px); }
-    body { margin: 0; padding: 0; background: #DFE3E7; overflow: hidden; }
+    html { font-size: 26px; }
+    body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
 
     .slide-container {
       width: 100vw; height: 100vh; position: relative;
       display: flex; flex-direction: column;
-      background: #F2F2F3; overflow: hidden;
-      font-family: 'Barlow', sans-serif; color: #2F3A46;
+      background-color: #ffffff; overflow: hidden;
+      font-family: 'Open Sans', sans-serif;
     }
 
-    /* faixas de topo */
-    .top-accent { height: .38rem; background: #103050; }
-    .top-accent-secondary { height: .19rem; background: #0070C0; }
+    .font-montserrat { font-family: 'Montserrat', sans-serif; }
+    .text-brand-primary { color: #103050; }
+    .text-brand-secondary { color: #0070C0; }
+    .bg-brand-secondary { background-color: #0070C0; }
 
-    /* cabecalho */
-    .cab {
-      display: flex; align-items: flex-end; justify-content: space-between;
-      padding: 1.54rem 3.46rem .92rem;
-    }
-    .cab-kicker {
-      display: block; margin: 0 0 .38rem;
-      font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: 1rem;
-      letter-spacing: .26em; text-transform: uppercase; color: #8593A1;
-    }
-    .cab h1 {
-      margin: 0;
-      font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 2.77rem;
-      line-height: 1; letter-spacing: .03em; text-transform: uppercase; color: #103050;
-    }
-    .cab-faixa {
-      flex-shrink: 0;
-      font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1.31rem;
-      letter-spacing: .14em; color: #FFFFFF; background: var(--faixa, #103050);
-      padding: .31rem .77rem;
-    }
-    .regua { height: .12rem; background: #0070C0; margin: 0 3.46rem; }
+    .top-accent { height: 8px; background-color: #103050; width: 100%; }
+    .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
 
-    /* corpo: tres perguntas em alturas iguais */
-    .board { flex: 1; min-height: 0; display: flex; flex-direction: column; padding: 0 3.46rem; }
+    /* ---------- quadro das perguntas ---------- */
+    .board {
+      flex: 1; min-height: 0; z-index: 10;
+      /* os cartoes abracam o proprio conteudo e o conjunto fica centrado:
+         esticados ate a altura da faixa, sobrava ar demais dentro deles */
+      display: flex; flex-direction: column; justify-content: center;
+      gap: .85rem;
+      padding: .5rem 4rem .4rem;
+    }
+
+    /* cada pergunta ocupa uma faixa de mesma altura, com o texto centrado:
+       a folga vira ritmo entre os cartoes, e nao um vao solto no rodape */
     .qa {
-      flex: 1; display: flex; gap: 1.31rem; align-items: flex-start; padding: 1rem 0;
-      animation: subir .45s ease both;
+      display: grid; grid-template-columns: 3.6rem 1fr; gap: 1.1rem;
+      align-items: center; align-content: center;
+      background: #fff;
+      border: 1px solid #E2E8F0; border-left: 5px solid #0090C0;
+      border-radius: 14px; padding: .85rem 1.15rem;
+      transition: transform .26s cubic-bezier(.34, 1.32, .64, 1),
+        border-color .25s ease, box-shadow .25s ease;
+      animation: fadeInUp .5s cubic-bezier(.2, .7, .3, 1) both;
     }
-    .qa + .qa { border-top: 1px solid #C6CED6; }
-    .qa:nth-child(2) { animation-delay: .07s; }
-    .qa:nth-child(3) { animation-delay: .14s; }
 
-    /* numeral emoldurado com marcas de registro */
+    .qa:nth-child(1) { animation-delay: .06s; }
+    .qa:nth-child(2) { animation-delay: .14s; }
+    .qa:nth-child(3) { animation-delay: .22s; }
+
+    .qa:hover {
+      transform: translateY(-4px);
+      border-color: #0070C0; border-left-color: #0070C0;
+      box-shadow: 0 18px 32px -20px rgba(16, 48, 80, .4);
+    }
+
+    /* o numero da pergunta, na mesma pastilha azul dos icones do relatorio */
     .qa-n {
-      position: relative; flex-shrink: 0;
-      width: 3.38rem; height: 3.38rem; border: 1px solid #0070C0;
+      width: 3.6rem; height: 3.6rem; border-radius: 14px; flex-shrink: 0;
+      background: linear-gradient(145deg, #103050, #0070C0); color: #fff;
+      font-family: 'Montserrat', sans-serif; font-weight: 900;
+      font-size: 1.35rem; line-height: 1; letter-spacing: -.02em;
       display: flex; align-items: center; justify-content: center;
-      font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1.92rem;
-      line-height: 1; color: #0070C0;
+      box-shadow: 0 10px 20px -12px rgba(16, 48, 80, .8);
     }
-    .qa-n i {
-      position: absolute; font-style: normal; font-size: .62rem; line-height: 1; color: #0070C0;
-    }
-    .qa-n .tl { top: -.3rem; left: -.3rem; }
-    .qa-n .tr { top: -.3rem; right: -.3rem; }
-    .qa-n .bl { bottom: -.3rem; left: -.3rem; }
-    .qa-n .br { bottom: -.3rem; right: -.3rem; }
 
-    .qa-txt { min-width: 0; display: flex; flex-direction: column; gap: .46rem; }
+    .qa-txt { min-width: 0; }
+
     .qa-q {
-      margin: 0;
-      font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: 1.92rem;
-      line-height: 1.05; text-transform: uppercase; color: #103050;
+      font-family: 'Montserrat', sans-serif; font-weight: 800;
+      font-size: .98rem; line-height: 1.2; color: #103050;
+      margin: 0 0 .3rem;
     }
-    .qa-a { margin: 0; font-size: 1.38rem; line-height: 1.34; color: #2F3A46; text-wrap: pretty; }
-    .qa-a b { color: #0A5FA0; font-weight: 600; }
 
-    /* etiquetas de referencia: legiveis como legenda, clicaveis se o operador quiser */
-    .qa-refs { display: flex; flex-wrap: wrap; gap: .62rem; }
+    .qa-a {
+      font-size: .78rem; line-height: 1.55; color: #334155; margin: 0;
+    }
+
+    .qa-a b { color: #0070C0; font-weight: 700; }
+
+    /* atalhos para o slide que detalha o dado */
+    .qa-refs { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .5rem; }
+
     .qa-ref {
-      font: inherit; background: none; border: 0; padding: 0; cursor: pointer;
-      font-family: 'Barlow Condensed', sans-serif; font-weight: 500; font-size: 1.08rem;
-      letter-spacing: .08em; text-transform: uppercase; color: #7C8896;
-      transition: color .2s ease;
-    }
-    .qa-ref:hover { color: #0070C0; }
-    .qa-ref:focus-visible { outline: 2px solid #0070C0; outline-offset: 2px; }
-
-    /* rodape */
-    .rodape {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: .77rem 3.46rem 1.23rem;
-      font-family: 'Barlow Condensed', sans-serif; font-weight: 500; font-size: 1rem;
-      letter-spacing: .04em; color: #8A96A3;
-    }
-    .rodape .eixo {
-      font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: #0070C0;
+      display: inline-flex; align-items: center; gap: .3rem;
+      font-family: 'Montserrat', sans-serif; font-weight: 700;
+      font-size: .58rem; letter-spacing: .04em;
+      color: #0070C0; background: #E6F2FA;
+      border: 1px solid #C0E0F0; border-radius: 999px;
+      padding: .2rem .6rem; cursor: pointer;
+      transition: background-color .2s ease, color .2s ease, border-color .2s ease;
     }
 
-    @keyframes subir { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+    .qa-ref i { font-size: .52rem; }
+    .qa-ref:hover { background: #0070C0; border-color: #0070C0; color: #fff; }
+
+    .eixo {
+      font-family: 'Montserrat', sans-serif; font-weight: 700;
+      font-size: .62rem; letter-spacing: .14em; text-transform: uppercase;
+      color: #CBD5E1;
+    }
+
+    .bg-pattern {
+      position: absolute; bottom: -60px; right: -50px;
+      width: 380px; height: 380px; opacity: .025; z-index: 0; color: #103050;
+    }
+
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
-    @media print { .qa { animation: none; } }
   </style>
   <link rel="stylesheet" href="a11y.css">
   <link rel="stylesheet" href="base.css" />
@@ -118,66 +128,82 @@
     <div class="top-accent"></div>
     <div class="top-accent-secondary"></div>
 
-    <div class="cab">
+
+    <div class="flex items-start justify-between px-16 pt-10 pb-3 z-10">
       <div>
-        <span class="cab-kicker">Perguntas e Respostas · Capítulo 04 · STAI</span>
-        <h1>Fluxo e dados abertos</h1>
+        <div class="flex items-center gap-3 mb-1">
+          <div class="w-1 h-8 bg-brand-secondary"></div>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Fluxo e dados abertos</p>
+        </div>
+        <p class="text-gray-500 font-medium ml-4 text-base">Perguntas e respostas sobre o Capítulo 04 · STAI · questões 07 a 09</p>
       </div>
-      <span class="cab-faixa" style="--faixa:#5980A6;">07–09</span>
+      <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
+        <i class="fas fa-circle-question text-3xl" aria-hidden="true"></i>
+        <div class="flex flex-col justify-center pl-2 cap-div">
+          <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">
+            CAPÍTULO 06</p>
+          <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none whitespace-nowrap">
+            Apêndice</p>
+        </div>
+      </div>
     </div>
-    <div class="regua"></div>
+
 
     <div class="board">
-        <div class="qa">
-          <div class="qa-n"><i class="tl">+</i><i class="tr">+</i><i class="bl">+</i><i class="br">+</i>07</div>
-          <div class="qa-txt">
-            <p class="qa-q">Como as demandas circulam na Agência?</p>
-            <p class="qa-a">Dos <b>262 pedidos</b> de acesso à informação do semestre, <b>33</b> foram respondidos diretamente pela STAI. Os demais geraram <b>229 tramitações</b> entre <b>47 unidades técnicas</b> da Agência.</p>
-            <div class="qa-refs">
-              <button class="qa-ref" data-file="slide-tramit-uorg.html">&rarr; Demandas Tramitadas por Unidade</button>
-            </div>
+      <div class="qa">
+        <div class="qa-n">07</div>
+        <div class="qa-txt">
+          <p class="qa-q">Como as demandas circulam na Agência?</p>
+          <p class="qa-a">Dos <b>262 pedidos</b> de acesso à informação do semestre, <b>33</b> foram respondidos diretamente pela STAI. Os demais geraram <b>229 tramitações</b> entre <b>47 unidades técnicas</b> da Agência.</p>
+          <div class="qa-refs">
+            <button class="qa-ref" data-file="slide-tramit-uorg.html"><i class="fas fa-arrow-right" aria-hidden="true"></i> Demandas Tramitadas por Unidade</button>
           </div>
         </div>
+      </div>
 
-        <div class="qa">
-          <div class="qa-n"><i class="tl">+</i><i class="tr">+</i><i class="bl">+</i><i class="br">+</i>08</div>
-          <div class="qa-txt">
-            <p class="qa-q">Quem de fato responde ao cidadão?</p>
-            <p class="qa-a">As áreas técnicas. As <b>130 respostas</b> do trimestre vieram de <b>34 unidades</b> — a própria STAI respondeu <b>20</b>, seguida pela GOA (13) e pela DPDD (10).</p>
-            <div class="qa-refs">
-              <button class="qa-ref" data-file="slide-resp-unidade.html">&rarr; Respostas por Unidade</button>
-            </div>
+      <div class="qa">
+        <div class="qa-n">08</div>
+        <div class="qa-txt">
+          <p class="qa-q">Quem de fato responde ao cidadão?</p>
+          <p class="qa-a">As áreas técnicas. As <b>130 respostas</b> do trimestre vieram de <b>34 unidades</b> — a própria STAI respondeu <b>20</b>, seguida pela GOA (13) e pela DPDD (10).</p>
+          <div class="qa-refs">
+            <button class="qa-ref" data-file="slide-resp-unidade.html"><i class="fas fa-arrow-right" aria-hidden="true"></i> Respostas por Unidade</button>
           </div>
         </div>
+      </div>
 
-        <div class="qa">
-          <div class="qa-n"><i class="tl">+</i><i class="tr">+</i><i class="bl">+</i><i class="br">+</i>09</div>
-          <div class="qa-txt">
-            <p class="qa-q">O que a ANTAQ publica em dados abertos?</p>
-            <p class="qa-a">O <b>PDA 2026–2028</b> orienta a política de dados abertos da Agência (Decreto nº 8.777/2016). Hoje são <b>18 bases</b> publicadas no dados.gov.br e mais <b>8 previstas</b>.</p>
-            <div class="qa-refs">
-              <button class="qa-ref" data-file="slide-pda.html">&rarr; PDA 2026–2028</button>
-              <button class="qa-ref" data-file="slide-21.html">&rarr; Dados Abertos</button>
-            </div>
+      <div class="qa">
+        <div class="qa-n">09</div>
+        <div class="qa-txt">
+          <p class="qa-q">O que a ANTAQ publica em dados abertos?</p>
+          <p class="qa-a">O <b>PDA 2026–2028</b> orienta a política de dados abertos da Agência (Decreto nº 8.777/2016). Hoje são <b>18 bases</b> publicadas no dados.gov.br e mais <b>8 previstas</b>.</p>
+          <div class="qa-refs">
+            <button class="qa-ref" data-file="slide-pda.html"><i class="fas fa-arrow-right" aria-hidden="true"></i> PDA 2026–2028</button>
+            <button class="qa-ref" data-file="slide-21.html"><i class="fas fa-arrow-right" aria-hidden="true"></i> Dados Abertos</button>
           </div>
         </div>
+      </div>
+
     </div>
 
-    <div class="rodape">
-      <span>Relatório 1º Semestre de 2026 – Ouvidoria – Agência Nacional de Transportes Aquaviários - ANTAQ</span>
+
+    <div class="px-16 pb-6 pt-1 flex justify-between items-center z-10">
+      <p class="text-gray-400 text-xs">Relatório 1º Semestre de 2026 – Ouvidoria – Agência Nacional de Transportes
+        Aquaviários - ANTAQ</p>
       <span class="eixo">Eixo 3 de 3</span>
     </div>
+    <div class="bg-pattern"><i class="fas fa-circle-question text-9xl"></i></div>
   </div>
 
   <script>
-    // etiquetas: navegacao opcional para o slide que detalha o dado
+    /* etiquetas: navegacao opcional para o slide que detalha o dado */
     document.querySelectorAll('.qa-ref').forEach(function (btn) {
       btn.addEventListener('click', function () {
         window.parent.postMessage({ type: "slide-goto-file", file: btn.dataset.file }, "*");
       });
     });
 
-    // setas do teclado passam para o deck: o slide nao precisa de clique
+    /* setas do teclado passam para o deck: o slide nao precisa de clique */
     document.addEventListener("keydown", function (e) {
       if (e.target.closest && e.target.closest('button')) return;
       if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) {

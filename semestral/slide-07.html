@@ -100,7 +100,16 @@
     }
 
 
+    /* ------------------------------------------------------------------
+       Os cartoes de ano viram controles: clicar num ano faz a linha do
+       grafico crescer ate ele e o numero do cartao subir por contagem.
+       ------------------------------------------------------------------ */
     .hist-kpi {
+      width: 100%;
+      text-align: left;
+      font: inherit;
+      cursor: pointer;
+      border: 0;
       border-left: 4px solid #0090C0;
       background-color: #EAF3FB;
       padding: 0.9rem 1.3rem;
@@ -111,7 +120,23 @@
       flex: 1;
       min-height: 0;
       animation: fadeInUp 500ms cubic-bezier(.2, .7, .3, 1) both;
+      transition: transform .26s cubic-bezier(.34, 1.32, .64, 1), box-shadow .25s ease,
+        background-color .25s ease, border-left-color .25s ease;
     }
+
+    .hist-kpi:hover { transform: translateY(-3px); box-shadow: 0 14px 26px -16px rgba(16, 48, 80, .45); }
+    .hist-kpi:focus-visible { outline: 3px solid #0090C0; outline-offset: 3px; }
+
+    /* variacao sobre o ano anterior, calculada a partir da propria serie */
+    .hk-delta {
+      display: inline-flex; align-items: center; gap: .3rem;
+      font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: .72rem;
+      margin-top: .25rem; color: #5a7a99;
+    }
+
+    .hist-kpi.hk-feat .hk-delta { color: #FFD98A; }
+    .hk-delta i { font-size: .62rem; }
+
 
     .hist-kpi .hk-year {
       font-family: 'Montserrat', sans-serif;
@@ -237,26 +262,30 @@
       </div>
 
       <div class="col-span-1 flex flex-col gap-3" style="min-height:0;">
-        <div class="hist-kpi hk-feat">
+        <button type="button" class="hist-kpi hk-feat" data-i="3" role="tab" aria-selected="true">
           <p class="hk-year">1º Semestre 2026</p>
           <p class="hk-val" data-ano="2026">876</p>
           <p class="hk-label">Demandas</p>
-        </div>
-        <div class="hist-kpi">
+          <span class="hk-delta"></span>
+        </button>
+        <button type="button" class="hist-kpi" data-i="2" role="tab" aria-selected="false">
           <p class="hk-year">1º Semestre 2025</p>
           <p class="hk-val" data-ano="2025">834</p>
           <p class="hk-label">Demandas</p>
-        </div>
-        <div class="hist-kpi">
+          <span class="hk-delta"></span>
+        </button>
+        <button type="button" class="hist-kpi" data-i="1" role="tab" aria-selected="false">
           <p class="hk-year">1º Semestre 2024</p>
           <p class="hk-val" data-ano="2024">704</p>
           <p class="hk-label">Demandas</p>
-        </div>
-        <div class="hist-kpi">
+          <span class="hk-delta"></span>
+        </button>
+        <button type="button" class="hist-kpi" data-i="0" role="tab" aria-selected="false">
           <p class="hk-year">1º Semestre 2023</p>
           <p class="hk-val" data-ano="2023">725</p>
           <p class="hk-label">Demandas</p>
-        </div>
+          <span class="hk-delta"></span>
+        </button>
       </div>
     </div>
 
@@ -277,7 +306,10 @@
         ctx.fillStyle = '#103050';
         ctx.textAlign = 'center';
         meta.data.forEach((pt, i) => {
-          ctx.fillText(chart.data.datasets[0].data[i], pt.x, pt.y - 14);
+          const v = chart.data.datasets[0].data[i];
+          if (v === null || v === undefined) return;   /* ano ainda nao revelado */
+          ctx.fillStyle = (i === foco) ? '#0070C0' : '#103050';
+          ctx.fillText(v, pt.x, pt.y - 14);
         });
         ctx.restore();
       }
@@ -287,7 +319,8 @@
       beforeDatasetsDraw(chart) {
         const meta = chart.getDatasetMeta(0);
         if (!meta.data.length) return;
-        const pt = meta.data[meta.data.length - 1];
+        const pt = meta.data[foco];                    /* halo no ano em foco */
+        if (!pt) return;
         const { ctx } = chart;
         ctx.save();
         ctx.beginPath();
@@ -297,9 +330,12 @@
         ctx.restore();
       }
     };
+    /* indice do ano em foco — o grafico e desenhado ate ele */
+    let foco = 3;
+
     const histLabels = ['1º Semestre 2023', '1º Semestre 2024', '1º Semestre 2025', '1º Semestre 2026'];
     const histData = [725, 704, 834, 876];
-    new Chart(document.getElementById('chartHist'), {
+    const grafico = new Chart(document.getElementById('chartHist'), {
       type: 'line',
       data: {
         labels: histLabels,
@@ -321,7 +357,7 @@
         responsive: true,
         maintainAspectRatio: false,
         layout: { padding: { top: 30, right: 16, left: 6 } },
-        animation: REDUCED ? false : { duration: 1400, easing: 'easeOutQuart' },
+        animation: REDUCED ? false : { duration: 1100, easing: 'easeOutQuart' },
         plugins: { legend: { display: false }, tooltip: { enabled: false } },
         scales: {
           x: { grid: { display: false }, ticks: { color: '#6b7280', font: { family: 'Montserrat', size: 13, weight: '600' } } },
@@ -331,11 +367,101 @@
       plugins: [pointLabels, lastHalo]
     });
 
-    document.addEventListener('DOMContentLoaded', function () {
-      document.querySelectorAll('.hk-val[data-ano]').forEach(function (el) {
-        var i = histLabels.findIndex(function (l) { return l.indexOf(el.dataset.ano) !== -1; });
-        if (i !== -1) el.textContent = histData[i];
+    /* ------------------------------------------------------------------
+       Interatividade: cada cartao de ano e um controle. Ao escolher um ano,
+       a serie e recortada ate ele e o Chart.js reanima — a linha cresce do
+       inicio ate o ponto escolhido — enquanto o numero do cartao sobe por
+       contagem a partir do ano antes selecionado.
+       ------------------------------------------------------------------ */
+    const cartoes = Array.from(document.querySelectorAll('.hist-kpi[data-i]'));
+    const fmtBR = n => n.toLocaleString('pt-BR');
+
+    /* serie revelada ate o indice: o resto vira vazio, e o Chart.js
+       simplesmente nao desenha esses pontos */
+    function serieAte(i) { return histData.map((v, k) => (k <= i ? v : null)); }
+
+    /* contagem de um numero ate o valor final, com a mesma curva do vida.js */
+    const tweens = new WeakMap();
+    function contarAte(el, de, ate) {
+      const anterior = tweens.get(el);
+      if (anterior) cancelAnimationFrame(anterior);
+      if (REDUCED) { el.textContent = fmtBR(ate); return; }
+
+      const DUR = 650;
+      let t0 = null;
+      function passo(t) {
+        if (t0 === null) t0 = t;
+        const p = Math.min((t - t0) / DUR, 1);
+        const e = 1 - Math.pow(1 - p, 5);              /* easeOutQuint */
+        el.textContent = fmtBR(Math.round(de + (ate - de) * e));
+        if (p < 1) tweens.set(el, requestAnimationFrame(passo));
+        else tweens.delete(el);
+      }
+      tweens.set(el, requestAnimationFrame(passo));
+    }
+
+    /* variacao sobre o ano anterior — calculada da propria serie */
+    function pintarDelta(cartao, i) {
+      const alvo = cartao.querySelector('.hk-delta');
+      if (!alvo) return;
+      if (i === 0) {
+        alvo.innerHTML = '<i class="fas fa-flag" aria-hidden="true"></i> início da série';
+        return;
+      }
+      const dif = histData[i] - histData[i - 1];
+      const pct = (dif / histData[i - 1]) * 100;
+      const sobe = dif >= 0;
+      alvo.innerHTML = '<i class="fas fa-arrow-' + (sobe ? 'up' : 'down') + '" aria-hidden="true"></i> '
+        + (sobe ? '+' : '−') + fmtBR(Math.abs(dif)) + ' (' + (sobe ? '+' : '−')
+        + Math.abs(pct).toFixed(1).replace('.', ',') + '%) sobre '
+        + histLabels[i - 1].replace('1º Semestre ', '');
+    }
+
+    function selecionar(i, animar) {
+      const antes = foco;
+      foco = i;
+
+      grafico.data.datasets[0].data = serieAte(i);
+      grafico.update(animar === false ? 'none' : undefined);
+
+      cartoes.forEach(function (c) {
+        const j = +c.dataset.i;
+        c.classList.toggle('hk-feat', j === i);
+        c.setAttribute('aria-selected', j === i ? 'true' : 'false');
       });
+
+      const cartao = cartoes.find(c => +c.dataset.i === i);
+      if (cartao) {
+        contarAte(cartao.querySelector('.hk-val'), animar === false ? 0 : histData[antes], histData[i]);
+        pintarDelta(cartao, i);
+      }
+
+      if (window.A11y) {
+        A11y.announce(histLabels[i] + ': ' + fmtBR(histData[i]) + ' demandas.');
+      }
+    }
+
+    cartoes.forEach(function (c) {
+      c.addEventListener('click', function () { selecionar(+c.dataset.i); });
+    });
+
+    /* teclas 1 a 4 escolhem o ano; as demais seguem para o deck */
+    document.addEventListener('keydown', function (e) {
+      if (e.key >= '1' && e.key <= String(histData.length)) {
+        e.preventDefault();
+        selecionar(+e.key - 1);
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+      /* estado inicial: serie inteira, com o ultimo ano em foco e os quatro
+         numeros subindo do zero */
+      cartoes.forEach(function (c) {
+        const i = +c.dataset.i;
+        contarAte(c.querySelector('.hk-val'), 0, histData[i]);
+        pintarDelta(c, i);
+      });
+      selecionar(histData.length - 1, false);
 
       if (!window.A11y) return;
       A11y.renderChartFallbackTable(

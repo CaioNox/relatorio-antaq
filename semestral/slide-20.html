@@ -6,8 +6,6 @@
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
   <title>Histórico de Pedidos LAI - Relatório Semestral Ouvidoria ANTAQ</title>
-
-
   <link rel="icon" type="image/png"
     href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
@@ -100,11 +98,28 @@
     }
 
 
+    /* ------------------------------------------------------------------
+       Interatividade: cada cartao de ano e um controle. Escolher um ano
+       recorta a serie ate ele e o Chart.js reanima — as barras crescem —
+       enquanto o numero sobe por contagem a partir do ano antes escolhido.
+       ------------------------------------------------------------------ */
+    .hist-kpi {
+      width: 100%;
+      text-align: left;
+      font: inherit;
+      cursor: pointer;
+      border: 0;
+      transition: transform .26s cubic-bezier(.34, 1.32, .64, 1), box-shadow .25s ease;
+    }
+
+    .hist-kpi:hover { transform: translateY(-3px); box-shadow: 0 14px 26px -16px rgba(16, 48, 80, .45); }
+    .hist-kpi:focus-visible { outline: 3px solid #0090C0; outline-offset: 3px; }
+
     .hist-kpi {
       position: relative;
       border-left: 4px solid #0090C0;
       background-color: #EAF3FB;
-      padding: 0.55rem 1.2rem;
+      padding: 0.32rem 1.1rem;
       border-radius: 34px;
       display: flex;
       flex-direction: column;
@@ -117,9 +132,9 @@
     .hist-kpi .hk-year {
       font-family: 'Montserrat', sans-serif;
       font-weight: 600;
-      font-size: 0.88rem;
+      font-size: 0.82rem;
       text-transform: uppercase;
-      letter-spacing: .1em;
+      letter-spacing: 0.1em;
       color: #5a7a99;
     }
 
@@ -144,8 +159,8 @@
 
 
     .hist-kpi .hk-resp {
-      margin-top: .4rem;
-      padding-top: .4rem;
+      margin-top: .28rem;
+      padding-top: .28rem;
       border-top: 1px solid rgba(90, 122, 153, .25);
       display: flex;
       flex-direction: row;
@@ -288,10 +303,6 @@
       animation-delay: 240ms;
     }
 
-    .hist-kpi:nth-child(5) {
-      animation-delay: 320ms;
-    }
-
     @keyframes fadeInUp {
       from {
         opacity: 0;
@@ -329,18 +340,14 @@
           <div class="w-1 h-8 bg-brand-secondary"></div>
           <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Histórico LAI</p>
         </div>
-        <p class="text-gray-500 font-medium ml-4 text-base">Pedidos de acesso à informação — 1º semestre de 2022 a 2025
+        <p class="text-gray-500 font-medium ml-4 text-lg">Pedidos de acesso à informação — 1º semestre de 2022 a 2026
         </p>
       </div>
       <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
         <i class="fas fa-lock-open text-3xl" aria-hidden="true"></i>
         <div class="flex flex-col justify-center pl-2 cap-div">
-          <p
-            class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">
-            CAPÍTULO 04</p>
-          <p
-            class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none whitespace-nowrap">
-            Seção de Transparência e Acesso à Informação - STAI</p>
+          <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">CAPÍTULO 04</p>
+          <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none whitespace-nowrap">Seção de Transparência e Acesso à Informação - STAI</p>
         </div>
       </div>
     </div>
@@ -350,47 +357,78 @@
       <div class="chart-card flex flex-col" style="min-height:0;">
         <p class="text-brand-primary font-montserrat font-bold text-xl mb-1 flex items-center gap-2"><i
             class="fas fa-file-circle-plus text-brand-secondary"></i> Pedidos de acesso à informação</p>
-        <div class="flex-1 relative" style="min-height:0;"><canvas id="chartLaiHist" role="img"
-            aria-label="Gráfico de barras: histórico de pedidos LAI no 1º semestre de cada ano — 2022: 416, 2023: 300, 2024: 156, 2025: 188, 2026: 262"></canvas>
-        </div>
+        <div class="flex-1 relative" style="min-height:0;"><canvas id="chartLaiHist" role="img" aria-label="Gráfico de barras: histórico de pedidos LAI no 1º trimestre de cada ano — 2023: 62, 2024: 105, 2025: 107, 2026: 130"></canvas></div>
         <p class="chart-note"><i class="fas fa-circle-info"></i><span>O comparativo histórico demonstra a evolução da
             demanda por transparência pública e permite avaliar tendências de acesso à informação.</span></p>
       </div>
 
 
-      <div class="flex flex-col gap-2" style="min-height:0;">
-        <div class="hist-kpi hk-feat">
-          <span class="hk-help" tabindex="0" role="button" aria-label="Pedidos registrados no 1º semestre">?</span>
-          <span class="hk-tip">Total de pedidos LAI registrados no 1º semestre do ano. O dado mais recente é o
-            destaque.</span>
-          <p class="hk-year">1º semestre de 2026</p>
+      <div class="flex flex-col gap-1" style="min-height:0;">
+        <button type="button" class="hist-kpi hk-feat" data-i="4" role="tab" aria-selected="true">
+          <span class="hk-help" tabindex="0" role="button"
+            aria-label="Como o tempo médio de resposta é calculado">?</span>
+          <span class="hk-tip">Quantidade de dias — em dias corridos — entre o recebimento do pedido e a data em que
+            ele foi respondido.</span>
+          <p class="hk-year">1º Semestre de 2026</p>
           <p class="hk-val">262 <span class="hk-label">pedidos</span></p>
-        </div>
-        <div class="hist-kpi">
-          <span class="hk-help" tabindex="0" role="button" aria-label="Pedidos registrados no 1º semestre">?</span>
-          <span class="hk-tip">Total de pedidos LAI registrados no 1º semestre do ano.</span>
-          <p class="hk-year">1º semestre de 2025</p>
+          <div class="hk-resp">
+            <span class="hk-resp-val">10,3 dias</span>
+            <span class="hk-resp-lbl">tempo médio de resposta</span>
+          </div>
+        </button>
+        <button type="button" class="hist-kpi" data-i="3" role="tab" aria-selected="false">
+          <span class="hk-help" tabindex="0" role="button"
+            aria-label="Como o tempo médio de resposta é calculado">?</span>
+          <span class="hk-tip">Quantidade de dias — em dias corridos — entre o recebimento do pedido e a data em que
+            ele foi respondido.</span>
+          <p class="hk-year">1º Semestre de 2025</p>
           <p class="hk-val">188 <span class="hk-label">pedidos</span></p>
-        </div>
-        <div class="hist-kpi">
-          <span class="hk-help" tabindex="0" role="button" aria-label="Pedidos registrados no 1º semestre">?</span>
-          <span class="hk-tip">Total de pedidos LAI registrados no 1º semestre do ano.</span>
-          <p class="hk-year">1º semestre de 2024</p>
+          <div class="hk-resp" title="Tempo médio de resposta ainda não consolidado para este período">
+            <span class="hk-resp-val">—</span>
+            <span class="hk-resp-lbl">tempo médio não disponível</span>
+          </div>
+        </button>
+        <button type="button" class="hist-kpi" data-i="2" role="tab" aria-selected="false">
+          <span class="hk-help" tabindex="0" role="button"
+            aria-label="Como o tempo médio de resposta é calculado">?</span>
+          <span class="hk-tip">Quantidade de dias — em dias corridos — entre o recebimento do pedido e a data em que
+            ele foi respondido.</span>
+          <p class="hk-year">1º Semestre de 2024</p>
           <p class="hk-val">156 <span class="hk-label">pedidos</span></p>
-        </div>
-        <div class="hist-kpi">
-          <span class="hk-help" tabindex="0" role="button" aria-label="Pedidos registrados no 1º semestre">?</span>
-          <span class="hk-tip">Total de pedidos LAI registrados no 1º semestre do ano.</span>
-          <p class="hk-year">1º semestre de 2023</p>
+          <div class="hk-resp" title="Tempo médio de resposta ainda não consolidado para este período">
+            <span class="hk-resp-val">—</span>
+            <span class="hk-resp-lbl">tempo médio não disponível</span>
+          </div>
+        </button>
+        <button type="button" class="hist-kpi" data-i="1" role="tab" aria-selected="false">
+          <span class="hk-help" tabindex="0" role="button"
+            aria-label="Como o tempo médio de resposta é calculado">?</span>
+          <span class="hk-tip">Quantidade de dias — em dias corridos — entre o recebimento do pedido e a data em que
+            ele foi respondido.</span>
+          <p class="hk-year">1º Semestre de 2023</p>
           <p class="hk-val">300 <span class="hk-label">pedidos</span></p>
-        </div>
-
+          <div class="hk-resp" title="Tempo médio de resposta ainda não consolidado para este período">
+            <span class="hk-resp-val">—</span>
+            <span class="hk-resp-lbl">tempo médio não disponível</span>
+          </div>
+        </button>
+        <button type="button" class="hist-kpi" data-i="0" role="tab" aria-selected="false">
+          <span class="hk-help" tabindex="0" role="button"
+            aria-label="Como o tempo médio de resposta é calculado">?</span>
+          <span class="hk-tip">Quantidade de dias — em dias corridos — entre o recebimento do pedido e a data em que
+            ele foi respondido.</span>
+          <p class="hk-year">1º Semestre de 2022</p>
+          <p class="hk-val">416 <span class="hk-label">pedidos</span></p>
+          <div class="hk-resp" title="Tempo médio de resposta ainda não consolidado para este período">
+            <span class="hk-resp-val">—</span>
+            <span class="hk-resp-lbl">tempo médio não disponível</span>
+          </div>
+        </button>
       </div>
     </div>
 
     <div class="px-16 pb-6 pt-1 flex justify-between items-center z-10">
-      <p class="text-gray-400 text-xs">Relatório 1º Semestre de 2026 – Ouvidoria – Agência Nacional de Transportes
-        Aquaviários - ANTAQ</p>
+      <p class="text-gray-400 text-xs">Relatório 1º Semestre de 2026 – Ouvidoria – Agência Nacional de Transportes Aquaviários - ANTAQ</p>
     </div>
   </div>
   <script>
@@ -405,7 +443,10 @@
         ctx.fillStyle = '#103050';
         ctx.textAlign = 'center';
         chart.getDatasetMeta(0).data.forEach((bar, i) => {
-          ctx.fillText(chart.data.datasets[0].data[i], bar.x, bar.y - 8);
+          const v = chart.data.datasets[0].data[i];
+          if (v === null || v === undefined) return;   /* ano ainda nao revelado */
+          ctx.fillStyle = (i === foco) ? '#0070C0' : '#103050';
+          ctx.fillText(v, bar.x, bar.y - 8);
         });
         ctx.restore();
       }
@@ -415,7 +456,8 @@
       afterDatasetsDraw(chart) {
         const meta = chart.getDatasetMeta(0);
         if (!meta.data.length) return;
-        const bar = meta.data[meta.data.length - 1];
+        const bar = meta.data[foco];                  /* topo dourado no ano em foco */
+        if (!bar || chart.data.datasets[0].data[foco] === null) return;
         const half = bar.width / 2;
         const { ctx } = chart;
         ctx.save();
@@ -428,15 +470,18 @@
         ctx.restore();
       }
     };
+    /* indice do ano em foco — o grafico e desenhado ate ele */
+    let foco = 4;
+
     const laiHistLabels = ['1º semestre 2022', '1º semestre 2023', '1º semestre 2024', '1º semestre 2025', '1º semestre 2026'];
     const laiHistData = [416, 300, 156, 188, 262];
-    new Chart(document.getElementById('chartLaiHist'), {
+    const grafico = new Chart(document.getElementById('chartLaiHist'), {
       type: 'bar',
       data: {
         labels: laiHistLabels,
         datasets: [{
           data: laiHistData,
-          backgroundColor: ['#E2F0F8', '#B8DCEC', '#8AC5DF', '#4FA8D1', '#0090C0'],
+          backgroundColor: ['#D6EAF6', '#C0E0F0', '#90C8E5', '#5AAFD8', '#0090C0'],
           borderRadius: 8,
           maxBarThickness: 80
         }]
@@ -455,11 +500,83 @@
       plugins: [barLabels, lastBarTop]
     });
 
+    /* ---------- controles ---------- */
+    const cartoes = Array.from(document.querySelectorAll('.hist-kpi[data-i]'));
+    const fmtBR = n => n.toLocaleString('pt-BR');
+
+    function serieAte(i) { return laiHistData.map((v, k) => (k <= i ? v : null)); }
+
+    const tweens = new WeakMap();
+    function contarAte(el, de, ate) {
+      const anterior = tweens.get(el);
+      if (anterior) cancelAnimationFrame(anterior);
+      if (REDUCED) { el.firstChild.nodeValue = fmtBR(ate) + ' '; return; }
+
+      const DUR = 650;
+      let t0 = null;
+      function passo(t) {
+        if (t0 === null) t0 = t;
+        const p = Math.min((t - t0) / DUR, 1);
+        const e = 1 - Math.pow(1 - p, 5);             /* easeOutQuint */
+        el.firstChild.nodeValue = fmtBR(Math.round(de + (ate - de) * e)) + ' ';
+        if (p < 1) tweens.set(el, requestAnimationFrame(passo));
+        else tweens.delete(el);
+      }
+      tweens.set(el, requestAnimationFrame(passo));
+    }
+
+
+    function selecionar(i, animar) {
+      const antes = foco;
+      foco = i;
+
+      grafico.data.datasets[0].data = serieAte(i);
+      grafico.update(animar === false ? 'none' : undefined);
+
+      cartoes.forEach(function (c) {
+        const j = +c.dataset.i;
+        c.classList.toggle('hk-feat', j === i);
+        c.setAttribute('aria-selected', j === i ? 'true' : 'false');
+      });
+
+      const cartao = cartoes.find(c => +c.dataset.i === i);
+      if (cartao) {
+        contarAte(cartao.querySelector('.hk-val'), animar === false ? 0 : laiHistData[antes], laiHistData[i]);
+      }
+
+      if (window.A11y) A11y.announce(laiHistLabels[i] + ': ' + fmtBR(laiHistData[i]) + ' pedidos.');
+    }
+
+    cartoes.forEach(function (c) {
+      /* o "?" abre a explicacao do tempo de resposta, nao troca o ano */
+      c.addEventListener('click', function (e) {
+        if (e.target.closest('.hk-help')) return;
+        selecionar(+c.dataset.i);
+      });
+    });
+
+    /* teclas 1 a 5 escolhem o periodo */
+    document.addEventListener('keydown', function (e) {
+      if (e.key >= '1' && e.key <= String(laiHistData.length)) {
+        e.preventDefault();
+        selecionar(+e.key - 1);
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+      cartoes.forEach(function (c) {
+        const i = +c.dataset.i;
+        contarAte(c.querySelector('.hk-val'), 0, laiHistData[i]);
+      });
+      selecionar(laiHistData.length - 1, false);
+    });
+
+
     document.addEventListener('DOMContentLoaded', function () {
       if (!window.A11y) return;
       A11y.renderChartFallbackTable(
         document.getElementById('chartLaiHist'),
-        'Histórico de pedidos LAI no 1º semestre · 2022–2026',
+        'Histórico de pedidos LAI no 1º trimestre de cada ano',
         ['Período', 'Pedidos'],
         laiHistLabels.map((l, i) => [l, String(laiHistData[i])])
       );
