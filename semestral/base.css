@@ -78,3 +78,11 @@
   color: var(--azul-300);
   font-weight: 600;
 }
+
+
+/* divisoria do bloco "CAPÍTULO" no cabecalho dos slides.
+   Antes era style="border-left:1px solid #CBD5E1" repetido em 41 arquivos;
+   virou classe para poder mudar de cor junto com o tema. */
+.cap-div {
+  border-left: 1px solid #CBD5E1;
+}

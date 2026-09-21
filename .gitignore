@@ -13,9 +13,17 @@ desktop.ini
 *~
 
 
-# Backups
+# MCP: config local de servidores, por maquina.
+# Foi o `npx shadcn mcp init` que criou semestral/.mcp.json nesta sessao —
+# e config de ferramenta, nao conteudo do relatorio.
+.mcp.json
+
+# Backups e sobras de merge/patch
 *.backup
 *.backup.*
+*.bak
+*.orig
+*.rej
 backup_pre_eyebrow/
 
 # Logs e temporários
@@ -27,6 +35,18 @@ tmp/
 
 # Dependências (caso futuramente haja build)
 node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Scripts auxiliares em Python deixam cache ao rodar na pasta do projeto
+__pycache__/
+*.py[cod]
+
+# Credenciais — nunca versionar
+.env
+.env.*
+!.env.example
 
 # Legado
 /workshop

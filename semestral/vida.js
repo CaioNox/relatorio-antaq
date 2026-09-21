@@ -16,7 +16,7 @@
    * Configuração
    * ------------------------------------------------------------------ */
 
-  var ALVOS = '.kpi-num, .metric-value, .lb-num, [data-vida]';
+  var ALVOS = '.kpi-num, .metric-value, .lb-num, .hero-num, .m-val, [data-vida]';
   var DURACAO = 1600;
 
   /* Escalonamento entre os números do mesmo slide, para entrarem em
@@ -28,9 +28,17 @@
   var GPU = '.ocean, .wave, .wave-1, .wave-2, .wave-3, .nav-wave, .qr-ring';
 
   var CSS =
-    '.vida-contando{font-variant-numeric:tabular-nums;' +
+    /* algarismos de largura fixa, do inicio ao fim: se isto valesse so
+       durante a contagem, o numero mudaria de espacamento ao parar */
+    '.vida-num{font-variant-numeric:tabular-nums;' +
     'font-feature-settings:"tnum" 1}' +
-    '.vida-gpu{will-change:transform;backface-visibility:hidden}';
+    '.vida-gpu{will-change:transform;backface-visibility:hidden}' +
+    '.vida-p{display:inline-block;opacity:0;transform:translateY(.34em);' +
+    'animation:vidaPalavra .52s cubic-bezier(.2,.7,.3,1) both;' +
+    'animation-delay:calc(var(--vp,0) * 58ms)}' +
+    '@keyframes vidaPalavra{to{opacity:1;transform:none}}' +
+    '.vida-parado .vida-p{opacity:1!important;transform:none!important;' +
+    'animation:none!important}';
 
   var pendentes = [];
 
@@ -97,11 +105,24 @@
 
     /* Leitores de tela recebem só o valor final, uma vez. */
     if (!el.hasAttribute('aria-label')) el.setAttribute('aria-label', original.trim());
-    el.setAttribute('aria-hidden', 'true');
 
     if (reduzido()) return false;
 
-    el.classList.add('vida-contando');
+    /* aria-hidden vale só enquanto o número corre; ao terminar ele sai, senão
+       o valor final ficaria invisível para o leitor de tela. */
+    el.setAttribute('aria-hidden', 'true');
+
+    /* O elemento ainda mostra o valor final: e a hora de medir. A largura
+       fica reservada e os algarismos passam a ter largura fixa, entao o
+       numero nao muda de espacamento nem sai do lugar enquanto sobe —
+       o estado durante a contagem e o estado final sao identicos. */
+    if (global.getComputedStyle && getComputedStyle(el).display === 'inline') {
+      el.style.display = 'inline-block';
+    }
+    var largura = el.getBoundingClientRect().width;
+    if (largura) el.style.minWidth = largura.toFixed(2) + 'px';
+
+    el.classList.add('vida-num', 'vida-contando');
     el.textContent = formatar(0, info.casas, info.milhar);
 
     var t0 = null;
@@ -120,6 +141,7 @@
       } else {
         el.textContent = original;               /* volta ao HTML original */
         el.classList.remove('vida-contando');
+        el.removeAttribute('aria-hidden');
         reg.cancelado = true;
       }
     }
@@ -134,8 +156,49 @@
       reg.cancelado = true;
       reg.el.textContent = reg.texto;
       reg.el.classList.remove('vida-contando');
+      reg.el.removeAttribute('aria-hidden');
     });
     pendentes.length = 0;
+    document.documentElement.classList.add('vida-parado');
+  }
+
+  /* ------------------------------------------------------------------ *
+   * Título palavra a palavra
+   * ------------------------------------------------------------------ *
+   * O título do slide sobe uma palavra de cada vez, em vez de aparecer
+   * inteiro de uma vez. O texto não muda: cada palavra vira um <span>,
+   * e a acessibilidade continua lendo a mesma frase.
+   * ------------------------------------------------------------------ */
+
+  var TITULO = '.text-3xl.font-montserrat';
+  var MAX_PALAVRAS = 12;
+
+  function revelarTitulo() {
+    if (reduzido()) return;
+
+    var el = document.querySelector(TITULO);
+    if (!el || el.dataset.vidaTitulo) return;
+
+    /* só mexe em título de texto puro: com <br>, <b> ou ícone dentro,
+       dividir em palavras mudaria a marcação — nesses casos, não faz nada. */
+    if (el.children.length) return;
+
+    var texto = el.textContent.replace(/\s+/g, ' ').trim();
+    var palavras = texto.split(' ');
+    if (!texto || palavras.length > MAX_PALAVRAS) return;
+
+    el.dataset.vidaTitulo = '1';
+    el.setAttribute('aria-label', texto);
+    el.textContent = '';
+
+    palavras.forEach(function (palavra, i) {
+      var span = document.createElement('span');
+      span.className = 'vida-p';
+      span.style.setProperty('--vp', i);
+      span.textContent = palavra;
+      el.appendChild(span);
+      if (i < palavras.length - 1) el.appendChild(document.createTextNode(' '));
+    });
   }
 
   /* ------------------------------------------------------------------ *
@@ -168,6 +231,7 @@
   function iniciar() {
     injetarCSS();
     promoverCamadas();
+    revelarTitulo();
     var n = 0;
     document.querySelectorAll(ALVOS).forEach(function (el) {
       if (contar(el, n * ATRASO)) n++;
@@ -186,5 +250,8 @@
     if (e.data && e.data.tipo === 'vida:finalizar') finalizar();
   });
 
-  global.Vida = { contar: contar, finalizar: finalizar, interpretar: interpretar };
+  global.Vida = {
+    contar: contar, finalizar: finalizar, interpretar: interpretar,
+    revelarTitulo: revelarTitulo
+  };
 })(window);

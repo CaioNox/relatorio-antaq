@@ -72,9 +72,9 @@
       flex: 1;
       min-height: 0;
       display: grid;
-      grid-template-columns: 32.3% 1fr;
-      gap: 1.6rem;
-      padding: 0.6rem 4rem 1rem;
+      grid-template-columns: 31% 1fr;
+      gap: 1.8rem;
+      padding: 0.75rem 4rem 0.9rem;
       z-index: 10;
     }
 
@@ -83,8 +83,7 @@
       background: linear-gradient(150deg, #0A1E30, #17426A);
       border-radius: 19px;
       color: #fff;
-      padding: 1.52rem 1.61rem 1rem 1.61rem;
-      margin-bottom: 2.5rem;
+      padding: 1.55rem 1.6rem 1.35rem;
       display: flex;
       flex-direction: column;
       position: relative;
@@ -145,8 +144,8 @@
     }
 
     .hero-lead {
-      font-size: .74rem;
-      line-height: 1.5;
+      font-size: .9rem;
+      line-height: 1.45;
       color: rgba(255, 255, 255, .82);
       margin: 0;
     }
@@ -228,9 +227,9 @@
 
     .channels {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: 1.85fr 1fr 1fr 1fr;
       gap: .7rem;
-      margin-bottom: 1.15rem;
+      margin-bottom: 1.2rem;
     }
 
     .ch {
@@ -277,6 +276,54 @@
       font-size: .58rem;
       line-height: 1.36;
       color: #475569;
+      margin: 0;
+    }
+
+    /* QR da IARA/WhatsApp: ocupa a folga da caixa, sem esticar a linha */
+    .ch-qr {
+      flex: 1;
+      min-height: 0;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: .12rem 0;
+    }
+
+    .ch-qr img {
+      max-height: 100%;
+      max-width: 100%;
+      width: auto;
+      border-radius: 7px;
+      background: #fff;
+      padding: 3px;
+      border: 1px solid #E2E8F0;
+      transition: transform .25s ease;
+    }
+
+    .ch:hover .ch-qr img {
+      transform: scale(1.05);
+    }
+
+    /* legenda centrada sob o QR — as outras caixas seguem alinhadas a esquerda */
+    .ch-qr + .hc-label {
+      width: 100%;
+      text-align: center;
+    }
+
+    /* caixa da IARA: a unica com texto corrido, por isso ganha respiro proprio */
+    .ch-hub {
+      border-left-color: #103050;
+      background: #F4F8FC;
+    }
+
+    .ch-kicker {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: .47rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: #0070C0;
       margin: 0;
     }
 
@@ -329,22 +376,38 @@
 
     .chart-block {
       margin-top: auto;
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
     }
 
-    .months {
-      display: flex;
-      align-items: flex-end;
-      gap: 1.6rem;
-      height: 340px;
+    /* a area das barras estica com a coluna; o eixo fica numa faixa propria,
+       apoiado numa linha de base continua */
+    .plot {
+      flex: 1;
+      min-height: 0;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 1.4rem;
+      align-items: end;
+      padding: 0 .5rem;
+      border-bottom: 2px solid #E2E8F0;
+    }
+
+    .axis {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 1.4rem;
       padding: 0 .5rem;
     }
 
     .m {
-      flex: 1;
+      height: 100%;
+      min-height: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
-      height: 100%;
       justify-content: flex-end;
     }
 
@@ -371,7 +434,17 @@
       letter-spacing: .06em;
       text-transform: uppercase;
       color: #64748B;
-      margin-top: .55rem;
+      text-align: center;
+      margin-top: .5rem;
+    }
+
+    /* o mes de pico ganha o azul cheio — o resto da serie fica em segundo plano */
+    .m-pico .m-bar {
+      background: linear-gradient(180deg, #0090C0, #0d3358);
+    }
+
+    .m-pico .m-val {
+      color: #0070C0;
     }
 
     @keyframes fadeUp {
@@ -386,12 +459,21 @@
       }
     }
 
+    /* a barra passa um pouco do alvo e assenta — leitura de mola, nao de regua */
     @keyframes grow {
-      from {
+      0% {
         transform: scaleY(0);
       }
 
-      to {
+      68% {
+        transform: scaleY(1.035);
+      }
+
+      86% {
+        transform: scaleY(.988);
+      }
+
+      100% {
         transform: scaleY(1);
       }
     }
@@ -414,7 +496,7 @@
 
     .m-bar {
       transform-origin: bottom;
-      animation: grow .6s cubic-bezier(.2, .7, .3, 1) both;
+      animation: grow .78s cubic-bezier(.22, .68, .3, 1) both;
     }
 
     .m:nth-child(1) .m-bar {
@@ -472,7 +554,7 @@
       </div>
       <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
         <i class="fas fa-landmark text-3xl align-middle" aria-hidden="true"></i>
-        <div class="flex flex-col justify-center pl-2" style="border-left: 1px solid #CBD5E1;">
+        <div class="flex flex-col justify-center pl-2 cap-div">
           <p
             class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">
             CAPÍTULO 02</p>
@@ -490,7 +572,7 @@
 
       <div class="hero anim d1">
         <p class="hero-eyebrow"><i class="fas fa-landmark"></i> No semestre</p>
-        <p class="hero-num">1022</p>
+        <p class="hero-num">1.022</p>
         <p class="hero-unit">atendimentos realizados</p>
         <p class="hero-period">1º semestre de 2026 · Jan a Jun</p>
 
@@ -505,61 +587,89 @@
 
 
       <div class="right">
+
         <p class="block-label"><i class="fas fa-diagram-project" aria-hidden="true"></i> Meios de contato integrados</p>
+
         <div class="channels anim d2">
-          <div class="ch">
+
+          <div class="ch ch-hub">
             <div class="ch-head">
               <div class="ch-ico"><i class="fas fa-robot" aria-hidden="true"></i></div><span class="ch-name">IARA</span>
             </div>
-            <p class="ch-desc txt-bloco">Inteligência artificial da ANTAQ que atua como <b>intermédio ao cidadão</b>, reunindo em um só fluxo o <b>WhatsApp</b>, o <b>Portal ANTAQ</b> e o <b>telefone</b>. Ela orienta, organiza e trata os dados das demandas e, quando necessário, encaminha o cidadão a um <b>atendente humano</b>.</p>
-            <p class="hc-label">Sobre a IARA</p>
+            <p class="ch-kicker">Sobre a IARA</p>
+            <p class="ch-desc txt-bloco">Inteligência artificial da ANTAQ que atua como <b>intermédio ao cidadão</b>,
+              reunindo em um só fluxo o <b>WhatsApp</b>, o <b>Portal ANTAQ</b> e o <b>telefone</b>. Ela orienta,
+              organiza e trata os dados das demandas e, quando necessário, encaminha o cidadão a um <b>atendente
+                humano</b>.</p>
           </div>
+
           <div class="ch">
             <div class="ch-head">
-              <div class="ch-ico"><i class="fab fa-whatsapp" aria-hidden="true"></i></div><span class="ch-name">WhatsApp</span>
+              <div class="ch-ico"><i class="fab fa-whatsapp" aria-hidden="true"></i></div><span
+                class="ch-name">WhatsApp</span>
             </div>
+            <div class="ch-qr">
+              <img src="Imagens/QRCODE_IARA.jpeg"
+                alt="QR Code para falar com a IARA, assistente de inteligência artificial da ANTAQ, pelo WhatsApp" />
+            </div>
+            <p class="hc-label">Aponte a câmera</p>
           </div>
+
           <div class="ch">
             <div class="ch-head">
-              <div class="ch-ico"><i class="fas fa-phone" aria-hidden="true"></i></div><span class="ch-name">Telefone</span>
+              <div class="ch-ico"><i class="fas fa-phone" aria-hidden="true"></i></div><span
+                class="ch-name">Telefone</span>
             </div>
             <p class="hc-label">Disque Ouvidoria</p>
             <p class="hc-value">0800 644 5001</p>
           </div>
+
           <div class="ch">
             <div class="ch-head">
-              <div class="ch-ico"><i class="fas fa-globe" aria-hidden="true"></i></div><span class="ch-name">Portal</span>
+              <div class="ch-ico"><i class="fas fa-globe" aria-hidden="true"></i></div><span
+                class="ch-name">Portal</span>
             </div>
             <p class="hc-label">Portal institucional</p>
-            <p class="hc-value"><a href="https://www.gov.br/antaq/pt-br" target="_blank" rel="noopener">Portal ANTAQ</a></p>
+            <p class="hc-value"><a href="https://www.gov.br/antaq/pt-br" target="_blank" rel="noopener">Portal
+                ANTAQ</a></p>
           </div>
-        </div>
 
         </div>
 
         <div class="chart-block">
           <p class="block-label"><i class="fas fa-chart-column"></i> Distribuição mensal dos atendimentos</p>
-          <div class="months anim d3">
+
+          <div class="plot anim d3">
             <div class="m"><span class="m-val">152</span>
-              <div class="m-bar" style="height: 67%;"></div><span class="m-name">Janeiro</span>
+              <div class="m-bar" style="height: 67%;"></div>
             </div>
             <div class="m"><span class="m-val">123</span>
-              <div class="m-bar" style="height: 54%;"></div><span class="m-name">Fevereiro</span>
+              <div class="m-bar" style="height: 54%;"></div>
             </div>
             <div class="m"><span class="m-val">130</span>
-              <div class="m-bar" style="height: 57%;"></div><span class="m-name">Março</span>
+              <div class="m-bar" style="height: 57%;"></div>
             </div>
             <div class="m"><span class="m-val">168</span>
-              <div class="m-bar" style="height: 74%;"></div><span class="m-name">Abril</span>
+              <div class="m-bar" style="height: 74%;"></div>
             </div>
-            <div class="m"><span class="m-val">228</span>
-              <div class="m-bar" style="height: 100%;"></div><span class="m-name">Maio</span>
+            <div class="m m-pico"><span class="m-val">228</span>
+              <div class="m-bar" style="height: 100%;"></div>
             </div>
             <div class="m"><span class="m-val">221</span>
-              <div class="m-bar" style="height: 97%;"></div><span class="m-name">Junho</span>
+              <div class="m-bar" style="height: 97%;"></div>
             </div>
           </div>
+
+          <div class="axis">
+            <span class="m-name">Janeiro</span>
+            <span class="m-name">Fevereiro</span>
+            <span class="m-name">Março</span>
+            <span class="m-name">Abril</span>
+            <span class="m-name">Maio</span>
+            <span class="m-name">Junho</span>
+          </div>
         </div>
+
       </div>
 
     </div>

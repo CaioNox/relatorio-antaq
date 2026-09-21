@@ -69,10 +69,13 @@
             min-height: 0;
             position: relative;
             z-index: 10;
-            padding: 4.2rem 5rem 0.6rem 5rem;
+            /* recuo lateral alinhado ao px-16 do cabecalho e do rodape.
+               O texto encosta no subtitulo (flex-start): centralizado, sobrava
+               um vao grande entre o cabecalho e a primeira linha. */
+            padding: 1.15rem 2.1rem 0.8rem;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
             animation: fadeInUp .5s cubic-bezier(.2, .7, .3, 1) both;
         }
 
@@ -83,8 +86,7 @@
             font-weight: 600;
             border-left: 4px solid #0090C0;
             padding-left: 1.1rem;
-            margin-bottom: 1rem;
-            margin-top: -4.9rem;
+            margin: 0 0 1.15rem;
         }
 
         .doc-lead b {
@@ -94,7 +96,7 @@
 
         .doc-cols {
             columns: 2;
-            column-gap: 2.5rem;
+            column-gap: 3rem;
             text-align: justify;
             hyphens: auto;
         }
@@ -112,7 +114,7 @@
             color: #334155;
             font-size: .93rem;
             line-height: 1.6;
-            margin: 0 0 .78rem;
+            margin: 0 0 .85rem;
             break-inside: avoid;
             text-indent: 1.8em;
         }
@@ -137,8 +139,8 @@
         }
 
         .doc-close {
-            margin-top: .55rem;
-            padding-top: .6rem;
+            margin-top: 1.1rem;
+            padding-top: .85rem;
             border-top: 1px solid #E2E8F0;
             display: flex;
             justify-content: center;
@@ -227,7 +229,7 @@
             </div>
             <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
                 <i class="fas fa-landmark text-3xl" aria-hidden="true"></i>
-                <div class="flex flex-col justify-center pl-2" style="border-left:1px solid #CBD5E1;">
+                <div class="flex flex-col justify-center pl-2 cap-div">
                     <p
                         class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">
                         CAPÍTULO 02</p>

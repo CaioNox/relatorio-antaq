@@ -32,191 +32,193 @@
     .top-accent { height: 8px; background-color: #103050; width: 100%; }
     .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
 
-    .cnsu {
+    /* ---------- tokens do slide (herdam os do deck em base.css) ---------- */
+    .slide-cu {
+      --ink: var(--brand-primary, #103050);
+      --ink-2: var(--cinza-ardosia, #334155);
+      --muted: #64748B;
+      --accent: var(--brand-secondary, #0070C0);
+      --accent-w: #EAF3FB;
+      --rule: #E2E8F0;
+
+      /* escala tipografica — quatro niveis, so */
+      --t-head: .7rem;
+      --t-body: .92rem;
+      --t-meta: .62rem;
+    }
+
+    /* marca d'agua discreta — um unico elemento, nao tres */
+    .slide-cu::after {
+      content: ""; position: absolute; right: -3.8rem; bottom: -4.6rem;
+      width: 18rem; height: 18rem; border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, var(--accent-w), transparent 68%);
+      opacity: .7; pointer-events: none; z-index: 0;
+    }
+
+    /* ---------- corpo: duas zonas verticais, nao seis faixas ---------- */
+    .cu-body {
       flex: 1; min-height: 0; z-index: 10;
-      display: flex; flex-direction: column; gap: .7rem;
-      padding: .5rem 4rem .4rem;
+      display: grid;
+      grid-template-columns: 1.14fr 1px 1fr;
+      gap: 0 3rem;
+      padding: 1rem 4rem .45rem;
+      align-items: stretch;
     }
 
-    .gov-lead {
-      background: #F5F8FC;
-      border: 1px solid #E2E8F0;
-      border-left: 4px solid #0070C0;
-      border-radius: 12px;
-      padding: .7rem 1.1rem;
-      color: #334155;
-      font-size: .7rem;
-      line-height: 1.55;
-      text-indent: 1.8em;
-      animation: fadeInUp .5s cubic-bezier(.2, .7, .3, 1) both;
-    }
+    /* cada zona e uma coluna flex: o conteudo secundario desce para a base,
+       entao as duas colunas terminam alinhadas e nao sobra faixa morta embaixo */
+    .cu-zone { display: flex; flex-direction: column; min-height: 0; }
+    .cu-divider { background: var(--rule); width: 1px; height: 100%; justify-self: center; }
 
-    .gov-lead b { color: #103050; font-weight: 700; }
-
-    .gov-lead a {
-      color: #0070C0; font-weight: 700; text-decoration: none;
-      border-bottom: 1px solid #C0E0F0;
-    }
-
-    .gov-lead a:hover { border-bottom-color: #0070C0; }
-
-    .cnsu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
-
-    .cnsu-card {
-      background: #fff;
-      border: 1px solid #E2E8F0;
-      border-top: 3px solid #0090C0;
-      border-radius: 14px;
-      padding: .8rem 1rem;
-      box-shadow: 0 10px 24px -18px rgba(16, 48, 80, .28);
-      transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
-      animation: fadeInUp .5s cubic-bezier(.2, .7, .3, 1) .12s both;
-    }
-
-    .cnsu-card:nth-child(2) { animation-delay: .22s; }
-
-    .cnsu-card:hover {
-      transform: translateY(-5px);
-      border-top-color: #103050;
-      box-shadow: 0 18px 32px -18px rgba(16, 48, 80, .3);
-    }
-
-    .cnsu-head { display: flex; align-items: center; gap: .6rem; margin-bottom: .55rem; }
-
-    .cnsu-ico {
-      width: 1.9rem; height: 1.9rem; border-radius: 9px; flex-shrink: 0;
-      display: flex; align-items: center; justify-content: center;
-      font-size: .85rem; color: #0070C0;
-      background: #EAF3FB; border: 1px solid #C0E0F0;
-    }
-
-    .cnsu-title {
+    .cu-label {
+      display: flex; align-items: center; gap: .35rem;
       font-family: 'Montserrat', sans-serif; font-weight: 800;
-      font-size: .84rem; color: #103050; line-height: 1.15; margin: 0;
+      font-size: var(--t-head); letter-spacing: .085em; text-transform: uppercase;
+      color: var(--accent); margin: 0 0 .85rem;
     }
 
-    .cnsu-text { color: #334155; font-size: .7rem; line-height: 1.55; margin: 0 0 .5rem; }
-    .cnsu-text:last-child { margin-bottom: 0; }
-    .cnsu-text b { color: #103050; font-weight: 700; }
+    .cu-label i { font-size: .76rem; }
 
-    .cnsu-list { list-style: none; margin: 0; padding: 0; }
-
-    .cnsu-list li {
-      position: relative; padding-left: 1.15rem; margin-bottom: .4rem;
-      font-size: .7rem; line-height: 1.45; color: #334155;
+    .cu-lead {
+      font-size: 1.14rem; line-height: 1.5; color: var(--ink-2);
+      margin: 0 0 1.25rem; max-width: 46ch;
     }
 
-    .cnsu-list li:last-child { margin-bottom: 0; }
+    .cu-lead b { color: var(--ink); font-weight: 600; }
 
-    .cnsu-list li::before {
-      content: "\f105"; font-family: "Font Awesome 6 Free"; font-weight: 900;
-      position: absolute; left: 0; top: .02rem; color: #0090C0;
+    /* quatro linhas empilhadas (nao 2x2): uma linha de leitura por funcao */
+    .cu-fn {
+      list-style: none; margin: 0; padding: 0; flex: 1; min-height: 0;
+      display: grid; grid-template-rows: repeat(4, minmax(min-content, 1fr)); gap: 0;
     }
 
-    .cnsu-list li b { color: #103050; font-weight: 700; }
-
-    /* como se tornar conselheiro — trilha de tres passos */
-    .join-label {
-      display: flex; align-items: center; gap: .5rem;
-      font-family: 'Montserrat', sans-serif; font-weight: 800;
-      font-size: .62rem; letter-spacing: .1em; text-transform: uppercase;
-      color: #0070C0; margin: 0;
+    /* cada funcao ocupa uma faixa de mesma altura e o texto fica centrado nela:
+       a folga vira ritmo entre os fios, em vez de um vao solto entre blocos */
+    .cu-fn li {
+      border-top: 2px solid var(--rule);
+      display: grid; grid-template-columns: 7.4rem 1fr; gap: .8rem;
+      align-items: baseline; align-content: center;
+      padding: .35rem 0;
     }
 
-    .join-label::after {
-      content: ""; flex: 1; height: 1px; background: #E2E8F0;
+    .cu-fn dfn {
+      font-family: 'Montserrat', sans-serif; font-weight: 700; font-style: normal;
+      font-size: 1rem; color: var(--ink);
     }
 
-    .prosa { color: #334155; font-size: .7rem; line-height: 1.55; margin: 0; text-indent: 1.8em; }
-    .prosa strong { color: #103050; font-weight: 700; }
+    .cu-fn p { margin: 0; font-size: var(--t-body); line-height: 1.45; color: var(--ink-2); }
 
-    .passos { display: grid; grid-template-columns: repeat(3, 1fr); gap: .8rem; }
-
-    .passo {
-      background: #F8FAFC; border: 1px solid #E2E8F0; border-left: 4px solid #0090C0;
-      border-radius: 12px; padding: .65rem .8rem;
-      animation: fadeInUp .5s cubic-bezier(.2, .7, .3, 1) .28s both;
+    /* base legal — uma linha de metadado, nao um paragrafo */
+    .cu-legal {
+      margin: 1.15rem 0 0; font-size: var(--t-meta); color: var(--muted); line-height: 1.6;
+      border-top: 1px solid var(--rule); padding-top: .55rem;
     }
 
-    .passo:nth-child(2) { animation-delay: .36s; }
-    .passo:nth-child(3) { animation-delay: .44s; }
+    .cu-legal strong { color: var(--ink-2); font-weight: 600; }
 
-    .passo-n {
-      width: 1.5rem; height: 1.5rem; border-radius: 999px;
-      background: linear-gradient(135deg, #103050, #0070C0); color: #fff;
-      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .7rem;
-      display: flex; align-items: center; justify-content: center; margin-bottom: .35rem;
+    /* ---------- coluna direita: como participar ---------- */
+    .cu-steps {
+      list-style: none; margin: 0; padding: 0; counter-reset: s; flex: 1; min-height: 0;
+      display: grid; grid-template-rows: repeat(3, minmax(min-content, 1fr));
     }
 
-    .passo h3 {
-      font-family: 'Montserrat', sans-serif; font-weight: 800;
-      font-size: .72rem; color: #103050; margin: 0 0 .22rem;
+    .cu-steps li {
+      counter-increment: s;
+      display: grid; grid-template-columns: 2.2rem 1fr; gap: .7rem;
+      align-items: center; align-content: center;
+      padding: .35rem 0; border-bottom: 1px solid var(--rule);
     }
 
-    .passo p { margin: 0; font-size: .64rem; line-height: 1.45; color: #64748B; }
-
-    .cnsu-cta {
-      background: #F5F8FC; border: 1px solid #E2E8F0; border-radius: 14px;
-      padding: .7rem 1.2rem;
-      display: flex; align-items: center; justify-content: center;
-      gap: 1.4rem; flex-wrap: wrap;
-      animation: fadeInUp .5s cubic-bezier(.2, .7, .3, 1) .52s both;
+    .cu-steps li::before {
+      content: counter(s);
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.9rem; line-height: 1;
+      color: var(--accent); opacity: .3;
     }
 
-    .cnsu-cta-text { text-align: left; }
-
-    .cnsu-cta-title {
-      font-family: 'Montserrat', sans-serif; font-weight: 800;
-      font-size: 1.05rem; color: #103050; line-height: 1.1; margin: 0;
+    .cu-steps dfn {
+      display: block; font-style: normal; font-weight: 700;
+      font-size: .88rem; color: var(--ink); margin-bottom: .16rem;
     }
 
-    .cnsu-cta-sub { font-size: .66rem; color: #64748B; margin: .12rem 0 0; }
+    .cu-steps p { margin: 0; font-size: .77rem; line-height: 1.45; color: var(--ink-2); }
 
-    .cnsu-pill {
-      display: inline-flex; align-items: center; gap: .45rem;
-      background: #0070C0; color: #fff; border-radius: 999px;
-      padding: .4rem 1.15rem; font-size: .7rem; font-weight: 600; text-decoration: none;
-      box-shadow: 0 8px 18px -10px rgba(0, 112, 192, .6);
-      transition: background .25s ease, transform .25s ease;
+    /* a ressalva sobe para ANTES do convite — e informacao de decisao */
+    .cu-note {
+      margin: 1.15rem 0 0; padding: .6rem .75rem; border-left: 3px solid var(--accent);
+      background: var(--accent-w); border-radius: 0 6px 6px 0;
+      font-size: .7rem; line-height: 1.5; color: var(--ink-2);
     }
 
-    .cnsu-pill:hover { background: #103050; transform: translateY(-2px); }
+    .cu-note b { color: var(--ink); font-weight: 600; }
 
-    .cnsu-nota { font-size: .6rem; color: #94A3B8; line-height: 1.4; max-width: 17rem; }
+    /* unico acento forte do slide */
+    .cu-cta { margin-top: .95rem; }
 
-    .ref-source { font-size: .72rem; color: #94A3B8; }
-    .ref-source a { color: #0070C0; font-weight: 600; text-decoration: none; }
-    .ref-source a:hover { text-decoration: underline; }
-
-    .bg-pattern {
-      position: absolute; bottom: -60px; right: -50px;
-      width: 400px; height: 400px; opacity: .03; z-index: 0; color: #103050;
+    .cu-cta a {
+      display: inline-flex; align-items: center; gap: .38rem;
+      font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: .85rem;
+      color: var(--accent); text-decoration: none;
+      border-bottom: 2px solid currentColor; padding-bottom: .14rem;
+      transition: color .25s ease;
     }
 
-    @keyframes fadeInUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
-    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+    .cu-cta a:hover { color: var(--ink); }
+    .cu-cta a i { font-size: .7rem; }
+    .cu-cta small { display: block; margin-top: .42rem; font-size: var(--t-meta); color: var(--muted); }
+
+    /* ---------- rodape ---------- */
+    .cu-foot {
+      position: relative; z-index: 10;
+      margin: 0 4rem; padding: .55rem 0 1rem;
+      display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
+      font-size: var(--t-meta); color: var(--muted);
+      border-top: 1px solid var(--rule);
+    }
+
+    .cu-foot a { color: var(--accent); text-decoration: none; font-weight: 600; }
+    .cu-foot a:hover { text-decoration: underline; }
+
+    /* ---------- entrada em stagger ---------- */
+    .slide-cu [data-rise] { opacity: 0; transform: translateY(14px); }
+
+    .slide-cu.is-in [data-rise] {
+      opacity: 1; transform: none;
+      transition: opacity .5s ease, transform .5s cubic-bezier(.22, .7, .3, 1);
+      transition-delay: calc(var(--i, 0) * 70ms);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .slide-cu [data-rise] { opacity: 1 !important; transform: none !important; transition: none !important; }
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+
+    /* ---------- impressao / PDF ---------- */
+    @media print {
+      .slide-cu::after { display: none; }
+      .slide-cu [data-rise] { opacity: 1 !important; transform: none !important; }
+    }
   </style>
   <link rel="stylesheet" href="a11y.css">
   <link rel="stylesheet" href="base.css" />
 </head>
 
 <body>
-  <div class="slide-container">
+  <div class="slide-container slide-cu">
     <div class="top-accent"></div>
     <div class="top-accent-secondary"></div>
 
 
     <div class="flex items-start justify-between px-16 pt-10 pb-3 z-10">
       <div>
-        <div class="flex items-center gap-3 mb-1">
+        <div class="flex items-center gap-3 mb-1" data-rise style="--i:0">
           <div class="w-1 h-8 bg-brand-secondary"></div>
           <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Conselho de Usuários</p>
         </div>
-        <p class="text-gray-500 font-medium ml-4 text-base">Órgão consultivo de avaliação dos serviços públicos · como se tornar conselheiro</p>
+        <p class="text-gray-500 font-medium ml-4 text-base" data-rise style="--i:1">Órgão consultivo de avaliação dos serviços públicos</p>
       </div>
-      <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
+      <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0" data-rise style="--i:1">
         <i class="fas fa-landmark text-3xl" aria-hidden="true"></i>
-        <div class="flex flex-col justify-center pl-2" style="border-left:1px solid #CBD5E1;">
+        <div class="flex flex-col justify-center pl-2 cap-div">
           <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">CAPÍTULO 02</p>
           <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none whitespace-nowrap">A Ouvidoria da ANTAQ</p>
         </div>
@@ -224,92 +226,91 @@
     </div>
 
 
-    <div class="cnsu">
+    <div class="cu-body">
 
-      <p class="gov-lead txt-bloco">
-        A <a href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2017/lei/l13460.htm" target="_blank"
-          rel="noopener">Lei nº 13.460/2017</a> estabeleceu a necessidade de criação dos conselhos de usuários de
-        serviços públicos pelos órgãos e entidades a ela sujeitos. Em fevereiro de 2020, o
-        <a href="https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2020/decreto/D10228.htm" target="_blank"
-          rel="noopener">Decreto nº 10.228/2020</a> emendou o Decreto nº 9.492/2018, que passou a contemplar a
-        regulamentação dos conselhos de usuários dos serviços públicos no âmbito da administração pública direta,
-        indireta, autárquica e fundacional do Poder Executivo federal.
-      </p>
+      <!-- ZONA 1 — o que e -->
+      <div class="cu-zone">
+        <h2 class="cu-label" data-rise style="--i:2">
+          <i class="fas fa-users" aria-hidden="true"></i> O que é o Conselho
+        </h2>
 
-      <div class="cnsu-grid">
-        <div class="cnsu-card">
-          <div class="cnsu-head">
-            <div class="cnsu-ico"><i class="fas fa-users" aria-hidden="true"></i></div>
-            <p class="cnsu-title">O que é o Conselho</p>
-          </div>
-          <p class="cnsu-text">Órgão de caráter <b>consultivo e opinativo</b>, com foco permanente na qualidade do
-            atendimento e na melhoria contínua dos serviços.</p>
-          <p class="cnsu-text">Formado por <b>cidadãos voluntários</b>, entidades civis e órgãos de defesa do
-            consumidor, aproximando a sociedade da gestão pública.</p>
-        </div>
-        <div class="cnsu-card">
-          <div class="cnsu-head">
-            <div class="cnsu-ico"><i class="fas fa-list-check" aria-hidden="true"></i></div>
-            <p class="cnsu-title">Principais Funções</p>
-          </div>
-          <ul class="cnsu-list">
-            <li><b>Avaliar</b> os serviços prestados à sociedade;</li>
-            <li><b>Apresentar</b> propostas de mudanças e inovações;</li>
-            <li><b>Acompanhar</b> metas e resultados de atendimento;</li>
-            <li><b>Responder</b> a consultas virtuais enviadas aos conselheiros.</li>
-          </ul>
-        </div>
+        <p class="cu-lead txt-bloco" data-rise style="--i:3">
+          Órgão de caráter <b>consultivo e opinativo</b>, formado por <b>cidadãos voluntários</b>,
+          entidades civis e órgãos de defesa do consumidor, com foco permanente na qualidade
+          do atendimento e na melhoria contínua dos serviços.
+        </p>
+
+        <ul class="cu-fn">
+          <li data-rise style="--i:4"><dfn>Avaliar</dfn>
+            <p>os serviços prestados à sociedade</p>
+          </li>
+          <li data-rise style="--i:5"><dfn>Apresentar</dfn>
+            <p>propostas de mudanças e inovações</p>
+          </li>
+          <li data-rise style="--i:6"><dfn>Acompanhar</dfn>
+            <p>metas e resultados de atendimento</p>
+          </li>
+          <li data-rise style="--i:7"><dfn>Responder</dfn>
+            <p>consultas virtuais enviadas aos conselheiros</p>
+          </li>
+        </ul>
+
+        <p class="cu-legal" data-rise style="--i:8">
+          <strong>Base legal:</strong> Lei nº 13.460/2017 · Decreto nº 10.228/2020, que emendou o
+          Decreto nº 9.492/2018 e regulamentou os conselhos de usuários no Poder Executivo federal.
+        </p>
       </div>
 
-      <p class="join-label"><i class="fas fa-user-plus" aria-hidden="true"></i> Como se tornar conselheiro</p>
+      <div class="cu-divider" aria-hidden="true"></div>
 
-      <p class="prosa txt-bloco">Para se tornar um conselheiro do <strong>Conselho de Usuários da ANTAQ</strong> de
-        forma simples e direta, qualquer cidadão pode se voluntariar. Não há exigência de concurso público ou processo
-        eletivo: basta acessar a plataforma oficial com sua conta do sistema unificado <strong>gov.br</strong> e
-        realizar a inscrição para participar da avaliação dos serviços regulados pela agência.</p>
+      <!-- ZONA 2 — como participar -->
+      <div class="cu-zone">
+        <h2 class="cu-label" data-rise style="--i:3">
+          <i class="fas fa-user-plus" aria-hidden="true"></i> Como participar
+        </h2>
 
-      <div class="passos">
-        <div class="passo">
-          <div class="passo-n">1</div>
-          <h3>Inscrição voluntária</h3>
-          <p>Acesse a Plataforma Virtual do Conselho de Usuários com a conta gov.br e inscreva-se.</p>
-        </div>
-        <div class="passo">
-          <div class="passo-n">2</div>
-          <h3>Seleção de serviços</h3>
-          <p>Escolha os serviços e órgãos cuja qualidade deseja acompanhar e sobre os quais quer opinar.</p>
-        </div>
-        <div class="passo">
-          <div class="passo-n">3</div>
-          <h3>Contribuição remota</h3>
-          <p>Responda às enquetes e envie contribuições pelas plataformas oficiais, de onde estiver.</p>
-        </div>
-      </div>
+        <ol class="cu-steps">
+          <li data-rise style="--i:4">
+            <div>
+              <dfn>Inscrição voluntária</dfn>
+              <p>Sem concurso ou processo eletivo: basta uma conta gov.br na plataforma oficial.</p>
+            </div>
+          </li>
+          <li data-rise style="--i:5">
+            <div>
+              <dfn>Seleção de serviços</dfn>
+              <p>Escolha os serviços e órgãos cuja qualidade deseja acompanhar.</p>
+            </div>
+          </li>
+          <li data-rise style="--i:6">
+            <div>
+              <dfn>Contribuição remota</dfn>
+              <p>Responda às enquetes e envie contribuições de onde estiver.</p>
+            </div>
+          </li>
+        </ol>
 
-      <div class="cnsu-cta">
-        <div class="cnsu-cta-text">
-          <p class="cnsu-cta-title">Seja um conselheiro!</p>
-          <p class="cnsu-cta-sub">Sua participação fortalece a gestão pública e transforma os serviços prestados à
-            sociedade.</p>
+        <p class="cu-note" data-rise style="--i:7">
+          A participação é considerada <b>serviço relevante e não remunerado</b>
+          — Lei nº 13.460/2017, art. 21.
+        </p>
+
+        <div class="cu-cta" data-rise style="--i:8">
+          <a href="https://conselhodeusuarios.cgu.gov.br/auth/enquetes/voluntario" target="_blank" rel="noopener noreferrer">
+            conselhodeusuarios.cgu.gov.br
+            <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i>
+          </a>
+          <small>Inscreva-se e ajude a avaliar os serviços regulados pela agência.</small>
         </div>
-        <a class="cnsu-pill" href="https://conselhodeusuarios.cgu.gov.br/auth/enquetes/voluntario" target="_blank"
-          rel="noopener noreferrer">
-          <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i> conselhodeusuarios.cgu.gov.br
-        </a>
-        <span class="cnsu-nota">A participação do usuário no conselho é considerada serviço relevante e não remunerado
-          (Lei nº 13.460/2017, art. 21).</span>
       </div>
 
     </div>
 
 
-    <div class="px-16 pb-6 pt-1 flex justify-between items-center z-10">
-      <p class="text-gray-400 text-xs">Relatório 1º Semestre de 2026 – Ouvidoria – Agência Nacional de Transportes
-        Aquaviários - ANTAQ</p>
-      <p class="ref-source">Fonte: <a href="https://conselhodeusuarios.cgu.gov.br" target="_blank"
-          rel="noopener">Conselho de Usuários — CGU</a></p>
+    <div class="cu-foot">
+      <span>Relatório 1º Semestre de 2026 · Ouvidoria — Agência Nacional de Transportes Aquaviários (ANTAQ)</span>
+      <span>Fonte: <a href="https://conselhodeusuarios.cgu.gov.br" target="_blank" rel="noopener">Conselho de Usuários — CGU</a></span>
     </div>
-    <div class="bg-pattern"><i class="fas fa-users text-9xl"></i></div>
   </div>
 
   <script>
@@ -319,6 +320,59 @@
         window.parent.postMessage({ type: "slide-nav", key: e.key }, "*");
       }
     });
+  </script>
+
+  <script>
+    (function () {
+      'use strict';
+
+      var slide = document.querySelector('.slide-cu');
+      if (!slide) return;
+
+      /* entrada em stagger quando o slide entra em cena */
+      function reveal(el) { el.classList.add('is-in'); }
+      window.revealSlide = reveal;
+
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) { if (e.isIntersecting) reveal(e.target); });
+        }, { threshold: 0.35 }).observe(slide);
+      } else {
+        reveal(slide);
+      }
+
+      /* trava de overflow: o slide tem altura fixa, entao texto editado depois
+         pode estourar em silencio. Isto avisa no console em vez de cortar.
+         offsetTop ignora transform/animacao — mede o layout real, nao a pose. */
+      function topIn(el, root) {
+        var y = 0;
+        while (el && el !== root) { y += el.offsetTop; el = el.offsetParent; }
+        return y;
+      }
+
+      function guard() {
+        var foot = slide.querySelector('.cu-foot');
+        if (!foot) return;
+        var limite = topIn(foot, slide) - 8;
+        var fim = 0;
+        Array.prototype.forEach.call(
+          slide.querySelectorAll('.cu-zone > *'),
+          function (n) { fim = Math.max(fim, topIn(n, slide) + n.offsetHeight); }
+        );
+        var excesso = Math.ceil(fim - limite);
+        if (excesso > 0) {
+          console.warn('[slide-cu] conteúdo excede a área útil em ' + excesso +
+            'px — corte texto ou reduza --t-body.');
+          slide.dataset.overflow = String(excesso);
+        } else {
+          delete slide.dataset.overflow;
+        }
+      }
+
+      window.addEventListener('resize', guard, { passive: true });
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(guard);
+      guard();
+    })();
   </script>
   <script src="a11y.js" defer></script>
   <script src="vida.js" defer></script>

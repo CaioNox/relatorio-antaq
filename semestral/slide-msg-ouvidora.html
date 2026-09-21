@@ -374,7 +374,11 @@
     (function () {
       var block = document.querySelector('.quote-block');
       var slide = document.querySelector('.slide');
-      //var lens = document.getElementById('zoomLens');
+      /* a lupa esta desativada: declarada como null, a guarda logo abaixo
+         encerra a funcao em silencio. Antes a linha estava so comentada e as
+         chamadas seguiam no codigo, o que derrubava o script com
+         "lens is not defined". Para reativar: document.getElementById('zoomLens'). */
+      var lens = null;
       //var inner = document.getElementById('zoomInner');
       if (!block || !slide || !lens || !inner) return;
 

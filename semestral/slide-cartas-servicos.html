@@ -366,7 +366,7 @@
     .svc-pop {
       position: fixed;
       z-index: 90;
-      width: 22rem;
+      width: 25rem;
       max-width: 92vw;
       background: #ffffff;
       border-radius: 18px;
@@ -401,8 +401,8 @@
       color: #fff;
       background: #0070C0;
       border-radius: 9px;
-      padding: 5px 9px;
-      font-size: 15px;
+      padding: 6px 11px;
+      font-size: 18px;
       line-height: 1;
     }
 
@@ -410,7 +410,7 @@
       font-family: 'Montserrat', sans-serif;
       font-weight: 700;
       color: #0070C0;
-      font-size: 10px;
+      font-size: 12px;
       letter-spacing: .08em;
       text-transform: uppercase;
       margin: 0 0 2px;
@@ -420,14 +420,14 @@
       font-family: 'Montserrat', sans-serif;
       font-weight: 800;
       color: #103050;
-      font-size: 14px;
-      line-height: 1.2;
+      font-size: 17px;
+      line-height: 1.25;
       margin: 0;
     }
 
     .svc-pop .sp-desc {
       color: #334155;
-      font-size: 17.5px;
+      font-size: 20.5px;
       line-height: 1.5;
       margin: 9px 0 0;
       max-height: 42vh;
@@ -459,6 +459,31 @@
       border-radius: 5px;
       padding: .1rem .3rem;
       line-height: 1;
+    }
+
+
+    /* instrucao de slide interativo, logo abaixo do titulo */
+    .slide-guia {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: .3rem;
+      margin: .15rem 0 0 1rem;
+      color: #64748B;
+      font-size: .62rem;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    .slide-guia i {
+      color: #0090C0;
+      font-size: .68rem;
+      margin-right: .1rem;
+    }
+
+    .slide-guia .tecla {
+      font-size: .6rem;
+      padding: .14rem .38rem;
     }
 
     .bg-pattern {
@@ -521,10 +546,16 @@
           <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Carta de Serviços da
             ANTAQ</p>
         </div>
+        <p class="slide-guia">
+          <i class="far fa-hand-pointer" aria-hidden="true"></i>
+          Slide interativo: use as setas <span class="tecla">←</span><span class="tecla">→</span> do teclado para navegar
+          entre os setores, ou o teclado numérico <span class="tecla">1</span><span class="tecla">2</span><span
+            class="tecla">3</span><span class="tecla">4</span>
+        </p>
       </div>
       <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
         <i class="fas fa-landmark text-3xl" aria-hidden="true"></i>
-        <div class="flex flex-col justify-center pl-2" style="border-left:1px solid #CBD5E1;">
+        <div class="flex flex-col justify-center pl-2 cap-div">
           <p
             class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">
             CAPÍTULO 02</p>

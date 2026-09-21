@@ -144,6 +144,129 @@
         }
 
 
+
+        /* ---------------------------------------------------------------
+           Botao que abre em fileira de acoes (padrao Social Button, do
+           kokonutui): parado mostra o rotulo; no hover o rotulo apaga e
+           os canais entram da esquerda, um apos o outro.
+           Abre tambem no foco do teclado — o original so abria no mouse.
+           --------------------------------------------------------------- */
+        .fab {
+            position: relative;
+            width: max-content;
+            height: 2.2rem;
+            margin-top: 1rem;
+            animation: fadeIn .5s ease .5s both;
+        }
+
+        .fab-rotulo {
+            height: 2.2rem;
+            min-width: 12rem;
+            padding: 0 1.1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: .55rem;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            color: #ffffff;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: .82rem;
+            cursor: pointer;
+            transition: opacity .2s ease-in-out, background-color .2s ease;
+        }
+
+        .fab-rotulo i { color: #0090C0; font-size: .9rem; }
+        .fab-rotulo:hover { background: rgba(255, 255, 255, 0.1); }
+
+        .fab:hover .fab-rotulo,
+        .fab:focus-within .fab-rotulo { opacity: 0; pointer-events: none; }
+
+        .fab-acoes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            height: 2.2rem;
+            width: 0;
+            overflow: hidden;
+            transition: width .3s cubic-bezier(.23, 1, .32, 1);
+        }
+
+        .fab:hover .fab-acoes,
+        .fab:focus-within .fab-acoes { width: 8.8rem; }
+
+        .fab-b {
+            position: relative;
+            flex: 0 0 2.2rem;
+            width: 2.2rem;
+            height: 2.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #0090C0;
+            color: #ffffff;
+            border: 0;
+            border-right: 1px solid rgba(255, 255, 255, .2);
+            overflow: hidden;
+            cursor: pointer;
+            text-decoration: none;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: opacity .3s cubic-bezier(.23, 1, .32, 1),
+                transform .3s cubic-bezier(.23, 1, .32, 1),
+                background-color .2s ease;
+        }
+
+        .fab-b:first-child { border-radius: 10px 0 0 10px; }
+        .fab-b:last-child { border-right: 0; border-radius: 0 10px 10px 0; }
+        .fab-b:hover { background: #0070C0; }
+        .fab-b i { font-size: .92rem; transition: transform .2s ease-in-out; }
+
+        .fab:hover .fab-b,
+        .fab:focus-within .fab-b { opacity: 1; transform: none; }
+
+        .fab:hover .fab-b:nth-child(2),
+        .fab:focus-within .fab-b:nth-child(2) { transition-delay: .05s; }
+
+        .fab:hover .fab-b:nth-child(3),
+        .fab:focus-within .fab-b:nth-child(3) { transition-delay: .1s; }
+
+        .fab:hover .fab-b:nth-child(4),
+        .fab:focus-within .fab-b:nth-child(4) { transition-delay: .15s; }
+
+        /* resposta ao clique: o icone encolhe e um claro atravessa o botao */
+        .fab-b::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: #ffffff;
+            opacity: 0;
+            transition: opacity .2s ease-in-out;
+            pointer-events: none;
+        }
+
+        .fab-b:active::after { opacity: .15; }
+        .fab-b:active i { transform: scale(.85); }
+        .fab-b:focus-visible { outline: 2px solid #ffffff; outline-offset: 2px; z-index: 1; }
+
+        /* o botao do WhatsApp chama o QR que ja esta no slide */
+        .qr-wa.destaque {
+            animation: qrDestaque 1.5s cubic-bezier(.2, .7, .3, 1);
+        }
+
+        @keyframes qrDestaque {
+            0% { transform: scale(1); box-shadow: 0 14px 30px -10px rgba(0, 0, 0, .55); }
+            18% { transform: scale(1.07); box-shadow: 0 0 0 8px rgba(0, 144, 192, .35), 0 18px 36px -10px rgba(0, 0, 0, .6); }
+            100% { transform: scale(1); box-shadow: 0 14px 30px -10px rgba(0, 0, 0, .55); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .fab-acoes, .fab-b, .fab-rotulo { transition: none !important; }
+            .qr-wa.destaque { animation: none; }
+        }
+
         .qr-wa {
             position: absolute;
             right: 3.2rem;
@@ -277,6 +400,30 @@
                     Contatos</h1>
                 <p class="text-blue-100 text-lg mt-1">Fale com a Ouvidoria da ANTAQ — sua manifestação é importante.</p>
 
+                <div class="fab" id="fabCanais">
+                    <button class="fab-rotulo" type="button" aria-expanded="false" aria-controls="fabAcoes">
+                        <i class="fas fa-comment-dots" aria-hidden="true"></i> Fale com a Ouvidoria
+                    </button>
+                    <div class="fab-acoes" id="fabAcoes">
+                        <a class="fab-b" href="https://falabr.cgu.gov.br" target="_blank" rel="noopener noreferrer"
+                            title="Registrar manifestação no Fala.BR" aria-label="Registrar manifestação no Fala.BR">
+                            <i class="fas fa-comments" aria-hidden="true"></i>
+                        </a>
+                        <button class="fab-b" type="button" data-qr title="WhatsApp · IARA — destacar o QR Code"
+                            aria-label="WhatsApp da Ouvidoria pela IARA — destacar o QR Code no slide">
+                            <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+                        </button>
+                        <a class="fab-b" href="tel:08006445001" title="Disque Ouvidoria 0800 644 5001"
+                            aria-label="Disque Ouvidoria 0800 644 5001">
+                            <i class="fas fa-phone-volume" aria-hidden="true"></i>
+                        </a>
+                        <a class="fab-b" href="mailto:ouvidoria@antaq.gov.br" title="ouvidoria@antaq.gov.br"
+                            aria-label="E-mail da Ouvidoria: ouvidoria arroba antaq ponto gov ponto br">
+                            <i class="fas fa-envelope" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+
 
                 <div class="grid grid-cols-3 gap-3 mt-4 max-w-6xl">
                     <a class="link-card lc-sm" href="https://www.gov.br/antaq/pt-br" target="_blank" rel="noopener noreferrer">
@@ -373,6 +520,41 @@
         </div>
     </div>
         <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
+  <script>
+    /* Botao de canais: o WhatsApp da Ouvidoria so existe via QR Code, entao
+       em vez de um link morto o botao chama o QR que ja esta no slide. */
+    (function () {
+      'use strict';
+
+      var fab = document.getElementById('fabCanais');
+      var qr = document.querySelector('.qr-wa');
+      if (!fab) return;
+
+      var rotulo = fab.querySelector('.fab-rotulo');
+      var botaoQr = fab.querySelector('[data-qr]');
+
+      /* mantem o estado anunciado para leitor de tela */
+      ['mouseenter', 'focusin'].forEach(function (ev) {
+        fab.addEventListener(ev, function () { rotulo.setAttribute('aria-expanded', 'true'); });
+      });
+      ['mouseleave', 'focusout'].forEach(function (ev) {
+        fab.addEventListener(ev, function () {
+          if (!fab.contains(document.activeElement)) rotulo.setAttribute('aria-expanded', 'false');
+        });
+      });
+
+      if (!botaoQr || !qr) return;
+      botaoQr.addEventListener('click', function () {
+        qr.classList.remove('destaque');
+        void qr.offsetWidth;                 /* reinicia a animacao */
+        qr.classList.add('destaque');
+        if (window.A11y) window.A11y.announce('QR Code do WhatsApp da Ouvidoria em destaque no slide.');
+      });
+      qr.addEventListener('animationend', function (e) {
+        if (e.animationName === 'qrDestaque') qr.classList.remove('destaque');
+      });
+    })();
+  </script>
   <script src="a11y.js" defer></script>
   <script src="vida.js" defer></script>
 </body>

@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Fala.BR — O que é possível fazer - Relatório Semestral Ouvidoria ANTAQ</title>
+  <link rel="icon" type="image/png"
+    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&amp;family=Open+Sans:ital,wght@0,400;0,600;1,400&amp;display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    html { font-size: 26px; }
+    body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
+
+    .slide-container {
+      width: 100vw; height: 100vh; position: relative;
+      display: flex; flex-direction: column;
+      background-color: #ffffff; overflow: hidden;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    .font-montserrat { font-family: 'Montserrat', sans-serif; }
+    .text-brand-primary { color: #103050; }
+    .text-brand-secondary { color: #0070C0; }
+    .bg-brand-secondary { background-color: #0070C0; }
+
+    .top-accent { height: 8px; background-color: #103050; width: 100%; }
+    .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
+
+    .doc {
+      flex: 1; min-height: 0; z-index: 10;
+      display: flex; flex-direction: column; gap: .55rem;
+      padding: .45rem 4rem .35rem;
+    }
+
+    /* abertura: o que a plataforma e, em uma linha */
+    .lead {
+      border-left: 4px solid #0090C0; padding-left: 1rem; margin: 0;
+      font-size: .8rem; line-height: 1.5; color: #103050; font-weight: 600;
+      animation: fadeInUp .5s cubic-bezier(.2, .7, .3, 1) both;
+    }
+
+    .lead b { color: #0070C0; font-weight: 700; }
+
+    .rot {
+      display: flex; align-items: center; gap: .5rem; margin: .15rem 0 0;
+      font-family: 'Montserrat', sans-serif; font-weight: 800;
+      font-size: .62rem; letter-spacing: .1em; text-transform: uppercase;
+      color: #0070C0;
+    }
+
+    .rot::after { content: ""; flex: 1; height: 1px; background: #E2E8F0; }
+    .rot i { font-size: .7rem; }
+
+    /* ---------- os seis usos ---------- */
+    .usos {
+      flex: 1; min-height: 0;
+      display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, minmax(0, 1fr));
+      gap: .62rem;
+    }
+
+    .uso {
+      position: relative;
+      border: 1px solid #E2E8F0; border-top: 3px solid #0090C0; border-radius: 13px;
+      background: #fff; padding: .62rem .8rem;
+      display: flex; flex-direction: column; gap: .32rem;
+      /* a curva passa um pouco do alvo e volta: a caixa assenta como mola */
+      transition: transform .26s cubic-bezier(.34, 1.32, .64, 1),
+        border-color .25s ease, box-shadow .25s ease;
+      animation: fadeInUp .5s cubic-bezier(.2, .7, .3, 1) both;
+    }
+
+    /* luz que segue o ponteiro dentro da caixa — o azul e o mesmo do slide */
+    .uso::before {
+      content: ""; position: absolute; inset: 0; z-index: 0;
+      border-radius: inherit; pointer-events: none;
+      background: radial-gradient(22rem circle at var(--mx, 50%) var(--my, 0%),
+          rgba(0, 112, 192, .13), transparent 62%);
+      opacity: 0; transition: opacity .28s ease;
+    }
+
+    .uso:hover::before { opacity: 1; }
+
+    /* o conteudo fica acima da luz */
+    .uso > * { position: relative; z-index: 1; }
+
+    .uso:nth-child(1) { animation-delay: .06s; }
+    .uso:nth-child(2) { animation-delay: .12s; }
+    .uso:nth-child(3) { animation-delay: .18s; }
+    .uso:nth-child(4) { animation-delay: .24s; }
+    .uso:nth-child(5) { animation-delay: .30s; }
+    .uso:nth-child(6) { animation-delay: .36s; }
+
+    /* inclinacao de acordo com a posicao do ponteiro (--rx/--ry vem do script) */
+    .uso:hover {
+      transform: perspective(1100px) translateY(-5px)
+        rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+      border-top-color: #103050;
+      box-shadow: 0 22px 38px -20px rgba(16, 48, 80, .42);
+    }
+
+    .uso-head { display: flex; align-items: center; gap: .55rem; }
+
+    .uso-ico {
+      width: 1.85rem; height: 1.85rem; border-radius: 9px; flex-shrink: 0;
+      background: linear-gradient(135deg, #103050, #0070C0); color: #fff;
+      display: flex; align-items: center; justify-content: center; font-size: .82rem;
+      transition: transform .3s cubic-bezier(.34, 1.4, .64, 1);
+    }
+
+    .uso:hover .uso-ico { transform: scale(1.1) rotate(-5deg); }
+
+    .uso-t {
+      font-family: 'Montserrat', sans-serif; font-weight: 800;
+      font-size: .82rem; color: #103050; line-height: 1.15; margin: 0;
+    }
+
+    .uso-d { font-size: .67rem; line-height: 1.4; color: #475569; margin: 0; }
+    .uso-d b { color: #103050; font-weight: 700; }
+
+    /* base legal de cada uso, ancorada no pe da caixa */
+    .uso-lei {
+      margin: auto 0 0; padding-top: .3rem; border-top: 1px dashed #E2E8F0;
+      font-family: 'Montserrat', sans-serif; font-weight: 700;
+      font-size: .53rem; letter-spacing: .04em; color: #64748B;
+    }
+
+    /* ---------- faixa do publico interno ---------- */
+    .interno {
+      background: #F5F8FC; border: 1px solid #E2E8F0; border-left: 4px solid #103050;
+      border-radius: 13px; padding: .6rem .9rem;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: .9rem;
+      animation: fadeInUp .5s cubic-bezier(.2, .7, .3, 1) .42s both;
+    }
+
+    .int { display: flex; gap: .55rem; align-items: flex-start; }
+
+    .int i { color: #0070C0; font-size: .72rem; margin-top: .12rem; flex-shrink: 0; }
+
+    .int-t {
+      font-family: 'Montserrat', sans-serif; font-weight: 800;
+      font-size: .62rem; color: #103050; margin: 0 0 .1rem;
+    }
+
+    .int-d { font-size: .6rem; line-height: 1.4; color: #64748B; margin: 0; }
+    .int-d b { color: #334155; font-weight: 700; }
+
+    .bg-pattern {
+      position: absolute; bottom: -60px; right: -50px;
+      width: 380px; height: 380px; opacity: .025; z-index: 0; color: #103050;
+    }
+
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+  </style>
+  <link rel="stylesheet" href="a11y.css">
+  <link rel="stylesheet" href="base.css" />
+</head>
+
+<body>
+  <div class="slide-container">
+    <div class="top-accent"></div>
+    <div class="top-accent-secondary"></div>
+
+
+    <div class="flex items-start justify-between px-16 pt-10 pb-3 z-10">
+      <div>
+        <div class="flex items-center gap-3 mb-1">
+          <div class="w-1 h-8 bg-brand-secondary"></div>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Fala.BR — O que é
+            possível fazer</p>
+        </div>
+        <p class="text-gray-500 font-medium ml-4 text-base">Seis usos da plataforma · o que muda para o público interno
+          da ANTAQ</p>
+      </div>
+      <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
+        <i class="fas fa-landmark text-3xl" aria-hidden="true"></i>
+        <div class="flex flex-col justify-center pl-2 cap-div">
+          <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">
+            CAPÍTULO 02</p>
+          <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none whitespace-nowrap">
+            A Ouvidoria da ANTAQ</p>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="doc">
+
+      <p class="lead txt-bloco">
+        O <b>Fala.BR</b> é a plataforma integrada de ouvidoria e acesso à informação do governo federal brasileiro.
+        Mantida pela <b>CGU</b> e usada por todos os órgãos do Poder Executivo federal, reúne em um só lugar — e sob um
+        único protocolo — as manifestações de ouvidoria e os pedidos de acesso à informação dirigidos à ANTAQ.
+      </p>
+
+      <p class="rot"><i class="fas fa-list-check" aria-hidden="true"></i> O que você pode fazer na plataforma</p>
+
+      <div class="usos">
+
+        <div class="uso">
+          <div class="uso-head">
+            <div class="uso-ico"><i class="fas fa-circle-info" aria-hidden="true"></i></div>
+            <p class="uso-t">Pedir informações</p>
+          </div>
+          <p class="uso-d txt-bloco">Solicitar dados e documentos públicos com base na <b>Lei de Acesso à Informação
+              (LAI)</b>. A resposta é imediata quando a informação já está disponível; do contrário, o órgão tem
+            <b>20 dias, prorrogáveis por mais 10</b>, e a negativa admite recurso.</p>
+          <p class="uso-lei">Lei nº 12.527/2011</p>
+        </div>
+
+        <div class="uso">
+          <div class="uso-head">
+            <div class="uso-ico"><i class="fas fa-triangle-exclamation" aria-hidden="true"></i></div>
+            <p class="uso-t">Fazer denúncias</p>
+          </div>
+          <p class="uso-d txt-bloco">Comunicar irregularidades praticadas contra a administração pública,
+            <b>inclusive de forma anônima</b>. Quem se identifica tem a identidade protegida pelas salvaguardas ao
+            denunciante de boa-fé, e a apuração corre sem expor o autor.</p>
+          <p class="uso-lei">Decreto nº 10.153/2019</p>
+        </div>
+
+        <div class="uso">
+          <div class="uso-head">
+            <div class="uso-ico"><i class="fas fa-circle-exclamation" aria-hidden="true"></i></div>
+            <p class="uso-t">Registrar reclamações</p>
+          </div>
+          <p class="uso-d txt-bloco">Apontar falhas, demoras ou omissões na prestação de um serviço público. Como toda
+            manifestação de ouvidoria, tem prazo de resposta de <b>30 dias, prorrogável uma única vez por igual
+              período</b>.</p>
+          <p class="uso-lei">Lei nº 13.460/2017, art. 16</p>
+        </div>
+
+        <div class="uso">
+          <div class="uso-head">
+            <div class="uso-ico"><i class="fas fa-thumbs-up" aria-hidden="true"></i></div>
+            <p class="uso-t">Enviar elogios</p>
+          </div>
+          <p class="uso-d txt-bloco">Destacar um bom atendimento, um serviço bem prestado ou a atuação de uma equipe.
+            É o único tipo que mede a satisfação pelo lado positivo e serve de <b>indicador qualitativo</b> do
+            atendimento da Agência.</p>
+          <p class="uso-lei">Lei nº 13.460/2017</p>
+        </div>
+
+        <div class="uso">
+          <div class="uso-head">
+            <div class="uso-ico"><i class="fas fa-lightbulb" aria-hidden="true"></i></div>
+            <p class="uso-t">Dar sugestões</p>
+          </div>
+          <p class="uso-d txt-bloco">Propor melhorias em serviços, normas e rotinas da administração pública. As
+            sugestões alimentam a <b>melhoria contínua</b> dos serviços descritos na Carta de Serviços da ANTAQ.</p>
+          <p class="uso-lei">Lei nº 13.460/2017</p>
+        </div>
+
+        <div class="uso">
+          <div class="uso-head">
+            <div class="uso-ico"><i class="fas fa-gears" aria-hidden="true"></i></div>
+            <p class="uso-t">Solicitar serviços</p>
+          </div>
+          <p class="uso-d txt-bloco">Pedir providências simples ou um atendimento. Inclui o <b>Simplifique!</b>, usado
+            quando uma exigência burocrática dificulta o acesso ao serviço — o cidadão pede a simplificação e o órgão
+            precisa se manifestar sobre ela.</p>
+          <p class="uso-lei">Decreto nº 9.094/2017</p>
+        </div>
+
+      </div>
+
+      <p class="rot"><i class="fas fa-id-badge" aria-hidden="true"></i> O que importa para o público interno da ANTAQ</p>
+
+      <div class="interno">
+        <div class="int">
+          <i class="fas fa-right-to-bracket" aria-hidden="true"></i>
+          <div>
+            <p class="int-t">Acesso com conta gov.br</p>
+            <p class="int-d">O registro e o acompanhamento são feitos na própria plataforma, com <b>login gov.br</b>
+              e protocolo único.</p>
+          </div>
+        </div>
+        <div class="int">
+          <i class="fas fa-diagram-project" aria-hidden="true"></i>
+          <div>
+            <p class="int-t">Tramitação pela unidade</p>
+            <p class="int-d">A Ouvidoria tria e encaminha à <b>unidade responsável (UORG)</b>, que subsidia a resposta
+              dentro do prazo repassado.</p>
+          </div>
+        </div>
+        <div class="int">
+          <i class="fas fa-user-shield" aria-hidden="true"></i>
+          <div>
+            <p class="int-t">Sigilo do manifestante</p>
+            <p class="int-d">Dados pessoais são tratados com restrição de acesso; a <b>denúncia pode ser anônima</b>
+              e a identidade, preservada.</p>
+          </div>
+        </div>
+        <div class="int">
+          <i class="fas fa-envelope" aria-hidden="true"></i>
+          <div>
+            <p class="int-t">Canal próprio do servidor</p>
+            <p class="int-d">Além do Fala.BR, o público interno conta com a caixa
+              <b>ouvidoria.interno@antaq.gov.br</b>.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="px-16 pb-6 pt-1 flex justify-between items-center z-10">
+      <p class="text-gray-400 text-xs">Relatório 1º Semestre de 2026 – Ouvidoria – Agência Nacional de Transportes
+        Aquaviários - ANTAQ</p>
+      <p class="text-gray-300 text-xs font-montserrat font-bold tracking-widest uppercase">Fala.BR</p>
+    </div>
+    <div class="bg-pattern"><i class="fas fa-comments text-9xl"></i></div>
+  </div>
+
+  <script>
+    document.addEventListener("keydown", function (e) {
+      if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) {
+        e.preventDefault();
+        window.parent.postMessage({ type: "slide-nav", key: e.key }, "*");
+      }
+    });
+  </script>
+  <script>
+    /* Movimento dos cards, no espirito dos exemplos do motion.dev:
+       inclinacao e luz acompanhando o ponteiro. Nao muda cor nem texto. */
+    (function () {
+      'use strict';
+
+      var cards = document.querySelectorAll('.uso');
+      if (!cards.length) return;
+
+      /* A animacao de entrada usa fill "both": enquanto ela segura o
+         transform final, o :hover nao consegue mexer na caixa. Assim que
+         termina, o preenchimento sai e o hover volta a valer. */
+      cards.forEach(function (card) {
+        card.addEventListener('animationend', function (e) {
+          if (e.animationName === 'fadeInUp') card.style.animation = 'none';
+        });
+      });
+
+      var reduzido = window.matchMedia &&
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduzido) return;
+
+      var GRAU = 4.5;   /* inclinacao maxima, em graus */
+
+      cards.forEach(function (card) {
+        card.addEventListener('pointermove', function (e) {
+          var r = card.getBoundingClientRect();
+          var x = (e.clientX - r.left) / r.width;
+          var y = (e.clientY - r.top) / r.height;
+          card.style.setProperty('--mx', (x * 100).toFixed(1) + '%');
+          card.style.setProperty('--my', (y * 100).toFixed(1) + '%');
+          card.style.setProperty('--ry', ((x - .5) * 2 * GRAU).toFixed(2) + 'deg');
+          card.style.setProperty('--rx', ((.5 - y) * 2 * GRAU).toFixed(2) + 'deg');
+        });
+
+        card.addEventListener('pointerleave', function () {
+          card.style.setProperty('--rx', '0deg');
+          card.style.setProperty('--ry', '0deg');
+        });
+      });
+    })();
+  </script>
+  <script src="a11y.js" defer></script>
+  <script src="vida.js" defer></script>
+</body>
+
+</html>

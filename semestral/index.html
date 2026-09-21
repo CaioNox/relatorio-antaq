@@ -61,12 +61,57 @@
       width: 1920px;
       height: 1080px;
       border: 0;
-      background: #fff;
+      background: transparent;
       display: block;
       position: absolute;
       top: 0;
       left: 0;
       transform-origin: top left;
+    }
+
+    /* Buffer duplo: sao dois quadros. O proximo slide carrega escondido e
+       so aparece depois de pronto, entao a saida e a entrada acontecem ao
+       mesmo tempo, sobrepostas — e nao existe momento em que o palco fica
+       vazio ou mostrando o fundo branco do iframe em carregamento.
+       O transform do iframe pertence ao scaleFrame(); por isso quem anima
+       e o quadro, a camada acima dele. */
+    .quadro {
+      position: absolute;
+      inset: 0;
+      transition: opacity .42s cubic-bezier(.22, 1.15, .36, 1),
+        transform .42s cubic-bezier(.22, 1.15, .36, 1);
+    }
+
+    /* fora de cena: sem pintura, sem clique, sem foco */
+    .quadro.oculto {
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    /* posicao de espera de quem vai entrar (sem transicao: e so o ponto de partida) */
+    .quadro.pronto-frente,
+    .quadro.pronto-tras {
+      opacity: 0;
+      transition: none;
+    }
+
+    .quadro.pronto-frente { transform: translateX(2.4%); }
+    .quadro.pronto-tras { transform: translateX(-2.4%); }
+
+    /* quem sai desliza para o lado oposto e apaga, junto com a entrada */
+    .quadro.sai-frente { opacity: 0; transform: translateX(-2.4%); }
+    .quadro.sai-tras { opacity: 0; transform: translateX(2.4%); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .quadro {
+        transition: none;
+      }
+
+      .quadro.sai-frente,
+      .quadro.sai-tras {
+        opacity: 0;
+        transform: none;
+      }
     }
 
 
@@ -556,6 +601,7 @@
     }
   
     /* ---- confirmacao de download do PPTX ---- */
+
     .pptx-overlay {
       position: fixed;
       inset: 0;
@@ -633,13 +679,14 @@
 </head>
 
 <body>
-  <a class="skip-link" href="#slideFrame">Pular para o conteúdo do slide</a>
+  <a class="skip-link" href="#frameA">Pular para o conteúdo do slide</a>
   <div id="a11yLiveRegion" aria-live="polite" aria-atomic="true" class="sr-only"></div>
 
   <div class="app" role="region" aria-label="Apresentação de slides">
     <div id="clickLeft" class="click-zone" aria-hidden="true" tabindex="-1"></div>
     <div class="stage">
-      <iframe id="slideFrame" title="Slide" tabindex="-1"></iframe>
+      <div class="quadro" id="quadroA"><iframe id="frameA" title="Slide" tabindex="-1"></iframe></div>
+      <div class="quadro oculto" id="quadroB"><iframe id="frameB" title="Slide" tabindex="-1"></iframe></div>
     </div>
     <div id="clickRight" class="click-zone" aria-hidden="true" tabindex="-1"></div>
   </div>
@@ -743,7 +790,12 @@
     const meta = paginas.map((p) => ({ block: p.block, blockShort: p.blockShort, blockIndex: p.blockIndex, tint: p.tint }));
     const total = slides.length;
     if (window.location.search.includes('auditoria=1') && RELATORIO.checarSanidade) RELATORIO.checarSanidade();
-    const frame = document.getElementById('slideFrame');
+    /* dois quadros; `frame` aponta sempre para o iframe que esta em cena,
+       entao o resto do codigo (teclado, escala, Ctrl+M) continua igual */
+    const quadros = [document.getElementById('quadroA'), document.getElementById('quadroB')];
+    const frames = [document.getElementById('frameA'), document.getElementById('frameB')];
+    let emCena = 0;
+    let frame = frames[0];
     let current = 1;
 
     function fileFor(n) {
@@ -755,11 +807,90 @@
     /* ligado pelo proprio slide, via postMessage, quando ele tem etapas internas */
     let slideComEtapas = false;
 
+    /* ---- troca direcional entre slides, com buffer duplo ---- */
+
+    /* o sentido vem de qual slide estava antes, entao os pontinhos e o
+       "ir para" tambem entram pelo lado certo, nao so as setas */
+    let ultimo = 0;
+    let travaTroca = null;
+    let trocando = false;
+    /* Depois da transicao, o quadro que saiu precisa ser escondido — mas
+       essa faxina fica pendente por 440ms, e nesse meio tempo o quadro pode
+       ter sido reaproveitado pelo slide seguinte. Se ela disparasse ali,
+       esconderia justamente quem acabou de entrar: era o palco preto da
+       navegacao rapida. Por isso a faxina pendente e sempre executada ANTES
+       de qualquer coisa nova mexer nos quadros. */
+    let limpeza = null;
+
+    function fazerLimpeza() {
+      if (!limpeza) return;
+      clearTimeout(limpeza.id);
+      const fn = limpeza.exec;
+      limpeza = null;
+      fn();
+    }
+
+    function trocar(paraFrente, label) {
+      if (travaTroca) { clearTimeout(travaTroca); travaTroca = null; }
+      if (!trocando) return;
+      trocando = false;
+
+      fazerLimpeza();
+
+      const saindo = quadros[emCena];
+      const entrando = quadros[1 - emCena];
+
+      saindo.classList.add(paraFrente ? 'sai-frente' : 'sai-tras');
+      /* tira a posicao de espera no frame seguinte, para a transicao pegar */
+      requestAnimationFrame(function () {
+        entrando.classList.remove('pronto-frente', 'pronto-tras');
+      });
+
+      emCena = 1 - emCena;
+      frame = frames[emCena];
+      frame.title = label;
+
+      const esconder = function () {
+        saindo.classList.add('oculto');
+        saindo.classList.remove('sai-frente', 'sai-tras');
+        saindo.querySelector('iframe').removeAttribute('title');
+      };
+      limpeza = { id: window.setTimeout(fazerLimpeza, 440), exec: esconder };
+    }
+
     function render() {
       slideComEtapas = false;
-      frame.src = fileFor(current) + (direcao === "tras" ? "#fim" : "");
+      /* a faxina pendente acontece agora, antes de preparar o proximo quadro */
+      fazerLimpeza();
+      if (travaTroca) { clearTimeout(travaTroca); travaTroca = null; }
+      const paraFrente = current >= ultimo;
+      ultimo = current;
+
       const label = `Slide ${current} de ${total}: ${meta[current - 1].block}`;
-      frame.title = label;
+      const alvo = frames[1 - emCena];
+      const quadroAlvo = quadros[1 - emCena];
+
+      /* o proximo slide carrega escondido e so entra quando estiver pintado:
+         e isto que elimina o clarao branco do iframe em carregamento */
+      quadroAlvo.classList.remove('sai-frente', 'sai-tras');
+      quadroAlvo.classList.add(paraFrente ? 'pronto-frente' : 'pronto-tras');
+      quadroAlvo.classList.remove('oculto');
+
+      trocando = true;
+      alvo.onload = function () { trocar(paraFrente, label); };
+      /* rede de seguranca: se o load nao vier, troca assim mesmo */
+      travaTroca = setTimeout(function () { trocar(paraFrente, label); }, 1500);
+
+      const destino = fileFor(current) + (direcao === "tras" ? "#fim" : "");
+      /* mesmo arquivo ja carregado ali: trocar o src so mexeria no hash e
+         nenhum load dispararia — a troca e feita na hora */
+      const atual = alvo.getAttribute('src');
+      if (atual && atual.split('#')[0] === destino.split('#')[0]) {
+        if (atual !== destino) alvo.setAttribute('src', destino);
+        requestAnimationFrame(function () { trocar(paraFrente, label); });
+      } else {
+        alvo.setAttribute('src', destino);
+      }
       document.getElementById('pageInfo').textContent = `${current} / ${total}`;
       document.getElementById('btnPrev').disabled = current === 1;
       document.getElementById('btnNext').disabled = current === total;
@@ -932,7 +1063,7 @@
     const stage = document.querySelector('.stage');
     function scaleFrame() {
       const scale = Math.min(stage.clientWidth / 1920, stage.clientHeight / 1080);
-      frame.style.transform = `scale(${scale})`;
+      frames.forEach(function (f) { f.style.transform = `scale(${scale})`; });
     }
     scaleFrame();
     window.addEventListener('resize', scaleFrame);
@@ -978,9 +1109,9 @@
 
     /* o slide vive num iframe e captura o teclado; quando a origem permite,
        o mesmo atalho e anexado la dentro a cada troca de slide */
-    function armarAtalhoNoSlide() {
+    function armarAtalhoNoSlide(e) {
       try {
-        const doc = frame.contentDocument;
+        const doc = (e && e.target ? e.target : frame).contentDocument;
         if (!doc || doc.__menuArmado) return;
         doc.__menuArmado = true;
         doc.addEventListener('keydown', (e) => {
@@ -988,7 +1119,7 @@
         });
       } catch (err) { /* origem diferente: o postMessage do a11y.js cobre */ }
     }
-    frame.addEventListener('load', armarAtalhoNoSlide);
+    frames.forEach(function (f) { f.addEventListener('load', armarAtalhoNoSlide); });
   </script>
   <script src="a11y.js" defer></script>
 </body>

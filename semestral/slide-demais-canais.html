@@ -14,56 +14,141 @@
     rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
   <style>
-    html { font-size: 26px; }
-    body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
+    html {
+      font-size: 26px;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f3f4f6;
+      overflow: hidden;
+    }
 
     .slide-container {
-      width: 100vw; height: 100vh; position: relative;
-      display: flex; flex-direction: column;
-      background-color: #ffffff; overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background-color: #ffffff;
+      overflow: hidden;
       font-family: 'Open Sans', sans-serif;
     }
 
-    .font-montserrat { font-family: 'Montserrat', sans-serif; }
-    .text-brand-primary { color: #103050; }
-    .text-brand-secondary { color: #0070C0; }
-    .bg-brand-secondary { background-color: #0070C0; }
+    .font-montserrat {
+      font-family: 'Montserrat', sans-serif;
+    }
 
-    .top-accent { height: 8px; background-color: #103050; width: 100%; }
-    .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
+    .text-brand-primary {
+      color: #103050;
+    }
+
+    .text-brand-secondary {
+      color: #0070C0;
+    }
+
+    .bg-brand-secondary {
+      background-color: #0070C0;
+    }
+
+    .top-accent {
+      height: 8px;
+      background-color: #103050;
+      width: 100%;
+    }
+
+    .top-accent-secondary {
+      height: 4px;
+      background-color: #0070C0;
+      width: 100%;
+    }
 
     .channels {
-      flex: 1; min-height: 0;
-      display: flex; flex-direction: column; gap: .35rem;
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      gap: .35rem;
       padding: .45rem 1.8rem .5rem;
     }
 
     /* rotulo de cada natureza de canal */
     .grp-label {
-      display: inline-flex; align-items: center; gap: .55rem;
-      font-family: 'Montserrat', sans-serif; font-weight: 800;
-      font-size: .62rem; letter-spacing: .08em; text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: .55rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: .62rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
       margin: .3rem 0 .12rem;
     }
-    .grp-label i { font-size: .72rem; }
-    .grp-label .gl-note {
-      font-weight: 600; letter-spacing: 0; text-transform: none;
-      font-size: .62rem; color: #64748B;
+
+    .grp-label i {
+      font-size: .72rem;
     }
-    .grp-entrada { color: #103050; }
-    .grp-atend { color: #0070C0; }
+
+    .grp-label .gl-note {
+      font-weight: 600;
+      letter-spacing: 0;
+      text-transform: none;
+      font-size: .62rem;
+      color: #64748B;
+    }
+
+    .grp-entrada {
+      color: #103050;
+    }
+
+    .grp-atend {
+      color: #0070C0;
+    }
 
     .row {
-      flex: 1; min-height: 0;
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: .7rem;
+      flex: 1;
+      min-height: 0;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: .7rem;
     }
 
     .card {
-      position: relative; min-height: 0;
-      display: flex; flex-direction: column; gap: .35rem;
-      border-radius: 14px; padding: .7rem .85rem;
+      position: relative;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      gap: .35rem;
+      border-radius: 14px;
+      padding: .7rem .85rem;
       animation: cardIn .42s cubic-bezier(.2, .7, .3, 1) backwards;
-      transition: transform .28s cubic-bezier(.2, .7, .3, 1), box-shadow .28s ease, border-color .28s ease;
+      /* a curva passa um pouco do alvo e volta: a caixa assenta como mola */
+      transition: transform .26s cubic-bezier(.34, 1.32, .64, 1), box-shadow .28s ease, border-color .28s ease;
+    }
+
+    /* luz que segue o ponteiro — cada variante usa o azul que ja e dela.
+       O card do QR fica de fora: a imagem nao ganha nada com isso. */
+    .card:not(.card-qr)::before {
+      content: ""; position: absolute; inset: 0; z-index: 0;
+      border-radius: inherit; pointer-events: none;
+      background: radial-gradient(18rem circle at var(--mx, 50%) var(--my, 0%),
+          var(--luz, rgba(0, 112, 192, .12)), transparent 62%);
+      opacity: 0; transition: opacity .28s ease;
+    }
+
+    .card:not(.card-qr):hover::before { opacity: 1; }
+
+    .card-entrada { --luz: rgba(127, 211, 240, .18); }
+    .card-atend { --luz: rgba(0, 112, 192, .13); }
+
+    /* o conteudo fica acima da luz */
+    .card > * { position: relative; z-index: 1; }
+
+    /* inclinacao conforme o ponteiro (--rx/--ry vem do script) */
+    .card:not(.card-qr):hover {
+      transform: perspective(1100px) translateY(-5px)
+        rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
     }
 
     /* canal de entrada: caixa cheia, em azul marinho — o grupo que pesa */
@@ -75,77 +160,243 @@
       border-left: 6px solid #0090C0;
       box-shadow: 0 12px 26px -14px rgba(6, 18, 33, 0.55);
     }
-    .card-entrada .card-title { color: #ffffff; }
-    .card-entrada .card-role { color: #cbdcf2; }
-    .card-entrada .card-info { color: #9dbbdb; }
-    .card-entrada .card-info strong { color: #ffffff; }
-    .card-entrada .card-pill { background: rgba(127, 211, 240, .16); color: #7fd3f0; }
-    .card-entrada:hover { transform: translateY(-5px); box-shadow: 0 24px 42px -16px rgba(6, 18, 33, 0.72); }
-    .card-entrada:hover .card-title { color: #7fd3f0; }
+
+    .card-entrada .card-title {
+      color: #ffffff;
+    }
+
+    .card-entrada .card-role {
+      color: #cbdcf2;
+    }
+
+    .card-entrada .card-info {
+      color: #9dbbdb;
+    }
+
+    .card-entrada .card-info strong {
+      color: #ffffff;
+    }
+
+    .card-entrada .card-pill {
+      background: rgba(127, 211, 240, .16);
+      color: #7fd3f0;
+    }
+
+    .card-entrada:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 24px 42px -16px rgba(6, 18, 33, 0.72);
+    }
+
+    .card-entrada:hover .card-title {
+      color: #7fd3f0;
+    }
 
     /* canal de atendimento/informacao: caixa clara, mais quieta */
     .card-atend {
       background: #F8FAFC;
-      border: 1px solid #E2E8F0; border-left: 6px solid #0090C0;
+      border: 1px solid #E2E8F0;
+      border-left: 6px solid #0090C0;
     }
-    .card-atend .card-title { color: #103050; }
-    .card-atend .card-role { color: #475569; }
-    .card-atend .card-info { color: #64748B; }
-    .card-atend .card-info strong { color: #103050; }
-    .card-atend .card-pill { background: #E6F2FA; color: #0070C0; }
-    .card-atend:hover { transform: translateY(-5px); border-color: #0070C0; box-shadow: 0 16px 30px -18px rgba(16, 48, 80, .45); }
 
-    .card-falabr { animation-delay: .05s; }
-    .card-iara { animation-delay: .115s; }
-    .card-email { animation-delay: .18s; }
-    .card-correspondencia { animation-delay: .245s; }
-    .card-telefone { animation-delay: .31s; }
-    .card-whatsapp { animation-delay: .375s; }
-    .card-presencial { animation-delay: .44s; }
-    .card-qr { animation-delay: .505s; }
+    .card-atend .card-title {
+      color: #103050;
+    }
+
+    .card-atend .card-role {
+      color: #475569;
+    }
+
+    .card-atend .card-info {
+      color: #64748B;
+    }
+
+    .card-atend .card-info strong {
+      color: #103050;
+    }
+
+    .card-atend .card-pill {
+      background: #E6F2FA;
+      color: #0070C0;
+    }
+
+    .card-atend:hover {
+      transform: translateY(-5px);
+      border-color: #0070C0;
+      box-shadow: 0 16px 30px -18px rgba(16, 48, 80, .45);
+    }
+
+    .card-falabr {
+      animation-delay: .18s;
+    }
+
+    .card-iara {
+      animation-delay: .05s;
+    }
+
+    .card-email {
+      animation-delay: .31s;
+    }
+
+    .card-correspondencia {
+      animation-delay: .44s;
+    }
+
+    .card-telefone {
+      animation-delay: .115s;
+    }
+
+    .card-whatsapp {
+      animation-delay: .245s;
+    }
+
+    .card-presencial {
+      animation-delay: .375s;
+    }
+
+    .card-qr {
+      animation-delay: .505s;
+    }
+
+
+    /* seta simples que percorre os quatro canais de cima */
+    .flow-arrow {
+      display: flex;
+      align-items: center;
+      gap: .3rem;
+      height: .5rem;
+      margin: .05rem .2rem 0;
+    }
+
+    .flow-arrow .seta-linha {
+      flex: 1;
+      height: 2px;
+      border-radius: 2px;
+      background: linear-gradient(90deg, rgba(0, 112, 192, .12), #0070C0);
+    }
+
+    .flow-arrow .seta-ponta {
+      width: 0;
+      height: 0;
+      border-left: .42rem solid #0070C0;
+      border-top: .26rem solid transparent;
+      border-bottom: .26rem solid transparent;
+    }
 
     @keyframes cardIn {
-      from { opacity: 0; transform: translateY(18px) scale(.97); }
-      to { opacity: 1; transform: none; }
+      from {
+        opacity: 0;
+        transform: translateY(18px) scale(.97);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
     }
 
-    .card-head { display: flex; align-items: center; gap: .6rem; }
+    .card-head {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+    }
+
     .card-icon {
-      flex-shrink: 0; width: 2.1rem; height: 2.1rem; border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      color: #fff; font-size: .95rem;
+      flex-shrink: 0;
+      width: 2.1rem;
+      height: 2.1rem;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: .95rem;
       background: linear-gradient(145deg, #0070C0, #0090C0);
       box-shadow: 0 6px 14px -8px rgba(6, 18, 33, .7);
+      transition: transform .3s cubic-bezier(.34, 1.4, .64, 1);
     }
+
+    .card:not(.card-qr):hover .card-icon { transform: scale(1.1) rotate(-5deg); }
+
     .card-title {
-      font-family: 'Montserrat', sans-serif; font-weight: 800;
-      font-size: 1.02rem; line-height: 1.1; margin: 0; min-width: 0;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 1.02rem;
+      line-height: 1.1;
+      margin: 0;
+      min-width: 0;
     }
 
     /* o que o canal faz — a resposta ao "para que serve" */
-    .card-role { font-size: .63rem; line-height: 1.38; margin: 0; }
-    .card-info { font-size: .6rem; line-height: 1.34; margin: auto 0 0; }
+    .card-role {
+      font-size: .63rem;
+      line-height: 1.38;
+      margin: 0;
+    }
+
+    .card-info {
+      font-size: .6rem;
+      line-height: 1.34;
+      margin: auto 0 0;
+    }
 
     /* natureza do canal, dita em cada caixa */
     .card-pill {
       align-self: flex-start;
-      font-family: 'Montserrat', sans-serif; font-weight: 800;
-      font-size: .5rem; letter-spacing: .08em; text-transform: uppercase;
-      border-radius: 999px; padding: .12rem .5rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: .5rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      border-radius: 999px;
+      padding: .12rem .5rem;
     }
 
     /* o QR ocupa o meio da caixa; rotulo em cima, instrucao embaixo */
-    .card-qr { align-items: center; text-align: center; gap: .25rem; padding: .55rem .7rem; }
-    .card-qr .card-title { font-size: .88rem; }
-    .card-qr .qr-box { flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; }
+    .card-qr {
+      align-items: center;
+      text-align: center;
+      gap: .25rem;
+      padding: .55rem .7rem;
+    }
+
+    .card-qr .card-title {
+      font-size: .88rem;
+    }
+
+    .card-qr .qr-box {
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
     .card-qr .qr-box img {
-      max-height: 100%; width: auto; border-radius: 8px; background: #fff; padding: 3px;
+      max-height: 100%;
+      width: auto;
+      border-radius: 8px;
+      background: #fff;
+      padding: 3px;
       transition: transform .28s ease;
     }
-    .card-qr:hover .qr-box img { transform: scale(1.04); }
-    .card-qr .card-info { margin: 0; }
 
-    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+    .card-qr:hover .qr-box img {
+      transform: scale(1.04);
+    }
+
+    .card-qr .card-info {
+      margin: 0;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
   </style>
   <link rel="stylesheet" href="a11y.css">
   <link rel="stylesheet" href="base.css" />
@@ -161,15 +412,20 @@
       <div>
         <div class="flex items-center gap-3 mb-1">
           <div class="w-1 h-8 bg-brand-secondary"></div>
-          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Canais de Atendimento</p>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Canais de
+            Atendimento</p>
         </div>
         <p class="text-gray-500 font-medium ml-4 text-base">Outras formas de acionar a Ouvidoria da ANTAQ</p>
       </div>
       <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
         <i class="fas fa-landmark text-3xl" aria-hidden="true"></i>
-        <div class="flex flex-col justify-center pl-2" style="border-left:1px solid #CBD5E1;">
-          <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">CAPÍTULO 02</p>
-          <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none whitespace-nowrap">A Ouvidoria da ANTAQ</p>
+        <div class="flex flex-col justify-center pl-2 cap-div">
+          <p
+            class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">
+            CAPÍTULO 02</p>
+          <p
+            class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none whitespace-nowrap">
+            A Ouvidoria da ANTAQ</p>
         </div>
       </div>
     </div>
@@ -177,19 +433,12 @@
 
     <div class="channels">
 
+      <div class="flow-arrow" aria-hidden="true">
+        <span class="seta-linha"></span>
+        <span class="seta-ponta"></span>
+      </div>
 
       <div class="row">
-
-        <div class="card card-entrada card-falabr">
-          <div class="card-head">
-            <div class="card-icon"><i class="fas fa-globe" aria-hidden="true"></i></div>
-            <p class="card-title">Fala.BR</p>
-          </div>
-          <span class="card-pill">Plataforma oficial</span>
-          <p class="card-role">Plataforma do Governo Federal onde a manifestação é registrada, protocolada e acompanhada pelo próprio cidadão.</p>
-
-          <p class="card-info"><strong>falabr.cgu.gov.br/v2/</strong></p>
-        </div>
 
         <div class="card card-entrada card-iara">
           <div class="card-head">
@@ -197,39 +446,13 @@
             <p class="card-title">IARA</p>
           </div>
           <span class="card-pill">Inteligência artificial da ANTAQ</span>
-          <p class="card-role">Primeiro contato automatizado: tira dúvidas e encaminha o usuário ao canal certo.</p>
+          <p class="card-role">Primeiro contato automatizado: tira dúvidas e encaminha o usuário ao atendente caso
+            necessario.</p>
 
           <p class="card-info">Informações sobre os serviços prestados pela Agência, disponível pelo WhatsApp.</p>
         </div>
 
-        <div class="card card-entrada card-email">
-          <div class="card-head">
-            <div class="card-icon"><i class="fas fa-envelope" aria-hidden="true"></i></div>
-            <p class="card-title">E-mail</p>
-          </div>
-          <span class="card-pill">Escrito</span>
-          <p class="card-role">Recebe manifestações e documentos por escrito, com caixa própria para o público interno.</p>
-
-          <p class="card-info">ouvidoria@antaq.gov.br<br />ouvidoria.interno@antaq.gov.br</p>
-        </div>
-
-        <div class="card card-entrada card-correspondencia">
-          <div class="card-head">
-            <div class="card-icon"><i class="fas fa-inbox" aria-hidden="true"></i></div>
-            <p class="card-title">Correspondência</p>
-          </div>
-          <span class="card-pill">Escrito</span>
-          <p class="card-role">Recebe manifestações em papel, para quem não usa os canais digitais.</p>
-
-          <p class="card-info">SEPN Q. 514, Conj. E, Ed. ANTAQ<br />CEP 70760-545 · Brasília/DF</p>
-        </div>
-
-      </div>
-
-
-      <div class="row">
-
-        <div class="card card-atend card-telefone">
+        <div class="card card-entrada card-telefone">
           <div class="card-head">
             <div class="card-icon"><i class="fas fa-phone-volume" aria-hidden="true"></i></div>
             <p class="card-title">Telefone</p>
@@ -240,7 +463,19 @@
           <p class="card-info"><strong>0800 644 5001</strong></p>
         </div>
 
-        <div class="card card-atend card-whatsapp">
+        <div class="card card-entrada card-falabr">
+          <div class="card-head">
+            <div class="card-icon"><i class="fas fa-globe" aria-hidden="true"></i></div>
+            <p class="card-title">Fala.BR</p>
+          </div>
+          <span class="card-pill">Plataforma oficial</span>
+          <p class="card-role">Plataforma do Governo Federal onde a manifestação é registrada, protocolada e acompanhada
+            pelo próprio cidadão.</p>
+
+          <p class="card-info"><strong>falabr.cgu.gov.br/v2/</strong></p>
+        </div>
+
+        <div class="card card-entrada card-whatsapp">
           <div class="card-head">
             <div class="card-icon"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></div>
             <p class="card-title">WhatsApp</p>
@@ -251,6 +486,23 @@
           <p class="card-info">Acesse o QR-CODE</p>
         </div>
 
+      </div>
+
+
+      <div class="row">
+
+        <div class="card card-atend card-email">
+          <div class="card-head">
+            <div class="card-icon"><i class="fas fa-envelope" aria-hidden="true"></i></div>
+            <p class="card-title">E-mail</p>
+          </div>
+          <span class="card-pill">Escrito</span>
+          <p class="card-role">Recebe manifestações e documentos por escrito, com caixa própria para o público interno.
+          </p>
+
+          <p class="card-info">ouvidoria@antaq.gov.br<br />ouvidoria.interno@antaq.gov.br</p>
+        </div>
+
         <div class="card card-atend card-presencial">
           <div class="card-head">
             <div class="card-icon"><i class="fas fa-building" aria-hidden="true"></i></div>
@@ -259,7 +511,19 @@
           <span class="card-pill">Presencial</span>
           <p class="card-role">Atendimento no balcão, na sede ou nas unidades regionais.</p>
 
-          <p class="card-info">SEPN Q. 514, Conj. E, Ed. ANTAQ<br />CEP 70760-545 · Brasília/DF<br />ou Unidade Regional</p>
+          <p class="card-info">SEPN Q. 514, Conj. E, Ed. ANTAQ<br />CEP 70760-545 · Brasília/DF<br />ou Unidade Regional
+          </p>
+        </div>
+
+        <div class="card card-atend card-correspondencia">
+          <div class="card-head">
+            <div class="card-icon"><i class="fas fa-inbox" aria-hidden="true"></i></div>
+            <p class="card-title">Correspondência</p>
+          </div>
+          <span class="card-pill">Escrito</span>
+          <p class="card-role">Recebe manifestações em papel, para quem não usa os canais digitais.</p>
+
+          <p class="card-info">SEPN Q. 514, Conj. E, Ed. ANTAQ<br />CEP 70760-545 · Brasília/DF</p>
         </div>
 
         <div class="card card-atend card-qr">
@@ -290,6 +554,35 @@
         window.parent.postMessage({ type: "slide-nav", key: e.key }, "*");
       }
     });
+  </script>
+  <script>
+    /* Inclinacao e luz acompanhando o ponteiro, como nos exemplos do
+       motion.dev. O card do QR Code fica de fora, a pedido. */
+    (function () {
+      'use strict';
+
+      if (window.matchMedia &&
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      var GRAU = 4.5;   /* inclinacao maxima, em graus */
+
+      document.querySelectorAll('.card:not(.card-qr)').forEach(function (card) {
+        card.addEventListener('pointermove', function (e) {
+          var r = card.getBoundingClientRect();
+          var x = (e.clientX - r.left) / r.width;
+          var y = (e.clientY - r.top) / r.height;
+          card.style.setProperty('--mx', (x * 100).toFixed(1) + '%');
+          card.style.setProperty('--my', (y * 100).toFixed(1) + '%');
+          card.style.setProperty('--ry', ((x - .5) * 2 * GRAU).toFixed(2) + 'deg');
+          card.style.setProperty('--rx', ((.5 - y) * 2 * GRAU).toFixed(2) + 'deg');
+        });
+
+        card.addEventListener('pointerleave', function () {
+          card.style.setProperty('--rx', '0deg');
+          card.style.setProperty('--ry', '0deg');
+        });
+      });
+    })();
   </script>
   <script src="a11y.js" defer></script>
   <script src="vida.js" defer></script>

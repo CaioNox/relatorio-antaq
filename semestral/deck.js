@@ -23,6 +23,7 @@ window.RELATORIO = {
         'slide-03c.html',
         'slide-ouvidoria-geral.html',
         'slide-falabr.html',
+        'slide-falabr-usos.html',
         'slide-demais-canais.html',
         'slide-25.html',
         'slide-cartas-servicos.html',
