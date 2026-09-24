@@ -155,9 +155,7 @@
       color: #0090C0;
     }
 
-    .act-list + .doc-text {
-      /* a coluna 2 comeca no nivel da lista, nao do subtitulo */
-      margin-top: 1.63rem;
+    .doc-text+.doc-subtitle {
       break-before: column;
       -webkit-column-break-before: column;
     }
@@ -218,15 +216,21 @@
       <div>
         <div class="flex items-center gap-3 mb-1">
           <div class="w-1 h-8 bg-brand-secondary"></div>
-          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Apresentação da STAI</p>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Apresentação da STAI
+          </p>
         </div>
-        <p class="text-gray-500 font-medium ml-4 text-base">Seção de Transparência e Acesso à Informação no âmbito da Ouvidoria</p>
+        <p class="text-gray-500 font-medium ml-4 text-base">Seção de Transparência e Acesso à Informação no âmbito da
+          Ouvidoria</p>
       </div>
       <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
         <i class="fas fa-lock-open text-3xl" aria-hidden="true"></i>
         <div class="flex flex-col justify-center pl-2 cap-div">
-          <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">CAPÍTULO 04</p>
-          <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none whitespace-nowrap">Seção de Transparência e Acesso à Informação - STAI</p>
+          <p
+            class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">
+            CAPÍTULO 04</p>
+          <p
+            class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none whitespace-nowrap">
+            Seção de Transparência e Acesso à Informação - STAI</p>
         </div>
       </div>
     </div>
@@ -234,28 +238,13 @@
 
     <div class="doc">
       <p class="doc-lead txt-bloco">
-        A <b>Seção de Transparência e Acesso à Informação (STAI)</b> é a unidade encarregada de assegurar a plena
+        <b>A Seção de Transparência e Acesso à Informação – STAI</b> é a unidade encarregada de assegurar a plena
         efetividade do direito fundamental de acesso à informação pública.
       </p>
 
-      <div class="doc-cols">
-        <p class="doc-subtitle"><i class="fas fa-list-check" aria-hidden="true"></i> Principais atividades da STAI</p>
-        <ul class="act-list">
-          <li class="txt-bloco"><b>Transparência passiva:</b> A STAI recebe, instrui e
-            responde os pedidos de informação cadastrados no
-            <strong>Fala.BR</strong>, além de monitorar o cumprimento dos prazos legais, atuando como ponto focal e
-            articulando as áreas técnicas para que cada demanda seja respondida com exatidão, tempestividade e linguagem
-            acessível ao cidadão.
-          </li>
-          <li class="txt-bloco"><b>Transparência ativa:</b> Promove a divulgação proativa de
-            informações de interesse coletivo no site da
-            <b>ANTAQ</b>, acessíveis no menu <strong>“Acesso à Informação”</strong>.
-          </li>
-          <li class="txt-bloco"><b>Dados Abertos:</b> A condução das políticas de dados abertos, por meio do Plano de Dados Abertos (PDA),
-            completa esse tripé, reduzindo a assimetria de informação e estimulando o controle social.</li>
-          <li class="txt-bloco"><b>e-Agendas (Transparência de Agendas Públicas):</b> Acompanha e orienta o cumprimento do Decreto nº 10.889/2021 e da Lei nº 12.813/2013, assegurando a publicidade das agendas de compromissos públicos das autoridades da ANTAQ no sistema <a href="https://eagendas.cgu.gov.br/" target="_blank" rel="noopener noreferrer" class="font-semibold text-brand-secondary underline">e-Agendas</a> da CGU.</li>
-        </ul>
 
+      <div class="doc-cols">
+        <p class="doc-subtitle"><i class="fas fa-circle-info" aria-hidden="true"></i> O papel institucional da STAI e sua atuação integrada à Ouvidoria</p>
         <p class="doc-text txt-bloco">
           Integrada à estrutura da <b>Ouvidoria da ANTAQ</b>, a STAI é a unidade encarregada de assegurar a plena
           efetividade do direito fundamental de acesso à informação pública. Atua como ponto focal do <b>Serviço de
@@ -266,6 +255,25 @@
           de atuação da Seção: juntas, reduzem a assimetria de informação entre a Agência e a sociedade e estimulam o
           controle social.
         </p>
+        <p class="doc-subtitle"><i class="fas fa-list-check" aria-hidden="true"></i> Principais atividades da STAI</p>
+        <ul class="act-list">
+          <li class="txt-bloco"><b>Transparência passiva:</b> a STAI recebe, instrui e responde os pedidos de informação
+            cadastrados no <b>Fala.BR</b>, além de monitorar o cumprimento dos prazos legais, atuando como ponto focal e
+            articulando as áreas técnicas para que cada demanda seja respondida com exatidão, tempestividade e linguagem
+            acessível ao cidadão.
+          </li>
+          <li class="txt-bloco"><b>Transparência ativa:</b>promove a divulgação proativa de informações de interesse
+            coletivo no site da
+            <b>ANTAQ</b>, acessíveis no menu <strong>“Acesso à Informação”</strong>.
+          </li>
+          <li class="txt-bloco"><b>Dados Abertos:</b> A condução das políticas de dados abertos, por meio do Plano de
+            Dados Abertos (PDA),
+            completa esse tripé, reduzindo a assimetria de informação e estimulando o controle social.</li>
+          <li class="txt-bloco"><b>e-Agendas (Transparência de Agendas Públicas):</b> Acompanha e orienta o cumprimento
+            do Decreto nº 10.889/2021 e da Lei nº 12.813/2013, assegurando a publicidade das agendas de compromissos
+            públicos das autoridades da ANTAQ no sistema <a href="https://eagendas.cgu.gov.br/" target="_blank"
+              rel="noopener noreferrer" class="font-semibold text-brand-secondary underline">e-Agendas</a> da CGU.</li>
+        </ul>
       </div>
     </div>
 

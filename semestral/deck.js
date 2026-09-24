@@ -10,11 +10,11 @@ window.RELATORIO = {
   blocos: [
     {
       block: 'Abertura', short: 'Abertura', tint: 0.35,
-      files: ['slide-00.html', 'slide-34.html', 'slide-01.html', 'slide-msg-ouvidora.html'],
+      files: ['slide-00.html', 'slide-34.html', 'slide-01.html', 'slide-msg-ouvidora.html'],//4
     },
     {
       block: 'Bloco 1 · Visão Geral das Ouvidorias públicas', short: 'Visão Geral', tint: 1,
-      files: ['capa-bloco-1.html', 'slide-ctx-01.html', 'slide-fundamentos-ouvidorias.html'],
+      files: ['capa-bloco-1.html', 'slide-ctx-01.html', 'slide-fundamentos-ouvidorias.html'],//7
     },
     {
       block: 'Bloco 2 · A Ouvidoria da ANTAQ', short: 'A Ouvidoria da ANTAQ', tint: 0.85,
@@ -30,22 +30,23 @@ window.RELATORIO = {
         'conselho.html',
         'slide-CnsU2.html',
         'slide-17b.html', 'slide-17e.html', 'slide-07.html',
-      ],
+      ],//20
     },
     {
       block: 'Bloco 3 · Seção de Apoio ao Cidadão — SAC', short: 'SAC', tint: 0.7,
-      files: ['capa-bloco-3.html', 'slide-sac-apres.html', 'slide-sac-ativ.html', 'slide-14.html', 'slide-17d.html', 'slide-canal.html', 'slide-04.html', 'slide-05.html', 'slide-08.html', 'slide-tramit-uorg.html'],
+      files: ['capa-bloco-3.html', 'slide-sac-apres.html', 'slide-sac-ativ.html',
+        'slide-17d.html', 'slide-14.html', 'slide-canal.html', 'slide-04.html', 'slide-05.html', 'slide-08.html', 'slide-tramit-uorg.html'],
     },
     {
       block: 'Bloco 4 · Seção de Transparência e Acesso à Informação — STAI', short: 'STAI', tint: 0.55,
       files: [
-        'capa-bloco-4.html', 'slide-4a.html', 'slide-informa-br.html',
-        // PDA / Dados Abertos
-        'slide-pda.html',
-        // Transparência ativa (transparência ativa)
-        'slide-22.html',
-        // Transparência passiva (transparência passiva)
-        'slide-23.html', 'slide-resp-unidade.html', 'slide-20.html',
+        'capa-bloco-4.html', 'slide-4a.html',
+        // 1. Transparência passiva
+        'slide-informa-br.html', 'slide-23.html', 'slide-18.html', 'slide-20.html',
+        // 2. Transparência ativa
+        'slide-22.html', 'slide-resp-unidade.html',
+        // 3. Dados abertos
+        'slide-pda.html', 'slide-21.html',
       ],
     },
     {
@@ -54,7 +55,10 @@ window.RELATORIO = {
     },
     {
       block: 'Bloco 6 · Apêndice', short: 'Apêndice', tint: 0.3,
-      files: ['capa-bloco-6.html', 'slide-qa-conceitos.html', 'slide-qa-numeros.html', 'slide-qa-fluxo.html', 'slide-31.html', 'slide-29.html', 'slide-29b.html', 'slide-30.html', 'slide-32.html'],
+      files: ['capa-bloco-6.html',
+        // 1. Leis · 2. Decretos · 3. Normativos · 4. Glossário
+        'slide-30.html', 'slide-31.html', 'slide-32.html',
+        'slide-29.html', 'slide-29b.html'],
     },
     {
       block: 'Encerramento', short: 'Encerramento', tint: 0.2,

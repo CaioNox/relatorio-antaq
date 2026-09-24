@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <title>Plataforma Informa.BR - Relatório Semestral Ouvidoria ANTAQ</title>
+  <title>Plataforma Informa.BR — Relatório Semestral Ouvidoria ANTAQ</title>
   <link rel="icon" type="image/png"
     href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
@@ -61,9 +61,11 @@
     .marca-logo {
       width: 5.6rem; height: 5.6rem; border-radius: 16px; background: #fff;
       display: flex; align-items: center; justify-content: center;
-      color: #0070C0; font-size: 2.45rem;
+      padding: .5rem; color: #0070C0; font-size: 2.45rem;
       box-shadow: 0 10px 22px -12px rgba(0, 0, 0, .5);
     }
+
+    .marca-logo img { width: 100%; height: auto; display: block; }
 
     .marca-nome {
       font-family: 'Montserrat', sans-serif; font-weight: 900;
@@ -188,7 +190,8 @@
           <div class="w-1 h-8 bg-brand-secondary"></div>
           <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Plataforma Informa.BR</p>
         </div>
-        <p class="text-gray-500 font-medium ml-4 text-base">Inteligência artificial da CGU para localização de informações públicas e pedidos LAI</p>
+        <p class="text-gray-500 font-medium ml-4 text-base">Informação pública em linguagem simples — e o pedido LAI no mesmo lugar</p>
+        <h2 class="assunto"><i class="fas fa-inbox" aria-hidden="true"></i> Transparência passiva</h2>
       </div>
       <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
         <i class="fas fa-lock-open text-3xl" aria-hidden="true"></i>
@@ -210,17 +213,24 @@
 
         <div class="marca-notas">
           <div class="mn">
-            <div class="mn-ico"><i class="fas fa-globe" aria-hidden="true"></i></div>
+            <div class="mn-ico"><i class="fas fa-comment-dots" aria-hidden="true"></i></div>
             <div>
-              <p class="mn-t">Plataforma governamental disponível em:</p>
-              <p class="mn-d"><b>informabr.cgu.gov.br</b></p>
+              <p class="mn-t">Linguagem natural</p>
+              <p class="mn-d">Pergunte do seu jeito, sem precisar de termos técnicos.</p>
+            </div>
+          </div>
+          <div class="mn">
+            <div class="mn-ico"><i class="fas fa-arrow-right-arrow-left" aria-hidden="true"></i></div>
+            <div>
+              <p class="mn-t">Tudo em um só lugar</p>
+              <p class="mn-d">Se a busca não bastar, o pedido LAI é feito ali mesmo.</p>
             </div>
           </div>
           <div class="mn">
             <div class="mn-ico"><i class="fas fa-scale-balanced" aria-hidden="true"></i></div>
             <div>
-              <p class="mn-t">Fundamento:</p>
-              <p class="mn-d"><b>Lei nº 12.527/2011 (LAI)</b> e <b>Decreto nº 7.724/2012</b></p>
+              <p class="mn-t">Base legal</p>
+              <p class="mn-d">Lei nº 12.527/2011 (LAI) e Decreto nº 7.724/2012.</p>
             </div>
           </div>
         </div>
@@ -233,40 +243,42 @@
 
       <div class="lado">
         <p class="intro txt-bloco">
-          Desenvolvido pela <b>Controladoria-Geral da União (CGU)</b>, o <b>Informa.BR</b> é uma ferramenta
-          inovadora que emprega <b>inteligência artificial</b> para democratizar o acesso à informação, realizando
-          buscas semânticas em dados já divulgados e conectando o cidadão ao registro direto de pedidos via
-          Fala.BR.
+          Lançado pela <b>Controladoria-Geral da União (CGU)</b>, o <b>Informa.BR</b> é a plataforma oficial do
+          Governo Federal que reúne, em um só lugar, a <b>busca por dados públicos</b> e os <b>pedidos da Lei de
+          Acesso à Informação (LAI)</b>. O cidadão pergunta como numa conversa, e a plataforma encontra, resume e,
+          se preciso, transforma a dúvida em pedido formal.
         </p>
 
+
+        <p class="fluxo-tit">Como funciona</p>
 
         <div class="fluxo">
           <div class="etapa">
             <div class="etapa-n"><i class="fas fa-magnifying-glass-chart" aria-hidden="true"></i></div>
             <div class="etapa-corpo">
-              <p class="etapa-t">Busca Semântica com Inteligência Artificial</p>
-              <p class="etapa-d txt-bloco">Interpreta perguntas em linguagem natural e vasculha simultaneamente o Portal da Transparência, dados abertos e sítios oficiais de órgãos públicos federais, localizando respostas imediatas sem necessidade de termos técnicos.</p>
+              <p class="etapa-t">Busca com Inteligência Artificial</p>
+              <p class="etapa-d txt-bloco">Basta escrever a dúvida em linguagem simples, como numa conversa. A inteligência artificial interpreta a pergunta e apresenta um resumo claro dos dados disponíveis, sem exigir conhecimento técnico.</p>
+            </div>
+          </div>
+          <div class="etapa">
+            <div class="etapa-n"><i class="fas fa-database" aria-hidden="true"></i></div>
+            <div class="etapa-corpo">
+              <p class="etapa-t">Central de Dados Públicos</p>
+              <p class="etapa-d txt-bloco">Cruza, em uma única consulta, as informações do Portal da Transparência, do Portal de Dados Abertos e das respostas já concedidas a pedidos anteriores (Busca LAI), sem que o cidadão precise percorrer vários sites.</p>
+            </div>
+          </div>
+          <div class="etapa">
+            <div class="etapa-n"><i class="fas fa-file-signature" aria-hidden="true"></i></div>
+            <div class="etapa-corpo">
+              <p class="etapa-t">Pedido de Acesso à Informação</p>
+              <p class="etapa-d txt-bloco">Não encontrou o que procurava? O pedido pela LAI pode ser registrado e acompanhado no mesmo ambiente, sem trocar de sistema e com a garantia dos prazos previstos em lei.</p>
             </div>
           </div>
           <div class="etapa">
             <div class="etapa-n"><i class="fas fa-arrow-right-arrow-left" aria-hidden="true"></i></div>
             <div class="etapa-corpo">
-              <p class="etapa-t">Integração Direta com o Fala.BR</p>
-              <p class="etapa-d txt-bloco">Caso a informação desejada não seja encontrada nas bases públicas, a plataforma orienta o usuário e permite converter a pesquisa diretamente em um pedido formal de acesso à informação (LAI) cadastrado no Fala.BR.</p>
-            </div>
-          </div>
-          <div class="etapa">
-            <div class="etapa-n"><i class="fas fa-bolt" aria-hidden="true"></i></div>
-            <div class="etapa-corpo">
-              <p class="etapa-t">Redução de Demandas Repetitivas</p>
-              <p class="etapa-d txt-bloco">Ao entregar prontamente dados que já estão publicados na transparência ativa da ANTAQ e do governo federal, evita o retrabalho dos setores técnicos e diminui o tempo de resposta ao cidadão.</p>
-            </div>
-          </div>
-          <div class="etapa">
-            <div class="etapa-n"><i class="fas fa-shield-halved" aria-hidden="true"></i></div>
-            <div class="etapa-corpo">
-              <p class="etapa-t">Fortalecimento do Controle Social</p>
-              <p class="etapa-d txt-bloco">Reúne em um ponto único de contato dados orçamentários, contratos, compras, servidores e regulações, promovendo maior transparência e controle social sobre as ações da administração pública.</p>
+              <p class="etapa-t">Relação com o Fala.BR</p>
+              <p class="etapa-d txt-bloco">O histórico e os pedidos em andamento de quem utilizava o sistema anterior foram migrados para o Informa.BR. O Fala.BR permanece ativo exclusivamente para manifestações de ouvidoria, como denúncias, reclamações e elogios.</p>
             </div>
           </div>
         </div>

@@ -340,8 +340,9 @@
           <div class="w-1 h-8 bg-brand-secondary"></div>
           <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Histórico LAI</p>
         </div>
-        <p class="text-gray-500 font-medium ml-4 text-lg">Pedidos de acesso à informação — 1º semestre de 2022 a 2026
+        <p class="text-gray-500 font-medium ml-4 text-lg">Pedidos de acesso à informação — 1º semestre de 2023 a 2026
         </p>
+        <h2 class="assunto"><i class="fas fa-inbox" aria-hidden="true"></i> Transparência passiva</h2>
       </div>
       <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
         <i class="fas fa-lock-open text-3xl" aria-hidden="true"></i>
@@ -357,14 +358,14 @@
       <div class="chart-card flex flex-col" style="min-height:0;">
         <p class="text-brand-primary font-montserrat font-bold text-xl mb-1 flex items-center gap-2"><i
             class="fas fa-file-circle-plus text-brand-secondary"></i> Pedidos de acesso à informação</p>
-        <div class="flex-1 relative" style="min-height:0;"><canvas id="chartLaiHist" role="img" aria-label="Gráfico de barras: histórico de pedidos LAI no 1º trimestre de cada ano — 2023: 62, 2024: 105, 2025: 107, 2026: 130"></canvas></div>
+        <div class="flex-1 relative" style="min-height:0;"><canvas id="chartLaiHist" role="img" aria-label="Gráfico de barras: histórico de pedidos LAI no 1º semestre de cada ano — 2023: 300, 2024: 156, 2025: 188, 2026: 262"></canvas></div>
         <p class="chart-note"><i class="fas fa-circle-info"></i><span>O comparativo histórico demonstra a evolução da
             demanda por transparência pública e permite avaliar tendências de acesso à informação.</span></p>
       </div>
 
 
       <div class="flex flex-col gap-1" style="min-height:0;">
-        <button type="button" class="hist-kpi hk-feat" data-i="4" role="tab" aria-selected="true">
+        <button type="button" class="hist-kpi hk-feat" data-i="3" role="tab" aria-selected="true">
           <span class="hk-help" tabindex="0" role="button"
             aria-label="Como o tempo médio de resposta é calculado">?</span>
           <span class="hk-tip">Quantidade de dias — em dias corridos — entre o recebimento do pedido e a data em que
@@ -376,7 +377,7 @@
             <span class="hk-resp-lbl">tempo médio de resposta</span>
           </div>
         </button>
-        <button type="button" class="hist-kpi" data-i="3" role="tab" aria-selected="false">
+        <button type="button" class="hist-kpi" data-i="2" role="tab" aria-selected="false">
           <span class="hk-help" tabindex="0" role="button"
             aria-label="Como o tempo médio de resposta é calculado">?</span>
           <span class="hk-tip">Quantidade de dias — em dias corridos — entre o recebimento do pedido e a data em que
@@ -388,7 +389,7 @@
             <span class="hk-resp-lbl">tempo médio não disponível</span>
           </div>
         </button>
-        <button type="button" class="hist-kpi" data-i="2" role="tab" aria-selected="false">
+        <button type="button" class="hist-kpi" data-i="1" role="tab" aria-selected="false">
           <span class="hk-help" tabindex="0" role="button"
             aria-label="Como o tempo médio de resposta é calculado">?</span>
           <span class="hk-tip">Quantidade de dias — em dias corridos — entre o recebimento do pedido e a data em que
@@ -400,25 +401,13 @@
             <span class="hk-resp-lbl">tempo médio não disponível</span>
           </div>
         </button>
-        <button type="button" class="hist-kpi" data-i="1" role="tab" aria-selected="false">
+        <button type="button" class="hist-kpi" data-i="0" role="tab" aria-selected="false">
           <span class="hk-help" tabindex="0" role="button"
             aria-label="Como o tempo médio de resposta é calculado">?</span>
           <span class="hk-tip">Quantidade de dias — em dias corridos — entre o recebimento do pedido e a data em que
             ele foi respondido.</span>
           <p class="hk-year">1º Semestre de 2023</p>
           <p class="hk-val">300 <span class="hk-label">pedidos</span></p>
-          <div class="hk-resp" title="Tempo médio de resposta ainda não consolidado para este período">
-            <span class="hk-resp-val">—</span>
-            <span class="hk-resp-lbl">tempo médio não disponível</span>
-          </div>
-        </button>
-        <button type="button" class="hist-kpi" data-i="0" role="tab" aria-selected="false">
-          <span class="hk-help" tabindex="0" role="button"
-            aria-label="Como o tempo médio de resposta é calculado">?</span>
-          <span class="hk-tip">Quantidade de dias — em dias corridos — entre o recebimento do pedido e a data em que
-            ele foi respondido.</span>
-          <p class="hk-year">1º Semestre de 2022</p>
-          <p class="hk-val">416 <span class="hk-label">pedidos</span></p>
           <div class="hk-resp" title="Tempo médio de resposta ainda não consolidado para este período">
             <span class="hk-resp-val">—</span>
             <span class="hk-resp-lbl">tempo médio não disponível</span>
@@ -471,17 +460,17 @@
       }
     };
     /* indice do ano em foco — o grafico e desenhado ate ele */
-    let foco = 4;
+    let foco = 3;
 
-    const laiHistLabels = ['1º semestre 2022', '1º semestre 2023', '1º semestre 2024', '1º semestre 2025', '1º semestre 2026'];
-    const laiHistData = [416, 300, 156, 188, 262];
+    const laiHistLabels = ['1º semestre 2023', '1º semestre 2024', '1º semestre 2025', '1º semestre 2026'];
+    const laiHistData = [300, 156, 188, 262];
     const grafico = new Chart(document.getElementById('chartLaiHist'), {
       type: 'bar',
       data: {
         labels: laiHistLabels,
         datasets: [{
           data: laiHistData,
-          backgroundColor: ['#D6EAF6', '#C0E0F0', '#90C8E5', '#5AAFD8', '#0090C0'],
+          backgroundColor: ['#C0E0F0', '#90C8E5', '#5AAFD8', '#0090C0'],
           borderRadius: 8,
           maxBarThickness: 80
         }]
@@ -555,7 +544,7 @@
       });
     });
 
-    /* teclas 1 a 5 escolhem o periodo */
+    /* teclas 1 a 4 escolhem o periodo */
     document.addEventListener('keydown', function (e) {
       if (e.key >= '1' && e.key <= String(laiHistData.length)) {
         e.preventDefault();
