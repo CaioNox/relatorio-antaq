@@ -130,25 +130,39 @@
     /* luz que segue o ponteiro — cada variante usa o azul que ja e dela.
        O card do QR fica de fora: a imagem nao ganha nada com isso. */
     .card:not(.card-qr)::before {
-      content: ""; position: absolute; inset: 0; z-index: 0;
-      border-radius: inherit; pointer-events: none;
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      border-radius: inherit;
+      pointer-events: none;
       background: radial-gradient(18rem circle at var(--mx, 50%) var(--my, 0%),
           var(--luz, rgba(0, 112, 192, .12)), transparent 62%);
-      opacity: 0; transition: opacity .28s ease;
+      opacity: 0;
+      transition: opacity .28s ease;
     }
 
-    .card:not(.card-qr):hover::before { opacity: 1; }
+    .card:not(.card-qr):hover::before {
+      opacity: 1;
+    }
 
-    .card-entrada { --luz: rgba(127, 211, 240, .18); }
-    .card-atend { --luz: rgba(0, 112, 192, .13); }
+    .card-entrada {
+      --luz: rgba(127, 211, 240, .18);
+    }
+
+    .card-atend {
+      --luz: rgba(0, 112, 192, .13);
+    }
 
     /* o conteudo fica acima da luz */
-    .card > * { position: relative; z-index: 1; }
+    .card>* {
+      position: relative;
+      z-index: 1;
+    }
 
     /* inclinacao conforme o ponteiro (--rx/--ry vem do script) */
     .card:not(.card-qr):hover {
-      transform: perspective(1100px) translateY(-5px)
-        rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+      transform: perspective(1100px) translateY(-5px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
     }
 
     /* canal de entrada: caixa cheia, em azul marinho — o grupo que pesa */
@@ -315,7 +329,9 @@
       transition: transform .3s cubic-bezier(.34, 1.4, .64, 1);
     }
 
-    .card:not(.card-qr):hover .card-icon { transform: scale(1.1) rotate(-5deg); }
+    .card:not(.card-qr):hover .card-icon {
+      transform: scale(1.1) rotate(-5deg);
+    }
 
     .card-title {
       font-family: 'Montserrat', sans-serif;
@@ -412,10 +428,9 @@
       <div>
         <div class="flex items-center gap-3 mb-1">
           <div class="w-1 h-8 bg-brand-secondary"></div>
-          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Canais de
-            Atendimento</p>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Demais Canais de
+            Atendimento da Ouvidoria da ANTAQ</p>
         </div>
-        <p class="text-gray-500 font-medium ml-4 text-base">Outras formas de acionar a Ouvidoria da ANTAQ</p>
       </div>
       <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
         <i class="fas fa-landmark text-3xl" aria-hidden="true"></i>

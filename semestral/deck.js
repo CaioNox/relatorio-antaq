@@ -27,7 +27,8 @@ window.RELATORIO = {
         'slide-demais-canais.html',
         'slide-25.html',
         'slide-cartas-servicos.html',
-        'conselho.html',
+        'slide-CnsU.html',
+        'slide-17.html',
         'slide-CnsU2.html',
         'slide-17b.html', 'slide-17e.html', 'slide-07.html',
       ],//20
@@ -35,14 +36,14 @@ window.RELATORIO = {
     {
       block: 'Bloco 3 · Seção de Apoio ao Cidadão — SAC', short: 'SAC', tint: 0.7,
       files: ['capa-bloco-3.html', 'slide-sac-apres.html', 'slide-sac-ativ.html',
-        'slide-17d.html', 'slide-14.html', 'slide-canal.html', 'slide-04.html', 'slide-05.html', 'slide-08.html', 'slide-tramit-uorg.html'],
+        'slide-17d.html', 'slide-14.html', 'slide-canal.html', 'slide-04.html', 'slide-05.html', 'slide-08.html'],
     },
     {
       block: 'Bloco 4 · Seção de Transparência e Acesso à Informação — STAI', short: 'STAI', tint: 0.55,
       files: [
         'capa-bloco-4.html', 'slide-4a.html',
         // 1. Transparência passiva
-        'slide-informa-br.html', 'slide-23.html', 'slide-18.html', 'slide-20.html',
+        'slide-informa-br.html', 'slide-18.html', 'slide-20.html',
         // 2. Transparência ativa
         'slide-22.html', 'slide-resp-unidade.html',
         // 3. Dados abertos

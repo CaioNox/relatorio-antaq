@@ -25,7 +25,7 @@
     .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
 
     .body-wrap { flex: 1; min-height: 0; display: grid; grid-template-columns: 1.3fr .92fr; gap: 2rem; padding: .7rem 4rem .3rem; align-items: stretch; }
-    .esq { display: flex; flex-direction: column; gap: 1rem; min-height: 0; }
+    .esq { display: flex; flex-direction: column; justify-content: center; gap: 1.4rem; min-height: 0; }
 
 
     .prosa {
@@ -36,9 +36,9 @@
     .prosa strong { color: #103050; font-weight: 700; }
 
 
-    .passos { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: .8rem; }
+    .passos { display: grid; grid-template-columns: repeat(3, 1fr); gap: .8rem; }
     .passo {
-      display: flex; flex-direction: column; justify-content: center; min-height: 0;
+      display: flex; flex-direction: column; justify-content: flex-start; min-height: 0;
       border: 2px solid #E2E8F0; border-top: 5px solid #0070C0; border-radius: 12px;
       background: #fff; box-shadow: 0 10px 24px -16px rgba(16, 48, 80, .34);
       padding: .9rem 1rem;
@@ -55,23 +55,67 @@
     .passo h3 { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .84rem; color: #103050; margin: 0 0 .3rem; }
     .passo p { margin: 0; font-size: .75rem; line-height: 1.5; color: #64748B; }
 
+    /* ---------------------------------------------------------------
+       Card "Seja um conselheiro": fundo FlowField (kokonutui) — particulas
+       seguindo um campo de ruido, deixando rastros de luz. Recriado em JS
+       puro, preso ao tamanho do card, nas cores da marca.
+       --------------------------------------------------------------- */
     .cta {
-      border-radius: 18px; padding: 1.5rem 1.6rem; color: #fff;
-      background: linear-gradient(150deg, #103050 0%, #0070C0 100%);
-      box-shadow: 0 18px 40px -18px rgba(16,48,80,.7);
-      animation: fadeInUp .5s ease both .22s; text-align: center;
-      display: flex; flex-direction: column; justify-content: center; min-height: 0;
+      position: relative; overflow: hidden; isolation: isolate;
+      border-radius: 18px; color: #fff; background: #071a2e;
+      box-shadow: 0 18px 40px -18px rgba(16,48,80,.7), inset 0 0 0 1px rgba(95,184,221,.18);
+      animation: fadeInUp .5s ease both .22s;
+      display: flex; flex-direction: column; min-height: 0;
+      padding: 1.6rem 1.6rem 1.3rem;
     }
-    .cta i.big { font-size: 3rem; opacity: .9; }
-    .cta h3 { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.35rem; margin: .7rem 0 .4rem; line-height: 1.15; }
-    .cta p { font-size: .8rem; line-height: 1.5; opacity: .92; margin: 0 0 1rem; }
+    .cta-fx { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -2; pointer-events: none; }
+    /* vinheta: foca o centro e apaga as bordas, como no original */
+    .cta::before {
+      content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+      background:
+        radial-gradient(ellipse 70% 60% at 50% 42%, transparent 15%, rgba(7,26,46,.9) 100%),
+        linear-gradient(to bottom, rgba(7,26,46,.85), transparent 22%, transparent 78%, rgba(7,26,46,.95));
+    }
+
+    .cta-topo { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; min-height: 0; }
+
+    /* icone dentro de aneis concentricos */
+    .cta-selo { position: relative; width: 6.4rem; height: 6.4rem; display: flex; align-items: center; justify-content: center; margin-bottom: 1.1rem; }
+    .cta-selo::before, .cta-selo::after {
+      content: ""; position: absolute; border-radius: 50%; border: 1px solid rgba(95,184,221,.35);
+    }
+    .cta-selo::before { inset: 0; animation: anel 3.2s ease-in-out infinite; }
+    .cta-selo::after { inset: -.9rem; border-color: rgba(95,184,221,.16); animation: anel 3.2s ease-in-out infinite .6s; }
+    .cta-selo span {
+      width: 4.4rem; height: 4.4rem; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(0,144,192,.16); border: 1px solid rgba(95,184,221,.45);
+      box-shadow: 0 0 34px -4px rgba(0,144,192,.55);
+    }
+    .cta-selo i { font-size: 2rem; color: #ffffff; }
+    @keyframes anel { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.06); opacity: .55; } }
+
+    .cta h3 { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.6rem; margin: 0 0 .55rem; line-height: 1.1; letter-spacing: -.01em; }
+    .cta h3 em { font-style: normal; color: #5fb8dd; }
+    .cta p { font-size: .9rem; line-height: 1.55; color: rgba(255,255,255,.82); margin: 0 auto 1.3rem; max-width: 22rem; }
+
     .cta .link {
-      display: inline-flex; align-items: center; gap: .5rem;
-      background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.35);
-      border-radius: 999px; padding: .45rem 1.1rem; font-size: .72rem; font-weight: 700;
-      font-family: 'Montserrat', sans-serif; word-break: break-all; text-decoration: none; color: #fff;
+      display: flex; align-items: center; justify-content: center; gap: .55rem; width: 100%;
+      background: #0090C0; border: 1px solid rgba(255,255,255,.18);
+      border-radius: 12px; padding: .7rem 1rem; font-size: .8rem; font-weight: 800;
+      font-family: 'Montserrat', sans-serif; text-decoration: none; color: #fff;
+      box-shadow: 0 12px 26px -12px rgba(0,144,192,.9);
+      transition: background-color .2s ease, transform .2s ease;
     }
-    .cta .nota { font-size: .66rem; opacity: .75; margin-top: .9rem; display: block; }
+    .cta .link:hover { background: #0070C0; transform: translateY(-2px); }
+    .cta .link:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+
+    .cta .nota {
+      display: flex; gap: .55rem; align-items: flex-start; text-align: left;
+      font-size: .66rem; line-height: 1.45; color: rgba(255,255,255,.62);
+      margin-top: 1.1rem; padding-top: .9rem; border-top: 1px solid rgba(255,255,255,.12);
+    }
+    .cta .nota i { color: #5fb8dd; font-size: .8rem; margin-top: .1rem; }
 
     .bg-pattern { position: absolute; bottom: -60px; right: -50px; width: 400px; height: 400px; opacity: .03; z-index: 0; color: #103050; }
     @keyframes fadeInUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
@@ -135,15 +179,18 @@
       </div>
 
       <div class="cta">
-        <i class="fas fa-hand-holding-heart big"></i>
-        <h3>Seja um conselheiro!</h3>
-        <p>Sua participação fortalece a gestão pública e transforma os serviços prestados à sociedade.</p>
-        <a class="link" href="https://conselhodeusuarios.cgu.gov.br/auth/enquetes/voluntario" target="_blank"
-          rel="noopener noreferrer">
-          <i class="fas fa-arrow-up-right-from-square"></i>conselhodeusuarios.cgu.gov.br
-        </a>
-        <span class="nota">A participação do usuário no conselho é considerada serviço relevante e não remunerado
-          (Lei nº 13.460/2017, art. 21).</span>
+        <canvas class="cta-fx" id="ctaFx" aria-hidden="true"></canvas>
+        <div class="cta-topo">
+          <div class="cta-selo"><span><i class="fas fa-hand-holding-heart" aria-hidden="true"></i></span></div>
+          <h3>Seja um <em>conselheiro!</em></h3>
+          <p>Sua participação fortalece a gestão pública e transforma os serviços prestados à sociedade.</p>
+          <a class="link" href="https://conselhodeusuarios.cgu.gov.br/auth/enquetes/voluntario" target="_blank"
+            rel="noopener noreferrer">
+            <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i>conselhodeusuarios.cgu.gov.br
+          </a>
+        </div>
+        <span class="nota"><i class="fas fa-scale-balanced" aria-hidden="true"></i><span>A participação do usuário no
+            conselho é considerada serviço relevante e não remunerado (Lei nº 13.460/2017, art. 21).</span></span>
       </div>
     </div>
 
@@ -154,6 +201,81 @@
     <div class="bg-pattern"><i class="fas fa-user-plus text-9xl"></i></div>
   </div>
 
+  <script>
+    /* FlowField (kokonutui, MIT) recriado sem React: particulas andam por um
+       campo de ruido trigonometrico; cada quadro apaga um pouco o anterior,
+       o que deixa os rastros. Tamanho e quantidade seguem o card. */
+    (function () {
+      const canvas = document.getElementById('ctaFx');
+      const card = canvas && canvas.parentElement;
+      const ctx = canvas && canvas.getContext('2d');
+      if (!ctx) return;
+
+      const BG = '7, 26, 46';
+      const HUE0 = 190, HUE_FAIXA = 22, SAT = 85, LUZ = 62, RASTRO = 0.07;
+      const parado = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const dpr = window.devicePixelRatio || 1;
+      let w = 0, h = 0, t = 0, id = 0, parts = [];
+
+      function angulo(x, y, t) {
+        const s = 0.0025;
+        return Math.sin(x * s + t * 0.0007) * Math.PI +
+          Math.cos(y * s + t * 0.0005) * Math.PI +
+          Math.sin((x + y) * s * 0.6 + t * 0.0009) * Math.PI * 0.6 +
+          Math.cos((x - y) * s * 0.4 + t * 0.0006) * Math.PI * 0.4;
+      }
+
+      function nova() {
+        const max = 200 + Math.floor(Math.random() * 300);
+        return { x: Math.random() * w, y: Math.random() * h, v: 0.9 + Math.random() * 1.4,
+          hue: HUE0 + Math.random() * HUE_FAIXA, vida: Math.floor(Math.random() * max), max: max };
+      }
+
+      function medir() {
+        w = card.clientWidth; h = card.clientHeight;
+        if (!w || !h) return;
+        canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        ctx.fillStyle = 'rgb(' + BG + ')'; ctx.fillRect(0, 0, w, h);
+        const n = Math.min(900, Math.round(w * h / 900));
+        parts = Array.from({ length: n }, nova);
+      }
+
+      function quadro() {
+        t++;
+        ctx.fillStyle = 'rgba(' + BG + ', ' + RASTRO + ')'; ctx.fillRect(0, 0, w, h);
+        for (const p of parts) {
+          const a = angulo(p.x, p.y, t);
+          p.x += Math.cos(a) * p.v; p.y += Math.sin(a) * p.v; p.vida++;
+          if (p.vida > p.max) {
+            p.x = Math.random() * w; p.y = Math.random() * h; p.vida = 0;
+            p.hue = HUE0 + Math.random() * HUE_FAIXA; continue;
+          }
+          if (p.x < 0) p.x += w; else if (p.x > w) p.x -= w;
+          if (p.y < 0) p.y += h; else if (p.y > h) p.y -= h;
+          const pr = p.vida / p.max;
+          const alfa = Math.min(pr * 8, 1) * Math.min((1 - pr) * 6, 1) * 0.85;
+          const hue = (p.hue + (a / (Math.PI * 2)) * 14 + 360) % 360;
+          ctx.beginPath(); ctx.arc(p.x, p.y, 1.2, 0, Math.PI * 2);
+          ctx.fillStyle = 'hsla(' + hue + ', ' + SAT + '%, ' + LUZ + '%, ' + alfa + ')';
+          ctx.fill();
+        }
+      }
+
+      function laco() { quadro(); id = requestAnimationFrame(laco); }
+
+      medir();
+      if (parado) { for (let i = 0; i < 160; i++) quadro(); }   /* sem movimento: um quadro ja formado */
+      else laco();
+
+      if (window.ResizeObserver) new ResizeObserver(function () { medir(); if (parado) for (let i = 0; i < 160; i++) quadro(); }).observe(card);
+      /* aba escondida: pausa */
+      document.addEventListener('visibilitychange', function () {
+        if (parado) return;
+        if (document.hidden) cancelAnimationFrame(id); else { cancelAnimationFrame(id); laco(); }
+      });
+    })();
+  </script>
   <script>
     document.addEventListener("keydown", function (e) {
       if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) {

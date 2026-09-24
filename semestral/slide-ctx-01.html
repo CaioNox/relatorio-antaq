@@ -10,7 +10,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
   <style>
-    html { font-size: 27px; }
     body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
     .slide-container { width: 100vw; height: 100vh; position: relative; display: flex; flex-direction: column; background-color: #ffffff; overflow: hidden; font-family: 'Open Sans', sans-serif; }
     .font-montserrat { font-family: 'Montserrat', sans-serif; }
@@ -20,84 +19,13 @@
     .top-accent { height: 8px; background-color: #103050; width: 100%; }
     .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
 
-
-    .doc {
-      flex: 1;
-      min-height: 0;
-      position: relative;
-      z-index: 10;
-      padding: .4rem 5rem 1rem 5rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      animation: fadeInUp .5s cubic-bezier(.2, .7, .3, 1) both;
-    }
-    .doc-lead {
-      font-size: 1.05rem;
-      line-height: 1.5;
-      color: #103050;
-      font-weight: 600;
-      border-left: 4px solid #0090C0;
-      padding-left: 1.2rem;
-      margin-bottom: 1.05rem;
-    }
-    .doc-cols {
-      columns: 2;
-      column-gap: 2.6rem;
-    }
-    .doc-text {
-      color: #334155;
-      font-size: .93rem;
-      line-height: 1.62;
-      margin: 0 0 .95rem;
-      break-inside: avoid;
-      text-align: justify;
-      text-indent: 1.8em;
-    }
-
-    .doc-subtitle {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 800;
-      font-size: .78rem;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: #0070C0;
-      margin: 0 0 .65rem;
-      display: flex;
-      align-items: center;
-      gap: .5rem;
-      break-inside: avoid;
-      break-after: avoid;
-      -webkit-column-break-after: avoid;
-    }
-    .act-list {
-      list-style: none;
-      margin: 0 0 .3rem;
-      padding: 0;
-      break-inside: avoid;
-    }
-    .act-list li {
-      position: relative;
-      padding-left: 1.3rem;
-      margin-bottom: .62rem;
-      font-size: .92rem;
-      line-height: 1.54;
-      color: #334155;
-      text-align: justify;
-      break-inside: avoid;
-    }
-    .act-list li::before { content: "\f105"; font-family: "Font Awesome 6 Free"; font-weight: 900; position: absolute; left: 0; top: .05rem; color: #0090C0; }
-    .act-list + .doc-text {
-      break-before: column;
-      -webkit-column-break-before: column;
-    }
-
     .bg-pattern { position: absolute; bottom: -60px; right: -50px; width: 400px; height: 400px; opacity: 0.03; z-index: 0; color: #103050; }
     @keyframes fadeInUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
   </style>
   <link rel="stylesheet" href="a11y.css">
   <link rel="stylesheet" href="base.css" />
+  <link rel="stylesheet" href="apresentacao.css" />
 </head>
 <body>
   <div class="slide-container">
@@ -128,6 +56,14 @@
       </p>
 
       <div class="doc-cols">
+        <p class="doc-subtitle"><i class="fas fa-circle-info" aria-hidden="true"></i> Origem e papel institucional das Ouvidorias públicas</p>
+        <p class="doc-text txt-bloco">
+          A origem histórica do instituto remete à Suécia de 1809 com a criação do Ombudsman, instituído para mediar e encaminhar queixas dos cidadãos. No cenário nacional, o conceito evoluiu desde os "ouvidos do rei" na época colonial até a sua completa ressignificação democrática após a Constituição Federal de 1988.
+        </p>
+        <p class="doc-text txt-bloco">
+          Hoje, as Ouvidorias consolidaram-se como parte da administração pública e são amparadas por marcos como a Lei nº 13.460/2017, que reconheceu a ouvidoria pública como instituição essencial à adequada prestação dos serviços públicos.
+        </p>
+
         <p class="doc-subtitle"><i class="fas fa-list-check" aria-hidden="true"></i> Atuação das Ouvidorias públicas</p>
         <ul class="act-list">
           <li>Promover o fortalecimento da cidadania e a participação social, atuando como um canal permanente de interlocução da administração pública.</li>
@@ -135,13 +71,6 @@
           <li>Conduzir o tratamento das demandas com estrita independência funcional e caráter mediador, funcionando como um elo equilibrado entre as necessidades da sociedade e a atuação do Estado.</li>
           <li>Promover a transparência institucional e resguardar a proteção ao cidadão.</li>
         </ul>
-
-        <p class="doc-text txt-bloco">
-          A origem histórica do instituto remete à Suécia de 1809 com a criação do Ombudsman, instituído para mediar e encaminhar queixas dos cidadãos. No cenário nacional, o conceito evoluiu desde os "ouvidos do rei" na época colonial até a sua completa ressignificação democrática após a Constituição Federal de 1988.
-        </p>
-        <p class="doc-text txt-bloco">
-          Hoje, as Ouvidorias consolidaram-se como parte da administração pública e são amparadas por marcos como a Lei nº 13.460/2017, que reconheceu a ouvidoria pública como instituição essencial à adequada prestação dos serviços públicos.
-        </p>
       </div>
     </div>
 

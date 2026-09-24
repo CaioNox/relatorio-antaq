@@ -1,0 +1,135 @@
+/* Slides de apresentacao de cada capitulo (Ouvidorias, Ouvidoria da ANTAQ,
+   SAC, STAI): mesma base de fonte e mesmos blocos, para ficarem identicos.
+   Carregado depois do <style> de cada slide, entao prevalece. */
+
+html {
+  font-size: 25px;
+}
+
+.doc {
+  flex: 1;
+  min-height: 0;
+  position: relative;
+  z-index: 10;
+  padding: .4rem 5rem 1rem 5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  animation: fadeInUp .5s cubic-bezier(.2, .7, .3, 1) both;
+}
+
+.doc-lead {
+  font-size: 1.05rem;
+  line-height: 1.5;
+  color: #103050;
+  font-weight: 600;
+  border-left: 4px solid #0090C0;
+  padding-left: 1.2rem;
+  margin-bottom: 1.3rem;
+}
+
+.doc-lead b {
+  color: #0070C0;
+  font-weight: 700;
+}
+
+.doc-cols {
+  columns: 2;
+  column-gap: 2.6rem;
+}
+
+.doc-subtitle {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: .66rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #0070C0;
+  margin: 0 0 .75rem;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  break-inside: avoid;
+  break-after: avoid;
+  -webkit-column-break-after: avoid;
+}
+
+/* o segundo subtitulo abre a coluna 2, seja texto ou lista primeiro */
+.doc-cols>.doc-subtitle~.doc-subtitle {
+  break-before: column;
+  -webkit-column-break-before: column;
+}
+
+.doc-text {
+  color: #334155;
+  font-size: .93rem;
+  line-height: 1.62;
+  margin: 0 0 .95rem;
+  break-inside: avoid;
+  text-align: justify;
+  text-indent: 1.8em;
+}
+
+.doc-text b {
+  color: #103050;
+  font-weight: 700;
+}
+
+.act-list {
+  list-style: none;
+  margin: 0 0 .3rem;
+  padding: 0;
+  break-inside: avoid;
+}
+
+.act-list li {
+  position: relative;
+  padding-left: 1.3rem;
+  margin-bottom: .62rem;
+  font-size: .93rem;
+  line-height: 1.55;
+  color: #334155;
+  text-align: justify;
+  break-inside: avoid;
+}
+
+.act-list li::before {
+  content: "\f105";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  position: absolute;
+  left: 0;
+  top: .05rem;
+  color: #0090C0;
+}
+
+.act-list li b,
+.act-list li strong {
+  color: #103050;
+  font-weight: 700;
+}
+
+.act-list li a {
+  color: #0070C0;
+  text-decoration: underline;
+}
+
+/* cabecalho: o titulo longo quebra antes de encostar no bloco do capitulo */
+.slide-container>.flex.items-start.justify-between {
+  gap: 2rem;
+}
+
+/* colunas com texto 25% maior (Ouvidoria da ANTAQ e SAC) */
+.doc-cols-maior .doc-text,
+.doc-cols-maior .act-list li {
+  font-size: 1.14rem;
+  line-height: 1.5;
+}
+
+.doc-cols-maior .doc-text {
+  margin-bottom: .7rem;
+}
+
+.doc-cols-maior .doc-subtitle {
+  font-size: .83rem;
+}

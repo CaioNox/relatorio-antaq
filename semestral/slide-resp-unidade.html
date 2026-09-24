@@ -13,10 +13,12 @@
     href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&amp;family=Open+Sans:ital,wght@0,400;0,600;1,400&amp;display=swap"
     rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
 
     html { font-size: clamp(14px, min(1.4583vw, 2.5926vh), 28px); }
     body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
+
 
     .slide-container {
       width: 100vw; height: 100vh; position: relative;
@@ -32,148 +34,123 @@
     .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
 
 
-    /* ---------- numeros do semestre ---------- */
-
-    .kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: .8rem; flex-shrink: 0; }
-
-    .kpi {
-      display: grid; grid-template-columns: 3.9rem 1fr;
-      align-items: center; gap: .55rem;
-      background: #F8FAFC; border: 1px solid #E2E8F0; border-left: 5px solid #0090C0;
-      border-radius: 12px; padding: .5rem .9rem; min-width: 0;
-    }
-    .kpi-val {
-      font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 2rem;
-      color: #103050; line-height: 1; font-variant-numeric: tabular-nums;
-    }
-    .kpi-rot {
-      font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: .66rem;
-      color: #475569; line-height: 1.2; min-width: 0;
-    }
-    .kpi-rot small { display: block; font-weight: 600; font-size: .8em; color: #94A3B8; }
-
-
-    /* ---------- paineis ---------- */
-
-    .grid2 { flex: 1; min-height: 0; display: grid; grid-template-columns: 1.28fr .72fr; gap: 1rem; }
-
-    .painel {
-      display: flex; flex-direction: column; min-height: 0; min-width: 0;
-      background: #ffffff; border: 2px solid #E2E8F0; border-radius: 16px;
-      box-shadow: 0 8px 20px -10px rgba(16, 48, 80, .25);
-      padding: .7rem 1rem .8rem;
+    .chips {
+      display: grid; grid-template-columns: repeat(6, 1fr);
+      gap: .4rem .55rem; margin-top: .5rem; align-items: stretch;
     }
 
-    .cap {
-      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .78rem;
-      display: flex; align-items: center; gap: .45rem; color: #103050;
-      padding-bottom: .4rem; margin: 0 0 .5rem; border-bottom: 1px solid #EEF2F7;
-      flex-shrink: 0; line-height: 1.15; min-width: 0;
+    .chip span { flex: 1; min-width: 0; }
+    .chip b { margin-left: auto; flex-shrink: 0; }
+
+    .chip {
+      display: flex; align-items: center; gap: .4rem; width: 100%; text-align: left;
+      border: 2px solid var(--c); color: var(--c); background: transparent;
+      border-radius: 10px; padding: .34rem .65rem;
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .6rem;
+      cursor: pointer; opacity: .5; white-space: normal; line-height: 1.15;
+      transition: background-color 200ms ease, color 200ms ease, opacity 200ms ease,
+        box-shadow 200ms ease, transform 200ms ease;
     }
-    .cap i { color: #0090C0; font-size: .82rem; }
-    .cap .sec { font-weight: 700; color: #94A3B8; font-size: .86em; margin-left: auto; white-space: nowrap; }
-
-    .lista { flex: 1; min-height: 0; display: flex; flex-direction: column; justify-content: flex-start; }
-
-
-    /* ---------- barras das areas ---------- */
-
-    .area {
-      display: grid; grid-template-columns: 9.6rem 1fr 4.4rem;
-      align-items: center; gap: .75rem; width: 100%; text-align: left;
-      border: 0; background: transparent; font: inherit; cursor: pointer;
-      padding: .3rem .5rem; border-radius: 10px;
-      flex: 1 1 auto; max-height: 3.2rem;
-      transition: background-color 180ms ease;
-      animation: entra .4s cubic-bezier(.2,.7,.3,1) both;
+    .chip b {
+      font-weight: 900; font-size: .52rem;
+      background: color-mix(in srgb, var(--c) 14%, #ffffff);
+      color: var(--c); border-radius: 999px; padding: .12rem .36rem; line-height: 1;
+      transition: background-color 200ms ease, color 200ms ease;
     }
-    .area:hover { background: #F1F7FB; }
-    .area[aria-pressed="true"] { background: #EAF4FA; }
+    .chip:hover { opacity: .85; transform: translateY(-2px); }
+    .chip.active { background: var(--c); color: #ffffff; opacity: 1; box-shadow: 0 8px 18px -8px color-mix(in srgb, var(--c) 70%, transparent); }
+    .chip.active b { background: rgba(255, 255, 255, .25); color: #ffffff; }
 
-    @keyframes entra { from { opacity: 0; transform: translateX(-12px); } to { opacity: 1; transform: none; } }
 
-    .area > span:first-child { min-width: 0; }
+    .chips .chip-reset { width: 100%; }
 
-    .area .sg {
-      font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: .95rem;
-      color: #103050; line-height: 1.05; display: block;
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    .chip-reset {
+      display: inline-flex; align-items: center; justify-content: center; gap: .38rem;
+      border: 2px dashed #cbd5e1; color: #64748b; background: transparent;
+      border-radius: 10px; padding: .34rem .65rem;
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .6rem;
+      cursor: pointer; white-space: normal; line-height: 1.15; text-align: center;
+      transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease, transform 200ms ease;
     }
-    .area .nm {
-      font-size: .46rem; color: #94A3B8; font-weight: 600; line-height: 1.2;
-      display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    .chip-reset:hover { color: #103050; border-color: #103050; background: #f1f5f9; transform: translateY(-2px); }
+
+
+
+    .hint-line { margin-top: .45rem; font-size: .54rem; color: #94a3b8; font-weight: 600; display: flex; align-items: center; gap: .4rem; }
+    .hint-line i { color: #0090C0; font-size: .6rem; }
+
+    .empty-state {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: .6rem; color: #94a3b8; font-family: 'Montserrat', sans-serif; font-weight: 700;
+      font-size: .8rem; padding: 2.5rem 0;
     }
-    .area[aria-pressed="true"] .sg { color: #0070C0; }
+    .empty-state i { font-size: 1.6rem; color: #cbd5e1; }
 
-    .trilho { height: 1.1rem; background: #EEF2F7; border-radius: 999px; overflow: hidden; min-width: 0; }
-    .preench {
-      height: 100%; width: 0; border-radius: 999px; background: #0090C0;
-      transition: width 620ms cubic-bezier(.2,.7,.3,1), background-color 180ms ease;
+    .chart-card {
+      background-color: #ffffff; border: 2px solid #E2E8F0; border-radius: 16px;
+      box-shadow: 0 8px 20px -8px rgba(16, 48, 80, 0.18);
+      padding: .8rem 1.1rem .9rem; display: flex; flex-direction: column;
+      min-height: 0; min-width: 0;
+
+      overflow: hidden;
     }
-    .area:hover .preench,
-    .area[aria-pressed="true"] .preench { background: #0070C0; }
 
-    .num { display: flex; align-items: baseline; justify-content: flex-end; gap: .3rem; }
-    .num b {
-      font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.15rem;
-      color: #103050; line-height: 1;
+    .chart-cap {
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .72rem;
+      display: flex; align-items: center; gap: .45rem;
+      padding-bottom: .4rem; margin-bottom: .4rem;
+      border-bottom: 1px solid #eef2f7; flex-shrink: 0; transition: color 250ms ease;
     }
-    .num span { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: .5rem; color: #94A3B8; }
 
 
-    /* ---------- lista de unidades (painel da direita) ---------- */
+    .charts-grid {
 
-    .un {
-      display: grid; grid-template-columns: 1fr 2.6rem;
-      align-items: center; align-content: center; gap: .22rem .5rem; padding: .26rem .1rem;
-      flex: 1 1 auto; max-height: 3.4rem;
-      border-bottom: 1px dashed #EEF2F7;
-      animation: entra .35s cubic-bezier(.2,.7,.3,1) both;
+      flex: 1; min-height: 0; height: 100%;
+      display: grid; grid-template-columns: 1.15fr 0.85fr; grid-template-rows: minmax(0, 1fr); gap: .8rem;
     }
-    .un:last-child { border-bottom: 0; }
-
-    .un-rot { min-width: 0; display: flex; align-items: baseline; gap: .35rem; }
-    .un-pos {
-      font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: .6rem;
-      color: #CBD5E1; flex-shrink: 0; width: 1.1rem; text-align: right;
-    }
-    .un-txt { min-width: 0; }
-    .un-sg {
-      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .74rem;
-      color: #103050; line-height: 1.1; display: block;
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    }
-    .un-nm {
-      font-size: .44rem; color: #94A3B8; font-weight: 600; line-height: 1.2;
-      display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    }
-    .un-val {
-      font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: .9rem;
-      color: #0070C0; line-height: 1; text-align: right;
-    }
-    .un-mini { grid-column: 1 / -1; height: .26rem; background: #EEF2F7; border-radius: 999px; overflow: hidden; }
-    .un-mini i { display: block; height: 100%; width: 0; background: #5fb8dd; border-radius: 999px; transition: width 560ms cubic-bezier(.2,.7,.3,1); }
+    .chart-canvas-wrap { flex: 1; min-height: 0; position: relative; }
 
 
-    .voltar {
-      display: inline-flex; align-items: center; gap: .3rem; margin-left: auto;
-      border: 1px solid #CBD5E1; background: #ffffff; color: #475569; cursor: pointer;
-      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .5rem;
-      padding: .22rem .55rem; border-radius: 999px; line-height: 1; white-space: nowrap;
-      transition: color 180ms ease, border-color 180ms ease, background-color 180ms ease;
+    .rows { flex: 1; min-height: 0; overflow: hidden; display: flex; flex-direction: column; justify-content: center; gap: .22rem; }
+    .bar-row { display: flex; align-items: center; gap: .5rem; animation: fadeInRow .45s cubic-bezier(.2, .7, .3, 1) both; }
+
+    @keyframes fadeInRow {
+      from { opacity: 0; transform: translateX(-12px); }
+      to { opacity: 1; transform: none; }
     }
-    .voltar:hover { color: #103050; border-color: #103050; background: #F1F5F9; }
 
-
-    /* ---------- instrucao ---------- */
-
-    .dica {
-      display: flex; align-items: center; gap: .4rem; flex-shrink: 0;
-      margin-top: .5rem; padding-top: .4rem; border-top: 1px solid #EEF2F7;
-      font-size: .52rem; color: #94A3B8; font-weight: 600;
+    .bar-label {
+      flex: 0 0 30%; min-width: 0;
+      font-family: 'Montserrat', sans-serif; font-weight: 800; color: #103050;
+      font-size: .55rem; line-height: 1.12; text-align: right;
     }
-    .dica i { color: #0090C0; font-size: .6rem; }
-    .dica b { color: #475569; font-weight: 700; }
+    .bar-label .pai { font-family: 'Open Sans', sans-serif; font-weight: 600; font-size: .44rem; color: #94a3b8; margin-left: .25rem; }
+
+    .bar-track { flex: 1; min-width: 0; height: .5rem; background: #eef2f7; border-radius: 999px; overflow: hidden; }
+    .bar-fill { height: 100%; width: 0; border-radius: 999px; transition: width 600ms cubic-bezier(.2, .7, .3, 1); }
+
+    .bar-val { flex: 0 0 3.6rem; font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: .55rem; text-align: left; line-height: 1; }
+    .bar-val .pc { font-weight: 700; font-size: .44rem; color: #94a3b8; margin-left: .22rem; }
+
+
+    .rows[data-density="3"] { justify-content: flex-start; }
+    .rows[data-density="2"] { gap: .17rem; }
+    .rows[data-density="2"] .bar-label { font-size: .5rem; }
+    .rows[data-density="2"] .bar-track { height: .44rem; }
+    .rows[data-density="2"] .bar-val { font-size: .5rem; }
+
+    .rows[data-density="3"] { gap: .12rem; }
+    .rows[data-density="3"] .bar-label { font-size: .44rem; }
+    .rows[data-density="3"] .bar-track { height: .36rem; }
+    .rows[data-density="3"] .bar-val { font-size: .45rem; }
+    .rows[data-density="3"] .bar-val .pc { font-size: .38rem; }
+
+
+    .zeradas {
+      margin-top: .4rem; font-size: .42rem; color: #94a3b8; line-height: 1.35;
+      border-left: 3px solid #e2e8f0; padding-left: .5rem; flex-shrink: 0;
+    }
+    .zeradas b { color: #64748b; font-weight: 700; font-family: 'Montserrat', sans-serif; }
 
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -188,14 +165,14 @@
     <div class="top-accent"></div>
     <div class="top-accent-secondary"></div>
 
-
-    <div class="flex items-start justify-between px-16 pt-8 pb-3 z-10">
+    <div class="flex items-start justify-between px-16 pt-8 pb-2 z-10">
       <div style="min-width:0;">
         <div class="flex items-center gap-3 mb-1">
           <div class="w-1 h-8 bg-brand-secondary"></div>
-          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Respostas por Unidade</p>
+          <p class="font-montserrat font-bold text-brand-primary uppercase tracking-tight whitespace-nowrap"
+            style="font-size:1.5rem;">Respostas por Unidade</p>
         </div>
-        <p class="text-gray-500 font-medium ml-4 text-base" id="subCab">1º semestre de 2026</p>
+        <p class="text-gray-500 font-medium ml-4" style="font-size:.68rem;" id="subCab">1º semestre de 2026</p>
         <h2 class="assunto"><i class="fas fa-bullhorn" aria-hidden="true"></i> Transparência ativa</h2>
       </div>
 
@@ -209,49 +186,24 @@
     </div>
 
 
-    <div class="px-16 pb-3 z-10">
-      <div class="kpis">
-        <div class="kpi">
-          <span class="kpi-val" id="kpiResp">—</span>
-          <span class="kpi-rot">respostas enviadas<small>pedidos de informação respondidos no semestre</small></span>
-        </div>
-        <div class="kpi">
-          <span class="kpi-val" id="kpiUn">—</span>
-          <span class="kpi-rot">unidades responderam<small>setores que participaram ao menos uma vez</small></span>
-        </div>
-        <div class="kpi">
-          <span class="kpi-val" id="kpiArea">—</span>
-          <span class="kpi-rot">áreas envolvidas<small>superintendências e órgãos equivalentes</small></span>
-        </div>
-      </div>
+    <div class="px-16 pb-1 z-10">
+      <div class="chips" id="chips"></div>
+      <p class="hint-line"><i class="far fa-hand-pointer"></i> Clique numa área para exibir ou ocultar suas unidades · o percentual de cada unidade é sobre o total de respostas do semestre</p>
     </div>
 
+    <div class="flex-1 px-16 pb-2 z-10" style="min-height:0;">
+      <div class="charts-grid">
 
-    <div class="flex-1 px-16 pb-3 z-10" style="min-height:0;">
-      <div class="grid2">
-
-        <div class="painel">
-          <p class="cap">
-            <i class="fas fa-building" aria-hidden="true"></i>
-            Quanto cada área respondeu
-            <span class="sec" id="secAreas"></span>
-          </p>
-          <div class="lista" id="listaAreas"></div>
-          <p class="dica">
-            <i class="far fa-hand-pointer" aria-hidden="true"></i>
-            <span><b>Clique numa área</b> para ver, ao lado, as unidades que responderam dentro dela.</span>
-          </p>
+        <div class="chart-card">
+          <p class="chart-cap" id="chartCap"></p>
+          <div class="rows" id="rows" data-density="1"></div>
+          <p class="zeradas" id="zeradas"></p>
         </div>
 
-        <div class="painel">
-          <p class="cap" id="capUn">
-            <i class="fas fa-trophy" aria-hidden="true"></i>
-            <span id="capUnTxt">Unidades que mais responderam</span>
-          </p>
-          <div class="lista" id="listaUn"></div>
-          <p class="dica" id="dicaUn"></p>
+        <div class="chart-card">
+          <p class="chart-cap" id="pieCap"><i class="fas fa-chart-pie"></i> Distribuição por área</p>
+          <div class="chart-canvas-wrap" id="pieWrap"></div>
         </div>
-
       </div>
     </div>
 
@@ -353,157 +305,269 @@
     ];
 
 
+    /* cor de cada area nos filtros, nas barras e na rosca */
+    const CORES = {
+      SFC: '#F2A900', SGE: '#10B981', SOG: '#0090C0', SRG: '#6366F1', SAF: '#0EA5E9',
+      GAB: '#94A3B8', SEPH: '#22C55E', PFA: '#0070C0', OUV: '#103050', SESGI: '#5fb8dd'
+    };
+
     /* ---------- achatamento: cada area guarda suas unidades respondentes ---------- */
 
     const UNIDADES = [];
+    const SEM_RESPOSTA = [];
 
     AREAS.forEach(function (a) {
+      a.cor = CORES[a.id] || '#64748b';
       a.unidades = [];
-      (function anda(no, nivel) {
-        no.area = a; no.nivel = nivel;
+      (function anda(no) {
+        no.area = a;
         if (no.n != null) { a.unidades.push(no); UNIDADES.push(no); }
-        (no.f || []).forEach(function (fi) { anda(fi, nivel + 1); });
-      })(a.raiz, 0);
+        else SEM_RESPOSTA.push(no.sg);
+        (no.f || []).forEach(anda);
+      })(a.raiz);
       a.total = a.unidades.reduce(function (s, u) { return s + u.n; }, 0);
     });
 
     const TOTAL = UNIDADES.reduce(function (s, u) { return s + u.n; }, 0);
     const AREAS_ORD = AREAS.slice().sort(function (x, y) { return y.total - x.total || x.id.localeCompare(y.id); });
-    const TOPO = UNIDADES.slice().sort(function (x, y) { return y.n - x.n || x.sg.localeCompare(y.sg); }).slice(0, 8);
 
-    const REDUZIDO = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    /* acima disto as unidades menores viram uma linha "Outras N unidades" */
+    const MAX_LINHAS = 25;
 
-    let selecionada = null;
+    const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const selected = new Set(AREAS.map(a => a.id));
+    let pieChart = null;
+    let agrupadas = [];
 
-
-    /* ---------- utilidades ---------- */
-
-    function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;'); }
-    function pct(v) { return (v / TOTAL * 100).toFixed(1).replace('.', ',') + '%'; }
-    function plural(q, s, p) { return q + ' ' + (q === 1 ? s : p); }
-
-    /* a barra so anima depois de entrar no fluxo */
-    function encher(el, largura) {
-      if (REDUZIDO) { el.style.width = largura; return; }
-      requestAnimationFrame(function () { requestAnimationFrame(function () { el.style.width = largura; }); });
-    }
-
-
-    /* ---------- painel da esquerda: uma barra por area ---------- */
-
-    const listaAreas = document.getElementById('listaAreas');
-    const maiorArea = AREAS_ORD[0].total;
-
-    AREAS_ORD.forEach(function (a, i) {
-      var b = document.createElement('button');
-      b.type = 'button';
-      b.className = 'area';
-      b.dataset.area = a.id;
-      b.setAttribute('aria-pressed', 'false');
-      b.title = a.nome + ' — ' + a.total + ' respostas em ' + plural(a.unidades.length, 'unidade', 'unidades');
-      b.style.animationDelay = (REDUZIDO ? 0 : i * 45) + 'ms';
-      b.innerHTML =
-        '<span><span class="sg">' + a.id + '</span><span class="nm">' + esc(a.nome) + '</span></span>' +
-        '<span class="trilho"><span class="preench"></span></span>' +
-        '<span class="num"><b>' + a.total + '</b><span>' + pct(a.total) + '</span></span>';
-      b.addEventListener('click', function () { selecionar(a.id === selecionada ? null : a.id); });
-      listaAreas.appendChild(b);
-      encher(b.querySelector('.preench'), (a.total / maiorArea * 100) + '%');
-    });
-
-    document.getElementById('secAreas').textContent = AREAS.length + ' áreas · ' + TOTAL + ' respostas';
-
-
-    /* ---------- painel da direita: top geral ou unidades da area ---------- */
-
-    const listaUn = document.getElementById('listaUn');
-    const capUn = document.getElementById('capUn');
-    const capUnTxt = document.getElementById('capUnTxt');
-    const dicaUn = document.getElementById('dicaUn');
-
-    function linhaUnidade(u, posicao, maior, ordem, mostrarArea) {
-      var d = document.createElement('div');
-      d.className = 'un';
-      d.style.animationDelay = (REDUZIDO ? 0 : ordem * 40) + 'ms';
-      d.title = u.nome + (mostrarArea ? ' · área ' + u.area.id : '');
-      d.innerHTML =
-        '<span class="un-rot">' +
-          (posicao ? '<span class="un-pos">' + posicao + 'º</span>' : '') +
-          '<span class="un-txt">' +
-            '<span class="un-sg">' + esc(u.sg) + (mostrarArea ? ' <span style="color:#CBD5E1;font-weight:700;">· ' + u.area.id + '</span>' : '') + '</span>' +
-            '<span class="un-nm">' + esc(u.nome) + '</span>' +
-          '</span>' +
-        '</span>' +
-        '<span class="un-val">' + u.n + '</span>' +
-        '<span class="un-mini"><i></i></span>';
-      listaUn.appendChild(d);
-      encher(d.querySelector('.un-mini i'), (u.n / maior * 100) + '%');
-    }
-
-    function renderUnidades() {
-      listaUn.innerHTML = '';
-      var a = selecionada && AREAS.find(function (x) { return x.id === selecionada; });
-
-      if (!a) {
-        capUn.querySelector('i').className = 'fas fa-trophy';
-        capUnTxt.textContent = 'Unidades que mais responderam';
-        var maior = TOPO[0].n;
-        TOPO.forEach(function (u, i) { linhaUnidade(u, i + 1, maior, i, true); });
-        dicaUn.innerHTML = '<i class="fas fa-circle-info" aria-hidden="true"></i>' +
-          '<span>As <b>8 unidades</b> com mais respostas, entre as ' + UNIDADES.length + ' que responderam.</span>';
-        return;
-      }
-
-      capUn.querySelector('i').className = 'fas fa-sitemap';
-      capUnTxt.textContent = 'Dentro de ' + a.id;
-      var uns = a.unidades.slice().sort(function (x, y) { return y.n - x.n || x.sg.localeCompare(y.sg); });
-      var maiorU = uns[0].n;
-      uns.forEach(function (u, i) { linhaUnidade(u, 0, maiorU, i, false); });
-
-      dicaUn.innerHTML = '<i class="fas fa-circle-info" aria-hidden="true"></i>' +
-        '<span><b>' + esc(a.nome) + '</b> — ' + a.total + ' respostas (' + pct(a.total) + ') em ' +
-        plural(a.unidades.length, 'unidade', 'unidades') + '.</span>';
-
-      var v = document.createElement('button');
-      v.type = 'button';
-      v.className = 'voltar';
-      v.innerHTML = '<i class="fas fa-xmark" aria-hidden="true"></i>Ver o top geral';
-      v.addEventListener('click', function () { selecionar(null); });
-      capUn.appendChild(v);
-    }
-
-
-    /* ---------- selecao ---------- */
-
-    function selecionar(id) {
-      selecionada = id;
-      listaAreas.querySelectorAll('.area').forEach(function (b) {
-        b.setAttribute('aria-pressed', b.dataset.area === id ? 'true' : 'false');
-      });
-      var antigo = capUn.querySelector('.voltar');
-      if (antigo) antigo.remove();
-      renderUnidades();
-
-      if (window.A11y) {
-        var a = id && AREAS.find(function (x) { return x.id === id; });
-        A11y.announce(a
-          ? a.nome + ': ' + a.total + ' respostas em ' + plural(a.unidades.length, 'unidade', 'unidades')
-          : 'Mostrando as 8 unidades com mais respostas');
-      }
-    }
-
-
-    /* ---------- numeros do topo ---------- */
-
-    document.getElementById('kpiResp').textContent = TOTAL;
-    document.getElementById('kpiUn').textContent = UNIDADES.length;
-    document.getElementById('kpiArea').textContent = AREAS.length;
+    const pct = v => (v / TOTAL * 100).toFixed(1).replace('.', ',');
 
     document.getElementById('subCab').textContent =
       '1º semestre de 2026 · ' + TOTAL + ' respostas de ' + UNIDADES.length +
       ' unidades, distribuídas em ' + AREAS.length + ' áreas da Agência';
 
-    renderUnidades();
+
+    const chipsWrap = document.getElementById('chips');
+    AREAS_ORD.forEach(a => {
+      const b = document.createElement('button');
+      b.className = 'chip';
+      b.dataset.id = a.id;
+      b.style.setProperty('--c', a.cor);
+      b.title = a.nome + ' — ' + a.unidades.length + ' unidade' + (a.unidades.length > 1 ? 's' : '') + ' · ' + a.total + ' respostas';
+      b.innerHTML = '<span>' + a.id + '</span><b>' + a.total + '</b>';
+      b.addEventListener('click', () => toggle(a.id));
+      chipsWrap.appendChild(b);
+    });
+
+    const allBtn = document.createElement('button');
+    allBtn.className = 'chip-reset';
+    allBtn.id = 'allBtn';
+    allBtn.addEventListener('click', () => {
+      if (selected.size === AREAS.length) selected.clear();
+      else AREAS.forEach(a => selected.add(a.id));
+      update();
+    });
+    chipsWrap.appendChild(allBtn);
+
+    function toggle(id) {
+      if (selected.has(id)) selected.delete(id); else selected.add(id);
+      update();
+    }
+
+    function refreshChips() {
+      chipsWrap.querySelectorAll('.chip').forEach(c => c.classList.toggle('active', selected.has(c.dataset.id)));
+      document.getElementById('allBtn').innerHTML = selected.size === AREAS.length
+        ? '<i class="fas fa-eraser"></i><span>Zerar tudo</span>'
+        : '<i class="fas fa-layer-group"></i><span>Exibir todas</span>';
+    }
+
+    function unidadesSel() {
+      return UNIDADES.filter(u => selected.has(u.area.id))
+        .sort((a, b) => b.n - a.n || a.sg.localeCompare(b.sg, 'pt-BR'));
+    }
+
+
+    function renderBars() {
+      const sel = unidadesSel();
+      const wrap = document.getElementById('rows');
+      wrap.innerHTML = '';
+
+      if (!sel.length) {
+        agrupadas = [];
+        wrap.dataset.density = '1';
+        wrap.innerHTML = '<div class="empty-state"><i class="far fa-hand-pointer"></i>' +
+          '<span>Clique numa área acima para exibir suas unidades</span></div>';
+        return;
+      }
+
+      /* passou do limite: as menores somam numa linha so, sem perder o total */
+      let linhas = sel;
+      agrupadas = [];
+      if (sel.length > MAX_LINHAS) {
+        linhas = sel.slice(0, MAX_LINHAS - 1);
+        agrupadas = sel.slice(MAX_LINHAS - 1);
+      }
+
+      const itens = linhas.map(u => ({
+        rot: u.sg, pai: u.sg !== u.area.id ? u.area.id : '', v: u.n, cor: u.area.cor,
+        tip: u.sg + ' · ' + u.nome + ' — ' + u.area.nome
+      }));
+      if (agrupadas.length) {
+        itens.push({
+          rot: 'Outras ' + agrupadas.length + ' unidades', pai: '', cor: '#94A3B8',
+          v: agrupadas.reduce((s, u) => s + u.n, 0),
+          tip: agrupadas.map(u => u.sg + ' ' + u.n).join(' · ')
+        });
+      }
+
+      wrap.dataset.density = itens.length <= 12 ? '1' : itens.length <= 22 ? '2' : '3';
+
+      const maxV = Math.max.apply(null, itens.map(x => x.v));
+      itens.forEach((x, i) => {
+        const el = document.createElement('div');
+        el.className = 'bar-row';
+        el.style.animationDelay = (REDUCED ? 0 : i * 22) + 'ms';
+        el.innerHTML =
+          '<span class="bar-label" title="' + x.tip + '">' + x.rot +
+          (x.pai ? '<span class="pai">' + x.pai + '</span>' : '') + '</span>' +
+          '<div class="bar-track"><div class="bar-fill" style="background:' + x.cor + '"></div></div>' +
+          '<span class="bar-val" style="color:' + x.cor + '">' + x.v + '<span class="pc">' + pct(x.v) + '%</span></span>';
+        wrap.appendChild(el);
+        const fill = el.querySelector('.bar-fill');
+        const w = (x.v / maxV * 100) + '%';
+        if (REDUCED) fill.style.width = w;
+        else requestAnimationFrame(() => requestAnimationFrame(() => { fill.style.width = w; }));
+      });
+    }
+
+    function refreshCaption() {
+      const sel = unidadesSel();
+      const soma = sel.reduce((s, u) => s + u.n, 0);
+      const cap = document.getElementById('chartCap');
+      if (!sel.length) {
+        cap.style.color = '#94a3b8';
+        cap.innerHTML = '<i class="far fa-hand-pointer"></i> Nada a exibir';
+      } else {
+        cap.style.color = '#475569';
+        cap.innerHTML = '<i class="fas fa-ranking-star"></i> ' + sel.length + ' unidade' + (sel.length > 1 ? 's' : '') +
+          ' · ' + soma + ' de ' + TOTAL + ' respostas · <span style="font-weight:700;color:#0070C0;">semestre</span>' +
+          ' · <span style="font-weight:700;color:#0070C0;">% de ' + TOTAL + ' respostas</span>';
+      }
+    }
+
+
+    function renderPie() {
+      const wrap = document.getElementById('pieWrap');
+      const cap = document.getElementById('pieCap');
+      if (pieChart) { pieChart.destroy(); pieChart = null; }
+
+      const porArea = AREAS_ORD.filter(a => selected.has(a.id) && a.total > 0);
+      const somaExibida = porArea.reduce((s, a) => s + a.total, 0);
+
+      if (!somaExibida) {
+        wrap.innerHTML = '<div class="empty-state"><i class="fas fa-chart-pie"></i>' +
+          '<span>Selecione ao menos uma área</span></div>';
+        cap.style.color = '#94a3b8';
+        cap.innerHTML = '<i class="fas fa-chart-pie"></i> Distribuição por área';
+        return;
+      }
+
+      wrap.innerHTML = '<canvas id="pieChart" role="img"></canvas>';
+      document.getElementById('pieChart').setAttribute('aria-label', 'Gráfico de rosca: distribuição das respostas por área — ' +
+        porArea.map(a => a.id + ' ' + a.total).join(', '));
+
+      const percentageLabelsPlugin = {
+        id: 'percentageLabels',
+        afterDraw(chart) {
+          const { ctx } = chart;
+          const ds = chart.data.datasets[0];
+          const total = ds.data.reduce((s, v) => s + v, 0) || 1;
+          ctx.save();
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          chart.getDatasetMeta(0).data.forEach((arc, i) => {
+            const p = ds.data[i] / total * 100;
+            if (p < 4) return;
+            const ang = (arc.startAngle + arc.endAngle) / 2;
+            const r = (arc.outerRadius + arc.innerRadius) / 2;
+            const x = arc.x + Math.cos(ang) * r;
+            const y = arc.y + Math.sin(ang) * r;
+            ctx.font = '700 ' + (p >= 15 ? 14 : 11) + 'px Montserrat, sans-serif';
+            ctx.strokeStyle = 'rgba(16,48,80,.35)';
+            ctx.lineWidth = 3;
+            ctx.strokeText(p.toFixed(1).replace('.', ',') + '%', x, y);
+            ctx.fillStyle = '#ffffff';
+            ctx.fillText(p.toFixed(1).replace('.', ',') + '%', x, y);
+          });
+          ctx.restore();
+        }
+      };
+
+      pieChart = new Chart(document.getElementById('pieChart'), {
+        type: 'doughnut',
+        data: {
+          labels: porArea.map(a => a.id),
+          datasets: [{
+            data: porArea.map(a => a.total),
+            backgroundColor: porArea.map(a => a.cor),
+            borderColor: '#ffffff',
+            borderWidth: 3,
+            hoverOffset: 8
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          cutout: '58%',
+          animation: { duration: REDUCED ? 0 : 650 },
+          plugins: {
+            legend: { position: 'bottom', labels: { color: '#103050', boxWidth: 12, boxHeight: 12, padding: 10, font: { family: 'Open Sans', size: 11, weight: '600' } } },
+            tooltip: {
+              callbacks: {
+                label: c => c.label + ': ' + c.parsed + ' respostas (' +
+                  (c.parsed / somaExibida * 100).toFixed(1).replace('.', ',') + '%)'
+              }
+            }
+          }
+        },
+        plugins: [percentageLabelsPlugin]
+      });
+
+      if (window.A11y) {
+        A11y.renderChartFallbackTable(
+          document.getElementById('pieChart'),
+          'Distribuição das respostas por área',
+          ['Área', 'Respostas'],
+          porArea.map(a => [a.id, String(a.total)])
+        );
+      }
+
+      cap.style.color = '#475569';
+      cap.innerHTML = '<i class="fas fa-chart-pie"></i> Distribuição por área · ' +
+        '<span style="font-weight:700;color:#0070C0;">% de ' + somaExibida + ' respostas</span>';
+    }
+
+
+    function refreshZeradas() {
+      document.getElementById('zeradas').innerHTML =
+        (agrupadas.length ? '<b>Outras ' + agrupadas.length + ' unidades:</b> ' +
+          agrupadas.map(u => u.sg + ' ' + u.n).join(' · ') + '<br>' : '') +
+        '<b>' + SEM_RESPOSTA.length + ' unidades da estrutura sem resposta no semestre</b> (fora do gráfico): ' +
+        SEM_RESPOSTA.join(' · ');
+    }
+
+    function update() {
+      refreshChips();
+      refreshCaption();
+      renderBars();
+      renderPie();
+      refreshZeradas();
+    }
+
+    update();
+
+    document.addEventListener('DOMContentLoaded', function () {
+      if (window.A11y) renderPie();
+    });
   </script>
   <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
   <script src="a11y.js" defer></script>

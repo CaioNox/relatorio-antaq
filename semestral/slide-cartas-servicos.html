@@ -71,6 +71,58 @@
       display: flex;
       flex-direction: column;
       padding: 0 4rem;
+      position: relative;
+    }
+
+    /* setas laterais: percorrem os pontos; nas pontas passam o slide */
+    .seta {
+      position: absolute;
+      top: 50%;
+      z-index: 20;
+      width: 2.4rem;
+      height: 2.4rem;
+      margin-top: -1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 0;
+      padding: 0;
+      background: none;
+      color: #0070C0;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .seta-esq { left: .8rem; }
+    .seta-dir { right: .8rem; }
+
+    .seta i {
+      animation: pulsaEsq 1.6s ease-in-out infinite;
+    }
+
+    .seta-dir i {
+      animation-name: pulsaDir;
+    }
+
+    .seta:hover i,
+    .seta:focus-visible i {
+      color: #103050;
+    }
+
+    .seta:focus-visible {
+      outline: 2px solid #0090C0;
+      outline-offset: 2px;
+      border-radius: 50%;
+    }
+
+    @keyframes pulsaEsq {
+      0%, 100% { opacity: .45; transform: translateX(0) scale(1); }
+      50% { opacity: 1; transform: translateX(-5px) scale(1.12); }
+    }
+
+    @keyframes pulsaDir {
+      0%, 100% { opacity: .45; transform: translateX(0) scale(1); }
+      50% { opacity: 1; transform: translateX(5px) scale(1.12); }
     }
 
     .trilha {
@@ -575,6 +627,10 @@
 
 
     <div class="palco">
+      <button class="seta seta-esq" id="setaEsq" type="button" aria-label="Etapa anterior"><i
+          class="fas fa-chevron-left" aria-hidden="true"></i></button>
+      <button class="seta seta-dir" id="setaDir" type="button" aria-label="Próxima etapa"><i
+          class="fas fa-chevron-right" aria-hidden="true"></i></button>
 
       <div class="trilha" role="tablist" aria-label="Superintendências da Carta de Serviços">
         <div class="trilha-fill" id="trilhaFill" aria-hidden="true"></div>
@@ -1076,47 +1132,96 @@
     /* ---------- navegacao ---------- */
     const TECLAS_NAV = ['ArrowRight', 'ArrowLeft', 'PageDown', 'PageUp', 'Home', 'End', ' ', 'f', 'F'];
 
-    function tratarTecla(k) {
-      if (k >= '1' && k <= String(TOTAL_ETAPAS)) { irPara(+k); return; }
-      if (k === 'Escape') { pop.classList.remove('open'); return; }
-      if (TECLAS_NAV.indexOf(k) === -1) return;
+    /* A apresentacao usa dois iframes e o que saiu de cena pode continuar com
+       o foco. Depois de passar a navegacao para o pai, este slide fica inativo:
+       so repassa as teclas, sem trocar etapas escondido. `desvio` conta quantos
+       slides o pai andou desde entao; quando volta a 0, este slide esta de novo
+       em cena. null = perdeu a conta (so reativa por clique, hash ou load). */
+    let ativo = true;
+    let desvio = 0;
 
-      const avanca = (k === 'ArrowRight' || k === ' ' || k === 'PageDown');
-      const volta = (k === 'ArrowLeft' || k === 'PageUp');
-      if (avanca && etapa < TOTAL_ETAPAS) { irPara(etapa + 1); return; }
-      if (volta && etapa > 1) { irPara(etapa - 1); return; }
+    function passo(k) {
+      if (k === 'ArrowRight' || k === ' ' || k === 'PageDown') return 1;
+      if (k === 'ArrowLeft' || k === 'PageUp') return -1;
+      return 0;
+    }
 
+    function ativar() {
+      ativo = true;
+      desvio = 0;
+      avisarEtapas();
+    }
+
+    function repassar(k) {
+      const p = passo(k);
+      if (ativo) { ativo = false; desvio = 0; }
+      if (desvio !== null) desvio = (k === 'Home' || k === 'End') ? null : desvio + p;
       window.parent.postMessage({ type: 'slide-nav', key: k }, '*');
     }
 
+    /* retorna true quando a tecla foi usada pelo slide */
+    function tratarTecla(k) {
+      if (!ativo) {
+        if (TECLAS_NAV.indexOf(k) === -1) return false;
+        if (k === 'f' || k === 'F') { window.parent.postMessage({ type: 'slide-nav', key: k }, '*'); return true; }
+        repassar(k);
+        if (desvio === 0) ativar();
+        return true;
+      }
+
+      if (k >= '1' && k <= String(TOTAL_ETAPAS)) { irPara(+k); return true; }
+      if (k === 'Escape') { pop.classList.remove('open'); return true; }
+      if (TECLAS_NAV.indexOf(k) === -1) return false;
+
+      const avanca = (k === 'ArrowRight' || k === ' ' || k === 'PageDown');
+      const volta = (k === 'ArrowLeft' || k === 'PageUp');
+      if (avanca && etapa < TOTAL_ETAPAS) { irPara(etapa + 1); return true; }
+      if (volta && etapa > 1) { irPara(etapa - 1); return true; }
+
+      if (k === 'f' || k === 'F') { window.parent.postMessage({ type: 'slide-nav', key: k }, '*'); return true; }
+      repassar(k);
+      return true;
+    }
+
     document.addEventListener('keydown', function (e) {
-      const k = e.key;
-      if (k === 'Escape' || (k >= '1' && k <= String(TOTAL_ETAPAS)) || TECLAS_NAV.indexOf(k) !== -1) {
-        e.preventDefault();
-        tratarTecla(k);
+      if (tratarTecla(e.key)) e.preventDefault();
+    });
+
+    /* o pai so manda 'deck-key' para o slide em cena */
+    window.addEventListener('message', function (e) {
+      if (e.data && e.data.type === 'deck-key' && e.data.key) {
+        if (!ativo) ativar();
+        tratarTecla(e.data.key);
+        pegarFoco();
       }
     });
 
-    /* clique nas laterais do pai chega como 'deck-key' e usa o mesmo handler */
-    window.addEventListener('message', function (e) {
-      if (e.data && e.data.type === 'deck-key' && e.data.key) tratarTecla(e.data.key);
+    document.getElementById('setaEsq').addEventListener('click', () => tratarTecla('ArrowLeft'));
+    document.getElementById('setaDir').addEventListener('click', () => tratarTecla('ArrowRight'));
+
+    /* entrando de ré, abrir na ultima etapa */
+    irPara(location.hash === '#fim' ? TOTAL_ETAPAS : 1);
+
+    /* o pai reaproveita este iframe trocando so o hash: e a volta para ca */
+    window.addEventListener('hashchange', function () {
+      if (location.hash === '#fim' && !ativo) irPara(TOTAL_ETAPAS);
+      ativar();
     });
 
-    /* FURO 1 — o pai rouba o foco; retomar sempre que o ponteiro voltar ao slide */
+    /* clique dentro do slide: so o iframe em cena recebe ponteiro */
+    document.addEventListener('pointerdown', function () { if (!ativo) ativar(); }, true);
+
+    /* o pai rouba o foco; retomar quando o ponteiro voltar ao slide em cena */
     function pegarFoco() { try { window.focus(); } catch (e) { } }
     pegarFoco();
     window.addEventListener('load', pegarFoco);
     document.addEventListener('pointerdown', pegarFoco);
-    document.addEventListener('mouseenter', pegarFoco);
-    document.addEventListener('mousemove', pegarFoco, { once: true });
+    document.addEventListener('mouseenter', function () { if (ativo) pegarFoco(); });
 
-    /* FURO 2 — entrando de ré, abrir na ultima etapa */
-    irPara(location.hash === '#fim' ? TOTAL_ETAPAS : 1);
-
-    /* FURO 3 — avisar o pai que este slide tem etapas proprias */
+    /* avisar a apresentacao que este slide tem etapas proprias */
     function avisarEtapas() { window.parent.postMessage({ type: 'slide-etapas', total: TOTAL_ETAPAS }, '*'); }
     avisarEtapas();
-    window.addEventListener('load', avisarEtapas);
+    window.addEventListener('load', function () { if (ativo) avisarEtapas(); });
   </script>
   <script src="a11y.js" defer></script>
   <script src="vida.js" defer></script>
