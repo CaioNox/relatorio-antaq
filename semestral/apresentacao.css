@@ -130,3 +130,61 @@ html {
 .doc-cols-maior .doc-text {
   margin-bottom: .7rem;
 }
+
+/* colunas em grade (os 4 slides de apresentacao): linha 1 = subtitulos,
+   linha 2 = conteudo. Os dois subtitulos comecam na mesma altura e o texto
+   das duas colunas comeca na mesma linha, mesmo quando um subtitulo quebra
+   em duas linhas. O HTML e: subtitulo, .doc-col (paragrafos), subtitulo,
+   .act-list. */
+.doc-cols-grade {
+  columns: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  grid-auto-flow: column;
+  column-gap: 2.6rem;
+  align-items: start;
+}
+
+/* subtitulo nunca menor que o texto: mesmo tamanho do corpo da coluna.
+   Com a letra maior, o espacamento entre letras cai para a linha nao
+   esticar demais. Icone na altura da 1a linha, igual nas duas colunas. */
+.doc-cols-grade>.doc-subtitle {
+  align-items: baseline;
+  font-size: .75rem;
+  letter-spacing: .04em;
+  line-height: 1.3;
+}
+
+.doc-cols-maior.doc-cols-grade>.doc-subtitle {
+  font-size: .75rem;
+}
+
+.doc-cols-grade>.doc-subtitle~.doc-subtitle {
+  break-before: auto;
+  -webkit-column-break-before: auto;
+}
+
+/* texto e lista com o mesmo ritmo (a .doc-cols-maior ja tem 1.5 nos dois) */
+.doc-cols-grade:not(.doc-cols-maior) .doc-text,
+.doc-cols-grade:not(.doc-cols-maior) .act-list li {
+  line-height: 1.6;
+}
+
+/* dois intervalos da lista = um intervalo entre paragrafos */
+.doc-cols-grade:not(.doc-cols-maior) .act-list li {
+  margin-bottom: .475rem;
+}
+
+/* SAC: o titulo quebra em duas linhas e sobra menos altura. Corpo e
+   subtitulo um pouco menores (continuam iguais entre si) para o texto
+   nao invadir o rodape. */
+.doc-cols-compacta .doc-text,
+.doc-cols-compacta .act-list li,
+.doc-cols-grade.doc-cols-compacta> {
+  font-size: 1.1rem;
+}
+
+.doc-subtitle {
+  font-size: 0.75rem;
+}
