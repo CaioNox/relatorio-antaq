@@ -14,37 +14,88 @@
         rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
     <style>
-        html { font-size: 29px; }
-        body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
+        html {
+            font-size: 29px;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f3f4f6;
+            overflow: hidden;
+        }
 
         .slide-container {
-            width: 100vw; height: 100vh; position: relative;
-            display: flex; flex-direction: column;
-            background-color: #ffffff; overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            background-color: #ffffff;
+            overflow: hidden;
             font-family: 'Open Sans', sans-serif;
         }
 
-        .font-montserrat { font-family: 'Montserrat', sans-serif; }
-        .text-brand-primary { color: #103050; }
-        .text-brand-secondary { color: #0070C0; }
-        .bg-brand-secondary { background-color: #0070C0; }
+        .font-montserrat {
+            font-family: 'Montserrat', sans-serif;
+        }
 
-        .top-accent { height: 8px; background-color: #103050; width: 100%; }
-        .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
+        .text-brand-primary {
+            color: #103050;
+        }
+
+        .text-brand-secondary {
+            color: #0070C0;
+        }
+
+        .bg-brand-secondary {
+            background-color: #0070C0;
+        }
+
+        .top-accent {
+            height: 8px;
+            background-color: #103050;
+            width: 100%;
+        }
+
+        .top-accent-secondary {
+            height: 4px;
+            background-color: #0070C0;
+            width: 100%;
+        }
 
         .doc {
-            flex: 1; min-height: 0; position: relative; z-index: 10;
+            flex: 1;
+            min-height: 0;
+            position: relative;
+            z-index: 10;
             padding: 0.5rem 5rem 0.5rem 5rem;
-            display: flex; flex-direction: column; justify-content: center;
-            animation: fadeInUp .5s cubic-bezier(.2,.7,.3,1) both;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            animation: fadeInUp .5s cubic-bezier(.2, .7, .3, 1) both;
         }
-        .doc-lead {
-            font-size: .88rem; line-height: 1.45; color: #103050; font-weight: 600;
-            border-left: 4px solid #0090C0; padding-left: 1.1rem; margin-bottom: .85rem;
-        }
-        .doc-lead b { color: #0070C0; font-weight: 700; }
 
-        .dest-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: .7rem; }
+        .doc-lead {
+            font-size: .88rem;
+            line-height: 1.45;
+            color: #103050;
+            font-weight: 600;
+            border-left: 4px solid #0090C0;
+            padding-left: 1.1rem;
+            margin-bottom: .85rem;
+        }
+
+        .doc-lead b {
+            color: #0070C0;
+            font-weight: 700;
+        }
+
+        .dest-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: .7rem;
+        }
 
         /* ------------------------------------------------------------------
            Abertura no padrao do relatorio trimestral (sistema/slide-ctx-03):
@@ -90,52 +141,157 @@
 
         .dest {
             position: relative;
-            background: #F8FAFC; border: 1px solid #E2E8F0; border-left: 4px solid #0070C0;
-            border-radius: 12px; padding: .6rem .85rem .65rem;
-            animation: fadeInUp .5s cubic-bezier(.2,.7,.3,1) both;
+            background: #F8FAFC;
+            border: 1px solid #E2E8F0;
+            border-left: 4px solid #0070C0;
+            border-radius: 12px;
+            padding: .6rem .85rem .65rem;
+            animation: fadeInUp .5s cubic-bezier(.2, .7, .3, 1) both;
         }
-        .dest:nth-child(1) { animation-delay: .06s; }
-        .dest:nth-child(2) { animation-delay: .12s; }
-        .dest:nth-child(3) { animation-delay: .18s; }
-        .dest:nth-child(4) { animation-delay: .24s; }
-        .dest:nth-child(5) { animation-delay: .30s; }
-        .dest:nth-child(6) { animation-delay: .36s; }
 
-        .dest-top { display: flex; align-items: baseline; gap: .5rem; }
+        .dest:nth-child(1) {
+            animation-delay: .06s;
+        }
+
+        .dest:nth-child(2) {
+            animation-delay: .12s;
+        }
+
+        .dest:nth-child(3) {
+            animation-delay: .18s;
+        }
+
+        .dest:nth-child(4) {
+            animation-delay: .24s;
+        }
+
+        .dest:nth-child(5) {
+            animation-delay: .30s;
+        }
+
+        .dest:nth-child(6) {
+            animation-delay: .36s;
+        }
+
+        .dest-top {
+            display: flex;
+            align-items: baseline;
+            gap: .5rem;
+        }
+
         .dest-num {
-            font-family: 'Montserrat', sans-serif; font-weight: 900; color: #103050;
-            font-size: 1.62rem; line-height: 1; letter-spacing: -.02em;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            color: #103050;
+            font-size: 1.62rem;
+            line-height: 1;
+            letter-spacing: -.02em;
         }
+
         .dest-unit {
-            font-family: 'Montserrat', sans-serif; font-weight: 700; color: #0070C0;
-            font-size: .62rem; text-transform: uppercase; letter-spacing: .06em;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: #0070C0;
+            font-size: .62rem;
+            text-transform: uppercase;
+            letter-spacing: .06em;
         }
+
         .dest-name {
-            font-family: 'Montserrat', sans-serif; font-weight: 700; color: #103050;
-            font-size: .68rem; line-height: 1.25; margin: .3rem 0 .18rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: #103050;
+            font-size: .68rem;
+            line-height: 1.25;
+            margin: .3rem 0 .18rem;
         }
-        .dest-desc { color: #475569; font-size: .6rem; line-height: 1.42; margin: 0; }
-        .dest-desc b { color: #103050; font-weight: 700; }
+
+        .dest-desc {
+            color: #475569;
+            font-size: .6rem;
+            line-height: 1.42;
+            margin: 0;
+        }
+
+        .dest-desc b {
+            color: #103050;
+            font-weight: 700;
+        }
+
         .dest-ico {
-            position: absolute; top: .55rem; right: .7rem;
-            color: #0090C0; opacity: .22; font-size: 1.1rem;
+            position: absolute;
+            top: .55rem;
+            right: .7rem;
+            color: #0090C0;
+            opacity: .22;
+            font-size: 1.1rem;
         }
 
         .dest-close {
-            margin-top: .8rem; padding-top: .6rem; border-top: 1px solid #E2E8F0;
-            display: flex; align-items: center; gap: 1.6rem; flex-wrap: wrap;
+            margin-top: .8rem;
+            padding-top: .6rem;
+            border-top: 1px solid #E2E8F0;
+            display: flex;
+            align-items: center;
+            gap: 1.6rem;
+            flex-wrap: wrap;
         }
-        .dc-item { display: flex; align-items: center; gap: .5rem; font-size: .63rem; color: #475569; line-height: 1.35; }
-        .dc-item i { color: #0090C0; font-size: .82rem; flex-shrink: 0; }
-        .dc-item b { color: #103050; font-weight: 700; }
 
-        .bg-pattern { position: absolute; bottom: -60px; right: -50px; width: 400px; height: 400px; opacity: 0.03; z-index: 0; color: #103050; }
+        .dc-item {
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+            font-size: .63rem;
+            color: #475569;
+            line-height: 1.35;
+        }
 
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
-        @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+        .dc-item i {
+            color: #0090C0;
+            font-size: .82rem;
+            flex-shrink: 0;
+        }
+
+        .dc-item b {
+            color: #103050;
+            font-weight: 700;
+        }
+
+        .bg-pattern {
+            position: absolute;
+            bottom: -60px;
+            right: -50px;
+            width: 400px;
+            height: 400px;
+            opacity: 0.03;
+            z-index: 0;
+            color: #103050;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
     </style>
-  <link rel="stylesheet" href="a11y.css">
-  <link rel="stylesheet" href="base.css" />
+    <link rel="stylesheet" href="a11y.css">
+    <link rel="stylesheet" href="base.css" />
 </head>
 
 <body>
@@ -148,8 +304,12 @@
             <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
                 <i class="fas fa-flag-checkered text-3xl" aria-hidden="true"></i>
                 <div class="flex flex-col justify-center pl-2 cap-div">
-                    <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">CAPÍTULO 05</p>
-                    <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none whitespace-nowrap">Considerações Finais</p>
+                    <p
+                        class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">
+                        CAPÍTULO 05</p>
+                    <p
+                        class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none whitespace-nowrap">
+                        Considerações Finais</p>
                 </div>
             </div>
         </div>
@@ -178,7 +338,8 @@
                     </div>
                     <p class="dest-name">Atendimento integrado no Omnichannel</p>
                     <p class="dest-desc txt-bloco">WhatsApp, telefone e Portal ANTAQ em um único fluxo, com a
-                        <b>IARA</b> na entrada — de <b>152</b> atendimentos em janeiro a <b>221</b> em junho.</p>
+                        <b>IARA</b> na entrada — de <b>152</b> atendimentos em janeiro a <b>221</b> em junho.
+                    </p>
                 </div>
 
                 <div class="dest">
@@ -222,13 +383,15 @@
                 </div>
 
                 <div class="dest">
-                    <i class="fas fa-diagram-project dest-ico" aria-hidden="true"></i>
+                    <i class="fas fa-envelope dest-ico" aria-hidden="true"></i>
                     <div class="dest-top">
-                        <span class="dest-num">2.362</span><span class="dest-unit">tramitações</span>
+                        <span class="dest-num">33</span><span class="dest-unit">Serviços</span>
                     </div>
-                    <p class="dest-name">Demandas tramitadas entre as unidades</p>
-                    <p class="dest-desc txt-bloco"><b>910</b> demandas circularam por <b>20 setores</b> da Agência ao
-                        longo do semestre.</p>
+                    <p class="dest-name">Contidos na Carta de Serviços da ANTAQ</p>
+                    <p class="dest-desc txt-bloco">A Ouvidoria atuou como guardiã da <b>Carta de Serviços</b>, que reúne
+                        <b>33 serviços</b>
+                        prestados ao cidadão e ao setor regulado.
+                    </p>
                 </div>
 
             </div>
@@ -236,8 +399,7 @@
             <div class="dest-close">
                 <p class="dc-item">
                     <i class="fas fa-file-contract" aria-hidden="true"></i>
-                    <span>A Ouvidoria atuou como guardiã da <b>Carta de Serviços</b>, que reúne <b>33 serviços</b>
-                        prestados ao cidadão e ao setor regulado.</span>
+                    <span></span>
                 </p>
                 <!-- DADO PENDENTE: número de conselheiros e de consultas virtuais respondidas pelo Conselho de
                      Usuários no 1º semestre de 2026. Nenhum slide do repositório traz esse dado (conselho.html e
@@ -252,13 +414,14 @@
 
 
         <div class="px-16 pb-6 pt-1 flex justify-between items-center z-10">
-            <p class="text-gray-400 text-xs">Relatório 1º Semestre de 2026 – Ouvidoria – Agência Nacional de Transportes Aquaviários - ANTAQ</p>
+            <p class="text-gray-400 text-xs">Relatório 1º Semestre de 2026 – Ouvidoria – Agência Nacional de Transportes
+                Aquaviários - ANTAQ</p>
         </div>
         <div class="bg-pattern"><i class="fas fa-star text-9xl"></i></div>
     </div>
     <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
-  <script src="a11y.js" defer></script>
-  <script src="vida.js" defer></script>
+    <script src="a11y.js" defer></script>
+    <script src="vida.js" defer></script>
 </body>
 
 </html>

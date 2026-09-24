@@ -55,11 +55,7 @@
     .passo h3 { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .84rem; color: #103050; margin: 0 0 .3rem; }
     .passo p { margin: 0; font-size: .75rem; line-height: 1.5; color: #64748B; }
 
-    /* ---------------------------------------------------------------
-       Card "Seja um conselheiro": fundo FlowField (kokonutui) — particulas
-       seguindo um campo de ruido, deixando rastros de luz. Recriado em JS
-       puro, preso ao tamanho do card, nas cores da marca.
-       --------------------------------------------------------------- */
+    /* card "Seja um conselheiro" */
     .cta {
       position: relative; overflow: hidden; isolation: isolate;
       border-radius: 18px; color: #fff; background: #071a2e;
@@ -67,14 +63,6 @@
       animation: fadeInUp .5s ease both .22s;
       display: flex; flex-direction: column; min-height: 0;
       padding: 1.6rem 1.6rem 1.3rem;
-    }
-    .cta-fx { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -2; pointer-events: none; }
-    /* vinheta: foca o centro e apaga as bordas, como no original */
-    .cta::before {
-      content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
-      background:
-        radial-gradient(ellipse 70% 60% at 50% 42%, transparent 15%, rgba(7,26,46,.9) 100%),
-        linear-gradient(to bottom, rgba(7,26,46,.85), transparent 22%, transparent 78%, rgba(7,26,46,.95));
     }
 
     .cta-topo { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; min-height: 0; }
@@ -179,7 +167,6 @@
       </div>
 
       <div class="cta">
-        <canvas class="cta-fx" id="ctaFx" aria-hidden="true"></canvas>
         <div class="cta-topo">
           <div class="cta-selo"><span><i class="fas fa-hand-holding-heart" aria-hidden="true"></i></span></div>
           <h3>Seja um <em>conselheiro!</em></h3>
@@ -201,81 +188,6 @@
     <div class="bg-pattern"><i class="fas fa-user-plus text-9xl"></i></div>
   </div>
 
-  <script>
-    /* FlowField (kokonutui, MIT) recriado sem React: particulas andam por um
-       campo de ruido trigonometrico; cada quadro apaga um pouco o anterior,
-       o que deixa os rastros. Tamanho e quantidade seguem o card. */
-    (function () {
-      const canvas = document.getElementById('ctaFx');
-      const card = canvas && canvas.parentElement;
-      const ctx = canvas && canvas.getContext('2d');
-      if (!ctx) return;
-
-      const BG = '7, 26, 46';
-      const HUE0 = 190, HUE_FAIXA = 22, SAT = 85, LUZ = 62, RASTRO = 0.07;
-      const parado = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const dpr = window.devicePixelRatio || 1;
-      let w = 0, h = 0, t = 0, id = 0, parts = [];
-
-      function angulo(x, y, t) {
-        const s = 0.0025;
-        return Math.sin(x * s + t * 0.0007) * Math.PI +
-          Math.cos(y * s + t * 0.0005) * Math.PI +
-          Math.sin((x + y) * s * 0.6 + t * 0.0009) * Math.PI * 0.6 +
-          Math.cos((x - y) * s * 0.4 + t * 0.0006) * Math.PI * 0.4;
-      }
-
-      function nova() {
-        const max = 200 + Math.floor(Math.random() * 300);
-        return { x: Math.random() * w, y: Math.random() * h, v: 0.9 + Math.random() * 1.4,
-          hue: HUE0 + Math.random() * HUE_FAIXA, vida: Math.floor(Math.random() * max), max: max };
-      }
-
-      function medir() {
-        w = card.clientWidth; h = card.clientHeight;
-        if (!w || !h) return;
-        canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
-        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-        ctx.fillStyle = 'rgb(' + BG + ')'; ctx.fillRect(0, 0, w, h);
-        const n = Math.min(900, Math.round(w * h / 900));
-        parts = Array.from({ length: n }, nova);
-      }
-
-      function quadro() {
-        t++;
-        ctx.fillStyle = 'rgba(' + BG + ', ' + RASTRO + ')'; ctx.fillRect(0, 0, w, h);
-        for (const p of parts) {
-          const a = angulo(p.x, p.y, t);
-          p.x += Math.cos(a) * p.v; p.y += Math.sin(a) * p.v; p.vida++;
-          if (p.vida > p.max) {
-            p.x = Math.random() * w; p.y = Math.random() * h; p.vida = 0;
-            p.hue = HUE0 + Math.random() * HUE_FAIXA; continue;
-          }
-          if (p.x < 0) p.x += w; else if (p.x > w) p.x -= w;
-          if (p.y < 0) p.y += h; else if (p.y > h) p.y -= h;
-          const pr = p.vida / p.max;
-          const alfa = Math.min(pr * 8, 1) * Math.min((1 - pr) * 6, 1) * 0.85;
-          const hue = (p.hue + (a / (Math.PI * 2)) * 14 + 360) % 360;
-          ctx.beginPath(); ctx.arc(p.x, p.y, 1.2, 0, Math.PI * 2);
-          ctx.fillStyle = 'hsla(' + hue + ', ' + SAT + '%, ' + LUZ + '%, ' + alfa + ')';
-          ctx.fill();
-        }
-      }
-
-      function laco() { quadro(); id = requestAnimationFrame(laco); }
-
-      medir();
-      if (parado) { for (let i = 0; i < 160; i++) quadro(); }   /* sem movimento: um quadro ja formado */
-      else laco();
-
-      if (window.ResizeObserver) new ResizeObserver(function () { medir(); if (parado) for (let i = 0; i < 160; i++) quadro(); }).observe(card);
-      /* aba escondida: pausa */
-      document.addEventListener('visibilitychange', function () {
-        if (parado) return;
-        if (document.hidden) cancelAnimationFrame(id); else { cancelAnimationFrame(id); laco(); }
-      });
-    })();
-  </script>
   <script>
     document.addEventListener("keydown", function (e) {
       if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) {
