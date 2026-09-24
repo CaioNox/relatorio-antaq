@@ -169,8 +169,12 @@
       <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
         <i class="fas fa-headset text-3xl" aria-hidden="true"></i>
         <div class="flex flex-col justify-center pl-2 cap-div">
-          <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">CAPÍTULO 03</p>
-          <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none whitespace-nowrap">Seção
+          <p
+            class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">
+            CAPÍTULO 03</p>
+          <p
+            class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none whitespace-nowrap">
+            Seção
             de Apoio ao Cidadão — SAC</p>
         </div>
       </div>
@@ -181,32 +185,34 @@
 
       <div class="flex flex-col gap-3">
         <div class="chart-card flex-1 flex flex-col" style="min-height:0;">
-          <div class="flex-1 relative" style="min-height:0;"><canvas id="chartCanal" role="img" aria-label="Gráfico de rosca: manifestações por canal de atendimento — Internet 215, Email 57, WhatsApp 22, Telefone 7, Outros 3"></canvas></div>
+          <div class="flex-1 relative" style="min-height:0;"><canvas id="chartCanal" role="img"
+              aria-label="Gráfico de rosca: manifestações por canal de atendimento — Internet 415, Email 123, WhatsApp 65, Telefone 8, Outros 3"></canvas>
+          </div>
         </div>
         <div class="chart-card">
           <div class="canal-stat">
             <div class="cs-left">
               <div class="cs-dot" style="background:#0A75B7;"></div>Internet
             </div>
-            <span class="cs-val">215</span>
+            <span class="cs-val">415</span>
           </div>
           <div class="canal-stat">
             <div class="cs-left">
               <div class="cs-dot" style="background:#103050;"></div>Email
             </div>
-            <span class="cs-val">57</span>
+            <span class="cs-val">123</span>
           </div>
           <div class="canal-stat">
             <div class="cs-left">
               <div class="cs-dot" style="background:#86C6EB;"></div>WhatsApp
             </div>
-            <span class="cs-val">22</span>
+            <span class="cs-val">65</span>
           </div>
           <div class="canal-stat">
             <div class="cs-left">
               <div class="cs-dot" style="background:#4EAFE8;"></div>Telefone
             </div>
-            <span class="cs-val">7</span>
+            <span class="cs-val">8</span>
           </div>
           <div class="canal-stat">
             <div class="cs-left">
@@ -216,7 +222,7 @@
           </div>
           <div class="canal-stat" style="border-top:1px solid #E2E8F0; margin-top:.2rem; padding-top:.35rem;">
             <div class="cs-left text-gray-500 font-semibold">Total</div>
-            <span class="cs-val" style="color:#0070C0;">304</span>
+            <span class="cs-val" style="color:#0070C0;">614</span>
           </div>
         </div>
       </div>
@@ -226,7 +232,8 @@
         <div class="chart-card flex-1 flex flex-col" style="min-height:0;">
           <p class="text-gray-400 text-xs font-montserrat font-bold uppercase tracking-wide mb-1">Totais por canal ·
             Semestre</p>
-          <div class="flex-1 relative" style="min-height:0;"><canvas id="chartCanalMes" role="img" aria-label="Gráfico de barras: totais por canal de atendimento no semestre"></canvas></div>
+          <div class="flex-1 relative" style="min-height:0;"><canvas id="chartCanalMes" role="img"
+              aria-label="Gráfico de barras: totais por canal de atendimento no semestre"></canvas></div>
         </div>
         <div class="chart-card">
           <div class="flex gap-4 justify-center flex-wrap">
@@ -252,12 +259,13 @@
     </div>
 
     <div class="px-16 pb-4 pt-1 flex justify-between items-center z-10">
-      <p class="text-gray-400 text-xs">Relatório 1º Semestre de 2026 – Ouvidoria – Agência Nacional de Transportes Aquaviários - ANTAQ</p>
+      <p class="text-gray-400 text-xs">Relatório 1º Semestre de 2026 – Ouvidoria – Agência Nacional de Transportes
+        Aquaviários - ANTAQ</p>
     </div>
   </div>
   <script>
     const canalLabels = ['Outros', 'Telefone', 'WhatsApp', 'Email', 'Internet'];
-    const canalData = [3, 7, 22, 57, 215];
+    const canalData = [3, 8, 65, 123, 415];
     const canalColors = ['#1F97D4', '#4EAFE8', '#86C6EB', '#103050', '#0A75B7'];
 
 
