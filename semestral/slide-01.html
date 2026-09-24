@@ -156,15 +156,17 @@
             transition: color .18s ease;
         }
 
+        /* marcador: bolinha discreta, centrada na primeira linha */
         .sum-item::before {
-            content: "\f105";
-            font-family: "Font Awesome 6 Free";
-            font-weight: 900;
+            content: "";
             position: absolute;
-            left: 0;
-            top: 0.1rem;
-            font-size: 0.72rem;
-            color: #0090C0;
+            left: 0.1rem;
+            top: 0.64em;
+            width: 5px;
+            height: 5px;
+            margin-top: -2.5px;
+            border-radius: 50%;
+            background: #0090C0;
             transition: transform .18s ease;
         }
 
@@ -173,7 +175,7 @@
         }
 
         a.sum-item:hover::before {
-            transform: translateX(3px);
+            transform: scale(1.6);
         }
 
         .sum-group {
@@ -408,8 +410,8 @@
             }
         }
     </style>
-  <link rel="stylesheet" href="a11y.css">
-  <link rel="stylesheet" href="base.css" />
+    <link rel="stylesheet" href="a11y.css">
+    <link rel="stylesheet" href="base.css" />
 </head>
 
 <body>
@@ -518,222 +520,208 @@
 
         </div>
     </div>
-        <script>
-            function goToSlide(n) {
-                window.parent.postMessage({ type: "slide-goto", slide: n }, "*");
+    <script>
+        function goToSlide(n) {
+            window.parent.postMessage({ type: "slide-goto", slide: n }, "*");
+        }
+
+        function goToFile(file) {
+            window.parent.postMessage({ type: "slide-goto-file", file: file }, "*");
+        }
+
+
+
+
+
+        const tree = [
+            {
+                t: 'Visão Geral das Ouvidorias públicas', icon: 'fa-bullhorn', children: [
+                    { t: 'Capa do bloco', f: 'capa-bloco-1.html' },
+                    { t: 'Apresentação das Ouvidorias', f: 'slide-ctx-01.html' },
+                    { t: 'Atribuições, Princípios e Diretrizes das Ouvidorias', f: 'slide-fundamentos-ouvidorias.html' },
+                ]
+            },
+            {
+                t: 'A Ouvidoria da ANTAQ', icon: 'fa-landmark', children: [
+                    { t: 'Capa do bloco', f: 'capa-bloco-2.html' },
+                    { t: 'Apresentação da Ouvidoria da ANTAQ', f: 'slide-03c.html' },
+                    { t: 'Estrutura Organizacional da Ouvidoria', f: 'slide-ouvidoria-geral.html' },
+                    { t: 'Plataforma Fala.BR', f: 'slide-falabr.html' },
+                    { t: 'Fala.BR — O que é possível fazer', f: 'slide-falabr-usos.html' },
+                    { t: 'Demais Canais de Atendimento da Ouvidoria da ANTAQ', f: 'slide-demais-canais.html' },
+                    { t: 'Carta de Serviços da ANTAQ', f: 'slide-25.html' },
+                    { t: 'Carta de Serviços da ANTAQ (33 serviços)', f: 'slide-cartas-servicos.html' },
+                    { t: 'Conselho de Usuários', f: 'slide-CnsU.html' },
+                    { t: 'Modelo de Maturidade em Ouvidoria Pública (MMOuP)', f: 'slide-CnsU2.html' },
+                    { t: 'Ouvidoria em Números (Omnichannel)', f: 'slide-17b.html' },
+                    { t: 'Ouvidoria em Números (Distribuição das Demandas)', f: 'slide-17e.html' },
+                    { t: 'Ouvidoria em Números (Evolução Histórica)', f: 'slide-07.html' },
+                ]
+            },
+            {
+                t: 'Seção de Apoio ao Cidadão — SAC', icon: 'fa-headset', children: [
+                    { t: 'Capa do bloco', f: 'capa-bloco-3.html' },
+                    { t: 'Apresentação da SAC', f: 'slide-sac-apres.html' },
+                    { t: 'Tipos de Manifestações de Ouvidoria', f: 'slide-sac-ativ.html' },
+                    { t: 'Distribuição de Manifestações por Mês', f: 'slide-17d.html' },
+                    { t: 'Distribuição de Manifestações por Tipo', f: 'slide-14.html' },
+                    { t: 'Distribuição de Manifestações por Canal', f: 'slide-canal.html' },
+                    { t: 'Manifestações Recebidas no Fala.BR', f: 'slide-04.html' },
+                    { t: 'Tratamento de Demandas no Fala.BR', f: 'slide-05.html' },
+                    { t: 'Destaques do Semestre', f: 'slide-08.html' },
+                ]
+            },
+            {
+                t: 'Seção de Transparência e Acesso à Informação — STAI', icon: 'fa-lock-open', children: [
+                    { t: 'Capa do bloco', f: 'capa-bloco-4.html' },
+                    { t: 'Apresentação da STAI', f: 'slide-4a.html' },
+                    { t: 'Plataforma Informa.BR', f: 'slide-informa-br.html' },
+                    { t: 'Transparência passiva', f: 'slide-23.html' },
+                    { t: 'LAI · Transparência passiva', f: 'slide-18.html' },
+                    { t: 'Histórico LAI', f: 'slide-20.html' },
+                    { t: 'Transparência ativa', f: 'slide-22.html' },
+                    { t: 'Respostas por Unidade', f: 'slide-resp-unidade.html' },
+                    { t: 'Plano de Dados Abertos · PDA 2026–2028', f: 'slide-pda.html' },
+                    { t: 'Dados Abertos', f: 'slide-21.html' },
+                ]
+            },
+            {
+                t: 'Considerações Finais', icon: 'fa-lightbulb', children: [
+                    { t: 'Capa do bloco', f: 'capa-bloco-5.html' },
+                    { t: 'Destaques do Semestre', f: 'slide-destaques-semestre.html' },
+                    { t: 'Principais Achados', f: 'slide-09.html' },
+                    { t: 'Considerações Finais', f: 'slide-conclusao.html' },
+                ]
+            },
+            {
+                t: 'Apêndice', icon: 'fa-book-bookmark', children: [
+                    { t: 'Capa do bloco', f: 'capa-bloco-6.html' },
+                    { t: 'Leis', f: 'slide-30.html' },
+                    { t: 'Decretos', f: 'slide-31.html' },
+                    { t: 'Normativos e Portarias', f: 'slide-32.html' },
+                    { t: 'Glossário', f: 'slide-29.html' },
+                    { t: 'Glossário (continuação)', f: 'slide-29b.html' },
+                    { t: 'Links Úteis & Contatos', f: 'slide-35.html' },
+                ]
+            },
+        ];
+
+        function buildNode(node, num, level) {
+            const li = document.createElement('li');
+            const row = document.createElement('div');
+            row.className = 'tnode lvl-' + level;
+            const kids = node.children && node.children.length;
+
+            const chev = document.createElement('span');
+            chev.className = 'tw-chev';
+            chev.innerHTML = kids ? '<i class="fas fa-chevron-right"></i>' : '<i class="fas fa-circle tw-leaf"></i>';
+            row.appendChild(chev);
+
+            const n = document.createElement('span');
+            n.className = 'tw-num';
+            n.textContent = num;
+            row.appendChild(n);
+
+            if (node.icon) {
+                const ic = document.createElement('span');
+                ic.className = 'tw-icon';
+                ic.innerHTML = '<i class="fas ' + node.icon + '"></i>';
+                row.appendChild(ic);
             }
 
-            function goToFile(file) {
-                window.parent.postMessage({ type: "slide-goto-file", file: file }, "*");
+            const lab = document.createElement('span');
+            lab.className = 'tw-label';
+            lab.textContent = node.t;
+            row.appendChild(lab);
+
+            li.appendChild(row);
+
+            if (kids) {
+                const ul = document.createElement('ul');
+                node.children.forEach((c, i) => ul.appendChild(buildNode(c, num + '.' + (i + 1), level + 1)));
+                li.appendChild(ul);
+                row.addEventListener('click', () => li.classList.toggle('open'));
+            } else if (node.f) {
+                row.classList.add('leaf');
+                row.addEventListener('click', () => goToFile(node.f));
+                if (node.f === 'slide-01.html') row.classList.add('current');
             }
+            return li;
+        }
 
 
 
 
 
-            const tree = [
-                {
-                    t: 'Visão Geral das Ouvidorias públicas', icon: 'fa-bullhorn', children: [
-                        { t: 'Capa do bloco', f: 'capa-bloco-1.html' },
-                        { t: 'Apresentação das Ouvidorias', f: 'slide-ctx-01.html' },
-                        { t: 'Atribuições, Princípios e Diretrizes das Ouvidorias', f: 'slide-fundamentos-ouvidorias.html' },
-                    ]
-                },
-                {
-                    t: 'A Ouvidoria da ANTAQ', icon: 'fa-landmark', children: [
-                        { t: 'Capa do bloco', f: 'capa-bloco-2.html' },
-                        { t: 'Apresentação da Ouvidoria da ANTAQ', f: 'slide-03c.html' },
-                        { t: 'Estrutura Organizacional da Ouvidoria', f: 'slide-ouvidoria-geral.html' },
-                        { t: 'Plataforma Fala.BR', f: 'slide-falabr.html' },
-                        { t: 'Fala.BR — O que é possível fazer', f: 'slide-falabr-usos.html' },
-                        { t: 'Demais Canais de Atendimento', f: 'slide-demais-canais.html' },
-                        { t: 'Carta de Serviços da ANTAQ', f: 'slide-25.html' },
-                        { t: 'Carta de Serviços da ANTAQ (33 serviços)', f: 'slide-cartas-servicos.html' },
-                        { t: 'Conselho de Usuários', f: 'slide-CnsU.html' },
-                        { t: 'Conselho de Usuários · como se tornar conselheiro', f: 'slide-17.html' },
-                        { t: 'Modelo de Maturidade em Ouvidoria Pública (MMOuP)', f: 'slide-CnsU2.html' },
-                        { t: 'Ouvidoria em Números (Omnichannel)', f: 'slide-17b.html' },
-                        { t: 'Ouvidoria em Números (Distribuição das Demandas)', f: 'slide-17e.html' },
-                        { t: 'Ouvidoria em Números (Evolução Histórica)', f: 'slide-07.html' },
-                    ]
-                },
-                {
-                    t: 'Seção de Apoio ao Cidadão — SAC', icon: 'fa-headset', children: [
-                        { t: 'Capa do bloco', f: 'capa-bloco-3.html' },
-                        { t: 'Apresentação da SAC', f: 'slide-sac-apres.html' },
-                        { t: 'Tipos de Manifestações de Ouvidoria', f: 'slide-sac-ativ.html' },
-                        { t: 'Distribuição de Manifestações por Mês', f: 'slide-17d.html' },
-                        { t: 'Distribuição de Manifestações por Tipo', f: 'slide-14.html' },
-                        { t: 'Distribuição de Manifestações por Canal', f: 'slide-canal.html' },
-                        { t: 'Manifestações Recebidas no Fala.BR', f: 'slide-04.html' },
-                        { t: 'Tratamento de Demandas no Fala.BR', f: 'slide-05.html' },
-                        { t: 'Demandas recorrentes', f: 'slide-08.html' },
-                        { t: 'Demandas Tramitadas por UORG', f: 'slide-tramit-uorg.html' },
-                    ]
-                },
-                {
-                    t: 'Seção de Transparência e Acesso à Informação — STAI', icon: 'fa-lock-open', children: [
-                        { t: 'Capa do bloco', f: 'capa-bloco-4.html' },
-                        { t: 'Apresentação da STAI', f: 'slide-4a.html' },
-                        {
-                            t: 'Transparência passiva', children: [
-                                { t: 'Plataforma Informa.BR', f: 'slide-informa-br.html' },
-                                { t: 'Transparência passiva', f: 'slide-23.html' },
-                                { t: 'LAI · Transparência passiva', f: 'slide-18.html' },
-                                { t: 'Histórico LAI', f: 'slide-20.html' },
-                            ]
-                        },
-                        {
-                            t: 'Transparência ativa', children: [
-                                { t: 'Transparência ativa', f: 'slide-22.html' },
-                                { t: 'Respostas por Unidade', f: 'slide-resp-unidade.html' },
-                            ]
-                        },
-                        {
-                            t: 'Dados abertos', children: [
-                                { t: 'Plano de Dados Abertos · PDA 2026–2028', f: 'slide-pda.html' },
-                                { t: 'Dados Abertos', f: 'slide-21.html' },
-                            ]
-                        },
-                    ]
-                },
-                {
-                    t: 'Considerações Finais', icon: 'fa-lightbulb', children: [
-                        { t: 'Capa do bloco', f: 'capa-bloco-5.html' },
-                        { t: 'Destaques do Semestre', f: 'slide-destaques-semestre.html' },
-                        { t: 'Principais Achados', f: 'slide-09.html' },
-                        { t: 'Considerações Finais', f: 'slide-conclusao.html' },
-                    ]
-                },
-                {
-                    t: 'Apêndice', icon: 'fa-book-bookmark', children: [
-                        { t: 'Capa do bloco', f: 'capa-bloco-6.html' },
-                        { t: 'Leis', f: 'slide-30.html' },
-                        { t: 'Decretos', f: 'slide-31.html' },
-                        { t: 'Normativos e Portarias', f: 'slide-32.html' },
-                        { t: 'Glossário', f: 'slide-29.html' },
-                        { t: 'Glossário (continuação)', f: 'slide-29b.html' },
-                        { t: 'Links Úteis & Contatos', f: 'slide-35.html' },
-                    ]
-                },
-            ];
+        function makeLink(cls, node) {
+            const el = document.createElement(node.f ? 'a' : 'span');
+            el.className = cls;
+            el.textContent = node.t;
+            if (node.f) {
+                el.href = 'javascript:void(0)';
+                el.addEventListener('click', function (e) { e.preventDefault(); goToFile(node.f); });
+            }
+            return el;
+        }
 
-            function buildNode(node, num, level) {
-                const li = document.createElement('li');
-                const row = document.createElement('div');
-                row.className = 'tnode lvl-' + level;
-                const kids = node.children && node.children.length;
+        (function renderSumario() {
+            const root = document.getElementById('sumGrid');
+            if (!root) return;
+            tree.forEach(function (block, i) {
+                const col = document.createElement('div');
+                col.className = 'sum-col';
 
-                const chev = document.createElement('span');
-                chev.className = 'tw-chev';
-                chev.innerHTML = kids ? '<i class="fas fa-chevron-right"></i>' : '<i class="fas fa-circle tw-leaf"></i>';
-                row.appendChild(chev);
+                const capa = (block.children || []).find(function (c) { return /^Capa/i.test(c.t) && c.f; });
+                const title = document.createElement(capa ? 'a' : 'span');
+                title.className = 'sum-title';
 
-                const n = document.createElement('span');
-                n.className = 'tw-num';
-                n.textContent = num;
-                row.appendChild(n);
-
-                if (node.icon) {
-                    const ic = document.createElement('span');
-                    ic.className = 'tw-icon';
-                    ic.innerHTML = '<i class="fas ' + node.icon + '"></i>';
-                    row.appendChild(ic);
+                /* o numero passa a ser um ordinal na propria linha do titulo */
+                const num = document.createElement('span');
+                num.className = 'sum-num';
+                num.textContent = (i + 1) + '.';
+                title.appendChild(num);
+                title.appendChild(document.createTextNode(block.t));
+                if (capa) {
+                    title.href = 'javascript:void(0)';
+                    title.addEventListener('click', function (e) { e.preventDefault(); goToFile(capa.f); });
                 }
+                col.appendChild(title);
 
-                const lab = document.createElement('span');
-                lab.className = 'tw-label';
-                lab.textContent = node.t;
-                row.appendChild(lab);
-
-                li.appendChild(row);
-
-                if (kids) {
-                    const ul = document.createElement('ul');
-                    node.children.forEach((c, i) => ul.appendChild(buildNode(c, num + '.' + (i + 1), level + 1)));
-                    li.appendChild(ul);
-                    row.addEventListener('click', () => li.classList.toggle('open'));
-                } else if (node.f) {
-                    row.classList.add('leaf');
-                    row.addEventListener('click', () => goToFile(node.f));
-                    if (node.f === 'slide-01.html') row.classList.add('current');
-                }
-                return li;
-            }
-
-
-
-
-
-            function makeLink(cls, node) {
-                const el = document.createElement(node.f ? 'a' : 'span');
-                el.className = cls;
-                el.textContent = node.t;
-                if (node.f) {
-                    el.href = 'javascript:void(0)';
-                    el.addEventListener('click', function (e) { e.preventDefault(); goToFile(node.f); });
-                }
-                return el;
-            }
-
-            (function renderSumario() {
-                const root = document.getElementById('sumGrid');
-                if (!root) return;
-                tree.forEach(function (block, i) {
-                    const col = document.createElement('div');
-                    col.className = 'sum-col';
-
-                    const capa = (block.children || []).find(function (c) { return /^Capa/i.test(c.t) && c.f; });
-                    const title = document.createElement(capa ? 'a' : 'span');
-                    title.className = 'sum-title';
-
-                    /* o numero passa a ser um ordinal na propria linha do titulo */
-                    const num = document.createElement('span');
-                    num.className = 'sum-num';
-                    num.textContent = (i + 1) + '.';
-                    title.appendChild(num);
-                    title.appendChild(document.createTextNode(block.t));
-                    if (capa) {
-                        title.href = 'javascript:void(0)';
-                        title.addEventListener('click', function (e) { e.preventDefault(); goToFile(capa.f); });
+                (block.children || []).forEach(function (child) {
+                    if (capa && child === capa) return;
+                    if (child.children && child.children.length) {
+                        const g = document.createElement('div');
+                        g.className = 'sum-group';
+                        g.textContent = child.t;
+                        col.appendChild(g);
+                        child.children.forEach(function (sub) { col.appendChild(makeLink('sum-subitem', sub)); });
+                    } else {
+                        col.appendChild(makeLink('sum-item', child));
                     }
-                    col.appendChild(title);
-
-                    (block.children || []).forEach(function (child) {
-                        if (capa && child === capa) return;
-                        if (child.children && child.children.length) {
-                            const g = document.createElement('div');
-                            g.className = 'sum-group';
-                            g.textContent = child.t;
-                            col.appendChild(g);
-                            child.children.forEach(function (sub) { col.appendChild(makeLink('sum-subitem', sub)); });
-                        } else {
-                            col.appendChild(makeLink('sum-item', child));
-                        }
-                    });
-
-                    root.appendChild(col);
                 });
 
+                root.appendChild(col);
+            });
 
 
 
-                function alignTitles() {
-                    const titles = root.querySelectorAll('.sum-title');
-                    let max = 0;
-                    titles.forEach(function (t) { t.style.minHeight = ''; });
-                    titles.forEach(function (t) { max = Math.max(max, t.offsetHeight); });
-                    titles.forEach(function (t) { t.style.minHeight = max + 'px'; });
-                }
-                requestAnimationFrame(alignTitles);
-                if (document.fonts && document.fonts.ready) document.fonts.ready.then(alignTitles);
-                window.addEventListener('resize', alignTitles);
-            })();
 
-            document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });
-        </script>
-  <script src="a11y.js" defer></script>
-  <script src="vida.js" defer></script>
+            function alignTitles() {
+                const titles = root.querySelectorAll('.sum-title');
+                let max = 0;
+                titles.forEach(function (t) { t.style.minHeight = ''; });
+                titles.forEach(function (t) { max = Math.max(max, t.offsetHeight); });
+                titles.forEach(function (t) { t.style.minHeight = max + 'px'; });
+            }
+            requestAnimationFrame(alignTitles);
+            if (document.fonts && document.fonts.ready) document.fonts.ready.then(alignTitles);
+            window.addEventListener('resize', alignTitles);
+        })();
+
+        document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });
+    </script>
+    <script src="a11y.js" defer></script>
+    <script src="vida.js" defer></script>
 </body>
 
 </html>
