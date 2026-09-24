@@ -119,7 +119,8 @@ html {
   gap: 2rem;
 }
 
-/* colunas com texto 25% maior (Ouvidoria da ANTAQ e SAC) */
+/* colunas com texto maior (Ouvidoria da ANTAQ e SAC): so o corpo cresce,
+   os subtitulos seguem o padrao da STAI */
 .doc-cols-maior .doc-text,
 .doc-cols-maior .act-list li {
   font-size: 1.14rem;
@@ -128,8 +129,4 @@ html {
 
 .doc-cols-maior .doc-text {
   margin-bottom: .7rem;
-}
-
-.doc-cols-maior .doc-subtitle {
-  font-size: .83rem;
 }
