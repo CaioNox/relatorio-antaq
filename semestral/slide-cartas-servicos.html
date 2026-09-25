@@ -93,8 +93,13 @@
       cursor: pointer;
     }
 
-    .seta-esq { left: .8rem; }
-    .seta-dir { right: .8rem; }
+    .seta-esq {
+      left: .8rem;
+    }
+
+    .seta-dir {
+      right: .8rem;
+    }
 
     .seta i {
       animation: pulsaEsq 1.6s ease-in-out infinite;
@@ -116,13 +121,31 @@
     }
 
     @keyframes pulsaEsq {
-      0%, 100% { opacity: .45; transform: translateX(0) scale(1); }
-      50% { opacity: 1; transform: translateX(-5px) scale(1.12); }
+
+      0%,
+      100% {
+        opacity: .45;
+        transform: translateX(0) scale(1);
+      }
+
+      50% {
+        opacity: 1;
+        transform: translateX(-5px) scale(1.12);
+      }
     }
 
     @keyframes pulsaDir {
-      0%, 100% { opacity: .45; transform: translateX(0) scale(1); }
-      50% { opacity: 1; transform: translateX(5px) scale(1.12); }
+
+      0%,
+      100% {
+        opacity: .45;
+        transform: translateX(0) scale(1);
+      }
+
+      50% {
+        opacity: 1;
+        transform: translateX(5px) scale(1.12);
+      }
     }
 
     .trilha {
@@ -607,7 +630,8 @@
         </div>
         <p class="slide-guia">
           <i class="far fa-hand-pointer" aria-hidden="true"></i>
-          Slide interativo: use as setas <span class="tecla">←</span><span class="tecla">→</span> do teclado para navegar
+          Slide interativo: use as setas <span class="tecla">←</span><span class="tecla">→</span> do teclado para
+          navegar
           entre os setores, ou o teclado numérico <span class="tecla">1</span><span class="tecla">2</span><span
             class="tecla">3</span><span class="tecla">4</span>
         </p>
