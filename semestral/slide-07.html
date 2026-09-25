@@ -127,16 +127,6 @@
     .hist-kpi:hover { transform: translateY(-3px); box-shadow: 0 14px 26px -16px rgba(16, 48, 80, .45); }
     .hist-kpi:focus-visible { outline: 3px solid #0090C0; outline-offset: 3px; }
 
-    /* variacao sobre o ano anterior, calculada a partir da propria serie */
-    .hk-delta {
-      display: inline-flex; align-items: center; gap: .3rem;
-      font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: .72rem;
-      margin-top: .25rem; color: #5a7a99;
-    }
-
-    .hist-kpi.hk-feat .hk-delta { color: #FFD98A; }
-    .hk-delta i { font-size: .62rem; }
-
 
     .hist-kpi .hk-year {
       font-family: 'Montserrat', sans-serif;
@@ -266,25 +256,21 @@
           <p class="hk-year">1º Semestre 2026</p>
           <p class="hk-val" data-ano="2026">876</p>
           <p class="hk-label">Demandas</p>
-          <span class="hk-delta"></span>
         </button>
         <button type="button" class="hist-kpi" data-i="2" role="tab" aria-selected="false">
           <p class="hk-year">1º Semestre 2025</p>
           <p class="hk-val" data-ano="2025">834</p>
           <p class="hk-label">Demandas</p>
-          <span class="hk-delta"></span>
         </button>
         <button type="button" class="hist-kpi" data-i="1" role="tab" aria-selected="false">
           <p class="hk-year">1º Semestre 2024</p>
           <p class="hk-val" data-ano="2024">704</p>
           <p class="hk-label">Demandas</p>
-          <span class="hk-delta"></span>
         </button>
         <button type="button" class="hist-kpi" data-i="0" role="tab" aria-selected="false">
           <p class="hk-year">1º Semestre 2023</p>
           <p class="hk-val" data-ano="2023">725</p>
           <p class="hk-label">Demandas</p>
-          <span class="hk-delta"></span>
         </button>
       </div>
     </div>
@@ -400,23 +386,6 @@
       tweens.set(el, requestAnimationFrame(passo));
     }
 
-    /* variacao sobre o ano anterior — calculada da propria serie */
-    function pintarDelta(cartao, i) {
-      const alvo = cartao.querySelector('.hk-delta');
-      if (!alvo) return;
-      if (i === 0) {
-        alvo.innerHTML = '<i class="fas fa-flag" aria-hidden="true"></i> início da série';
-        return;
-      }
-      const dif = histData[i] - histData[i - 1];
-      const pct = (dif / histData[i - 1]) * 100;
-      const sobe = dif >= 0;
-      alvo.innerHTML = '<i class="fas fa-arrow-' + (sobe ? 'up' : 'down') + '" aria-hidden="true"></i> '
-        + (sobe ? '+' : '−') + fmtBR(Math.abs(dif)) + ' (' + (sobe ? '+' : '−')
-        + Math.abs(pct).toFixed(1).replace('.', ',') + '%) sobre '
-        + histLabels[i - 1].replace('1º Semestre ', '');
-    }
-
     function selecionar(i, animar) {
       const antes = foco;
       foco = i;
@@ -433,7 +402,6 @@
       const cartao = cartoes.find(c => +c.dataset.i === i);
       if (cartao) {
         contarAte(cartao.querySelector('.hk-val'), animar === false ? 0 : histData[antes], histData[i]);
-        pintarDelta(cartao, i);
       }
 
       if (window.A11y) {
@@ -459,7 +427,6 @@
       cartoes.forEach(function (c) {
         const i = +c.dataset.i;
         contarAte(c.querySelector('.hk-val'), 0, histData[i]);
-        pintarDelta(c, i);
       });
       selecionar(histData.length - 1, false);
 
