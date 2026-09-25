@@ -12,10 +12,7 @@ desktop.ini
 *.swo
 *~
 
-
-# MCP: config local de servidores, por maquina.
-# Foi o `npx shadcn mcp init` que criou semestral/.mcp.json nesta sessao —
-# e config de ferramenta, nao conteudo do relatorio.
+# Configuracoes locais de ferramentas (por maquina, nao fazem parte do site)
 .mcp.json
 
 # Backups e sobras de merge/patch
