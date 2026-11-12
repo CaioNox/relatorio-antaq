@@ -7,11 +7,12 @@ tudo gerado a partir dos mesmos arquivos-fonte, sem back-end e sem etapa de buil
 
 | Pasta | Relatório | Manual |
 |-------|-----------|--------|
-| [`semestral/`](semestral/) | **Relatório Semestral 2026** — 1º Semestre (Jan–Jun) | [`semestral/INVENTARIO.md`](semestral/INVENTARIO.md) · [`semestral/PENDENCIAS-DADOS.md`](semestral/PENDENCIAS-DADOS.md) |
-| [`sistema/`](sistema/) | **Relatório Trimestral 2026** — 1º Trimestre (Jan–Mar) | [`MANUAL.md`](MANUAL.md) |
-| [`enquetes-2026/`](enquetes-2026/) | **Relatório Anual de Enquetes do Conselho de Usuários 2026** — 2ª rodada (07/04 a 27/04/2026) | [`enquetes-2026/MANUAL.md`](enquetes-2026/MANUAL.md) |
+| [`relatorios/semestral-2026/`](relatorios/semestral-2026/) | **Relatório Semestral 2026** — 1º Semestre (Jan–Jun) | [`INVENTARIO.md`](relatorios/semestral-2026/INVENTARIO.md) · [`PENDENCIAS-DADOS.md`](relatorios/semestral-2026/PENDENCIAS-DADOS.md) |
+| [`relatorios/trimestral-1t-2026/`](relatorios/trimestral-1t-2026/) | **Relatório Trimestral 2026** — 1º Trimestre (Jan–Mar) | [`docs/MANUAL-trimestral-1t.md`](docs/MANUAL-trimestral-1t.md) |
+| [`relatorios/trimestral-3t-2026/`](relatorios/trimestral-3t-2026/) | **Relatório Trimestral 2026** — 3º Trimestre (Jul–Set) | [`MAPA-SLIDES.md`](relatorios/trimestral-3t-2026/MAPA-SLIDES.md) |
+| [`relatorios/anual-enquetes-2026/`](relatorios/anual-enquetes-2026/) | **Relatório Anual de Enquetes do Conselho de Usuários 2026** — 2ª rodada (07/04 a 27/04/2026) | [`MANUAL.md`](relatorios/anual-enquetes-2026/MANUAL.md) |
 
-Os três relatórios são **módulos independentes**: cada pasta tem o próprio visualizador,
+Os relatórios são **módulos independentes**: cada pasta tem o próprio visualizador,
 o próprio manifesto de slides (`deck.js`), a própria versão de impressão e os próprios
 assets. Alterar um não afeta os outros.
 
@@ -213,7 +214,7 @@ idêntico ao que está no HTML.
 
 ### Crie seu Slide
 
-`crie-seu-slide-*.html` + `crie-seu-slide.js` (raiz): ferramenta que faz `fetch` do
+`compartilhado/crie-seu-slide/`: ferramenta que faz `fetch` do
 `deck.js` (e, para o Conselho, também de `dados-enquetes.js`) de outro relatório,
 avalia o manifesto em um escopo isolado e permite **compor uma seleção própria de
 slides**, persistida em `localStorage`.
@@ -222,47 +223,51 @@ slides**, persistida em `localStorage`.
 
 ```
 .
-├── index.html                     # Hub: um card por relatório
-├── img_porto*.jpeg                # Fundo da home (versão web otimizada)
-├── Imagens/                       # Logos compartilhados da home
-├── crie-seu-slide*.{html,css,js}  # Ferramenta "Crie seu Slide"
-├── MANUAL.md                      # Manual do Relatório Trimestral
-├── .github/workflows/static.yml   # Deploy no GitHub Pages
-├── .nojekyll                      # Desliga o Jekyll no Pages
+├── index.html                          # Hub: um card por relatório
+├── README.md
+├── .github/workflows/static.yml        # Deploy no GitHub Pages
+├── .nojekyll                           # Desliga o Jekyll no Pages
 │
-├── semestral/                     # ── Relatório Semestral 2026 (ativo) ──
-│   ├── deck.js                    # Manifesto (ordem, blocos, anexos, PPTX)
-│   ├── index.html                 # Visualizador
-│   ├── relatorio.html             # A4 / PDF + gerador PPTX
-│   ├── base.css · apresentacao.css
-│   ├── a11y.css · a11y.js · vida.js
-│   ├── capa-bloco-{1..6}.html     # Capas de bloco
-│   ├── slide-*.html               # Telas
-│   ├── conselho.html              # Tela avulsa do Conselho de Usuários
-│   ├── INVENTARIO.md              # Log de decisões + tabela de derivação dos slides
-│   ├── PENDENCIAS-DADOS.md        # Dados ainda provisórios (.todo-dado)
-│   └── Imagens/
+├── relatorios/                         # ── Um módulo independente por relatório ──
+│   ├── anual-enquetes-2026/            # Relatório Anual de Enquetes do Conselho
+│   │   ├── dados-enquetes.js           # FONTE ÚNICA dos dados das enquetes
+│   │   ├── slide-enquete.html          # Template parametrizado por query string
+│   │   ├── deck.js · index.html · relatorio.html
+│   │   ├── slide-*.html · capa-*.html
+│   │   ├── MANUAL.md
+│   │   └── Imagens/
+│   │
+│   ├── semestral-2026/                 # Relatório Semestral 2026 (1º Semestre)
+│   │   ├── deck.js · index.html · relatorio.html
+│   │   ├── base.css · apresentacao.css · a11y.css · a11y.js · vida.js
+│   │   ├── capa-bloco-{1..6}.html · slide-*.html · conselho.html
+│   │   ├── INVENTARIO.md · PENDENCIAS-DADOS.md
+│   │   └── Imagens/
+│   │
+│   ├── trimestral-1t-2026/             # Relatório Trimestral 2026 (1º Trimestre)
+│   │   ├── deck.js · index.html · relatorio.html
+│   │   ├── slide-*.html · capa-*.html
+│   │   ├── RESUMO-SLIDES.md
+│   │   └── Imagens/
+│   │
+│   └── trimestral-3t-2026/             # Relatório Trimestral 2026 (3º Trimestre)
+│       ├── deck.js · index.html · relatorio.html
+│       ├── base.css · apresentacao.css · a11y.css · a11y.js · vida.js
+│       ├── slide-00.html … slide-49.html   # numerados na ordem da apresentação
+│       ├── MAPA-SLIDES.md · PENDENCIAS-DADOS-3T.md
+│       └── Imagens/
 │
-├── sistema/                       # ── Relatório Trimestral 2026 ──
-│   ├── deck.js · index.html · relatorio.html
-│   ├── slide-*.html · capa-*.html
-│   ├── RESUMO-SLIDES.md
-│   └── Imagens/
+├── compartilhado/                      # ── Usado pelo hub e por ferramentas ──
+│   ├── imagens/                        # Logos e fundo da home (img_porto*.jpeg)
+│   └── crie-seu-slide/                 # Ferramenta "Crie seu Slide" (html, css, js)
 │
-└── enquetes-2026/                 # ── Relatório Anual de Enquetes ──
-    ├── dados-enquetes.js          # FONTE ÚNICA dos dados das enquetes
-    ├── slide-enquete.html         # Template parametrizado por query string
-    │                              #   ?e=8270&p=1 → questões 1 e 2 (rosca)
-    │                              #   ?e=8270&p=2 → questões 3 e 4 (barras) + sugestões
-    ├── deck.js · index.html · relatorio.html
-    ├── slide-*.html · capa-*.html
-    ├── MANUAL.md
-    └── Imagens/
+└── docs/
+    └── MANUAL-trimestral-1t.md         # Manual do Relatório Trimestral
 ```
 
 ## Relatório Semestral — conteúdo
 
-Ordem definida em `semestral/deck.js` (49 telas):
+Ordem definida em `relatorios/semestral-2026/deck.js` (49 telas):
 
 | Bloco | Tema | Destaques |
 |-------|------|-----------|
@@ -308,7 +313,7 @@ seletor e a função `ler`, para que o conteúdo escondido apareça no PDF.
 Registre decisões editoriais em `INVENTARIO.md` e dados provisórios em
 `PENDENCIAS-DADOS.md` (sempre com data, sem reescrever entradas antigas).
 
-**Diagnóstico** — abra `semestral/index.html?auditoria=1` e veja o console: arquivos
+**Diagnóstico** — abra `relatorios/semestral-2026/index.html?auditoria=1` e veja o console: arquivos
 duplicados ou inexistentes no manifesto são sinalizados.
 
 ## Rodar localmente
@@ -318,7 +323,7 @@ Os slides usam `fetch` e iframes, então sirva a pasta por HTTP (não abra via `
 ```bash
 python -m http.server 8000
 # http://localhost:8000              → hub
-# http://localhost:8000/semestral/   → Relatório Semestral
+# http://localhost:8000/relatorios/semestral-2026/   → Relatório Semestral
 ```
 
 Qualquer servidor estático serve (`npx serve`, extensão Live Server etc.).

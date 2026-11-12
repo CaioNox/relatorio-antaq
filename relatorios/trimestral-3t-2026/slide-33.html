@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Histórico de Pedidos LAI - Relatório Trimestral Ouvidoria ANTAQ</title>
+  <link rel="icon" type="image/png"
+    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&amp;family=Open+Sans:ital,wght@0,400;0,600;1,400&amp;display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    html {
+      font-size: 26px;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f3f4f6;
+      overflow: hidden;
+    }
+
+    .slide-container {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background-color: #ffffff;
+      overflow: hidden;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    .font-montserrat {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .text-brand-primary {
+      color: #103050;
+    }
+
+    .text-brand-secondary {
+      color: #0070C0;
+    }
+
+    .bg-brand-secondary {
+      background-color: #0070C0;
+    }
+
+    .top-accent {
+      height: 8px;
+      background-color: #103050;
+      width: 100%;
+    }
+
+    .top-accent-secondary {
+      height: 4px;
+      background-color: #0070C0;
+      width: 100%;
+    }
+
+    .chart-card {
+      background-color: #ffffff;
+      border: 2px solid #E2E8F0;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px -8px rgba(16, 48, 80, 0.18);
+      padding: 1.4rem 1.6rem;
+      transition: transform .28s cubic-bezier(.2, .7, .3, 1), box-shadow .28s ease, border-color .28s ease;
+    }
+
+    .chart-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 22px 42px -12px rgba(16, 48, 80, .30);
+      border-color: #0070C0;
+    }
+
+    .chart-note {
+      font-size: .72rem;
+      color: #6b7280;
+      line-height: 1.45;
+      border-top: 1px solid #eef2f7;
+      padding-top: .7rem;
+      margin-top: .4rem;
+      display: flex;
+      align-items: flex-start;
+      gap: .5rem;
+    }
+
+    .chart-note i {
+      color: #0070C0;
+      margin-top: .15rem;
+    }
+
+
+    /* ------------------------------------------------------------------
+       Interatividade: cada cartao de ano e um controle. Escolher um ano
+       recorta a serie ate ele e o Chart.js reanima — as barras crescem —
+       enquanto o numero sobe por contagem a partir do ano antes escolhido.
+       ------------------------------------------------------------------ */
+    .hist-kpi {
+      width: 100%;
+      text-align: left;
+      font: inherit;
+      cursor: pointer;
+      border: 0;
+      transition: transform .26s cubic-bezier(.34, 1.32, .64, 1), box-shadow .25s ease;
+    }
+
+    .hist-kpi:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 26px -16px rgba(16, 48, 80, .45);
+    }
+
+    .hist-kpi:focus-visible {
+      outline: 3px solid #0090C0;
+      outline-offset: 3px;
+    }
+
+    .hist-kpi {
+      position: relative;
+      border-left: 4px solid #0090C0;
+      background-color: #EAF3FB;
+      padding: 0.32rem 1.1rem;
+      border-radius: 34px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      flex: 1;
+      min-height: 0;
+      animation: fadeInUp 500ms cubic-bezier(.2, .7, .3, 1) both;
+    }
+
+    .hist-kpi .hk-year {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #5a7a99;
+    }
+
+    .hist-kpi .hk-val {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 2.3rem;
+      color: #103050;
+      line-height: 1;
+      margin: .12rem 0;
+      display: flex;
+      align-items: baseline;
+      gap: .5rem;
+    }
+
+    .hist-kpi .hk-label {
+      font-family: 'Open Sans', sans-serif;
+      font-weight: 400;
+      font-size: 0.85rem;
+      color: #6b7280;
+    }
+
+
+    .hist-kpi .hk-resp {
+      margin-top: .28rem;
+      padding-top: .28rem;
+      border-top: 1px solid rgba(90, 122, 153, .25);
+      display: flex;
+      flex-direction: row;
+      align-items: baseline;
+      gap: .5rem;
+    }
+
+    .hist-kpi .hk-resp-val {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 1.35rem;
+      color: #0070C0;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .hist-kpi .hk-resp-lbl {
+      font-family: 'Open Sans', sans-serif;
+      font-size: .8rem;
+      color: #6b7280;
+    }
+
+    .hist-kpi.hk-feat .hk-resp {
+      border-top-color: rgba(255, 255, 255, .28);
+    }
+
+    .hist-kpi.hk-feat .hk-resp-val {
+      color: #F2A900;
+    }
+
+    .hist-kpi.hk-feat .hk-resp-lbl {
+      color: #dbeaf5;
+    }
+
+
+    .hk-help {
+      position: absolute;
+      top: .55rem;
+      right: .6rem;
+      width: 1.2rem;
+      height: 1.2rem;
+      border-radius: 50%;
+      border: 1.5px solid #9db8cf;
+      background: #ffffff;
+      color: #5a7a99;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: .72rem;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: help;
+      z-index: 20;
+      transition: background .18s ease, color .18s ease, border-color .18s ease;
+    }
+
+    .hk-help:hover,
+    .hk-help:focus {
+      background: #0070C0;
+      color: #ffffff;
+      border-color: #0070C0;
+      outline: none;
+    }
+
+    .hist-kpi.hk-feat .hk-help {
+      background: rgba(255, 255, 255, .14);
+      border-color: rgba(255, 255, 255, .65);
+      color: #ffffff;
+    }
+
+    .hist-kpi.hk-feat .hk-help:hover,
+    .hist-kpi.hk-feat .hk-help:focus {
+      background: #ffffff;
+      color: #103050;
+    }
+
+    .hk-tip {
+      position: absolute;
+      top: .35rem;
+      right: 2rem;
+      width: 14.5rem;
+      background: #ffffff;
+      color: #334155;
+      border: 1px solid #d5dee8;
+      border-radius: 10px;
+      box-shadow: 0 18px 36px -12px rgba(16, 48, 80, .40);
+      padding: .7rem .85rem;
+      font-family: 'Open Sans', sans-serif;
+      font-weight: 400;
+      font-size: .6rem;
+      line-height: 1.55;
+      text-align: left;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateX(6px);
+      transition: opacity .18s ease, transform .18s ease, visibility .18s;
+      z-index: 30;
+      pointer-events: none;
+    }
+
+    .hk-help:hover+.hk-tip,
+    .hk-help:focus+.hk-tip {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(0);
+    }
+
+    .hist-kpi.hk-feat {
+      background: linear-gradient(160deg, #103050 0%, #0090C0 100%);
+      border-left: 4px solid #F2A900;
+      box-shadow: 0 18px 38px -16px rgba(16, 48, 80, .55);
+    }
+
+    .hist-kpi.hk-feat .hk-year {
+      color: #cfe5f3;
+    }
+
+    .hist-kpi.hk-feat .hk-val {
+      color: #ffffff;
+    }
+
+    .hist-kpi.hk-feat .hk-label {
+      color: #dbeaf5;
+    }
+
+    .hist-kpi:nth-child(1) {
+      animation-delay: 0ms;
+    }
+
+    .hist-kpi:nth-child(2) {
+      animation-delay: 80ms;
+    }
+
+    .hist-kpi:nth-child(3) {
+      animation-delay: 160ms;
+    }
+
+    .hist-kpi:nth-child(4) {
+      animation-delay: 240ms;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="a11y.css">
+  <link rel="stylesheet" href="base.css" />
+</head>
+
+<body>
+  <div class="slide-container">
+    <div class="top-accent"></div>
+    <div class="top-accent-secondary"></div>
+
+    <div class="flex items-start justify-between px-16 pt-10 pb-3 z-10">
+      <div>
+        <div class="flex items-center gap-3 mb-1">
+          <div class="w-1 h-8 bg-brand-secondary"></div>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Histórico LAI</p>
+        </div>
+        <p class="text-gray-500 font-medium ml-4 text-lg">Pedidos de acesso à informação — 3º trimestre de 2023 a 2026
+        </p>
+        <h2 class="assunto"><i class="fas fa-inbox" aria-hidden="true"></i> Transparência passiva</h2>
+      </div>
+      <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
+        <i class="fas fa-lock-open text-3xl" aria-hidden="true"></i>
+        <div class="flex flex-col justify-center pl-2 cap-div">
+          <p
+            class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">
+            CAPÍTULO 04</p>
+          <p
+            class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none whitespace-nowrap">
+            Seção de Transparência e Acesso à Informação - STAI</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex-1 grid gap-6 px-16 pb-6 z-10" style="min-height:0; grid-template-columns: 1.73fr 1fr;">
+
+      <div class="chart-card flex flex-col" style="min-height:0;">
+        <p class="text-brand-primary font-montserrat font-bold text-xl mb-1 flex items-center gap-2"><i
+            class="fas fa-file-circle-plus text-brand-secondary"></i> Pedidos de acesso à informação</p>
+        <div class="flex-1 relative" style="min-height:0;"><canvas id="chartLaiHist" role="img"
+            aria-label="Gráfico de barras: histórico de pedidos LAI no 3º trimestre de cada ano — 2023: 62, 2024: 105, 2025: 107, 2026: 130"></canvas>
+        </div>
+        <p class="chart-note"><i class="fas fa-circle-info"></i><span>O comparativo histórico demonstra a evolução da
+            demanda por transparência pública e permite avaliar tendências de acesso à informação.</span></p>
+      </div>
+
+
+      <div class="flex flex-col gap-1" style="min-height:0;">
+        <button type="button" class="hist-kpi hk-feat" data-i="3" role="tab" aria-selected="true">
+          <span class="hk-help" tabindex="0" role="button"
+            aria-label="Como o tempo médio de resposta é calculado">?</span>
+          <span class="hk-tip">Quantidade de dias — em dias corridos — entre o recebimento do pedido e a data em que
+            ele foi respondido.</span>
+          <p class="hk-year">3º Trimestre de 2026</p>
+          <p class="hk-val">130 <span class="hk-label">pedidos</span></p>
+          <div class="hk-resp">
+            <span class="hk-resp-val">3,8 dias</span>
+            <span class="hk-resp-lbl">tempo médio de resposta</span>
+          </div>
+        </button>
+        <button type="button" class="hist-kpi" data-i="2" role="tab" aria-selected="false">
+          <span class="hk-help" tabindex="0" role="button"
+            aria-label="Como o tempo médio de resposta é calculado">?</span>
+          <span class="hk-tip">Quantidade de dias — em dias corridos — entre o recebimento do pedido e a data em que
+            ele foi respondido.</span>
+          <p class="hk-year">3º Trimestre de 2025</p>
+          <p class="hk-val">107 <span class="hk-label">pedidos</span></p>
+          <div class="hk-resp">
+            <span class="hk-resp-val">3,7 dias</span>
+            <span class="hk-resp-lbl">tempo médio de resposta</span>
+          </div>
+        </button>
+        <button type="button" class="hist-kpi" data-i="1" role="tab" aria-selected="false">
+          <span class="hk-help" tabindex="0" role="button"
+            aria-label="Como o tempo médio de resposta é calculado">?</span>
+          <span class="hk-tip">Quantidade de dias — em dias corridos — entre o recebimento do pedido e a data em que
+            ele foi respondido.</span>
+          <p class="hk-year">3º Trimestre de 2024</p>
+          <p class="hk-val">105 <span class="hk-label">pedidos</span></p>
+          <div class="hk-resp">
+            <span class="hk-resp-val">6 dias</span>
+            <span class="hk-resp-lbl">tempo médio de resposta</span>
+          </div>
+        </button>
+        <button type="button" class="hist-kpi" data-i="0" role="tab" aria-selected="false">
+          <span class="hk-help" tabindex="0" role="button"
+            aria-label="Como o tempo médio de resposta é calculado">?</span>
+          <span class="hk-tip">Quantidade de dias — em dias corridos — entre o recebimento do pedido e a data em que
+            ele foi respondido.</span>
+          <p class="hk-year">3º Trimestre de 2023</p>
+          <p class="hk-val">62 <span class="hk-label">pedidos</span></p>
+          <div class="hk-resp">
+            <span class="hk-resp-val">5 dias</span>
+            <span class="hk-resp-lbl">tempo médio de resposta</span>
+          </div>
+        </button>
+      </div>
+    </div>
+
+    <div class="px-16 pb-6 pt-1 flex justify-between items-center z-10">
+      <p class="text-gray-400 text-xs">Relatório 3º Trimestre de 2026 – Ouvidoria – Agência Nacional de Transportes
+        Aquaviários - ANTAQ</p>
+    </div>
+  </div>
+  <script>
+    const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const barLabels = {
+      id: 'barLabels',
+      afterDatasetsDraw(chart) {
+        const { ctx } = chart;
+        ctx.save();
+        ctx.font = '700 18px Montserrat, sans-serif';
+        ctx.fillStyle = '#103050';
+        ctx.textAlign = 'center';
+        chart.getDatasetMeta(0).data.forEach((bar, i) => {
+          const v = chart.data.datasets[0].data[i];
+          if (v === null || v === undefined) return;   /* ano ainda nao revelado */
+          ctx.fillStyle = (i === foco) ? '#0070C0' : '#103050';
+          ctx.fillText(v, bar.x, bar.y - 8);
+        });
+        ctx.restore();
+      }
+    };
+    const lastBarTop = {
+      id: 'lastBarTop',
+      afterDatasetsDraw(chart) {
+        const meta = chart.getDatasetMeta(0);
+        if (!meta.data.length) return;
+        const bar = meta.data[foco];                  /* topo dourado no ano em foco */
+        if (!bar || chart.data.datasets[0].data[foco] === null) return;
+        const half = bar.width / 2;
+        const { ctx } = chart;
+        ctx.save();
+        ctx.strokeStyle = '#F2A900';
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(bar.x - half, bar.y);
+        ctx.lineTo(bar.x + half, bar.y);
+        ctx.stroke();
+        ctx.restore();
+      }
+    };
+    /* indice do ano em foco — o grafico e desenhado ate ele */
+    let foco = 3;
+
+    const laiHistLabels = ['3º trimestre 2023', '3º trimestre 2024', '3º trimestre 2025', '3º trimestre 2026'];
+    const laiHistData = [62, 105, 107, 130];
+    const grafico = new Chart(document.getElementById('chartLaiHist'), {
+      type: 'bar',
+      data: {
+        labels: laiHistLabels,
+        datasets: [{
+          data: laiHistData,
+          backgroundColor: ['#C0E0F0', '#90C8E5', '#5AAFD8', '#0090C0'],
+          borderRadius: 8,
+          maxBarThickness: 80
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        layout: { padding: { top: 26 } },
+        animation: REDUCED ? false : { duration: 1200, easing: 'easeOutQuart' },
+        plugins: { legend: { display: false }, tooltip: { enabled: false } },
+        scales: {
+          x: { grid: { display: false }, ticks: { color: '#6b7280', font: { family: 'Montserrat', size: 13, weight: '600' } } },
+          y: { beginAtZero: true, grid: { color: '#eef2f7' }, ticks: { color: '#6b7280', font: { family: 'Montserrat', size: 13, weight: '600' } } }
+        }
+      },
+      plugins: [barLabels, lastBarTop]
+    });
+
+    /* ---------- controles ---------- */
+    const cartoes = Array.from(document.querySelectorAll('.hist-kpi[data-i]'));
+    const fmtBR = n => n.toLocaleString('pt-BR');
+
+    function serieAte(i) { return laiHistData.map((v, k) => (k <= i ? v : null)); }
+
+    const tweens = new WeakMap();
+    function contarAte(el, de, ate) {
+      const anterior = tweens.get(el);
+      if (anterior) cancelAnimationFrame(anterior);
+      if (REDUCED) { el.firstChild.nodeValue = fmtBR(ate) + ' '; return; }
+
+      const DUR = 650;
+      let t0 = null;
+      function passo(t) {
+        if (t0 === null) t0 = t;
+        const p = Math.min((t - t0) / DUR, 1);
+        const e = 1 - Math.pow(1 - p, 5);             /* easeOutQuint */
+        el.firstChild.nodeValue = fmtBR(Math.round(de + (ate - de) * e)) + ' ';
+        if (p < 1) tweens.set(el, requestAnimationFrame(passo));
+        else tweens.delete(el);
+      }
+      tweens.set(el, requestAnimationFrame(passo));
+    }
+
+
+    function selecionar(i, animar) {
+      const antes = foco;
+      foco = i;
+
+      grafico.data.datasets[0].data = serieAte(i);
+      grafico.update(animar === false ? 'none' : undefined);
+
+      cartoes.forEach(function (c) {
+        const j = +c.dataset.i;
+        c.classList.toggle('hk-feat', j === i);
+        c.setAttribute('aria-selected', j === i ? 'true' : 'false');
+      });
+
+      const cartao = cartoes.find(c => +c.dataset.i === i);
+      if (cartao) {
+        contarAte(cartao.querySelector('.hk-val'), animar === false ? 0 : laiHistData[antes], laiHistData[i]);
+      }
+
+      if (window.A11y) A11y.announce(laiHistLabels[i] + ': ' + fmtBR(laiHistData[i]) + ' pedidos.');
+    }
+
+    cartoes.forEach(function (c) {
+      /* o "?" abre a explicacao do tempo de resposta, nao troca o ano */
+      c.addEventListener('click', function (e) {
+        if (e.target.closest('.hk-help')) return;
+        selecionar(+c.dataset.i);
+      });
+    });
+
+    /* teclas 1 a 4 escolhem o periodo */
+    document.addEventListener('keydown', function (e) {
+      if (e.key >= '1' && e.key <= String(laiHistData.length)) {
+        e.preventDefault();
+        selecionar(+e.key - 1);
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+      cartoes.forEach(function (c) {
+        const i = +c.dataset.i;
+        contarAte(c.querySelector('.hk-val'), 0, laiHistData[i]);
+      });
+      selecionar(laiHistData.length - 1, false);
+    });
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!window.A11y) return;
+      A11y.renderChartFallbackTable(
+        document.getElementById('chartLaiHist'),
+        'Histórico de pedidos LAI no 3º trimestre de cada ano',
+        ['Período', 'Pedidos'],
+        laiHistLabels.map((l, i) => [l, String(laiHistData[i])])
+      );
+    });
+  </script>
+  <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
+  <script src="a11y.js" defer></script>
+  <script src="vida.js" defer></script>
+</body>
+
+</html>

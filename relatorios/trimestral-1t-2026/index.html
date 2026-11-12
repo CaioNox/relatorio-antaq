@@ -5,7 +5,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Relatório Anual de Enquetes do Conselho de Usuários — ANTAQ 2026</title>
+  <title>Apresentação Trimestral</title>
   <link rel="icon" type="image/png"
     href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
@@ -252,19 +252,6 @@
       gap: 2px;
       align-items: center;
       margin: 0 6px;
-      max-width: 56vw;
-      overflow-x: auto;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-      padding: 4px 0;
-    }
-
-    .nav-dots::-webkit-scrollbar {
-      display: none;
-    }
-
-    .nav-dots button {
-      flex: 0 0 auto;
     }
 
     .nav-dots button {
@@ -696,7 +683,7 @@
     <div class="pptx-box" role="dialog" aria-modal="true" aria-labelledby="pptxTitulo">
       <div class="pptx-ico"><i class="fa-solid fa-file-powerpoint" aria-hidden="true"></i></div>
       <h3 id="pptxTitulo">Deseja baixar o arquivo PowerPoint dos slides apresentados?</h3>
-      <p>O download comeca imediatamente.<span class="pptx-arq">Relatorio-Anual-Enquetes-Conselho-de-Usuarios-ANTAQ-2026.pptx</span></p>
+      <p>O download comeca imediatamente.<span class="pptx-arq">1o-Relatorio-Trimestral-2026-Ouvidoria-ANTAQ.pptx</span></p>
       <div class="pptx-acoes">
         <button class="pptx-nao" type="button" id="pptxNao">Nao</button>
         <button class="pptx-sim" type="button" id="pptxSim">Sim, baixar</button>
@@ -704,7 +691,6 @@
     </div>
   </div>
 
-  <script src="dados-enquetes.js"></script>
   <script src="deck.js"></script>
   <script>
 
@@ -742,10 +728,6 @@
         const on = i === current - 1;
         dot.classList.toggle('active', on);
         dot.setAttribute('aria-current', on ? 'true' : 'false');
-
-        if (on && dot.scrollIntoView) {
-          dot.scrollIntoView({ block: 'nearest', inline: 'nearest' });
-        }
       });
     }
 
@@ -767,7 +749,7 @@
 
     function closePresentation() {
       if (window.opener) { window.close(); }
-      else { window.location.href = '../index.html'; }
+      else { window.location.href = '../../index.html'; }
     }
 
 
@@ -885,7 +867,7 @@
     new ResizeObserver(scaleFrame).observe(stage);
 
     /* ---- confirmacao de download do PPTX ---- */
-    const ARQUIVO_PPTX = 'Relatorio-Anual-Enquetes-Conselho-de-Usuarios-ANTAQ-2026.pptx';
+    const ARQUIVO_PPTX = '1o-Relatorio-Trimestral-2026-Ouvidoria-ANTAQ.pptx';
     const pptxOverlay = document.getElementById('pptxOverlay');
     const pptxBtn = document.getElementById('pptxBtn');
 
@@ -912,7 +894,7 @@
     });
 
     /* ---- Ctrl+M volta para o menu de relatorios ---- */
-    const MENU_URL = '../index.html';
+    const MENU_URL = '../../index.html';
 
     function irParaMenu() { window.location.href = MENU_URL; }
 

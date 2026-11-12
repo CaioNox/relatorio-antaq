@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Estrutura Organizacional da Ouvidoria - Relatório Trimestral Ouvidoria ANTAQ</title>
+  <link rel="icon" type="image/png"
+    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    html {
+      font-size: 26px;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f3f4f6;
+      overflow: hidden;
+    }
+
+    .slide-container {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background-color: #ffffff;
+      overflow: hidden;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    .font-montserrat {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .text-brand-primary {
+      color: #103050;
+    }
+
+    .text-brand-secondary {
+      color: #0070C0;
+    }
+
+    .bg-brand-secondary {
+      background-color: #0070C0;
+    }
+
+    .top-accent {
+      height: 8px;
+      background-color: #103050;
+      width: 100%;
+    }
+
+    .top-accent-secondary {
+      height: 4px;
+      background-color: #0070C0;
+      width: 100%;
+    }
+
+    .inst-cols {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.3rem;
+      align-content: start;
+      min-height: 0;
+      animation: fadeInUp .5s cubic-bezier(.2, .7, .3, 1) both;
+    }
+
+    .inst-col {
+      display: flex;
+      flex-direction: column;
+      gap: .5rem;
+    }
+
+    .inst-text {
+      color: #334155;
+      font-size: .84rem;
+      line-height: 1.42;
+      margin: 0;
+      text-align: justify;
+      text-indent: 1.8em;
+    }
+
+    .inst-text b {
+      color: #103050;
+      font-weight: 700;
+    }
+
+    .org-fig {
+      position: relative;
+      min-height: 0;
+
+      margin-top: -2.9rem;
+      z-index: 1;
+      animation: fadeInUp .5s cubic-bezier(.2, .7, .3, 1) .1s both;
+    }
+
+    .org-embed {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1900px;
+      height: 600px;
+      transform-origin: 0 0;
+      font-family: 'Open Sans', 'Segoe UI', sans-serif;
+    }
+
+    .org-embed svg.mm-links {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1900px;
+      height: 600px;
+      overflow: visible;
+    }
+
+    .mm-core {
+      position: absolute;
+      left: 782px;
+      top: 210px;
+      width: 210px;
+      height: 150px;
+      border-radius: 30px;
+      background: radial-gradient(circle at 32% 26%, #1B5386 0%, #103050 58%, #0A2036 100%);
+      border: 6px solid #ffffff;
+      box-shadow: 0 26px 54px -18px rgba(16, 48, 80, .55), 0 0 0 1px rgba(16, 48, 80, .08);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      z-index: 5;
+      animation: popIn .55s cubic-bezier(.2, .8, .3, 1) .15s both;
+    }
+
+    .mm-core i {
+      color: #F2A900;
+      font-size: 38px;
+      filter: drop-shadow(0 4px 12px rgba(242, 169, 0, .45));
+    }
+
+    .mm-core span {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 21px;
+      letter-spacing: .04em;
+      color: #fff;
+    }
+
+    .mm-glow {
+      position: absolute;
+      left: 737px;
+      top: 135px;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0, 144, 192, .18) 0%, rgba(0, 144, 192, 0) 68%);
+      z-index: 1;
+      animation: breathe 4.5s ease-in-out infinite;
+    }
+
+    .mm-orb {
+      position: absolute;
+      width: 124px;
+      height: 124px;
+      border-radius: 50%;
+      background: linear-gradient(160deg, #FFFDF6 0%, #FFF4DA 100%);
+      border: 3px solid #F2A900;
+      box-shadow: 0 16px 30px -14px rgba(242, 169, 0, .55);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      padding: 0 9px;
+      text-align: center;
+      z-index: 4;
+      animation: popIn .5s cubic-bezier(.2, .8, .3, 1) both;
+    }
+
+    .mm-orb i {
+      font-size: 20px;
+      color: #B87A00;
+    }
+
+    .mm-orb span {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 12px;
+      line-height: 1.18;
+      color: #103050;
+    }
+
+    .orb-1 {
+      left: 615px;
+      top: 178px;
+      animation-delay: .30s;
+    }
+
+    .orb-2 {
+      left: 825px;
+      top: 8px;
+      animation-delay: .38s;
+    }
+
+    .orb-3 {
+      left: 1035px;
+      top: 178px;
+      animation-delay: .46s;
+    }
+
+    .mm-branch {
+      position: absolute;
+      top: 415px;
+      width: 190px;
+      height: 66px;
+      border-radius: 33px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      color: #fff;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 27px;
+      letter-spacing: .04em;
+      z-index: 4;
+      animation: fadeUp .45s ease both;
+    }
+
+    .mm-branch i {
+      font-size: 22px;
+      opacity: .85;
+    }
+
+    .br-sac {
+      left: 285px;
+      background: linear-gradient(160deg, #16466E, #103050);
+      box-shadow: 0 14px 28px -14px rgba(16, 48, 80, .75);
+      animation-delay: .54s;
+    }
+
+    .br-stai {
+      left: 1299px;
+      background: linear-gradient(160deg, #00A6DC, #0090C0);
+      box-shadow: 0 14px 28px -14px rgba(0, 144, 192, .75);
+      animation-delay: .54s;
+    }
+
+    .mm-card {
+      position: absolute;
+      top: 505px;
+      width: 310px;
+      height: 66px;
+      display: flex;
+      align-items: center;
+      background: #fff;
+      border: 1px solid #E5E9F0;
+      border-radius: 14px;
+      box-shadow: 0 12px 24px -14px rgba(16, 48, 80, .32);
+      overflow: hidden;
+      z-index: 3;
+      animation: fadeUp .45s ease both;
+    }
+
+    .mm-card-icon {
+      flex-shrink: 0;
+      width: 56px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 20px;
+    }
+
+    .mm-card-label {
+      flex: 1;
+      padding: 0 14px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 17px;
+      line-height: 1.16;
+      color: #103050;
+    }
+
+    .bg-pattern {
+      position: absolute;
+      bottom: -60px;
+      right: -50px;
+      width: 360px;
+      height: 360px;
+      opacity: 0.025;
+      z-index: 0;
+      color: #103050;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    @keyframes popIn {
+      from {
+        opacity: 0;
+        transform: scale(.82);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes breathe {
+
+      0%,
+      100% {
+        opacity: .75;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 1;
+        transform: scale(1.06);
+      }
+    }
+
+    @keyframes drawLine {
+      from {
+        stroke-dashoffset: var(--len, 600);
+      }
+
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+
+    .mm-links path.draw {
+      stroke-dasharray: var(--len, 600);
+      animation: drawLine .8s ease .1s both;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="a11y.css">
+  <link rel="stylesheet" href="base.css" />
+</head>
+
+<body>
+  <div class="slide-container">
+    <div class="top-accent"></div>
+    <div class="top-accent-secondary"></div>
+
+    <div class="flex items-start justify-between px-16 pt-10 pb-3 z-10">
+      <div>
+
+        <div class="flex items-center gap-3 mb-1">
+          <div class="w-1 h-8 bg-brand-secondary"></div>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Estrutura
+            Organizacional da Ouvidoria</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
+        <i class="fas fa-landmark text-3xl align-middle" aria-hidden="true"></i>
+        <div class="flex flex-col justify-center border-left pl-2 cap-div">
+          <p
+            class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">
+            CAPÍTULO 02</p>
+          <p
+            class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none whitespace-nowrap">
+            A
+            Ouvidoria da ANTAQ</p>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="flex-1 grid px-16 pb-2 z-10" style="grid-template-rows: 42% 1fr; gap: .5rem; min-height:0;">
+
+      <div class="inst-cols">
+        <p class="inst-text txt-bloco">
+          Como canal de interlocução com o cidadão, a Ouvidoria da ANTAQ atua de forma estritamente técnica, neutra e
+          autônoma, consolidando-se como uma instância estratégica de mediação e controle social. Essa governança é
+          fortalecida por sua integração à Rede Nacional de Ouvidorias (Renouv) e ao Sistema de Ouvidoria do Poder
+          Executivo Federal (SisOuv) — ambos supervisionados, normatizados e fiscalizados pela Controladoria-Geral da
+          União (CGU), por meio da Ouvidoria-Geral da União (OGU). Alinhada a essas diretrizes federais, a unidade
+          coordena o fluxo de demandas de ponta a ponta, subsidiando diretamente a integridade, a governança e o
+          acesso à informação — transparência ativa e passiva — no ambiente regulatório da Agência.
+        </p>
+        <p class="inst-text txt-bloco">
+          Como o canal direto de relacionamento com a sociedade, a Seção de Apoio ao Cidadão (SAC) atua no acolhimento
+          de Denúncias, Reclamações, Solicitações, Sugestões e Elogios. Suas competências englobam a recepção de
+          demandas por múltiplos canais — incluindo o atendimento digital, o suporte presencial e a plataforma
+          Omnichannel —, promovendo a triagem, o monitoramento de prazos e o roteamento qualificado às áreas técnicas.
+
+        </p>
+        <div class="inst-col">
+          <p class="inst-text txt-bloco">
+            A Seção de Transparência e Acesso à Informação (STAI) responde pela gestão centralizada dos pedidos de
+            acesso à informação (LAI) e pela garantia do cumprimento dos prazos legais de resposta. Além disso, a seção
+            é responsável por coordenar e conduzir as políticas de Dados Abertos da Agência, acompanhar a integridade do
+            sítio eletrônico institucional e atualizar continuamente o Sistema e-Agendas.
+          </p>
+          <p class="inst-text txt-bloco">
+            A conformidade da Ouvidoria da ANTAQ com a Carta de Serviços, o Conselho de Usuários e o MMOuP é essencial
+            para garantir transparência, eficiência e foco no cidadão no setor aquaviário. Mais do que cumprir a Lei nº
+            13.460/2017, esses mecanismos fortalecem a governança e a participação social, transformando manifestações
+            do público em melhorias concretas na regulação e na prestação dos serviços públicos.
+          </p>
+        </div>
+      </div>
+
+      <div class="org-fig" id="orgFig">
+        <div class="org-embed" id="orgEmbed">
+
+
+          <svg class="mm-links" viewBox="0 0 1900 600" xmlns="http://www.w3.org/2000/svg">
+
+            <path d="M672,278 A215,215 0 0 1 1102,278" fill="none" stroke="#E2C48A" stroke-width="2"
+              stroke-dasharray="7 8" opacity=".85" />
+
+
+            <g fill="none" stroke="#F2A900" stroke-width="4" stroke-linecap="round">
+              <path d="M782,263 L738,253" />
+              <path d="M887,210 L887,132" />
+              <path d="M992,263 L1036,253" />
+            </g>
+
+
+            <path class="draw" style="--len:760"
+              d="M887,360 L887,395 Q887,405 877,405 L390,405 Q380,405 380,412 L380,415" fill="none" stroke="#103050"
+              stroke-width="5" stroke-linecap="round" />
+
+            <path class="draw" style="--len:760"
+              d="M887,360 L887,395 Q887,405 897,405 L1384,405 Q1394,405 1394,412 L1394,415" fill="none" stroke="#0090C0"
+              stroke-width="5" stroke-linecap="round" />
+
+
+            <g fill="none" stroke="#103050" stroke-width="3.5" stroke-linecap="round">
+              <path d="M380,481 L380,485 Q380,493 370,493 L220,493 Q210,493 210,501 L210,505" />
+              <path d="M380,481 L380,485 Q380,493 390,493 L540,493 Q550,493 550,501 L550,505" />
+            </g>
+
+
+            <g fill="none" stroke="#0090C0" stroke-width="3.5" stroke-linecap="round">
+              <path d="M1394,481 L1394,485 Q1394,493 1384,493 L1064,493 Q1054,493 1054,501 L1054,505" />
+              <path d="M1394,481 L1394,505" />
+              <path d="M1394,481 L1394,485 Q1394,493 1404,493 L1724,493 Q1734,493 1734,501 L1734,505" />
+            </g>
+
+
+            <g fill="#ffffff" stroke="#103050" stroke-width="3">
+              <circle cx="380" cy="405" r="5" />
+            </g>
+            <g fill="#ffffff" stroke="#0090C0" stroke-width="3">
+              <circle cx="1394" cy="405" r="5" />
+            </g>
+          </svg>
+
+
+          <div class="mm-glow"></div>
+          <div class="mm-core"><i class="fas fa-bullhorn"></i><span>OUVIDORIA</span></div>
+
+
+          <div class="mm-orb orb-1">
+            <i class="fas fa-file-lines"></i><span>Cartas de Serviços</span>
+          </div>
+          <div class="mm-orb orb-2">
+            <i class="fas fa-users"></i><span>Conselho de Usuários</span>
+          </div>
+          <div class="mm-orb orb-3">
+            <i class="fas fa-file-contract"></i><span>Modelo de Maturidade de Ouvidorias Públicas (MMOuP)</span>
+          </div>
+
+
+          <div class="mm-branch br-sac"><i class="fas fa-headset"></i>SAC</div>
+          <div class="mm-branch br-stai"><i class="fas fa-lock-open"></i>STAI</div>
+
+
+          <div class="mm-card" style="left:55px; animation-delay:.62s;">
+            <div class="mm-card-icon" style="background:#103050;"><i class="fas fa-headset"></i></div>
+            <div class="mm-card-label">Atendimento ao Cidadão</div>
+          </div>
+          <div class="mm-card" style="left:395px; animation-delay:.68s;">
+            <div class="mm-card-icon" style="background:#16466E;"><i class="fas fa-clipboard-check"></i></div>
+            <div class="mm-card-label">Registro e Gerenciamento de Demandas</div>
+          </div>
+
+
+          <div class="mm-card" style="left:899px; animation-delay:.74s;">
+            <div class="mm-card-icon" style="background:#0090C0;"><i class="fas fa-lock-open"></i></div>
+            <div class="mm-card-label">Acesso à Informação · ANTAQ e cidadão</div>
+          </div>
+          <div class="mm-card" style="left:1239px; animation-delay:.80s;">
+            <div class="mm-card-icon" style="background:#0070C0;"><i class="fas fa-database"></i></div>
+            <div class="mm-card-label">Dados Abertos</div>
+          </div>
+          <div class="mm-card" style="left:1579px; animation-delay:.86s;">
+            <div class="mm-card-icon" style="background:#0090C0;"><i class="fas fa-calendar-days"></i></div>
+            <div class="mm-card-label">e-Agendas</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="px-16 pb-6 pt-1 flex justify-between items-center z-10">
+      <p class="text-gray-400 text-xs">Relatório 3º Trimestre de 2026 – Ouvidoria – Agência Nacional de Transportes
+        Aquaviários - ANTAQ</p>
+    </div>
+    <div class="bg-pattern"><i class="fas fa-bullhorn text-9xl"></i></div>
+  </div>
+
+  <script>
+
+
+    function fitOrg() {
+      var fig = document.getElementById('orgFig');
+      var emb = document.getElementById('orgEmbed');
+      if (!fig || !emb) return;
+      var cx = 950, cy = 290, cw = 1880, ch = 572;
+      var s = Math.min(fig.clientWidth / cw, fig.clientHeight / ch);
+      var tx = fig.clientWidth / 2 - s * cx;
+      var ty = fig.clientHeight / 2 - s * cy;
+      emb.style.transform = 'translate(' + tx + 'px,' + ty + 'px) scale(' + s + ')';
+    }
+    window.addEventListener('load', fitOrg);
+    window.addEventListener('resize', fitOrg);
+    fitOrg();
+
+    document.addEventListener("keydown", function (e) {
+      if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) {
+        e.preventDefault();
+        window.parent.postMessage({ type: "slide-nav", key: e.key }, "*");
+      }
+    });
+  </script>
+  <script src="a11y.js" defer></script>
+  <script src="vida.js" defer></script>
+</body>
+
+</html>

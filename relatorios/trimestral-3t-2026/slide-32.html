@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>LAI · Transparência passiva - Relatório Trimestral Ouvidoria ANTAQ</title>
+  <link rel="icon" type="image/png"
+    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&amp;family=Open+Sans:ital,wght@0,400;0,600;1,400&amp;display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    html {
+      font-size: 26px;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f3f4f6;
+      overflow: hidden;
+    }
+
+    .slide-container {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background-color: #ffffff;
+      overflow: hidden;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    .font-montserrat {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .text-brand-primary {
+      color: #103050;
+    }
+
+    .text-brand-secondary {
+      color: #0070C0;
+    }
+
+    .bg-brand-secondary {
+      background-color: #0070C0;
+    }
+
+    .top-accent {
+      height: 8px;
+      background-color: #103050;
+      width: 100%;
+    }
+
+    .top-accent-secondary {
+      height: 4px;
+      background-color: #0070C0;
+      width: 100%;
+    }
+
+    .chart-card,
+    .canal-card,
+    .period-chip,
+    .video-frame,
+    .kpi-card,
+    .glossary-card,
+    .exp-group {
+      transition: transform .28s cubic-bezier(.2, .7, .3, 1), box-shadow .28s ease, border-color .28s ease, background-color .28s ease;
+    }
+
+    .kpi-card:hover {
+      transform: translateY(-9px) scale(1.018);
+      box-shadow: 0 30px 58px -16px rgba(16, 48, 80, .6);
+    }
+
+    .kpi-watermark {
+      transition: transform .4s ease, opacity .4s ease;
+    }
+
+    .kpi-card:hover .kpi-watermark {
+      transform: scale(1.12);
+      opacity: .2;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    .chart-card,
+    .kpi-card,
+    .glossary-card,
+    .canal-card,
+    .period-chip {
+      animation: fadeIn .5s ease both;
+    }
+
+    .chart-card:nth-child(2),
+    .kpi-card:nth-child(2),
+    .glossary-card:nth-child(2),
+    .canal-card:nth-child(2),
+    .period-chip:nth-child(2) {
+      animation-delay: .09s;
+    }
+
+    .chart-card:nth-child(3),
+    .kpi-card:nth-child(3),
+    .glossary-card:nth-child(3),
+    .canal-card:nth-child(3),
+    .period-chip:nth-child(3) {
+      animation-delay: .18s;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+    .stat-mini { background:#ffffff; border:2px solid #E2E8F0; border-radius:14px; padding:1rem 1.3rem; box-shadow:0 8px 20px -8px rgba(16,48,80,.18); }
+    .kpi-card { border-radius:20px; padding:2.2rem 2rem; position:relative; overflow:hidden; display:flex; flex-direction:column; justify-content:space-between; min-height:420px; box-shadow:0 18px 40px -12px rgba(16,48,80,0.45); }
+    .kpi-primary { background:linear-gradient(160deg,#103050 0%,#0070C0 100%); }
+    .kpi-soft { background:linear-gradient(160deg,#0e3a66 0%,#11598f 100%); }
+    .kpi-num { font-family:'Montserrat',sans-serif; font-weight:900; line-height:1; color:#ffffff; }
+    .kpi-watermark { position:absolute; right:-10px; bottom:-20px; font-size:9rem; opacity:0.12; color:#ffffff; }
+
+    .card-help { position:absolute; top:10px; right:10px; z-index:5; display:inline-flex; align-items:center; gap:.35rem;
+      padding:.18rem .3rem .18rem .6rem; border-radius:999px; background:rgba(255,255,255,.16); color:#ffffff;
+      font-size:.55rem; font-weight:700; letter-spacing: .01em; white-space:nowrap; text-decoration:none;
+      transition:background .2s ease, color .2s ease; }
+    .card-help i { width:1.05rem; height:1.05rem; border-radius:50%; background:rgba(255,255,255,.22);
+      display:inline-flex; align-items:center; justify-content:center; font-size:.55rem; }
+    .card-help:hover { background:#ffffff; color:#103050; }
+    .card-help:hover i { background:rgba(16,48,80,.16); }
+
+    .kpi-label { min-height:2.9rem; }
+    .bg-pattern { position:absolute; bottom:-50px; right:-50px; width:400px; height:400px; opacity:0.03; z-index:0; color:#103050; }
+    </style>
+  <link rel="stylesheet" href="a11y.css">
+  <link rel="stylesheet" href="base.css" />
+</head>
+<body>
+  <div class="slide-container">
+    <div class="top-accent"></div>
+    <div class="top-accent-secondary"></div>
+
+    <div class="flex items-start justify-between px-16 pt-10 pb-3 z-10">
+      <div>
+        <div class="flex items-center gap-3 mb-2">
+          <div class="w-1 h-8 bg-brand-secondary"></div>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">LAI · Transparência passiva</p>
+        </div>
+        <p class="text-gray-500 font-medium ml-4 text-base">Pedidos de acesso à informação · 3º trimestre de 2026</p>
+        <h2 class="assunto"><i class="fas fa-inbox" aria-hidden="true"></i> Transparência passiva</h2>
+      </div>
+      <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
+        <i class="fas fa-lock-open text-3xl" aria-hidden="true"></i>
+        <div class="flex flex-col justify-center pl-2 cap-div">
+          <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">CAPÍTULO 04</p>
+          <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none whitespace-nowrap">Seção de Transparência e Acesso à Informação - STAI</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex-1 flex flex-col justify-center px-16 pb-6 z-10">
+      <div class="grid grid-cols-4 gap-6">
+        <div class="kpi-card kpi-primary" style="min-height:340px;">
+          <a href="https://centralpaineis.cgu.gov.br/visualizar/lai" target="_blank" rel="noopener noreferrer"
+            class="card-help" title="Abrir Painel LAI — CGU"><span>Clique aqui para saber mais</span><i
+              class="fas fa-question"></i></a>
+          <div><p class="kpi-label text-blue-100 font-montserrat font-bold text-sm uppercase tracking-widest mb-2">Pedidos recebidos</p>
+            <p class="kpi-num text-7xl">130</p></div>
+          <p class="text-blue-100 text-base leading-relaxed relative z-10">Média de 43 pedidos por mês no trimestre.</p>
+          <i class="fas fa-inbox kpi-watermark"></i>
+        </div>
+        <div class="kpi-card kpi-soft" style="min-height:340px;">
+          <a href="https://centralpaineis.cgu.gov.br/visualizar/lai" target="_blank" rel="noopener noreferrer"
+            class="card-help" title="Abrir Painel LAI — CGU"><span>Clique aqui para saber mais</span><i
+              class="fas fa-question"></i></a>
+          <div><p class="kpi-label text-blue-100 font-montserrat font-bold text-sm uppercase tracking-widest mb-2">Respondidos no prazo</p>
+            <p class="kpi-num text-7xl whitespace-nowrap" style="margin-left:-0.75rem;">100%</p></div>
+          <p class="text-blue-100 text-base leading-relaxed relative z-10">Todos os pedidos respondidos dentro do prazo legal.</p>
+          <i class="fas fa-circle-check kpi-watermark"></i>
+        </div>
+        <div class="kpi-card kpi-soft" style="min-height:340px;">
+          <a href="https://centralpaineis.cgu.gov.br/visualizar/lai" target="_blank" rel="noopener noreferrer"
+            class="card-help" title="Abrir Painel LAI — CGU"><span>Clique aqui para saber mais</span><i
+              class="fas fa-question"></i></a>
+          <div><p class="kpi-label text-blue-100 font-montserrat font-bold text-sm uppercase tracking-widest mb-2">Fora do prazo</p>
+            <p class="kpi-num text-7xl">0%</p></div>
+          <p class="text-blue-100 text-base leading-relaxed relative z-10">Nenhum pedido respondido fora do prazo.</p>
+          <i class="fas fa-hourglass-half kpi-watermark"></i>
+        </div>
+        <div class="kpi-card kpi-primary" style="min-height:340px;">
+          <a href="https://centralpaineis.cgu.gov.br/visualizar/lai" target="_blank" rel="noopener noreferrer"
+            class="card-help" title="Abrir Painel LAI — CGU"><span>Clique aqui para saber mais</span><i
+              class="fas fa-question"></i></a>
+          <div><p class="kpi-label text-blue-100 font-montserrat font-bold text-sm uppercase tracking-widest mb-2">Tempo médio de resposta</p>
+            <p class="kpi-num text-7xl">9,1<span class="text-2xl font-bold ml-1">dias</span></p></div>
+          <p class="text-blue-100 text-base leading-relaxed relative z-10">Da abertura à resposta conclusiva ao cidadão.</p>
+          <i class="fas fa-clock kpi-watermark"></i>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-6 mt-6">
+        <div class="stat-mini flex items-center gap-4">
+          <i class="fas fa-scale-balanced text-3xl text-brand-secondary"></i>
+          <div><p class="font-montserrat font-black text-3xl text-brand-primary leading-none">6 recursos</p>
+            <p class="text-gray-500 text-sm mt-1">interpostos no período</p></div>
+        </div>
+        <div class="stat-mini flex items-center gap-4">
+          <i class="fas fa-stopwatch text-3xl text-brand-secondary"></i>
+          <div><p class="font-montserrat font-black text-3xl text-brand-primary leading-none">3,8 dias</p>
+            <p class="text-gray-500 text-sm mt-1">tempo médio de resposta aos recursos</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="px-16 pb-8 flex justify-between items-center z-10">
+      <p class="text-gray-400 text-xs">Relatório 3º Trimestre de 2026 – Ouvidoria – Agência Nacional de Transportes Aquaviários - ANTAQ</p>
+    </div>
+    <div class="bg-pattern"><i class="fas fa-unlock-keyhole text-9xl"></i></div>
+  </div>
+  <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
+  <script src="a11y.js" defer></script>
+  <script src="vida.js" defer></script>
+</body>
+</html>

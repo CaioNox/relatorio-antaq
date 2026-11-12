@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Respostas por unidade - Relatório Trimestral Ouvidoria ANTAQ</title>
+  <link rel="icon" type="image/png"
+    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&amp;family=Open+Sans:ital,wght@0,400;0,600;1,400&amp;display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+
+    html { font-size: clamp(14px, min(1.4583vw, 2.5926vh), 28px); }
+    body { margin: 0; padding: 0; background-color: #f3f4f6; overflow: hidden; }
+
+
+    .slide-container {
+      width: 100vw; height: 100vh; position: relative;
+      display: flex; flex-direction: column;
+      background-color: #ffffff; overflow: hidden; font-family: 'Open Sans', sans-serif;
+    }
+
+    .font-montserrat { font-family: 'Montserrat', sans-serif; }
+    .text-brand-primary { color: #103050; }
+    .text-brand-secondary { color: #0070C0; }
+    .bg-brand-secondary { background-color: #0070C0; }
+    .top-accent { height: 8px; background-color: #103050; width: 100%; }
+    .top-accent-secondary { height: 4px; background-color: #0070C0; width: 100%; }
+
+
+    .chips {
+      display: grid; grid-template-columns: repeat(6, 1fr);
+      gap: .4rem .55rem; margin-top: .5rem; align-items: stretch;
+    }
+
+    .chip span { flex: 1; min-width: 0; }
+    .chip b { margin-left: auto; flex-shrink: 0; }
+
+    .chip {
+      display: flex; align-items: center; gap: .4rem; width: 100%; text-align: left;
+      border: 2px solid var(--c); color: var(--c); background: transparent;
+      border-radius: 10px; padding: .34rem .65rem;
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .6rem;
+      cursor: pointer; opacity: .5; white-space: normal; line-height: 1.15;
+      transition: background-color 200ms ease, color 200ms ease, opacity 200ms ease,
+        box-shadow 200ms ease, transform 200ms ease;
+    }
+    .chip b {
+      font-weight: 900; font-size: .52rem;
+      background: color-mix(in srgb, var(--c) 14%, #ffffff);
+      color: var(--c); border-radius: 999px; padding: .12rem .36rem; line-height: 1;
+      transition: background-color 200ms ease, color 200ms ease;
+    }
+    .chip:hover { opacity: .85; transform: translateY(-2px); }
+    .chip.active { background: var(--c); color: #ffffff; opacity: 1; box-shadow: 0 8px 18px -8px color-mix(in srgb, var(--c) 70%, transparent); }
+    .chip.active b { background: rgba(255, 255, 255, .25); color: #ffffff; }
+
+
+    .chips .chip-reset { width: 100%; }
+
+    .chip-reset {
+      display: inline-flex; align-items: center; justify-content: center; gap: .38rem;
+      border: 2px dashed #cbd5e1; color: #64748b; background: transparent;
+      border-radius: 10px; padding: .34rem .65rem;
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .6rem;
+      cursor: pointer; white-space: normal; line-height: 1.15; text-align: center;
+      transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease, transform 200ms ease;
+    }
+    .chip-reset:hover { color: #103050; border-color: #103050; background: #f1f5f9; transform: translateY(-2px); }
+
+
+
+    .hint-line { margin-top: .45rem; font-size: .54rem; color: #94a3b8; font-weight: 600; display: flex; align-items: center; gap: .4rem; }
+    .hint-line i { color: #0090C0; font-size: .6rem; }
+
+    .empty-state {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: .6rem; color: #94a3b8; font-family: 'Montserrat', sans-serif; font-weight: 700;
+      font-size: .8rem; padding: 2.5rem 0;
+    }
+    .empty-state i { font-size: 1.6rem; color: #cbd5e1; }
+
+    .chart-card {
+      background-color: #ffffff; border: 2px solid #E2E8F0; border-radius: 16px;
+      box-shadow: 0 8px 20px -8px rgba(16, 48, 80, 0.18);
+      padding: .8rem 1.1rem .9rem; display: flex; flex-direction: column;
+      min-height: 0; min-width: 0;
+
+      overflow: hidden;
+    }
+
+    .chart-cap {
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .72rem;
+      display: flex; align-items: center; gap: .45rem;
+      padding-bottom: .4rem; margin-bottom: .4rem;
+      border-bottom: 1px solid #eef2f7; flex-shrink: 0; transition: color 250ms ease;
+    }
+
+
+    .charts-grid {
+
+      flex: 1; min-height: 0; height: 100%;
+      display: grid; grid-template-columns: 1.15fr 0.85fr; grid-template-rows: minmax(0, 1fr); gap: .8rem;
+    }
+    .chart-canvas-wrap { flex: 1; min-height: 0; position: relative; }
+
+
+    .rows { flex: 1; min-height: 0; overflow: hidden; display: flex; flex-direction: column; justify-content: center; gap: .22rem; }
+    .bar-row { display: flex; align-items: center; gap: .5rem; animation: fadeInRow .45s cubic-bezier(.2, .7, .3, 1) both; }
+
+    @keyframes fadeInRow {
+      from { opacity: 0; transform: translateX(-12px); }
+      to { opacity: 1; transform: none; }
+    }
+
+    .bar-label {
+      flex: 0 0 30%; min-width: 0;
+      font-family: 'Montserrat', sans-serif; font-weight: 800; color: #103050;
+      font-size: .55rem; line-height: 1.12; text-align: right;
+    }
+    .bar-label .pai { font-family: 'Open Sans', sans-serif; font-weight: 600; font-size: .44rem; color: #94a3b8; margin-left: .25rem; }
+
+    .bar-track { flex: 1; min-width: 0; height: .5rem; background: #eef2f7; border-radius: 999px; overflow: hidden; }
+    .bar-fill { height: 100%; width: 0; border-radius: 999px; transition: width 600ms cubic-bezier(.2, .7, .3, 1); }
+
+    .bar-val { flex: 0 0 3.6rem; font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: .55rem; text-align: left; line-height: 1; }
+    .bar-val .pc { font-weight: 700; font-size: .44rem; color: #94a3b8; margin-left: .22rem; }
+
+
+    .rows[data-density="3"] { justify-content: flex-start; }
+    .rows[data-density="2"] { gap: .17rem; }
+    .rows[data-density="2"] .bar-label { font-size: .5rem; }
+    .rows[data-density="2"] .bar-track { height: .44rem; }
+    .rows[data-density="2"] .bar-val { font-size: .5rem; }
+
+    .rows[data-density="3"] { gap: .12rem; }
+    .rows[data-density="3"] .bar-label { font-size: .44rem; }
+    .rows[data-density="3"] .bar-track { height: .36rem; }
+    .rows[data-density="3"] .bar-val { font-size: .45rem; }
+    .rows[data-density="3"] .bar-val .pc { font-size: .38rem; }
+
+
+    .zeradas {
+      margin-top: .4rem; font-size: .42rem; color: #94a3b8; line-height: 1.35;
+      border-left: 3px solid #e2e8f0; padding-left: .5rem; flex-shrink: 0;
+    }
+    .zeradas b { color: #64748b; font-weight: 700; font-family: 'Montserrat', sans-serif; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+  </style>
+  <link rel="stylesheet" href="a11y.css">
+  <link rel="stylesheet" href="base.css" />
+</head>
+
+<body>
+  <div class="slide-container">
+    <div class="top-accent"></div>
+    <div class="top-accent-secondary"></div>
+
+    <div class="flex items-start justify-between px-16 pt-8 pb-2 z-10">
+      <div style="min-width:0;">
+        <div class="flex items-center gap-3 mb-1">
+          <div class="w-1 h-8 bg-brand-secondary"></div>
+          <p class="font-montserrat font-bold text-brand-primary uppercase tracking-tight whitespace-nowrap"
+            style="font-size:1.5rem;">Respostas por Unidade</p>
+        </div>
+        <p class="text-gray-500 font-medium ml-4" style="font-size:.68rem;" id="subCab">3º trimestre de 2026</p>
+        <h2 class="assunto"><i class="fas fa-bullhorn" aria-hidden="true"></i> Transparência ativa</h2>
+      </div>
+
+      <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
+        <i class="fas fa-lock-open text-3xl" aria-hidden="true"></i>
+        <div class="flex flex-col justify-center pl-2 cap-div">
+          <p class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">CAPÍTULO 04</p>
+          <p class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none whitespace-nowrap">Seção de Transparência e Acesso à Informação - STAI</p>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="px-16 pb-1 z-10">
+      <div class="chips" id="chips"></div>
+      <p class="hint-line"><i class="far fa-hand-pointer"></i> Clique numa área para exibir ou ocultar suas unidades · o percentual de cada unidade é sobre o total de respostas do trimestre</p>
+    </div>
+
+    <div class="flex-1 px-16 pb-2 z-10" style="min-height:0;">
+      <div class="charts-grid">
+
+        <div class="chart-card">
+          <p class="chart-cap" id="chartCap"></p>
+          <div class="rows" id="rows" data-density="1"></div>
+          <p class="zeradas" id="zeradas"></p>
+        </div>
+
+        <div class="chart-card">
+          <p class="chart-cap" id="pieCap"><i class="fas fa-chart-pie"></i> Distribuição por área</p>
+          <div class="chart-canvas-wrap" id="pieWrap"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="px-16 pb-4 pt-1 flex justify-between items-center z-10">
+      <p class="text-gray-400" style="font-size:.46rem;">Relatório 3º Trimestre de 2026 – Ouvidoria – Agência Nacional de Transportes Aquaviários - ANTAQ</p>
+    </div>
+  </div>
+
+  <script>
+    /* ------------------------------------------------------------------
+       Respostas por unidade — 1o trimestre de 2026.
+       n: null = a unidade existe na estrutura mas nao respondeu.
+       Os totais por area e o total geral sao SEMPRE somados a partir
+       das unidades, nunca digitados.
+    ------------------------------------------------------------------ */
+
+    const AREAS = [
+      { id: 'SOG', nome: 'Superintendência de Outorgas',
+        raiz: { sg: 'SOG', nome: 'Superintendência de Outorgas', n: 5, f: [
+          { sg: 'GOA', nome: 'Gerência de Outorgas de Autorização', n: 16, f: [
+            { sg: 'DOIP', nome: 'Divisão de Outorgas de Instalações Portuárias Privadas', n: 6 }
+          ]},
+          { sg: 'GAF', nome: 'Gerência de Afretamento da Navegação', n: 6 },
+          { sg: 'GPO', nome: 'Gerência de Portos Organizados', n: 8 },
+          { sg: 'SON', nome: 'Seção de Outorgas da Navegação', n: 16 }
+        ]} },
+
+      { id: 'SAF', nome: 'Superintendência de Administração e Finanças',
+        raiz: { sg: 'SAF', nome: 'Superintendência de Administração e Finanças', n: 1, f: [
+          { sg: 'GGP', nome: 'Gerência de Gestão de Pessoas', n: 11, f: [
+            { sg: 'DPDD', nome: 'Divisão de Planejamento, Desenvolvimento e Desempenho', n: 10 },
+            { sg: 'DGIP', nome: 'Divisão de Gestão de Informações Funcionais e Folha de Pagamento', n: 6 },
+            { sg: 'DLQV', nome: 'Divisão de Legislação Aplicada e Qualidade de Vida', n: 5 }
+          ]},
+          { sg: 'GRL', nome: 'Gerência de Recursos Logísticos', n: 2 },
+          { sg: 'GOF', nome: 'Gerência de Orçamento e Finanças', n: 1 },
+          { sg: 'GLC', nome: 'Gerência de Licitações e Contratos', n: 1 }
+        ]} },
+
+      { id: 'OUV', nome: 'Ouvidoria',
+        raiz: { sg: 'OUV', nome: 'Ouvidoria', n: 2, f: [
+          { sg: 'STAI', nome: 'Seção de Transparência e Acesso à Informação', n: 33 },
+          { sg: 'SAC', nome: 'Seção de Apoio ao Cidadão', n: 5 }
+        ]} },
+
+      { id: 'SRG', nome: 'Superintendência de Regulação',
+        raiz: { sg: 'SRG', nome: 'Superintendência de Regulação', n: null, f: [
+          { sg: 'GRN', nome: 'Gerência de Regulação da Navegação', n: 16 },
+          { sg: 'GRP', nome: 'Gerência de Regulação Portuária', n: 11 },
+          { sg: 'CGGR', nome: 'Coordenadoria-Geral de Governança Regulatória', n: 2 }
+        ]} },
+
+      { id: 'GAB', nome: 'Gabinete da Diretoria',
+        raiz: { sg: 'GAB', nome: 'Gabinete da Diretoria', n: null, f: [
+          { sg: 'SELC', nome: 'Secretaria Especial de Licitação de Concessões', n: 11 },
+          { sg: 'ASCOM', nome: 'Assessoria de Comunicação e Cerimonial', n: 4 },
+          { sg: 'ARINT', nome: 'Assessoria de Relações Internacionais', n: 1 },
+          { sg: 'D4', nome: 'Assessoria da Diretoria D4', n: 1 },
+          { sg: 'GAB DG', nome: 'Gabinete do Diretor-Geral', n: 1 },
+          { sg: 'ASPAR', nome: 'Assessoria de Relações Parlamentares e Institucionais', n: 1 }
+        ]} },
+
+      { id: 'SFC', nome: 'Superintendência de Fiscalização e Coordenação das Unidades Regionais',
+        raiz: { sg: 'SFC', nome: 'Superintendência de Fiscalização e Coordenação das Unidades Regionais', n: 5, f: [
+          { sg: 'GPF', nome: 'Gerência de Planejamento e Inteligência da Fiscalização', n: 2 },
+          { sg: 'GRAT', nome: 'Gerência de Recursos e de Apoio Técnico', n: 2 },
+          { sg: 'GREMN', nome: 'Gerência Regional de Manaus', n: 3 },
+          { sg: 'GREST', nome: 'Gerência Regional de Santos', n: 2 },
+          { sg: 'URECB', nome: 'Unidade Regional de Curitiba', n: 1 },
+          { sg: 'URESV', nome: 'Unidade Regional de Salvador', n: 1 },
+          { sg: 'GREFL', nome: 'Gerência Regional de Florianópolis', n: 1 },
+          { sg: 'GEF', nome: 'Grupo Especializado de Fiscalização de Investimentos', n: 1 }
+        ]} },
+
+      { id: 'SESGI', nome: 'Superintendência de ESG e Inovação',
+        raiz: { sg: 'SESGI', nome: 'Superintendência de ESG e Inovação', n: null, f: [
+          { sg: 'GEA', nome: 'Gerência de Estatística e Avaliação de Desempenho', n: 28 },
+          { sg: 'GMS', nome: 'Gerência de Meio Ambiente e Sustentabilidade', n: 2 }
+        ]} },
+
+      { id: 'SGE', nome: 'Secretaria-Geral',
+        raiz: { sg: 'SGE', nome: 'Secretaria-Geral', n: null, f: [
+          { sg: 'GGGP', nome: 'Gerência de Governança, Gestão e Planejamento', n: 1 },
+          { sg: 'GTGI', nome: 'Gerência de Tecnologia e Gestão da Informação', n: 6 },
+          { sg: 'DRCP', nome: 'Divisão de Reuniões de Diretoria e Publicações', n: 4 },
+          { sg: 'DDCP', nome: 'Divisão de Distribuição, Deliberações e Comunicações Processuais', n: 1 },
+          { sg: 'DGDOC', nome: 'Divisão de Gestão de Documentos', n: 3 },
+          { sg: 'CAA', nome: 'Coordenadoria de Ativos Analíticos', n: 5 }
+        ]} },
+
+      { id: 'SEPH', nome: 'Superintendência de Estudos e Projetos Hidroviários',
+        raiz: { sg: 'SEPH', nome: 'Superintendência de Estudos e Projetos Hidroviários', n: 5, f: [
+          { sg: 'GEH', nome: 'Gerência de Estudos Hidroviários', n: 2 },
+          { sg: 'GEE', nome: 'Gerência Especial de Estudos', n: 3 }
+        ]} },
+
+      { id: 'PFA', nome: 'Procuradoria Federal junto à ANTAQ',
+        raiz: { sg: 'PFA', nome: 'Procuradoria Federal junto à ANTAQ', n: 2 } }
+    ];
+
+
+    /* cor de cada area nos filtros, nas barras e na rosca */
+    const CORES = {
+      SFC: '#F2A900', SGE: '#10B981', SOG: '#0090C0', SRG: '#6366F1', SAF: '#0EA5E9',
+      GAB: '#94A3B8', SEPH: '#22C55E', PFA: '#0070C0', OUV: '#103050', SESGI: '#5fb8dd'
+    };
+
+    /* ---------- achatamento: cada area guarda suas unidades respondentes ---------- */
+
+    const UNIDADES = [];
+    const SEM_RESPOSTA = [];
+
+    AREAS.forEach(function (a) {
+      a.cor = CORES[a.id] || '#64748b';
+      a.unidades = [];
+      (function anda(no) {
+        no.area = a;
+        if (no.n != null) { a.unidades.push(no); UNIDADES.push(no); }
+        else SEM_RESPOSTA.push(no.sg);
+        (no.f || []).forEach(anda);
+      })(a.raiz);
+      a.total = a.unidades.reduce(function (s, u) { return s + u.n; }, 0);
+    });
+
+    const TOTAL = UNIDADES.reduce(function (s, u) { return s + u.n; }, 0);
+    const AREAS_ORD = AREAS.slice().sort(function (x, y) { return y.total - x.total || x.id.localeCompare(y.id); });
+
+    /* acima disto as unidades menores viram uma linha "Outras N unidades" */
+    const MAX_LINHAS = 25;
+
+    const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const selected = new Set(AREAS.map(a => a.id));
+    let pieChart = null;
+    let agrupadas = [];
+
+    const pct = v => (v / TOTAL * 100).toFixed(1).replace('.', ',');
+
+    document.getElementById('subCab').textContent =
+      '3º trimestre de 2026 · ' + TOTAL + ' respostas de ' + UNIDADES.length +
+      ' unidades, distribuídas em ' + AREAS.length + ' áreas da Agência';
+
+
+    const chipsWrap = document.getElementById('chips');
+    AREAS_ORD.forEach(a => {
+      const b = document.createElement('button');
+      b.className = 'chip';
+      b.dataset.id = a.id;
+      b.style.setProperty('--c', a.cor);
+      b.title = a.nome + ' — ' + a.unidades.length + ' unidade' + (a.unidades.length > 1 ? 's' : '') + ' · ' + a.total + ' respostas';
+      b.innerHTML = '<span>' + a.id + '</span><b>' + a.total + '</b>';
+      b.addEventListener('click', () => toggle(a.id));
+      chipsWrap.appendChild(b);
+    });
+
+    const allBtn = document.createElement('button');
+    allBtn.className = 'chip-reset';
+    allBtn.id = 'allBtn';
+    allBtn.addEventListener('click', () => {
+      if (selected.size === AREAS.length) selected.clear();
+      else AREAS.forEach(a => selected.add(a.id));
+      update();
+    });
+    chipsWrap.appendChild(allBtn);
+
+    function toggle(id) {
+      if (selected.has(id)) selected.delete(id); else selected.add(id);
+      update();
+    }
+
+    function refreshChips() {
+      chipsWrap.querySelectorAll('.chip').forEach(c => c.classList.toggle('active', selected.has(c.dataset.id)));
+      document.getElementById('allBtn').innerHTML = selected.size === AREAS.length
+        ? '<i class="fas fa-eraser"></i><span>Zerar tudo</span>'
+        : '<i class="fas fa-layer-group"></i><span>Exibir todas</span>';
+    }
+
+    function unidadesSel() {
+      return UNIDADES.filter(u => selected.has(u.area.id))
+        .sort((a, b) => b.n - a.n || a.sg.localeCompare(b.sg, 'pt-BR'));
+    }
+
+
+    function renderBars() {
+      const sel = unidadesSel();
+      const wrap = document.getElementById('rows');
+      wrap.innerHTML = '';
+
+      if (!sel.length) {
+        agrupadas = [];
+        wrap.dataset.density = '1';
+        wrap.innerHTML = '<div class="empty-state"><i class="far fa-hand-pointer"></i>' +
+          '<span>Clique numa área acima para exibir suas unidades</span></div>';
+        return;
+      }
+
+      /* passou do limite: as menores somam numa linha so, sem perder o total */
+      let linhas = sel;
+      agrupadas = [];
+      if (sel.length > MAX_LINHAS) {
+        linhas = sel.slice(0, MAX_LINHAS - 1);
+        agrupadas = sel.slice(MAX_LINHAS - 1);
+      }
+
+      const itens = linhas.map(u => ({
+        rot: u.sg, pai: u.sg !== u.area.id ? u.area.id : '', v: u.n, cor: u.area.cor,
+        tip: u.sg + ' · ' + u.nome + ' — ' + u.area.nome
+      }));
+      if (agrupadas.length) {
+        itens.push({
+          rot: 'Outras ' + agrupadas.length + ' unidades', pai: '', cor: '#94A3B8',
+          v: agrupadas.reduce((s, u) => s + u.n, 0),
+          tip: agrupadas.map(u => u.sg + ' ' + u.n).join(' · ')
+        });
+      }
+
+      wrap.dataset.density = itens.length <= 12 ? '1' : itens.length <= 22 ? '2' : '3';
+
+      const maxV = Math.max.apply(null, itens.map(x => x.v));
+      itens.forEach((x, i) => {
+        const el = document.createElement('div');
+        el.className = 'bar-row';
+        el.style.animationDelay = (REDUCED ? 0 : i * 22) + 'ms';
+        el.innerHTML =
+          '<span class="bar-label" title="' + x.tip + '">' + x.rot +
+          (x.pai ? '<span class="pai">' + x.pai + '</span>' : '') + '</span>' +
+          '<div class="bar-track"><div class="bar-fill" style="background:' + x.cor + '"></div></div>' +
+          '<span class="bar-val" style="color:' + x.cor + '">' + x.v + '<span class="pc">' + pct(x.v) + '%</span></span>';
+        wrap.appendChild(el);
+        const fill = el.querySelector('.bar-fill');
+        const w = (x.v / maxV * 100) + '%';
+        if (REDUCED) fill.style.width = w;
+        else requestAnimationFrame(() => requestAnimationFrame(() => { fill.style.width = w; }));
+      });
+    }
+
+    function refreshCaption() {
+      const sel = unidadesSel();
+      const soma = sel.reduce((s, u) => s + u.n, 0);
+      const cap = document.getElementById('chartCap');
+      if (!sel.length) {
+        cap.style.color = '#94a3b8';
+        cap.innerHTML = '<i class="far fa-hand-pointer"></i> Nada a exibir';
+      } else {
+        cap.style.color = '#475569';
+        cap.innerHTML = '<i class="fas fa-ranking-star"></i> ' + sel.length + ' unidade' + (sel.length > 1 ? 's' : '') +
+          ' · ' + soma + ' de ' + TOTAL + ' respostas · <span style="font-weight:700;color:#0070C0;">trimestre</span>' +
+          ' · <span style="font-weight:700;color:#0070C0;">% de ' + TOTAL + ' respostas</span>';
+      }
+    }
+
+
+    function renderPie() {
+      const wrap = document.getElementById('pieWrap');
+      const cap = document.getElementById('pieCap');
+      if (pieChart) { pieChart.destroy(); pieChart = null; }
+
+      const porArea = AREAS_ORD.filter(a => selected.has(a.id) && a.total > 0);
+      const somaExibida = porArea.reduce((s, a) => s + a.total, 0);
+
+      if (!somaExibida) {
+        wrap.innerHTML = '<div class="empty-state"><i class="fas fa-chart-pie"></i>' +
+          '<span>Selecione ao menos uma área</span></div>';
+        cap.style.color = '#94a3b8';
+        cap.innerHTML = '<i class="fas fa-chart-pie"></i> Distribuição por área';
+        return;
+      }
+
+      wrap.innerHTML = '<canvas id="pieChart" role="img"></canvas>';
+      document.getElementById('pieChart').setAttribute('aria-label', 'Gráfico de rosca: distribuição das respostas por área — ' +
+        porArea.map(a => a.id + ' ' + a.total).join(', '));
+
+      const percentageLabelsPlugin = {
+        id: 'percentageLabels',
+        afterDraw(chart) {
+          const { ctx } = chart;
+          const ds = chart.data.datasets[0];
+          const total = ds.data.reduce((s, v) => s + v, 0) || 1;
+          ctx.save();
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          chart.getDatasetMeta(0).data.forEach((arc, i) => {
+            const p = ds.data[i] / total * 100;
+            if (p < 4) return;
+            const ang = (arc.startAngle + arc.endAngle) / 2;
+            const r = (arc.outerRadius + arc.innerRadius) / 2;
+            const x = arc.x + Math.cos(ang) * r;
+            const y = arc.y + Math.sin(ang) * r;
+            ctx.font = '700 ' + (p >= 15 ? 14 : 11) + 'px Montserrat, sans-serif';
+            ctx.strokeStyle = 'rgba(16,48,80,.35)';
+            ctx.lineWidth = 3;
+            ctx.strokeText(p.toFixed(1).replace('.', ',') + '%', x, y);
+            ctx.fillStyle = '#ffffff';
+            ctx.fillText(p.toFixed(1).replace('.', ',') + '%', x, y);
+          });
+          ctx.restore();
+        }
+      };
+
+      pieChart = new Chart(document.getElementById('pieChart'), {
+        type: 'doughnut',
+        data: {
+          labels: porArea.map(a => a.id),
+          datasets: [{
+            data: porArea.map(a => a.total),
+            backgroundColor: porArea.map(a => a.cor),
+            borderColor: '#ffffff',
+            borderWidth: 3,
+            hoverOffset: 8
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          cutout: '58%',
+          animation: { duration: REDUCED ? 0 : 650 },
+          plugins: {
+            legend: { position: 'bottom', labels: { color: '#103050', boxWidth: 12, boxHeight: 12, padding: 10, font: { family: 'Open Sans', size: 11, weight: '600' } } },
+            tooltip: {
+              callbacks: {
+                label: c => c.label + ': ' + c.parsed + ' respostas (' +
+                  (c.parsed / somaExibida * 100).toFixed(1).replace('.', ',') + '%)'
+              }
+            }
+          }
+        },
+        plugins: [percentageLabelsPlugin]
+      });
+
+      if (window.A11y) {
+        A11y.renderChartFallbackTable(
+          document.getElementById('pieChart'),
+          'Distribuição das respostas por área',
+          ['Área', 'Respostas'],
+          porArea.map(a => [a.id, String(a.total)])
+        );
+      }
+
+      cap.style.color = '#475569';
+      cap.innerHTML = '<i class="fas fa-chart-pie"></i> Distribuição por área · ' +
+        '<span style="font-weight:700;color:#0070C0;">% de ' + somaExibida + ' respostas</span>';
+    }
+
+
+    function refreshZeradas() {
+      document.getElementById('zeradas').innerHTML =
+        (agrupadas.length ? '<b>Outras ' + agrupadas.length + ' unidades:</b> ' +
+          agrupadas.map(u => u.sg + ' ' + u.n).join(' · ') + '<br>' : '') +
+        '<b>' + SEM_RESPOSTA.length + ' unidades da estrutura sem resposta no trimestre</b> (fora do gráfico): ' +
+        SEM_RESPOSTA.join(' · ');
+    }
+
+    function update() {
+      refreshChips();
+      refreshCaption();
+      renderBars();
+      renderPie();
+      refreshZeradas();
+    }
+
+    update();
+
+    document.addEventListener('DOMContentLoaded', function () {
+      if (window.A11y) renderPie();
+    });
+  </script>
+  <script>document.addEventListener("keydown", function (e) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) { e.preventDefault(); window.parent.postMessage({ type: "slide-nav", key: e.key }, "*"); } });</script>
+  <script src="a11y.js" defer></script>
+  <script src="vida.js" defer></script>
+</body>
+
+</html>

@@ -29,7 +29,7 @@ Este é um **site estático** (só HTML, CSS e JavaScript — sem servidor, sem 
 
 Tudo roda no navegador do usuário. Não há nada para "instalar" ou "executar" (a única exceção é rodar um servidor local **só para conferir** antes de publicar — veja a seção 11). O conteúdo fica hospedado no GitHub Pages e pode ser acessado pelo link do repositório.
 
-Cada tela da apresentação é um arquivo `.html` **independente** dentro da pasta `sistema/`. A **ordem** em que aparecem é decidida por uma única lista chamada `deck`, dentro de `sistema/index.html`.
+Cada tela da apresentação é um arquivo `.html` **independente** dentro da pasta `relatorios/trimestral-1t-2026/`. A **ordem** em que aparecem é decidida por uma única lista chamada `deck`, dentro de `relatorios/trimestral-1t-2026/index.html`.
 
 ---
 
@@ -39,15 +39,15 @@ Cada tela da apresentação é um arquivo `.html` **independente** dentro da pas
 relatorios-ouvidoria/
 │
 ├── index.html              ← Página inicial (portal com os cards de acesso)
-├── img_porto.jpeg          ← Foto de fundo da página inicial
+├── compartilhado/imagens/  ← Foto de fundo da página inicial
 ├── README.md               ← Visão geral do projeto
-├── MANUAL.md               ← Este manual
+├── docs/MANUAL-trimestral-1t.md ← Este manual
 ├── .nojekyll               ← Arquivo vazio — diz ao GitHub para não usar Jekyll
 ├── .github/
 │   └── workflows/
 │       └── static.yml      ← Configura o deploy automático no GitHub Pages
 │
-└── sistema/
+└── relatorios/trimestral-1t-2026/
     ├── index.html          ← Visualizador de slides (contém a lista `deck` = a ordem)
     ├── relatorio.html      ← Versão para impressão em PDF (todos os slides em uma página)
     ├── RESUMO-SLIDES.md    ← Anotações internas sobre cada slide / reorganizações
@@ -68,12 +68,12 @@ relatorios-ouvidoria/
 
 ## 3. Como a apresentação funciona (o `deck`)
 
-O arquivo `sistema/index.html` é o "palco". Ele carrega cada slide dentro de um **iframe** (uma janela embutida). Quando você clica nas setas/laterais ou aperta uma tecla, ele troca o arquivo mostrado no iframe.
+O arquivo `relatorios/trimestral-1t-2026/index.html` é o "palco". Ele carrega cada slide dentro de um **iframe** (uma janela embutida). Quando você clica nas setas/laterais ou aperta uma tecla, ele troca o arquivo mostrado no iframe.
 
-A ordem dos slides vem de **uma única lista**, o `deck`, logo no início do bloco `<script>` de `sistema/index.html`. Ela agrupa os arquivos em **blocos temáticos**:
+A ordem dos slides vem de **uma única lista**, o `deck`, logo no início do bloco `<script>` de `relatorios/trimestral-1t-2026/index.html`. Ela agrupa os arquivos em **blocos temáticos**:
 
 ```javascript
-// sistema/index.html
+// relatorios/trimestral-1t-2026/index.html
 const deck = [
   { block: 'Abertura', short: 'Abertura', tint: 0.35,
     files: ['slide-00.html', 'slide-34.html', 'slide-msg-ouvidora.html', 'slide-01.html'] },
@@ -118,7 +118,7 @@ Faça uma busca global por `1º trimestre`, `1º Trimestre` e `Jan–Mar` (ou `J
 Cada slide tem seu próprio conjunto de dados. Veja a tabela no [Mapa de slides](#5-mapa-de-slides--o-que-cada-um-contém) para saber onde alterar, e a seção [Como atualizar gráficos](#6-como-atualizar-gráficos).
 
 ### Passo 3 — Atualizar a versão PDF
-O arquivo `sistema/relatorio.html` é **separado** dos slides (não faz parte do `deck`). Ele repete os mesmos dados em formato de documento A4. Depois de atualizar os slides, **repita as alterações de números/gráficos/textos no `relatorio.html`** para manter os dois em sincronia.
+O arquivo `relatorios/trimestral-1t-2026/relatorio.html` é **separado** dos slides (não faz parte do `deck`). Ele repete os mesmos dados em formato de documento A4. Depois de atualizar os slides, **repita as alterações de números/gráficos/textos no `relatorio.html`** para manter os dois em sincronia.
 
 ### Passo 4 — Conferir localmente
 Abra a apresentação e passe por todos os slides (veja a seção 11). Confira principalmente os slides marcados com ⭐ no mapa.
@@ -136,7 +136,7 @@ O GitHub Pages publica automaticamente em ~2 minutos.
 ## 5. Mapa de slides — o que cada um contém
 
 > Esta é a ordem **atual** do `deck` (Abertura + 6 blocos + Sobras). Se a ordem mudar,
-> a fonte da verdade é sempre o `deck` em `sistema/index.html`.
+> a fonte da verdade é sempre o `deck` em `relatorios/trimestral-1t-2026/index.html`.
 > ⭐ = slide com dados que **sempre mudam** a cada trimestre.
 
 ### Abertura
@@ -252,7 +252,7 @@ labels: ['1ºT 2027', '1ºT 2026', '1ºT 2025', '1ºT 2024', '1ºT 2023'],
 data:   [145,         130,         107,         105,         62       ],
 ```
 
-> Lembre-se de replicar a mesma mudança em `sistema/relatorio.html` (versão PDF).
+> Lembre-se de replicar a mesma mudança em `relatorios/trimestral-1t-2026/relatorio.html` (versão PDF).
 
 ---
 
@@ -274,19 +274,19 @@ Os slides de análise (ex.: `slide-09`, `slide-11`, `slide-12`, `slide-conclusao
 
 ## 8. Como adicionar, remover ou reordenar um slide
 
-Com o modelo de `deck`, quase tudo se resolve **editando a lista `files` do bloco** em `sistema/index.html`. Você **não** precisa mais renomear arquivos nem atualizar um contador.
+Com o modelo de `deck`, quase tudo se resolve **editando a lista `files` do bloco** em `relatorios/trimestral-1t-2026/index.html`. Você **não** precisa mais renomear arquivos nem atualizar um contador.
 
 ### Reordenar / mover um slide
 Recorte o nome do arquivo de onde ele está e cole na posição desejada, dentro do `files: [...]` do bloco de destino. Salve. Pronto — contador, dots e barra de progresso se ajustam sozinhos.
 
 ### Adicionar um slide novo
-1. **Crie** o arquivo `.html` na pasta `sistema/` (o mais fácil é copiar um slide parecido e editar o conteúdo).
+1. **Crie** o arquivo `.html` na pasta `relatorios/trimestral-1t-2026/` (o mais fácil é copiar um slide parecido e editar o conteúdo).
 2. **Adicione** o nome do arquivo na posição desejada dentro do `files: [...]` do bloco certo:
    ```javascript
    files: ['capa-bloco-3.html', 'slide-sac-apres.html', 'slide-novo.html', /* ... */],
    ```
 3. (Opcional) Se ele deve aparecer no **sumário clicável**, edite `slide-01.html`.
-4. Se for um slide de dados, **replique** no `sistema/relatorio.html` (PDF).
+4. Se for um slide de dados, **replique** no `relatorios/trimestral-1t-2026/relatorio.html` (PDF).
 
 ### Remover um slide da apresentação
 Basta **apagar o nome do arquivo** da lista `files`. O arquivo continua no disco (não é excluído), mas some da navegação. Se quiser removê-lo de vez, apague também o arquivo `.html`.
@@ -328,7 +328,7 @@ Durante a construção, alguns conteúdos ficaram como **placeholder** ou com li
 ### Fontes
 - **Montserrat** → títulos, KPIs, labels em maiúsculas (usada na home e nos slides)
 - **Open Sans** → texto corrido, parágrafos
-- **Roboto** → interface do visualizador (`sistema/index.html`)
+- **Roboto** → interface do visualizador (`relatorios/trimestral-1t-2026/index.html`)
 
 ### Classes CSS recorrentes
 | Classe | O que faz |
@@ -373,7 +373,7 @@ O repositório publica automaticamente via GitHub Actions a cada `push` na branc
 git status
 
 # 2. Adicionar os arquivos alterados (ou "git add ." para tudo)
-git add sistema/slide-04.html sistema/relatorio.html
+git add relatorios/trimestral-1t-2026/slide-04.html relatorios/trimestral-1t-2026/relatorio.html
 
 # 3. Criar o commit com descrição clara
 git commit -m "Atualiza dados do 2º trimestre de 2026"
@@ -399,19 +399,19 @@ Remove-Item .git\index.lock
 A: Verifique se o push foi feito (`git push`). Depois limpe o cache do navegador (Ctrl+Shift+R).
 
 **Q: O slide está em branco ou dá erro ao abrir.**
-A: Confira se o nome do arquivo no `deck` (em `sistema/index.html`) está **exatamente** igual ao nome do arquivo no disco — incluindo maiúsculas/minúsculas. O GitHub Pages diferencia `Imagens/` de `imagens/`.
+A: Confira se o nome do arquivo no `deck` (em `relatorios/trimestral-1t-2026/index.html`) está **exatamente** igual ao nome do arquivo no disco — incluindo maiúsculas/minúsculas. O GitHub Pages diferencia `Imagens/` de `imagens/`.
 
 **Q: Um slide antigo continua aparecendo no fim da apresentação.**
 A: Ele provavelmente está no bloco **"Sobras"** do `deck`. Para sumir de vez, remova o nome dele da lista `files` (seção 8).
 
 **Q: Quebrei um gráfico/slide e quero voltar.**
-A: Use `git diff sistema/slide-XX.html` para ver o que mudou, ou `git checkout sistema/slide-XX.html` para desfazer todas as alterações naquele arquivo.
+A: Use `git diff relatorios/trimestral-1t-2026/slide-XX.html` para ver o que mudou, ou `git checkout relatorios/trimestral-1t-2026/slide-XX.html` para desfazer todas as alterações naquele arquivo.
 
 **Q: Onde fica o número total de slides?**
 A: Em lugar nenhum para editar — é calculado sozinho (`const total = slides.length;`) a partir do `deck`. Você só mexe na lista `deck`.
 
 **Q: O PDF não está saindo certo.**
-A: Use `sistema/relatorio.html` (não os slides). Abra no navegador → Ctrl+P → "Salvar como PDF" → papel A4, margens mínimas e "Gráficos de fundo" ativado. Lembre que ele é **separado** do `deck`: se atualizou os slides, atualize o `relatorio.html` também.
+A: Use `relatorios/trimestral-1t-2026/relatorio.html` (não os slides). Abra no navegador → Ctrl+P → "Salvar como PDF" → papel A4, margens mínimas e "Gráficos de fundo" ativado. Lembre que ele é **separado** do `deck`: se atualizou os slides, atualize o `relatorio.html` também.
 
 **Q: Como saber qual variável mudar para atualizar um número?**
 A: Procure pelo número atual com Ctrl+F no arquivo do slide. Os valores dos gráficos ficam em blocos `<script>` perto do final (`labels` / `data`); os KPIs ficam em tags como `<p class="kpi-num">`.

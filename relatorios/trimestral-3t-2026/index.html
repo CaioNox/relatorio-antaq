@@ -61,12 +61,57 @@
       width: 1920px;
       height: 1080px;
       border: 0;
-      background: #fff;
+      background: transparent;
       display: block;
       position: absolute;
       top: 0;
       left: 0;
       transform-origin: top left;
+    }
+
+    /* Buffer duplo: sao dois quadros. O proximo slide carrega escondido e
+       so aparece depois de pronto, entao a saida e a entrada acontecem ao
+       mesmo tempo, sobrepostas — e nao existe momento em que o palco fica
+       vazio ou mostrando o fundo branco do iframe em carregamento.
+       O transform do iframe pertence ao scaleFrame(); por isso quem anima
+       e o quadro, a camada acima dele. */
+    .quadro {
+      position: absolute;
+      inset: 0;
+      transition: opacity .42s cubic-bezier(.22, 1.15, .36, 1),
+        transform .42s cubic-bezier(.22, 1.15, .36, 1);
+    }
+
+    /* fora de cena: sem pintura, sem clique, sem foco */
+    .quadro.oculto {
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    /* posicao de espera de quem vai entrar (sem transicao: e so o ponto de partida) */
+    .quadro.pronto-frente,
+    .quadro.pronto-tras {
+      opacity: 0;
+      transition: none;
+    }
+
+    .quadro.pronto-frente { transform: translateX(2.4%); }
+    .quadro.pronto-tras { transform: translateX(-2.4%); }
+
+    /* quem sai desliza para o lado oposto e apaga, junto com a entrada */
+    .quadro.sai-frente { opacity: 0; transform: translateX(-2.4%); }
+    .quadro.sai-tras { opacity: 0; transform: translateX(2.4%); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .quadro {
+        transition: none;
+      }
+
+      .quadro.sai-frente,
+      .quadro.sai-tras {
+        opacity: 0;
+        transform: none;
+      }
     }
 
 
@@ -378,11 +423,12 @@
     }
 
     .nav-hints-panel {
+      position: relative;
       background: linear-gradient(160deg, #0c3273 0%, #0a2040 100%);
       border: 1px solid rgba(255, 255, 255, 0.18);
       border-radius: 20px;
-      padding: 36px 40px 32px;
-      max-width: 560px;
+      padding: 30px 36px 28px;
+      max-width: 580px;
       width: 90%;
       box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
       font-family: 'Roboto', sans-serif;
@@ -393,6 +439,7 @@
       font-size: 20px;
       font-weight: 700;
       margin-bottom: 6px;
+      padding-right: 40px;
       color: #fff;
       display: flex;
       align-items: center;
@@ -402,14 +449,48 @@
     .nav-hints-panel .subtitle {
       font-size: 14px;
       color: rgba(255, 255, 255, 0.55);
-      margin-bottom: 28px;
+      margin-bottom: 20px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
     }
 
-    .hint-row {
+    /* botao X do canto superior direito */
+    .hints-close {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      width: 34px;
+      height: 34px;
       display: flex;
       align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.06);
+      color: rgba(255, 255, 255, 0.65);
+      font-size: 15px;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+
+    .hints-close:hover {
+      background: rgba(255, 255, 255, 0.14);
+      border-color: rgba(255, 255, 255, 0.32);
+      color: #fff;
+    }
+
+    .hints-close:focus-visible {
+      outline: 2px solid #4dcfff;
+      outline-offset: 2px;
+    }
+
+    /* grade fixa: icone | texto | teclas — mantem as tres colunas alinhadas */
+    .hint-row {
+      display: grid;
+      grid-template-columns: 48px 1fr auto;
+      align-items: center;
       gap: 16px;
-      padding: 14px 0;
+      padding: 12px 0;
       border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     }
 
@@ -445,11 +526,10 @@
     }
 
     .hint-keys {
-      margin-left: auto;
       display: flex;
       gap: 6px;
       align-items: center;
-      flex-shrink: 0;
+      justify-content: flex-end;
     }
 
     .key {
@@ -463,12 +543,21 @@
       padding: 4px 10px;
       font-size: 13px;
       font-weight: 600;
+      line-height: 1.2;
       min-width: 36px;
       color: #fff;
     }
 
+    /* variante para a coluna que aponta um botao da tela, nao uma tecla */
+    .key.key-ui {
+      background: rgba(242, 169, 0, 0.16);
+      border-color: rgba(242, 169, 0, 0.4);
+      border-bottom-color: rgba(242, 169, 0, 0.3);
+      color: #f2a900;
+    }
+
     .nav-hints-panel .dismiss-btn {
-      margin-top: 28px;
+      margin-top: 22px;
       width: 100%;
       padding: 14px;
       background: #0090C0;
@@ -512,6 +601,7 @@
     }
   
     /* ---- confirmacao de download do PPTX ---- */
+
     .pptx-overlay {
       position: fixed;
       inset: 0;
@@ -589,13 +679,14 @@
 </head>
 
 <body>
-  <a class="skip-link" href="#slideFrame">Pular para o conteúdo do slide</a>
+  <a class="skip-link" href="#frameA">Pular para o conteúdo do slide</a>
   <div id="a11yLiveRegion" aria-live="polite" aria-atomic="true" class="sr-only"></div>
 
   <div class="app" role="region" aria-label="Apresentação de slides">
     <div id="clickLeft" class="click-zone" aria-hidden="true" tabindex="-1"></div>
     <div class="stage">
-      <iframe id="slideFrame" title="Slide" tabindex="-1"></iframe>
+      <div class="quadro" id="quadroA"><iframe id="frameA" title="Slide" tabindex="-1"></iframe></div>
+      <div class="quadro oculto" id="quadroB"><iframe id="frameB" title="Slide" tabindex="-1"></iframe></div>
     </div>
     <div id="clickRight" class="click-zone" aria-hidden="true" tabindex="-1"></div>
   </div>
@@ -618,23 +709,30 @@
     </div>
   </div>
 
-  <button class="pdf-btn" id="pptxBtn" type="button" title="Baixar PowerPoint dos slides"
+  <button class="pdf-btn" id="pptxBtn" type="button" hidden title="Baixar PowerPoint dos slides"
     aria-label="Baixar PowerPoint dos slides"><i class="fa-solid fa-file-powerpoint" aria-hidden="true"></i></button>
-  <button class="close-btn" onclick="closePresentation()" title="Fechar apresentação"
-    aria-label="Fechar apresentação"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+  <button class="close-btn" onclick="closePresentation()" title="Fechar apresentação" aria-label="Fechar apresentação"><i
+      class="fa-solid fa-xmark" aria-hidden="true"></i></button>
   <button class="fs-btn" onclick="toggleFullscreen()" title="Tela Cheia (F)" aria-label="Alternar tela cheia"><i
       class="fa-solid fa-expand" id="fsIcon" aria-hidden="true"></i></button>
 
   <div class="nav-hints-overlay" id="navHints">
-    <div class="nav-hints-panel">
-      <h2><i class="fa-solid fa-circle-question" style="color:#0090C0;"></i> Como navegar na apresentação</h2>
+    <div class="nav-hints-panel" role="dialog" aria-modal="true" aria-labelledby="hintsTitulo">
+
+      <button class="hints-close" id="hintsClose" type="button" onclick="toggleHints()"
+        aria-label="Fechar ajuda de navegação" title="Fechar (Esc)">
+        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+      </button>
+
+      <h2 id="hintsTitulo"><i class="fa-solid fa-circle-question" style="color:#0090C0;" aria-hidden="true"></i> Como
+        navegar na apresentação</h2>
       <p class="subtitle">Use o teclado ou o mouse para avançar entre os slides.</p>
 
       <div class="hint-row">
-        <div class="hint-icon-box"><i class="fa-solid fa-arrow-right"></i></div>
+        <div class="hint-icon-box"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></div>
         <div class="hint-text">
           <strong>Avançar slide</strong>
-          <span>Clique na área à direita do slide, ou pressione:</span>
+          <span>Clique na área à direita do slide, ou pressione</span>
         </div>
         <div class="hint-keys">
           <span class="key">→</span>
@@ -643,10 +741,10 @@
       </div>
 
       <div class="hint-row">
-        <div class="hint-icon-box"><i class="fa-solid fa-arrow-left"></i></div>
+        <div class="hint-icon-box"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i></div>
         <div class="hint-text">
           <strong>Voltar slide</strong>
-          <span>Clique na área à esquerda do slide, ou pressione:</span>
+          <span>Clique na área à esquerda do slide, ou pressione</span>
         </div>
         <div class="hint-keys">
           <span class="key">←</span>
@@ -654,26 +752,17 @@
       </div>
 
       <div class="hint-row">
-        <div class="hint-icon-box"><i class="fa-solid fa-expand"></i></div>
+        <div class="hint-icon-box"><i class="fa-solid fa-expand" aria-hidden="true"></i></div>
         <div class="hint-text">
           <strong>Tela cheia</strong>
-          <span>Ocupa a tela inteira para melhor visualização.</span>
+          <span>Ocupa a tela inteira para melhor visualização</span>
         </div>
         <div class="hint-keys">
           <span class="key">F</span>
         </div>
       </div>
 
-      <div class="hint-row">
-        <div class="hint-icon-box"
-          style="background:rgba(242,169,0,0.2); border-color:rgba(242,169,0,0.4); color:#f2a900;"><i
-            class="fa-solid fa-file-powerpoint"></i></div>
-        <div class="hint-text">
-          <strong>Baixar PowerPoint</strong>
-          <span>Baixe os slides em .pptx para editar ou apresentar</span>
-        </div>
-      </div>
-
+      
       <button class="dismiss-btn" onclick="toggleHints()">Entendido</button>
     </div>
   </div>
@@ -683,7 +772,7 @@
     <div class="pptx-box" role="dialog" aria-modal="true" aria-labelledby="pptxTitulo">
       <div class="pptx-ico"><i class="fa-solid fa-file-powerpoint" aria-hidden="true"></i></div>
       <h3 id="pptxTitulo">Deseja baixar o arquivo PowerPoint dos slides apresentados?</h3>
-      <p>O download comeca imediatamente.<span class="pptx-arq">1o-Relatorio-Trimestral-2026-Ouvidoria-ANTAQ.pptx</span></p>
+      <p>O download comeca imediatamente.<span class="pptx-arq">Relatorio-Trimestral-2026-3T.pptx</span></p>
       <div class="pptx-acoes">
         <button class="pptx-nao" type="button" id="pptxNao">Nao</button>
         <button class="pptx-sim" type="button" id="pptxSim">Sim, baixar</button>
@@ -701,17 +790,107 @@
     const meta = paginas.map((p) => ({ block: p.block, blockShort: p.blockShort, blockIndex: p.blockIndex, tint: p.tint }));
     const total = slides.length;
     if (window.location.search.includes('auditoria=1') && RELATORIO.checarSanidade) RELATORIO.checarSanidade();
-    const frame = document.getElementById('slideFrame');
+    /* dois quadros; `frame` aponta sempre para o iframe que esta em cena,
+       entao o resto do codigo (teclado, escala, Ctrl+M) continua igual */
+    const quadros = [document.getElementById('quadroA'), document.getElementById('quadroB')];
+    const frames = [document.getElementById('frameA'), document.getElementById('frameB')];
+    let emCena = 0;
+    let frame = frames[0];
     let current = 1;
 
     function fileFor(n) {
       return slides[n - 1];
     }
 
-    function render() {
-      frame.src = fileFor(current);
-      const label = `Slide ${current} de ${total}: ${meta[current - 1].block}`;
+    /* direcao da troca: entrando de re, um slide com etapas abre na ultima */
+    let direcao = "frente";
+    /* ligado pelo proprio slide, via postMessage, quando ele tem etapas internas */
+    let slideComEtapas = false;
+
+    /* ---- troca direcional entre slides, com buffer duplo ---- */
+
+    /* o sentido vem de qual slide estava antes, entao os pontinhos e o
+       "ir para" tambem entram pelo lado certo, nao so as setas */
+    let ultimo = 0;
+    let travaTroca = null;
+    let trocando = false;
+    /* Depois da transicao, o quadro que saiu precisa ser escondido — mas
+       essa faxina fica pendente por 440ms, e nesse meio tempo o quadro pode
+       ter sido reaproveitado pelo slide seguinte. Se ela disparasse ali,
+       esconderia justamente quem acabou de entrar: era o palco preto da
+       navegacao rapida. Por isso a faxina pendente e sempre executada ANTES
+       de qualquer coisa nova mexer nos quadros. */
+    let limpeza = null;
+
+    function fazerLimpeza() {
+      if (!limpeza) return;
+      clearTimeout(limpeza.id);
+      const fn = limpeza.exec;
+      limpeza = null;
+      fn();
+    }
+
+    function trocar(paraFrente, label) {
+      if (travaTroca) { clearTimeout(travaTroca); travaTroca = null; }
+      if (!trocando) return;
+      trocando = false;
+
+      fazerLimpeza();
+
+      const saindo = quadros[emCena];
+      const entrando = quadros[1 - emCena];
+
+      saindo.classList.add(paraFrente ? 'sai-frente' : 'sai-tras');
+      /* tira a posicao de espera no frame seguinte, para a transicao pegar */
+      requestAnimationFrame(function () {
+        entrando.classList.remove('pronto-frente', 'pronto-tras');
+      });
+
+      emCena = 1 - emCena;
+      frame = frames[emCena];
       frame.title = label;
+
+      const esconder = function () {
+        saindo.classList.add('oculto');
+        saindo.classList.remove('sai-frente', 'sai-tras');
+        saindo.querySelector('iframe').removeAttribute('title');
+      };
+      limpeza = { id: window.setTimeout(fazerLimpeza, 440), exec: esconder };
+    }
+
+    function render() {
+      slideComEtapas = false;
+      /* a faxina pendente acontece agora, antes de preparar o proximo quadro */
+      fazerLimpeza();
+      if (travaTroca) { clearTimeout(travaTroca); travaTroca = null; }
+      const paraFrente = current >= ultimo;
+      ultimo = current;
+
+      const label = `Slide ${current} de ${total}: ${meta[current - 1].block}`;
+      const alvo = frames[1 - emCena];
+      const quadroAlvo = quadros[1 - emCena];
+
+      /* o proximo slide carrega escondido e so entra quando estiver pintado:
+         e isto que elimina o clarao branco do iframe em carregamento */
+      quadroAlvo.classList.remove('sai-frente', 'sai-tras');
+      quadroAlvo.classList.add(paraFrente ? 'pronto-frente' : 'pronto-tras');
+      quadroAlvo.classList.remove('oculto');
+
+      trocando = true;
+      alvo.onload = function () { trocar(paraFrente, label); };
+      /* rede de seguranca: se o load nao vier, troca assim mesmo */
+      travaTroca = setTimeout(function () { trocar(paraFrente, label); }, 1500);
+
+      const destino = fileFor(current) + (direcao === "tras" ? "#fim" : "");
+      /* mesmo arquivo ja carregado ali: trocar o src so mexeria no hash e
+         nenhum load dispararia — a troca e feita na hora */
+      const atual = alvo.getAttribute('src');
+      if (atual && atual.split('#')[0] === destino.split('#')[0]) {
+        if (atual !== destino) alvo.setAttribute('src', destino);
+        requestAnimationFrame(function () { trocar(paraFrente, label); });
+      } else {
+        alvo.setAttribute('src', destino);
+      }
       document.getElementById('pageInfo').textContent = `${current} / ${total}`;
       document.getElementById('btnPrev').disabled = current === 1;
       document.getElementById('btnNext').disabled = current === total;
@@ -719,9 +898,9 @@
       if (window.A11y) window.A11y.announce(label);
     }
 
-    function next() { if (current < total) { current++; render(); } }
-    function prev() { if (current > 1) { current--; render(); } }
-    function goHome() { current = 1; render(); }
+    function next() { if (current < total) { direcao = "frente"; current++; render(); } }
+    function prev() { if (current > 1) { direcao = "tras"; current--; render(); } }
+    function goHome() { direcao = "frente"; current = 1; render(); }
 
     function updateDots() {
       document.querySelectorAll('.nav-dots button').forEach((dot, i) => {
@@ -749,7 +928,7 @@
 
     function closePresentation() {
       if (window.opener) { window.close(); }
-      else { window.location.href = '../index.html'; }
+      else { window.location.href = '../../index.html'; }
     }
 
 
@@ -770,6 +949,14 @@
       else if (key === 'f' || key === 'F') { toggleFullscreen(); }
     }
     document.addEventListener('keydown', (e) => {
+      /* Esc fecha a ajuda; com ela aberta, as teclas de navegacao nao passam */
+      const ajudaAberta = document.getElementById('navHints').classList.contains('visible');
+      if (e.key === 'Escape') {
+        if (ajudaAberta) { e.preventDefault(); toggleHints(false); }
+        return;
+      }
+      if (ajudaAberta) return;
+
       if (['ArrowRight', 'ArrowLeft', 'PageDown', 'PageUp', 'Home', 'End', ' ', 'f', 'F'].indexOf(e.key) !== -1) {
         e.preventDefault();
         handleKey(e.key);
@@ -777,8 +964,11 @@
     });
 
     window.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'slide-etapas') { slideComEtapas = true; }
       if (e.data && e.data.type === 'go-menu') { irParaMenu(); }
       if (e.data && e.data.type === 'slide-nav' && e.data.key) {
+        /* o slide dentro do iframe nao navega enquanto a ajuda estiver aberta */
+        if (document.getElementById('navHints').classList.contains('visible')) return;
         handleKey(e.data.key);
       }
       if (e.data && e.data.type === 'slide-goto' && e.data.slide) {
@@ -793,8 +983,16 @@
     });
 
 
-    document.getElementById('clickLeft').addEventListener('click', () => prev());
-    document.getElementById('clickRight').addEventListener('click', () => next());
+    /* num slide com etapas, o clique lateral percorre as etapas, nao os slides */
+    function cliqueLateral(tecla, semEtapas) {
+      if (slideComEtapas && frame.contentWindow) {
+        frame.contentWindow.postMessage({ type: "deck-key", key: tecla }, "*");
+        return;
+      }
+      semEtapas();
+    }
+    document.getElementById('clickLeft').addEventListener('click', () => cliqueLateral('ArrowLeft', prev));
+    document.getElementById('clickRight').addEventListener('click', () => cliqueLateral('ArrowRight', next));
 
     render();
 
@@ -842,32 +1040,37 @@
     const navHints = document.getElementById('navHints');
     const helpBtn = document.getElementById('helpBtn');
 
-    function toggleHints() {
-      const open = navHints.classList.toggle('visible');
+    function toggleHints(estado) {
+      const open = typeof estado === 'boolean'
+        ? navHints.classList.toggle('visible', estado)
+        : navHints.classList.toggle('visible');
       helpBtn.classList.toggle('active', open);
+      helpBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      /* foco vai para o X ao abrir e volta para o botao de ajuda ao fechar */
+      if (open) document.getElementById('hintsClose').focus();
+      else helpBtn.focus();
     }
 
 
     navHints.addEventListener('click', (e) => {
-      if (e.target === navHints) toggleHints();
+      if (e.target === navHints) toggleHints(false);
     });
 
 
-    navHints.classList.add('visible');
-    helpBtn.classList.add('active');
+    toggleHints(true);
 
 
     const stage = document.querySelector('.stage');
     function scaleFrame() {
       const scale = Math.min(stage.clientWidth / 1920, stage.clientHeight / 1080);
-      frame.style.transform = `scale(${scale})`;
+      frames.forEach(function (f) { f.style.transform = `scale(${scale})`; });
     }
     scaleFrame();
     window.addEventListener('resize', scaleFrame);
     new ResizeObserver(scaleFrame).observe(stage);
 
     /* ---- confirmacao de download do PPTX ---- */
-    const ARQUIVO_PPTX = '1o-Relatorio-Trimestral-2026-Ouvidoria-ANTAQ.pptx';
+    const ARQUIVO_PPTX = 'Relatorio-Trimestral-2026-3T.pptx';
     const pptxOverlay = document.getElementById('pptxOverlay');
     const pptxBtn = document.getElementById('pptxBtn');
 
@@ -894,7 +1097,7 @@
     });
 
     /* ---- Ctrl+M volta para o menu de relatorios ---- */
-    const MENU_URL = '../index.html';
+    const MENU_URL = '../../index.html';
 
     function irParaMenu() { window.location.href = MENU_URL; }
 
@@ -906,9 +1109,9 @@
 
     /* o slide vive num iframe e captura o teclado; quando a origem permite,
        o mesmo atalho e anexado la dentro a cada troca de slide */
-    function armarAtalhoNoSlide() {
+    function armarAtalhoNoSlide(e) {
       try {
-        const doc = frame.contentDocument;
+        const doc = (e && e.target ? e.target : frame).contentDocument;
         if (!doc || doc.__menuArmado) return;
         doc.__menuArmado = true;
         doc.addEventListener('keydown', (e) => {
@@ -916,7 +1119,7 @@
         });
       } catch (err) { /* origem diferente: o postMessage do a11y.js cobre */ }
     }
-    frame.addEventListener('load', armarAtalhoNoSlide);
+    frames.forEach(function (f) { f.addEventListener('load', armarAtalhoNoSlide); });
   </script>
   <script src="a11y.js" defer></script>
 </body>

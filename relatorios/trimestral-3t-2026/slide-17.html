@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Ouvidoria em Números - Relatório Trimestral Ouvidoria ANTAQ</title>
+  <link rel="icon" type="image/png"
+    href="https://prd-apex.antaq.gov.br/ords/r/sfc/120/files/static/v119/icons/app-icon-32.png" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      font-size: 26px;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: #ffffff;
+    }
+
+    .slide-container {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      font-family: 'Open Sans', sans-serif;
+      overflow: hidden;
+    }
+
+    .font-montserrat {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .text-brand-primary {
+      color: #103050;
+    }
+
+    .text-brand-secondary {
+      color: #0070C0;
+    }
+
+    .bg-brand-secondary {
+      background-color: #0070C0;
+    }
+
+    .top-accent {
+      height: 8px;
+      background-color: #103050;
+      width: 100%;
+    }
+
+    .top-accent-secondary {
+      height: 4px;
+      background-color: #0070C0;
+      width: 100%;
+    }
+
+
+    .main {
+      flex: 1;
+      min-height: 0;
+      display: grid;
+      grid-template-columns: 31% 1fr;
+      gap: 1.8rem;
+      padding: 0.75rem 4rem 0.9rem;
+      z-index: 10;
+    }
+
+
+    .hero {
+      background: linear-gradient(150deg, #0A1E30, #17426A);
+      border-radius: 19px;
+      color: #fff;
+      padding: 1.55rem 1.6rem 1.35rem;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 15px 32px -13px rgba(16, 48, 80, .5);
+    }
+
+    .hero::after {
+      content: "\f3fa";
+      font-family: "Font Awesome 6 Free";
+      font-weight: 900;
+      position: absolute;
+      right: -1.14rem;
+      bottom: -1.71rem;
+      font-size: 7.6rem;
+      color: rgba(255, 255, 255, 0.06);
+    }
+
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: .52rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: .57rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: #93C5FD;
+    }
+
+    .hero-num {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 5.03rem;
+      line-height: .9;
+      letter-spacing: -.04em;
+      margin-top: .47rem;
+    }
+
+    .hero-unit {
+      font-size: .76rem;
+      font-weight: 600;
+      color: rgba(255, 255, 255, .85);
+      margin-top: .09rem;
+    }
+
+    .hero-period {
+      font-size: .59rem;
+      color: rgba(255, 255, 255, .6);
+      margin-top: .14rem;
+      letter-spacing: .04em;
+    }
+
+    .hero-div {
+      height: 1px;
+      background: rgba(255, 255, 255, .16);
+      margin: 0.4rem 0 0.5rem;
+    }
+
+    .hero-lead {
+      font-size: 1.2rem;
+      line-height: 1.45;
+      color: rgba(255, 255, 255, .82);
+      margin: 0;
+    }
+
+    .hero-lead b {
+      color: #fff;
+      font-weight: 700;
+    }
+
+    .hc-label {
+      font-size: .52rem;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: rgba(255, 255, 255, .55);
+      font-weight: 700;
+    }
+
+    .hc-value {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: .78rem;
+      line-height: 1.1;
+    }
+
+    .hc-value a {
+      color: #fff;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255, 255, 255, .4);
+      transition: border-color .2s;
+    }
+
+    .hc-value a:hover {
+      border-color: #fff;
+    }
+
+
+
+    .right {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .lead {
+      font-size: .8rem;
+      line-height: 1.55;
+      color: #103050;
+      font-weight: 600;
+      border-left: 4px solid #0090C0;
+      padding-left: 1rem;
+      margin-bottom: 1.05rem;
+    }
+
+    .lead b {
+      color: #0070C0;
+      font-weight: 700;
+    }
+
+    .block-label {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: .64rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: #0070C0;
+      margin-bottom: .8rem;
+    }
+
+    .block-label::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: #E2E8F0;
+    }
+
+
+    .channels {
+      display: grid;
+      grid-template-columns: 1.85fr 1fr 1fr 1fr;
+      gap: .7rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .ch {
+      border: 1px solid #E2E8F0;
+      border-left: 5px solid #0090C0;
+      border-radius: 12px;
+      padding: .62rem .68rem .7rem;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: .26rem;
+      background: #F8FAFC;
+      transition: border-color .2s, box-shadow .2s, transform .2s;
+    }
+
+    .ch-head {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+
+    .ch-pill {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: .48rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      border-radius: 999px;
+      padding: .1rem .46rem;
+      background: #E6F2FA;
+      color: #0070C0;
+    }
+
+    .ch-entrada {
+      border-left-color: #103050;
+    }
+
+    .ch-entrada .ch-pill {
+      background: #103050;
+      color: #fff;
+    }
+
+    .ch-desc {
+      font-size: .58rem;
+      line-height: 1.36;
+      color: #475569;
+      margin: 0;
+    }
+
+    /* QR da IARA/WhatsApp: ocupa a folga da caixa, sem esticar a linha */
+    .ch-qr {
+      flex: 1;
+      min-height: 0;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: .12rem 0;
+    }
+
+    .ch-qr img {
+      max-height: 100%;
+      max-width: 100%;
+      width: auto;
+      border-radius: 7px;
+      background: #fff;
+      padding: 3px;
+      border: 1px solid #E2E8F0;
+      transition: transform .25s ease;
+    }
+
+    .ch:hover .ch-qr img {
+      transform: scale(1.05);
+    }
+
+    /* legenda centrada sob o QR — as outras caixas seguem alinhadas a esquerda */
+    .ch-qr+.hc-label {
+      width: 100%;
+      text-align: center;
+    }
+
+    /* caixa da IARA: a unica com texto corrido, por isso ganha respiro proprio */
+    .ch-hub {
+      border-left-color: #103050;
+      background: #F4F8FC;
+    }
+
+    .ch-kicker {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: .47rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: #0070C0;
+      margin: 0;
+    }
+
+    .ch:hover {
+      border-color: #0070C0;
+      box-shadow: 0 8px 18px -10px rgba(16, 48, 80, .22);
+      transform: translateY(-2px);
+    }
+
+    .ch-ico {
+      width: 34px;
+      height: 34px;
+      border-radius: 9px;
+      flex-shrink: 0;
+      background: linear-gradient(135deg, #103050, #0070C0);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.05rem;
+    }
+
+    .ch-name {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: .7rem;
+      color: #103050;
+    }
+
+    /* o dado do canal mora dentro da propria caixa */
+    .ch .hc-label {
+      color: #64748B;
+      margin-top: auto;
+    }
+
+    .ch .hc-value {
+      color: #103050;
+      font-size: .66rem;
+    }
+
+    .ch .hc-value a {
+      color: #0070C0;
+      border-bottom-color: rgba(0, 112, 192, .4);
+    }
+
+    .ch .hc-value a:hover {
+      border-bottom-color: #0070C0;
+    }
+
+
+    .chart-block {
+      margin-top: auto;
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* a area das barras estica com a coluna; o eixo fica numa faixa propria,
+       apoiado numa linha de base continua */
+    .plot {
+      flex: 1;
+      min-height: 0;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 1.4rem;
+      align-items: end;
+      padding: 0 .5rem;
+      border-bottom: 2px solid #E2E8F0;
+    }
+
+    .axis {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 1.4rem;
+      padding: 0 .5rem;
+    }
+
+    .m {
+      height: 100%;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .m-val {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 1rem;
+      color: #103050;
+      margin-bottom: .35rem;
+    }
+
+    .m-bar {
+      width: 100%;
+      max-width: 96px;
+      border-radius: 10px 10px 0 0;
+      background: linear-gradient(180deg, #2C82CD, #103050);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .08);
+    }
+
+    .m-name {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: .62rem;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: #64748B;
+      text-align: center;
+      margin-top: .5rem;
+    }
+
+    /* o mes de pico ganha o azul cheio — o resto da serie fica em segundo plano */
+    .m-pico .m-bar {
+      background: linear-gradient(180deg, #0090C0, #0d3358);
+    }
+
+    .m-pico .m-val {
+      color: #0070C0;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    /* a barra passa um pouco do alvo e assenta — leitura de mola, nao de regua */
+    @keyframes grow {
+      0% {
+        transform: scaleY(0);
+      }
+
+      68% {
+        transform: scaleY(1.035);
+      }
+
+      86% {
+        transform: scaleY(.988);
+      }
+
+      100% {
+        transform: scaleY(1);
+      }
+    }
+
+    .anim {
+      animation: fadeUp .5s ease both;
+    }
+
+    .d1 {
+      animation-delay: .05s
+    }
+
+    .d2 {
+      animation-delay: .15s
+    }
+
+    .d3 {
+      animation-delay: .25s
+    }
+
+    .m-bar {
+      transform-origin: bottom;
+      animation: grow .78s cubic-bezier(.22, .68, .3, 1) both;
+    }
+
+    .m:nth-child(1) .m-bar {
+      animation-delay: .2s
+    }
+
+    .m:nth-child(2) .m-bar {
+      animation-delay: .32s
+    }
+
+    .m:nth-child(3) .m-bar {
+      animation-delay: .44s
+    }
+
+    .m:nth-child(4) .m-bar {
+      animation-delay: .56s
+    }
+
+    .m:nth-child(5) .m-bar {
+      animation-delay: .68s
+    }
+
+    .m:nth-child(6) .m-bar {
+      animation-delay: .8s
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="a11y.css">
+  <link rel="stylesheet" href="base.css" />
+</head>
+
+<body>
+  <div class="slide-container">
+    <div class="top-accent"></div>
+    <div class="top-accent-secondary"></div>
+
+
+    <div class="flex items-start justify-between px-16 pt-10 pb-3 z-10">
+      <div>
+        <div class="flex items-center gap-3 mb-1">
+          <div class="w-1 h-8 bg-brand-secondary"></div>
+          <p class="text-3xl font-montserrat font-bold text-brand-primary uppercase tracking-tight">Ouvidoria em Números
+          </p>
+        </div>
+        <p class="text-gray-500 font-medium ml-4 text-lg">Atendimento realizados via Omnichannel</p>
+      </div>
+      <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
+        <i class="fas fa-landmark text-3xl align-middle" aria-hidden="true"></i>
+        <div class="flex flex-col justify-center pl-2 cap-div">
+          <p
+            class="font-montserrat font-bold text-gray-400 text-sm tracking-widest leading-none mb-1 whitespace-nowrap">
+            CAPÍTULO 02</p>
+          <p
+            class="font-montserrat font-bold text-brand-secondary text-xs tracking-tight uppercase leading-none whitespace-nowrap">
+            A
+            Ouvidoria da ANTAQ</p>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="main">
+
+
+      <div class="hero anim d1">
+        <p class="hero-eyebrow"><i class="fas fa-landmark"></i> No trimestre</p>
+        <p class="hero-num">405</p>
+        <p class="hero-unit">atendimentos realizados</p>
+        <p class="hero-period">3º trimestre de 2026 · Jan a Mar</p>
+
+        <div class="hero-div"></div>
+
+        <p class="hero-lead txt-bloco">
+          O <b>Omnichannel</b> é a plataforma que centraliza, em um único fluxo, os atendimentos da Ouvidoria.
+          Voltado a <b>orientações e atendimentos rápidos</b>, reúne os diferentes meios de contato do cidadão em
+          uma experiência integrada e padronizada.
+        </p>
+      </div>
+
+
+      <div class="right">
+
+        <p class="block-label"><i class="fas fa-diagram-project" aria-hidden="true"></i> Meios de contato integrados</p>
+
+        <div class="channels anim d2">
+
+          <div class="ch ch-hub">
+            <div class="ch-head">
+              <div class="ch-ico"><i class="fas fa-robot" aria-hidden="true"></i></div><span class="ch-name">IARA</span>
+            </div>
+            <p class="ch-kicker">Sobre a IARA</p>
+            <p class="ch-desc txt-bloco">Inteligência artificial da ANTAQ que atua como <b>intermédio ao cidadão</b>,
+              reunindo em um só fluxo o <b>WhatsApp</b>, o <b>Portal ANTAQ</b> e o <b>telefone</b>. Ela orienta,
+              organiza e trata os dados das demandas e, quando necessário, encaminha o cidadão a um <b>atendente
+                humano</b>.</p>
+          </div>
+
+          <div class="ch">
+            <div class="ch-head">
+              <div class="ch-ico"><i class="fab fa-whatsapp" aria-hidden="true"></i></div><span
+                class="ch-name">WhatsApp</span>
+            </div>
+            <div class="ch-qr">
+              <img src="Imagens/QRCODE_IARA.jpeg"
+                alt="QR Code para falar com a IARA, assistente de inteligência artificial da ANTAQ, pelo WhatsApp" />
+            </div>
+            <p class="hc-label">Aponte a câmera</p>
+          </div>
+
+          <div class="ch">
+            <div class="ch-head">
+              <div class="ch-ico"><i class="fas fa-phone" aria-hidden="true"></i></div><span
+                class="ch-name">Telefone</span>
+            </div>
+            <p class="hc-label">Disque Ouvidoria</p>
+            <p class="hc-value">0800 644 5001</p>
+          </div>
+
+          <div class="ch">
+            <div class="ch-head">
+              <div class="ch-ico"><i class="fas fa-globe" aria-hidden="true"></i></div><span
+                class="ch-name">Portal</span>
+            </div>
+            <p class="hc-label">Portal institucional</p>
+            <p class="hc-value"><a href="https://www.gov.br/antaq/pt-br" target="_blank" rel="noopener">Portal
+                ANTAQ</a></p>
+          </div>
+
+        </div>
+
+        <div class="chart-block">
+          <p class="block-label"><i class="fas fa-chart-column"></i> Distribuição mensal dos atendimentos</p>
+
+          <div class="plot anim d3">
+            <div class="m"><span class="m-val">152</span>
+              <div class="m-bar" style="height: 100%;"></div>
+            </div>
+            <div class="m"><span class="m-val">123</span>
+              <div class="m-bar" style="height: 81%;"></div>
+            </div>
+            <div class="m"><span class="m-val">130</span>
+              <div class="m-bar" style="height: 86%;"></div>
+            </div>
+          </div>
+
+          <div class="axis">
+            <span class="m-name">Janeiro</span>
+            <span class="m-name">Fevereiro</span>
+            <span class="m-name">Março</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="px-16 pb-6 flex justify-between items-center z-10">
+      <p class="text-gray-400 text-xs">Relatório 3º Trimestre de 2026 – Ouvidoria – Agência Nacional de Transportes
+        Aquaviários - ANTAQ</p>
+      <p class="text-gray-300 text-xs font-montserrat font-bold tracking-widest uppercase">Omnichannel</p>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("keydown", function (e) {
+      if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End", " ", "f", "F"].indexOf(e.key) !== -1) {
+        e.preventDefault();
+        window.parent.postMessage({ type: "slide-nav", key: e.key }, "*");
+      }
+    });
+  </script>
+  <script src="a11y.js" defer></script>
+  <script src="vida.js" defer></script>
+</body>
+
+</html>

@@ -9,8 +9,8 @@
 
 
   const ORIGENS = {
-    sistema: { label: 'Trimestral', pasta: 'sistema/', extras: [] },
-    enquetes: { label: 'Conselho de Usuários', pasta: 'enquetes-2026/', extras: ['dados-enquetes.js'] },
+    sistema: { label: 'Trimestral', pasta: '../../relatorios/trimestral-1t-2026/', extras: [] },
+    enquetes: { label: 'Conselho de Usuários', pasta: '../../relatorios/anual-enquetes-2026/', extras: ['dados-enquetes.js'] },
   };
   const STORAGE_KEY = CONFIG.storageKey;
 
