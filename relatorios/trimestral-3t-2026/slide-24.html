@@ -187,19 +187,19 @@
       <div class="flex flex-col gap-3">
         <div class="chart-card flex-1 flex flex-col" style="min-height:0;">
           <div class="flex-1 relative" style="min-height:0;"><canvas id="chartTiposMes" role="img"
-              aria-label="Gráfico de barras: quantidade de manifestações por tipo em cada mês do trimestre (Janeiro, Fevereiro, Março)"></canvas>
+              aria-label="Gráfico de barras: quantidade de manifestações por tipo em cada mês do trimestre (Julho, Agosto, Setembro)"></canvas>
           </div>
         </div>
         <div class="chart-card">
           <div class="flex gap-4 justify-center" style="font-size:.62rem;">
             <div class="flex items-center gap-1">
-              <div class="legend-dot" style="background:#0A2236;"></div>Janeiro
+              <div class="legend-dot" style="background:#0A2236;"></div>Julho
             </div>
             <div class="flex items-center gap-1">
-              <div class="legend-dot" style="background:#103050;"></div>Fevereiro
+              <div class="legend-dot" style="background:#103050;"></div>Agosto
             </div>
             <div class="flex items-center gap-1">
-              <div class="legend-dot" style="background:#16466E;"></div>Março
+              <div class="legend-dot" style="background:#16466E;"></div>Setembro
             </div>
           </div>
         </div>
@@ -264,9 +264,9 @@
       }
     };
     const datasetsMes = [
-      { label: 'Janeiro', data: [19, 23, 47, 0, 0, 1], backgroundColor: '#0A2236', borderRadius: 4, maxBarThickness: 58, categoryPercentage: 0.85, barPercentage: 0.98, skipNull: true },
-      { label: 'Fevereiro', data: [14, 33, 81, 1, 0, 0], backgroundColor: '#103050', borderRadius: 4, maxBarThickness: 58, categoryPercentage: 0.85, barPercentage: 0.98, skipNull: true },
-      { label: 'Março', data: [11, 4, 66, 2, 2, 0], backgroundColor: '#16466E', borderRadius: 4, maxBarThickness: 58, categoryPercentage: 0.85, barPercentage: 0.98, skipNull: true }
+      { label: 'Julho', data: [19, 23, 47, 0, 0, 1], backgroundColor: '#0A2236', borderRadius: 4, maxBarThickness: 58, categoryPercentage: 0.85, barPercentage: 0.98, skipNull: true },
+      { label: 'Agosto', data: [14, 33, 81, 1, 0, 0], backgroundColor: '#103050', borderRadius: 4, maxBarThickness: 58, categoryPercentage: 0.85, barPercentage: 0.98, skipNull: true },
+      { label: 'Setembro', data: [11, 4, 66, 2, 2, 0], backgroundColor: '#16466E', borderRadius: 4, maxBarThickness: 58, categoryPercentage: 0.85, barPercentage: 0.98, skipNull: true }
     ];
     new Chart(document.getElementById('chartTiposMes'), {
       type: 'bar',

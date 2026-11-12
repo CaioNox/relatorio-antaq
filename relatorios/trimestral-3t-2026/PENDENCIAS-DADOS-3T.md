@@ -1,7 +1,7 @@
 # Dados a substituir pelos do 3º Trimestre (Jul–Set/2026)
 
 A estrutura e a funcionalidade vieram do semestral. Os números abaixo são os do 1º Trimestre, mantidos como placeholders.
-Os meses dos gráficos (Jan–Mar) e os rótulos "3º Tri" das séries históricas também precisam ser atualizados.
+Os meses dos gráficos (Jul–Set) e os rótulos "3º Tri" das séries históricas também precisam ser atualizados.
 
 | Slide | Conteúdo |
 |---|---|
