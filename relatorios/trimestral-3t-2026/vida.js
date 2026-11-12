@@ -234,6 +234,7 @@
     revelarTitulo();
     var n = 0;
     document.querySelectorAll(ALVOS).forEach(function (el) {
+      if (el.closest('[data-sem-vida]')) return; /* opt-out: sem contagem */
       if (contar(el, n * ATRASO)) n++;
     });
   }
