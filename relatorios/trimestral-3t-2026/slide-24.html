@@ -152,33 +152,33 @@
       <div class="flex flex-col gap-3">
         <div class="chart-card flex-1 flex flex-col" style="min-height:0;">
           <div class="flex-1 relative" style="min-height:0;"><canvas id="chartTipos" role="img"
-              aria-label="Gráfico de barras: total de manifestações por tipo no trimestre — Denúncia 194, Solicitação 60, Reclamação 44, Sugestão 3, Elogio 2, Simplifique 1"></canvas>
+              aria-label="Gráfico de barras: total de manifestações por tipo no trimestre — Denúncia 230, Reclamação 114, Solicitação 70, Sugestão 3, Elogio 0, Simplifique 0"></canvas>
           </div>
         </div>
         <div class="highlight-mini">
           <p class="text-blue-100 font-montserrat font-bold uppercase tracking-widest mb-0" style="font-size:.55rem;">
             Tipo mais frequente</p>
           <p class="font-montserrat font-black leading-none mb-0" style="font-size:1.5rem;">Denúncia</p>
-          <p class="font-montserrat font-black leading-none" style="font-size:2.5rem;">358</p>
-          <p class="text-blue-100 leading-tight" style="font-size:.65rem;">Representa <strong>58,3%</strong> das
+          <p class="font-montserrat font-black leading-none" style="font-size:2.5rem;">230</p>
+          <p class="text-blue-100 leading-tight" style="font-size:.65rem;">Representa <strong>55,2%</strong> das
             manifestações classificadas</p>
         </div>
         <div class="chart-card">
           <div class="space-y-1" style="font-size:.65rem;">
             <div class="flex justify-between"><span class="text-gray-600">Denúncia</span><strong
-                class="text-brand-primary">194</strong></div>
+                class="text-brand-primary">230</strong></div>
             <div class="flex justify-between"><span class="text-gray-600">Solicitação</span><strong
-                class="text-brand-primary">60</strong></div>
+                class="text-brand-primary">70</strong></div>
             <div class="flex justify-between"><span class="text-gray-600">Reclamação</span><strong
-                class="text-brand-primary">44</strong></div>
+                class="text-brand-primary">114</strong></div>
             <div class="flex justify-between"><span class="text-gray-600">Sugestão</span><strong
                 class="text-brand-primary">3</strong></div>
             <div class="flex justify-between"><span class="text-gray-600">Elogio</span><strong
-                class="text-brand-primary">2</strong></div>
+                class="text-brand-primary">0</strong></div>
             <div class="flex justify-between"><span class="text-gray-600">Simplifique</span><strong
-                class="text-brand-primary">1</strong></div>
+                class="text-brand-primary">0</strong></div>
             <div class="flex justify-between border-t border-gray-200 pt-1 mt-1"><span
-                class="text-gray-500 font-semibold">Total</span><strong class="text-brand-secondary">304</strong></div>
+                class="text-gray-500 font-semibold">Total</span><strong class="text-brand-secondary">417</strong></div>
           </div>
         </div>
       </div>
@@ -215,7 +215,7 @@
   <script>
 
     const labels = ['Reclamação', 'Solicitação', 'Denúncia', 'Sugestão', 'Elogio', 'Simplifique'];
-    const data = [44, 60, 194, 3, 2, 1];
+    const data = [114, 70, 230, 3, 0, 0];
     const colors = data.map((_, i) => i === 2 ? '#103050' : '#0070C0');
     const valueLabels = {
       id: 'valueLabels',
@@ -264,9 +264,9 @@
       }
     };
     const datasetsMes = [
-      { label: 'Julho', data: [19, 23, 47, 0, 0, 1], backgroundColor: '#0A2236', borderRadius: 4, maxBarThickness: 58, categoryPercentage: 0.85, barPercentage: 0.98, skipNull: true },
-      { label: 'Agosto', data: [14, 33, 81, 1, 0, 0], backgroundColor: '#103050', borderRadius: 4, maxBarThickness: 58, categoryPercentage: 0.85, barPercentage: 0.98, skipNull: true },
-      { label: 'Setembro', data: [11, 4, 66, 2, 2, 0], backgroundColor: '#16466E', borderRadius: 4, maxBarThickness: 58, categoryPercentage: 0.85, barPercentage: 0.98, skipNull: true }
+      { label: 'Julho', data: [69, 19, 105, 0, 0, 0], backgroundColor: '#0A2236', borderRadius: 4, maxBarThickness: 58, categoryPercentage: 0.85, barPercentage: 0.98, skipNull: true },
+      { label: 'Agosto', data: [25, 29, 52, 3, 0, 0], backgroundColor: '#103050', borderRadius: 4, maxBarThickness: 58, categoryPercentage: 0.85, barPercentage: 0.98, skipNull: true },
+      { label: 'Setembro', data: [20, 22, 73, 0, 0, 0], backgroundColor: '#16466E', borderRadius: 4, maxBarThickness: 58, categoryPercentage: 0.85, barPercentage: 0.98, skipNull: true }
     ];
     new Chart(document.getElementById('chartTiposMes'), {
       type: 'bar',

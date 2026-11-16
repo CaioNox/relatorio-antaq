@@ -38,7 +38,6 @@
       color: #fff;
     }
 
-
     .av1 {
       position: absolute;
       left: 0;
@@ -75,7 +74,6 @@
       background: linear-gradient(90deg, #F2A900, #0090C0);
     }
 
-
     .ring {
       position: absolute;
       border-radius: 50%;
@@ -93,28 +91,22 @@
       z-index: 1;
     }
 
-    .logo-wm {
-      position: absolute;
-      top: 34px;
-      right: 60px;
-      height: 40px;
-      opacity: 0.10;
-      filter: brightness(0) invert(1);
-      pointer-events: none;
-      z-index: 5;
-    }
-
-
     .header {
       position: relative;
       z-index: 10;
       padding: 1.9rem 4rem 0.9rem 5rem;
+      /* sobe o bloco de conteudo; o copyright e o rodape nao se mexem,
+         porque .cols e flex:1 e absorve a sobra */
+      margin-top: -1vh;
+      /* desce so o texto do cabecalho: deslocamento visual, fora do fluxo,
+         entao as colunas e o rodape ficam onde estao */
+      top: 2.98vh;
     }
 
     .kicker {
       font-size: 0.7rem;
       font-weight: 700;
-      letter-spacing: 0.34em;
+      letter-spacing: .35em;
       text-transform: uppercase;
       color: #F2A900;
       display: flex;
@@ -148,18 +140,11 @@
       font-size: 2.4rem;
       font-weight: 900;
       line-height: 1;
-      letter-spacing: -0.02em;
+      letter-spacing: -.02em;
     }
 
     .title .acc {
       color: #0090C0;
-    }
-
-    .subtitle {
-      font-family: 'Open Sans', sans-serif;
-      font-size: 0.92rem;
-      color: rgba(255, 255, 255, 0.55);
-      font-weight: 400;
     }
 
     .head-badge {
@@ -169,7 +154,7 @@
       color: rgba(255, 255, 255, 0.4);
       font-size: 0.72rem;
       font-weight: 700;
-      letter-spacing: 0.22em;
+      letter-spacing: .22em;
       text-transform: uppercase;
     }
 
@@ -187,8 +172,9 @@
       z-index: 10;
     }
 
-
     .cols {
+      /* respiro padrao entre nomes, valido nas tres colunas */
+      --gap-nome: 0.45rem;
       flex: 1;
       position: relative;
       z-index: 10;
@@ -220,10 +206,10 @@
 
     .sec-label {
       font-weight: 800;
-      letter-spacing: 0.13em;
+      letter-spacing: .13em;
       text-transform: uppercase;
       color: #7fd3f0;
-      font-size: .92rem;
+      font-size: .82rem;
       display: flex;
       align-items: center;
       gap: 0.55rem;
@@ -232,7 +218,7 @@
 
     .sec-label i {
       color: #F2A900;
-      font-size: .82rem;
+      font-size: .74rem;
     }
 
     .sec-label::after {
@@ -252,6 +238,11 @@
     .exp-group:hover {
       transform: translateX(5px);
       border-color: #F2A900;
+
+      .exp-name-boss {
+        color: #F2A900;
+        transition: color .25s ease;
+      }
     }
 
     .exp-group:last-child {
@@ -259,38 +250,68 @@
     }
 
     .exp-title {
-      font-size: 1rem;
+      font-size: .89rem;
       font-weight: 700;
-      letter-spacing: 0.05em;
+      letter-spacing: .05em;
       text-transform: uppercase;
       color: rgba(255, 255, 255, 0.5);
       margin-bottom: 0.12rem;
     }
 
-    .exp-name {
+    .exp-name-boss {
       font-family: 'Open Sans', sans-serif;
-      font-size: 1.32rem;
+      font-size: 1.17rem;
       font-weight: 600;
       color: #eaf4fb;
-      line-height: 1.3;
+      line-height: 1.25;
+      margin-bottom: var(--gap-nome);
     }
 
+    .exp-name {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 1.17rem;
+      font-weight: 600;
+      color: #eaf4fb;
+      line-height: 1.25;
+      margin-bottom: var(--gap-nome);
+    }
+
+    .exp-name:last-child {
+      margin-bottom: 0;
+    }
+
+    .col-exp .sec-label {
+      flex-wrap: wrap;
+      row-gap: 0.35rem;
+    }
+
+    .col-exp .sec-label>span {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    .col-exp .sec-label::after {
+      flex-basis: 100%;
+    }
+
+    .exp-role {
+      font-size: 0.69rem;
+      font-weight: 750;
+      letter-spacing: .08em;
+      color: rgba(255, 255, 255, 0.597);
+      white-space: nowrap;
+    }
 
     .col-exp .exp-group {
-      margin-bottom: 0.55rem;
+      margin-bottom: 0.9rem;
     }
 
     .col-exp .exp-title {
-      margin-bottom: 0.2rem;
+      margin-bottom: var(--gap-nome);
     }
-
 
     .col-org .exp-group {
       margin-bottom: 0.5rem;
-    }
-
-    .col-org .exp-name {
-      line-height: 1.22;
     }
 
     .col-org .sec-label {
@@ -304,7 +325,6 @@
     .col-org .sec-label.sub:first-child {
       margin-top: 0;
     }
-
 
     .footer {
       position: relative;
@@ -325,7 +345,6 @@
       font-family: 'Montserrat', monospace;
     }
 
-
     .copyright {
       position: relative;
       z-index: 10;
@@ -339,7 +358,6 @@
       border-left: 4px solid #F2A900;
       border-radius: 10px;
     }
-
 
     .copyright .seal {
       flex-shrink: 0;
@@ -374,7 +392,6 @@
       color: #F2A900;
       margin-right: 0.35rem;
     }
-
 
     .waves {
       position: absolute;
@@ -469,12 +486,11 @@
 
 
     <div class="header">
-      <div class="kicker">Relatório Trimestral 2026 · ANTAQ</div>
+      <div class="kicker">3º Relatório Trimestral 2026 · ANTAQ</div>
       <div class="head-row">
         <div class="title-wrap">
           <h1 class="title">Ficha <span class="acc">Técnica</span></h1>
         </div>
-        <div class="head-badge"><i class="fas fa-id-card"></i> Diretoria &amp; Equipe</div>
       </div>
     </div>
     <div class="head-divider"></div>
@@ -560,30 +576,30 @@
 
 
       <div class="col col-exp">
-        <p class="sec-label"><i class="fas fa-pen-ruler"></i> Expediente Técnico</p>
+        <p class="sec-label"><i class="fas fa-users"></i> <span>Colaboradores &amp; Composição da Ouvidoria</span></p>
         <div class="exp-group">
-          <p class="exp-title">Elaboração</p>
-          <p class="exp-name">Renata Sousa Cordeiro</p>
-          <p class="exp-name">Alan Campelo de Oliveira Silva</p>
-          <p class="exp-name">Ana Clebia do Nascimento Torres</p>
+          <p class="exp-title">Ouvidoria</p>
+          <p class="exp-name-boss">Renata Sousa Cordeiro<span class="exp-role"> (Ouvidora)</span></p>
           <p class="exp-name">Cynthia Karolina dos Santos Silva</p>
           <p class="exp-name">Indiara da Conceição</p>
-          <p class="exp-name">Eliseu Fernando Silveira de Carvalho</p>
-          <p class="exp-name">Maria de Lourdes Gurgel Araújo</p>
-          <p class="exp-name">Maria Lúcia Rodrigues Lima Teles</p>
-          <p class="exp-name">Paloma Kissia Tavares Cavalcante</p>
-          <p class="exp-name">Rodrigo Silva Ferreira</p>
           <p class="exp-name">Ursula Quaresma da Silva</p>
-          <p class="exp-name">Caio Fábio Alves da Silva</p>
-          <p class="exp-name">Leandro Lucas da Silva Santos</p>
         </div>
         <div class="exp-group">
-          <p class="exp-title">Revisão</p>
-          <p class="exp-name">Renata Sousa Cordeiro</p>
-          <p class="exp-name">Alan Campelo de Oliveira Silva</p>
-          <p class="exp-name">Eliseu Fernando Silveira de Carvalho</p>
+          <p class="exp-title">Seção de Apoio Ao Cidadão - SAC</p>
+          <p class="exp-name-boss">Vanessa Botelho Rodrigues <span class="exp-role">(Chefe da Seção)</span></p>
           <p class="exp-name">Maria de Lourdes Gurgel Araújo</p>
-          <p class="exp-name">Ursula Quaresma da Silva</p>
+          <p class="exp-name">Maria Lúcia Rodrigues Lima Teles</p>
+          <p class="exp-name">Ana Clebia do Nascimento Torres</p>
+          <p class="exp-name">Paloma Kissia Tavares Cavalcante</p>
+          <p class="exp-name">Rodrigo Silva Ferreira</p>
+        </div>
+        <div class="exp-group">
+          <p class="exp-title">Seção de Transparência e Acesso à Informação - STAI</p>
+          <p class="exp-name-boss">Alan Campelo de Oliveira Silva <span class="exp-role">(Chefe da Seção)</span></p>
+          <p class="exp-name">Eliseu Fernando Silveira de Carvalho</p>
+          <p class="exp-name">Laís Guedes Ferreira</p>
+          <p class="exp-name">Caio Fábio Alves da Silva</p>
+          <p class="exp-name">Leandro Lucas da Silva Santos</p>
         </div>
         <div class="exp-group">
           <p class="exp-title">Desenvolvimento da Plataforma Digital</p>
@@ -627,7 +643,7 @@
           expressa
           anuência da ANTAQ.</p>
         <p class="data-ref"><i class="fas fa-calendar-day"></i> Os dados presentes neste relatório referem-se à data de
-          <strong>21/07/2026</strong>. Informações posteriores a essa data não estão contempladas neste documento.
+          <strong>25/09/2026</strong>. Informações posteriores a essa data não estão contempladas neste documento.
         </p>
       </div>
     </div>
