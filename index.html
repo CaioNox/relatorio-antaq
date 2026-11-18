@@ -236,132 +236,56 @@
 
     .report-groups {
       display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      align-items: flex-start;
-      justify-content: center;
-      gap: 64px;
-      width: 100%;
-      max-width: 1120px;
-    }
-
-    .report-group {
-      display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: 14px;
-      flex: 1 1 280px;
-      min-width: 0;
+      gap: 24px;
+      width: 100%;
+      max-width: 1080px;
     }
 
+    /* Cada grupo é um painel de vidro fosco: fundo translúcido com desfoque
+       forte do porto ao fundo, brilho diagonal, filete de luz na borda
+       superior e um grão sutil (ruído SVG) que dá a textura de vidro. */
+    .report-group {
+      --glass-line: rgba(255, 255, 255, 0.16);
+      position: relative;
+      isolation: isolate;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.08) 45%, rgba(255, 255, 255, 0.04) 100%);
+      backdrop-filter: blur(18px) saturate(160%);
+      -webkit-backdrop-filter: blur(18px) saturate(160%);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.45),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.06),
+        0 18px 40px rgba(6, 22, 38, 0.35);
+      animation: cardIn .55s cubic-bezier(.2, .7, .3, 1) both;
+    }
+
+    .report-group::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.09;
+      mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    .report-group:nth-child(2) {
+      animation-delay: .1s;
+    }
 
     .report-group.is-empty {
       display: none;
     }
 
-    .group-eyebrow {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      width: 100%;
-      max-width: 360px;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: var(--antaq-azul-100);
-      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
-    }
-
-    .group-eyebrow-count {
-      font-weight: 600;
-      opacity: 0.85;
-      white-space: nowrap;
-    }
-
-    .group-eyebrow-rule {
-      flex: 0 0 auto;
-      height: 18px;
-      border-radius: 1px;
-    }
-
-
-    .group-eyebrow--anual .group-eyebrow-rule {
-      background-color: var(--antaq-azul-100);
-      width: 4px;
-    }
-
-
-    .group-eyebrow--semestral .group-eyebrow-rule {
-      background-color: var(--antaq-azul-300);
-      width: 3px;
-    }
-
-
-    .group-eyebrow--trimestral .group-eyebrow-rule {
-      background-color: var(--antaq-azul-500);
-      width: 2px;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
-      gap: 20px;
-      justify-items: center;
-    }
-
-    .card {
-      background-color: rgba(255, 255, 255, 0.58);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.35);
-      border-left: 5px solid rgba(255, 255, 255, 0.6);
-      border-radius: 14px;
-      width: 100%;
-      max-width: 360px;
-      padding: 22px 20px;
-      text-decoration: none;
-      color: inherit;
-      transition: transform .12s cubic-bezier(.2, .7, .3, 1), background-color .12s ease, box-shadow .12s ease, border-color .12s ease;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 16px;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
-      animation: cardIn .55s cubic-bezier(.2, .7, .3, 1) both;
-    }
-
-    .cards .card:nth-child(2) {
-      animation-delay: .1s;
-    }
-
-    .cards .card:nth-child(3) {
-      animation-delay: .2s;
-    }
-
-    .card-pdf {
-      border-left-color: #f2a900;
-    }
-
-    .card-pdf .card-icon {
-      background-color: #FEF3C7;
-      color: #f2a900;
-    }
-
-    .card-pdf:hover {
-      border-color: #f2a900;
-    }
-
-    .card-pdf .card-link {
-      color: #d97706;
-    }
-
     @keyframes cardIn {
       from {
         opacity: 0;
-        transform: translateY(22px);
+        transform: translateY(16px);
       }
 
       to {
@@ -370,129 +294,113 @@
       }
     }
 
-
-    .card-anual {
-      border-left-color: var(--antaq-azul-900);
+    .group-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--glass-line);
+      background-color: rgba(255, 255, 255, 0.06);
+      font-family: 'Montserrat', sans-serif;
     }
 
-    .card-anual .card-icon {
-      background-color: var(--antaq-azul-100);
-      color: var(--antaq-azul-900);
+    .group-title {
+      font-size: 17px;
+      font-weight: 800;
+      color: #FFFFFF;
+      text-shadow: 0 1px 6px rgba(0, 0, 0, 0.35);
     }
 
-    .card-anual:hover {
-      border-color: var(--antaq-azul-900);
+    .group-title small {
+      margin-left: 10px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--antaq-azul-300);
     }
 
-    .card-anual .card-link {
-      color: var(--antaq-azul-900);
+    .group-eyebrow-count {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.7);
+      white-space: nowrap;
     }
 
-    .card-falabr {
-      border-left-color: #103050;
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
-
-    .card-semestral {
-      border-left-color: var(--antaq-azul-700);
+    .cards--single {
+      grid-template-columns: 1fr;
     }
 
-    .card-semestral .card-icon {
-      background-color: var(--antaq-azul-100);
-      color: var(--antaq-azul-700);
+    .card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 20px 24px;
+      text-decoration: none;
+      color: inherit;
+      border-left: 1px solid var(--glass-line);
+      transition: background-color .2s ease;
     }
 
-    .card-semestral:hover {
-      border-color: var(--antaq-azul-700);
-    }
-
-    .card-semestral .card-link {
-      color: var(--antaq-azul-700);
-    }
-
-
-    .card-trimestral {
-      border-left-color: var(--antaq-azul-500);
-    }
-
-    .card-trimestral .card-icon {
-      background-color: var(--antaq-azul-100);
-      color: var(--antaq-azul-600);
-    }
-
-    .card-trimestral:hover {
-      border-color: var(--antaq-azul-500);
-    }
-
-    .card-trimestral .card-link {
-      color: var(--antaq-azul-600);
+    .card:first-child {
+      border-left: 0;
     }
 
     .card:hover {
-      transform: translateY(-8px);
-      background-color: rgba(255, 255, 255, 0.78);
-      box-shadow: 0 18px 34px rgba(16, 48, 80, 0.28);
+      background-color: rgba(255, 255, 255, 0.12);
     }
 
-    .card-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 11px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      flex-shrink: 0;
-      transition: transform .12s ease;
-    }
-
-    .card:hover .card-icon {
-      transform: scale(1.1) rotate(-6deg);
-    }
-
-    .card-falabr .card-icon {
-      background-color: #E0E7FF;
-      color: #103050;
-    }
-
-    .card-content h3 {
+    .card h3 {
       font-family: 'Montserrat', sans-serif;
       font-size: 15px;
       font-weight: 700;
-      color: #1E293B;
-      margin-bottom: 5px;
+      color: #FFFFFF;
+      text-shadow: 0 1px 6px rgba(0, 0, 0, 0.35);
     }
 
-    .card-content h3+.card-link {
-      margin-top: 18px;
-    }
-
-    .card-content p {
+    .card-meta {
+      display: block;
+      margin-top: 4px;
       font-size: 12.5px;
-      color: #1E293B;
       font-weight: 600;
-      line-height: 1.45;
-      margin-bottom: 10px;
+      color: var(--antaq-azul-100);
+      opacity: 0.85;
     }
 
-    .card-link {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 11.5px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      transition: gap 0.2s ease;
+    .card-arrow {
+      flex-shrink: 0;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.45);
+      transition: transform .2s ease, color .2s ease;
     }
 
-    .card-falabr .card-link {
-      color: #103050;
+    .card:hover .card-arrow {
+      color: #F2A900;
+      transform: translateX(4px);
     }
 
-    .card:hover .card-link {
-      gap: 11px;
+    @media (max-width: 760px) {
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .card {
+        border-left: 0;
+        border-top: 1px solid var(--glass-line);
+      }
+
+      .card:first-child {
+        border-top: 0;
+      }
     }
 
     .footer {
@@ -566,7 +474,7 @@
       font-size: 14px;
     }
 
-    \z .footer-credit p {
+    .footer-credit p {
       font-family: 'Montserrat', sans-serif;
       font-size: 12px;
       font-weight: 600;
@@ -604,7 +512,7 @@
 
     a.card:focus-visible {
       outline: 3px solid #F2A900;
-      outline-offset: 3px;
+      outline-offset: -3px;
     }
 
 
@@ -644,76 +552,52 @@
 
     <div class="report-groups" id="report-groups">
 
-      <section class="report-group" data-periodicity="anual" aria-labelledby="grupo-anual-heading">
-        <h2 id="grupo-anual-heading" class="group-eyebrow group-eyebrow--anual">
-          <span>Anual</span>
-          <span class="group-eyebrow-count">· 1 relatório</span>
-          <span class="group-eyebrow-rule" aria-hidden="true"></span>
+      <section class="report-group" aria-labelledby="grupo-2026-heading">
+        <h2 id="grupo-2026-heading" class="group-header">
+          <span class="group-title">2026<small>Ouvidoria</small></span>
+          <span class="group-eyebrow-count">3 relatórios</span>
         </h2>
         <div class="cards">
-          <a class="card card-anual" href="relatorios/anual-enquetes-2026/index.html" target="_blank" rel="noopener noreferrer">
-            <div class="card-icon">
-              <i class="fa-solid fa-users" aria-hidden="true"></i>
+          <a class="card" href="relatorios/trimestral-1t-2026/index.html" target="_blank" rel="noopener noreferrer">
+            <div>
+              <h3>1º Trimestre/2026</h3>
+              <span class="card-meta">Janeiro a Março</span>
             </div>
-            <div class="card-content">
-              <h3>Relatório Anual de Enquetes do Conselho de Usuários de Serviços Públicos da ANTAQ 2026</h3>
-
-              <span class="card-link">Abrir apresentação <i class="fa-solid fa-arrow-right" aria-hidden="true"></i><span
-                  class="sr-only"> (abre em nova aba)</span></span>
+            <i class="fa-solid fa-arrow-right card-arrow" aria-hidden="true"></i>
+            <span class="sr-only"> (abre em nova aba)</span>
+          </a>
+          <a class="card" href="relatorios/semestral-2026/index.html" target="_blank" rel="noopener noreferrer">
+            <div>
+              <h3>1º Semestre/2026</h3>
+              <span class="card-meta">Janeiro a Junho</span>
             </div>
+            <i class="fa-solid fa-arrow-right card-arrow" aria-hidden="true"></i>
+            <span class="sr-only"> (abre em nova aba)</span>
+          </a>
+          <a class="card" href="relatorios/trimestral-3t-2026/index.html" target="_blank" rel="noopener noreferrer">
+            <div>
+              <h3>3º Trimestre/2026</h3>
+              <span class="card-meta">Julho a Setembro</span>
+            </div>
+            <i class="fa-solid fa-arrow-right card-arrow" aria-hidden="true"></i>
+            <span class="sr-only"> (abre em nova aba)</span>
           </a>
         </div>
       </section>
 
-      <section class="report-group" data-periodicity="semestral" aria-labelledby="grupo-semestral-heading">
-        <h2 id="grupo-semestral-heading" class="group-eyebrow group-eyebrow--semestral">
-          <span>Semestral</span>
-          <span class="group-eyebrow-count">· 1 relatório</span>
-          <span class="group-eyebrow-rule" aria-hidden="true"></span>
+      <section class="report-group" aria-labelledby="grupo-conselho-heading">
+        <h2 id="grupo-conselho-heading" class="group-header">
+          <span class="group-title">Conselho de Usuários<small>Enquetes</small></span>
+          <span class="group-eyebrow-count">1 relatório</span>
         </h2>
-        <div class="cards">
-          <a class="card card-semestral" href="relatorios/semestral-2026/index.html" target="_blank" rel="noopener noreferrer">
-            <div class="card-icon">
-              <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
+        <div class="cards cards--single">
+          <a class="card" href="relatorios/anual-enquetes-2026/index.html" target="_blank" rel="noopener noreferrer">
+            <div>
+              <h3>Relatório Anual de Enquetes 2026</h3>
+              <span class="card-meta">Conselho de Usuários de Serviços Públicos da ANTAQ</span>
             </div>
-            <div class="card-content">
-              <h3>Relatório Semestral 2026</h3>
-              <p>Dados consolidados das manifestações do 1º semestre (Jan–Jun).</p>
-              <span class="card-link">Abrir apresentação <i class="fa-solid fa-arrow-right" aria-hidden="true"></i><span
-                  class="sr-only"> (abre em nova aba)</span></span>
-            </div>
-          </a>
-        </div>
-      </section>
-
-      <section class="report-group" data-periodicity="trimestral" aria-labelledby="grupo-trimestral-heading">
-        <h2 id="grupo-trimestral-heading" class="group-eyebrow group-eyebrow--trimestral">
-          <span>Trimestral</span>
-          <span class="group-eyebrow-count">· 1 relatório</span>
-          <span class="group-eyebrow-rule" aria-hidden="true"></span>
-        </h2>
-        <div class="cards">
-          <a class="card card-trimestral" href="relatorios/trimestral-1t-2026/index.html" target="_blank" rel="noopener noreferrer">
-            <div class="card-icon">
-              <i class="fa-solid fa-chart-column" aria-hidden="true"></i>
-            </div>
-            <div class="card-content">
-              <h3>Relatório Trimestral 2026</h3>
-              <p>Dados consolidados das manifestações do 1º trimestre (Jan–Mar).</p>
-              <span class="card-link">Abrir apresentação <i class="fa-solid fa-arrow-right" aria-hidden="true"></i><span
-                  class="sr-only"> (abre em nova aba)</span></span>
-            </div>
-          </a>
-          <a class="card card-trimestral" href="relatorios/trimestral-3t-2026/index.html" target="_blank" rel="noopener noreferrer">
-            <div class="card-icon">
-              <i class="fa-solid fa-chart-column" aria-hidden="true"></i>
-            </div>
-            <div class="card-content">
-              <h3>3º Relatório Trimestral 2026</h3>
-              <p>Dados consolidados das manifestações do 3º trimestre (Jul–Set).</p>
-              <span class="card-link">Abrir apresentação <i class="fa-solid fa-arrow-right" aria-hidden="true"></i><span
-                  class="sr-only"> (abre em nova aba)</span></span>
-            </div>
+            <i class="fa-solid fa-arrow-right card-arrow" aria-hidden="true"></i>
+            <span class="sr-only"> (abre em nova aba)</span>
           </a>
         </div>
       </section>
@@ -762,7 +646,7 @@
         var contagem = grupo.querySelector('.group-eyebrow-count');
         if (contagem) {
           var substantivo = total === 1 ? 'relatório' : 'relatórios';
-          contagem.textContent = '· ' + total + ' ' + substantivo;
+          contagem.textContent = total + ' ' + substantivo;
         }
       });
     })();
@@ -770,4 +654,4 @@
 
 </body>
 
-</html>
+</html>

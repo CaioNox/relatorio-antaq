@@ -4,7 +4,7 @@ Numeração = nome do arquivo (`slide-NN.html`). Na numeração exibida/pedida p
 
 ## Já aplicado (não precisa de nada)
 slide-01 (ficha técnica do semestral; chefe da SAC: Vanessa Botelho Rodrigues), slide-02 (sumário conferido com o deck, inclui Q&A slide-38), slide-18, 19, 23, 24, 26 (incl. tempo médio 10,6 dias e arquivamento 43 por falta de clareza/dados e 2 por duplicidade), 32 (parcial), 33 (parcial), 40 (parcial).
-Base (Tabela de Conferência oficial): ouvidoria 417 (372 resp., 45 arq., 12 enc.; tempo médio 10,6 dias) · LAI 148 (9,9 / 11,4 / 12,5 dias; média 11,2) · total Fala.BR 565.
+Base (Tabela de Conferência oficial): ouvidoria 417 (372 resp., 45 arq., 12 enc.; tempo médio 10,6 dias) · LAI 148, 100% no prazo (9,9 / 11,4 / 12,5 dias; média 11,2) · total Fala.BR 565.
 
 ## Dados que ainda faltam
 
@@ -58,7 +58,7 @@ Tempos médios mensais (ouvidoria 10,3 · 13,6 · 8,4; LAI 9,9 · 11,4 · 12,5 d
 | Tempo médio ouvidoria | 11,4 dias | 10,6 dias | 26, 40 |
 | Encaminhadas a outros órgãos | 24 | 12 | 26 |
 | Tempo médio LAI | 10,7 dias | 11,2 dias | 32, 33, 40 |
-| LAI no prazo / fora do prazo | 100% / 0% | 98,6% (146 de 148) / 2 pedidos | 32, 40 |
+| LAI no prazo / fora do prazo | 100% / 0% | 100% / 0% (mantido, conforme Painel LAI) | 32, 40 |
 | Média mensal LAI | 48 | 49,3 | 32 |
 
 ### Ainda sem dado (nem a nova geração tem)

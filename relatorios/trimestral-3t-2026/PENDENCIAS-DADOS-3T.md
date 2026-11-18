@@ -6,7 +6,7 @@ O que ainda falta está em `PENDENCIAS-RESTANTES-3T.md`; o andamento por slide e
 ## Base de dados usada
 - SAC/Fala.BR: 417 manifestações — 372 respondidas, 45 arquivadas (43 falta de clareza/insuficiência de dados, 2 duplicidade), 12 encaminhadas a outros órgãos (4/6/2); tempo médio 10,6 dias (10,3 / 13,6 / 8,4).
   - Jul 193 (184 resp., 9 arq., 4 enc.) · Ago 109 (92 / 17 / 6) · Set 115 (96 / 19 / 2)
-- LAI: 148 pedidos (Jul 52, Ago 47, Set 49), 146 no prazo (98,6%), tempo médio 11,2 dias (Jul 9,9 · Ago 11,4 · Set 12,5). Fonte: Painel LAI.
+- LAI: 148 pedidos (Jul 52, Ago 47, Set 49), 100% respondidos no prazo (0% fora do prazo, conforme Painel LAI), tempo médio 11,2 dias (Jul 9,9 · Ago 11,4 · Set 12,5). Fonte: Painel LAI.
 - Total Fala.BR: 565 (245 / 156 / 164).
 - Histórico do 3T (ouvidoria + LAI): 2023 = 218 + 183 = 401 · 2024 = 408 + 159 = 567 · 2025 = 387 + 142 = 529 · 2026 = 417 + 148 = 565. LAI dos anos anteriores e tempos médios (9,3 · 11 · 10,1 dias) do Painel LAI.
 - Tipos: Denúncia 230, Reclamação 114, Solicitação 70, Sugestão 3, Elogio 0, Simplifique 0.
