@@ -487,7 +487,7 @@
 
       <div class="counter" role="status" aria-live="polite">
         <div class="odo" id="odo"></div>
-        <p class="cap">DAS 304 MANIFESTAÇÕES DO SEMESTRE</p>
+        <p class="cap">DAS 417 MANIFESTAÇÕES DO TRIMESTRE</p>
       </div>
 
       <div class="flex items-center gap-3 opacity-80 text-brand-secondary flex-shrink-0">
@@ -535,95 +535,84 @@
   <script>
 
 
-    const TOTAL = 304;
+    const TOTAL = 417;
     const THEMES = [
       {
         id: 'tarifa', name: 'Cobranças Abusivas', short: 'Cobranças Abusivas',
-        icon: 'fa-money-bill-trend-up', color: '#F2A900', total: 154,
+        icon: 'fa-money-bill-trend-up', color: '#F2A900', total: 220,
         subs: [
-          ['Detention/ Sobrestadia de Mercadorias', 56],
-          ['Cobrança Portuária Abusiva', 43],
-          ['Falta de Bookings/janelas para os navios', 21],
-          ['Cobrança Portuária Abusiva com Denúncia com Pedido de Medida Cautelar', 20],
-          ['Cobrança indevida de taxa', 7],
-          ['Demurrage', 3],
-          ['Bloqueio de carga', 3],
-          ['Desbloqueio de carga', 1]
+          ['Detention', 92],
+          ['Cobrança Indevida de Taxa', 33],
+          ['Tarifa Portuária Abusiva', 27],
+          ['Tarifa Portuária Abusiva – falta de Bookings/janelas para os navios', 23],
+          ['Tarifa portuária abusiva com Pedido de Medida Cautelar', 21],
+          ['Demurrage (Tarifa portuária abusiva)', 10],
+          ['Scanner de Contêiner (Tarifa portuária abusiva)', 7],
+          ['Bloqueio de carga (Tarifa portuária abusiva)', 5],
+          ['Desbloqueio de carga (tarifa portuária abusiva)', 1],
+          ['Freetime', 1]
         ]
       },
       {
         id: 'diversos', name: 'Diversos', short: 'Diversos',
-        icon: 'fa-clipboard-list', color: '#10B981', total: 51,
+        icon: 'fa-clipboard-list', color: '#10B981', total: 85,
         subs: [
-          ['Solicitação de Informação', 8],
-          ['Solicitação de Providencias', 8],
-          ['Sistemas SAMA/EVTE/SIG/IDA/SDP/SOE/SEI', 8],
-          ['Curriculum Vitæ', 7],
-          ['Sugestão', 3],
-          ['Acesso à informação', 3],
-          ['Denúncia envolvendo servidores ou serviços', 2],
-          ['Elogio', 2],
-          ['Convite para participar de Reunião', 2],
-          ['Solicitação Judicial', 1],
-          ['NVOOC', 1],
-          ['Servidores da ANTAQ', 1],
-          ['Ordem Judicial', 1],
-          ['Concurso', 1],
-          ['Audiência Pública', 1],
-          ['Guarda portuária', 1],
-          ['Mão de obra portuária avulsa – OGMO', 1]
+          ['Sistemas SAMA/EVTE/SIG/IDA/SDP/SOE/SEI', 31],
+          ['Solicitação de providências', 20],
+          ['Servidores da ANTAQ', 10],
+          ['Solicitação de informação', 9],
+          ['Assédio', 6],
+          ['Audiência Pública', 5],
+          ['Acesso à Informação', 1],
+          ['Acesso à Processo', 1],
+          ['Sugestão', 1],
+          ['Website', 1]
         ]
       },
       {
         id: 'regport', name: 'Regulação Portuária', short: 'Regulação Portuária',
-        icon: 'fa-anchor', color: '#0090C0', total: 41,
+        icon: 'fa-anchor', color: '#0090C0', total: 37,
         subs: [
-          ['Serviços Portuários/ Acesso /funcionamento', 15],
-          ['Irregularidade nas Instalações Portuárias', 12],
-          ['TUP', 3],
-          ['Empresa Autorizada pela ANTAQ', 3],
-          ['Concorrência Desleal', 3],
-          ['Denúncia envolvendo Portos Delegados', 3],
-          ['Regulação Portuária', 1],
-          ['Denúncia envolvendo Autoridade Portuária', 1]
+          ['Irregularidade nas Instalações Portuárias', 15],
+          ['Serviços Portuários – acesso/funcionamento', 8],
+          ['Arrendamento Portuário', 3],
+          ['Instalação Portuária', 3],
+          ['Denúncia envolvendo Autoridade Portuária', 2],
+          ['Irregularidade no Transporte de Carga', 2],
+          ['Regulação Portuária', 2],
+          ['Empresa Autorizada pela ANTAQ', 1],
+          ['Terminais de uso privado', 1]
         ]
       },
       {
         id: 'navint', name: 'Serviços na Navegação Interior', short: 'Serviços na Navegação Interior',
-        icon: 'fa-ship', color: '#6366F1', total: 37,
+        icon: 'fa-ship', color: '#6366F1', total: 47,
         subs: [
-          ['Empresa irregular', 14],
-          ['Navegação – Serviços de embarque, bilhete e equipamentos', 11],
+          ['Navegação – Serviços de embarque/bilhete/bordo', 13],
+          ['Empresa irregular', 10],
+          ['Atraso e Superlotação', 8],
+          ['Navegação – Atraso e superlotação', 7],
           ['Outorgas', 5],
-          ['Navegação - Atraso e superlotação', 4],
-          ['Gratuidade para idoso', 2],
-          ['Recusa do Passe Livre', 1]
+          ['Passe Livre (recusa ao recebimento)', 2],
+          ['Gratuidade para idoso', 1],
+          ['Gratuidade para Crianças', 1]
         ]
       },
       {
         id: 'navmar', name: 'Regulação na Navegação Marítima', short: 'Regulação na Navegação Marítima',
-        icon: 'fa-compass', color: '#0EA5E9', total: 14,
+        icon: 'fa-compass', color: '#0EA5E9', total: 26,
         subs: [
-          ['Direitos do Usuário na Navegação', 8],
-          ['Segurança da Navegação', 2],
-          ['Autorização na Navegação', 2],
-          ['Regulação na Navegação interior', 1],
-          ['Cabotagem', 1]
+          ['Direitos do Usuário na Navegação', 17],
+          ['Segurança da Navegação', 6],
+          ['Afretamento', 3]
         ]
       },
       {
         id: 'fora', name: 'Jurisdição (Legislação) — Demandas fora do âmbito de atuação da ANTAQ', short: 'Fora do âmbito de atuação',
-        icon: 'fa-share-from-square', color: '#94A3B8', total: 4,
+        icon: 'fa-share-from-square', color: '#94A3B8', total: 2,
         subs: [
-          ['Jurisdição - Questão de competência da ANTAQ', 3],
-          ['Turismo', 1]
-        ]
-      },
-      {
-        id: 'meioamb', name: 'Meio Ambiente', short: 'Meio Ambiente',
-        icon: 'fa-leaf', color: '#22C55E', total: 3,
-        subs: [
-          ['Meio ambiente', 3]
+          ['Jurisdição – Questão fora da competência da ANTAQ', 1],
+          ['Legislação', 1]
         ]
       }
     ];

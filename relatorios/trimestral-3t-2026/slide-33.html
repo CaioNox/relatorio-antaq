@@ -370,7 +370,7 @@
         <p class="text-brand-primary font-montserrat font-bold text-xl mb-1 flex items-center gap-2"><i
             class="fas fa-file-circle-plus text-brand-secondary"></i> Pedidos de acesso à informação</p>
         <div class="flex-1 relative" style="min-height:0;"><canvas id="chartLaiHist" role="img"
-            aria-label="Gráfico de barras: histórico de pedidos LAI no 3º trimestre de cada ano — 2023: 90, 2024: 70, 2025: 94, 2026: 143"></canvas>
+            aria-label="Gráfico de barras: histórico de pedidos LAI no 3º trimestre de cada ano — 2023: 183, 2024: 159, 2025: 142, 2026: 148"></canvas>
         </div>
         <p class="chart-note"><i class="fas fa-circle-info"></i><span>O comparativo histórico demonstra a evolução da
             demanda por transparência pública e permite avaliar tendências de acesso à informação.</span></p>
@@ -384,9 +384,9 @@
           <span class="hk-tip">Quantidade de dias — em dias corridos — entre o recebimento do pedido e a data em que
             ele foi respondido.</span>
           <p class="hk-year">3º Trimestre de 2026</p>
-          <p class="hk-val">143 <span class="hk-label">pedidos</span></p>
+          <p class="hk-val">148 <span class="hk-label">pedidos</span></p>
           <div class="hk-resp">
-            <span class="hk-resp-val">10,7 dias</span>
+            <span class="hk-resp-val">11,2 dias</span>
             <span class="hk-resp-lbl">tempo médio de resposta</span>
           </div>
         </button>
@@ -396,9 +396,9 @@
           <span class="hk-tip">Quantidade de dias — em dias corridos — entre o recebimento do pedido e a data em que
             ele foi respondido.</span>
           <p class="hk-year">3º Trimestre de 2025</p>
-          <p class="hk-val">94 <span class="hk-label">pedidos</span></p>
+          <p class="hk-val">142 <span class="hk-label">pedidos</span></p>
           <div class="hk-resp">
-            <span class="hk-resp-val">3,7 dias</span>
+            <span class="hk-resp-val">10,1 dias</span>
             <span class="hk-resp-lbl">tempo médio de resposta</span>
           </div>
         </button>
@@ -408,9 +408,9 @@
           <span class="hk-tip">Quantidade de dias — em dias corridos — entre o recebimento do pedido e a data em que
             ele foi respondido.</span>
           <p class="hk-year">3º Trimestre de 2024</p>
-          <p class="hk-val">70 <span class="hk-label">pedidos</span></p>
+          <p class="hk-val">159 <span class="hk-label">pedidos</span></p>
           <div class="hk-resp">
-            <span class="hk-resp-val">6 dias</span>
+            <span class="hk-resp-val">11 dias</span>
             <span class="hk-resp-lbl">tempo médio de resposta</span>
           </div>
         </button>
@@ -420,9 +420,9 @@
           <span class="hk-tip">Quantidade de dias — em dias corridos — entre o recebimento do pedido e a data em que
             ele foi respondido.</span>
           <p class="hk-year">3º Trimestre de 2023</p>
-          <p class="hk-val">90 <span class="hk-label">pedidos</span></p>
+          <p class="hk-val">183 <span class="hk-label">pedidos</span></p>
           <div class="hk-resp">
-            <span class="hk-resp-val">5 dias</span>
+            <span class="hk-resp-val">9,3 dias</span>
             <span class="hk-resp-lbl">tempo médio de resposta</span>
           </div>
         </button>
@@ -477,7 +477,7 @@
     let foco = 3;
 
     const laiHistLabels = ['3º trimestre 2023', '3º trimestre 2024', '3º trimestre 2025', '3º trimestre 2026'];
-    const laiHistData = [90, 70, 94, 143];
+    const laiHistData = [183, 159, 142, 148];
     const grafico = new Chart(document.getElementById('chartLaiHist'), {
       type: 'bar',
       data: {
